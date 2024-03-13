@@ -1,0 +1,645 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
+		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
+		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
+		916A7D412BA1541800319C26 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D402BA1541800319C26 /* Preview Assets.xcassets */; };
+		916A7D462BA1541800319C26 /* NinjaWarriors.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D442BA1541800319C26 /* NinjaWarriors.xcdatamodeld */; };
+		916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D4F2BA1541800319C26 /* NinjaWarriorsTests.swift */; };
+		916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D592BA1541800319C26 /* NinjaWarriorsUITests.swift */; };
+		916A7D5C2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D5B2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift */; };
+		916A7D6A2BA154F000319C26 /* CollisionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D692BA154F000319C26 /* CollisionDetector.swift */; };
+		916A7D6C2BA1550700319C26 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D6B2BA1550700319C26 /* GameObject.swift */; };
+		916A7D6E2BA1551300319C26 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D6D2BA1551300319C26 /* Line.swift */; };
+		916A7D702BA1552100319C26 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D6F2BA1552100319C26 /* Point.swift */; };
+		916A7D722BA1552D00319C26 /* Vector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D712BA1552D00319C26 /* Vector.swift */; };
+		916A7D752BA1554200319C26 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D742BA1554200319C26 /* Constants.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		916A7D4C2BA1541800319C26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 916A7D2E2BA1541700319C26 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 916A7D352BA1541700319C26;
+			remoteInfo = NinjaWarriors;
+		};
+		916A7D562BA1541800319C26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 916A7D2E2BA1541700319C26 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 916A7D352BA1541700319C26;
+			remoteInfo = NinjaWarriors;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
+		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		916A7D3D2BA1541800319C26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		916A7D402BA1541800319C26 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		916A7D452BA1541800319C26 /* NinjaWarriors.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NinjaWarriors.xcdatamodel; sourceTree = "<group>"; };
+		916A7D4B2BA1541800319C26 /* NinjaWarriorsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NinjaWarriorsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		916A7D4F2BA1541800319C26 /* NinjaWarriorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsTests.swift; sourceTree = "<group>"; };
+		916A7D552BA1541800319C26 /* NinjaWarriorsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NinjaWarriorsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		916A7D592BA1541800319C26 /* NinjaWarriorsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsUITests.swift; sourceTree = "<group>"; };
+		916A7D5B2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		916A7D692BA154F000319C26 /* CollisionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionDetector.swift; sourceTree = "<group>"; };
+		916A7D6B2BA1550700319C26 /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
+		916A7D6D2BA1551300319C26 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		916A7D6F2BA1552100319C26 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		916A7D712BA1552D00319C26 /* Vector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vector.swift; sourceTree = "<group>"; };
+		916A7D742BA1554200319C26 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		916A7D332BA1541700319C26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		916A7D482BA1541800319C26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		916A7D522BA1541800319C26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		916A7D2D2BA1541700319C26 = {
+			isa = PBXGroup;
+			children = (
+				916A7D732BA1553900319C26 /* Constants */,
+				916A7D682BA154E000319C26 /* Models */,
+				916A7D382BA1541700319C26 /* NinjaWarriors */,
+				916A7D4E2BA1541800319C26 /* NinjaWarriorsTests */,
+				916A7D582BA1541800319C26 /* NinjaWarriorsUITests */,
+				916A7D372BA1541700319C26 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		916A7D372BA1541700319C26 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				916A7D362BA1541700319C26 /* NinjaWarriors.app */,
+				916A7D4B2BA1541800319C26 /* NinjaWarriorsTests.xctest */,
+				916A7D552BA1541800319C26 /* NinjaWarriorsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		916A7D382BA1541700319C26 /* NinjaWarriors */ = {
+			isa = PBXGroup;
+			children = (
+				916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */,
+				916A7D3B2BA1541700319C26 /* ContentView.swift */,
+				916A7D3D2BA1541800319C26 /* Assets.xcassets */,
+				916A7D442BA1541800319C26 /* NinjaWarriors.xcdatamodeld */,
+				916A7D3F2BA1541800319C26 /* Preview Content */,
+			);
+			path = NinjaWarriors;
+			sourceTree = "<group>";
+		};
+		916A7D3F2BA1541800319C26 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				916A7D402BA1541800319C26 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		916A7D4E2BA1541800319C26 /* NinjaWarriorsTests */ = {
+			isa = PBXGroup;
+			children = (
+				916A7D4F2BA1541800319C26 /* NinjaWarriorsTests.swift */,
+			);
+			path = NinjaWarriorsTests;
+			sourceTree = "<group>";
+		};
+		916A7D582BA1541800319C26 /* NinjaWarriorsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				916A7D592BA1541800319C26 /* NinjaWarriorsUITests.swift */,
+				916A7D5B2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift */,
+			);
+			path = NinjaWarriorsUITests;
+			sourceTree = "<group>";
+		};
+		916A7D682BA154E000319C26 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				916A7D692BA154F000319C26 /* CollisionDetector.swift */,
+				916A7D6B2BA1550700319C26 /* GameObject.swift */,
+				916A7D6D2BA1551300319C26 /* Line.swift */,
+				916A7D6F2BA1552100319C26 /* Point.swift */,
+				916A7D712BA1552D00319C26 /* Vector.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		916A7D732BA1553900319C26 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				916A7D742BA1554200319C26 /* Constants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		916A7D352BA1541700319C26 /* NinjaWarriors */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 916A7D5F2BA1541800319C26 /* Build configuration list for PBXNativeTarget "NinjaWarriors" */;
+			buildPhases = (
+				916A7D322BA1541700319C26 /* Sources */,
+				916A7D332BA1541700319C26 /* Frameworks */,
+				916A7D342BA1541700319C26 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NinjaWarriors;
+			productName = NinjaWarriors;
+			productReference = 916A7D362BA1541700319C26 /* NinjaWarriors.app */;
+			productType = "com.apple.product-type.application";
+		};
+		916A7D4A2BA1541800319C26 /* NinjaWarriorsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 916A7D622BA1541800319C26 /* Build configuration list for PBXNativeTarget "NinjaWarriorsTests" */;
+			buildPhases = (
+				916A7D472BA1541800319C26 /* Sources */,
+				916A7D482BA1541800319C26 /* Frameworks */,
+				916A7D492BA1541800319C26 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				916A7D4D2BA1541800319C26 /* PBXTargetDependency */,
+			);
+			name = NinjaWarriorsTests;
+			productName = NinjaWarriorsTests;
+			productReference = 916A7D4B2BA1541800319C26 /* NinjaWarriorsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		916A7D542BA1541800319C26 /* NinjaWarriorsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 916A7D652BA1541800319C26 /* Build configuration list for PBXNativeTarget "NinjaWarriorsUITests" */;
+			buildPhases = (
+				916A7D512BA1541800319C26 /* Sources */,
+				916A7D522BA1541800319C26 /* Frameworks */,
+				916A7D532BA1541800319C26 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				916A7D572BA1541800319C26 /* PBXTargetDependency */,
+			);
+			name = NinjaWarriorsUITests;
+			productName = NinjaWarriorsUITests;
+			productReference = 916A7D552BA1541800319C26 /* NinjaWarriorsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		916A7D2E2BA1541700319C26 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					916A7D352BA1541700319C26 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					916A7D4A2BA1541800319C26 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 916A7D352BA1541700319C26;
+					};
+					916A7D542BA1541800319C26 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 916A7D352BA1541700319C26;
+					};
+				};
+			};
+			buildConfigurationList = 916A7D312BA1541700319C26 /* Build configuration list for PBXProject "NinjaWarriors" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 916A7D2D2BA1541700319C26;
+			productRefGroup = 916A7D372BA1541700319C26 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				916A7D352BA1541700319C26 /* NinjaWarriors */,
+				916A7D4A2BA1541800319C26 /* NinjaWarriorsTests */,
+				916A7D542BA1541800319C26 /* NinjaWarriorsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		916A7D342BA1541700319C26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				916A7D412BA1541800319C26 /* Preview Assets.xcassets in Resources */,
+				916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		916A7D492BA1541800319C26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		916A7D532BA1541800319C26 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		916A7D322BA1541700319C26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				916A7D6A2BA154F000319C26 /* CollisionDetector.swift in Sources */,
+				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
+				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
+				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
+				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
+				916A7D702BA1552100319C26 /* Point.swift in Sources */,
+				916A7D462BA1541800319C26 /* NinjaWarriors.xcdatamodeld in Sources */,
+				916A7D6C2BA1550700319C26 /* GameObject.swift in Sources */,
+				916A7D752BA1554200319C26 /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		916A7D472BA1541800319C26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		916A7D512BA1541800319C26 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				916A7D5C2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift in Sources */,
+				916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		916A7D4D2BA1541800319C26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 916A7D352BA1541700319C26 /* NinjaWarriors */;
+			targetProxy = 916A7D4C2BA1541800319C26 /* PBXContainerItemProxy */;
+		};
+		916A7D572BA1541800319C26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 916A7D352BA1541700319C26 /* NinjaWarriors */;
+			targetProxy = 916A7D562BA1541800319C26 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		916A7D5D2BA1541800319C26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		916A7D5E2BA1541800319C26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		916A7D602BA1541800319C26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NinjaWarriors/Preview Content\"";
+				DEVELOPMENT_TEAM = W4Y84FVQ9C;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = NinjaWarriors.NinjaWarriors;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		916A7D612BA1541800319C26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NinjaWarriors/Preview Content\"";
+				DEVELOPMENT_TEAM = W4Y84FVQ9C;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = NinjaWarriors.NinjaWarriors;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		916A7D632BA1541800319C26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W4Y84FVQ9C;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = NinjaWarriors.NinjaWarriorsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NinjaWarriors.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NinjaWarriors";
+			};
+			name = Debug;
+		};
+		916A7D642BA1541800319C26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W4Y84FVQ9C;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = NinjaWarriors.NinjaWarriorsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NinjaWarriors.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NinjaWarriors";
+			};
+			name = Release;
+		};
+		916A7D662BA1541800319C26 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W4Y84FVQ9C;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = NinjaWarriors.NinjaWarriorsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NinjaWarriors;
+			};
+			name = Debug;
+		};
+		916A7D672BA1541800319C26 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W4Y84FVQ9C;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = NinjaWarriors.NinjaWarriorsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = NinjaWarriors;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		916A7D312BA1541700319C26 /* Build configuration list for PBXProject "NinjaWarriors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				916A7D5D2BA1541800319C26 /* Debug */,
+				916A7D5E2BA1541800319C26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		916A7D5F2BA1541800319C26 /* Build configuration list for PBXNativeTarget "NinjaWarriors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				916A7D602BA1541800319C26 /* Debug */,
+				916A7D612BA1541800319C26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		916A7D622BA1541800319C26 /* Build configuration list for PBXNativeTarget "NinjaWarriorsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				916A7D632BA1541800319C26 /* Debug */,
+				916A7D642BA1541800319C26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		916A7D652BA1541800319C26 /* Build configuration list for PBXNativeTarget "NinjaWarriorsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				916A7D662BA1541800319C26 /* Debug */,
+				916A7D672BA1541800319C26 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		916A7D442BA1541800319C26 /* NinjaWarriors.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				916A7D452BA1541800319C26 /* NinjaWarriors.xcdatamodel */,
+			);
+			currentVersion = 916A7D452BA1541800319C26 /* NinjaWarriors.xcdatamodel */;
+			path = NinjaWarriors.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 916A7D2E2BA1541700319C26 /* Project object */;
+}
