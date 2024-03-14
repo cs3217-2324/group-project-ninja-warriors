@@ -12,6 +12,8 @@ struct CollisionDetector {
         isNotIntersecting(source: object, with: gameObject)
         && !isIntersecting(source: object, with: gameObject)
         && !isOverlap(source: object, with: gameObject)
+        && !pointInside(object: object, point: gameObject.getCenter())
+        && !pointInside(object: gameObject, point: object.getCenter())
     }
 
     // Non-Polygon - Non-Polygon Intersection (both do not contain edges)
@@ -97,4 +99,27 @@ struct CollisionDetector {
          point.yCoord <= max(line.start.yCoord, line.end.yCoord))
     }
 
+    // Object inside of another object check
+    func pointInside(object: GameObject, point: CGPoint) -> Bool {
+        guard let vertices = object.vertices else {
+            return false
+        }
+        let nvert: Int = object.countVetices()
+        var isPointInside = false
+        var j = nvert - 1
+
+        for i in 0..<nvert {
+            let isVertexPointYDiff = (vertices[i].yCoord <= point.y) != (vertices[j].yCoord <= point.y)
+            let xDiff = (vertices[j].xCoord - vertices[i].xCoord)
+            let pointVertexYDiff = (point.y - vertices[i].yCoord)
+            let vertexVertexYDiff = (vertices[j].yCoord - vertices[i].yCoord)
+
+            if (isVertexPointYDiff)
+                && (point.x <= xDiff * pointVertexYDiff / vertexVertexYDiff + vertices[i].xCoord) {
+                isPointInside.toggle()
+            }
+            j = i
+        }
+        return isPointInside
+    }
 }

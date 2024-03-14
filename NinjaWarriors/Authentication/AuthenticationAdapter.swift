@@ -24,6 +24,13 @@ final class AuthenticationAdapter: Authentication {
         return User(uid: user.uid, email: user.email)
     }
 
+    func getAuthenticatedUser() throws -> User {
+        guard let user = Auth.auth().currentUser else {
+            throw URLError(.badServerResponse)
+        }
+        return User(uid: user.uid, email: user.email)
+    }
+
     func signOut() throws {
         try Auth.auth().signOut()
     }

@@ -13,16 +13,18 @@ class GameObject {
     var orientation: Double?
     var halfLength: Double
     var edges: [Line]?
+    var vertices: [Point]?
 
     init (center: Point, halfLength: Double) {
         self.center = center
         self.halfLength = halfLength
     }
 
-    init (center: Point, halfLength: Double, edges: [Line]) {
+    init (center: Point, halfLength: Double, edges: [Line], vertices: [Point]) {
         self.center = center
         self.halfLength = halfLength
         self.edges = edges
+        self.vertices = vertices
     }
 
     init (center: Point, halfLength: Double, orientation: Double) {
@@ -31,11 +33,23 @@ class GameObject {
         self.orientation = orientation
     }
 
-    init (center: Point, halfLength: Double, orientation: Double, edges: [Line]) {
+    init (center: Point, halfLength: Double, orientation: Double, edges: [Line], vertices: [Point]) {
         self.center = center
         self.halfLength = halfLength
         self.orientation = orientation
         self.edges = edges
+        self.vertices = vertices
+    }
+
+    func getCenter() -> CGPoint {
+        CGPoint(x: center.xCoord, y: center.yCoord)
+    }
+
+    func countVetices() -> Int {
+        guard let vertices = vertices else {
+            return 0
+        }
+        return vertices.count
     }
 
     func checkSafeToInsert(with gameObject: GameObject) -> Bool {
@@ -44,9 +58,9 @@ class GameObject {
     }
 
     func makeDeepCopy() -> GameObject {
-        guard let edges = edges, let orientation = orientation else {
+        guard let edges = edges, let orientation = orientation, let vertices = vertices else {
             return GameObject(center: center, halfLength: halfLength)
         }
-        return GameObject(center: center, halfLength: halfLength, orientation: orientation, edges: edges)
+        return GameObject(center: center, halfLength: halfLength, orientation: orientation, edges: edges, vertices: vertices)
     }
 }
