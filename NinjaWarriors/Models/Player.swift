@@ -9,7 +9,7 @@ import Foundation
 
 // TODO: Replace hardcoded player with player from ECS
 
-struct Player {
+class Player {
     let id: Int
     let gameObject: GameObject
 
@@ -20,6 +20,10 @@ struct Player {
 
     func getPosition() -> CGPoint {
         gameObject.getCenter()
+    }
+
+    func changePosition(to center: Point) {
+        gameObject.center = center
     }
 
     func toPlayerWrapper() -> PlayerWrapper {

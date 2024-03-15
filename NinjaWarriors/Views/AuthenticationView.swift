@@ -18,16 +18,10 @@ struct AuthenticationView: View {
                         .frame(height: 55)
                         .background(Color.blue)
                         .cornerRadius(10)
+                }.padding()
+                NavigationLink(destination: CanvasView()) {
+                    Text("Enter Canvas")
                 }
-                NavigationLink(destination: SignInEmailView()) {
-                    Text("Sign In With Email")
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 55)
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                }
-                .padding()
             }
             .navigationTitle("Sign In")
         }

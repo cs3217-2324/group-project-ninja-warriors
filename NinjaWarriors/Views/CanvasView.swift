@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct CanvasView: View {
-    @ObservedObject var viewModel: CanvasViewModel
+    @ObservedObject var viewModel = CanvasViewModel()
     @State private var joystickPosition: CGPoint = .zero
     @State private var playerId: String = ""
 
@@ -33,12 +33,15 @@ struct CanvasView: View {
                                         let newY = max(0, min(gesture.location.y, geometry.size.height))
                                         joystickPosition = CGPoint(x: newX, y: newY)
                                         let playerId = playerId.trimmingCharacters(in: .whitespacesAndNewlines)
-                                        $viewModel.changePosition(playerId: playerId, newPosition: joystickPosition)
+                                        viewModel.changePosition(playerId: playerId, newPosition: joystickPosition)
                                     }
                             )
                     }
                 }
             }
+        }
+        .onAppear {
+            viewModel.addListenerForPlayers()
         }
     }
 }

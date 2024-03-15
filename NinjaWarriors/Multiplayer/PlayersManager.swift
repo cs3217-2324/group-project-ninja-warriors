@@ -18,16 +18,6 @@ final class PlayersManager {
 
     private let playersCollection = Firestore.firestore().collection("players")
 
-    private let encoder: Firestore.Encoder = {
-        let encoder = Firestore.Encoder()
-        return encoder
-    }()
-
-    private let decoder: Firestore.Decoder = {
-        let decoder = Firestore.Decoder()
-        return decoder
-    }()
-
     private var playersListener: ListenerRegistration? = nil
 
     private func playerDocument(playerId: String) -> DocumentReference {
@@ -42,6 +32,17 @@ final class PlayersManager {
         let wrapper = try await playerDocument(playerId: playerId).getDocument(as: PlayerWrapper.self)
         return wrapper.toPlayer()
     }
+
+    func updatePlayer(playerId: String, position: Point) async throws {
+        let player = try await getPlayer(playerId: playerId)
+        player.changePosition(to: position)
+
+        let playerWrapper = player.toPlayerWrapper()
+        let playerData = try Firestore.Encoder().encode(playerWrapper)
+        let documentRef = playerDocument(playerId: String(player.id))
+        try await documentRef.updateData(playerData)
+    }
+
 
     private func getAllPlayersQuery() -> Query {
         playersCollection
@@ -70,30 +71,8 @@ final class PlayersManager {
             .aggregateCount()
     }
 
-    func addListenerForAllPlayers(playerId: String, completion: @escaping (_ players: [Player]) -> Void) {
-        self.playersListener = getAllPlayersQuery().addSnapshotListener { querySnapshot, error in
-            guard let documents = querySnapshot?.documents else {
-                print("No documents")
-                return
-            }
-
-            let playersWrapper: [PlayerWrapper] = documents.compactMap({ try? $0.data(as: PlayerWrapper.self) })
-            var players: [Player] = []
-            for player in playersWrapper {
-                players.append(player.toPlayer())
-            }
-            completion(players)
-
-            querySnapshot?.documentChanges.forEach { diff in
-                print(diff.document.data())
-            }
-        }
-    }
-
-    func addListenerForAllUserFavoriteProducts(playerId: String) -> AnyPublisher<[Player], Error> {
-        //let (publisher, listener) = getPlayer(playerId: playerId).addSnapshotListener(as: PlayerW)
-            //.addSnapshotListener(as: Player.self)
-
+    func addListenerForAllPlayers() -> AnyPublisher<[PlayerWrapper], Error> {
+        let (publisher, listener) = getAllPlayersQuery().addSnapshotListener(as: PlayerWrapper.self)
         self.playersListener = listener
         return publisher
     }
