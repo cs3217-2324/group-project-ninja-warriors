@@ -138,12 +138,13 @@
 		916A7D2D2BA1541700319C26 = {
 			isa = PBXGroup;
 			children = (
+				916A7DB72BA4622F00319C26 /* Entity */,
 				916A7D9D2BA3E80200319C26 /* Multiplayer */,
 				916A7D912BA1AA5600319C26 /* Authentication */,
 				916A7D8C2BA1A0EB00319C26 /* ViewModels */,
 				916A7D872BA19F4200319C26 /* Views */,
 				916A7D732BA1553900319C26 /* Constants */,
-				916A7D682BA154E000319C26 /* Models */,
+				916A7D682BA154E000319C26 /* Components */,
 				916A7D382BA1541700319C26 /* NinjaWarriors */,
 				916A7D4E2BA1541800319C26 /* NinjaWarriorsTests */,
 				916A7D582BA1541800319C26 /* NinjaWarriorsUITests */,
@@ -200,18 +201,16 @@
 			path = NinjaWarriorsUITests;
 			sourceTree = "<group>";
 		};
-		916A7D682BA154E000319C26 /* Models */ = {
+		916A7D682BA154E000319C26 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				916A7DA62BA3F9FC00319C26 /* ModelWrappers */,
+				916A7DA62BA3F9FC00319C26 /* ComponentWrappers */,
 				916A7D692BA154F000319C26 /* CollisionDetector.swift */,
-				916A7D6B2BA1550700319C26 /* GameObject.swift */,
 				916A7D6D2BA1551300319C26 /* Line.swift */,
 				916A7D6F2BA1552100319C26 /* Point.swift */,
 				916A7D712BA1552D00319C26 /* Vector.swift */,
-				916A7DA22BA3F74700319C26 /* Player.swift */,
 			);
-			path = Models;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		916A7D732BA1553900319C26 /* Constants */ = {
@@ -267,7 +266,7 @@
 			path = Multiplayer;
 			sourceTree = "<group>";
 		};
-		916A7DA62BA3F9FC00319C26 /* ModelWrappers */ = {
+		916A7DA62BA3F9FC00319C26 /* ComponentWrappers */ = {
 			isa = PBXGroup;
 			children = (
 				916A7DA72BA3FA2900319C26 /* PointWrapper.swift */,
@@ -277,7 +276,16 @@
 				916A7DA92BA3FBBF00319C26 /* AnyCodingKey.swift */,
 				916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */,
 			);
-			path = ModelWrappers;
+			path = ComponentWrappers;
+			sourceTree = "<group>";
+		};
+		916A7DB72BA4622F00319C26 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				916A7D6B2BA1550700319C26 /* GameObject.swift */,
+				916A7DA22BA3F74700319C26 /* Player.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
