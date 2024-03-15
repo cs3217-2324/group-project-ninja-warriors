@@ -10,6 +10,10 @@
 		9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */; };
 		9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF572BA5087F000F2AC4 /* PlayersListener.swift */; };
 		9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF592BA50C1E000F2AC4 /* Publisher.swift */; };
+		9132AF5C2BA50C5C000F2AC4 /* CustomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF5B2BA50C5C000F2AC4 /* CustomSubject.swift */; };
+		9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF612BA50E66000F2AC4 /* PhysicsRigidBody.swift */; };
+		9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF632BA50E82000F2AC4 /* PhysicsElasticCollision.swift */; };
+		9132AF662BA50E9A000F2AC4 /* PhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF652BA50E9A000F2AC4 /* PhysicsBody.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -72,6 +76,10 @@
 		9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPublisher.swift; sourceTree = "<group>"; };
 		9132AF572BA5087F000F2AC4 /* PlayersListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListener.swift; sourceTree = "<group>"; };
 		9132AF592BA50C1E000F2AC4 /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
+		9132AF5B2BA50C5C000F2AC4 /* CustomSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSubject.swift; sourceTree = "<group>"; };
+		9132AF612BA50E66000F2AC4 /* PhysicsRigidBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsRigidBody.swift; sourceTree = "<group>"; };
+		9132AF632BA50E82000F2AC4 /* PhysicsElasticCollision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsElasticCollision.swift; sourceTree = "<group>"; };
+		9132AF652BA50E9A000F2AC4 /* PhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsBody.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -141,6 +149,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9132AF602BA50E46000F2AC4 /* PhysicsEngine */ = {
+			isa = PBXGroup;
+			children = (
+				9132AF612BA50E66000F2AC4 /* PhysicsRigidBody.swift */,
+				9132AF632BA50E82000F2AC4 /* PhysicsElasticCollision.swift */,
+				9132AF652BA50E9A000F2AC4 /* PhysicsBody.swift */,
+			);
+			path = PhysicsEngine;
+			sourceTree = "<group>";
+		};
 		916A7D2D2BA1541700319C26 = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +228,7 @@
 		916A7D682BA154E000319C26 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				9132AF602BA50E46000F2AC4 /* PhysicsEngine */,
 				916A7DA62BA3F9FC00319C26 /* ComponentWrappers */,
 				916A7D692BA154F000319C26 /* CollisionDetector.swift */,
 				916A7D6D2BA1551300319C26 /* Line.swift */,
@@ -271,6 +290,7 @@
 				9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */,
 				9132AF572BA5087F000F2AC4 /* PlayersListener.swift */,
 				9132AF592BA50C1E000F2AC4 /* Publisher.swift */,
+				9132AF5B2BA50C5C000F2AC4 /* CustomSubject.swift */,
 			);
 			path = Multiplayer;
 			sourceTree = "<group>";
@@ -450,6 +470,7 @@
 			files = (
 				9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */,
 				916A7D6A2BA154F000319C26 /* CollisionDetector.swift in Sources */,
+				9132AF662BA50E9A000F2AC4 /* PhysicsBody.swift in Sources */,
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
 				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
@@ -460,9 +481,11 @@
 				916A7D8E2BA1A1C500319C26 /* SignInEmailViewModel.swift in Sources */,
 				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
 				916A7DA12BA3F6E200319C26 /* PlayersManager.swift in Sources */,
+				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
 				916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */,
 				916A7DA52BA3F89500319C26 /* GameObjectWrapper.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
+				9132AF5C2BA50C5C000F2AC4 /* CustomSubject.swift in Sources */,
 				916A7D902BA1A2AE00319C26 /* AuthenticationAdapter.swift in Sources */,
 				916A7D702BA1552100319C26 /* Point.swift in Sources */,
 				916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */,
@@ -473,6 +496,7 @@
 				916A7D932BA1AA6600319C26 /* Authentication.swift in Sources */,
 				916A7DAA2BA3FBBF00319C26 /* AnyCodingKey.swift in Sources */,
 				916A7D6C2BA1550700319C26 /* GameObject.swift in Sources */,
+				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
 				9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */,
 				9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */,

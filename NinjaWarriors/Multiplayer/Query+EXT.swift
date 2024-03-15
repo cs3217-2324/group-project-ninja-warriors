@@ -8,7 +8,6 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-//import Combine
 
 extension Query {
 
@@ -47,58 +46,15 @@ extension Query {
                 completion(.failure(error))
                 return
             }
-
             guard let querySnapshot = querySnapshot else {
-                print("No snapshot")
                 completion(.success([]))
                 return
             }
-
             let items: [T] = querySnapshot.documents.compactMap {
                 try? $0.data(as: T.self)
             }
-
             completion(.success(items))
         }
-
         return listener
-    }
-
-    /*
-    func addSnapshotListener<T>(as type: T.Type) -> (AnyPublisher<[T], Error>, ListenerRegistration) where T : Decodable {
-        let publisher = PassthroughSubject<[T], Error>()
-
-        let listener = self.addSnapshotListener { querySnapshot, error in
-            guard let documents = querySnapshot?.documents else {
-                print("No documents")
-                return
-            }
-
-            let players: [T] = documents.compactMap({
-                try? $0.data(as: T.self)
-            })
-            publisher.send(players)
-        }
-        return (publisher.eraseToAnyPublisher(), listener)
-    }
-    */
-}
-
-// Define a custom subject similar to PassthroughSubject
-class CustomSubject<Output, Failure: Error>: Publisher {
-    private var valueHandler: ((Output) -> Void)?
-    private var completionHandler: ((Result<(), Failure>) -> Void)?
-
-    func send(_ value: Output) {
-        valueHandler?(value)
-    }
-
-    func send(completion: Result<(), Failure>) {
-        completionHandler?(completion)
-    }
-
-    func subscribe(_ receiveValue: @escaping (Output) -> Void, _ receiveCompletion: @escaping (Result<(), Failure>) -> Void) {
-        valueHandler = receiveValue
-        completionHandler = receiveCompletion
     }
 }
