@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class PlayersListener {
-    private let publisher = Publisher()
+    private let publisher = PlayerPublisher()
     private var firestoreListener: Any?
     private let playersCollection = Firestore.firestore().collection("players")
 
@@ -46,7 +46,7 @@ class PlayersListener {
         //self.firestoreListener?.remove()
     }
 
-    func getPublisher() -> Publisher {
+    func getPublisher() -> PlayerPublisher {
         return publisher
     }
 }

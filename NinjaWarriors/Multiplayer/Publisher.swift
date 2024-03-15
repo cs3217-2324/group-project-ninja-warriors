@@ -7,23 +7,9 @@
 
 import Foundation
 
-final class Publisher {
-    typealias UpdateClosure = ([PlayerWrapper]) -> Void
-    typealias ErrorClosure = (Error) -> Void
+protocol Publisher {
+    associatedtype Output
+    associatedtype Failure: Error
 
-    var updateClosure: UpdateClosure?
-    var errorClosure: ErrorClosure?
-
-    func subscribe(update: @escaping UpdateClosure, error: @escaping ErrorClosure) {
-        self.updateClosure = update
-        self.errorClosure = error
-    }
-
-    func publish(_ update: [PlayerWrapper]) {
-        updateClosure?(update)
-    }
-
-    func publishError(_ error: Error) {
-        errorClosure?(error)
-    }
+    func subscribe(_ receiveValue: @escaping (Output) -> Void, _ receiveCompletion: @escaping (Result<(), Failure>) -> Void)
 }
