@@ -62,7 +62,6 @@ final class CanvasViewModel: ObservableObject {
 
         Task {
             let manager = PlayersManager.shared
-            //try? await manager.uploadPlayer(player: players[id])
             try? await manager.updatePlayer(playerId: playerId, position: newCenter)
         }
     }
