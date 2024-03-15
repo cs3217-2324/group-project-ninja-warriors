@@ -10,7 +10,9 @@ import SwiftUI
 struct AuthenticationView: View {
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 20) {
+                Spacer(minLength: 0)
+
                 NavigationLink(destination: SignInEmailView()) {
                     Text("Sign In With Email")
                         .foregroundColor(.white)
@@ -19,14 +21,21 @@ struct AuthenticationView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                 }.padding()
+
                 NavigationLink(destination: CanvasView()) {
                     Text("Enter Canvas")
                 }
+
+                Spacer(minLength: 0)
             }
-            .navigationTitle("Sign In")
+            .navigationBarTitle("Sign In")
+            .navigationBarHidden(true)
+            
         }
     }
 }
+
+
 
 struct AuthenticationView_Previews: PreviewProvider {
     static var previews: some View {

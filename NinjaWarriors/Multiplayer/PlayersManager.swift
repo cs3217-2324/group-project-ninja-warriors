@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-import Combine
+//import Combine
 
 final class PlayersManager {
 
@@ -71,9 +71,19 @@ final class PlayersManager {
             .aggregateCount()
     }
 
+    /*
     func addListenerForAllPlayers() -> AnyPublisher<[PlayerWrapper], Error> {
         let (publisher, listener) = getAllPlayersQuery().addSnapshotListener(as: PlayerWrapper.self)
         self.playersListener = listener
         return publisher
     }
+    */
+
+    ///*
+    func addListenerForAllPlayers() -> Publisher {
+        let playersListener = PlayersListener()
+        playersListener.startListening()
+        return playersListener.getPublisher()
+    }
+    //*/
 }

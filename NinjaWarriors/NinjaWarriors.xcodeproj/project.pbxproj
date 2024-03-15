@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9132AF562BA50853000F2AC4 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF552BA50853000F2AC4 /* Publisher.swift */; };
+		9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF572BA5087F000F2AC4 /* PlayersListener.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -66,6 +68,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9132AF552BA50853000F2AC4 /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
+		9132AF572BA5087F000F2AC4 /* PlayersListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListener.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -262,6 +266,8 @@
 			children = (
 				916A7D9E2BA3F43B00319C26 /* Query+EXT.swift */,
 				916A7DA02BA3F6E200319C26 /* PlayersManager.swift */,
+				9132AF552BA50853000F2AC4 /* Publisher.swift */,
+				9132AF572BA5087F000F2AC4 /* PlayersListener.swift */,
 			);
 			path = Multiplayer;
 			sourceTree = "<group>";
@@ -272,9 +278,7 @@
 				916A7DA72BA3FA2900319C26 /* PointWrapper.swift */,
 				916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */,
 				916A7DAB2BA3FD4800319C26 /* LineWrapper.swift */,
-				916A7DA42BA3F89500319C26 /* GameObjectWrapper.swift */,
 				916A7DA92BA3FBBF00319C26 /* AnyCodingKey.swift */,
-				916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */,
 			);
 			path = ComponentWrappers;
 			sourceTree = "<group>";
@@ -282,10 +286,20 @@
 		916A7DB72BA4622F00319C26 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				916A7DB82BA5014F00319C26 /* EntityWrappers */,
 				916A7D6B2BA1550700319C26 /* GameObject.swift */,
 				916A7DA22BA3F74700319C26 /* Player.swift */,
 			);
 			path = Entity;
+			sourceTree = "<group>";
+		};
+		916A7DB82BA5014F00319C26 /* EntityWrappers */ = {
+			isa = PBXGroup;
+			children = (
+				916A7DA42BA3F89500319C26 /* GameObjectWrapper.swift */,
+				916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */,
+			);
+			path = EntityWrappers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -431,6 +445,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9132AF562BA50853000F2AC4 /* Publisher.swift in Sources */,
 				916A7D6A2BA154F000319C26 /* CollisionDetector.swift in Sources */,
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
 				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
@@ -456,6 +471,7 @@
 				916A7DAA2BA3FBBF00319C26 /* AnyCodingKey.swift in Sources */,
 				916A7D6C2BA1550700319C26 /* GameObject.swift in Sources */,
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
+				9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */,
 				916A7D752BA1554200319C26 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

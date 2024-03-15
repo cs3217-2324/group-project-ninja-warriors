@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import Combine
+//import Combine
 
 @MainActor
 final class CanvasViewModel: ObservableObject {
     @Published private(set) var players: [Player] = []
-    private var cancellables = Set<AnyCancellable>()
+    //private var cancellables = Set<AnyCancellable>()
 
     init() {
         addPlayers()
@@ -43,6 +43,7 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
+    /*
     func addListenerForPlayers() {
         PlayersManager.shared.addListenerForAllPlayers()
             .sink { completion in
@@ -52,6 +53,18 @@ final class CanvasViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    */
+
+    ///*
+    func addListenerForPlayers() {
+        let publisher = PlayersManager.shared.addListenerForAllPlayers()
+        publisher.subscribe(update: { [weak self] players in
+            self?.players = players.map { $0.toPlayer() }
+        }, error: { error in
+            // Handle error if needed
+        })
+    }
+    //*/
 
     func changePosition(playerId: String, newPosition: CGPoint) {
         guard let id = Int(playerId) else {

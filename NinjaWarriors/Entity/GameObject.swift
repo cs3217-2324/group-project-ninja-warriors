@@ -8,7 +8,6 @@
 import Foundation
 
 class GameObject {
-
     var center: Point
     var orientation: Double?
     var halfLength: Double
