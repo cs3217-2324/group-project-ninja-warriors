@@ -88,4 +88,8 @@ struct Vector: Equatable {
         let dotProduct = dotProduct(with: vector)
         return atan2(crossProduct, dotProduct)
     }
+
+    func toVectorWrapper() -> VectorWrapper {
+        VectorWrapper(horizontal: horizontal, vertical: vertical)
+    }
 }

@@ -110,6 +110,10 @@ struct Point {
     func deepCopy() -> Point {
         Point(xCoord: self.xCoord, yCoord: self.yCoord)
     }
+
+    func toPointWrapper() -> PointWrapper {
+        PointWrapper(xCoord: xCoord, yCoord: yCoord, radial: radial, theta: theta)
+    }
 }
 
 extension Point: Equatable {

@@ -63,4 +63,26 @@ class GameObject {
         }
         return GameObject(center: center, halfLength: halfLength, orientation: orientation, edges: edges, vertices: vertices)
     }
+
+    func toGameObjectWrapper() -> GameObjectWrapper {
+        let pointWrapper = center.toPointWrapper()
+        var edgesWrapper: [LineWrapper] = []
+        if let edges = edges {
+            for edge in edges {
+                edgesWrapper.append(edge.toLineWrapper())
+            }
+        }
+        var verticesWrapper: [PointWrapper] = []
+        if let vertices = vertices {
+            for vertex in vertices {
+                verticesWrapper.append(vertex.toPointWrapper())
+            }
+        }
+
+        return GameObjectWrapper(center: center.toPointWrapper(),
+                          orientation: orientation ?? 0.0,
+                          halfLength: halfLength,
+                          edges: edgesWrapper,
+                          vertices: verticesWrapper)
+    }
 }
