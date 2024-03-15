@@ -19,6 +19,14 @@ struct AuthenticationView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                 }
+                NavigationLink(destination: SignInEmailView()) {
+                    Text("Sign In With Email")
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 55)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
                 .padding()
             }
             .navigationTitle("Sign In")

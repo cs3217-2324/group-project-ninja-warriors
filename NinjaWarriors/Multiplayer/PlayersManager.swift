@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import Combine
 
 final class PlayersManager {
 
@@ -16,6 +17,18 @@ final class PlayersManager {
     private init() { }
 
     private let playersCollection = Firestore.firestore().collection("players")
+
+    private let encoder: Firestore.Encoder = {
+        let encoder = Firestore.Encoder()
+        return encoder
+    }()
+
+    private let decoder: Firestore.Decoder = {
+        let decoder = Firestore.Decoder()
+        return decoder
+    }()
+
+    private var playersListener: ListenerRegistration? = nil
 
     private func playerDocument(playerId: String) -> DocumentReference {
         playersCollection.document(playerId)
@@ -50,11 +63,38 @@ final class PlayersManager {
 
         let players = result.players.map { $0.toPlayer() }
         return (players, result.lastDocument)
-
     }
 
     func getAllPlayersCount() async throws -> Int {
         try await playersCollection
             .aggregateCount()
+    }
+
+    func addListenerForAllPlayers(playerId: String, completion: @escaping (_ players: [Player]) -> Void) {
+        self.playersListener = getAllPlayersQuery().addSnapshotListener { querySnapshot, error in
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+
+            let playersWrapper: [PlayerWrapper] = documents.compactMap({ try? $0.data(as: PlayerWrapper.self) })
+            var players: [Player] = []
+            for player in playersWrapper {
+                players.append(player.toPlayer())
+            }
+            completion(players)
+
+            querySnapshot?.documentChanges.forEach { diff in
+                print(diff.document.data())
+            }
+        }
+    }
+
+    func addListenerForAllUserFavoriteProducts(playerId: String) -> AnyPublisher<[Player], Error> {
+        //let (publisher, listener) = getPlayer(playerId: playerId).addSnapshotListener(as: PlayerW)
+            //.addSnapshotListener(as: Player.self)
+
+        self.playersListener = listener
+        return publisher
     }
 }

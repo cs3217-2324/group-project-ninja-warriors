@@ -18,6 +18,10 @@ struct Player {
         self.gameObject = gameObject
     }
 
+    func getPosition() -> CGPoint {
+        gameObject.getCenter()
+    }
+
     func toPlayerWrapper() -> PlayerWrapper {
         PlayerWrapper(id: id, gameObject: gameObject.toGameObjectWrapper())
     }
