@@ -6,14 +6,14 @@
 //
 
 import Foundation
-//import Combine
 
 @MainActor
 final class CanvasViewModel: ObservableObject {
     @Published private(set) var players: [Player] = []
-    //private var cancellables = Set<AnyCancellable>()
+    @Published private(set) var manager: PlayersManager
 
     init() {
+        manager = PlayersManagerAdapter()
         addPlayers()
     }
 
@@ -35,7 +35,6 @@ final class CanvasViewModel: ObservableObject {
         players.append(player4)
 
         Task {
-            let manager = PlayersManager.shared
             try? await manager.uploadPlayer(player: player1)
             try? await manager.uploadPlayer(player: player2)
             try? await manager.uploadPlayer(player: player3)
@@ -43,28 +42,14 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
-    /*
     func addListenerForPlayers() {
-        PlayersManager.shared.addListenerForAllPlayers()
-            .sink { completion in
-
-            } receiveValue: { [weak self] players in
-                self?.players = players.map { $0.toPlayer() }
-            }
-            .store(in: &cancellables)
-    }
-    */
-
-    ///*
-    func addListenerForPlayers() {
-        let publisher = PlayersManager.shared.addListenerForAllPlayers()
+        let publisher = manager.addListenerForAllPlayers()
         publisher.subscribe(update: { [weak self] players in
             self?.players = players.map { $0.toPlayer() }
         }, error: { error in
-            // Handle error if needed
+            print(error)
         })
     }
-    //*/
 
     func changePosition(playerId: String, newPosition: CGPoint) {
         guard let id = Int(playerId) else {
@@ -74,7 +59,6 @@ final class CanvasViewModel: ObservableObject {
         players[id].changePosition(to: newCenter)
 
         Task {
-            let manager = PlayersManager.shared
             try? await manager.updatePlayer(playerId: playerId, position: newCenter)
         }
     }
