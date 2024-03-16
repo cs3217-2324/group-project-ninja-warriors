@@ -89,11 +89,9 @@ final class MatchManagerAdapter: MatchManager {
         }
     }
 
-    /*
     func addListenerForAllMatches() -> PlayerPublisher {
         let matchesListener = PlayersListener()
         matchesListener.startListening()
         return matchesListener.getPublisher()
     }
-    */
 }

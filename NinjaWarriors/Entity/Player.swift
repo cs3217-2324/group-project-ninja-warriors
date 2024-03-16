@@ -7,7 +7,6 @@
 
 import Foundation
 
-// TODO: Replace hardcoded player with player from ECS
 class Player {
     let id: Int
     let gameObject: GameObject

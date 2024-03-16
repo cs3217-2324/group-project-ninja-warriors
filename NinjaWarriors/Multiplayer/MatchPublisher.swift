@@ -1,5 +1,5 @@
 //
-//  PlayerPublisher.swift
+//  MatchPublisher.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 16/3/24.
@@ -7,8 +7,8 @@
 
 import Foundation
 /*
-final class PlayerPublisher: FactoryPublisher {
-    //typealias UpdateClosure = ([FactoryWrapper]) -> Void
+final class MatchPublisher: FactoryPublisher {
+    typealias UpdateClosure = ([FactoryWrapper]) -> Void
     //typealias UpdateClosure = ([PlayerWrapper]) -> Void
     typealias ErrorClosure = (Error) -> Void
 
@@ -37,9 +37,8 @@ final class PlayerPublisher: FactoryPublisher {
 */
 
 /*
-final class PlayerPublisher: FactoryPublisher {
-    //typealias UpdateClosure = ([FactoryWrapper]) -> Void
-    typealias UpdateClosure = ([PlayerWrapper]) -> Void
+final class MatchPublisher: FactoryPublisher {
+    typealias UpdateClosure = ([FactoryWrapper]) -> Void
     typealias ErrorClosure = (Error) -> Void
 
     var updateClosure: UpdateClosure?
@@ -51,8 +50,8 @@ final class PlayerPublisher: FactoryPublisher {
     }
 
     func publish(_ update: [FactoryWrapper]) {
-        if let playerWrappers = update as? [PlayerWrapper] {
-            updateClosure?(playerWrappers)
+        if let matchWrappers = update as? [MatchWrapper] {
+            updateClosure?(matchWrappers)
         }
     }
 
@@ -63,9 +62,9 @@ final class PlayerPublisher: FactoryPublisher {
 */
 
 
-final class PlayerPublisher: FactoryPublisher {
-    typealias T = PlayerWrapper
-    typealias UpdateClosure = ([PlayerWrapper]) -> Void
+final class MatchPublisher: FactoryPublisher {
+    typealias T = MatchWrapper
+    typealias UpdateClosure = ([MatchWrapper]) -> Void
     typealias ErrorClosure = (Error) -> Void
 
     var updateClosure: UpdateClosure?
@@ -76,7 +75,7 @@ final class PlayerPublisher: FactoryPublisher {
         self.errorClosure = error
     }
 
-    func publish(_ update: [PlayerWrapper]) {
+    func publish(_ update: [MatchWrapper]) {
         updateClosure?(update)
     }
 
@@ -84,4 +83,3 @@ final class PlayerPublisher: FactoryPublisher {
         errorClosure?(error)
     }
 }
-

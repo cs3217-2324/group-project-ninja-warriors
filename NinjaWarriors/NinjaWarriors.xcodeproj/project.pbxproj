@@ -19,6 +19,14 @@
 		9132AF6C2BA57130000F2AC4 /* PlayersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF6B2BA57130000F2AC4 /* PlayersManager.swift */; };
 		9132AF6E2BA58C1E000F2AC4 /* MatchManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF6D2BA58C1E000F2AC4 /* MatchManagerAdapter.swift */; };
 		9132AF702BA58C61000F2AC4 /* MatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF6F2BA58C61000F2AC4 /* MatchManager.swift */; };
+		9132AF722BA5971E000F2AC4 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF712BA5971E000F2AC4 /* Match.swift */; };
+		9132AF742BA597FD000F2AC4 /* MatchWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF732BA597FD000F2AC4 /* MatchWrapper.swift */; };
+		9132AF762BA59A30000F2AC4 /* FactoryListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF752BA59A30000F2AC4 /* FactoryListener.swift */; };
+		9132AF782BA59B0F000F2AC4 /* FactoryPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF772BA59B0F000F2AC4 /* FactoryPublisher.swift */; };
+		9132AF7A2BA59B1C000F2AC4 /* FactoryWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF792BA59B1C000F2AC4 /* FactoryWrapper.swift */; };
+		9132AF7C2BA59C6C000F2AC4 /* Listener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF7B2BA59C6C000F2AC4 /* Listener.swift */; };
+		9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF7D2BA59FE5000F2AC4 /* MatchPublisher.swift */; };
+		9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF7F2BA5A1B1000F2AC4 /* MatchListener.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -90,6 +98,14 @@
 		9132AF6B2BA57130000F2AC4 /* PlayersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersManager.swift; sourceTree = "<group>"; };
 		9132AF6D2BA58C1E000F2AC4 /* MatchManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchManagerAdapter.swift; sourceTree = "<group>"; };
 		9132AF6F2BA58C61000F2AC4 /* MatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchManager.swift; sourceTree = "<group>"; };
+		9132AF712BA5971E000F2AC4 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		9132AF732BA597FD000F2AC4 /* MatchWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchWrapper.swift; sourceTree = "<group>"; };
+		9132AF752BA59A30000F2AC4 /* FactoryListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryListener.swift; sourceTree = "<group>"; };
+		9132AF772BA59B0F000F2AC4 /* FactoryPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryPublisher.swift; sourceTree = "<group>"; };
+		9132AF792BA59B1C000F2AC4 /* FactoryWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryWrapper.swift; sourceTree = "<group>"; };
+		9132AF7B2BA59C6C000F2AC4 /* Listener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Listener.swift; sourceTree = "<group>"; };
+		9132AF7D2BA59FE5000F2AC4 /* MatchPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchPublisher.swift; sourceTree = "<group>"; };
+		9132AF7F2BA5A1B1000F2AC4 /* MatchListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListener.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -167,6 +183,16 @@
 				9132AF652BA50E9A000F2AC4 /* PhysicsBody.swift */,
 			);
 			path = PhysicsEngine;
+			sourceTree = "<group>";
+		};
+		9132AF812BA5A79C000F2AC4 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				9132AF752BA59A30000F2AC4 /* FactoryListener.swift */,
+				9132AF772BA59B0F000F2AC4 /* FactoryPublisher.swift */,
+				9132AF792BA59B1C000F2AC4 /* FactoryWrapper.swift */,
+			);
+			path = Factory;
 			sourceTree = "<group>";
 		};
 		916A7D2D2BA1541700319C26 = {
@@ -297,15 +323,21 @@
 		916A7D9D2BA3E80200319C26 /* Multiplayer */ = {
 			isa = PBXGroup;
 			children = (
+				9132AF812BA5A79C000F2AC4 /* Factory */,
 				916A7D9E2BA3F43B00319C26 /* Query+EXT.swift */,
 				9132AF6B2BA57130000F2AC4 /* PlayersManager.swift */,
 				916A7DA02BA3F6E200319C26 /* PlayersManagerAdapter.swift */,
 				9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */,
-				9132AF572BA5087F000F2AC4 /* PlayersListener.swift */,
 				9132AF592BA50C1E000F2AC4 /* Publisher.swift */,
 				9132AF5B2BA50C5C000F2AC4 /* CustomSubject.swift */,
 				9132AF6D2BA58C1E000F2AC4 /* MatchManagerAdapter.swift */,
 				9132AF6F2BA58C61000F2AC4 /* MatchManager.swift */,
+				9132AF712BA5971E000F2AC4 /* Match.swift */,
+				9132AF732BA597FD000F2AC4 /* MatchWrapper.swift */,
+				9132AF572BA5087F000F2AC4 /* PlayersListener.swift */,
+				9132AF7B2BA59C6C000F2AC4 /* Listener.swift */,
+				9132AF7D2BA59FE5000F2AC4 /* MatchPublisher.swift */,
+				9132AF7F2BA5A1B1000F2AC4 /* MatchListener.swift */,
 			);
 			path = Multiplayer;
 			sourceTree = "<group>";
@@ -489,6 +521,7 @@
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
 				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
+				9132AF762BA59A30000F2AC4 /* FactoryListener.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
 				916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */,
@@ -501,23 +534,30 @@
 				916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */,
 				916A7DA52BA3F89500319C26 /* GameObjectWrapper.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
+				9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */,
+				9132AF7A2BA59B1C000F2AC4 /* FactoryWrapper.swift in Sources */,
 				9132AF5C2BA50C5C000F2AC4 /* CustomSubject.swift in Sources */,
 				916A7D902BA1A2AE00319C26 /* AuthenticationAdapter.swift in Sources */,
 				916A7D702BA1552100319C26 /* Point.swift in Sources */,
+				9132AF7C2BA59C6C000F2AC4 /* Listener.swift in Sources */,
 				916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */,
 				916A7D952BA1AB2A00319C26 /* User.swift in Sources */,
 				916A7D892BA19F5100319C26 /* AuthenticationView.swift in Sources */,
 				916A7D462BA1541800319C26 /* NinjaWarriors.xcdatamodeld in Sources */,
 				916A7D9F2BA3F43B00319C26 /* Query+EXT.swift in Sources */,
 				916A7D932BA1AA6600319C26 /* Authentication.swift in Sources */,
+				9132AF742BA597FD000F2AC4 /* MatchWrapper.swift in Sources */,
 				916A7DAA2BA3FBBF00319C26 /* AnyCodingKey.swift in Sources */,
 				916A7D6C2BA1550700319C26 /* GameObject.swift in Sources */,
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,
+				9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */,
 				9132AF6C2BA57130000F2AC4 /* PlayersManager.swift in Sources */,
+				9132AF782BA59B0F000F2AC4 /* FactoryPublisher.swift in Sources */,
 				9132AF682BA53E54000F2AC4 /* LobbyView.swift in Sources */,
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
 				9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */,
+				9132AF722BA5971E000F2AC4 /* Match.swift in Sources */,
 				9132AF6E2BA58C1E000F2AC4 /* MatchManagerAdapter.swift in Sources */,
 				9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */,
 				916A7D752BA1554200319C26 /* Constants.swift in Sources */,

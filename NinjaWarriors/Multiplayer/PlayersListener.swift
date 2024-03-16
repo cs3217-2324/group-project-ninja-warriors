@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+/*
 class PlayersListener {
     private let publisher = PlayerPublisher()
     private var firestoreListener: Any?
@@ -48,5 +49,12 @@ class PlayersListener {
 
     func getPublisher() -> PlayerPublisher {
         return publisher
+    }
+}
+*/
+
+class PlayersListener: FactoryListener<PlayerPublisher, PlayerWrapper> {
+    init() {
+        super.init(collectionName: "players", publisher: PlayerPublisher())
     }
 }
