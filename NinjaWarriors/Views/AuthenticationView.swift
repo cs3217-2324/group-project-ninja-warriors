@@ -13,7 +13,7 @@ struct AuthenticationView: View {
             VStack(spacing: 20) {
                 Spacer(minLength: 0)
 
-                NavigationLink(destination: SignInEmailView()) {
+                NavigationLink(destination: SignInView()) {
                     Text("Sign In With Email")
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
@@ -31,7 +31,7 @@ struct AuthenticationView: View {
             .navigationBarTitle("Sign In")
             .navigationBarHidden(true)
             
-        }
+        }.navigationViewStyle(.stack)
     }
 }
 

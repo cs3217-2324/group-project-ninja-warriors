@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 final class PlayersManager {
 
     // TODO: Replace Singleton with Dependency Injection
+    // TODO: Convert to REST API
     static let shared = PlayersManager()
     private init() { }
 
@@ -42,11 +43,10 @@ final class PlayersManager {
         try await documentRef.updateData(playerData)
     }
 
-
     private func getAllPlayersQuery() -> Query {
         playersCollection
     }
-
+    
     private func getAllPlayersSortedByLengthQuery(descending: Bool) -> Query {
         playersCollection.order(by: "halfLength", descending: descending)
     }

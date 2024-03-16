@@ -1,5 +1,5 @@
 //
-//  SignInEmailViewModel.swift
+//  SignInViewModel.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 13/3/24.
@@ -8,10 +8,11 @@
 import Foundation
 
 @MainActor
-final class SignInEmailViewModel: ObservableObject {
+final class SignInViewModel: ObservableObject {
 
     @Published var email = ""
     @Published var password = ""
+    @Published var user: User?
     private let authentication: Authentication
 
     init(authentication: Authentication) {
@@ -24,8 +25,8 @@ final class SignInEmailViewModel: ObservableObject {
             return
         }
         let user = try await authentication.signUp(email: email, password: password)
-        print(user)
-
+        self.user = user
+        print("user", user)
     }
 
     func signIn() async throws {
@@ -34,7 +35,8 @@ final class SignInEmailViewModel: ObservableObject {
             return
         }
         let user = try await authentication.signIn(email: email, password: password)
-        print(user)
+        self.user = user
+        print("user", user)
     }
 
     func signOut() throws {

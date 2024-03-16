@@ -14,8 +14,7 @@ struct NinjaWarriorsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            CanvasView()
-            //AuthenticationView()
+            AuthenticationView()
         }
     }
 }

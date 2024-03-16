@@ -14,6 +14,8 @@
 		9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF612BA50E66000F2AC4 /* PhysicsRigidBody.swift */; };
 		9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF632BA50E82000F2AC4 /* PhysicsElasticCollision.swift */; };
 		9132AF662BA50E9A000F2AC4 /* PhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF652BA50E9A000F2AC4 /* PhysicsBody.swift */; };
+		9132AF682BA53E54000F2AC4 /* LobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF672BA53E54000F2AC4 /* LobbyView.swift */; };
+		9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -35,8 +37,8 @@
 		916A7D822BA18ABE00319C26 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 916A7D812BA18ABE00319C26 /* FirebaseDatabaseSwift */; };
 		916A7D862BA19C7400319C26 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D852BA19C7400319C26 /* GoogleService-Info.plist */; };
 		916A7D892BA19F5100319C26 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D882BA19F5100319C26 /* AuthenticationView.swift */; };
-		916A7D8B2BA1A0D400319C26 /* SignInEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D8A2BA1A0D400319C26 /* SignInEmailView.swift */; };
-		916A7D8E2BA1A1C500319C26 /* SignInEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D8D2BA1A1C500319C26 /* SignInEmailViewModel.swift */; };
+		916A7D8B2BA1A0D400319C26 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D8A2BA1A0D400319C26 /* SignInView.swift */; };
+		916A7D8E2BA1A1C500319C26 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D8D2BA1A1C500319C26 /* SignInViewModel.swift */; };
 		916A7D902BA1A2AE00319C26 /* AuthenticationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D8F2BA1A2AE00319C26 /* AuthenticationAdapter.swift */; };
 		916A7D932BA1AA6600319C26 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D922BA1AA6600319C26 /* Authentication.swift */; };
 		916A7D952BA1AB2A00319C26 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D942BA1AB2A00319C26 /* User.swift */; };
@@ -80,6 +82,8 @@
 		9132AF612BA50E66000F2AC4 /* PhysicsRigidBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsRigidBody.swift; sourceTree = "<group>"; };
 		9132AF632BA50E82000F2AC4 /* PhysicsElasticCollision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsElasticCollision.swift; sourceTree = "<group>"; };
 		9132AF652BA50E9A000F2AC4 /* PhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsBody.swift; sourceTree = "<group>"; };
+		9132AF672BA53E54000F2AC4 /* LobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyView.swift; sourceTree = "<group>"; };
+		9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewModel.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -99,8 +103,8 @@
 		916A7D742BA1554200319C26 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		916A7D852BA19C7400319C26 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		916A7D882BA19F5100319C26 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
-		916A7D8A2BA1A0D400319C26 /* SignInEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailView.swift; sourceTree = "<group>"; };
-		916A7D8D2BA1A1C500319C26 /* SignInEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInEmailViewModel.swift; sourceTree = "<group>"; };
+		916A7D8A2BA1A0D400319C26 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		916A7D8D2BA1A1C500319C26 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		916A7D8F2BA1A2AE00319C26 /* AuthenticationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationAdapter.swift; sourceTree = "<group>"; };
 		916A7D922BA1AA6600319C26 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		916A7D942BA1AB2A00319C26 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -250,8 +254,9 @@
 			isa = PBXGroup;
 			children = (
 				916A7D882BA19F5100319C26 /* AuthenticationView.swift */,
-				916A7D8A2BA1A0D400319C26 /* SignInEmailView.swift */,
+				916A7D8A2BA1A0D400319C26 /* SignInView.swift */,
 				916A7DB12BA42F7F00319C26 /* CanvasView.swift */,
+				9132AF672BA53E54000F2AC4 /* LobbyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -259,8 +264,9 @@
 		916A7D8C2BA1A0EB00319C26 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				916A7D8D2BA1A1C500319C26 /* SignInEmailViewModel.swift */,
+				916A7D8D2BA1A1C500319C26 /* SignInViewModel.swift */,
 				916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */,
+				9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -477,8 +483,8 @@
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
 				916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */,
-				916A7D8B2BA1A0D400319C26 /* SignInEmailView.swift in Sources */,
-				916A7D8E2BA1A1C500319C26 /* SignInEmailViewModel.swift in Sources */,
+				916A7D8B2BA1A0D400319C26 /* SignInView.swift in Sources */,
+				916A7D8E2BA1A1C500319C26 /* SignInViewModel.swift in Sources */,
 				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
 				916A7DA12BA3F6E200319C26 /* PlayersManager.swift in Sources */,
 				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
@@ -497,6 +503,8 @@
 				916A7DAA2BA3FBBF00319C26 /* AnyCodingKey.swift in Sources */,
 				916A7D6C2BA1550700319C26 /* GameObject.swift in Sources */,
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
+				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,
+				9132AF682BA53E54000F2AC4 /* LobbyView.swift in Sources */,
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
 				9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */,
 				9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */,
