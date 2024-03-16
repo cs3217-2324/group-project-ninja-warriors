@@ -7,21 +7,6 @@
 
 import Foundation
 
-/*
-protocol FactoryPublisher {
-    typealias UpdateClosure = ([FactoryWrapper]) -> Void
-    typealias ErrorClosure = (Error) -> Void
-
-    var updateClosure: UpdateClosure? { get set }
-    var errorClosure: ErrorClosure? { get set }
-
-    func subscribe(update: @escaping UpdateClosure, error: @escaping ErrorClosure)
-    func publish(_ update: [FactoryWrapper])
-    func publishError(_ error: Error)
-}
-*/
-
-
 protocol FactoryPublisher {
     associatedtype T: Decodable
     typealias UpdateClosure = ([T]) -> Void
