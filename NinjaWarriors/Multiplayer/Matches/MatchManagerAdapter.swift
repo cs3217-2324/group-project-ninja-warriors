@@ -13,7 +13,7 @@ final class MatchManagerAdapter: MatchManager {
 
     // TODO: Convert to REST API
     private let matches = Firestore.firestore().collection("matches")
-    private var matchesListener: ListenerRegistration? = nil
+    private var matchesListener: ListenerRegistration?
 
     func createMatch() async throws -> String {
         let newMatchRef = matches.document()

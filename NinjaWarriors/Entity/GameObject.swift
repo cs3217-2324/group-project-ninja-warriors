@@ -60,11 +60,11 @@ class GameObject {
         guard let edges = edges, let orientation = orientation, let vertices = vertices else {
             return GameObject(center: center, halfLength: halfLength)
         }
-        return GameObject(center: center, halfLength: halfLength, orientation: orientation, edges: edges, vertices: vertices)
+        return GameObject(center: center, halfLength: halfLength,
+                          orientation: orientation, edges: edges, vertices: vertices)
     }
 
     func toGameObjectWrapper() -> GameObjectWrapper {
-        let pointWrapper = center.toPointWrapper()
         var edgesWrapper: [LineWrapper] = []
         if let edges = edges {
             for edge in edges {

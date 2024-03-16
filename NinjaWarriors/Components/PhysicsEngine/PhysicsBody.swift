@@ -32,7 +32,6 @@ class PhysicsBody: PhysicsElasticCollision, PhysicsRigidBody {
         self.mass = mass
     }
 
-
     init(position: Vector, mass: Double, velocity: Vector) {
         self.position = position
         self.mass = mass

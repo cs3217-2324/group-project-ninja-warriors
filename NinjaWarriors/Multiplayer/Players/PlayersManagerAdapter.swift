@@ -13,7 +13,7 @@ final class PlayersManagerAdapter: PlayersManager {
 
     // TODO: Convert to REST API
     private let playersCollection = Firestore.firestore().collection("players")
-    private var playersListener: ListenerRegistration? = nil
+    private var playersListener: ListenerRegistration?
 
     private func playerDocument(playerId: String) -> DocumentReference {
         playersCollection.document(playerId)
@@ -31,7 +31,7 @@ final class PlayersManagerAdapter: PlayersManager {
     func updatePlayer(playerId: String, position: Point) async throws {
         let player = try await getPlayer(playerId: playerId)
         player.changePosition(to: position)
-        
+
         let playerWrapper = player.toPlayerWrapper()
         let playerData = try Firestore.Encoder().encode(playerWrapper)
         let documentRef = playerDocument(playerId: String(player.id))
@@ -41,12 +41,15 @@ final class PlayersManagerAdapter: PlayersManager {
     private func getAllPlayersQuery() -> Query {
         playersCollection
     }
-    
+
     private func getAllPlayersSortedByLengthQuery(descending: Bool) -> Query {
         playersCollection.order(by: "halfLength", descending: descending)
     }
 
-    func getAllPlayers(lengthDescending descending: Bool?, count: Int, lastDocument: DocumentSnapshot?) async throws -> (players: [Player], lastDocument: DocumentSnapshot?) {
+    func getAllPlayers(lengthDescending descending: Bool?,
+                       count: Int,
+                       lastDocument: DocumentSnapshot?) async throws ->
+    (players: [Player], lastDocument: DocumentSnapshot?) {
         var query: Query = getAllPlayersQuery()
 
         if let descending {

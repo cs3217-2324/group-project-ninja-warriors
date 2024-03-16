@@ -15,7 +15,9 @@ struct CanvasView: View {
 
     var body: some View {
         VStack {
-            Text("Id 0 is leftmost circle. Id 3 is rightmost circle\n Enter the id from 0 - 3, and then move it.\n Both the database as well as the view will update in real time, simulating mutliplayer mode")
+            Text("Id 0 is leftmost circle. Id 3 is rightmost circle\n" +
+                 "Enter the id from 0 - 3, and then move it.\n" +
+                 "Both the database as well as the view will update in real time, simulating multiplayer mode")
             TextField("Enter Player ID", text: $playerId)
                 .padding()
                 .textFieldStyle(RoundedBorderTextFieldStyle())

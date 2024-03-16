@@ -11,11 +11,12 @@ import FirebaseFirestoreSwift
 
 extension Query {
 
-    func getDocuments<T>(as type: T.Type) async throws -> [T] where T : Decodable {
+    func getDocuments<T>(as type: T.Type) async throws -> [T] where T: Decodable {
         try await getDocumentsWithSnapshot(as: type).players
     }
 
-    func getDocumentsWithSnapshot<T>(as type: T.Type) async throws -> (players: [T], lastDocument: DocumentSnapshot?) where T : Decodable {
+    func getDocumentsWithSnapshot<T>(as type: T.Type) async throws ->
+    (players: [T], lastDocument: DocumentSnapshot?) where T: Decodable {
         let snapshot = try await self.getDocuments()
 
         let players = try snapshot.documents.map({ document in

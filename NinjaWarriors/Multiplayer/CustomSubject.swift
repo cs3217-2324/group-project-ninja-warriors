@@ -20,7 +20,8 @@ class CustomSubject<Output, Failure: Error>: Publisher {
         completionHandler?(completion)
     }
 
-    func subscribe(_ receiveValue: @escaping (Output) -> Void, _ receiveCompletion: @escaping (Result<(), Failure>) -> Void) {
+    func subscribe(_ receiveValue: @escaping (Output) -> Void,
+                   _ receiveCompletion: @escaping (Result<(), Failure>) -> Void) {
         valueHandler = receiveValue
         completionHandler = receiveCompletion
     }

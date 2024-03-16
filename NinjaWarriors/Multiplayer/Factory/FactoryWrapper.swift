@@ -8,6 +8,6 @@
 import Foundation
 
 protocol FactoryWrapper: Codable {
-    associatedtype T: Decodable
+    associatedtype Item: Decodable
     func encode(to encoder: Encoder) throws
 }

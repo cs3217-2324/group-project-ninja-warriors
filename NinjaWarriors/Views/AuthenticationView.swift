@@ -12,7 +12,6 @@ struct AuthenticationView: View {
         NavigationView {
             VStack(spacing: 20) {
                 Spacer(minLength: 0)
-
                 NavigationLink(destination: SignInView()) {
                     Text("Sign In With Email")
                         .foregroundColor(.white)
@@ -21,21 +20,16 @@ struct AuthenticationView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                 }.padding()
-
                 NavigationLink(destination: CanvasView()) {
                     Text("Enter Canvas")
                 }
-
                 Spacer(minLength: 0)
             }
             .navigationBarTitle("Sign In")
             .navigationBarHidden(true)
-            
         }.navigationViewStyle(.stack)
     }
 }
-
-
 
 struct AuthenticationView_Previews: PreviewProvider {
     static var previews: some View {

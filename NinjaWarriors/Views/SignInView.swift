@@ -19,12 +19,12 @@ struct SignInView: View {
                     .padding()
                     .background(Color.gray.opacity(0.4))
                     .cornerRadius(10)
-                
+
                 SecureField("Password...", text: $viewModel.password)
                     .padding()
                     .background(Color.gray.opacity(0.4))
                     .cornerRadius(10)
-                
+
                 Button {
                     Task {
                         do {
@@ -43,7 +43,7 @@ struct SignInView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                 }
-                
+
                 Button {
                     Task {
                         do {
@@ -62,7 +62,7 @@ struct SignInView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                 }
-                
+
                 Spacer()
             }
             .padding()

@@ -8,7 +8,7 @@
 import Foundation
 
 struct MatchWrapper: FactoryWrapper, Codable {
-    typealias T = MatchWrapper
+    typealias Item = MatchWrapper
     let id: String
     let count: Int
     let readyPlayers: [Int]

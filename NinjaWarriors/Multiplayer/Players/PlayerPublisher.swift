@@ -8,7 +8,7 @@
 import Foundation
 
 final class PlayerPublisher: FactoryPublisher {
-    typealias T = PlayerWrapper
+    typealias Item = PlayerWrapper
     typealias UpdateClosure = ([PlayerWrapper]) -> Void
     typealias ErrorClosure = (Error) -> Void
 
@@ -28,4 +28,3 @@ final class PlayerPublisher: FactoryPublisher {
         errorClosure?(error)
     }
 }
-

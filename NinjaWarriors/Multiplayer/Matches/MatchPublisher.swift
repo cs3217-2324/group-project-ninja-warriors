@@ -8,7 +8,7 @@
 import Foundation
 
 final class MatchPublisher: FactoryPublisher {
-    typealias T = MatchWrapper
+    typealias Item = MatchWrapper
     typealias UpdateClosure = ([MatchWrapper]) -> Void
     typealias ErrorClosure = (Error) -> Void
 

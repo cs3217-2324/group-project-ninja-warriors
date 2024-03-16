@@ -12,7 +12,8 @@ struct GameObjectWrapper: Codable {
     var edges: [LineWrapper]
     var vertices: [PointWrapper]
 
-    init(center: PointWrapper, orientation: Double, halfLength: Double, edges: [LineWrapper], vertices: [PointWrapper]) {
+    init(center: PointWrapper, orientation: Double,
+         halfLength: Double, edges: [LineWrapper], vertices: [PointWrapper]) {
         self.center = center
         self.orientation = orientation
         self.halfLength = halfLength
@@ -48,6 +49,7 @@ struct GameObjectWrapper: Codable {
         for vertex in vertices {
             objectVertices.append(vertex.toPoint())
         }
-        return GameObject(center: center, halfLength: halfLength, orientation: orientation, edges: objectEdges, vertices: objectVertices)
+        return GameObject(center: center, halfLength: halfLength,
+                          orientation: orientation, edges: objectEdges, vertices: objectVertices)
     }
 }

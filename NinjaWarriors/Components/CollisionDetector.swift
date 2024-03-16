@@ -36,7 +36,7 @@ struct CollisionDetector {
         var squaredLength: Double
         var objectCenter: Point
 
-        if let _ = gameObject.edges {
+        if gameObject.edges != nil {
             squaredLength = object.halfLength * object.halfLength
             objectCenter = object.center
         } else {
@@ -79,7 +79,6 @@ struct CollisionDetector {
         return false
     }
 
-
     func checkStartEndIntersect(_ point1: Point, _ point2: Point, _ point3: Point) -> Bool {
         (point3.yCoord - point1.yCoord) * (point2.xCoord - point1.xCoord) >
         (point2.yCoord - point1.yCoord) * (point3.xCoord - point1.xCoord)
@@ -106,19 +105,19 @@ struct CollisionDetector {
         }
         let nvert: Int = object.countVetices()
         var isPointInside = false
-        var j = nvert - 1
+        var iter = nvert - 1
 
-        for i in 0..<nvert {
-            let isVertexPointYDiff = (vertices[i].yCoord <= point.y) != (vertices[j].yCoord <= point.y)
-            let xDiff = (vertices[j].xCoord - vertices[i].xCoord)
-            let pointVertexYDiff = (point.y - vertices[i].yCoord)
-            let vertexVertexYDiff = (vertices[j].yCoord - vertices[i].yCoord)
+        for curr in 0..<nvert {
+            let isVertexPointYDiff = (vertices[curr].yCoord <= point.y) != (vertices[iter].yCoord <= point.y)
+            let xDiff = (vertices[iter].xCoord - vertices[curr].xCoord)
+            let pointVertexYDiff = (point.y - vertices[curr].yCoord)
+            let vertexVertexYDiff = (vertices[iter].yCoord - vertices[curr].yCoord)
 
             if (isVertexPointYDiff)
-                && (point.x <= xDiff * pointVertexYDiff / vertexVertexYDiff + vertices[i].xCoord) {
+                && (point.x <= xDiff * pointVertexYDiff / vertexVertexYDiff + vertices[curr].xCoord) {
                 isPointInside.toggle()
             }
-            j = i
+            iter = curr
         }
         return isPointInside
     }

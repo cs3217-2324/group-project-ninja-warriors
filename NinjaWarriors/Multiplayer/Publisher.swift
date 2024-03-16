@@ -11,5 +11,6 @@ protocol Publisher {
     associatedtype Output
     associatedtype Failure: Error
 
-    func subscribe(_ receiveValue: @escaping (Output) -> Void, _ receiveCompletion: @escaping (Result<(), Failure>) -> Void)
+    func subscribe(_ receiveValue: @escaping (Output) -> Void,
+                   _ receiveCompletion: @escaping (Result<(), Failure>) -> Void)
 }

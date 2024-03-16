@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class FactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener where W.T == P.T {
+class FactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener where W.Item == P.Item {
     internal let publisher: P
     private var firestoreListener: Any?
     private let collectionName: String
@@ -33,11 +33,11 @@ class FactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener where W.
 
             guard let querySnapshot = querySnapshot else { return }
 
-            let result = querySnapshot.documents.compactMap { document -> P.T? in
+            let result = querySnapshot.documents.compactMap { document -> P.Item? in
                 do {
                     let jsonData = try JSONSerialization.data(withJSONObject: document.data() )
                     let decoder = JSONDecoder()
-                    return try decoder.decode(P.T.self, from: jsonData)
+                    return try decoder.decode(P.Item.self, from: jsonData)
                 } catch {
                     print("Error decoding document data: \(error)")
                     return nil
@@ -55,4 +55,3 @@ class FactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener where W.
         return publisher
     }
 }
-

@@ -8,7 +8,7 @@
 import Foundation
 
 struct PlayerWrapper: FactoryWrapper, Codable {
-    typealias T = PlayerWrapper
+    typealias Item = PlayerWrapper
     let id: Int
     let gameObject: GameObjectWrapper
 
