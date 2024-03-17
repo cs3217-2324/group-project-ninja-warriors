@@ -11,24 +11,21 @@ import FirebaseFirestoreSwift
 
 // TODO: Convert to REST API
 final class MatchManagerAdapter: MatchManager {
-
     private let collection = "matches"
     private let countLabel = "count"
     private let playersLabel = "ready_players"
+    private let idLabel = "id"
     private let matches = Firestore.firestore().collection("matches")
     private var matchesListener: ListenerRegistration?
 
     func enterQueue(playerId: String) async throws -> String {
         guard let matchToQueue = try await getMatchBelowLimit(limit: Constants.playerCount) else {
             let newMatch = try await createMatch()
-            print(newMatch)
             await addPlayerToMatch(playerId: playerId, matchId: newMatch)
             return newMatch
         }
         await addPlayerToMatch(playerId: playerId, matchId: matchToQueue)
-        print(matchToQueue)
         return matchToQueue
-
     }
 
     func startMatch() async throws -> String? {
@@ -41,22 +38,13 @@ final class MatchManagerAdapter: MatchManager {
         let data: [String: Any] = [
             countLabel: 0,
             playersLabel: [],
-            "id": documentID
+            idLabel: documentID
         ]
         try await newMatchRef.setData(data)
         return newMatchRef.documentID
     }
 
     internal func getMatch(limit: Int) async throws -> String? {
-        /*
-         guard let document = try await matches
-         .whereField(countLabel, isEqualTo: limit)
-         .getDocuments()
-         .documents.first else {
-         return nil
-         }
-         return document.documentID
-         */
         let querySnapshot = try await matches.getDocuments()
         for document in querySnapshot.documents {
             if let count = document.data()[countLabel] as? Int {
@@ -78,17 +66,6 @@ final class MatchManagerAdapter: MatchManager {
             }
         }
         return nil
-        /*
-        guard let document = try await matches
-            .whereField(countLabel, isLessThan: limit)
-            .order(by: countLabel, descending: true)
-            .limit(to: 1)
-            .getDocuments()
-            .documents.first else {
-            return nil
-        }
-        return document.documentID
-        */
     }
 
     func getMatchCount(matchId: String) async throws -> Int? {
@@ -103,40 +80,34 @@ final class MatchManagerAdapter: MatchManager {
         }
     }
 
-    // TODO: Remove bloat
     internal func addPlayerToMatch(playerId: String, matchId: String) async {
         let matchRef = matches.document(matchId)
         do {
-            _ = try await Firestore.firestore().runTransaction({ [weak self] (transaction, errorPointer) -> Any? in
+            _ = try await Firestore.firestore().runTransaction { transaction, errorPointer in
                 do {
-                    guard let self = self else {
-                        return nil
-                    }
-                    let matchDocument = try transaction.getDocument(matchRef)
-                    guard var matchData = matchDocument.data(),
-                          var readyPlayers = matchData[self.playersLabel] as? [String] else {
-                        return nil
-                    }
-                    guard !readyPlayers.contains(playerId) else {
-                        return
-                    }
-                    readyPlayers.append(playerId)
-                    matchData[self.playersLabel] = readyPlayers
-                    if var count = matchData[self.countLabel] as? Int {
-                        count += 1
-                        matchData[self.countLabel] = count
-                    } else {
-                        matchData[self.countLabel] = 1
-                    }
-                    transaction.setData(matchData, forDocument: matchRef)
+                    try self.updateMatchData(transaction: transaction, matchRef: matchRef, playerId: playerId)
                 } catch let error as NSError {
                     errorPointer?.pointee = error
                 }
                 return nil
-            })
+            }
         } catch {
             print("Error adding player to match: \(error)")
         }
+    }
+
+    private func updateMatchData(transaction: Transaction, matchRef: DocumentReference, playerId: String) throws {
+        let matchDocument = try transaction.getDocument(matchRef)
+        var matchData = matchDocument.data() ?? [:]
+        guard let readyPlayers = matchData[playersLabel] as? [String],
+              !readyPlayers.contains(playerId) else {
+            return
+        }
+
+        matchData[playersLabel] = (readyPlayers + [playerId])
+        matchData[countLabel] = (matchData[countLabel] as? Int ?? 0) + 1
+
+        transaction.setData(matchData, forDocument: matchRef)
     }
 
     func removePlayerFromMatch(playerId: String, matchId: String) async {

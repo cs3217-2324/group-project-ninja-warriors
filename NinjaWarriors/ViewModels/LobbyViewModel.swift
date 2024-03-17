@@ -79,7 +79,6 @@ final class LobbyViewModel: ObservableObject {
         }
     }
 
-
     func addListenerForMatches() {
         let publisher = manager.addListenerForAllMatches()
         publisher.subscribe(update: { [weak self] matches in
