@@ -66,6 +66,7 @@
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
 		916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB12BA42F7F00319C26 /* CanvasView.swift */; };
 		916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */; };
+		E681DF4B2BA7036C00E0FABC /* JoystickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E681DF4A2BA7036C00E0FABC /* JoystickView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
 		916A7DB12BA42F7F00319C26 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
+		E681DF4A2BA7036C00E0FABC /* JoystickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -314,6 +316,7 @@
 				916A7D8A2BA1A0D400319C26 /* SignInView.swift */,
 				916A7DB12BA42F7F00319C26 /* CanvasView.swift */,
 				9132AF672BA53E54000F2AC4 /* LobbyView.swift */,
+				E681DF4A2BA7036C00E0FABC /* JoystickView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -554,6 +557,7 @@
 			files = (
 				9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */,
 				916A7D6A2BA154F000319C26 /* CollisionDetector.swift in Sources */,
+				E681DF4B2BA7036C00E0FABC /* JoystickView.swift in Sources */,
 				9132AF662BA50E9A000F2AC4 /* PhysicsBody.swift in Sources */,
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
 				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
