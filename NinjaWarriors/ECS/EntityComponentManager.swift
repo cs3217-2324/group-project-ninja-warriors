@@ -10,6 +10,7 @@ import Foundation
 class EntityComponentManager {
     var entityComponentMap: [EntityID: Set<ComponentID>]
     var entityMap: [EntityID: Entity]
+    // alternate organisation is [componentTypeString: [ComponentID: Component]] but idk if there are data locality wins there
     var componentMap: [ComponentID: Component]
     
     var components: [Component] {
