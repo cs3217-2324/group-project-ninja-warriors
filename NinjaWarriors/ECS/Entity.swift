@@ -7,7 +7,11 @@
 
 import Foundation
 
+typealias EntityID = UUID
 //TODO: check whether better to use a class or a protocol or a struct
 protocol Entity: AnyObject {
-    var id: UUID { get }
+    var id: EntityID { get }
+
+    // Every entity must define the components that it needs to be created with
+    func getInitializingComponents() -> [Component]
 }
