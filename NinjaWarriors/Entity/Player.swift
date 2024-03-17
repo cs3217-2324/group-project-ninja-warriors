@@ -8,10 +8,10 @@
 import Foundation
 
 class Player {
-    let id: Int
+    let id: String
     let gameObject: GameObject
 
-    init(id: Int, gameObject: GameObject) {
+    init(id: String, gameObject: GameObject) {
         self.id = id
         self.gameObject = gameObject
     }

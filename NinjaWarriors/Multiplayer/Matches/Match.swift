@@ -10,9 +10,9 @@ import Foundation
 class Match {
     let id: String
     let count: Int
-    let readyPlayers: [Int]
+    let readyPlayers: [String]
 
-    init(id: String, count: Int, readyPlayers: [Int]) {
+    init(id: String, count: Int, readyPlayers: [String]) {
         self.id = id
         self.count = count
         self.readyPlayers = readyPlayers

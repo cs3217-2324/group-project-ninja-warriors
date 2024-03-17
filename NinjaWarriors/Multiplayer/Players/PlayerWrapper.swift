@@ -9,17 +9,17 @@ import Foundation
 
 struct PlayerWrapper: FactoryWrapper, Codable {
     typealias Item = PlayerWrapper
-    let id: Int
+    let id: String
     let gameObject: GameObjectWrapper
 
-    init(id: Int, gameObject: GameObjectWrapper) {
+    init(id: String, gameObject: GameObjectWrapper) {
         self.id = id
         self.gameObject = gameObject
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
-        id = try container.decode(Int.self, forKey: AnyCodingKey(stringValue: "id"))
+        id = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "id"))
         gameObject = try container.decode(GameObjectWrapper.self,
                                    forKey: AnyCodingKey(stringValue: "gameObject"))
     }

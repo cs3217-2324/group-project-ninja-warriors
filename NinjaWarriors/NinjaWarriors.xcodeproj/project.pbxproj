@@ -210,11 +210,11 @@
 		9132AF842BA5A890000F2AC4 /* Matches */ = {
 			isa = PBXGroup;
 			children = (
-				9132AF7D2BA59FE5000F2AC4 /* MatchPublisher.swift */,
 				9132AF6D2BA58C1E000F2AC4 /* MatchManagerAdapter.swift */,
 				9132AF6F2BA58C61000F2AC4 /* MatchManager.swift */,
 				9132AF732BA597FD000F2AC4 /* MatchWrapper.swift */,
 				9132AF7F2BA5A1B1000F2AC4 /* MatchListener.swift */,
+				9132AF7D2BA59FE5000F2AC4 /* MatchPublisher.swift */,
 				9132AF712BA5971E000F2AC4 /* Match.swift */,
 			);
 			path = Matches;

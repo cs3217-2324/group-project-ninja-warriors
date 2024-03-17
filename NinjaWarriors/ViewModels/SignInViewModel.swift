@@ -42,4 +42,8 @@ final class SignInViewModel: ObservableObject {
     func signOut() throws {
         try authentication.signOut()
     }
+
+    func getUserId() -> String? {
+        user?.uid
+    }
 }

@@ -15,13 +15,7 @@ struct CanvasView: View {
 
     var body: some View {
         VStack {
-            Text("Id 0 is leftmost circle. Id 3 is rightmost circle\n" +
-                 "Enter the id from 0 - 3, and then move it.\n" +
-                 "Both the database as well as the view will update in real time, simulating multiplayer mode")
-            TextField("Enter Player ID", text: $playerId)
-                .padding()
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-
+            Text("Both the database as well as the view will update in real time, simulating multiplayer mode")
             GeometryReader { geometry in
                 ZStack {
                     ForEach(viewModel.players, id: \.id) { player in
@@ -35,7 +29,7 @@ struct CanvasView: View {
                                         let newX = max(0, min(gesture.location.x, geometry.size.width))
                                         let newY = max(0, min(gesture.location.y, geometry.size.height))
                                         joystickPosition = CGPoint(x: newX, y: newY)
-                                        let playerId = playerId.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        let playerId = player.id
                                         viewModel.changePosition(playerId: playerId, newPosition: joystickPosition)
                                     }
                             )

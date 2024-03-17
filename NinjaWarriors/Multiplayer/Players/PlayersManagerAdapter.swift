@@ -46,6 +46,12 @@ final class PlayersManagerAdapter: PlayersManager {
         playersCollection.order(by: "halfLength", descending: descending)
     }
 
+    func getAllPlayers() async throws -> [Player] {
+        try await getAllPlayers(lengthDescending: true,
+                                count: Constants.playerCount,
+                                lastDocument: nil).0
+    }
+
     func getAllPlayers(lengthDescending descending: Bool?,
                        count: Int,
                        lastDocument: DocumentSnapshot?) async throws ->
