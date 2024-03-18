@@ -31,6 +31,6 @@ struct PlayerWrapper: FactoryWrapper, Codable {
     }
 
     func toPlayer() -> Player {
-        Player(id: id, gameObject: gameObject.toGameObject())
+        Player(id: id, gameObject: gameObject.toGameObject(), skills: []) // TODO: Create Entity wrapper to wrap skills and players
     }
 }

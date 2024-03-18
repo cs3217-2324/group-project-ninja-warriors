@@ -19,7 +19,7 @@ class SystemManager {
     }
 
     func system<T: System>(ofType: T.Type) -> T? {
-        //TODO: if guaranteed that there is only one system of a given type, then can index by type name
+        // TODO: if guaranteed that there is only one system of a given type, then can index by type name
         return systems.first(where: {$0 is T}) as? T
     }
 

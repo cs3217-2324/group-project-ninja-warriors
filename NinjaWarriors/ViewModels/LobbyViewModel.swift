@@ -52,7 +52,8 @@ final class LobbyViewModel: ObservableObject {
     func addPlayer(playerId: String) {
         let gameObject1 = GameObject(center: Point(xCoord: 150.0 + Double.random(in: -50.0...50.0),
                                                    yCoord: 150.0), halfLength: 25.0)
-        let player1 = Player(id: playerId, gameObject: gameObject1)
+        let dashSkill = DashSkill(id: "1")
+        let player1 = Player(id: playerId, gameObject: gameObject1, skills: [dashSkill])
         Task {
             try? await playersManager.uploadPlayer(player: player1)
         }

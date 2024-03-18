@@ -71,6 +71,9 @@
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
 		916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB12BA42F7F00319C26 /* CanvasView.swift */; };
 		916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */; };
+		E62AD80B2BA8A82F0009F12D /* SkillCaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62AD80A2BA8A82F0009F12D /* SkillCaster.swift */; };
+		E62AD80E2BA8A8630009F12D /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62AD80D2BA8A8630009F12D /* Skill.swift */; };
+		E66E6E802BA8AD9400F4C9BB /* DashSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66E6E7F2BA8AD9400F4C9BB /* DashSkill.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +154,9 @@
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
 		916A7DB12BA42F7F00319C26 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
+		E62AD80A2BA8A82F0009F12D /* SkillCaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCaster.swift; sourceTree = "<group>"; };
+		E62AD80D2BA8A8630009F12D /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
+		E66E6E7F2BA8AD9400F4C9BB /* DashSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashSkill.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,6 +318,7 @@
 		916A7D682BA154E000319C26 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E62AD8092BA8A81F0009F12D /* SkillSystem */,
 				9132AF602BA50E46000F2AC4 /* PhysicsEngine */,
 				916A7DA62BA3F9FC00319C26 /* ComponentWrappers */,
 				916A7D692BA154F000319C26 /* CollisionDetector.swift */,
@@ -396,6 +403,7 @@
 		916A7DB72BA4622F00319C26 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				E62AD80C2BA8A85A0009F12D /* SkillSystem */,
 				916A7DB82BA5014F00319C26 /* EntityWrappers */,
 				916A7D6B2BA1550700319C26 /* GameObject.swift */,
 				916A7DA22BA3F74700319C26 /* Player.swift */,
@@ -409,6 +417,23 @@
 				916A7DA42BA3F89500319C26 /* GameObjectWrapper.swift */,
 			);
 			path = EntityWrappers;
+			sourceTree = "<group>";
+		};
+		E62AD8092BA8A81F0009F12D /* SkillSystem */ = {
+			isa = PBXGroup;
+			children = (
+				E62AD80A2BA8A82F0009F12D /* SkillCaster.swift */,
+			);
+			path = SkillSystem;
+			sourceTree = "<group>";
+		};
+		E62AD80C2BA8A85A0009F12D /* SkillSystem */ = {
+			isa = PBXGroup;
+			children = (
+				E62AD80D2BA8A8630009F12D /* Skill.swift */,
+				E66E6E7F2BA8AD9400F4C9BB /* DashSkill.swift */,
+			);
+			path = SkillSystem;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -485,7 +510,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					916A7D352BA1541700319C26 = {
 						CreatedOnToolsVersion = 14.2;
@@ -566,7 +591,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint --fix\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -590,12 +615,14 @@
 				916A7D8B2BA1A0D400319C26 /* SignInView.swift in Sources */,
 				916A7D8E2BA1A1C500319C26 /* SignInViewModel.swift in Sources */,
 				7113A4962BA60E8400805340 /* Component.swift in Sources */,
+				E66E6E802BA8AD9400F4C9BB /* DashSkill.swift in Sources */,
 				9132AF702BA58C61000F2AC4 /* MatchManager.swift in Sources */,
 				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
 				916A7DA12BA3F6E200319C26 /* PlayersManagerAdapter.swift in Sources */,
 				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
 				916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */,
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
+				E62AD80B2BA8A82F0009F12D /* SkillCaster.swift in Sources */,
 				916A7DA52BA3F89500319C26 /* GameObjectWrapper.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
 				9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */,
@@ -626,6 +653,7 @@
 				9132AF6E2BA58C1E000F2AC4 /* MatchManagerAdapter.swift in Sources */,
 				9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */,
 				916A7D752BA1554200319C26 /* Constants.swift in Sources */,
+				E62AD80E2BA8A8630009F12D /* Skill.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,6 +726,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -758,6 +787,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
