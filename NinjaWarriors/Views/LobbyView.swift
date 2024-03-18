@@ -25,7 +25,7 @@ struct LobbyView: View {
                 if let playerCount = viewModel.getPlayerCount() {
                     Text("Player Count: \(playerCount)")
                         .padding()
-                    if playerCount == 4 {
+                    if playerCount == Constants.playerCount {
                         Text("Loading game")
                             .onAppear {
                                 Task {
@@ -37,7 +37,8 @@ struct LobbyView: View {
                             ForEach(players, id: \.self) { player in
                                 Text("Player: \(player)")
                             }
-                            NavigationLink(destination: CanvasView(matchId: matchId, playerIds: players)) {
+                            NavigationLink(destination: CanvasView(matchId: matchId, playerIds: players,
+                                                                   currPlayerId: signInViewModel.getUserId() ?? "none")) {
                                 Text("Start Game")
                                     .font(.system(size: 30))
                                     .padding()

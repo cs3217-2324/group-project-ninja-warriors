@@ -12,6 +12,11 @@ struct JoystickView: View {
     @State private var innerCircleLocation: CGPoint = .zero
     @GestureState private var fingerLocation: CGPoint?
 
+    init(location: CGPoint, innerCircleLocation: CGPoint) {
+        self.location = location
+        self.innerCircleLocation = innerCircleLocation
+    }
+    
     private let bigCircleRadius: CGFloat = 100 // Adjust the radius of the blue circle
 
     var fingerDrag: some Gesture {

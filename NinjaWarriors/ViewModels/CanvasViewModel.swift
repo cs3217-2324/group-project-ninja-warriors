@@ -13,10 +13,12 @@ final class CanvasViewModel: ObservableObject {
     @Published private(set) var manager: RealTimePlayersManagerAdapter
     @Published private(set) var matchId: String
     @Published private(set) var playerIds: [String]
+    @Published private(set) var currPlayerId: String
 
-    init(matchId: String, playerIds: [String]) {
+    init(matchId: String, playerIds: [String], currPlayerId: String) {
         self.matchId = matchId
         self.playerIds = playerIds
+        self.currPlayerId = currPlayerId
         manager = RealTimePlayersManagerAdapter()
     }
 
