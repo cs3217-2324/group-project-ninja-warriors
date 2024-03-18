@@ -31,6 +31,7 @@
 		9132AF892BA7DFA4000F2AC4 /* RealTimePlayersManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF882BA7DFA4000F2AC4 /* RealTimePlayersManagerAdapter.swift */; };
 		9132AF8D2BA7E9CA000F2AC4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9132AF8C2BA7E9CA000F2AC4 /* GoogleService-Info.plist */; };
 		9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF8E2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift */; };
+		9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF902BA83E54000F2AC4 /* JoystickView.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -113,6 +114,7 @@
 		9132AF882BA7DFA4000F2AC4 /* RealTimePlayersManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimePlayersManagerAdapter.swift; sourceTree = "<group>"; };
 		9132AF8C2BA7E9CA000F2AC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9132AF8E2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeFactoryListener.swift; sourceTree = "<group>"; };
+		9132AF902BA83E54000F2AC4 /* JoystickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickView.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				916A7D8A2BA1A0D400319C26 /* SignInView.swift */,
 				916A7DB12BA42F7F00319C26 /* CanvasView.swift */,
 				9132AF672BA53E54000F2AC4 /* LobbyView.swift */,
+				9132AF902BA83E54000F2AC4 /* JoystickView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
 				9132AF762BA59A30000F2AC4 /* FactoryListener.swift in Sources */,
+				9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
 				9132AF872BA6AEAB000F2AC4 /* GameObject+EXT.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
