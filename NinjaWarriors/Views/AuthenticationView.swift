@@ -20,9 +20,6 @@ struct AuthenticationView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                 }.padding()
-                NavigationLink(destination: CanvasView()) {
-                    Text("Enter Canvas")
-                }
                 Spacer(minLength: 0)
             }
             .navigationBarTitle("Sign In")

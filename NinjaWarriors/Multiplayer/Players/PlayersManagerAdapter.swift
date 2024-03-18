@@ -46,21 +46,18 @@ final class PlayersManagerAdapter: PlayersManager {
         playersCollection.order(by: "halfLength", descending: descending)
     }
 
-    func getAllPlayers() async throws -> [Player] {
+    func getAllPlayers(with playerIds: [String]) async throws -> [Player] {
         try await getAllPlayers(lengthDescending: true,
                                 count: Constants.playerCount,
+                                playerIds: playerIds,
                                 lastDocument: nil).0
     }
 
     func getAllPlayers(lengthDescending descending: Bool?,
-                       count: Int,
+                       count: Int, playerIds: [String],
                        lastDocument: DocumentSnapshot?) async throws ->
     (players: [Player], lastDocument: DocumentSnapshot?) {
-        var query: Query = getAllPlayersQuery()
-
-        if let descending {
-            query = getAllPlayersSortedByLengthQuery(descending: descending)
-        }
+        let query: Query = getAllPlayersQuery().whereField("id", in: playerIds)
         let result = try await query.startOptionally(afterDocument: lastDocument)
             .getDocumentsWithSnapshot(as: PlayerWrapper.self)
         let players = result.players.map { $0.toPlayer() }

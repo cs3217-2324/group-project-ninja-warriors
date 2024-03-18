@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Player {
+class Player: Equatable {
     let id: String
     let gameObject: GameObject
 
@@ -26,5 +26,9 @@ class Player {
 
     func toPlayerWrapper() -> PlayerWrapper {
         PlayerWrapper(id: id, gameObject: gameObject.toGameObjectWrapper())
+    }
+
+    static func == (lhs: Player, rhs: Player) -> Bool {
+        lhs.id == rhs.id
     }
 }

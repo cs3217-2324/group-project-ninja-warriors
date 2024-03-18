@@ -9,12 +9,19 @@ import Foundation
 import SwiftUI
 
 struct CanvasView: View {
-    @ObservedObject var viewModel = CanvasViewModel()
+    @ObservedObject var viewModel: CanvasViewModel
     @State private var joystickPosition: CGPoint = .zero
-    @State private var playerId: String = ""
+    @State private var matchId: String
+
+    init(matchId: String, playerIds: [String]) {
+        self.matchId = matchId
+        self.viewModel = CanvasViewModel(matchId: matchId, playerIds: playerIds)
+    }
 
     var body: some View {
         VStack {
+            Text("Player Count: \(viewModel.players.count)")
+                .padding()
             Text("Both the database as well as the view will update in real time, simulating multiplayer mode")
             GeometryReader { geometry in
                 ZStack {

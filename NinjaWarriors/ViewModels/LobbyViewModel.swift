@@ -15,6 +15,8 @@ final class LobbyViewModel: ObservableObject {
     @Published private(set) var playersManager: PlayersManager
     @Published var matchId: String?
     @Published var playerCount: Int?
+    @Published var players: [String]?
+    @Published private(set) var testManager: PlayersTest = PlayersTest()
 
     init() {
         manager = MatchManagerAdapter()
@@ -45,19 +47,34 @@ final class LobbyViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             await self.manager.removePlayerFromMatch(playerId: userId, matchId: match)
+            self.getPlayerCount()
+        }
+    }
+
+    func start() async {
+        guard let matchId = matchId else {
+            return
+        }
+        do {
+            let result = try await manager.startMatch(matchId: matchId)
+            self.players = result
+        } catch {
+            print("Error starting match: \(error)")
         }
     }
 
     // TODO: Remove hardcoded value
     func addPlayer(playerId: String) {
-        let gameObject1 = GameObject(center: Point(xCoord: 150.0 + Double.random(in: -50.0...50.0),
+        let gameObject1 = GameObject(center: Point(xCoord: 150.0 + Double.random(in: -150.0...150.0),
                                                    yCoord: 150.0), halfLength: 25.0)
         let player1 = Player(id: playerId, gameObject: gameObject1)
         Task {
             try? await playersManager.uploadPlayer(player: player1)
+            try? await testManager.uploadPlayer(player: player1)
         }
     }
 
+    /*
     func getPlayerCount() {
         guard let match = matchId else {
             playerCount = nil
@@ -78,6 +95,18 @@ final class LobbyViewModel: ObservableObject {
             }
         }
     }
+    */
+
+    func getPlayerCount() -> Int? {
+        if let match = matches.first(where: { $0.id == matchId }) {
+            return match.count
+        }
+        return nil
+        //return self.playerCount
+    }
+
+
+
 
     func addListenerForMatches() {
         let publisher = manager.addListenerForAllMatches()

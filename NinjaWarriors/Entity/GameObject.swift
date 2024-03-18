@@ -55,7 +55,7 @@ class GameObject {
         let collisionDetector = CollisionDetector()
         return collisionDetector.checkSafeToInsert(source: self, with: gameObject)
     }
-
+    
     func makeDeepCopy() -> GameObject {
         guard let edges = edges, let orientation = orientation, let vertices = vertices else {
             return GameObject(center: center, halfLength: halfLength)
@@ -65,18 +65,23 @@ class GameObject {
     }
 
     func toGameObjectWrapper() -> GameObjectWrapper {
+        //var edgesWrapper: [LineWrapper] = []
+        let test = PointWrapper(xCoord: 10.0, yCoord: 10.0, radial: 10.0, theta: 10.0)
         var edgesWrapper: [LineWrapper] = []
         if let edges = edges {
             for edge in edges {
                 edgesWrapper.append(edge.toLineWrapper())
             }
         }
+        edgesWrapper = [LineWrapper(start: test, end: test, vector: VectorWrapper(horizontal: 10.0, vertical: 10.0))]
+        //var verticesWrapper: [PointWrapper] = []
         var verticesWrapper: [PointWrapper] = []
         if let vertices = vertices {
             for vertex in vertices {
                 verticesWrapper.append(vertex.toPointWrapper())
             }
         }
+        verticesWrapper = [test, test]
 
         return GameObjectWrapper(center: center.toPointWrapper(),
                           orientation: orientation ?? 0.0,

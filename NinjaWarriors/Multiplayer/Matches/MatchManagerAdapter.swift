@@ -28,8 +28,13 @@ final class MatchManagerAdapter: MatchManager {
         return matchToQueue
     }
 
-    func startMatch() async throws -> String? {
-        try await getMatch(limit: Constants.playerCount)
+    func startMatch(matchId: String) async throws -> [String]? {
+        let matchRef = matches.document(matchId)
+        let documentSnapshot = try await matchRef.getDocument()
+        if let players = documentSnapshot.data()?[playersLabel] as? [String]? {
+            return players
+        }
+        return nil
     }
 
     internal func createMatch() async throws -> String {
@@ -74,40 +79,61 @@ final class MatchManagerAdapter: MatchManager {
 
         if let matchData = documentSnapshot.data(),
            let count = matchData[countLabel] as? Int {
+            print("testing count", count)
             return count
         } else {
             return nil
         }
     }
 
-    internal func addPlayerToMatch(playerId: String, matchId: String) async {
+    func getTest(matchId: String) async throws {
         let matchRef = matches.document(matchId)
-        do {
-            _ = try await Firestore.firestore().runTransaction { transaction, errorPointer in
-                do {
-                    try self.updateMatchData(transaction: transaction, matchRef: matchRef, playerId: playerId)
-                } catch let error as NSError {
-                    errorPointer?.pointee = error
-                }
-                return nil
-            }
-        } catch {
-            print("Error adding player to match: \(error)")
+        let documentSnapshot = try await matchRef.getDocument()
+
+        if let matchData = documentSnapshot.data(),
+           let count = matchData[playersLabel] as? [String] {
+            print("testing", count)
+        } else {
+            return
         }
     }
 
-    private func updateMatchData(transaction: Transaction, matchRef: DocumentReference, playerId: String) throws {
-        let matchDocument = try transaction.getDocument(matchRef)
-        var matchData = matchDocument.data() ?? [:]
-        guard let readyPlayers = matchData[playersLabel] as? [String],
-              !readyPlayers.contains(playerId) else {
-            return
+    internal func addPlayerToMatch(playerId: String, matchId: String) async {
+        let matchRef = matches.document(matchId)
+        do {
+            let snapshot = try await matchRef.getDocument()
+            guard snapshot.exists else {
+                print("Document does not exist")
+                return
+            }
+
+            try await getTest(matchId: matchId)
+
+            var matchData = snapshot.data() ?? [:]
+
+            if var existingPlayerIds = matchData[playersLabel] as? [String] {
+                print("existing", existingPlayerIds)
+                if !existingPlayerIds.contains(playerId) {
+                    existingPlayerIds.append(playerId)
+                    matchData[playersLabel] = existingPlayerIds
+                    let currentCount = matchData[countLabel] as? Int ?? 0
+                    matchData[countLabel] = currentCount + 1
+                }
+            } else {
+                print("else")
+                matchData[playersLabel] = [playerId]
+            }
+
+            matchRef.setData(matchData) { error in
+                if let error = error {
+                    print("Error updating document: \(error)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+        } catch {
+            print("Error fetching document: \(error)")
         }
-
-        matchData[playersLabel] = (readyPlayers + [playerId])
-        matchData[countLabel] = (matchData[countLabel] as? Int ?? 0) + 1
-
-        transaction.setData(matchData, forDocument: matchRef)
     }
 
     func removePlayerFromMatch(playerId: String, matchId: String) async {
@@ -125,6 +151,8 @@ final class MatchManagerAdapter: MatchManager {
                     }
                     if let index = readyPlayers.firstIndex(of: playerId) {
                         readyPlayers.remove(at: index)
+                        let currentCount = matchData[self.countLabel] as? Int ?? 0
+                        matchData[self.countLabel] = currentCount - 1
                     }
                     matchData[self.playersLabel] = readyPlayers
                     transaction.setData(matchData, forDocument: matchRef)

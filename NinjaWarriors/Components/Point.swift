@@ -21,7 +21,6 @@ struct Point {
     private(set) var theta: Double
 
     init(xCoord: Double, yCoord: Double) {
-
         if xCoord >= 0 && yCoord >= 0 {
             self.xCoord = xCoord
             self.yCoord = yCoord
