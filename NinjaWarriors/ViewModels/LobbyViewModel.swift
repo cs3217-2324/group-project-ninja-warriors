@@ -16,7 +16,7 @@ final class LobbyViewModel: ObservableObject {
     @Published var matchId: String?
     @Published var playerCount: Int?
     @Published var players: [String]?
-    @Published private(set) var testManager: PlayersTest = PlayersTest()
+    @Published private(set) var testManager: RealTimePlayersManagerAdapter = RealTimePlayersManagerAdapter()
 
     init() {
         manager = MatchManagerAdapter()
@@ -74,39 +74,12 @@ final class LobbyViewModel: ObservableObject {
         }
     }
 
-    /*
-    func getPlayerCount() {
-        guard let match = matchId else {
-            playerCount = nil
-            return
-        }
-        Task { [weak self] in
-            guard let self = self else { return }
-            do {
-                let count = try await self.manager.getMatchCount(matchId: match)
-                DispatchQueue.main.async {
-                    self.playerCount = count
-                }
-            } catch {
-                print("Error fetching player count: \(error)")
-                DispatchQueue.main.async {
-                    self.playerCount = nil
-                }
-            }
-        }
-    }
-    */
-
     func getPlayerCount() -> Int? {
         if let match = matches.first(where: { $0.id == matchId }) {
             return match.count
         }
         return nil
-        //return self.playerCount
     }
-
-
-
 
     func addListenerForMatches() {
         let publisher = manager.addListenerForAllMatches()

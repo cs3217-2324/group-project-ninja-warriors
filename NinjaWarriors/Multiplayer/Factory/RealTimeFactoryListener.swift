@@ -40,7 +40,6 @@ class RealTimeFactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener 
         }
     }
 
-
     func stopListening() {
         self.databaseReference?.removeAllObservers()
     }
