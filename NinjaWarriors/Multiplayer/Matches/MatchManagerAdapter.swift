@@ -79,22 +79,9 @@ final class MatchManagerAdapter: MatchManager {
 
         if let matchData = documentSnapshot.data(),
            let count = matchData[countLabel] as? Int {
-            print("testing count", count)
             return count
         } else {
             return nil
-        }
-    }
-
-    func getTest(matchId: String) async throws {
-        let matchRef = matches.document(matchId)
-        let documentSnapshot = try await matchRef.getDocument()
-
-        if let matchData = documentSnapshot.data(),
-           let count = matchData[playersLabel] as? [String] {
-            print("testing", count)
-        } else {
-            return
         }
     }
 
@@ -102,40 +89,33 @@ final class MatchManagerAdapter: MatchManager {
         let matchRef = matches.document(matchId)
         do {
             let snapshot = try await matchRef.getDocument()
-            guard snapshot.exists else {
+            guard let matchData = snapshot.data(), snapshot.exists else {
                 print("Document does not exist")
                 return
             }
-
-            try await getTest(matchId: matchId)
-
-            var matchData = snapshot.data() ?? [:]
-
-            if var existingPlayerIds = matchData[playersLabel] as? [String] {
-                print("existing", existingPlayerIds)
-                if !existingPlayerIds.contains(playerId) {
-                    existingPlayerIds.append(playerId)
-                    matchData[playersLabel] = existingPlayerIds
-                    let currentCount = matchData[countLabel] as? Int ?? 0
-                    matchData[countLabel] = currentCount + 1
-                }
-            } else {
-                print("else")
-                matchData[playersLabel] = [playerId]
-            }
-
-            matchRef.setData(matchData) { error in
-                if let error = error {
-                    print("Error updating document: \(error)")
-                } else {
-                    print("Document successfully updated")
-                }
-            }
+            var updatedMatchData = updateMatchData(matchData: matchData, playerId: playerId)
+            try await matchRef.setData(updatedMatchData)
         } catch {
-            print("Error fetching document: \(error)")
+            print("Error adding player to match: \(error)")
         }
     }
 
+    private func updateMatchData(matchData: [String: Any], playerId: String) -> [String: Any] {
+        var updatedMatchData = matchData
+        if var existingPlayerIds = matchData[playersLabel] as? [String] {
+            if !existingPlayerIds.contains(playerId) {
+                existingPlayerIds.append(playerId)
+                updatedMatchData[playersLabel] = existingPlayerIds
+                let currentCount = matchData[countLabel] as? Int ?? 0
+                updatedMatchData[countLabel] = currentCount + 1
+            }
+        } else {
+            updatedMatchData[playersLabel] = [playerId]
+        }
+        return updatedMatchData
+    }
+
+    // TODO: Reduce bloat
     func removePlayerFromMatch(playerId: String, matchId: String) async {
         let matchRef = matches.document(matchId)
         do {

@@ -64,10 +64,12 @@ final class PlayersManagerAdapter: PlayersManager {
         return (players, result.lastDocument)
     }
 
+    /*
     func getAllPlayersCount() async throws -> Int {
         try await playersCollection
             .aggregateCount()
     }
+    */
 
     func addListenerForAllPlayers() -> PlayerPublisher {
         let playersListener = PlayersListener()

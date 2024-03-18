@@ -12,6 +12,5 @@ protocol PlayersManager {
     func getPlayer(playerId: String) async throws -> Player
     func updatePlayer(playerId: String, position: Point) async throws
     func getAllPlayers(with playerIds: [String]) async throws -> [Player]
-    func getAllPlayersCount() async throws -> Int
     func addListenerForAllPlayers() -> PlayerPublisher
 }

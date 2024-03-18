@@ -27,7 +27,7 @@ class RealTimeFactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener 
         self.databaseReference = getAllReference()
         self.databaseReference?.observe(.value) { snapshot in
             guard let dataSnapshot = snapshot.children.allObjects as? [DataSnapshot] else { return }
-            
+
             let result = dataSnapshot.compactMap { dataSnap -> P.Item? in
                 guard let dataValue = dataSnap.value,
                       let jsonData = try? JSONSerialization.data(withJSONObject: dataValue),

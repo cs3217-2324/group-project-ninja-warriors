@@ -34,4 +34,3 @@ extension GameObject {
         return self
     }
 }
-

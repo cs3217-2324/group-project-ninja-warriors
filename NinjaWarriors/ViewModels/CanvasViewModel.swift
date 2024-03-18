@@ -10,23 +10,23 @@ import Foundation
 @MainActor
 final class CanvasViewModel: ObservableObject {
     @Published private(set) var players: [Player] = []
-    @Published private(set) var manager: PlayersManager
+    @Published private(set) var manager: RealTimePlayersManagerAdapter
     @Published private(set) var matchId: String
     @Published private(set) var playerIds: [String]
-    @Published private(set) var testManager: RealTimePlayersManagerAdapter = RealTimePlayersManagerAdapter()
 
     init(matchId: String, playerIds: [String]) {
         self.matchId = matchId
         self.playerIds = playerIds
-        manager = PlayersManagerAdapter()
+        manager = RealTimePlayersManagerAdapter()
     }
 
     func addListenerForPlayers() {
         Task { [weak self] in
             guard let self = self else { return }
             do {
-                self.players = try await self.testManager.getAllPlayers()
-                let publisher = self.testManager.addListenerForAllPlayers()
+                self.players = try await self.manager.getAllPlayers(with: playerIds)
+                let publisher = self.manager.addListenerForAllPlayers()
+
                 publisher.subscribe(update: { players in
                     let filteredPlayers = players.filter { player in
                         self.playerIds.contains(player.id)
@@ -35,6 +35,7 @@ final class CanvasViewModel: ObservableObject {
                 }, error: { error in
                     print(error)
                 })
+                
             } catch {
                 print("Error fetching initial players: \(error)")
             }
@@ -49,7 +50,7 @@ final class CanvasViewModel: ObservableObject {
         }
 
         Task {
-            try? await testManager.updatePlayer(playerId: playerId, position: newCenter)
+            try? await manager.updatePlayer(playerId: playerId, position: newCenter)
         }
     }
 }
