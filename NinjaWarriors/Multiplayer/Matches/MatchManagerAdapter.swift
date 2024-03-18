@@ -93,7 +93,7 @@ final class MatchManagerAdapter: MatchManager {
                 print("Document does not exist")
                 return
             }
-            var updatedMatchData = updateMatchData(matchData: matchData, playerId: playerId)
+            let updatedMatchData = updateMatchData(matchData: matchData, playerId: playerId)
             try await matchRef.setData(updatedMatchData)
         } catch {
             print("Error adding player to match: \(error)")

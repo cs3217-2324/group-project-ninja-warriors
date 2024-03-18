@@ -64,9 +64,8 @@ class GameObject {
                           orientation: orientation, edges: edges, vertices: vertices)
     }
 
-    // TODOL Remove hardcoded values
+    // TODO: Remove hardcoded values
     func toGameObjectWrapper() -> GameObjectWrapper {
-        //var edgesWrapper: [LineWrapper] = []
         let test = PointWrapper(xCoord: 10.0, yCoord: 10.0, radial: 10.0, theta: 10.0)
         var edgesWrapper: [LineWrapper] = []
         if let edges = edges {
@@ -75,7 +74,6 @@ class GameObject {
             }
         }
         edgesWrapper = [LineWrapper(start: test, end: test, vector: VectorWrapper(horizontal: 10.0, vertical: 10.0))]
-        //var verticesWrapper: [PointWrapper] = []
         var verticesWrapper: [PointWrapper] = []
         if let vertices = vertices {
             for vertex in vertices {

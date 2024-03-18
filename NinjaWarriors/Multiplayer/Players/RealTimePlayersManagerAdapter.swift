@@ -23,7 +23,8 @@ final class RealTimePlayersManagerAdapter: PlayersManager {
         return playerWrapper.toPlayer()
     }
 
-    private func decodePlayers(from playerDict: [String: [String: Any]], with playerIds: [String]?) async throws -> [Player] {
+    private func decodePlayers(from playerDict: [String: [String: Any]],
+                               with playerIds: [String]?) async throws -> [Player] {
         var players: [Player] = []
         for (_, value) in playerDict {
             let player = try decodePlayer(from: value)
@@ -93,22 +94,6 @@ final class RealTimePlayersManagerAdapter: PlayersManager {
         player.changePosition(to: position)
         try await uploadPlayer(player: player)
     }
-
-    /*
-    func getAllPlayersCount() async throws -> Int {
-        var count = 0
-        let semaphore = DispatchSemaphore(value: 0)
-
-        playersRef.observeSingleEvent(of: .value) { snapshot in
-            if let playerDicts = snapshot.value as? [String: [String: Any]] {
-                count = playerDicts.count
-            }
-            semaphore.signal()
-        }
-        semaphore.wait()
-        return count
-    }
-    */
 
     func addListenerForAllPlayers() -> PlayerPublisher {
         let playersListener = PlayersListener()

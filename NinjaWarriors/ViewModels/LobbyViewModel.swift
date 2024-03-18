@@ -13,14 +13,15 @@ final class LobbyViewModel: ObservableObject {
     @Published private(set) var matches: [Match] = []
     @Published private(set) var manager: MatchManager
     @Published private(set) var playersManager: PlayersManager
+    @Published private(set) var realTimePlayersManager: RealTimePlayersManagerAdapter
     @Published var matchId: String?
     @Published var playerCount: Int?
     @Published var players: [String]?
-    @Published private(set) var testManager: RealTimePlayersManagerAdapter = RealTimePlayersManagerAdapter()
 
     init() {
         manager = MatchManagerAdapter()
         playersManager = PlayersManagerAdapter()
+        realTimePlayersManager = RealTimePlayersManagerAdapter()
     }
 
     func ready(userId: String) {
@@ -31,7 +32,6 @@ final class LobbyViewModel: ObservableObject {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     self.matchId = newMatchId
-                    self.getPlayerCount()
                 }
             } catch {
                 print("Error entering queue: \(error)")
@@ -47,7 +47,6 @@ final class LobbyViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             await self.manager.removePlayerFromMatch(playerId: userId, matchId: match)
-            self.getPlayerCount()
         }
     }
 
@@ -70,7 +69,7 @@ final class LobbyViewModel: ObservableObject {
         let player1 = Player(id: playerId, gameObject: gameObject1)
         Task {
             try? await playersManager.uploadPlayer(player: player1)
-            try? await testManager.uploadPlayer(player: player1)
+            try? await realTimePlayersManager.uploadPlayer(player: player1)
         }
     }
 

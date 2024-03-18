@@ -35,7 +35,7 @@ final class CanvasViewModel: ObservableObject {
                 }, error: { error in
                     print(error)
                 })
-                
+
             } catch {
                 print("Error fetching initial players: \(error)")
             }
