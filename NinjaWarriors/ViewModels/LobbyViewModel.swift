@@ -55,7 +55,7 @@ final class LobbyViewModel: ObservableObject {
 
     // Add all relevant entities and systems related to map here
     func initSystems(ids playerIds: [String]?) {
-        
+
         addPlayersToSystemAndDatabase(ids: playerIds)
 
     }
@@ -70,11 +70,11 @@ final class LobbyViewModel: ObservableObject {
     }
 
     // TODO: Remove hardcoded value
-    private func addPlayerToSystemAndDatabase(id playerId: String) {
-        let Shape = Shape(center: Point(xCoord: 150.0 + Double.random(in: -150.0...150.0),
-                                                   yCoord: 150.0), halfLength: 25.0)
+    private func addPlayerToSystemAndDatabase(id playerId: String) -> Player {
+        let Shape = Shape(center: Point(xCoord: 0.0, yCoord: 0.0), halfLength: 25.0, orientation: 0.0, edges: [Line(start: Point(xCoord: 0.0, yCoord: 0.0), end: Point(xCoord: 0.0, yCoord: 0.0))], vertices: [Point(xCoord: 0.0, yCoord: 0.0)] )
         let dashSkill = DashSkill(id: "1")
-        let player = Player(id: playerId, Shape: Shape, skills: [dashSkill])
+        let player = Player(id: playerId)
+
         Task {
             try? await realTimeManager.uploadPlayer(player: player)
         }

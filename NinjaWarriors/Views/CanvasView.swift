@@ -16,6 +16,7 @@ struct CanvasView: View {
     // Add state to hold the joystick's output
     @State private var joystickOutput: CGPoint = .zero
 
+    // TODO: uncomment this to test multiplayer
     init(matchId: String, playerIds: [String], currPlayerId: String) {
         self.matchId = matchId
         self.viewModel = CanvasViewModel(matchId: matchId, playerIds: playerIds, currPlayerId: currPlayerId)
@@ -35,13 +36,12 @@ struct CanvasView: View {
                             viewModel.changePosition(playerId: viewModel.currPlayerId, newPosition: newPosition)
                         }
                     // Player Circles
-                    ForEach(viewModel.players, id: \.id) { player in
-                        Text("\(player.id)")
-                        Circle()
-                            .fill(Color.blue)
-                            .frame(width: 50, height: 50)
-                            .position(player.getPosition())
-                    }
+//                    ForEach(viewModel.players, id: \.id) { player in
+//                        Circle()
+//                            .fill(Color.blue)
+//                            .frame(width: 50, height: 50)
+//                            .position(player.getPosition())
+//                    }
                 }
             }
         }

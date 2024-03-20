@@ -21,9 +21,10 @@ class DashSkill: MovementSkill {
         print("dash activated")
     }
 
+    // TODO: remove and handle with TransformHandler system
     func performMovement(on target: Entity) {
-        if let player = target as? Player {
-            player.changePosition(to: Point(xCoord: 10, yCoord: 10))
-        }
+//        if let player = target as? Player {
+//            player.changePosition(to: Point(xCoord: 10, yCoord: 10))
+//        }
     }
 }

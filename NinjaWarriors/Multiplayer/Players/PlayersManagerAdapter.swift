@@ -21,7 +21,7 @@ final class PlayersManagerAdapter: PlayersManager {
     }
 
     func uploadPlayer(player: Player) async throws {
-        try playerDocument(playerId: String(player.id)).setData(from: player.toPlayerWrapper(), merge: false)
+//        try playerDocument(playerId: String(player.id)).setData(from: player.toPlayerWrapper(), merge: false)
     }
 
     func getPlayer(playerId: String) async throws -> Player {
@@ -30,13 +30,13 @@ final class PlayersManagerAdapter: PlayersManager {
     }
 
     func updatePlayer(playerId: String, position: Point) async throws {
-        let player = try await getPlayer(playerId: playerId)
-        player.changePosition(to: position)
-
-        let playerWrapper = player.toPlayerWrapper()
-        let playerData = try Firestore.Encoder().encode(playerWrapper)
-        let documentRef = playerDocument(playerId: String(player.id))
-        try await documentRef.updateData(playerData)
+//        let player = try await getPlayer(playerId: playerId)
+//        player.changePosition(to: position)
+//
+//        let playerWrapper = player.toPlayerWrapper()
+//        let playerData = try Firestore.Encoder().encode(playerWrapper)
+//        let documentRef = playerDocument(playerId: String(player.id))
+//        try await documentRef.updateData(playerData)
     }
 
     private func getAllPlayersQuery() -> Query {

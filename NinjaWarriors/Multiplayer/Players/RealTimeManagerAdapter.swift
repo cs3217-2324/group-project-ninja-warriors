@@ -76,23 +76,23 @@ final class RealTimeManagerAdapter: PlayersManager {
     }
 
     func uploadPlayer(player: Player) async throws {
-        let playerData = try JSONEncoder().encode(player.toPlayerWrapper())
-        guard let playerDict = try JSONSerialization.jsonObject(with: playerData, options: []) as? [String: Any] else {
-            throw NSError(domain: "com.yourapp", code: -1,
-                          userInfo: [NSLocalizedDescriptionKey: "Failed to serialize player data"])
-        }
-        do {
-            try await playersRef.child(player.id).setValue(playerDict)
-        } catch {
-            throw error
-        }
+//        let playerData = try JSONEncoder().encode(player.toPlayerWrapper())
+//        guard let playerDict = try JSONSerialization.jsonObject(with: playerData, options: []) as? [String: Any] else {
+//            throw NSError(domain: "com.yourapp", code: -1,
+//                          userInfo: [NSLocalizedDescriptionKey: "Failed to serialize player data"])
+//        }
+//        do {
+//            try await playersRef.child(player.id).setValue(playerDict)
+//        } catch {
+//            throw error
+//        }
     }
 
     // Update only player position for now
     func updatePlayer(playerId: String, position: Point) async throws {
-        var player = try await getPlayer(playerId: playerId)
-        player.changePosition(to: position)
-        try await uploadPlayer(player: player)
+//        var player = try await getPlayer(playerId: playerId)
+//        player.changePosition(to: position)
+//        try await uploadPlayer(player: player)
     }
 
     func addListenerForAllPlayers() -> PlayerPublisher {

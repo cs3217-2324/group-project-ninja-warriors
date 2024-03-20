@@ -51,7 +51,8 @@ final class CanvasViewModel: ObservableObject {
         let newCenter = Point(xCoord: newPosition.x, yCoord: newPosition.y)
 
         if let index = players.firstIndex(where: { $0.id == playerId }) {
-            players[index].changePosition(to: newCenter)
+//            players[index].changePosition(to: newCenter)
+            // TODO: remove and handle with system
         }
 
         Task {

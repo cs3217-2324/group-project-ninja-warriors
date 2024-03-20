@@ -20,6 +20,14 @@ struct AuthenticationView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                 }.padding()
+                NavigationLink(destination: CanvasView(matchId: "test", playerIds: ["test"], currPlayerId: "test")) {
+                    Text("Debug Canvas")
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 55)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }.padding()
                 Spacer(minLength: 0)
             }
             .navigationBarTitle("Sign In")

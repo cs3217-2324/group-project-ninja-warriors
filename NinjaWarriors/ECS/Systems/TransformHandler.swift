@@ -16,59 +16,59 @@ class TransformHandler: System {
     }
 
     func transformPosition(for id: EntityID, to position: Point) {
-        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id) else {
+        guard let transformComponent = manager?.getComponentFromId(ofType: TransformComponent.self, of: id) else {
             return
         }
-        shapeComponent.center = position
+        transformComponent.position = position
     }
 
     func transformSize(for id: EntityID, to halfLength: Double) {
-        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id) else {
+        guard let transformComponent = manager?.getComponentFromId(ofType: TransformComponent.self, of: id) else {
             return
         }
-        shapeComponent.halfLength = halfLength
+        transformComponent.shape.halfLength = halfLength
     }
 
     func transformOrientation(for id: EntityID, to orientation: Double) {
-        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id) else {
+        guard let transformComponent = manager?.getComponentFromId(ofType: TransformComponent.self, of: id) else {
             return
         }
-        shapeComponent.orientation = orientation
+        transformComponent.shape.orientation = orientation
     }
 
     func transformEdges(for id: EntityID, add edge: Line) {
-        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id),
-              var shapeComponentEdges = shapeComponent.edges else {
+        guard let transformComponent = manager?.getComponentFromId(ofType: TransformComponent.self, of: id),
+              var transformComponentEdges = transformComponent.shape.edges else {
             return
         }
-        shapeComponentEdges.append(edge)
+        transformComponentEdges.append(edge)
     }
 
     func transformEdges(for id: EntityID, remove edge: Line) {
-        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id),
-              var shapeComponentEdges = shapeComponent.edges else {
+        guard let transformComponent = manager?.getComponentFromId(ofType: TransformComponent.self, of: id),
+              var transformComponentEdges = transformComponent.shape.edges else {
             return
         }
-        if let index = shapeComponentEdges.firstIndex(of: edge) {
-            shapeComponentEdges.remove(at: index)
+        if let index = transformComponentEdges.firstIndex(of: edge) {
+            transformComponentEdges.remove(at: index)
         }
     }
 
     func transformVertices(for id: EntityID, add vertex: Point) {
-        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id),
-              var shapeComponentVertices = shapeComponent.vertices else {
+        guard let transformComponent = manager?.getComponentFromId(ofType: TransformComponent.self, of: id),
+              var transformComponentVertices = transformComponent.shape.vertices else {
             return
         }
-        shapeComponentVertices.append(vertex)
+        transformComponentVertices.append(vertex)
     }
 
     func transformVertices(for id: EntityID, remove vertex: Point) {
-        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id),
-              var shapeComponentVertices = shapeComponent.vertices else {
+        guard let transformComponent = manager?.getComponentFromId(ofType: TransformComponent.self, of: id),
+              var transformComponentVertices = transformComponent.shape.vertices else {
             return
         }
-        if let index = shapeComponentVertices.firstIndex(of: vertex) {
-            shapeComponentVertices.remove(at: index)
+        if let index = transformComponentVertices.firstIndex(of: vertex) {
+            transformComponentVertices.remove(at: index)
         }
     }
 }

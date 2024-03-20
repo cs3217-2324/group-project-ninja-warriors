@@ -8,21 +8,20 @@
 import Foundation
 
 // TODO: Update shape to conform to Component
-class Shape: Component {
+class Shape {
     var center: Point
     var orientation: Double?
     var halfLength: Double
     var edges: [Line]?
     var vertices: [Point]?
 
-    init (id: String, entity: Entity, center: Point, halfLength: Double,
+    init (center: Point, halfLength: Double,
           orientation: Double, edges: [Line], vertices: [Point]) {
         self.center = center
         self.halfLength = halfLength
         self.orientation = orientation
         self.edges = edges
         self.vertices = vertices
-        super.init(id: id, entity: entity)
     }
 
     func getCenter() -> CGPoint {
@@ -45,7 +44,7 @@ class Shape: Component {
         guard let edges = edges, let orientation = orientation, let vertices = vertices else {
             return nil
         }
-        return Shape(id: id, entity: entity, center: center, halfLength: halfLength,
+        return Shape(center: center, halfLength: halfLength,
                           orientation: orientation, edges: edges, vertices: vertices)
     }
 }
