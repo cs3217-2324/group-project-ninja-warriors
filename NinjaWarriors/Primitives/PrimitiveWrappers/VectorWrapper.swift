@@ -8,14 +8,15 @@
 import Foundation
 
 struct VectorWrapper: Codable {
-    let horizontal: Double
-    let vertical: Double
+    @CodableWrapper var horizontal: Double
+    @CodableWrapper var vertical: Double
 
     init(horizontal: Double, vertical: Double) {
         self.horizontal = horizontal
         self.vertical = vertical
     }
 
+    /*
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
         horizontal = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "horizontal"))
@@ -27,6 +28,7 @@ struct VectorWrapper: Codable {
         try container.encode(horizontal, forKey: AnyCodingKey(stringValue: "horizontal"))
         try container.encode(vertical, forKey: AnyCodingKey(stringValue: "vertical"))
     }
+    */
 
     func toVector() -> Vector {
         return Vector(horizontal: horizontal, vertical: vertical)

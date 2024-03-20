@@ -8,9 +8,9 @@
 import Foundation
 
 struct LineWrapper: Codable {
-    let start: PointWrapper
-    let end: PointWrapper
-    let vector: VectorWrapper
+    @CodableWrapper var start: PointWrapper
+    @CodableWrapper var end: PointWrapper
+    @CodableWrapper var vector: VectorWrapper
 
     init(start: PointWrapper, end: PointWrapper, vector: VectorWrapper) {
         self.start = start
@@ -18,6 +18,7 @@ struct LineWrapper: Codable {
         self.vector = vector
     }
 
+    /*
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
         start = try container.decode(PointWrapper.self, forKey: AnyCodingKey(stringValue: "start"))
@@ -31,6 +32,7 @@ struct LineWrapper: Codable {
         try container.encode(end, forKey: AnyCodingKey(stringValue: "end"))
         try container.encode(vector, forKey: AnyCodingKey(stringValue: "vector"))
     }
+    */
 
     func toLine() -> Line {
         let startPoint = Point(xCoord: start.xCoord, yCoord: start.yCoord)

@@ -9,8 +9,9 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class PlayersListener: RealTimeFactoryListener<PlayerPublisher, PlayerWrapper> {
+// TODO: Change realtime database to "entity" instead of "players"
+class PlayersListener: RealTimeFactoryListener<EntityPublisher, PlayerWrapper> {
     init() {
-        super.init(referenceName: "players", publisher: PlayerPublisher())
+        super.init(referenceName: "players", publisher: EntityPublisher())
     }
 }

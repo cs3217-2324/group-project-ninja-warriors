@@ -7,16 +7,23 @@
 
 import Foundation
 
-struct PlayerWrapper: FactoryWrapper, Codable {
-    typealias Item = PlayerWrapper
-    let id: String
-    let shape: ShapeWrapper
+class PlayerWrapper: EntityWrapper {
+    @CodableWrapper var id: String
+    @CodableWrapper var shape: ShapeWrapper
+    @CodableWrapper var components: [ComponentWrapper]?
 
-    init(id: String, shape: ShapeWrapper) {
+    init(id: String, shape: ShapeWrapper, components: [ComponentWrapper]? = nil) {
         self.id = id
         self.shape = shape
+        self.components = components
+        super.init()
     }
 
+    required init(from decoder: Decoder) throws {
+        fatalError("init(from:) has not been implemented")
+    }
+
+    /*
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
         id = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "id"))
@@ -29,8 +36,18 @@ struct PlayerWrapper: FactoryWrapper, Codable {
         try container.encode(id, forKey: AnyCodingKey(stringValue: "id"))
         try container.encode(shape, forKey: AnyCodingKey(stringValue: "Shape"))
     }
+    */
 
-    func toPlayer() -> Player {
-        Player(id: id, Shape: shape.toShape(), skills: []) // TODO: Create Entity wrapper to wrap skills and players
+    override func toEntity() -> Entity? {
+        var componentsUnwrap: [Component] = []
+        guard let components = components else {
+            return Player(id: id, shape: shape.toShape())
+        }
+        for component in components {
+            if let componentUnwrap = component.toComponent() {
+                componentsUnwrap.append(componentUnwrap)
+            }
+        }
+        return Player(id: id, shape: shape.toShape(), components: componentsUnwrap)
     }
 }

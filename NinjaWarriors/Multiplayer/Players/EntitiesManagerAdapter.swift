@@ -1,5 +1,5 @@
 //
-//  PlayersManagerAdapter.swift
+//  EntitiesManagerAdapter.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 15/3/24.
@@ -9,33 +9,37 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-// TODO: Deprecate this
-final class PlayersManagerAdapter: PlayersManager {
+// TODO: Convert to general adapter that takes in any collection name
+/*
+final class EntitiesManagerAdapter: EntitiesManager {
 
     // TODO: Convert to REST API
     private let playersCollection = Firestore.firestore().collection("players")
     private var playersListener: ListenerRegistration?
 
-    private func playerDocument(playerId: String) -> DocumentReference {
-        playersCollection.document(playerId)
+    private func playerDocument(entityId: String) -> DocumentReference {
+        playersCollection.document(entityId)
     }
 
-    func uploadPlayer(player: Player) async throws {
-        try playerDocument(playerId: String(player.id)).setData(from: player.toPlayerWrapper(), merge: false)
+    func uploadEntity(entity: Entity) async throws {
+        try playerDocument(entityId: String(entity.id)).setData(from: entity.wrapper(), merge: false)
     }
 
-    func getPlayer(playerId: String) async throws -> Player {
-        let wrapper = try await playerDocument(playerId: playerId).getDocument(as: PlayerWrapper.self)
-        return wrapper.toPlayer()
+    func getEntity(entityId: String) async throws -> Entity? {
+        let wrapper = try await playerDocument(entityId: entityId).getDocument(as: PlayerWrapper.self)
+        return wrapper.toEntity()
     }
 
-    func updatePlayer(playerId: String, position: Point) async throws {
-        let player = try await getPlayer(playerId: playerId)
+    func updateEntity(id: String, position: Point) async throws {
+        var player = try await getEntity(entityId: id)
+        guard let player = player as? Player else {
+            return
+        }
         player.changePosition(to: position)
 
-        let playerWrapper = player.toPlayerWrapper()
+        let playerWrapper = player.wrapper()
         let playerData = try Firestore.Encoder().encode(playerWrapper)
-        let documentRef = playerDocument(playerId: String(player.id))
+        let documentRef = playerDocument(entityId: String(player.id))
         try await documentRef.updateData(playerData)
     }
 
@@ -72,9 +76,10 @@ final class PlayersManagerAdapter: PlayersManager {
     }
     */
 
-    func addListenerForAllPlayers() -> PlayerPublisher {
+    func addListenerForAllPlayers() -> EntityPublisher {
         let playersListener = PlayersListener()
         playersListener.startListening()
         return playersListener.getPublisher()
     }
 }
+*/

@@ -8,21 +8,31 @@
 import Foundation
 
 class Player: Equatable, Entity {
-    var id: EntityID
-    private(set) var skillCaster: SkillCaster?
+    let id: EntityID
     var shape: Shape
+    internal var components: [Component]?
 
-    init(id: String, Shape: Shape, skills: [Skill]) {
+    init(id: EntityID, shape: Shape, components: [Component]? = nil) {
         self.id = id
-        self.shape = Shape
-        self.skillCaster = SkillCaster(id: "1", entity: self, skills: skills) // TODO: fix hardcode id
+        self.shape = shape
+        self.components = components
+        //self.skillCaster = SkillCaster(id: "1", entity: self, skills: skills) // TODO: fix hardcode id
     }
 
+    /*
     func getInitializingComponents() -> [Component] {
         guard let skillCaster = skillCaster else { return [] }
         return [skillCaster]
     }
+    */
 
+    func getInitializingComponents() -> [Component] {
+        guard let components = components else { return [] }
+        return components
+    }
+
+    // TODO: Must remove this and make adapter change position based on system instead
+    ///*
     func getPosition() -> CGPoint {
         shape.getCenter()
     }
@@ -30,10 +40,26 @@ class Player: Equatable, Entity {
     func changePosition(to center: Point) {
         shape.center = center
     }
+    //*/
 
-    func toPlayerWrapper() -> PlayerWrapper {
-        PlayerWrapper(id: id, shape: shape.toShapeWrapper())
+    func wrapper() -> EntityWrapper? {
+        var componentsWrapper: [ComponentWrapper] = []
+        guard let components = components else {
+            return PlayerWrapper(id: id, shape: shape.toShapeWrapper())
+        }
+        for component in components {
+            if let componentWrap = component.wrapper() {
+                componentsWrapper.append(componentWrap)
+            }
+        }
+        return PlayerWrapper(id: id, shape: shape.toShapeWrapper(), components: componentsWrapper)
     }
+
+    /*
+    func toPlayerWrapper() -> PlayerWrapper {
+        PlayerWrapper(id: id, shape: shape.toShapeWrapper(), components: components.)
+    }
+    */
 
     static func == (lhs: Player, rhs: Player) -> Bool {
         lhs.id == rhs.id

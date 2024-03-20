@@ -8,10 +8,10 @@
 import Foundation
 
 struct PointWrapper: Codable {
-    let xCoord: Double
-    let yCoord: Double
-    let radial: Double
-    let theta: Double
+    @CodableWrapper var xCoord: Double
+    @CodableWrapper var yCoord: Double
+    @CodableWrapper var radial: Double
+    @CodableWrapper var theta: Double
 
     init(xCoord: Double, yCoord: Double, radial: Double, theta: Double) {
         self.xCoord = xCoord
@@ -20,6 +20,7 @@ struct PointWrapper: Codable {
         self.theta = theta
     }
 
+    /*
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
         xCoord = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "xCoord"))
@@ -35,6 +36,7 @@ struct PointWrapper: Codable {
         try container.encode(radial, forKey: AnyCodingKey(stringValue: "radial"))
         try container.encode(theta, forKey: AnyCodingKey(stringValue: "theta"))
     }
+    */
 
     func toPoint() -> Point {
         return Point(xCoord: xCoord, yCoord: yCoord)

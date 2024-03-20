@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-// TODO: Rename PlayersManager and methods to just EntitiesManager
+// TODO: Rename EntitiesManager and methods to just EntitiesManager
 // TODO: Create mapping from match id to map id to know what other entities to add
 @MainActor
 final class LobbyViewModel: ObservableObject {
@@ -55,31 +55,46 @@ final class LobbyViewModel: ObservableObject {
 
     // Add all relevant entities and systems related to map here
     func initSystems(ids playerIds: [String]?) {
-        
         addPlayersToSystemAndDatabase(ids: playerIds)
-
     }
 
     private func addPlayersToSystemAndDatabase(ids playerIds: [String]?) {
         guard let playerIds = playerIds else {
             return
         }
-        for playerId in playerIds {
-            addPlayerToSystemAndDatabase(id: playerId)
+        for (index, playerId) in playerIds.enumerated() {
+            addPlayerToSystemAndDatabase(id: playerId, position: Constants.playerPositions[index])
         }
     }
 
-    // TODO: Remove hardcoded value
-    private func addPlayerToSystemAndDatabase(id playerId: String) {
-        let Shape = Shape(center: Point(xCoord: 150.0 + Double.random(in: -150.0...150.0),
-                                                   yCoord: 150.0), halfLength: 25.0)
-        let dashSkill = DashSkill(id: "1")
-        let player = Player(id: playerId, Shape: Shape, skills: [dashSkill])
+    private func addPlayerToSystemAndDatabase(id playerId: String, position: Point) {
+        let (shape, player) = makePlayer(id: playerId, position: position)
+
         Task {
             try? await realTimeManager.uploadPlayer(player: player)
         }
-        return player
     }
+
+    private func makePlayer(id playerId: String, position: Point) -> (Shape, Player) {
+        let randomNonce = RandomNonce().randomNonceString()
+        let shape = Shape(id: randomNonce,
+                          entity: nil,
+                          center: position,
+                          halfLength: Constants.defaultSize)
+
+        let player = Player(id: playerId, shape: shape)
+        shape.entity = player
+        return (shape, player)
+    }
+
+    /*
+    // TODO: Rename uploadPlayer to uploadEntity
+    private func addEntityToDatabase(entity: Entity) {
+        Task {
+            try? await realTimeManager.uploadPlayer(player: entity)
+        }
+    }
+    */
 
     func getPlayerCount() -> Int? {
         if let match = matches.first(where: { $0.id == matchId }) {

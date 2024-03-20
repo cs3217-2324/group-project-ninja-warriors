@@ -12,7 +12,7 @@
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
-		9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */; };
+		9132AF562BA50853000F2AC4 /* EntityPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF552BA50853000F2AC4 /* EntityPublisher.swift */; };
 		9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF572BA5087F000F2AC4 /* PlayersListener.swift */; };
 		9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF592BA50C1E000F2AC4 /* Publisher.swift */; };
 		9132AF5C2BA50C5C000F2AC4 /* CustomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF5B2BA50C5C000F2AC4 /* CustomSubject.swift */; };
@@ -21,7 +21,7 @@
 		9132AF662BA50E9A000F2AC4 /* PhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF652BA50E9A000F2AC4 /* PhysicsBody.swift */; };
 		9132AF682BA53E54000F2AC4 /* LobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF672BA53E54000F2AC4 /* LobbyView.swift */; };
 		9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */; };
-		9132AF6C2BA57130000F2AC4 /* PlayersManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF6B2BA57130000F2AC4 /* PlayersManager.swift */; };
+		9132AF6C2BA57130000F2AC4 /* EntitiesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF6B2BA57130000F2AC4 /* EntitiesManager.swift */; };
 		9132AF6E2BA58C1E000F2AC4 /* MatchManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF6D2BA58C1E000F2AC4 /* MatchManagerAdapter.swift */; };
 		9132AF702BA58C61000F2AC4 /* MatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF6F2BA58C61000F2AC4 /* MatchManager.swift */; };
 		9132AF722BA5971E000F2AC4 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF712BA5971E000F2AC4 /* Match.swift */; };
@@ -66,9 +66,9 @@
 		916A7D982BA2824D00319C26 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 916A7D972BA2824D00319C26 /* FirebaseFirestore */; };
 		916A7D9A2BA2824D00319C26 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 916A7D992BA2824D00319C26 /* FirebaseFirestoreSwift */; };
 		916A7D9F2BA3F43B00319C26 /* Query+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D9E2BA3F43B00319C26 /* Query+EXT.swift */; };
-		916A7DA12BA3F6E200319C26 /* PlayersManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DA02BA3F6E200319C26 /* PlayersManagerAdapter.swift */; };
+		916A7DA12BA3F6E200319C26 /* EntitiesManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DA02BA3F6E200319C26 /* EntitiesManagerAdapter.swift */; };
 		916A7DA32BA3F74700319C26 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DA22BA3F74700319C26 /* Player.swift */; };
-		916A7DA52BA3F89500319C26 /* GameObjectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DA42BA3F89500319C26 /* GameObjectWrapper.swift */; };
+		916A7DA52BA3F89500319C26 /* ShapeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DA42BA3F89500319C26 /* ShapeWrapper.swift */; };
 		916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DA72BA3FA2900319C26 /* PointWrapper.swift */; };
 		916A7DAA2BA3FBBF00319C26 /* AnyCodingKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DA92BA3FBBF00319C26 /* AnyCodingKey.swift */; };
 		916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAB2BA3FD4800319C26 /* LineWrapper.swift */; };
@@ -78,6 +78,10 @@
 		916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */; };
 		9180F9C62BAAE53F000CC390 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* Triangle.swift */; };
 		9180F9C82BAAE54A000CC390 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* Rectangle.swift */; };
+		9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */; };
+		9180F9D12BAB96C7000CC390 /* CodableWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9D02BAB96C7000CC390 /* CodableWrapper.swift */; };
+		9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9D22BAB9C26000CC390 /* ComponentWrapper.swift */; };
+		9180F9D52BAB9C89000CC390 /* EntityWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */; };
 		E62AD80B2BA8A82F0009F12D /* SkillCaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62AD80A2BA8A82F0009F12D /* SkillCaster.swift */; };
 		E62AD80E2BA8A8630009F12D /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62AD80D2BA8A8630009F12D /* Skill.swift */; };
 		E66E6E802BA8AD9400F4C9BB /* DashSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66E6E7F2BA8AD9400F4C9BB /* DashSkill.swift */; };
@@ -106,7 +110,7 @@
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
-		9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPublisher.swift; sourceTree = "<group>"; };
+		9132AF552BA50853000F2AC4 /* EntityPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityPublisher.swift; sourceTree = "<group>"; };
 		9132AF572BA5087F000F2AC4 /* PlayersListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListener.swift; sourceTree = "<group>"; };
 		9132AF592BA50C1E000F2AC4 /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
 		9132AF5B2BA50C5C000F2AC4 /* CustomSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSubject.swift; sourceTree = "<group>"; };
@@ -115,7 +119,7 @@
 		9132AF652BA50E9A000F2AC4 /* PhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsBody.swift; sourceTree = "<group>"; };
 		9132AF672BA53E54000F2AC4 /* LobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyView.swift; sourceTree = "<group>"; };
 		9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewModel.swift; sourceTree = "<group>"; };
-		9132AF6B2BA57130000F2AC4 /* PlayersManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersManager.swift; sourceTree = "<group>"; };
+		9132AF6B2BA57130000F2AC4 /* EntitiesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntitiesManager.swift; sourceTree = "<group>"; };
 		9132AF6D2BA58C1E000F2AC4 /* MatchManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchManagerAdapter.swift; sourceTree = "<group>"; };
 		9132AF6F2BA58C61000F2AC4 /* MatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchManager.swift; sourceTree = "<group>"; };
 		9132AF712BA5971E000F2AC4 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -156,9 +160,9 @@
 		916A7D922BA1AA6600319C26 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		916A7D942BA1AB2A00319C26 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		916A7D9E2BA3F43B00319C26 /* Query+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Query+EXT.swift"; sourceTree = "<group>"; };
-		916A7DA02BA3F6E200319C26 /* PlayersManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersManagerAdapter.swift; sourceTree = "<group>"; };
+		916A7DA02BA3F6E200319C26 /* EntitiesManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntitiesManagerAdapter.swift; sourceTree = "<group>"; };
 		916A7DA22BA3F74700319C26 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		916A7DA42BA3F89500319C26 /* GameObjectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObjectWrapper.swift; sourceTree = "<group>"; };
+		916A7DA42BA3F89500319C26 /* ShapeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeWrapper.swift; sourceTree = "<group>"; };
 		916A7DA72BA3FA2900319C26 /* PointWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointWrapper.swift; sourceTree = "<group>"; };
 		916A7DA92BA3FBBF00319C26 /* AnyCodingKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCodingKey.swift; sourceTree = "<group>"; };
 		916A7DAB2BA3FD4800319C26 /* LineWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineWrapper.swift; sourceTree = "<group>"; };
@@ -168,6 +172,10 @@
 		916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
 		9180F9C52BAAE53F000CC390 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		9180F9C72BAAE54A000CC390 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
+		9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNonce.swift; sourceTree = "<group>"; };
+		9180F9D02BAB96C7000CC390 /* CodableWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableWrapper.swift; sourceTree = "<group>"; };
+		9180F9D22BAB9C26000CC390 /* ComponentWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentWrapper.swift; sourceTree = "<group>"; };
+		9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityWrapper.swift; sourceTree = "<group>"; };
 		E62AD80A2BA8A82F0009F12D /* SkillCaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCaster.swift; sourceTree = "<group>"; };
 		E62AD80D2BA8A8630009F12D /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		E66E6E7F2BA8AD9400F4C9BB /* DashSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashSkill.swift; sourceTree = "<group>"; };
@@ -239,11 +247,11 @@
 		9132AF832BA5A871000F2AC4 /* Players */ = {
 			isa = PBXGroup;
 			children = (
-				916A7DA02BA3F6E200319C26 /* PlayersManagerAdapter.swift */,
-				9132AF6B2BA57130000F2AC4 /* PlayersManager.swift */,
+				916A7DA02BA3F6E200319C26 /* EntitiesManagerAdapter.swift */,
+				9132AF6B2BA57130000F2AC4 /* EntitiesManager.swift */,
 				916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */,
 				9132AF572BA5087F000F2AC4 /* PlayersListener.swift */,
-				9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */,
+				9132AF552BA50853000F2AC4 /* EntityPublisher.swift */,
 				9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */,
 			);
 			path = Players;
@@ -271,7 +279,6 @@
 				714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */,
 				9136A5B82BA9955400197971 /* CollisionSystem */,
 				9132AF602BA50E46000F2AC4 /* PhysicsSystem */,
-				E62AD80C2BA8A85A0009F12D /* SkillSystem */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -281,11 +288,8 @@
 			children = (
 				916A7DB82BA5014F00319C26 /* EntityWrappers */,
 				7113A4932BA60E2E00805340 /* Entity.swift */,
-				916A7D6B2BA1550700319C26 /* Shape.swift */,
-				9132AF862BA6AEAB000F2AC4 /* Shape+EXT.swift */,
 				916A7DA22BA3F74700319C26 /* Player.swift */,
-				9180F9C52BAAE53F000CC390 /* Triangle.swift */,
-				9180F9C72BAAE54A000CC390 /* Rectangle.swift */,
+				9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -301,6 +305,8 @@
 		916A7D2D2BA1541700319C26 = {
 			isa = PBXGroup;
 			children = (
+				9180F9CD2BAB19A4000CC390 /* Nonce */,
+				9180F9CA2BAAF845000CC390 /* Primitives */,
 				7113A4922BA60E2200805340 /* ECS */,
 				916A7D9D2BA3E80200319C26 /* Multiplayer */,
 				916A7D912BA1AA5600319C26 /* Authentication */,
@@ -367,10 +373,10 @@
 			isa = PBXGroup;
 			children = (
 				7113A4952BA60E8400805340 /* Component.swift */,
+				E62AD80C2BA8A85A0009F12D /* SkillComponents */,
+				9180F9C92BAAF81A000CC390 /* Shapes */,
 				916A7DA62BA3F9FC00319C26 /* ComponentWrappers */,
-				916A7D6D2BA1551300319C26 /* Line.swift */,
-				916A7D6F2BA1552100319C26 /* Point.swift */,
-				916A7D712BA1552D00319C26 /* Vector.swift */,
+				9180F9D22BAB9C26000CC390 /* ComponentWrapper.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -439,9 +445,7 @@
 		916A7DA62BA3F9FC00319C26 /* ComponentWrappers */ = {
 			isa = PBXGroup;
 			children = (
-				916A7DA72BA3FA2900319C26 /* PointWrapper.swift */,
-				916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */,
-				916A7DAB2BA3FD4800319C26 /* LineWrapper.swift */,
+				9180F9D02BAB96C7000CC390 /* CodableWrapper.swift */,
 				916A7DA92BA3FBBF00319C26 /* AnyCodingKey.swift */,
 			);
 			path = ComponentWrappers;
@@ -450,19 +454,67 @@
 		916A7DB82BA5014F00319C26 /* EntityWrappers */ = {
 			isa = PBXGroup;
 			children = (
-				916A7DA42BA3F89500319C26 /* GameObjectWrapper.swift */,
 			);
 			path = EntityWrappers;
 			sourceTree = "<group>";
 		};
-		E62AD80C2BA8A85A0009F12D /* SkillSystem */ = {
+		9180F9C92BAAF81A000CC390 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				916A7D6B2BA1550700319C26 /* Shape.swift */,
+				9132AF862BA6AEAB000F2AC4 /* Shape+EXT.swift */,
+				9180F9C52BAAE53F000CC390 /* Triangle.swift */,
+				9180F9C72BAAE54A000CC390 /* Rectangle.swift */,
+				9180F9CC2BAAF8CF000CC390 /* ShapeWrappers */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
+		9180F9CA2BAAF845000CC390 /* Primitives */ = {
+			isa = PBXGroup;
+			children = (
+				9180F9CB2BAAF85C000CC390 /* PrimitiveWrappers */,
+				916A7D6F2BA1552100319C26 /* Point.swift */,
+				916A7D712BA1552D00319C26 /* Vector.swift */,
+				916A7D6D2BA1551300319C26 /* Line.swift */,
+			);
+			path = Primitives;
+			sourceTree = "<group>";
+		};
+		9180F9CB2BAAF85C000CC390 /* PrimitiveWrappers */ = {
+			isa = PBXGroup;
+			children = (
+				916A7DAB2BA3FD4800319C26 /* LineWrapper.swift */,
+				916A7DA72BA3FA2900319C26 /* PointWrapper.swift */,
+				916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */,
+			);
+			path = PrimitiveWrappers;
+			sourceTree = "<group>";
+		};
+		9180F9CC2BAAF8CF000CC390 /* ShapeWrappers */ = {
+			isa = PBXGroup;
+			children = (
+				916A7DA42BA3F89500319C26 /* ShapeWrapper.swift */,
+			);
+			path = ShapeWrappers;
+			sourceTree = "<group>";
+		};
+		9180F9CD2BAB19A4000CC390 /* Nonce */ = {
+			isa = PBXGroup;
+			children = (
+				9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */,
+			);
+			path = Nonce;
+			sourceTree = "<group>";
+		};
+		E62AD80C2BA8A85A0009F12D /* SkillComponents */ = {
 			isa = PBXGroup;
 			children = (
 				E62AD80A2BA8A82F0009F12D /* SkillCaster.swift */,
 				E62AD80D2BA8A8630009F12D /* Skill.swift */,
 				E66E6E7F2BA8AD9400F4C9BB /* DashSkill.swift */,
 			);
-			path = SkillSystem;
+			path = SkillComponents;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -629,16 +681,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */,
+				9132AF562BA50853000F2AC4 /* EntityPublisher.swift in Sources */,
 				916A7D6A2BA154F000319C26 /* CollisionDetector.swift in Sources */,
 				9132AF662BA50E9A000F2AC4 /* PhysicsBody.swift in Sources */,
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
+				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
 				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
 				9132AF762BA59A30000F2AC4 /* FactoryListener.swift in Sources */,
 				9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */,
 				7113A4942BA60E2E00805340 /* Entity.swift in Sources */,
+				9180F9D52BAB9C89000CC390 /* EntityWrapper.swift in Sources */,
 				714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
 				9132AF872BA6AEAB000F2AC4 /* Shape+EXT.swift in Sources */,
@@ -649,13 +703,14 @@
 				7113A4962BA60E8400805340 /* Component.swift in Sources */,
 				E66E6E802BA8AD9400F4C9BB /* DashSkill.swift in Sources */,
 				9132AF702BA58C61000F2AC4 /* MatchManager.swift in Sources */,
+				9180F9D12BAB96C7000CC390 /* CodableWrapper.swift in Sources */,
 				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
-				916A7DA12BA3F6E200319C26 /* PlayersManagerAdapter.swift in Sources */,
+				916A7DA12BA3F6E200319C26 /* EntitiesManagerAdapter.swift in Sources */,
 				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
 				916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */,
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
 				E62AD80B2BA8A82F0009F12D /* SkillCaster.swift in Sources */,
-				916A7DA52BA3F89500319C26 /* GameObjectWrapper.swift in Sources */,
+				916A7DA52BA3F89500319C26 /* ShapeWrapper.swift in Sources */,
 				9180F9C62BAAE53F000CC390 /* Triangle.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
 				9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */,
@@ -679,7 +734,7 @@
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,
 				9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */,
-				9132AF6C2BA57130000F2AC4 /* PlayersManager.swift in Sources */,
+				9132AF6C2BA57130000F2AC4 /* EntitiesManager.swift in Sources */,
 				9132AF782BA59B0F000F2AC4 /* FactoryPublisher.swift in Sources */,
 				9132AF682BA53E54000F2AC4 /* LobbyView.swift in Sources */,
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
@@ -687,6 +742,7 @@
 				9132AF722BA5971E000F2AC4 /* Match.swift in Sources */,
 				9132AF6E2BA58C1E000F2AC4 /* MatchManagerAdapter.swift in Sources */,
 				9136A5BC2BAAA80200197971 /* RealTimeManagerAdapter.swift in Sources */,
+				9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */,
 				9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */,
 				916A7D752BA1554200319C26 /* Constants.swift in Sources */,
 				E62AD80E2BA8A8630009F12D /* Skill.swift in Sources */,
