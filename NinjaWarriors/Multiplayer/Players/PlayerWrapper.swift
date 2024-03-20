@@ -10,27 +10,27 @@ import Foundation
 struct PlayerWrapper: FactoryWrapper, Codable {
     typealias Item = PlayerWrapper
     let id: String
-    let gameObject: GameObjectWrapper
+    let shape: ShapeWrapper
 
-    init(id: String, gameObject: GameObjectWrapper) {
+    init(id: String, shape: ShapeWrapper) {
         self.id = id
-        self.gameObject = gameObject
+        self.shape = shape
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
         id = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "id"))
-        gameObject = try container.decode(GameObjectWrapper.self,
-                                   forKey: AnyCodingKey(stringValue: "gameObject"))
+        shape = try container.decode(ShapeWrapper.self,
+                                   forKey: AnyCodingKey(stringValue: "Shape"))
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: AnyCodingKey.self)
         try container.encode(id, forKey: AnyCodingKey(stringValue: "id"))
-        try container.encode(gameObject, forKey: AnyCodingKey(stringValue: "gameObject"))
+        try container.encode(shape, forKey: AnyCodingKey(stringValue: "Shape"))
     }
 
     func toPlayer() -> Player {
-        Player(id: id, gameObject: gameObject.toGameObject())
+        Player(id: id, Shape: shape.toShape(), skills: []) // TODO: Create Entity wrapper to wrap skills and players
     }
 }

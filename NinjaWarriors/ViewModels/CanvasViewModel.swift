@@ -22,6 +22,7 @@ final class CanvasViewModel: ObservableObject {
         manager = RealTimePlayersManagerAdapter()
     }
 
+    // TODO: Change to add listener for all entities in match id
     func addListenerForPlayers() {
         Task { [weak self] in
             guard let self = self else { return }

@@ -27,7 +27,7 @@ struct CanvasView: View {
             Text("Player Count: \(viewModel.players.count)")
                 .padding()
             Text("Both the database as well as the view will update in real time, simulating multiplayer mode")
-            GeometryReader { geometry in
+            GeometryReader { _ in
                 ZStack {
                     // Position the JoystickView
                     JoystickView(location: CGPoint(x: 400, y: 400),

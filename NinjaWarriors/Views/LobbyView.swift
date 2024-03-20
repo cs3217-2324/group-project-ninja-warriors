@@ -25,34 +25,26 @@ struct LobbyView: View {
                 if let playerCount = viewModel.getPlayerCount() {
                     Text("Player Count: \(playerCount)")
                         .padding()
-                    if playerCount == Constants.playerCount {
-                        Text("Loading game")
-                            .onAppear {
-                                Task {
-                                    await viewModel.start()
+
+                    if playerCount == Constants.playerCount,
+                       let matchId = viewModel.matchId,
+                       let players = viewModel.playerIds {
+                        NavigationLink(destination: CanvasView(matchId: matchId,
+                                                               playerIds: players,
+                                                               currPlayerId: signInViewModel.getUserId() ?? "none")) {
+                            Text("Start Game")
+                                .font(.system(size: 30))
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.black)
+                                .cornerRadius(10)
+                                .onAppear {
+                                    Task {
+                                        await viewModel.start()
+                                    }
                                 }
-                            }
-                            .padding()
-                        if let matchId = viewModel.matchId, let players = viewModel.players {
-                            ForEach(players, id: \.self) { player in
-                                Text("Player: \(player)")
-                            }
-                            NavigationLink(destination: CanvasView(matchId: matchId, playerIds: players,
-                                                                   currPlayerId: signInViewModel.getUserId() ?? "none")) {
-                                Text("Start Game")
-                                    .font(.system(size: 30))
-                                    .padding()
-                                    .background(Color.blue)
-                                    .foregroundColor(.black)
-                                    .cornerRadius(10)
-                            }
-                            .padding()
-                        }
+                        }.padding()
                     }
-                }
-                if let matchId = viewModel.matchId {
-                    Text("Match Id: \(matchId)")
-                        .padding()
                 }
                 Button(action: {
                     if let userId = signInViewModel.getUserId() {

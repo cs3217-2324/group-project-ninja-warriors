@@ -24,6 +24,7 @@ class FactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener where W.
         firestore.collection(collectionName)
     }
 
+    // TODO: Add optional subset listener instead of listening to everything
     func startListening() {
         self.firestoreListener = getAllQuery().addSnapshotListener { querySnapshot, error in
             if let error = error {
@@ -48,7 +49,11 @@ class FactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener where W.
     }
 
     func stopListening() {
-        // Stop firestore listener
+        guard let firestoreListener = self.firestoreListener as? ListenerRegistration else {
+            return
+        }
+        firestoreListener.remove()
+        self.firestoreListener = nil
     }
 
     func getPublisher() -> P {

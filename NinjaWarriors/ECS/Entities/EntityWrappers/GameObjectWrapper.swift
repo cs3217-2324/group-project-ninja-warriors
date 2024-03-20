@@ -1,11 +1,11 @@
 //
-//  GameObjectWrapper.swift
+//  ShapeWrapper.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 15/3/24.
 //
 
-struct GameObjectWrapper: Codable {
+struct ShapeWrapper: Codable {
     var center: PointWrapper
     var orientation: Double
     var halfLength: Double
@@ -39,7 +39,7 @@ struct GameObjectWrapper: Codable {
         try container.encode(vertices, forKey: AnyCodingKey(stringValue: "vertices"))
     }
 
-    func toGameObject() -> GameObject {
+    func toShape() -> Shape {
         let center = center.toPoint()
         var objectEdges: [Line] = []
         for edge in edges {
@@ -49,7 +49,7 @@ struct GameObjectWrapper: Codable {
         for vertex in vertices {
             objectVertices.append(vertex.toPoint())
         }
-        return GameObject(center: center, halfLength: halfLength,
+        return Shape(center: center, halfLength: halfLength,
                           orientation: orientation, edges: objectEdges, vertices: objectVertices)
     }
 }

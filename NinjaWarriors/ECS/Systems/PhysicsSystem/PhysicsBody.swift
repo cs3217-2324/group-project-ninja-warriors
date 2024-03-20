@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: Restructure to ECS
 class PhysicsBody: PhysicsElasticCollision, PhysicsRigidBody {
     private(set) var position: Vector
     private(set) var mass = 8.0

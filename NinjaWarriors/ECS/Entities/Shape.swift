@@ -1,5 +1,5 @@
 //
-//  GameObject.swift
+//  Shape.swift
 //  CollisionHandler
 //
 //  Created by Muhammad Reyaaz on 13/3/24.
@@ -7,7 +7,8 @@
 
 import Foundation
 
-class GameObject {
+// TODO: Update shape to conform to Component, rename to sh
+class Shape {
     var center: Point
     var orientation: Double?
     var halfLength: Double
@@ -51,21 +52,21 @@ class GameObject {
         return vertices.count
     }
 
-    func checkSafeToInsert(with gameObject: GameObject) -> Bool {
+    func checkSafeToInsert(with Shape: Shape) -> Bool {
         let collisionDetector = CollisionDetector()
-        return collisionDetector.checkSafeToInsert(source: self, with: gameObject)
+        return collisionDetector.checkSafeToInsert(source: self, with: Shape)
     }
 
-    func makeDeepCopy() -> GameObject {
+    func makeDeepCopy() -> Shape {
         guard let edges = edges, let orientation = orientation, let vertices = vertices else {
-            return GameObject(center: center, halfLength: halfLength)
+            return Shape(center: center, halfLength: halfLength)
         }
-        return GameObject(center: center, halfLength: halfLength,
+        return Shape(center: center, halfLength: halfLength,
                           orientation: orientation, edges: edges, vertices: vertices)
     }
 
     // TODO: Remove hardcoded values
-    func toGameObjectWrapper() -> GameObjectWrapper {
+    func toShapeWrapper() -> ShapeWrapper {
         let test = PointWrapper(xCoord: 10.0, yCoord: 10.0, radial: 10.0, theta: 10.0)
         var edgesWrapper: [LineWrapper] = []
         if let edges = edges {
@@ -82,7 +83,7 @@ class GameObject {
         }
         verticesWrapper = [test, test]
 
-        return GameObjectWrapper(center: center.toPointWrapper(),
+        return ShapeWrapper(center: center.toPointWrapper(),
                           orientation: orientation ?? 0.0,
                           halfLength: halfLength,
                           edges: edgesWrapper,

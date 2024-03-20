@@ -8,22 +8,27 @@
 import Foundation
 import SwiftUI
 
+// TODO: Rename PlayersManager and methods to just EntitiesManager
+// TODO: Create mapping from match id to map id to know what other entities to add
 @MainActor
 final class LobbyViewModel: ObservableObject {
     @Published private(set) var matches: [Match] = []
     @Published private(set) var manager: MatchManager
-    @Published private(set) var playersManager: PlayersManager
+    //@Published private(set) var playersManager: PlayersManager
     @Published private(set) var realTimePlayersManager: RealTimePlayersManagerAdapter
     @Published var matchId: String?
-    @Published var playerCount: Int?
-    @Published var players: [String]?
+    // @Published var playerCount: Int?
+    @Published var playerIds: [String]?
+
+    
 
     init() {
         manager = MatchManagerAdapter()
-        playersManager = PlayersManagerAdapter()
+        //playersManager = PlayersManagerAdapter()
         realTimePlayersManager = RealTimePlayersManagerAdapter()
     }
 
+    // TODO: Make ready, unready, start all same level of abstraction. Currently, ready is more detailed than the rest
     func ready(userId: String) {
         Task {
             do {
@@ -55,8 +60,7 @@ final class LobbyViewModel: ObservableObject {
             return
         }
         do {
-            let result = try await manager.startMatch(matchId: matchId)
-            self.players = result
+            self.playerIds = try await manager.startMatch(matchId: matchId)
         } catch {
             print("Error starting match: \(error)")
         }
@@ -64,11 +68,12 @@ final class LobbyViewModel: ObservableObject {
 
     // TODO: Remove hardcoded value
     func addPlayer(playerId: String) {
-        let gameObject1 = GameObject(center: Point(xCoord: 150.0 + Double.random(in: -150.0...150.0),
+        let Shape1 = Shape(center: Point(xCoord: 150.0 + Double.random(in: -150.0...150.0),
                                                    yCoord: 150.0), halfLength: 25.0)
-        let player1 = Player(id: playerId, gameObject: gameObject1)
+        let dashSkill = DashSkill(id: "1")
+        let player1 = Player(id: playerId, Shape: Shape1, skills: [dashSkill])
         Task {
-            try? await playersManager.uploadPlayer(player: player1)
+            //try? await playersManager.uploadPlayer(player: player1)
             try? await realTimePlayersManager.uploadPlayer(player: player1)
         }
     }

@@ -7,48 +7,49 @@
 
 import Foundation
 
+// TODO: Restructure to ECS
 struct CollisionDetector {
-    func checkSafeToInsert(source object: GameObject, with gameObject: GameObject) -> Bool {
-        isNotIntersecting(source: object, with: gameObject)
-        && !isIntersecting(source: object, with: gameObject)
-        && !isOverlap(source: object, with: gameObject)
-        && !pointInside(object: object, point: gameObject.getCenter())
-        && !pointInside(object: gameObject, point: object.getCenter())
+    func checkSafeToInsert(source object: Shape, with Shape: Shape) -> Bool {
+        isNotIntersecting(source: object, with: Shape)
+        && !isIntersecting(source: object, with: Shape)
+        && !isOverlap(source: object, with: Shape)
+        && !pointInside(object: object, point: Shape.getCenter())
+        && !pointInside(object: Shape, point: object.getCenter())
     }
 
     // Non-Polygon - Non-Polygon Intersection (both do not contain edges)
-    func isOverlap(source object: GameObject, with gameObject: GameObject) -> Bool {
-        let distanceObjectSquared: Double = object.center.squareDistance(to: gameObject.center)
-        let sumHalfLengthSquared: Double = (object.halfLength + gameObject.halfLength)
-        * (object.halfLength + gameObject.halfLength)
+    func isOverlap(source object: Shape, with Shape: Shape) -> Bool {
+        let distanceObjectSquared: Double = object.center.squareDistance(to: Shape.center)
+        let sumHalfLengthSquared: Double = (object.halfLength + Shape.halfLength)
+        * (object.halfLength + Shape.halfLength)
         return distanceObjectSquared > sumHalfLengthSquared
     }
 
     // Polygon - Non-Polygon Intersection (one contains edges)
-    func isIntersecting(source object: GameObject, with gameObject: GameObject) -> Bool {
-        guard let edges = gameObject.edges ?? object.edges else {
+    func isIntersecting(source object: Shape, with Shape: Shape) -> Bool {
+        guard let edges = Shape.edges ?? object.edges else {
             return false
         }
-        return checkEdgePointIntersection(edges: edges, source: object, with: gameObject)
+        return checkEdgePointIntersection(edges: edges, source: object, with: Shape)
     }
 
-    func checkEdgePointIntersection(edges: [Line], source object: GameObject, with gameObject: GameObject) -> Bool {
+    func checkEdgePointIntersection(edges: [Line], source object: Shape, with Shape: Shape) -> Bool {
         var squaredLength: Double
         var objectCenter: Point
 
-        if gameObject.edges != nil {
+        if Shape.edges != nil {
             squaredLength = object.halfLength * object.halfLength
             objectCenter = object.center
         } else {
-            squaredLength = gameObject.halfLength * gameObject.halfLength
-            objectCenter = gameObject.center
+            squaredLength = Shape.halfLength * Shape.halfLength
+            objectCenter = Shape.center
         }
 
         for edge in edges {
             guard objectCenter.squareDistance(to: edge.start) >= squaredLength else {
                 return true
             }
-            guard distanceFromPointToLine(point: objectCenter, line: edge) >= gameObject.halfLength else {
+            guard distanceFromPointToLine(point: objectCenter, line: edge) >= Shape.halfLength else {
                 return true
             }
         }
@@ -60,8 +61,8 @@ struct CollisionDetector {
     }
 
     // Polygon - Polygon Intersection (both contains edges)
-    func isNotIntersecting(source object: GameObject, with gameObject: GameObject) -> Bool {
-        guard let edges = object.edges, let objectEdges = gameObject.edges else {
+    func isNotIntersecting(source object: Shape, with Shape: Shape) -> Bool {
+        guard let edges = object.edges, let objectEdges = Shape.edges else {
             return true
         }
 
@@ -99,7 +100,7 @@ struct CollisionDetector {
     }
 
     // Object inside of another object check
-    func pointInside(object: GameObject, point: CGPoint) -> Bool {
+    func pointInside(object: Shape, point: CGPoint) -> Bool {
         guard let vertices = object.vertices else {
             return false
         }
