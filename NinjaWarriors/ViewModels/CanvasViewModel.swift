@@ -10,6 +10,7 @@ import Foundation
 // TODO: Allow init to take more ids other than playerids
 @MainActor
 final class CanvasViewModel: ObservableObject {
+    @Published var gameWorld = GameWorld()
     @Published private(set) var players: [Player] = []
     @Published private(set) var manager: RealTimeManagerAdapter
     @Published private(set) var matchId: String
@@ -21,6 +22,7 @@ final class CanvasViewModel: ObservableObject {
         self.playerIds = playerIds
         self.currPlayerId = currPlayerId
         manager = RealTimeManagerAdapter()
+        gameWorld.start()
     }
 
     // TODO: Change to add listener for all entities in match id
