@@ -15,14 +15,60 @@ class TransformHandler: System {
         self.manager = manager
     }
 
-    // TODO: Obey law of demeter
-    func update(after time: TimeInterval, entityId: String, field: Any?) {
-        guard let entity = manager?.entityMap[entityId] else {
+    func transformPosition(for id: EntityID, to position: Point) {
+        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id) else {
             return
         }
-        guard let center = field as? Point else {
+        shapeComponent.center = position
+    }
+
+    func transformSize(for id: EntityID, to halfLength: Double) {
+        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id) else {
             return
         }
-        entity.shape.center = center
+        shapeComponent.halfLength = halfLength
+    }
+
+    func transformOrientation(for id: EntityID, to orientation: Double) {
+        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id) else {
+            return
+        }
+        shapeComponent.orientation = orientation
+    }
+
+    func transformEdges(for id: EntityID, add edge: Line) {
+        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id),
+              var shapeComponentEdges = shapeComponent.edges else {
+            return
+        }
+        shapeComponentEdges.append(edge)
+    }
+
+    func transformEdges(for id: EntityID, remove edge: Line) {
+        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id),
+              var shapeComponentEdges = shapeComponent.edges else {
+            return
+        }
+        if let index = shapeComponentEdges.firstIndex(of: edge) {
+            shapeComponentEdges.remove(at: index)
+        }
+    }
+
+    func transformVertices(for id: EntityID, add vertex: Point) {
+        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id),
+              var shapeComponentVertices = shapeComponent.vertices else {
+            return
+        }
+        shapeComponentVertices.append(vertex)
+    }
+
+    func transformVertices(for id: EntityID, remove vertex: Point) {
+        guard let shapeComponent = manager?.getComponentFromId(ofType: Shape.self, of: id),
+              var shapeComponentVertices = shapeComponent.vertices else {
+            return
+        }
+        if let index = shapeComponentVertices.firstIndex(of: vertex) {
+            shapeComponentVertices.remove(at: index)
+        }
     }
 }

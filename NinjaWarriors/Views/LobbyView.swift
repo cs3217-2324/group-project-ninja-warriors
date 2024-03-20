@@ -25,25 +25,28 @@ struct LobbyView: View {
                 if let playerCount = viewModel.getPlayerCount() {
                     Text("Player Count: \(playerCount)")
                         .padding()
-
-                    if playerCount == Constants.playerCount,
-                       let matchId = viewModel.matchId,
-                       let players = viewModel.playerIds {
-                        NavigationLink(destination: CanvasView(matchId: matchId,
-                                                               playerIds: players,
-                                                               currPlayerId: signInViewModel.getUserId() ?? "none")) {
-                            Text("Start Game")
-                                .font(.system(size: 30))
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.black)
-                                .cornerRadius(10)
-                                .onAppear {
-                                    Task {
-                                        await viewModel.start()
-                                    }
+                    if playerCount == Constants.playerCount {
+                        Text("")
+                            .hidden()
+                            .onAppear {
+                                Task {
+                                    try await viewModel.start()
                                 }
-                        }.padding()
+                            }
+                        if let matchId = viewModel.matchId,
+                           let players = viewModel.playerIds {
+                            NavigationLink(destination: CanvasView(matchId: matchId,
+                                                                   playerIds: players,
+                                                                   currPlayerId: signInViewModel.getUserId() ?? "none")) {
+                                Text("Start Game")
+                                    .font(.system(size: 30))
+                                    .padding()
+                                    .background(Color.blue)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(10)
+                            }
+                            .padding()
+                        }
                     }
                 }
                 Button(action: {

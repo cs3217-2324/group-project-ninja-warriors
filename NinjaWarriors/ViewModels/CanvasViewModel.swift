@@ -7,10 +7,11 @@
 
 import Foundation
 
+// TODO: Allow init to take more ids other than playerids
 @MainActor
 final class CanvasViewModel: ObservableObject {
     @Published private(set) var players: [Player] = []
-    @Published private(set) var manager: RealTimePlayersManagerAdapter
+    @Published private(set) var manager: RealTimeManagerAdapter
     @Published private(set) var matchId: String
     @Published private(set) var playerIds: [String]
     @Published private(set) var currPlayerId: String
@@ -19,7 +20,7 @@ final class CanvasViewModel: ObservableObject {
         self.matchId = matchId
         self.playerIds = playerIds
         self.currPlayerId = currPlayerId
-        manager = RealTimePlayersManagerAdapter()
+        manager = RealTimeManagerAdapter()
     }
 
     // TODO: Change to add listener for all entities in match id
@@ -30,6 +31,7 @@ final class CanvasViewModel: ObservableObject {
                 self.players = try await self.manager.getAllPlayers(with: playerIds)
                 let publisher = self.manager.addListenerForAllPlayers()
 
+                // TODO: Might be redundant
                 publisher.subscribe(update: { players in
                     let filteredPlayers = players.filter { player in
                         self.playerIds.contains(player.id)

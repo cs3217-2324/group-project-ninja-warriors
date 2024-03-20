@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+// TODO: Deprecate this
 final class PlayersManagerAdapter: PlayersManager {
 
     // TODO: Convert to REST API

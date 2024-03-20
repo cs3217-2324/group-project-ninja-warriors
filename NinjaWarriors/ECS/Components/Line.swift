@@ -189,5 +189,12 @@ struct Line {
                     end: end.toPointWrapper(),
                     vector: vector.toVectorWrapper())
     }
+}
 
+extension Line: Equatable {
+    static func == (lhs: Line, rhs: Line) -> Bool {
+        lhs.start == rhs.start
+        && lhs.end == rhs.end
+        && lhs.vector == rhs.vector
+    }
 }

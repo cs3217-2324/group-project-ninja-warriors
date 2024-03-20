@@ -9,7 +9,10 @@ import Foundation
 
 protocol System: AnyObject {
     var manager: EntityComponentManager? { get set }
-    
+
     init(for manager: EntityComponentManager)
-    func update(after time: TimeInterval, entityId: String, field: Any?)
+}
+
+extension System {
+    func update(after time: TimeInterval) { }
 }

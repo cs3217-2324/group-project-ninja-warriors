@@ -24,7 +24,6 @@ struct CanvasView: View {
     var body: some View {
         VStack {
             Text("currPlayerId: \(viewModel.currPlayerId)")
-            Text("Player Count: \(viewModel.players.count)")
                 .padding()
             Text("Both the database as well as the view will update in real time, simulating multiplayer mode")
             GeometryReader { _ in

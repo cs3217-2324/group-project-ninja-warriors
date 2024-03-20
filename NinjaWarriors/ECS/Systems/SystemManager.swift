@@ -14,8 +14,8 @@ class SystemManager {
         systems = []
     }
 
-    func update(after time: TimeInterval, entityId: String, field: Any?) {
-        systems.forEach { $0.update(after: time, entityId: entityId, field: field) }
+    func update(after time: TimeInterval) {
+        systems.forEach { $0.update(after: time) }
     }
 
     func system<T: System>(ofType: T.Type) -> T? {

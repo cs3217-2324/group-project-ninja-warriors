@@ -24,6 +24,10 @@ class EntityComponentManager {
     }
 
     // MARK: - Entity-related functions
+    func entity(with entityID: EntityID) -> Entity? {
+        entityMap[entityID]
+    }
+
     func contains(entityID: EntityID) -> Bool {
         entityMap[entityID] != nil && entityComponentMap[entityID] != nil
     }
@@ -60,6 +64,13 @@ class EntityComponentManager {
         return entityComponentMap[entity.id]?.contains(where: {componentMap[$0] is T}) ?? false
     }
 
+    func getComponentFromId<T: Component>(ofType type: T.Type, of entityID: EntityID) -> T? {
+        guard let entity = entity(with: entityID) else {
+            return nil
+        }
+        return getComponent(ofType: type, for: entity)
+    }
+
     private func add(component: Component, to entity: Entity) {
         assertRepresentation()
 
@@ -89,6 +100,7 @@ class EntityComponentManager {
 
         return componentMap[componentID] as? T
     }
+
 
     func getAllComponents<T: Component>(ofType: T.Type) -> [T] {
         return componentMap.values.compactMap({$0 as? T})

@@ -13,36 +13,25 @@ import SwiftUI
 @MainActor
 final class LobbyViewModel: ObservableObject {
     @Published private(set) var matches: [Match] = []
-    @Published private(set) var manager: MatchManager
-    //@Published private(set) var playersManager: PlayersManager
-    @Published private(set) var realTimePlayersManager: RealTimePlayersManagerAdapter
+    @Published private(set) var matchManager: MatchManager
+    @Published private(set) var realTimeManager: RealTimeManagerAdapter
+    @Published private(set) var systemManager: SystemManager
     @Published var matchId: String?
-    // @Published var playerCount: Int?
     @Published var playerIds: [String]?
 
-    
-
     init() {
-        manager = MatchManagerAdapter()
-        //playersManager = PlayersManagerAdapter()
-        realTimePlayersManager = RealTimePlayersManagerAdapter()
+        matchManager = MatchManagerAdapter()
+        realTimeManager = RealTimeManagerAdapter()
+        systemManager = SystemManager()
     }
 
-    // TODO: Make ready, unready, start all same level of abstraction. Currently, ready is more detailed than the rest
     func ready(userId: String) {
-        Task {
-            do {
-                let newMatchId = try await manager.enterQueue(playerId: userId)
-                addListenerForMatches()
-                DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
-                    self.matchId = newMatchId
-                }
-            } catch {
-                print("Error entering queue: \(error)")
-            }
+        Task { [weak self] in
+            guard let self = self else { return }
+            let newMatchId = try await matchManager.enterQueue(playerId: userId)
+            self.matchId = newMatchId
+            addListenerForMatches()
         }
-        addPlayer(playerId: userId)
     }
 
     func unready(userId: String) {
@@ -51,31 +40,45 @@ final class LobbyViewModel: ObservableObject {
         }
         Task { [weak self] in
             guard let self = self else { return }
-            await self.manager.removePlayerFromMatch(playerId: userId, matchId: match)
+            await self.matchManager.removePlayerFromMatch(playerId: userId, matchId: match)
         }
     }
 
-    func start() async {
+    // TODO: Abstract out start to loading of all entities in map
+    func start() async throws {
         guard let matchId = matchId else {
             return
         }
-        do {
-            self.playerIds = try await manager.startMatch(matchId: matchId)
-        } catch {
-            print("Error starting match: \(error)")
+        playerIds = try await matchManager.startMatch(matchId: matchId)
+        initSystems(ids: playerIds)
+    }
+
+    // Add all relevant entities and systems related to map here
+    func initSystems(ids playerIds: [String]?) {
+        
+        addPlayersToSystemAndDatabase(ids: playerIds)
+
+    }
+
+    private func addPlayersToSystemAndDatabase(ids playerIds: [String]?) {
+        guard let playerIds = playerIds else {
+            return
+        }
+        for playerId in playerIds {
+            addPlayerToSystemAndDatabase(id: playerId)
         }
     }
 
     // TODO: Remove hardcoded value
-    func addPlayer(playerId: String) {
-        let Shape1 = Shape(center: Point(xCoord: 150.0 + Double.random(in: -150.0...150.0),
+    private func addPlayerToSystemAndDatabase(id playerId: String) {
+        let Shape = Shape(center: Point(xCoord: 150.0 + Double.random(in: -150.0...150.0),
                                                    yCoord: 150.0), halfLength: 25.0)
         let dashSkill = DashSkill(id: "1")
-        let player1 = Player(id: playerId, Shape: Shape1, skills: [dashSkill])
+        let player = Player(id: playerId, Shape: Shape, skills: [dashSkill])
         Task {
-            //try? await playersManager.uploadPlayer(player: player1)
-            try? await realTimePlayersManager.uploadPlayer(player: player1)
+            try? await realTimeManager.uploadPlayer(player: player)
         }
+        return player
     }
 
     func getPlayerCount() -> Int? {
@@ -86,7 +89,7 @@ final class LobbyViewModel: ObservableObject {
     }
 
     func addListenerForMatches() {
-        let publisher = manager.addListenerForAllMatches()
+        let publisher = matchManager.addListenerForAllMatches()
         publisher.subscribe(update: { [weak self] matches in
             self?.matches = matches.map { $0.toMatch() }
         }, error: { error in

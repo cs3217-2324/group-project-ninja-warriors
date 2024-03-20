@@ -1,5 +1,5 @@
 //
-//  RealTimePlayersManagerAdapter.swift
+//  RealTimeManagerAdapter.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 18/3/24.
@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseDatabase
 
-final class RealTimePlayersManagerAdapter: PlayersManager {
+final class RealTimeManagerAdapter: PlayersManager {
     private let databaseRef = Database.database().reference()
     private let playersRef: DatabaseReference
     private let databaseRefName = "players"

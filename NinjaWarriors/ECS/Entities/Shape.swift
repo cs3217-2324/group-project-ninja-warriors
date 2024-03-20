@@ -7,38 +7,22 @@
 
 import Foundation
 
-// TODO: Update shape to conform to Component, rename to sh
-class Shape {
+// TODO: Update shape to conform to Component
+class Shape: Component {
     var center: Point
     var orientation: Double?
     var halfLength: Double
     var edges: [Line]?
     var vertices: [Point]?
 
-    init (center: Point, halfLength: Double) {
-        self.center = center
-        self.halfLength = halfLength
-    }
-
-    init (center: Point, halfLength: Double, edges: [Line], vertices: [Point]) {
-        self.center = center
-        self.halfLength = halfLength
-        self.edges = edges
-        self.vertices = vertices
-    }
-
-    init (center: Point, halfLength: Double, orientation: Double) {
-        self.center = center
-        self.halfLength = halfLength
-        self.orientation = orientation
-    }
-
-    init (center: Point, halfLength: Double, orientation: Double, edges: [Line], vertices: [Point]) {
+    init (id: String, entity: Entity, center: Point, halfLength: Double,
+          orientation: Double, edges: [Line], vertices: [Point]) {
         self.center = center
         self.halfLength = halfLength
         self.orientation = orientation
         self.edges = edges
         self.vertices = vertices
+        super.init(id: id, entity: entity)
     }
 
     func getCenter() -> CGPoint {
@@ -57,36 +41,51 @@ class Shape {
         return collisionDetector.checkSafeToInsert(source: self, with: Shape)
     }
 
-    func makeDeepCopy() -> Shape {
+    func makeDeepCopy() -> Shape? {
         guard let edges = edges, let orientation = orientation, let vertices = vertices else {
-            return Shape(center: center, halfLength: halfLength)
+            return nil
         }
-        return Shape(center: center, halfLength: halfLength,
+        return Shape(id: id, entity: entity, center: center, halfLength: halfLength,
                           orientation: orientation, edges: edges, vertices: vertices)
     }
+}
 
-    // TODO: Remove hardcoded values
-    func toShapeWrapper() -> ShapeWrapper {
-        let test = PointWrapper(xCoord: 10.0, yCoord: 10.0, radial: 10.0, theta: 10.0)
-        var edgesWrapper: [LineWrapper] = []
+extension Shape {
+    private func createDefaultPoint() -> PointWrapper {
+        return PointWrapper(xCoord: 0.0, yCoord: 0.0, radial: 0.0, theta: 0.0)
+    }
+
+    private func createDefaultLine() -> LineWrapper {
+        let defaultPoint = createDefaultPoint()
+        let defaultVector = VectorWrapper(horizontal: 0.0, vertical: 0.0)
+        return LineWrapper(start: defaultPoint, end: defaultPoint, vector: defaultVector)
+    }
+
+    private func createEdgesWrapper(_ defaultLine: LineWrapper) -> [LineWrapper] {
         if let edges = edges {
-            for edge in edges {
-                edgesWrapper.append(edge.toLineWrapper())
-            }
+            return edges.map { $0.toLineWrapper() }
+        } else {
+            return [defaultLine]
         }
-        edgesWrapper = [LineWrapper(start: test, end: test, vector: VectorWrapper(horizontal: 10.0, vertical: 10.0))]
-        var verticesWrapper: [PointWrapper] = []
+    }
+
+    private func createVerticesWrapper() -> [PointWrapper] {
         if let vertices = vertices {
-            for vertex in vertices {
-                verticesWrapper.append(vertex.toPointWrapper())
-            }
+            return vertices.map { $0.toPointWrapper() }
+        } else {
+            return [createDefaultPoint()]
         }
-        verticesWrapper = [test, test]
+    }
+
+    func toShapeWrapper() -> ShapeWrapper {
+        let defaultLine = createDefaultLine()
+        let edgesWrapper = createEdgesWrapper(defaultLine)
+        let verticesWrapper = createVerticesWrapper()
 
         return ShapeWrapper(center: center.toPointWrapper(),
-                          orientation: orientation ?? 0.0,
-                          halfLength: halfLength,
-                          edges: edgesWrapper,
-                          vertices: verticesWrapper)
+                            orientation: orientation ?? 0.0,
+                            halfLength: halfLength,
+                            edges: edgesWrapper,
+                            vertices: verticesWrapper)
     }
 }

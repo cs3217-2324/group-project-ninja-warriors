@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Vector: Equatable {
+struct Vector {
 
     private(set) var horizontal: Double
     private(set) var vertical: Double
@@ -91,5 +91,11 @@ struct Vector: Equatable {
 
     func toVectorWrapper() -> VectorWrapper {
         VectorWrapper(horizontal: horizontal, vertical: vertical)
+    }
+}
+
+extension Vector: Equatable {
+    static func == (lhs: Vector, rhs: Vector) -> Bool {
+        lhs.horizontal == rhs.horizontal && lhs.vertical == rhs.vertical
     }
 }

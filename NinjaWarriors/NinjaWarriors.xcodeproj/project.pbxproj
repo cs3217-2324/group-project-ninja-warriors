@@ -33,11 +33,11 @@
 		9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF7D2BA59FE5000F2AC4 /* MatchPublisher.swift */; };
 		9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF7F2BA5A1B1000F2AC4 /* MatchListener.swift */; };
 		9132AF872BA6AEAB000F2AC4 /* Shape+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF862BA6AEAB000F2AC4 /* Shape+EXT.swift */; };
-		9132AF892BA7DFA4000F2AC4 /* RealTimePlayersManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF882BA7DFA4000F2AC4 /* RealTimePlayersManagerAdapter.swift */; };
 		9132AF8D2BA7E9CA000F2AC4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9132AF8C2BA7E9CA000F2AC4 /* GoogleService-Info.plist */; };
 		9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF8E2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift */; };
 		9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF902BA83E54000F2AC4 /* JoystickView.swift */; };
 		9136A5BA2BAA8B3900197971 /* TransformHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9136A5B92BAA8B3900197971 /* TransformHandler.swift */; };
+		9136A5BC2BAAA80200197971 /* RealTimeManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -76,6 +76,8 @@
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
 		916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB12BA42F7F00319C26 /* CanvasView.swift */; };
 		916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */; };
+		9180F9C62BAAE53F000CC390 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* Triangle.swift */; };
+		9180F9C82BAAE54A000CC390 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* Rectangle.swift */; };
 		E62AD80B2BA8A82F0009F12D /* SkillCaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62AD80A2BA8A82F0009F12D /* SkillCaster.swift */; };
 		E62AD80E2BA8A8630009F12D /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62AD80D2BA8A8630009F12D /* Skill.swift */; };
 		E66E6E802BA8AD9400F4C9BB /* DashSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66E6E7F2BA8AD9400F4C9BB /* DashSkill.swift */; };
@@ -125,11 +127,11 @@
 		9132AF7D2BA59FE5000F2AC4 /* MatchPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchPublisher.swift; sourceTree = "<group>"; };
 		9132AF7F2BA5A1B1000F2AC4 /* MatchListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchListener.swift; sourceTree = "<group>"; };
 		9132AF862BA6AEAB000F2AC4 /* Shape+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Shape+EXT.swift"; sourceTree = "<group>"; };
-		9132AF882BA7DFA4000F2AC4 /* RealTimePlayersManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimePlayersManagerAdapter.swift; sourceTree = "<group>"; };
 		9132AF8C2BA7E9CA000F2AC4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9132AF8E2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeFactoryListener.swift; sourceTree = "<group>"; };
 		9132AF902BA83E54000F2AC4 /* JoystickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickView.swift; sourceTree = "<group>"; };
 		9136A5B92BAA8B3900197971 /* TransformHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformHandler.swift; sourceTree = "<group>"; };
+		9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeManagerAdapter.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -164,6 +166,8 @@
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
 		916A7DB12BA42F7F00319C26 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
+		9180F9C52BAAE53F000CC390 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
+		9180F9C72BAAE54A000CC390 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		E62AD80A2BA8A82F0009F12D /* SkillCaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCaster.swift; sourceTree = "<group>"; };
 		E62AD80D2BA8A8630009F12D /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		E66E6E7F2BA8AD9400F4C9BB /* DashSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashSkill.swift; sourceTree = "<group>"; };
@@ -236,11 +240,11 @@
 			isa = PBXGroup;
 			children = (
 				916A7DA02BA3F6E200319C26 /* PlayersManagerAdapter.swift */,
-				9132AF882BA7DFA4000F2AC4 /* RealTimePlayersManagerAdapter.swift */,
 				9132AF6B2BA57130000F2AC4 /* PlayersManager.swift */,
 				916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */,
 				9132AF572BA5087F000F2AC4 /* PlayersListener.swift */,
 				9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */,
+				9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */,
 			);
 			path = Players;
 			sourceTree = "<group>";
@@ -280,6 +284,8 @@
 				916A7D6B2BA1550700319C26 /* Shape.swift */,
 				9132AF862BA6AEAB000F2AC4 /* Shape+EXT.swift */,
 				916A7DA22BA3F74700319C26 /* Player.swift */,
+				9180F9C52BAAE53F000CC390 /* Triangle.swift */,
+				9180F9C72BAAE54A000CC390 /* Rectangle.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -650,6 +656,7 @@
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
 				E62AD80B2BA8A82F0009F12D /* SkillCaster.swift in Sources */,
 				916A7DA52BA3F89500319C26 /* GameObjectWrapper.swift in Sources */,
+				9180F9C62BAAE53F000CC390 /* Triangle.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
 				9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */,
 				9132AF7A2BA59B1C000F2AC4 /* FactoryWrapper.swift in Sources */,
@@ -668,6 +675,7 @@
 				9132AF742BA597FD000F2AC4 /* MatchWrapper.swift in Sources */,
 				916A7DAA2BA3FBBF00319C26 /* AnyCodingKey.swift in Sources */,
 				916A7D6C2BA1550700319C26 /* Shape.swift in Sources */,
+				9180F9C82BAAE54A000CC390 /* Rectangle.swift in Sources */,
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,
 				9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */,
@@ -677,8 +685,8 @@
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
 				9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */,
 				9132AF722BA5971E000F2AC4 /* Match.swift in Sources */,
-				9132AF892BA7DFA4000F2AC4 /* RealTimePlayersManagerAdapter.swift in Sources */,
 				9132AF6E2BA58C1E000F2AC4 /* MatchManagerAdapter.swift in Sources */,
+				9136A5BC2BAAA80200197971 /* RealTimeManagerAdapter.swift in Sources */,
 				9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */,
 				916A7D752BA1554200319C26 /* Constants.swift in Sources */,
 				E62AD80E2BA8A8630009F12D /* Skill.swift in Sources */,
