@@ -66,7 +66,7 @@ final class LobbyViewModel: ObservableObject {
             return
         }
         Task {
-            try? await realTimeManager.uploadEntity(entity: player)
+            try? await realTimeManager.uploadEntity(entity: player, entityName: "Player")
         }
     }
 

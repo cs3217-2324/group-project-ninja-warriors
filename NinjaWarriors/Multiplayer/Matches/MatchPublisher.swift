@@ -8,6 +8,9 @@
 import Foundation
 
 final class MatchPublisher: FactoryPublisher {
+    typealias Output = [Match]
+    typealias Failure = Error
+
     typealias Item = MatchWrapper
     typealias UpdateClosure = ([MatchWrapper]) -> Void
     typealias ErrorClosure = (Error) -> Void

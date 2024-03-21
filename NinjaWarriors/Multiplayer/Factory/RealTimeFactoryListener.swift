@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseDatabase
 
-class RealTimeFactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener/*where W.Item == P.Item*/ {
+class RealTimeFactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener {
 
     internal let publisher: P
     private var databaseReference: DatabaseReference?

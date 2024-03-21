@@ -8,6 +8,9 @@
 import Foundation
 
 final class PlayerPublisher: FactoryPublisher {
+    typealias Output = PlayerWrapper
+    typealias Failure = Error
+
     typealias Item = PlayerWrapper
     typealias UpdateClosure = ([PlayerWrapper]) -> Void
     typealias ErrorClosure = (Error) -> Void

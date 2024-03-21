@@ -9,6 +9,7 @@ import Foundation
 
 protocol FactoryPublisher: Publisher {
     associatedtype Item: Decodable
+    // associatedtype Item: FactoryWrapper
     typealias UpdateClosure = ([Item]) -> Void
     typealias ErrorClosure = (Error) -> Void
 

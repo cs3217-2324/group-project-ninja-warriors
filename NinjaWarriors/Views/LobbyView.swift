@@ -36,7 +36,6 @@ struct LobbyView: View {
                         if let matchId = viewModel.matchId,
                            let players = viewModel.playerIds {
                             NavigationLink(destination: CanvasView(matchId: matchId,
-                                                                   entities: viewModel.entities,
                                                                    currPlayerId: signInViewModel.getUserId() ?? "none")) {
                                 Text("Start Game")
                                     .font(.system(size: 30))
