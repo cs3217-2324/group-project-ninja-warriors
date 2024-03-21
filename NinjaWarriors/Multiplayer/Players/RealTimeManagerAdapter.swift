@@ -48,9 +48,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
     }
 
     private func getWrapperType(from id: EntityID) async throws -> String? {
-        print("get wrapper")
         let (_, wrapperType) = try await decodeEntities(id: id)
-        print(wrapperType, "wrapper type")
         return wrapperType
     }
 

@@ -1,5 +1,5 @@
 //
-//  PhysicsBody.swift
+//  RigidbodyHandler.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 16/3/24.
@@ -8,7 +8,7 @@
 import Foundation
 
 // TODO: Restructure to ECS
-class PhysicsBody: PhysicsElasticCollision, PhysicsRigidBody {
+class RigidbodyHandler: PhysicsElasticCollision, PhysicsRigidBody {
     private(set) var position: Vector
     private(set) var mass = 8.0
 
@@ -52,7 +52,7 @@ class PhysicsBody: PhysicsElasticCollision, PhysicsRigidBody {
         vector.dotProduct(with: velocity)
     }
 
-    internal func resultantNormVec(normVec: Vector, src: PhysicsBody, dst: PhysicsBody) -> Vector {
+    internal func resultantNormVec(normVec: Vector, src: RigidbodyHandler, dst: RigidbodyHandler) -> Vector {
         let srcVelProj = getProjection(vector: normVec, velocity: src.velocity)
         let dstVelProj = getProjection(vector: normVec, velocity: dst.velocity)
 
@@ -61,13 +61,13 @@ class PhysicsBody: PhysicsElasticCollision, PhysicsRigidBody {
         return normVec.scale(kineticConservation / momentumConservation)
     }
 
-    internal func resultantTanVector(tanVec: Vector, src: PhysicsBody) -> Vector {
+    internal func resultantTanVector(tanVec: Vector, src: RigidbodyHandler) -> Vector {
         let srcVelProj = getProjection(vector: tanVec, velocity: src.velocity)
         return tanVec.scale(srcVelProj)
     }
 
     internal func assignResultantVel(normVel: Vector, tanVel: Vector,
-                                     collider: inout PhysicsBody, collidee: inout PhysicsBody) {
+                                     collider: inout RigidbodyHandler, collidee: inout RigidbodyHandler) {
         let resultantNormVel = resultantNormVec(normVec: normVel, src: collider, dst: collidee)
         let resultantTanVel = resultantTanVector(tanVec: tanVel, src: collider)
         collider.velocity = resultantNormVel.add(vector: resultantTanVel)
@@ -75,7 +75,7 @@ class PhysicsBody: PhysicsElasticCollision, PhysicsRigidBody {
         collider.velocity = collider.velocity.add(vector: dampVelocity)
     }
 
-    func doElasticCollision(collider: inout PhysicsBody, collidee: inout PhysicsBody) {
+    func doElasticCollision(collider: inout RigidbodyHandler, collidee: inout RigidbodyHandler) {
         guard !collider.mass.isZero && !collidee.mass.isZero else {
             return
         }

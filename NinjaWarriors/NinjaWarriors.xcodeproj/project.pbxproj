@@ -18,7 +18,7 @@
 		9132AF5C2BA50C5C000F2AC4 /* CustomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF5B2BA50C5C000F2AC4 /* CustomSubject.swift */; };
 		9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF612BA50E66000F2AC4 /* PhysicsRigidBody.swift */; };
 		9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF632BA50E82000F2AC4 /* PhysicsElasticCollision.swift */; };
-		9132AF662BA50E9A000F2AC4 /* PhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF652BA50E9A000F2AC4 /* PhysicsBody.swift */; };
+		9132AF662BA50E9A000F2AC4 /* RigidbodyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF652BA50E9A000F2AC4 /* RigidbodyHandler.swift */; };
 		9132AF682BA53E54000F2AC4 /* LobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF672BA53E54000F2AC4 /* LobbyView.swift */; };
 		9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */; };
 		9132AF6C2BA57130000F2AC4 /* EntitiesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF6B2BA57130000F2AC4 /* EntitiesManager.swift */; };
@@ -46,7 +46,7 @@
 		916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D4F2BA1541800319C26 /* NinjaWarriorsTests.swift */; };
 		916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D592BA1541800319C26 /* NinjaWarriorsUITests.swift */; };
 		916A7D5C2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D5B2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift */; };
-		916A7D6A2BA154F000319C26 /* CollisionDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D692BA154F000319C26 /* CollisionDetector.swift */; };
+		916A7D6A2BA154F000319C26 /* CollisionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D692BA154F000319C26 /* CollisionManager.swift */; };
 		916A7D6C2BA1550700319C26 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D6B2BA1550700319C26 /* Shape.swift */; };
 		916A7D6E2BA1551300319C26 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D6D2BA1551300319C26 /* Line.swift */; };
 		916A7D702BA1552100319C26 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D6F2BA1552100319C26 /* Point.swift */; };
@@ -115,7 +115,7 @@
 		9132AF5B2BA50C5C000F2AC4 /* CustomSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSubject.swift; sourceTree = "<group>"; };
 		9132AF612BA50E66000F2AC4 /* PhysicsRigidBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsRigidBody.swift; sourceTree = "<group>"; };
 		9132AF632BA50E82000F2AC4 /* PhysicsElasticCollision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsElasticCollision.swift; sourceTree = "<group>"; };
-		9132AF652BA50E9A000F2AC4 /* PhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsBody.swift; sourceTree = "<group>"; };
+		9132AF652BA50E9A000F2AC4 /* RigidbodyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RigidbodyHandler.swift; sourceTree = "<group>"; };
 		9132AF672BA53E54000F2AC4 /* LobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyView.swift; sourceTree = "<group>"; };
 		9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyViewModel.swift; sourceTree = "<group>"; };
 		9132AF6B2BA57130000F2AC4 /* EntitiesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntitiesManager.swift; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 		916A7D552BA1541800319C26 /* NinjaWarriorsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NinjaWarriorsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D592BA1541800319C26 /* NinjaWarriorsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsUITests.swift; sourceTree = "<group>"; };
 		916A7D5B2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		916A7D692BA154F000319C26 /* CollisionDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionDetector.swift; sourceTree = "<group>"; };
+		916A7D692BA154F000319C26 /* CollisionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionManager.swift; sourceTree = "<group>"; };
 		916A7D6B2BA1550700319C26 /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		916A7D6D2BA1551300319C26 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		916A7D6F2BA1552100319C26 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
@@ -226,7 +226,7 @@
 			children = (
 				9132AF612BA50E66000F2AC4 /* PhysicsRigidBody.swift */,
 				9132AF632BA50E82000F2AC4 /* PhysicsElasticCollision.swift */,
-				9132AF652BA50E9A000F2AC4 /* PhysicsBody.swift */,
+				9132AF652BA50E9A000F2AC4 /* RigidbodyHandler.swift */,
 			);
 			path = PhysicsSystem;
 			sourceTree = "<group>";
@@ -270,10 +270,10 @@
 		9136A5B52BA9943100197971 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
-				9136A5B92BAA8B3900197971 /* TransformHandler.swift */,
 				714A4A632BA717B80067D5CB /* System.swift */,
 				714A4A652BA721E50067D5CB /* SystemManager.swift */,
 				714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */,
+				9180F9D62BACE93C000CC390 /* TransformSystem */,
 				9136A5B82BA9955400197971 /* CollisionSystem */,
 				9132AF602BA50E46000F2AC4 /* PhysicsSystem */,
 			);
@@ -294,7 +294,7 @@
 		9136A5B82BA9955400197971 /* CollisionSystem */ = {
 			isa = PBXGroup;
 			children = (
-				916A7D692BA154F000319C26 /* CollisionDetector.swift */,
+				916A7D692BA154F000319C26 /* CollisionManager.swift */,
 			);
 			path = CollisionSystem;
 			sourceTree = "<group>";
@@ -504,6 +504,14 @@
 			path = Nonce;
 			sourceTree = "<group>";
 		};
+		9180F9D62BACE93C000CC390 /* TransformSystem */ = {
+			isa = PBXGroup;
+			children = (
+				9136A5B92BAA8B3900197971 /* TransformHandler.swift */,
+			);
+			path = TransformSystem;
+			sourceTree = "<group>";
+		};
 		E62AD80C2BA8A85A0009F12D /* SkillComponents */ = {
 			isa = PBXGroup;
 			children = (
@@ -679,8 +687,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */,
-				916A7D6A2BA154F000319C26 /* CollisionDetector.swift in Sources */,
-				9132AF662BA50E9A000F2AC4 /* PhysicsBody.swift in Sources */,
+				916A7D6A2BA154F000319C26 /* CollisionManager.swift in Sources */,
+				9132AF662BA50E9A000F2AC4 /* RigidbodyHandler.swift in Sources */,
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,

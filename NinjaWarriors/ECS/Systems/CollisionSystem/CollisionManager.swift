@@ -1,5 +1,5 @@
 //
-//  CollisionDetector.swift
+//  CollisionManager.swift
 //  CollisionHandler
 //
 //  Created by Muhammad Reyaaz on 13/3/24.
@@ -8,48 +8,48 @@
 import Foundation
 
 // TODO: Restructure to ECS
-struct CollisionDetector {
-    func checkSafeToInsert(source object: Shape, with Shape: Shape) -> Bool {
-        isNotIntersecting(source: object, with: Shape)
-        && !isIntersecting(source: object, with: Shape)
-        && !isOverlap(source: object, with: Shape)
-        && !pointInside(object: object, point: Shape.getCenter())
-        && !pointInside(object: Shape, point: object.getCenter())
+struct CollisionManager {
+    func checkSafeToInsert(source object: Shape, with shape: Shape) -> Bool {
+        isNotIntersecting(source: object, with: shape)
+        && !isIntersecting(source: object, with: shape)
+        && !isOverlap(source: object, with: shape)
+        && !pointInside(object: object, point: shape.getCenter())
+        && !pointInside(object: shape, point: object.getCenter())
     }
 
     // Non-Polygon - Non-Polygon Intersection (both do not contain edges)
-    func isOverlap(source object: Shape, with Shape: Shape) -> Bool {
-        let distanceObjectSquared: Double = object.center.squareDistance(to: Shape.center)
-        let sumHalfLengthSquared: Double = (object.halfLength + Shape.halfLength)
-        * (object.halfLength + Shape.halfLength)
+    func isOverlap(source object: Shape, with shape: Shape) -> Bool {
+        let distanceObjectSquared: Double = object.center.squareDistance(to: shape.center)
+        let sumHalfLengthSquared: Double = (object.halfLength + shape.halfLength)
+        * (object.halfLength + shape.halfLength)
         return distanceObjectSquared > sumHalfLengthSquared
     }
 
     // Polygon - Non-Polygon Intersection (one contains edges)
-    func isIntersecting(source object: Shape, with Shape: Shape) -> Bool {
-        guard let edges = Shape.edges ?? object.edges else {
+    func isIntersecting(source object: Shape, with shape: Shape) -> Bool {
+        guard let edges = shape.edges ?? object.edges else {
             return false
         }
-        return checkEdgePointIntersection(edges: edges, source: object, with: Shape)
+        return checkEdgePointIntersection(edges: edges, source: object, with: shape)
     }
 
-    func checkEdgePointIntersection(edges: [Line], source object: Shape, with Shape: Shape) -> Bool {
+    func checkEdgePointIntersection(edges: [Line], source object: Shape, with shape: Shape) -> Bool {
         var squaredLength: Double
         var objectCenter: Point
 
-        if Shape.edges != nil {
+        if shape.edges != nil {
             squaredLength = object.halfLength * object.halfLength
             objectCenter = object.center
         } else {
-            squaredLength = Shape.halfLength * Shape.halfLength
-            objectCenter = Shape.center
+            squaredLength = shape.halfLength * shape.halfLength
+            objectCenter = shape.center
         }
 
         for edge in edges {
             guard objectCenter.squareDistance(to: edge.start) >= squaredLength else {
                 return true
             }
-            guard distanceFromPointToLine(point: objectCenter, line: edge) >= Shape.halfLength else {
+            guard distanceFromPointToLine(point: objectCenter, line: edge) >= shape.halfLength else {
                 return true
             }
         }
@@ -61,8 +61,8 @@ struct CollisionDetector {
     }
 
     // Polygon - Polygon Intersection (both contains edges)
-    func isNotIntersecting(source object: Shape, with Shape: Shape) -> Bool {
-        guard let edges = object.edges, let objectEdges = Shape.edges else {
+    func isNotIntersecting(source object: Shape, with shape: Shape) -> Bool {
+        guard let edges = object.edges, let objectEdges = shape.edges else {
             return true
         }
 

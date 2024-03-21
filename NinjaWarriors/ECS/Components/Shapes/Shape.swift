@@ -40,8 +40,8 @@ class Shape {
     }
 
     func checkSafeToInsert(with Shape: Shape) -> Bool {
-        let collisionDetector = CollisionDetector()
-        return collisionDetector.checkSafeToInsert(source: self, with: Shape)
+        let CollisionManager = CollisionManager()
+        return CollisionManager.checkSafeToInsert(source: self, with: Shape)
     }
 
     func makeDeepCopy() -> Shape? {
