@@ -11,7 +11,7 @@ import FirebaseFirestoreSwift
 
 // TODO: Change realtime database to "entity" instead of "players"
 class PlayersListener: RealTimeFactoryListener<EntityPublisher, PlayerWrapper> {
-    init() {
-        super.init(referenceName: "players", publisher: EntityPublisher())
+    init(matchId: String) {
+        super.init(referenceName: matchId, publisher: EntityPublisher())
     }
 }

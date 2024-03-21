@@ -13,15 +13,15 @@ final class CanvasViewModel: ObservableObject {
     @Published private(set) var players: [Entity] = []
     @Published private(set) var manager: RealTimeManagerAdapter
     @Published private(set) var matchId: String
-    //@Published private(set) var playerIds: [String]
+    // @Published private(set) var playerIds: [String]
     @Published private(set) var currPlayerId: String
 
     init(matchId: String, entities: [Entity], currPlayerId: String) {
         self.matchId = matchId
         self.players = entities
-        //self.playerIds = playerIds
+        // self.playerIds = playerIds
         self.currPlayerId = currPlayerId
-        manager = RealTimeManagerAdapter()
+        manager = RealTimeManagerAdapter(matchId: matchId)
     }
 
     // TODO: Change to add listener for all entities in match id
@@ -29,7 +29,11 @@ final class CanvasViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             do {
-                self.players = try await self.manager.getAllEntities(with: playerIds)
+                if let allEntities = try await self.manager.getAllEntities() {
+                    print("all entities", allEntities)
+                    self.players = allEntities
+                }
+
                 // let publisher = self.manager.addListenerForAllPlayers()
                 let publisher = self.manager.addListenerForAllEntities()
                 // TODO: Might be redundant
@@ -51,6 +55,14 @@ final class CanvasViewModel: ObservableObject {
                 })
                 */
 
+                publisher.subscribe(update: { players in
+                    // Update your view with all players received
+                    self.players = players.compactMap { $0.toEntity() }
+                    print("self players", self.players)
+                }, error: { error in
+                    print(error)
+                })
+
             } catch {
                 print("Error fetching initial players: \(error)")
             }
@@ -68,7 +80,7 @@ final class CanvasViewModel: ObservableObject {
         }
 
         Task {
-            try? await manager.updateEntity(id: playerId, position: newCenter)
+            try? await manager.updateEntity(id: playerId, position: newCenter, entityType: "Player")
         }
     }
 }

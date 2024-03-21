@@ -14,7 +14,7 @@ import SwiftUI
 final class LobbyViewModel: ObservableObject {
     @Published private(set) var matches: [Match] = []
     @Published private(set) var matchManager: MatchManager
-    @Published private(set) var realTimeManager: RealTimeManagerAdapter
+    @Published private(set) var realTimeManager: RealTimeManagerAdapter?
     @Published private(set) var systemManager: SystemManager
     // TODO: Remove entities. Passing entites before game start will not work since entities can get created during the game as well
     @Published private(set) var entities: [Entity]
@@ -23,7 +23,6 @@ final class LobbyViewModel: ObservableObject {
 
     init() {
         matchManager = MatchManagerAdapter()
-        realTimeManager = RealTimeManagerAdapter()
         systemManager = SystemManager()
         entities = []
     }
@@ -52,6 +51,7 @@ final class LobbyViewModel: ObservableObject {
         guard let matchId = matchId else {
             return
         }
+        realTimeManager = RealTimeManagerAdapter(matchId: matchId)
         playerIds = try await matchManager.startMatch(matchId: matchId)
         initSystems(ids: playerIds)
     }
@@ -72,8 +72,11 @@ final class LobbyViewModel: ObservableObject {
 
     private func addPlayerToSystemAndDatabase(id playerId: String, position: Point) {
         let player = makePlayer(id: playerId, position: position)
+        guard let realTimeManager = realTimeManager else {
+            return
+        }
         Task {
-            try? await realTimeManager.uploadEntity(entity: player)
+            try? await realTimeManager.uploadEntity(entity: player, entityType: "Player")
         }
         entities.append(player)
     }

@@ -10,14 +10,81 @@ import FirebaseDatabase
 
 // TODO: Remove all force unwraps
 final class RealTimeManagerAdapter: EntitiesManager {
+
     private let databaseRef = Database.database().reference()
-    private let playersRef: DatabaseReference
-    //private let databaseRefName = "playwers"
+    private var playersRef: DatabaseReference
+    private let matchId: String
+    // private let databaseRefName = "playwers"
 
     init(matchId: String) {
+        self.matchId = matchId
         playersRef = databaseRef.child(matchId)
     }
 
+    func decodeEntities/*<T: Entity>*/(id: EntityID? = nil) async throws -> [Entity]? {
+
+        let dataSnapshot = try await playersRef.getData()
+        guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
+            throw NSError(domain: "Invalid player data format", code: -1, userInfo: nil)
+        }
+
+        var entities: [Entity] = []
+        let entityTypes = Array(entitiesDict.keys)
+        print("entity types", entityTypes)
+
+        for entityType in entityTypes {
+            guard let entitiesData = entitiesDict[entityType] else {
+                return nil
+            }
+            let entityIds = Array(entitiesData.keys)
+
+            print("entity ids", entityIds)
+
+            for entityId in entityIds {
+                if id != nil && entityId != id {
+                    print(entityId, id, entityId == id)
+                    continue
+                }
+
+                let wrapperTypeName = "\(entityType.capitalized)Wrapper"
+                print("wrapperName", wrapperTypeName)
+                guard let wrapperType = NSClassFromString("NinjaWarriors." + wrapperTypeName) as? Codable.Type else {
+                    print(NSClassFromString("NinjaWarriors." + wrapperTypeName))
+                    return nil
+                }
+                print("wrapperType", wrapperType)
+                guard let dataDict = entitiesData[entityId] else {
+                    return nil
+                }
+                print("data dict", dataDict)
+
+                let entityData = try JSONSerialization.data(withJSONObject: dataDict, options: [])
+                let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapperType, from: entityData) as! EntityWrapper
+                guard let entity = entityWrapper.toEntity() else {
+                    return nil
+                }
+                entities.append(entity)
+            }
+        }
+        return entities
+    }
+
+    /*
+    var players: [Entity] = []
+    for (_, value) in playerDict {
+        guard let player = try decodePlayer(from: value) else {
+            continue
+        }
+        // TODO: Remove force unwrap
+        guard playerIds == nil || playerIds!.contains(player.id) else {
+            continue
+        }
+        players.append(player)
+    }
+    return players
+    */
+
+    /*
     private func decodePlayer(from dictionary: [String: Any]) throws -> Entity? {
         let playerData = try JSONSerialization.data(withJSONObject: dictionary, options: [])
         let playerWrapper = try JSONDecoder().decode(PlayerWrapper.self, from: playerData)
@@ -52,7 +119,16 @@ final class RealTimeManagerAdapter: EntitiesManager {
             throw error
         }
     }
+    */
 
+    func getAllEntities() async throws -> [Entity]? {
+        guard let entities = try await decodeEntities() else {
+            return nil
+        }
+        return entities
+    }
+
+    /*
     func getEntity(entityId: String) async throws -> Entity {
         return try await withCheckedThrowingContinuation { continuation in
             playersRef.child(entityId).observeSingleEvent(of: .value) { [weak self] snapshot, error in
@@ -78,35 +154,56 @@ final class RealTimeManagerAdapter: EntitiesManager {
             }
         }
     }
+    */
 
-    func uploadEntity(entity: Entity) async throws {
+    func getEntity(entityId: EntityID) async throws -> Entity? {
+        guard let entity = try await decodeEntities(id: entityId) else {
+            return nil
+        }
+        print("get entity", entity)
+        return entity[0]
+    }
+
+    func uploadEntity(entity: Entity, entityType: String) async throws {
         let playerData = try JSONEncoder().encode(entity.wrapper())
         guard let playerDict = try JSONSerialization.jsonObject(with: playerData, options: []) as? [String: Any] else {
             throw NSError(domain: "com.yourapp", code: -1,
                           userInfo: [NSLocalizedDescriptionKey: "Failed to serialize player data"])
         }
         do {
-            try await playersRef.child(entity.id).setValue(playerDict)
+            try await playersRef.child(entityType).child(entity.id).setValue(playerDict)
         } catch {
             throw error
         }
     }
 
     // Update only player position for now
-    func updateEntity(id: String, position: Point) async throws {
+    func updateEntity(id: String, position: Point, entityType: String) async throws {
         var player = try await getEntity(entityId: id)
+        print("update get player", player, id, entityType)
         guard let player = player as? Player else {
             return
         }
         player.changePosition(to: position)
-        try await uploadEntity(entity: player)
+        try await uploadEntity(entity: player, entityType: entityType)
     }
 
+    /*
     func addListenerForAllEntities() -> EntityPublisher {
-        let playersListener = PlayersListener()
+        let playersListener = PlayersListener(matchId: matchId)
+        Task {
+            try await playersListener.startListening()
+        }
+        return playersListener.getPublisher()
+    }
+    */
+
+    func addListenerForAllEntities() -> EntityPublisher {
+        let playersListener = PlayersListener(matchId: matchId)
         playersListener.startListening()
         return playersListener.getPublisher()
     }
+
 }
 
 /*
