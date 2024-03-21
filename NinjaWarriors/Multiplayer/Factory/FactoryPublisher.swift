@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol FactoryPublisher {
+protocol FactoryPublisher: Publisher {
     associatedtype Item: Decodable
     typealias UpdateClosure = ([Item]) -> Void
     typealias ErrorClosure = (Error) -> Void

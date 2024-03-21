@@ -12,7 +12,7 @@
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
-		9132AF562BA50853000F2AC4 /* EntityPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF552BA50853000F2AC4 /* EntityPublisher.swift */; };
+		9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */; };
 		9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF572BA5087F000F2AC4 /* PlayersListener.swift */; };
 		9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF592BA50C1E000F2AC4 /* Publisher.swift */; };
 		9132AF5C2BA50C5C000F2AC4 /* CustomSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF5B2BA50C5C000F2AC4 /* CustomSubject.swift */; };
@@ -109,7 +109,7 @@
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
-		9132AF552BA50853000F2AC4 /* EntityPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityPublisher.swift; sourceTree = "<group>"; };
+		9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPublisher.swift; sourceTree = "<group>"; };
 		9132AF572BA5087F000F2AC4 /* PlayersListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListener.swift; sourceTree = "<group>"; };
 		9132AF592BA50C1E000F2AC4 /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
 		9132AF5B2BA50C5C000F2AC4 /* CustomSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSubject.swift; sourceTree = "<group>"; };
@@ -249,7 +249,7 @@
 				9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */,
 				916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */,
 				9132AF572BA5087F000F2AC4 /* PlayersListener.swift */,
-				9132AF552BA50853000F2AC4 /* EntityPublisher.swift */,
+				9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */,
 			);
 			path = Players;
 			sourceTree = "<group>";
@@ -372,8 +372,7 @@
 				7113A4952BA60E8400805340 /* Component.swift */,
 				E62AD80C2BA8A85A0009F12D /* SkillComponents */,
 				9180F9C92BAAF81A000CC390 /* Shapes */,
-				916A7DA62BA3F9FC00319C26 /* ComponentWrappers */,
-				9180F9D22BAB9C26000CC390 /* ComponentWrapper.swift */,
+				916A7DA62BA3F9FC00319C26 /* GenericWrappers */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -439,13 +438,14 @@
 			path = Multiplayer;
 			sourceTree = "<group>";
 		};
-		916A7DA62BA3F9FC00319C26 /* ComponentWrappers */ = {
+		916A7DA62BA3F9FC00319C26 /* GenericWrappers */ = {
 			isa = PBXGroup;
 			children = (
+				9180F9D22BAB9C26000CC390 /* ComponentWrapper.swift */,
 				9180F9D02BAB96C7000CC390 /* CodableWrapper.swift */,
 				916A7DA92BA3FBBF00319C26 /* AnyCodingKey.swift */,
 			);
-			path = ComponentWrappers;
+			path = GenericWrappers;
 			sourceTree = "<group>";
 		};
 		916A7DB82BA5014F00319C26 /* EntityWrappers */ = {
@@ -678,7 +678,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9132AF562BA50853000F2AC4 /* EntityPublisher.swift in Sources */,
+				9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */,
 				916A7D6A2BA154F000319C26 /* CollisionDetector.swift in Sources */,
 				9132AF662BA50E9A000F2AC4 /* PhysicsBody.swift in Sources */,
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,

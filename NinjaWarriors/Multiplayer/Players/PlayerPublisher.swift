@@ -1,5 +1,5 @@
 //
-//  EntityPublisher.swift
+//  PlayerPublisher.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 16/3/24.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class EntityPublisher: FactoryPublisher {
-    typealias Item = EntityWrapper /*PlayerWrapper*/
-    typealias UpdateClosure = ([EntityWrapper /*PlayerWrapper*/]) -> Void
+final class PlayerPublisher: FactoryPublisher {
+    typealias Item = PlayerWrapper
+    typealias UpdateClosure = ([PlayerWrapper]) -> Void
     typealias ErrorClosure = (Error) -> Void
 
     var updateClosure: UpdateClosure?
@@ -20,7 +20,7 @@ final class EntityPublisher: FactoryPublisher {
         self.errorClosure = error
     }
 
-    func publish(_ update: [EntityWrapper /*PlayerWrapper*/]) {
+    func publish(_ update: [PlayerWrapper]) {
         updateClosure?(update)
     }
 

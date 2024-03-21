@@ -10,12 +10,12 @@ import SwiftUI
 
 struct CanvasView: View {
     @ObservedObject var viewModel: CanvasViewModel
-    @State private var joystickPosition: CGPoint = .zero
     @State private var matchId: String
+    @State private var joystickPosition: CGPoint = .zero
     // Add state to hold the joystick's output
     @State private var joystickOutput: CGPoint = .zero
 
-    init(matchId: String, entities: [Entity], currPlayerId: String) {
+    init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }

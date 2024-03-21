@@ -10,6 +10,7 @@ import FirebaseDatabase
 
 // TODO: Remove all force unwraps
 final class RealTimeManagerAdapter: EntitiesManager {
+
     private let databaseRef = Database.database().reference()
     private var entitiesRef: DatabaseReference
     private let matchId: String
@@ -104,40 +105,40 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entities[0]
     }
 
-    func uploadEntity(entity: Entity, entityType: String) async throws {
+    func uploadEntity(entity: Entity) async throws {
+        let entity = try await getEntity(entityId: entity.id)
+
+        guard let entity = entity, let entityType = try await getWrapperType(from: entity.id) else {
+            return
+        }
+
         let entityData = try JSONEncoder().encode(entity.wrapper())
+
         guard let entityDict = try JSONSerialization.jsonObject(with: entityData, options: []) as? [String: Any] else {
             throw NSError(domain: "com.yourapp", code: -1,
                           userInfo: [NSLocalizedDescriptionKey: "Failed to serialize player data"])
         }
-        do {
-            try await entitiesRef.child(entityType).child(entity.id).setValue(entityDict)
-        } catch {
-            throw error
-        }
+        try await entitiesRef.child(entityType).child(entity.id).setValue(entityDict)
     }
 
-    // Update only player position for now
+    // Update only player position for now.
     // TODO: Change to system
-    func updateEntity(id: String, position: Point) async throws {
+    func updateEntity(id: String, position: Point, component: Component? = nil) async throws {
         let entity = try await getEntity(entityId: id)
         guard let entity = entity else {
             return
         }
-
-        let entityData = try JSONEncoder().encode(entity.wrapper())
-
-        guard let entityType = try await getWrapperType(from: entity.id) else {
-            return
-        }
         entity.shape.center.setCartesian(xCoord: position.xCoord, yCoord: position.yCoord)
-        try await uploadEntity(entity: entity, entityType: entityType)
+        try await uploadEntity(entity: entity)
     }
 
-    func addListenerForAllEntities() -> EntityPublisher {
-        let entitiesListener = PlayersListener(matchId: matchId)
-        entitiesListener.startListening()
-        return entitiesListener.getPublisher()
-    }
+    // Add all entity listners here
+    func addListeners() -> [any FactoryPublisher] {
+        var listenerPublishers: [any FactoryPublisher] = []
+        let playersListener = PlayersListener(matchId: matchId)
+        playersListener.startListening()
 
+        listenerPublishers.append(playersListener.getPublisher())
+        return listenerPublishers
+    }
 }

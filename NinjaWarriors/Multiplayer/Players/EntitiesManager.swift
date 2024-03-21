@@ -10,6 +10,5 @@ import Foundation
 protocol EntitiesManager {
     func getAllEntities() async throws -> [Entity]?
     func getEntity(entityId: EntityID) async throws -> Entity?
-    func uploadEntity(entity: Entity, entityType: String) async throws
-    func addListenerForAllEntities() -> EntityPublisher
+    func uploadEntity(entity: Entity) async throws
 }

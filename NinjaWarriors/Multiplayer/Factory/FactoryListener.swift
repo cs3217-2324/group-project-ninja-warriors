@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class FactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener where W.Item == P.Item {
+class FactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener /*where W.Item == P.Item*/ {
     internal let publisher: P
     private var firestoreListener: Any?
     private let collectionName: String
