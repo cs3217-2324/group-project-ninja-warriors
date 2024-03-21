@@ -12,10 +12,10 @@ import FirebaseDatabase
 final class RealTimeManagerAdapter: EntitiesManager {
     private let databaseRef = Database.database().reference()
     private let playersRef: DatabaseReference
-    private let databaseRefName = "players"
+    //private let databaseRefName = "playwers"
 
-    init() {
-        playersRef = databaseRef.child(databaseRefName)
+    init(matchId: String) {
+        playersRef = databaseRef.child(matchId)
     }
 
     private func decodePlayer(from dictionary: [String: Any]) throws -> Entity? {
@@ -108,3 +108,105 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return playersListener.getPublisher()
     }
 }
+
+/*
+ import Foundation
+ import Firebase
+
+ // Define a protocol for entities
+ protocol Entity: Codable {
+     // Define any common properties or methods here
+ }
+
+ // Define a wrapper that can handle any entity
+ struct EntityWrapper<T: Entity>: Codable {
+     let entity: T
+
+     // Method to convert to Entity
+     func toEntity() -> Entity {
+         return entity
+     }
+ }
+
+ // Define a struct to represent match data
+ struct MatchData {
+     var players: [String: Any] // player_id: playerData
+     // Add other entity types as needed
+ }
+
+ // Function to decode entities dynamically
+ func decodeEntity<T: Entity>(from dictionary: [String: Any], entityType: String) throws -> T? {
+     guard let entityData = dictionary[entityType] as? [String: Any] else {
+         return nil
+     }
+
+     // Get the corresponding wrapper type dynamically
+     let wrapperTypeName = "\(entityType.capitalized)Wrapper"
+     guard let wrapperType = NSClassFromString(wrapperTypeName) as? Codable.Type else {
+         return nil
+     }
+
+     // Convert entityData to Data
+     let entityData = try JSONSerialization.data(withJSONObject: entityData, options: [])
+
+     // Decode the data using the wrapper type
+     let entityWrapper = try JSONDecoder().decode(wrapperType, from: entityData)
+
+     // Convert to Entity
+     return (entityWrapper as? EntityWrapper<T>)?.entity
+ }
+
+ // Function to fetch all entities for a match
+ func getAllEntities(matchID: String, completion: @escaping (MatchData?) -> Void) {
+     // Assuming you have a Firebase reference
+     let matchRef = Database.database().reference().child(matchID)
+     matchRef.observeSingleEvent(of: .value) { snapshot in
+         guard let data = snapshot.value as? [String: Any] else {
+             completion(nil)
+             return
+         }
+
+         let matchData = MatchData(
+             players: data["players"] as? [String: Any] ?? [:]
+             // Add other entity types as needed
+         )
+         completion(matchData)
+     }
+ }
+
+ // Function to upload an entity for a match
+ func uploadEntity<T: Entity>(matchID: String, entityID: String, entityType: String, entity: T) {
+     // Assuming you have a Firebase reference
+     let matchRef = Database.database().reference().child(matchID)
+     let entityData: [String: Any] = [entityType: entity]
+     matchRef.child(entityID).setValue(entityData)
+ }
+
+ // Function to update an entity for a match
+ func updateEntity<T: Entity>(matchID: String, entityID: String, entityType: String, entity: T) {
+     // Assuming you have a Firebase reference
+     let matchRef = Database.database().reference().child(matchID)
+     let entityData: [String: Any] = [entityType: entity]
+     matchRef.child(entityID).updateChildValues(entityData)
+ }
+
+ // Example usage
+ let matchID = "match_id_1"
+ getAllEntities(matchID: matchID) { matchData in
+     guard let matchData = matchData else {
+         print("Failed to fetch match data")
+         return
+     }
+
+     if let player: Player = try decodeEntity(from: matchData.players, entityType: "player") {
+         print("Decoded player: \(player)")
+     } else {
+         print("Failed to decode player")
+     }
+ }
+
+ // Upload or update entities as needed
+ let player = Player(/* Initialize player properties */)
+ uploadEntity(matchID: matchID, entityID: "player_id_1", entityType: "player", entity: player)
+
+ */

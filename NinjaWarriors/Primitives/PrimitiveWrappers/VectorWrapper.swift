@@ -8,8 +8,8 @@
 import Foundation
 
 struct VectorWrapper: Codable {
-    @CodableWrapper var horizontal: Double
-    @CodableWrapper var vertical: Double
+    /*@CodableWrapper*/ var horizontal: Double
+    /*@CodableWrapper*/ var vertical: Double
 
     /*
     init(from decoder: Decoder) throws {

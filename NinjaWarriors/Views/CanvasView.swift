@@ -16,9 +16,16 @@ struct CanvasView: View {
     // Add state to hold the joystick's output
     @State private var joystickOutput: CGPoint = .zero
 
+    /*
     init(matchId: String, playerIds: [String], currPlayerId: String) {
         self.matchId = matchId
         self.viewModel = CanvasViewModel(matchId: matchId, playerIds: playerIds, currPlayerId: currPlayerId)
+    }
+    */
+
+    init(matchId: String, entities: [Entity], currPlayerId: String) {
+        self.matchId = matchId
+        self.viewModel = CanvasViewModel(matchId: matchId, entities: entities, currPlayerId: currPlayerId)
     }
 
     var body: some View {
@@ -26,7 +33,7 @@ struct CanvasView: View {
             Text("currPlayerId: \(viewModel.currPlayerId)")
                 .padding()
             Text("Both the database as well as the view will update in real time, simulating multiplayer mode")
-            GeometryReader { _ in
+            GeometryReader { geometry in
                 ZStack {
                     // Position the JoystickView
                     JoystickView(location: CGPoint(x: 400, y: 400),
@@ -42,6 +49,17 @@ struct CanvasView: View {
                                 .fill(Color.blue)
                                 .frame(width: 50, height: 50)
                                 .position(player.getPosition())
+                                .gesture(
+                                    DragGesture()
+                                        .onChanged { gesture in
+                                            let newX = max(0, min(gesture.location.x, geometry.size.width))
+                                            let newY = max(0, min(gesture.location.y, geometry.size.height))
+                                            joystickPosition = CGPoint(x: newX, y: newY)
+                                            let playerId = player.id
+                                            viewModel.changePosition(playerId: playerId, newPosition: joystickPosition)
+                                        }
+                                )
+
                         }
                     }
                 }

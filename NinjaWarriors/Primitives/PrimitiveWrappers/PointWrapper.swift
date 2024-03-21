@@ -8,10 +8,10 @@
 import Foundation
 
 struct PointWrapper: Codable {
-    @CodableWrapper var xCoord: Double
-    @CodableWrapper var yCoord: Double
-    @CodableWrapper var radial: Double
-    @CodableWrapper var theta: Double
+    /*@CodableWrapper*/ var xCoord: Double
+    /*@CodableWrapper*/ var yCoord: Double
+    /*@CodableWrapper*/ var radial: Double
+    /*@CodableWrapper*/ var theta: Double
 
     /*
     init(from decoder: Decoder) throws {

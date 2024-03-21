@@ -16,6 +16,8 @@ final class LobbyViewModel: ObservableObject {
     @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter
     @Published private(set) var systemManager: SystemManager
+    // TODO: Remove entities. Passing entites before game start will not work since entities can get created during the game as well
+    @Published private(set) var entities: [Entity]
     @Published var matchId: String?
     @Published var playerIds: [String]?
 
@@ -23,6 +25,7 @@ final class LobbyViewModel: ObservableObject {
         matchManager = MatchManagerAdapter()
         realTimeManager = RealTimeManagerAdapter()
         systemManager = SystemManager()
+        entities = []
     }
 
     func ready(userId: String) {
@@ -72,6 +75,7 @@ final class LobbyViewModel: ObservableObject {
         Task {
             try? await realTimeManager.uploadEntity(entity: player)
         }
+        entities.append(player)
     }
 
     private func makePlayer(id playerId: String, position: Point) -> Player {

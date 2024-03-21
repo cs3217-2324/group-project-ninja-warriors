@@ -7,19 +7,19 @@
 
 import Foundation
 
-// TODO: Allow init to take more ids other than playerids
 @MainActor
 final class CanvasViewModel: ObservableObject {
     // @Published private(set) var players: [Player] = []
     @Published private(set) var players: [Entity] = []
     @Published private(set) var manager: RealTimeManagerAdapter
     @Published private(set) var matchId: String
-    @Published private(set) var playerIds: [String]
+    //@Published private(set) var playerIds: [String]
     @Published private(set) var currPlayerId: String
 
-    init(matchId: String, playerIds: [String], currPlayerId: String) {
+    init(matchId: String, entities: [Entity], currPlayerId: String) {
         self.matchId = matchId
-        self.playerIds = playerIds
+        self.players = entities
+        //self.playerIds = playerIds
         self.currPlayerId = currPlayerId
         manager = RealTimeManagerAdapter()
     }
