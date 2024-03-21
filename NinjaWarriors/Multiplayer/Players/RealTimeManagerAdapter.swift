@@ -59,10 +59,13 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 print("data dict", dataDict)
 
                 let entityData = try JSONSerialization.data(withJSONObject: dataDict, options: [])
+                print("entity data", entityData)
                 let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapperType, from: entityData) as! EntityWrapper
+                print("test entity wrapper", entityWrapper)
                 guard let entity = entityWrapper.toEntity() else {
                     return nil
                 }
+                print("test entity", entity)
                 entities.append(entity)
             }
         }

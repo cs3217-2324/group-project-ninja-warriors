@@ -8,7 +8,7 @@
 import Foundation
 
 class EntityWrapper: FactoryWrapper {
-    typealias Item = EntityWrapper
+    typealias Item = /*EntityWrapper*/ PlayerWrapper
     // var id: EntityID
 
     /*@CodableWrapper*/ var id: EntityID

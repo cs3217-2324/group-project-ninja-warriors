@@ -79,15 +79,18 @@ class RealTimeFactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener 
             guard let dataSnapshot = snapshot.children.allObjects as? [DataSnapshot] else { return }
             print("data snapshot", dataSnapshot)
             let result = dataSnapshot.compactMap { dataSnap -> P.Item? in
-                print("data snap value", dataSnap.value)
                 guard let dataValue = dataSnap.value,
                       let jsonData = try? JSONSerialization.data(withJSONObject: dataValue),
                       let decoder = try? JSONDecoder().decode(P.Item.self, from: jsonData) else {
                     return nil
                 }
+                let testDecoder = try? JSONDecoder().decode(PlayerWrapper.self, from: jsonData)
+                print("testDecoder", testDecoder?.toEntity())
+                print("data snap value", dataValue)
+                print("json data", jsonData)
+                print("decoder", decoder)
                 return decoder
             }
-            print("result", result)
             self.publisher.publish(result)
         }
     }
