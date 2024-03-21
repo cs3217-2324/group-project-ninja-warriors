@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-// TODO: Convert to REST API
 final class MatchManagerAdapter: MatchManager {
     private let collection = "matches"
     private let countLabel = "count"

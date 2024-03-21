@@ -8,20 +8,17 @@
 import Foundation
 import SwiftUI
 
-// TODO: Rename PlayersManager and methods to just EntitiesManager
-// TODO: Create mapping from match id to map id to know what other entities to add
 @MainActor
 final class LobbyViewModel: ObservableObject {
     @Published private(set) var matches: [Match] = []
     @Published private(set) var matchManager: MatchManager
-    @Published private(set) var realTimeManager: RealTimeManagerAdapter
+    @Published private(set) var realTimeManager: RealTimeManagerAdapter?
     @Published private(set) var systemManager: SystemManager
     @Published var matchId: String?
     @Published var playerIds: [String]?
 
     init() {
         matchManager = MatchManagerAdapter()
-        realTimeManager = RealTimeManagerAdapter()
         systemManager = SystemManager()
     }
 
@@ -44,40 +41,38 @@ final class LobbyViewModel: ObservableObject {
         }
     }
 
-    // TODO: Abstract out start to loading of all entities in map
     func start() async throws {
         guard let matchId = matchId else {
             return
         }
+        realTimeManager = RealTimeManagerAdapter(matchId: matchId)
         playerIds = try await matchManager.startMatch(matchId: matchId)
-        initSystems(ids: playerIds)
+        initPlayers(ids: playerIds)
     }
 
-    // Add all relevant entities and systems related to map here
-    func initSystems(ids playerIds: [String]?) {
-        
-        addPlayersToSystemAndDatabase(ids: playerIds)
-
-    }
-
-    private func addPlayersToSystemAndDatabase(ids playerIds: [String]?) {
+    // Add all relevant entities and systems here
+    func initPlayers(ids playerIds: [String]?) {
         guard let playerIds = playerIds else {
             return
         }
-        for playerId in playerIds {
-            addPlayerToSystemAndDatabase(id: playerId)
+        for (index, playerId) in playerIds.enumerated() {
+            addPlayerToDatabase(id: playerId, position: Constants.playerPositions[index])
         }
     }
 
-    // TODO: Remove hardcoded value
-    private func addPlayerToSystemAndDatabase(id playerId: String) {
-        let Shape = Shape(center: Point(xCoord: 150.0 + Double.random(in: -150.0...150.0),
-                                                   yCoord: 150.0), halfLength: 25.0)
-        let dashSkill = DashSkill(id: "1")
-        let player = Player(id: playerId, Shape: Shape, skills: [dashSkill])
-        Task {
-            try? await realTimeManager.uploadPlayer(player: player)
+    private func addPlayerToDatabase(id playerId: String, position: Point) {
+        let player = makePlayer(id: playerId, position: position)
+        guard let realTimeManager = realTimeManager else {
+            return
         }
+        Task {
+            try? await realTimeManager.uploadEntity(entity: player, entityName: "Player")
+        }
+    }
+
+    private func makePlayer(id playerId: String, position: Point) -> Player {
+        let shape = Shape(center: position, halfLength: Constants.defaultSize)
+        let player = Player(id: playerId, shape: shape)
         return player
     }
 

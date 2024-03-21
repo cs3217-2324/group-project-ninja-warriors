@@ -10,7 +10,6 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 extension Query {
-
     func getDocuments<T>(as type: T.Type) async throws -> [T] where T: Decodable {
         try await getDocumentsWithSnapshot(as: type).players
     }

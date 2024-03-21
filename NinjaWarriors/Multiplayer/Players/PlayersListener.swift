@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class PlayersListener: RealTimeFactoryListener<PlayerPublisher, PlayerWrapper> {
-    init() {
-        super.init(referenceName: "players", publisher: PlayerPublisher())
+    init(matchId: String) {
+        super.init(referenceName: matchId, publisher: PlayerPublisher(), entityName: "Player")
     }
 }

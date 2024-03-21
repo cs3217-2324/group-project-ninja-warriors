@@ -8,15 +8,18 @@
 import Foundation
 import FirebaseDatabase
 
-class RealTimeFactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener where W.Item == P.Item {
+class RealTimeFactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener {
+
     internal let publisher: P
     private var databaseReference: DatabaseReference?
     private let referenceName: String
+    private let entityName: String
     private let database = Database.database()
 
-    init(referenceName: String, publisher: P) {
+    init(referenceName: String, publisher: P, entityName: String) {
         self.referenceName = referenceName
         self.publisher = publisher
+        self.entityName = entityName
     }
 
     private func getAllReference() -> DatabaseReference {
@@ -24,10 +27,9 @@ class RealTimeFactoryListener<P: FactoryPublisher, W: FactoryWrapper>: Listener 
     }
 
     func startListening() {
-        self.databaseReference = getAllReference()
+        self.databaseReference = getAllReference().child(entityName)
         self.databaseReference?.observe(.value) { snapshot in
             guard let dataSnapshot = snapshot.children.allObjects as? [DataSnapshot] else { return }
-
             let result = dataSnapshot.compactMap { dataSnap -> P.Item? in
                 guard let dataValue = dataSnap.value,
                       let jsonData = try? JSONSerialization.data(withJSONObject: dataValue),

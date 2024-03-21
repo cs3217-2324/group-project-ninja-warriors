@@ -8,10 +8,10 @@
 import Foundation
 
 protocol PhysicsRigidBody {
-    func resultantNormVec(normVec: Vector, src: PhysicsBody, dst: PhysicsBody) -> Vector
-    func resultantTanVector(tanVec: Vector, src: PhysicsBody) -> Vector
+    func resultantNormVec(normVec: Vector, src: RigidbodyHandler, dst: RigidbodyHandler) -> Vector
+    func resultantTanVector(tanVec: Vector, src: RigidbodyHandler) -> Vector
     func assignResultantVel(normVel: Vector,
                             tanVel: Vector,
-                            collider: inout PhysicsBody,
-                            collidee: inout PhysicsBody)
+                            collider: inout RigidbodyHandler,
+                            collidee: inout RigidbodyHandler)
 }

@@ -7,57 +7,51 @@
 
 import Foundation
 
-// TODO: Allow init to take more ids other than playerids
 @MainActor
 final class CanvasViewModel: ObservableObject {
     @Published var gameWorld = GameWorld()
-    @Published private(set) var players: [Player] = []
+    @Published private(set) var entities: [Entity] = []
     @Published private(set) var manager: RealTimeManagerAdapter
     @Published private(set) var matchId: String
-    @Published private(set) var playerIds: [String]
     @Published private(set) var currPlayerId: String
 
-    init(matchId: String, playerIds: [String], currPlayerId: String) {
+    init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
-        self.playerIds = playerIds
         self.currPlayerId = currPlayerId
-        manager = RealTimeManagerAdapter()
+        manager = RealTimeManagerAdapter(matchId: matchId)
         gameWorld.start()
     }
 
-    // TODO: Change to add listener for all entities in match id
-    func addListenerForPlayers() {
+    func addListeners() {
         Task { [weak self] in
             guard let self = self else { return }
-            do {
-                self.players = try await self.manager.getAllPlayers(with: playerIds)
-                let publisher = self.manager.addListenerForAllPlayers()
+            if let allEntities = try await self.manager.getAllEntities() {
+                print("all entities", allEntities)
+                self.entities = allEntities
+            }
 
-                // TODO: Might be redundant
-                publisher.subscribe(update: { players in
-                    let filteredPlayers = players.filter { player in
-                        self.playerIds.contains(player.id)
-                    }
-                    self.players = filteredPlayers.map { $0.toPlayer() }
+            // TODO: Find a way to add listeners in one go
+            let publishers = self.manager.addPlayerListeners()
+            for publisher in publishers {
+                publisher.subscribe(update: { entities in
+                    self.entities = entities.compactMap { $0.toEntity() }
                 }, error: { error in
                     print(error)
                 })
-
-            } catch {
-                print("Error fetching initial players: \(error)")
             }
         }
     }
 
-    func changePosition(playerId: String, newPosition: CGPoint) {
+    // TODO: Change to game loop and systems
+    func changePosition(entityId: String, newPosition: CGPoint) {
         let newCenter = Point(xCoord: newPosition.x, yCoord: newPosition.y)
 
-        if let index = players.firstIndex(where: { $0.id == playerId }) {
-            players[index].changePosition(to: newCenter)
+        if let index = entities.firstIndex(where: { $0.id == entityId }) {
+            let entity = entities[index]
+            entity.shape.center.setCartesian(xCoord: newPosition.x, yCoord: newPosition.y)
         }
-
         Task {
-            try? await manager.updatePlayer(playerId: playerId, position: newCenter)
+            try? await manager.updateEntity(id: entityId, position: newCenter)
         }
     }
 }

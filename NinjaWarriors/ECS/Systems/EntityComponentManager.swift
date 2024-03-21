@@ -101,7 +101,6 @@ class EntityComponentManager {
         return componentMap[componentID] as? T
     }
 
-
     func getAllComponents<T: Component>(ofType: T.Type) -> [T] {
         return componentMap.values.compactMap({$0 as? T})
     }

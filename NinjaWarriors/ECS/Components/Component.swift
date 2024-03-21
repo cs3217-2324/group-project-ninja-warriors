@@ -11,9 +11,9 @@ typealias ComponentID = String
 // TODO: check whether a protocol is usable here (probably not due to unowned)
 class Component: Hashable {
     var id: ComponentID
-    unowned var entity: Entity
+    unowned var entity: Entity?
 
-    init(id: String, entity: Entity) {
+    init(id: ComponentID, entity: Entity?) {
         self.id = id
         self.entity = entity
     }
@@ -25,4 +25,6 @@ class Component: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+
+    func wrapper() -> ComponentWrapper? { return nil }
 }

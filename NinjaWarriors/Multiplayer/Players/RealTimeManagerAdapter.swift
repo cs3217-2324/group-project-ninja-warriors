@@ -8,96 +8,132 @@
 import Foundation
 import FirebaseDatabase
 
-final class RealTimeManagerAdapter: PlayersManager {
+// TODO: Remove all force unwraps
+final class RealTimeManagerAdapter: EntitiesManager {
     private let databaseRef = Database.database().reference()
-    private let playersRef: DatabaseReference
-    private let databaseRefName = "players"
+    private var entitiesRef: DatabaseReference
+    private let matchId: String
 
-    init() {
-        playersRef = databaseRef.child(databaseRefName)
+    init(matchId: String) {
+        self.matchId = matchId
+        entitiesRef = databaseRef.child(matchId)
     }
 
-    private func decodePlayer(from dictionary: [String: Any]) throws -> Player {
-        let playerData = try JSONSerialization.data(withJSONObject: dictionary, options: [])
-        let playerWrapper = try JSONDecoder().decode(PlayerWrapper.self, from: playerData)
-        return playerWrapper.toPlayer()
+    private func getEntityTypes(from entitiesDict: [String: [String: Any]]) -> [String] {
+        Array(entitiesDict.keys)
     }
 
-    private func decodePlayers(from playerDict: [String: [String: Any]],
-                               with playerIds: [String]?) async throws -> [Player] {
-        var players: [Player] = []
-        for (_, value) in playerDict {
-            let player = try decodePlayer(from: value)
-            guard playerIds == nil || playerIds!.contains(player.id) else {
-                continue
-            }
-            players.append(player)
+    private func getIds(of type: String, from entitiesDict: [String: [String: Any]]) -> [String] {
+        guard let entitiesData = entitiesDict[type] else {
+            return []
         }
-        return players
+        return Array(entitiesData.keys)
     }
 
-    func getAllPlayers(with playerIds: [String]) async throws -> [Player] {
-        do {
-            let dataSnapshot = try await playersRef.getData()
-            guard let playerDict = dataSnapshot.value as? [String: [String: Any]] else {
-                throw NSError(domain: "Invalid player data format", code: -1, userInfo: nil)
-            }
-            let players = try await decodePlayers(from: playerDict, with: playerIds)
-            return players
-        } catch {
-            throw error
+    private func getEntititesDict() async throws -> [String: [String: Any]] {
+        let dataSnapshot = try await entitiesRef.getData()
+        guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
+            throw NSError(domain: "Invalid player data format", code: -1, userInfo: nil)
         }
+        return entitiesDict
     }
 
-    func getPlayer(playerId: String) async throws -> Player {
-        return try await withCheckedThrowingContinuation { continuation in
-            playersRef.child(playerId).observeSingleEvent(of: .value) { [weak self] snapshot, error in
-                guard let self = self else { return }
+    // MARK: Dynamically retrieve entity type based on key in database by mapping key -> keyWrapper
+    private func getWrapperType(of entityType: String) -> Codable.Type? {
+        let wrapperTypeName = "\(entityType.capitalized)Wrapper"
+        guard let wrapperType = NSClassFromString(Constants.directory + wrapperTypeName) as? Codable.Type else {
+            return nil
+        }
+        return wrapperType
+    }
 
-                if let error = error {
-                    continuation.resume(throwing: NSError(domain: "FirebaseError",
-                                                          code: 0, userInfo: ["error": error]))
-                    return
-                }
-                guard let playerDict = snapshot.value as? [String: Any] else {
-                    let decodingError = NSError(domain: "DecodingError", code: 0, userInfo: nil)
-                    continuation.resume(throwing: decodingError)
-                    return
-                }
+    private func getWrapperType(from id: EntityID) async throws -> String? {
+        let (_, wrapperType) = try await decodeEntities(id: id)
+        return wrapperType
+    }
 
-                do {
-                    let player = try self.decodePlayer(from: playerDict)
-                    continuation.resume(returning: player)
-                } catch {
-                    continuation.resume(throwing: error)
+    private func getEntity(from dict: Any, with wrapper: Codable.Type) throws -> Entity? {
+        let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])
+        let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper, from: entityData) as! EntityWrapper
+        guard let entity = entityWrapper.toEntity() else {
+            return nil
+        }
+        return entity
+    }
+
+    private func decodeEntities(id: EntityID? = nil) async throws -> ([Entity]?, String?) {
+        var entities: [Entity] = []
+        let entitiesDict = try await getEntititesDict()
+        let entityTypes = getEntityTypes(from: entitiesDict)
+
+        for entityType in entityTypes {
+            guard let wrapperType = getWrapperType(of: entityType) else {
+                return (nil, nil)
+            }
+            let entityIds = getIds(of: entityType, from: entitiesDict)
+
+            for entityId in entityIds {
+                if id != nil && entityId != id {
+                    continue
+                }
+                guard let dataDict = entitiesDict[entityType]?[entityId] else {
+                    return (nil, nil)
+                }
+                guard let entity = try getEntity(from: dataDict, with: wrapperType) else {
+                    return (nil, nil)
+                }
+                entities.append(entity)
+                if id != nil && entityId == id {
+                    return (entities, entityType)
                 }
             }
         }
+        return (entities, nil)
     }
 
-    func uploadPlayer(player: Player) async throws {
-        let playerData = try JSONEncoder().encode(player.toPlayerWrapper())
-        guard let playerDict = try JSONSerialization.jsonObject(with: playerData, options: []) as? [String: Any] else {
+    func getAllEntities() async throws -> [Entity]? {
+        let (entities, _) = try await decodeEntities()
+        return entities
+    }
+
+    func getEntity(entityId: EntityID) async throws -> Entity? {
+        let (entities, _) = try await decodeEntities(id: entityId)
+        guard let entities = entities else {
+            return nil
+        }
+        return entities[0]
+    }
+
+    func uploadEntity(entity: Entity, entityName: String) async throws {
+        let entityData = try JSONEncoder().encode(entity.wrapper())
+
+        guard let entityDict = try JSONSerialization.jsonObject(with: entityData, options: []) as? [String: Any] else {
             throw NSError(domain: "com.yourapp", code: -1,
                           userInfo: [NSLocalizedDescriptionKey: "Failed to serialize player data"])
         }
-        do {
-            try await playersRef.child(player.id).setValue(playerDict)
-        } catch {
-            throw error
+        try await entitiesRef.child(entityName).child(entity.id).setValue(entityDict)
+    }
+
+    // Update only player position for now.
+    func updateEntity(id: String, position: Point, component: Component? = nil) async throws {
+        let entity = try await getEntity(entityId: id)
+        guard let entity = entity else {
+            return
         }
+        guard let entityType = try await getWrapperType(from: entity.id) else {
+            return
+        }
+        entity.shape.center.setCartesian(xCoord: position.xCoord, yCoord: position.yCoord)
+        try await uploadEntity(entity: entity, entityName: entityType)
     }
 
-    // Update only player position for now
-    func updatePlayer(playerId: String, position: Point) async throws {
-        var player = try await getPlayer(playerId: playerId)
-        player.changePosition(to: position)
-        try await uploadPlayer(player: player)
-    }
-
-    func addListenerForAllPlayers() -> PlayerPublisher {
-        let playersListener = PlayersListener()
+    // Add all entity listners here
+    func addPlayerListeners() -> [PlayerPublisher] {
+        var listenerPublishers: [PlayerPublisher] = []
+        let playersListener = PlayersListener(matchId: matchId)
         playersListener.startListening()
-        return playersListener.getPublisher()
+
+        listenerPublishers.append(playersListener.getPublisher())
+        return listenerPublishers
     }
 }

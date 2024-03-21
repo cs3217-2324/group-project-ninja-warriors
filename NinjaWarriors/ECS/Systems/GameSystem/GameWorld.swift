@@ -16,7 +16,7 @@ class GameWorld {
 
     init() {
         setupGameLoop()
-        
+
         // TODO: set up different systems
     }
 
