@@ -251,8 +251,6 @@
 		9132AF832BA5A871000F2AC4 /* Players */ = {
 			isa = PBXGroup;
 			children = (
-				9132AF6B2BA57130000F2AC4 /* EntitiesManager.swift */,
-				9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */,
 				916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */,
 				9132AF572BA5087F000F2AC4 /* PlayersListener.swift */,
 				9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */,
@@ -432,6 +430,8 @@
 		916A7D9D2BA3E80200319C26 /* Multiplayer */ = {
 			isa = PBXGroup;
 			children = (
+				9132AF6B2BA57130000F2AC4 /* EntitiesManager.swift */,
+				9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */,
 				9132AF842BA5A890000F2AC4 /* Matches */,
 				9132AF832BA5A871000F2AC4 /* Players */,
 				9132AF812BA5A79C000F2AC4 /* Factory */,
