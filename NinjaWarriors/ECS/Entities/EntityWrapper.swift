@@ -8,11 +8,10 @@
 import Foundation
 
 class EntityWrapper: FactoryWrapper {
-    typealias Item = /*EntityWrapper*/ PlayerWrapper
-    // var id: EntityID
+    typealias Item = EntityWrapper /*PlayerWrapper*/
 
-    /*@CodableWrapper*/ var id: EntityID
-    /*@CodableWrapper*/ var shape: ShapeWrapper
+    var id: EntityID
+    var shape: ShapeWrapper
 
     init(id: EntityID, shape: ShapeWrapper) {
         self.id = id

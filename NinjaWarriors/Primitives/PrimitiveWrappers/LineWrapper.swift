@@ -8,9 +8,9 @@
 import Foundation
 
 struct LineWrapper: Codable {
-    /*@CodableWrapper*/ var start: PointWrapper
-    /*@CodableWrapper*/ var end: PointWrapper
-    /*@CodableWrapper*/ var vector: VectorWrapper
+    var start: PointWrapper
+    var end: PointWrapper
+    var vector: VectorWrapper
 
     func toLine() -> Line {
         let startPoint = Point(xCoord: start.xCoord, yCoord: start.yCoord)

@@ -7,7 +7,6 @@
 
 import Foundation
 
-// TODO: Only add entities with shape to manager, do not add all entities
 class TransformHandler: System {
     var manager: EntityComponentManager?
 

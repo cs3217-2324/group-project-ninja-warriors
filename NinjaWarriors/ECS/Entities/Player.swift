@@ -16,15 +16,7 @@ class Player: Equatable, Entity {
         self.id = id
         self.shape = shape
         self.components = components
-        // self.skillCaster = SkillCaster(id: "1", entity: self, skills: skills) // TODO: fix hardcode id
     }
-
-    /*
-    func getInitializingComponents() -> [Component] {
-        guard let skillCaster = skillCaster else { return [] }
-        return [skillCaster]
-    }
-    */
 
     func getInitializingComponents() -> [Component] {
         guard let components = components else { return [] }
@@ -54,12 +46,6 @@ class Player: Equatable, Entity {
         }
         return PlayerWrapper(id: id, shape: shape.toShapeWrapper(), components: componentsWrapper)
     }
-
-    /*
-    func toPlayerWrapper() -> PlayerWrapper {
-        PlayerWrapper(id: id, shape: shape.toShapeWrapper(), components: components.)
-    }
-    */
 
     static func == (lhs: Player, rhs: Player) -> Bool {
         lhs.id == rhs.id

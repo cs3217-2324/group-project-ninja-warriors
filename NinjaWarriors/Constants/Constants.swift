@@ -12,6 +12,9 @@ struct Constants {
     static let screenHeight = UIScreen.main.bounds.size.height
     static let screenWidth = UIScreen.main.bounds.size.width
     static let defaultSize: CGFloat = 25.0
+    static let directory = "NinjaWarriors."
+
+    // MARK: Player initial positions
     static let playerOnePosition = Point(xCoord: 300, yCoord: 300)
     static let playerTwoPosition = Point(xCoord: screenWidth - 100, yCoord: screenHeight - 200)
     static let playerThreePosition = Point(xCoord: 100, yCoord: 500)
@@ -19,4 +22,5 @@ struct Constants {
     static let playerPositions = [playerOnePosition, playerTwoPosition, playerThreePosition, playerFourPosition]
     // TODO: Reset to 4 after testing
     static let playerCount = 1
+
 }

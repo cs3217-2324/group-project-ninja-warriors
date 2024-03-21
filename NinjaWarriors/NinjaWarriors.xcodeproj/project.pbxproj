@@ -66,7 +66,6 @@
 		916A7D982BA2824D00319C26 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 916A7D972BA2824D00319C26 /* FirebaseFirestore */; };
 		916A7D9A2BA2824D00319C26 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 916A7D992BA2824D00319C26 /* FirebaseFirestoreSwift */; };
 		916A7D9F2BA3F43B00319C26 /* Query+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D9E2BA3F43B00319C26 /* Query+EXT.swift */; };
-		916A7DA12BA3F6E200319C26 /* EntitiesManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DA02BA3F6E200319C26 /* EntitiesManagerAdapter.swift */; };
 		916A7DA32BA3F74700319C26 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DA22BA3F74700319C26 /* Player.swift */; };
 		916A7DA52BA3F89500319C26 /* ShapeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DA42BA3F89500319C26 /* ShapeWrapper.swift */; };
 		916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DA72BA3FA2900319C26 /* PointWrapper.swift */; };
@@ -160,7 +159,6 @@
 		916A7D922BA1AA6600319C26 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		916A7D942BA1AB2A00319C26 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		916A7D9E2BA3F43B00319C26 /* Query+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Query+EXT.swift"; sourceTree = "<group>"; };
-		916A7DA02BA3F6E200319C26 /* EntitiesManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntitiesManagerAdapter.swift; sourceTree = "<group>"; };
 		916A7DA22BA3F74700319C26 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		916A7DA42BA3F89500319C26 /* ShapeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeWrapper.swift; sourceTree = "<group>"; };
 		916A7DA72BA3FA2900319C26 /* PointWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointWrapper.swift; sourceTree = "<group>"; };
@@ -247,12 +245,11 @@
 		9132AF832BA5A871000F2AC4 /* Players */ = {
 			isa = PBXGroup;
 			children = (
-				916A7DA02BA3F6E200319C26 /* EntitiesManagerAdapter.swift */,
 				9132AF6B2BA57130000F2AC4 /* EntitiesManager.swift */,
+				9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */,
 				916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */,
 				9132AF572BA5087F000F2AC4 /* PlayersListener.swift */,
 				9132AF552BA50853000F2AC4 /* EntityPublisher.swift */,
-				9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */,
 			);
 			path = Players;
 			sourceTree = "<group>";
@@ -705,7 +702,6 @@
 				9132AF702BA58C61000F2AC4 /* MatchManager.swift in Sources */,
 				9180F9D12BAB96C7000CC390 /* CodableWrapper.swift in Sources */,
 				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
-				916A7DA12BA3F6E200319C26 /* EntitiesManagerAdapter.swift in Sources */,
 				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
 				916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */,
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,

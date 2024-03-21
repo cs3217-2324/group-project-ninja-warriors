@@ -10,6 +10,6 @@ import Foundation
 protocol Listener {
     associatedtype PublisherType: FactoryPublisher
     var publisher: PublisherType { get }
-    func startListening() /*async throws*/
+    func startListening()
     func stopListening()
 }

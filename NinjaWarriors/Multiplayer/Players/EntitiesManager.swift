@@ -7,13 +7,9 @@
 
 import Foundation
 
-// TODO: Add later
 protocol EntitiesManager {
-    /*
-    func uploadEntity(entity: Entity) async throws
-    func getEntity(entityId: String) async throws -> Entity
-    func updateEntity(id: String, position: Point) async throws
-    func getAllEntities(with ids: [String]) async throws -> [Entity]
+    func getAllEntities() async throws -> [Entity]?
+    func getEntity(entityId: EntityID) async throws -> Entity?
+    func uploadEntity(entity: Entity, entityType: String) async throws
     func addListenerForAllEntities() -> EntityPublisher
-    */
 }

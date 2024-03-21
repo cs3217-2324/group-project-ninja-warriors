@@ -8,8 +8,8 @@
 import Foundation
 
 final class EntityPublisher: FactoryPublisher {
-    typealias Item = /*EntityWrapper*/ PlayerWrapper
-    typealias UpdateClosure = ([/*EntityWrapper*/PlayerWrapper]) -> Void
+    typealias Item = EntityWrapper /*PlayerWrapper*/
+    typealias UpdateClosure = ([EntityWrapper /*PlayerWrapper*/]) -> Void
     typealias ErrorClosure = (Error) -> Void
 
     var updateClosure: UpdateClosure?
@@ -20,7 +20,7 @@ final class EntityPublisher: FactoryPublisher {
         self.errorClosure = error
     }
 
-    func publish(_ update: [/*EntityWrapper*/PlayerWrapper]) {
+    func publish(_ update: [EntityWrapper /*PlayerWrapper*/]) {
         updateClosure?(update)
     }
 
