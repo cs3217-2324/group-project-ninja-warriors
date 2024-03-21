@@ -12,12 +12,6 @@ struct LineWrapper: Codable {
     @CodableWrapper var end: PointWrapper
     @CodableWrapper var vector: VectorWrapper
 
-    init(start: PointWrapper, end: PointWrapper, vector: VectorWrapper) {
-        self.start = start
-        self.end = end
-        self.vector = vector
-    }
-
     /*
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)

@@ -8,17 +8,34 @@
 import Foundation
 
 class PlayerWrapper: EntityWrapper {
-    @CodableWrapper var id: String
-    @CodableWrapper var shape: ShapeWrapper
-    @CodableWrapper var components: [ComponentWrapper]?
+    /*@CodableWrapper*/ var components: [ComponentWrapper]?
 
-    init(id: String, shape: ShapeWrapper, components: [ComponentWrapper]? = nil) {
-        self.id = id
-        self.shape = shape
+    init(id: EntityID, shape: ShapeWrapper, components: [ComponentWrapper]? = nil) {
+        // self.id = id
+        // self.shape = shape
         self.components = components
-        super.init()
+        super.init(id: id, shape: shape)
     }
 
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func toEntity() -> Entity? {
+        var componentsUnwrap: [Component] = []
+        guard let components = components else {
+            return Player(id: id, shape: shape.toShape())
+        }
+        for component in components {
+            if let componentUnwrap = component.toComponent() {
+                componentsUnwrap.append(componentUnwrap)
+            }
+        }
+        return Player(id: id, shape: shape.toShape(), components: componentsUnwrap)
+    }
+}
+
+    /*
     required init(from decoder: Decoder) throws {
         fatalError("init(from:) has not been implemented")
     }
@@ -37,17 +54,5 @@ class PlayerWrapper: EntityWrapper {
         try container.encode(shape, forKey: AnyCodingKey(stringValue: "Shape"))
     }
     */
-
-    override func toEntity() -> Entity? {
-        var componentsUnwrap: [Component] = []
-        guard let components = components else {
-            return Player(id: id, shape: shape.toShape())
-        }
-        for component in components {
-            if let componentUnwrap = component.toComponent() {
-                componentsUnwrap.append(componentUnwrap)
-            }
-        }
-        return Player(id: id, shape: shape.toShape(), components: componentsUnwrap)
-    }
 }
+*/

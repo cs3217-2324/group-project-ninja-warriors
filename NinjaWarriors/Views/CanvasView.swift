@@ -37,10 +37,12 @@ struct CanvasView: View {
                     // Player Circles
                     ForEach(viewModel.players, id: \.id) { player in
                         Text("\(player.id)")
-                        Circle()
-                            .fill(Color.blue)
-                            .frame(width: 50, height: 50)
-                            .position(player.getPosition())
+                        if let player = player as? Player {
+                            Circle()
+                                .fill(Color.blue)
+                                .frame(width: 50, height: 50)
+                                .position(player.getPosition())
+                        }
                     }
                 }
             }

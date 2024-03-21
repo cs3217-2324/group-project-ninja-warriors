@@ -16,7 +16,7 @@ class Player: Equatable, Entity {
         self.id = id
         self.shape = shape
         self.components = components
-        //self.skillCaster = SkillCaster(id: "1", entity: self, skills: skills) // TODO: fix hardcode id
+        // self.skillCaster = SkillCaster(id: "1", entity: self, skills: skills) // TODO: fix hardcode id
     }
 
     /*
@@ -32,7 +32,7 @@ class Player: Equatable, Entity {
     }
 
     // TODO: Must remove this and make adapter change position based on system instead
-    ///*
+    /// *
     func getPosition() -> CGPoint {
         shape.getCenter()
     }
@@ -40,7 +40,7 @@ class Player: Equatable, Entity {
     func changePosition(to center: Point) {
         shape.center = center
     }
-    //*/
+    // */
 
     func wrapper() -> EntityWrapper? {
         var componentsWrapper: [ComponentWrapper] = []

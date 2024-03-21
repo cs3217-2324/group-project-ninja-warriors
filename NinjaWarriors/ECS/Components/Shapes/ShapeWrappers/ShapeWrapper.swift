@@ -14,15 +14,6 @@ struct ShapeWrapper: Codable {
     @CodableWrapper var edges: [LineWrapper]
     @CodableWrapper var vertices: [PointWrapper]
 
-    init(center: PointWrapper, orientation: Double,
-         halfLength: Double, edges: [LineWrapper], vertices: [PointWrapper]) {
-        self.center = center
-        self.orientation = orientation
-        self.halfLength = halfLength
-        self.edges = edges
-        self.vertices = vertices
-    }
-
     /*
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)

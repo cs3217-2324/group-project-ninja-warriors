@@ -13,13 +13,6 @@ struct PointWrapper: Codable {
     @CodableWrapper var radial: Double
     @CodableWrapper var theta: Double
 
-    init(xCoord: Double, yCoord: Double, radial: Double, theta: Double) {
-        self.xCoord = xCoord
-        self.yCoord = yCoord
-        self.radial = radial
-        self.theta = theta
-    }
-
     /*
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)

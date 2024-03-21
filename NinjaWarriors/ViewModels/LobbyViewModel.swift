@@ -68,23 +68,18 @@ final class LobbyViewModel: ObservableObject {
     }
 
     private func addPlayerToSystemAndDatabase(id playerId: String, position: Point) {
-        let (shape, player) = makePlayer(id: playerId, position: position)
-
+        let player = makePlayer(id: playerId, position: position)
         Task {
-            try? await realTimeManager.uploadPlayer(player: player)
+            try? await realTimeManager.uploadEntity(entity: player)
         }
     }
 
-    private func makePlayer(id playerId: String, position: Point) -> (Shape, Player) {
+    private func makePlayer(id playerId: String, position: Point) -> Player {
         let randomNonce = RandomNonce().randomNonceString()
-        let shape = Shape(id: randomNonce,
-                          entity: nil,
-                          center: position,
-                          halfLength: Constants.defaultSize)
-
+        let shape = Shape(center: position, halfLength: Constants.defaultSize)
         let player = Player(id: playerId, shape: shape)
-        shape.entity = player
-        return (shape, player)
+        // shape.entity = player
+        return player
     }
 
     /*

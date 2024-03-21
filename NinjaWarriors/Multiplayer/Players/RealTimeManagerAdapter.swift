@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseDatabase
 
-//TODO: Remove all force unwraps
+// TODO: Remove all force unwraps
 final class RealTimeManagerAdapter: EntitiesManager {
     private let databaseRef = Database.database().reference()
     private let playersRef: DatabaseReference
@@ -31,7 +31,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
             guard let player = try decodePlayer(from: value) else {
                 continue
             }
-            //TODO: Remove force unwrap
+            // TODO: Remove force unwrap
             guard playerIds == nil || playerIds!.contains(player.id) else {
                 continue
             }

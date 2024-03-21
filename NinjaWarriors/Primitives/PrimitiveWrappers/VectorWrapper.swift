@@ -11,11 +11,6 @@ struct VectorWrapper: Codable {
     @CodableWrapper var horizontal: Double
     @CodableWrapper var vertical: Double
 
-    init(horizontal: Double, vertical: Double) {
-        self.horizontal = horizontal
-        self.vertical = vertical
-    }
-
     /*
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
