@@ -59,7 +59,7 @@ struct CanvasView: View {
                         Button(action: {
                         }) {
                             Text("Skill 1")
-                        }.offset(y: geometry.size.height - 650)
+                        }.offset(y: geometry.size.height - 500)
                         .padding()
 
                         Spacer(minLength: 20)
@@ -67,7 +67,7 @@ struct CanvasView: View {
                         Button(action: {
                         }) {
                             Text("Skill 2")
-                        }.offset(y: geometry.size.height - 650)
+                        }.offset(y: geometry.size.height - 500)
                         .padding()
 
                         Spacer(minLength: 20)
@@ -75,7 +75,7 @@ struct CanvasView: View {
                         Button(action: {
                         }) {
                             Text("Skill 3")
-                        }.offset(y: geometry.size.height - 650)
+                        }.offset(y: geometry.size.height - 500)
                         .padding()
 
                         Spacer(minLength: 20)
@@ -84,10 +84,9 @@ struct CanvasView: View {
 
                         }) {
                             Text("Skill 4")
-                        }.offset(y: geometry.size.height - 650)
+                        }.offset(y: geometry.size.height - 500)
                         .padding()
                     }
-
 
                 }
             }
