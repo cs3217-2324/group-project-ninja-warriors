@@ -16,14 +16,19 @@ class GameWorld {
 
     init() {
         setupGameLoop()
-
-        // TODO: set up different systems
+        setupSystems()
     }
 
     private func setupGameLoop() {
         gameLoopManager.onUpdate = { [weak self] deltaTime in
             self?.update(deltaTime: deltaTime)
         }
+    }
+
+    private func setupSystems() {
+        systemManager.add(system: TransformHandler(for: entityComponentManager))
+        systemManager.add(system: CollisionManager(for: entityComponentManager))
+        systemManager.add(system: RigidbodyHandler(for: entityComponentManager))
     }
 
     func start() {
