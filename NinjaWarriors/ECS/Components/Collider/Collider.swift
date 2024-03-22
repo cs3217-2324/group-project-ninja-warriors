@@ -14,16 +14,20 @@ class Collider {
     var density: Double
     var restitution: Double
     var shapeCount: Int
+    var isColliding: Bool
     var offset: Vector
     var bounds: [Line]
 
-    init(attachedRigidBody: Rigidbody, colliderShape: Shape, bounciness: Double, density: Double, restitution: Double, shapeCount: Int, offset: Vector, bounds: [Line]) {
+    init(attachedRigidBody: Rigidbody, colliderShape: Shape, bounciness: Double,
+         density: Double, restitution: Double, shapeCount: Int, isColliding: Bool,
+         offset: Vector, bounds: [Line]) {
         self.attachedRigidBody = attachedRigidBody
         self.colliderShape = colliderShape
         self.bounciness = bounciness
         self.density = density
         self.restitution = restitution
         self.shapeCount = shapeCount
+        self.isColliding = isColliding
         self.offset = offset
         self.bounds = bounds
     }
@@ -50,5 +54,9 @@ class Collider {
 
     func addOffset(by vector: Vector) {
         self.offset = self.offset.add(vector: vector)
+    }
+
+    func setCollide(to status: Bool) {
+        isColliding = status
     }
 }
