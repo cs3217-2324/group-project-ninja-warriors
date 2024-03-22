@@ -92,6 +92,7 @@
 		E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */; };
 		E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */; };
 		E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */; };
+		E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -193,6 +194,7 @@
 		E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoopHandler.swift; sourceTree = "<group>"; };
 		E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorld.swift; sourceTree = "<group>"; };
 		E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCasterSystem.swift; sourceTree = "<group>"; };
+		E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityOverlayView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +430,7 @@
 				916A7DB12BA42F7F00319C26 /* CanvasView.swift */,
 				9132AF672BA53E54000F2AC4 /* LobbyView.swift */,
 				9132AF902BA83E54000F2AC4 /* JoystickView.swift */,
+				E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 			files = (
 				9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */,
 				916A7D6A2BA154F000319C26 /* CollisionManager.swift in Sources */,
+				E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */,
 				9132AF662BA50E9A000F2AC4 /* RigidbodyHandler.swift in Sources */,
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
