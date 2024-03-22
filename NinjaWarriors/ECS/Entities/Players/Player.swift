@@ -17,7 +17,21 @@ class Player: Equatable, Entity {
     }
 
     func getInitializingComponents() -> [Component] {
-        return []
+        let randomNonce = RandomNonce().randomNonceString()
+        let playerRigidbody = Rigidbody(id: randomNonce, entity: self,
+                                        angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
+                                        rotation: 0.0, totalForce: 0.0, gravityScale: 1.0,
+                                        gravity: 5.0, inertia: 0.0, attachedColliderCount: 0,
+                                        collisionDetectionMode: true, position: shape.center,
+                                        velocity: Vector(horizontal: 5.0, vertical: 5.0),
+                                        attachedColliders: [])
+
+        // Create the default Collider component for the player
+        let playerCollider = Collider(id: randomNonce, entity: self,
+                                      colliderShape: shape, bounciness: 0.0, density: 0.0, restitution: 0.0,
+                                      isColliding: false, offset: Vector(horizontal: 0.0, vertical: 0.0))
+
+        return [playerRigidbody, playerCollider]
     }
 
     // TODO: Must remove this and make change based on system instead
