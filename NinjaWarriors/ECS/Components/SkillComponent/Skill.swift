@@ -10,10 +10,11 @@ import Foundation
 typealias SkillID = String
 protocol Skill {
     var id: SkillID { get }
-    var cooldown: Double { get set }
-    var isOnCooldown: Bool { get }
+    func isOnCooldown() -> Bool
 
-    func activate()
+    func decrementCooldown(deltaTime: TimeInterval)
+
+    func activate(from entity: Entity, in manager: EntityComponentManager)
 }
 
 protocol SelfModifyingSkill: Skill {
@@ -21,7 +22,7 @@ protocol SelfModifyingSkill: Skill {
 }
 
 protocol EntitySpawnerSkill: Skill {
-    func spawnEntity()
+    func spawnEntity(at position: Point, in manager: EntityComponentManager) -> Entity
 }
 
 protocol CooldownModifierSkill: Skill {

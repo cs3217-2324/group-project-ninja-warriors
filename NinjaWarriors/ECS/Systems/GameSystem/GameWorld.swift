@@ -21,10 +21,12 @@ class GameWorld {
         let transformHandler = TransformHandler(for: entityComponentManager)
         let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager)
         let collisionManager = CollisionManager(for: entityComponentManager)
+        let skillsManager = SkillCasterSystem(for: entityComponentManager)
 
         systemManager.add(system: transformHandler)
         systemManager.add(system: rigidbodyHandler)
         systemManager.add(system: collisionManager)
+        systemManager.add(system: skillsManager)
     }
 
     private func setupGameLoop() {

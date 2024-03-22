@@ -11,9 +11,9 @@ typealias ComponentID = String
 
 class Component: Hashable {
     var id: ComponentID
-    unowned var entity: Entity?
+    unowned var entity: Entity
 
-    init(id: ComponentID, entity: Entity?) {
+    init(id: ComponentID, entity: Entity) {
         self.id = id
         self.entity = entity
     }

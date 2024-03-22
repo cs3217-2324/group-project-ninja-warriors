@@ -30,7 +30,9 @@ class Player: Equatable, Entity {
                                       colliderShape: shape, bounciness: 0.0, density: 0.0, restitution: 0.0,
                                       isColliding: false, offset: Vector(horizontal: 0.0, vertical: 0.0))
 
-        return [playerRigidbody, playerCollider]
+        let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(), entity: self, skills: [SlashAOESkill(id: "skill1", cooldownDuration: 8.0)]) // TODO: remove hardcode
+
+        return [playerRigidbody, playerCollider, skillCaster]
     }
 
     // TODO: Must remove this and make change based on system instead

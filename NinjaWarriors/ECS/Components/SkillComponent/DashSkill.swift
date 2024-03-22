@@ -9,16 +9,21 @@ import Foundation
 
 class DashSkill: MovementSkill {
     var id: SkillID
-    var cooldown: Double = 8.0
-    var isOnCooldown: Bool = false
 
     init(id: SkillID) {
         self.id = id
     }
 
-    func activate() {
-        isOnCooldown = true
+    func activate(from entity: Entity, in manager: EntityComponentManager) {
         print("dash activated")
+    }
+
+    func isOnCooldown() -> Bool {
+        return true
+    }
+
+    func decrementCooldown(deltaTime: TimeInterval) {
+
     }
 
     func performMovement(on target: Entity) {

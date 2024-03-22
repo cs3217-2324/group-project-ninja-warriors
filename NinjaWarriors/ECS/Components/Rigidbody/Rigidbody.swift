@@ -24,7 +24,7 @@ class Rigidbody: Component {
     var attachedColliders: [Collider]
 
     override func wrapper() -> ComponentWrapper? {
-        guard let entity = entity?.wrapper() else {
+        guard let entity = entity.wrapper() else {
             return nil
         }
 
@@ -94,7 +94,7 @@ class Rigidbody: Component {
     }
 
     func getShape() -> Shape? {
-        entity?.shape
+        entity.shape
     }
 
     func minDistancePoint() -> (Double, Point?) {

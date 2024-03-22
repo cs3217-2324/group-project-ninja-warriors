@@ -58,7 +58,7 @@ class Collider: Component {
     }
 
     override func wrapper() -> ComponentWrapper? {
-        guard let entityWrapper = entity?.wrapper() else {
+        guard let entityWrapper = entity.wrapper() else {
             return nil
         }
         return ColliderWrapper(id: id, entity: entityWrapper,

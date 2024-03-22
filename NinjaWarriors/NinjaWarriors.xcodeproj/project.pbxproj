@@ -93,6 +93,9 @@
 		E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */; };
 		E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */; };
 		E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */; };
+		E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */; };
+		E6ECF6382BADE99700DDDE9C /* SlashAOESkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6372BADE99700DDDE9C /* SlashAOESkill.swift */; };
+		E6ECF63A2BADE9D900DDDE9C /* CircleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6392BADE9D800DDDE9C /* CircleShape.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +198,9 @@
 		E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorld.swift; sourceTree = "<group>"; };
 		E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCasterSystem.swift; sourceTree = "<group>"; };
 		E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityOverlayView.swift; sourceTree = "<group>"; };
+		E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOE.swift; sourceTree = "<group>"; };
+		E6ECF6372BADE99700DDDE9C /* SlashAOESkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOESkill.swift; sourceTree = "<group>"; };
+		E6ECF6392BADE9D800DDDE9C /* CircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleShape.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +311,7 @@
 				9132AF832BA5A871000F2AC4 /* Players */,
 				7113A4932BA60E2E00805340 /* Entity.swift */,
 				9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */,
+				E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -495,6 +502,7 @@
 				916A7DA42BA3F89500319C26 /* ShapeWrapper.swift */,
 				9180F9C52BAAE53F000CC390 /* TriangleShape.swift */,
 				9180F9C72BAAE54A000CC390 /* RectangleShape.swift */,
+				E6ECF6392BADE9D800DDDE9C /* CircleShape.swift */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -543,6 +551,7 @@
 				91C65BE42BACF1AA0085D96F /* Skill.swift */,
 				91C65BE22BACF1920085D96F /* DashSkill.swift */,
 				91C65BE62BACF1BF0085D96F /* SkillCaster.swift */,
+				E6ECF6372BADE99700DDDE9C /* SlashAOESkill.swift */,
 			);
 			path = SkillComponent;
 			sourceTree = "<group>";
@@ -734,6 +743,7 @@
 				E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */,
 				9132AF662BA50E9A000F2AC4 /* RigidbodyHandler.swift in Sources */,
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
+				E6ECF6382BADE99700DDDE9C /* SlashAOESkill.swift in Sources */,
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
 				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
@@ -742,6 +752,7 @@
 				9132AF762BA59A30000F2AC4 /* FactoryListener.swift in Sources */,
 				9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */,
 				7113A4942BA60E2E00805340 /* Entity.swift in Sources */,
+				E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */,
 				9180F9D52BAB9C89000CC390 /* EntityWrapper.swift in Sources */,
 				714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
@@ -790,6 +801,7 @@
 				9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */,
 				9132AF6C2BA57130000F2AC4 /* EntitiesManager.swift in Sources */,
 				9132AF782BA59B0F000F2AC4 /* FactoryPublisher.swift in Sources */,
+				E6ECF63A2BADE9D900DDDE9C /* CircleShape.swift in Sources */,
 				9132AF682BA53E54000F2AC4 /* LobbyView.swift in Sources */,
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
 				91C65BE72BACF1BF0085D96F /* SkillCaster.swift in Sources */,

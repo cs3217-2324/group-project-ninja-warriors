@@ -27,7 +27,7 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() {
-        gameWorld.systemManager.update(after: 2)
+        gameWorld.systemManager.update(after: 1/60) // TODO: probably refactor this to match update loop
     }
 
     func addListeners() {
@@ -68,5 +68,23 @@ final class CanvasViewModel: ObservableObject {
         Task {
             try? await manager.updateEntity(id: entityId, position: newCenter)
         }
+    }
+}
+
+extension CanvasViewModel {
+    func activateSkill(forEntityWithId entityId: String, skillId: String) {
+        guard let skillCasterComponent = gameWorld.entityComponentManager.getComponentFromId(ofType: SkillCaster.self, of: entityId) else {
+            print("No SkillCaster component found for entity with ID: \(entityId)")
+            return
+        }
+
+        print("[CanvasViewModel] \(skillId) queued for activation")
+        skillCasterComponent.queueSkillActivation(skillId)
+    }
+
+    func getSkillIds(for entityId: String) -> [String] {
+        // This method assumes we have a way to retrieve the SkillCaster component
+        // and then fetch the skill IDs from it. For simplicity, here's a placeholder:
+        return ["skill1", "skill2"] // TODO: remove hardcode
     }
 }
