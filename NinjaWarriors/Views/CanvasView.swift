@@ -35,23 +35,24 @@ struct CanvasView: View {
                         }
                     // Player Circles
                     ForEach(viewModel.entities, id: \.id) { entity in
-                        Text("\(entity.id)")
                         if let entity = entity {
-                            Circle()
-                                .fill(Color.blue)
-                                .frame(width: 50, height: 50)
-                                .position(entity.shape.getCenter())
-                                .gesture(
-                                    DragGesture()
-                                        .onChanged { gesture in
-                                            let newX = max(0, min(gesture.location.x, geometry.size.width))
-                                            let newY = max(0, min(gesture.location.y, geometry.size.height))
-                                            joystickPosition = CGPoint(x: newX, y: newY)
-                                            let entityId = entity.id
-                                            viewModel.changePosition(entityId: entityId, newPosition: joystickPosition)
-                                        }
-                                )
-
+                            VStack {
+                                Circle()
+                                    .fill(Color.blue)
+                                    .frame(width: 50, height: 50)
+                                    .position(entity.shape.getCenter())
+                                    .gesture(
+                                        DragGesture()
+                                            .onChanged { gesture in
+                                                let newX = max(0, min(gesture.location.x, geometry.size.width))
+                                                let newY = max(0, min(gesture.location.y, geometry.size.height))
+                                                joystickPosition = CGPoint(x: newX, y: newY)
+                                                let entityId = entity.id
+                                                viewModel.changePosition(entityId: entityId, newPosition: joystickPosition)
+                                            }
+                                    )
+                                Text("\(entity.id)")
+                            }
                         }
                     }
                 }

@@ -16,9 +16,9 @@ struct Constants {
 
     // MARK: Player initial positions
     static let playerOnePosition = Point(xCoord: 300, yCoord: 300)
-    static let playerTwoPosition = Point(xCoord: screenWidth - 100, yCoord: screenHeight - 200)
-    static let playerThreePosition = Point(xCoord: 100, yCoord: 500)
-    static let playerFourPosition = Point(xCoord: 100, yCoord: 500)
+    static let playerTwoPosition = Point(xCoord: 400, yCoord: 400)
+    static let playerThreePosition = Point(xCoord: 500, yCoord: 500)
+    static let playerFourPosition = Point(xCoord: 600, yCoord: 600)
     static let playerPositions = [playerOnePosition, playerTwoPosition, playerThreePosition, playerFourPosition]
     // TODO: Reset to 4 after testing
     static let playerCount = 1

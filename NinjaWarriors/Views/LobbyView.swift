@@ -23,7 +23,7 @@ struct LobbyView: View {
                         .padding()
                 }
                 if let playerCount = viewModel.getPlayerCount() {
-                    Text("Player Count: \(playerCount)")
+                    Text("Player Count: \(playerCount) / \(Constants.playerCount)")
                         .padding()
                     if playerCount == Constants.playerCount {
                         Text("")
@@ -34,9 +34,9 @@ struct LobbyView: View {
                                 }
                             }
                         if let matchId = viewModel.matchId,
-                           let players = viewModel.playerIds {
+                           let _ = viewModel.playerIds {
                             NavigationLink(destination: CanvasView(matchId: matchId,
-                                                                   currPlayerId: signInViewModel.getUserId() ?? "none")) {
+                                                                   currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)) {
                                 Text("Start Game")
                                     .font(.system(size: 30))
                                     .padding()

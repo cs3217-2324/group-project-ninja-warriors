@@ -38,6 +38,8 @@
 		9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF902BA83E54000F2AC4 /* JoystickView.swift */; };
 		9136A5BA2BAA8B3900197971 /* TransformHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9136A5B92BAA8B3900197971 /* TransformHandler.swift */; };
 		9136A5BC2BAAA80200197971 /* RealTimeManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */; };
+		915301B22BAD1ADA007F2A12 /* Rigidbody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B12BAD1ADA007F2A12 /* Rigidbody.swift */; };
+		915301B52BAD1E85007F2A12 /* Collider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B42BAD1E85007F2A12 /* Collider.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -75,8 +77,8 @@
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
 		916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB12BA42F7F00319C26 /* CanvasView.swift */; };
 		916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */; };
-		9180F9C62BAAE53F000CC390 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* Triangle.swift */; };
-		9180F9C82BAAE54A000CC390 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* Rectangle.swift */; };
+		9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* TriangleShape.swift */; };
+		9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* RectangleShape.swift */; };
 		9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */; };
 		9180F9D12BAB96C7000CC390 /* CodableWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9D02BAB96C7000CC390 /* CodableWrapper.swift */; };
 		9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9D22BAB9C26000CC390 /* ComponentWrapper.swift */; };
@@ -138,6 +140,8 @@
 		9132AF902BA83E54000F2AC4 /* JoystickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickView.swift; sourceTree = "<group>"; };
 		9136A5B92BAA8B3900197971 /* TransformHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformHandler.swift; sourceTree = "<group>"; };
 		9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeManagerAdapter.swift; sourceTree = "<group>"; };
+		915301B12BAD1ADA007F2A12 /* Rigidbody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rigidbody.swift; sourceTree = "<group>"; };
+		915301B42BAD1E85007F2A12 /* Collider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collider.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -171,8 +175,8 @@
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
 		916A7DB12BA42F7F00319C26 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
-		9180F9C52BAAE53F000CC390 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
-		9180F9C72BAAE54A000CC390 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
+		9180F9C52BAAE53F000CC390 /* TriangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleShape.swift; sourceTree = "<group>"; };
+		9180F9C72BAAE54A000CC390 /* RectangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleShape.swift; sourceTree = "<group>"; };
 		9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNonce.swift; sourceTree = "<group>"; };
 		9180F9D02BAB96C7000CC390 /* CodableWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableWrapper.swift; sourceTree = "<group>"; };
 		9180F9D22BAB9C26000CC390 /* ComponentWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentWrapper.swift; sourceTree = "<group>"; };
@@ -303,6 +307,22 @@
 			path = CollisionSystem;
 			sourceTree = "<group>";
 		};
+		915301B02BAD1AB6007F2A12 /* Rigidbody */ = {
+			isa = PBXGroup;
+			children = (
+				915301B12BAD1ADA007F2A12 /* Rigidbody.swift */,
+			);
+			path = Rigidbody;
+			sourceTree = "<group>";
+		};
+		915301B32BAD1E7D007F2A12 /* Collider */ = {
+			isa = PBXGroup;
+			children = (
+				915301B42BAD1E85007F2A12 /* Collider.swift */,
+			);
+			path = Collider;
+			sourceTree = "<group>";
+		};
 		916A7D2D2BA1541700319C26 = {
 			isa = PBXGroup;
 			children = (
@@ -373,6 +393,8 @@
 		916A7D682BA154E000319C26 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				915301B32BAD1E7D007F2A12 /* Collider */,
+				915301B02BAD1AB6007F2A12 /* Rigidbody */,
 				7113A4952BA60E8400805340 /* Component.swift */,
 				91C65BE12BACF1790085D96F /* SkillComponent */,
 				916A7DA62BA3F9FC00319C26 /* GenericWrappers */,
@@ -458,8 +480,8 @@
 			children = (
 				916A7D6B2BA1550700319C26 /* Shape.swift */,
 				9132AF862BA6AEAB000F2AC4 /* Shape+EXT.swift */,
-				9180F9C52BAAE53F000CC390 /* Triangle.swift */,
-				9180F9C72BAAE54A000CC390 /* Rectangle.swift */,
+				9180F9C52BAAE53F000CC390 /* TriangleShape.swift */,
+				9180F9C72BAAE54A000CC390 /* RectangleShape.swift */,
 				9180F9CC2BAAF8CF000CC390 /* ShapeWrappers */,
 			);
 			path = Shapes;
@@ -702,6 +724,7 @@
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
 				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
+				915301B22BAD1ADA007F2A12 /* Rigidbody.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
 				9132AF762BA59A30000F2AC4 /* FactoryListener.swift in Sources */,
 				9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */,
@@ -723,7 +746,7 @@
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
 				916A7DA52BA3F89500319C26 /* ShapeWrapper.swift in Sources */,
 				91C65BE52BACF1AA0085D96F /* Skill.swift in Sources */,
-				9180F9C62BAAE53F000CC390 /* Triangle.swift in Sources */,
+				9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
 				9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */,
 				E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */,
@@ -732,6 +755,7 @@
 				916A7D902BA1A2AE00319C26 /* AuthenticationAdapter.swift in Sources */,
 				916A7D702BA1552100319C26 /* Point.swift in Sources */,
 				9132AF7C2BA59C6C000F2AC4 /* Listener.swift in Sources */,
+				915301B52BAD1E85007F2A12 /* Collider.swift in Sources */,
 				9136A5BA2BAA8B3900197971 /* TransformHandler.swift in Sources */,
 				916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */,
 				916A7D952BA1AB2A00319C26 /* User.swift in Sources */,
@@ -744,7 +768,7 @@
 				9132AF742BA597FD000F2AC4 /* MatchWrapper.swift in Sources */,
 				916A7DAA2BA3FBBF00319C26 /* AnyCodingKey.swift in Sources */,
 				916A7D6C2BA1550700319C26 /* Shape.swift in Sources */,
-				9180F9C82BAAE54A000CC390 /* Rectangle.swift in Sources */,
+				9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */,
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,
 				9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */,

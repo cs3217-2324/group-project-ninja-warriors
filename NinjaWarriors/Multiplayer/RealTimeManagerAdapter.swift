@@ -115,7 +115,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
     }
 
     // Update only player position for now.
-    func updateEntity(id: String, position: Point, component: Component? = nil) async throws {
+    func updateEntity(id: EntityID, position: Point, component: Component? = nil) async throws {
         let entity = try await getEntity(entityId: id)
         guard let entity = entity else {
             return
