@@ -8,16 +8,24 @@
 import SwiftUI
 
 struct JoystickView: View {
-    @State private var location: CGPoint = .zero
-    @State private var innerCircleLocation: CGPoint = .zero
-    @GestureState private var fingerLocation: CGPoint?
+    @State private var location: CGPoint
+    @State private var innerCircleLocation: CGPoint
 
-    init(location: CGPoint, innerCircleLocation: CGPoint) {
-        self.location = location
-        self.innerCircleLocation = innerCircleLocation
+    private var setInputVector: (CGVector) -> Void
+    private let bigCircleRadius: CGFloat = 100
+    private var bigCircleDiameter: CGFloat {
+        bigCircleRadius * 2
+    }
+    private let smallCircleRadius: CGFloat = 25
+    private var smallCircleDiameter: CGFloat {
+        smallCircleRadius * 2
     }
 
-    private let bigCircleRadius: CGFloat = 100 // Adjust the radius of the blue circle
+    init(setInputVector: @escaping (CGVector) -> Void, location: CGPoint) {
+        self.setInputVector = setInputVector
+        self.location = location
+        self.innerCircleLocation = location
+    }
 
     var fingerDrag: some Gesture {
         DragGesture()
@@ -39,14 +47,15 @@ struct JoystickView: View {
                 let newY = location.y + sin(angle) * clampedDistance
 
                 innerCircleLocation = CGPoint(x: newX, y: newY)
-            }
-            .updating($fingerLocation) { (value, fingerLocation, _) in
-                fingerLocation = value.location
+
+                // Set input vector
+                let vector = CGVector(dx: newX - location.x, dy: newY - location.y)
+                setInputVector(vector)
             }
             .onEnded {_ in
                 // Snap the smaller circle to the center of the larger circle
-                let center = location
-                innerCircleLocation = center
+                innerCircleLocation = location
+                setInputVector(CGVector.zero)
             }
     }
 
@@ -55,13 +64,13 @@ struct JoystickView: View {
             // Larger circle (blue circle)
             Circle()
                 .foregroundColor(.blue)
-                .frame(width: bigCircleRadius * 2, height: bigCircleRadius * 2)
+                .frame(width: bigCircleDiameter, height: bigCircleDiameter)
                 .position(location)
 
             // Smaller circle (green circle)
             Circle()
                 .foregroundColor(.green)
-                .frame(width: 50, height: 50)
+                .frame(width: smallCircleDiameter, height: smallCircleDiameter)
                 .position(innerCircleLocation)
                 .gesture(fingerDrag)
         }

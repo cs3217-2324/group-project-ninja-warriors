@@ -12,8 +12,6 @@ struct CanvasView: View {
     @ObservedObject var viewModel: CanvasViewModel
     @State private var matchId: String
     @State private var joystickPosition: CGPoint = .zero
-    // Add state to hold the joystick's output
-    @State private var joystickOutput: CGPoint = .zero
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -45,12 +43,12 @@ struct CanvasView: View {
                     }
 
                     HStack {
-                        JoystickView(location: CGPoint(x: 120, y: geometry.size.height - 120),
-                                     innerCircleLocation: joystickOutput)
-                            .onChange(of: joystickOutput) { newPosition in
-                                viewModel.changePosition(entityId: viewModel.currPlayerId, newPosition: newPosition)
-                            }
-                            .offset(x: 120, y: geometry.size.height - 120)
+                        if viewModel.gameControl is JoystickControl {
+                            JoystickView(setInputVector: { vector in
+                                viewModel.gameControl.setInputVector(vector)
+                            }, location: CGPoint(x: 120, y: geometry.size.height - 120))
+                                .offset(x: 120, y: geometry.size.height - 120)
+                        }
 
                         Spacer()
 

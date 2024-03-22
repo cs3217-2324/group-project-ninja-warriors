@@ -35,6 +35,10 @@ class GameWorld {
         gameLoopManager.start()
     }
 
+    func stop() {
+        gameLoopManager.stop()
+    }
+
     func update(deltaTime: TimeInterval) {
         systemManager.update(after: deltaTime)
     }

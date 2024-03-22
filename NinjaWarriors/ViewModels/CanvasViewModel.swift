@@ -14,10 +14,12 @@ final class CanvasViewModel: ObservableObject {
     @Published private(set) var manager: RealTimeManagerAdapter
     @Published private(set) var matchId: String
     @Published private(set) var currPlayerId: String
+    @Published private(set) var gameControl: GameControl
 
-    init(matchId: String, currPlayerId: String) {
+    init(matchId: String, currPlayerId: String, gameControl: GameControl = JoystickControl()) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
+        self.gameControl = gameControl
         manager = RealTimeManagerAdapter(matchId: matchId)
         gameWorld.start()
     }
