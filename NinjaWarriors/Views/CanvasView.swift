@@ -22,18 +22,8 @@ struct CanvasView: View {
 
     var body: some View {
         VStack {
-            Text("currPlayerId: \(viewModel.currPlayerId) \(viewModel.entities.count)")
-                .padding()
-            Text("Both the database as well as the view will update in real time, simulating multiplayer mode")
             GeometryReader { geometry in
                 ZStack {
-                    // Position the JoystickView
-                    JoystickView(location: CGPoint(x: 400, y: 400),
-                                innerCircleLocation: joystickOutput)
-                        .onChange(of: joystickOutput) { newPosition in
-                            viewModel.changePosition(entityId: viewModel.currPlayerId, newPosition: newPosition)
-                        }
-                    // Player Circles
                     ForEach(viewModel.entities, id: \.id) { entity in
                         if let entity = entity {
                             VStack {
@@ -55,11 +45,61 @@ struct CanvasView: View {
                             }
                         }
                     }
+
+                    HStack {
+                        JoystickView(location: CGPoint(x: 120, y: geometry.size.height - 120),
+                                     innerCircleLocation: joystickOutput)
+                            .onChange(of: joystickOutput) { newPosition in
+                                viewModel.changePosition(entityId: viewModel.currPlayerId, newPosition: newPosition)
+                            }
+                            .offset(x: 120, y: geometry.size.height - 120)
+
+                        Spacer()
+
+                        Button(action: {
+                        }) {
+                            Text("Skill 1")
+                        }.offset(y: geometry.size.height - 650)
+                        .padding()
+
+                        Spacer(minLength: 20)
+
+                        Button(action: {
+                        }) {
+                            Text("Skill 2")
+                        }.offset(y: geometry.size.height - 650)
+                        .padding()
+
+                        Spacer(minLength: 20)
+
+                        Button(action: {
+                        }) {
+                            Text("Skill 3")
+                        }.offset(y: geometry.size.height - 650)
+                        .padding()
+
+                        Spacer(minLength: 20)
+
+                        Button(action: {
+
+                        }) {
+                            Text("Skill 4")
+                        }.offset(y: geometry.size.height - 650)
+                        .padding()
+                    }
+
+
                 }
             }
         }
         .onAppear {
             viewModel.addListeners()
         }
+    }
+}
+
+struct CanvasView_Previews: PreviewProvider {
+    static var previews: some View {
+        CanvasView(matchId: "SampleMatchID", currPlayerId: "SamplePlayerID")
     }
 }
