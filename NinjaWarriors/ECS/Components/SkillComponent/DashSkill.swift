@@ -9,7 +9,7 @@ import Foundation
 
 class DashSkill: MovementSkill {
     var id: SkillID
-    var cooldown: Int = 8
+    var cooldown: Double = 8.0
     var isOnCooldown: Bool = false
 
     init(id: SkillID) {

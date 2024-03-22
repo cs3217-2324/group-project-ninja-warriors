@@ -91,6 +91,7 @@
 		91C65BEA2BACF3310085D96F /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C65BE92BACF3310085D96F /* GameEngine.swift */; };
 		E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */; };
 		E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */; };
+		E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,6 +192,7 @@
 		91C65BE92BACF3310085D96F /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoopHandler.swift; sourceTree = "<group>"; };
 		E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorld.swift; sourceTree = "<group>"; };
+		E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCasterSystem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +285,7 @@
 		9136A5B52BA9943100197971 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				E6ECF6302BADABAD00DDDE9C /* SkillCasterSystem */,
 				714A4A632BA717B80067D5CB /* System.swift */,
 				714A4A652BA721E50067D5CB /* SystemManager.swift */,
 				714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */,
@@ -551,6 +554,14 @@
 			path = GameSystem;
 			sourceTree = "<group>";
 		};
+		E6ECF6302BADABAD00DDDE9C /* SkillCasterSystem */ = {
+			isa = PBXGroup;
+			children = (
+				E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */,
+			);
+			path = SkillCasterSystem;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -739,6 +750,7 @@
 				9132AF702BA58C61000F2AC4 /* MatchManager.swift in Sources */,
 				9180F9D12BAB96C7000CC390 /* CodableWrapper.swift in Sources */,
 				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
+				E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */,
 				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
 				916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */,
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,

@@ -15,7 +15,7 @@ class SystemManager {
     }
 
     func update(after time: TimeInterval) {
-        print("system update", systems.count)
+        print("[SystemManager] System count", systems.count)
         systems.forEach { $0.update(after: time) }
     }
 

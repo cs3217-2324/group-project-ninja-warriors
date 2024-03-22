@@ -10,7 +10,7 @@ import Foundation
 typealias SkillID = String
 protocol Skill {
     var id: SkillID { get }
-    var cooldown: Int { get set }
+    var cooldown: Double { get set }
     var isOnCooldown: Bool { get }
 
     func activate()
