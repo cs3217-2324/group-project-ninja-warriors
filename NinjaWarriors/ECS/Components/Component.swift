@@ -8,7 +8,7 @@
 import Foundation
 
 typealias ComponentID = String
-// TODO: check whether a protocol is usable here (probably not due to unowned)
+
 class Component: Hashable {
     var id: ComponentID
     unowned var entity: Entity?
@@ -26,5 +26,5 @@ class Component: Hashable {
         hasher.combine(id)
     }
 
-    func wrapper() -> ComponentWrapper? { return nil }
+     func wrapper() -> ComponentWrapper? { return nil }
 }

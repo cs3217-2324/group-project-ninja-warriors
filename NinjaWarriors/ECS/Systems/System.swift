@@ -11,8 +11,11 @@ protocol System: AnyObject {
     var manager: EntityComponentManager? { get set }
 
     init(for manager: EntityComponentManager)
+    func update(after time: TimeInterval)
 }
 
+/*
 extension System {
     func update(after time: TimeInterval) { }
 }
+*/

@@ -10,7 +10,7 @@ import Foundation
 class Player: Equatable, Entity {
     let id: EntityID
     var shape: Shape
-    internal var components: [Component]?
+    var components: [Component]?
 
     init(id: EntityID, shape: Shape, components: [Component]? = nil) {
         self.id = id

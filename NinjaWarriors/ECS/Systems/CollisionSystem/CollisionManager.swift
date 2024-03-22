@@ -10,6 +10,8 @@ import Foundation
 class CollisionManager: System {
     var manager: EntityComponentManager?
 
+    func update(after time: TimeInterval) { }
+
     required init(for manager: EntityComponentManager) {
         self.manager = manager
     }
@@ -20,7 +22,7 @@ class CollisionManager: System {
         var colliders: [Collider] = []
         for componentId in componentIdSet {
             if let component = manager?.componentMap[componentId] as? Rigidbody {
-                for collider in component.attachedColliders where collider.attachedRigidBody.isAwake() {
+                for collider in component.attachedColliders {
                     colliders.append(collider)
                 }
             }

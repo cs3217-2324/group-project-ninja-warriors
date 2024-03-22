@@ -7,33 +7,30 @@
 
 import Foundation
 
-class Collider {
-    unowned var attachedRigidBody: Rigidbody
+// https://docs.unity3d.com/ScriptReference/Collider2D.html
+class Collider: Component {
     var colliderShape: Shape
     var bounciness: Double
     var density: Double
     var restitution: Double
-    var shapeCount: Int
     var isColliding: Bool
     var offset: Vector
-    var bounds: [Line]
 
-    init(attachedRigidBody: Rigidbody, colliderShape: Shape, bounciness: Double,
-         density: Double, restitution: Double, shapeCount: Int, isColliding: Bool,
-         offset: Vector, bounds: [Line]) {
-        self.attachedRigidBody = attachedRigidBody
+    init(id: EntityID, entity: Entity, colliderShape: Shape, bounciness: Double,
+         density: Double, restitution: Double, isColliding: Bool,
+         offset: Vector) {
         self.colliderShape = colliderShape
         self.bounciness = bounciness
         self.density = density
         self.restitution = restitution
-        self.shapeCount = shapeCount
         self.isColliding = isColliding
         self.offset = offset
-        self.bounds = bounds
+
+        super.init(id: id, entity: entity)
     }
 
     func getPosition() -> Point {
-        attachedRigidBody.position.add(vector: offset)
+        colliderShape.center.add(vector: offset)
     }
 
     func distanceTo(collider: Collider) -> Double {
@@ -58,5 +55,16 @@ class Collider {
 
     func setCollide(to status: Bool) {
         isColliding = status
+    }
+
+    override func wrapper() -> ComponentWrapper? {
+        guard let entityWrapper = entity?.wrapper() else {
+            return nil
+        }
+        return ColliderWrapper(id: id, entity: entityWrapper,
+                               colliderShape: colliderShape.toShapeWrapper(),
+                               bounciness: bounciness, density: density,
+                               restitution: restitution, isColliding: isColliding,
+                               offset: offset.toVectorWrapper())
     }
 }

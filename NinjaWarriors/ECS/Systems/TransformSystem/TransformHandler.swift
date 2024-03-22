@@ -9,15 +9,22 @@ import Foundation
 
 class TransformHandler: System {
     var manager: EntityComponentManager?
+    // To untransform if collision detected
+    var prevPosition: Point?
+    var prevHalfLength: Double?
+    var prevOrientation: Double?
 
     required init(for manager: EntityComponentManager) {
         self.manager = manager
     }
 
+    func update(after time: TimeInterval) { }
+
     func transformPosition(for id: EntityID, to position: Point) {
         guard let shape = manager?.entity(with: id)?.shape else {
             return
         }
+        prevPosition = shape.center
         shape.center = position
     }
 
@@ -25,6 +32,7 @@ class TransformHandler: System {
         guard let shape = manager?.entity(with: id)?.shape else {
             return
         }
+        prevHalfLength = shape.halfLength
         shape.halfLength = halfLength
     }
 
@@ -32,6 +40,7 @@ class TransformHandler: System {
         guard let shape = manager?.entity(with: id)?.shape else {
             return
         }
+        prevOrientation = shape.orientation
         shape.orientation = orientation
     }
 

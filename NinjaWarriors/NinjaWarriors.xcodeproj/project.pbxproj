@@ -40,6 +40,8 @@
 		9136A5BC2BAAA80200197971 /* RealTimeManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */; };
 		915301B22BAD1ADA007F2A12 /* Rigidbody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B12BAD1ADA007F2A12 /* Rigidbody.swift */; };
 		915301B52BAD1E85007F2A12 /* Collider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B42BAD1E85007F2A12 /* Collider.swift */; };
+		915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B62BAD8035007F2A12 /* RigidbodyWrapper.swift */; };
+		915301B92BAD8411007F2A12 /* ColliderWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B82BAD8411007F2A12 /* ColliderWrapper.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -142,6 +144,8 @@
 		9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeManagerAdapter.swift; sourceTree = "<group>"; };
 		915301B12BAD1ADA007F2A12 /* Rigidbody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rigidbody.swift; sourceTree = "<group>"; };
 		915301B42BAD1E85007F2A12 /* Collider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collider.swift; sourceTree = "<group>"; };
+		915301B62BAD8035007F2A12 /* RigidbodyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RigidbodyWrapper.swift; sourceTree = "<group>"; };
+		915301B82BAD8411007F2A12 /* ColliderWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderWrapper.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -255,6 +259,7 @@
 		9132AF832BA5A871000F2AC4 /* Players */ = {
 			isa = PBXGroup;
 			children = (
+				916A7DA22BA3F74700319C26 /* Player.swift */,
 				916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */,
 				9132AF572BA5087F000F2AC4 /* PlayersListener.swift */,
 				9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */,
@@ -292,8 +297,8 @@
 		9136A5B62BA9943900197971 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				9132AF832BA5A871000F2AC4 /* Players */,
 				7113A4932BA60E2E00805340 /* Entity.swift */,
-				916A7DA22BA3F74700319C26 /* Player.swift */,
 				9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */,
 			);
 			path = Entities;
@@ -311,6 +316,7 @@
 			isa = PBXGroup;
 			children = (
 				915301B12BAD1ADA007F2A12 /* Rigidbody.swift */,
+				915301B62BAD8035007F2A12 /* RigidbodyWrapper.swift */,
 			);
 			path = Rigidbody;
 			sourceTree = "<group>";
@@ -319,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				915301B42BAD1E85007F2A12 /* Collider.swift */,
+				915301B82BAD8411007F2A12 /* ColliderWrapper.swift */,
 			);
 			path = Collider;
 			sourceTree = "<group>";
@@ -455,7 +462,6 @@
 				9132AF6B2BA57130000F2AC4 /* EntitiesManager.swift */,
 				9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */,
 				9132AF842BA5A890000F2AC4 /* Matches */,
-				9132AF832BA5A871000F2AC4 /* Players */,
 				9132AF812BA5A79C000F2AC4 /* Factory */,
 				9132AF592BA50C1E000F2AC4 /* Publisher.swift */,
 				9132AF7B2BA59C6C000F2AC4 /* Listener.swift */,
@@ -768,6 +774,8 @@
 				9132AF742BA597FD000F2AC4 /* MatchWrapper.swift in Sources */,
 				916A7DAA2BA3FBBF00319C26 /* AnyCodingKey.swift in Sources */,
 				916A7D6C2BA1550700319C26 /* Shape.swift in Sources */,
+				915301B92BAD8411007F2A12 /* ColliderWrapper.swift in Sources */,
+				915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */,
 				9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */,
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,

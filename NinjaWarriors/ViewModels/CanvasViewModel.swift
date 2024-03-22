@@ -19,7 +19,15 @@ final class CanvasViewModel: ObservableObject {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         manager = RealTimeManagerAdapter(matchId: matchId)
+
         gameWorld.start()
+        gameWorld.updateViewModel = { [weak self] in
+            self?.updateViewModel()
+        }
+    }
+
+    func updateViewModel() {
+        gameWorld.systemManager.update(after: 2)
     }
 
     func addListeners() {
@@ -39,6 +47,15 @@ final class CanvasViewModel: ObservableObject {
                     print(error)
                 })
             }
+            addEntitiesToWorld()
+        }
+
+    }
+
+    func addEntitiesToWorld() {
+        print("add entities to world")
+        for entity in entities {
+            gameWorld.entityComponentManager.add(entity: entity)
         }
     }
 

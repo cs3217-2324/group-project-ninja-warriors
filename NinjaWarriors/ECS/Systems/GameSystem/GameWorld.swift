@@ -13,16 +13,24 @@ class GameWorld {
     let entityComponentManager = EntityComponentManager()
     let systemManager = SystemManager()
     var gameLoopManager = GameLoopManager()
+    var updateViewModel: () -> Void = {}
 
     init() {
         setupGameLoop()
 
-        // TODO: set up different systems
+        let transformHandler = TransformHandler(for: entityComponentManager)
+        let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager)
+        let collisionManager = CollisionManager(for: entityComponentManager)
+
+        systemManager.add(system: transformHandler)
+        systemManager.add(system: rigidbodyHandler)
+        systemManager.add(system: collisionManager)
     }
 
     private func setupGameLoop() {
         gameLoopManager.onUpdate = { [weak self] deltaTime in
             self?.update(deltaTime: deltaTime)
+            self?.updateViewModel()
         }
     }
 

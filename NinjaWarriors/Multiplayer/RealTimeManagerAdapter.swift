@@ -39,7 +39,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
     // MARK: Dynamically retrieve entity type based on key in database by mapping key -> keyWrapper
     private func getWrapperType(of entityType: String) -> Codable.Type? {
-        let wrapperTypeName = "\(entityType.capitalized)Wrapper"
+        let wrapperTypeName = "\(entityType.capitalized)" + Constants.wrapperName
         guard let wrapperType = NSClassFromString(Constants.directory + wrapperTypeName) as? Codable.Type else {
             return nil
         }

@@ -7,6 +7,7 @@
 
 import Foundation
 
+// https://docs.unity3d.com/ScriptReference/Rigidbody2D.html
 class Rigidbody: Component {
     var angularDrag: Double
     var angularVelocity: Double
@@ -21,6 +22,23 @@ class Rigidbody: Component {
     var position: Point
     var velocity: Vector
     var attachedColliders: [Collider]
+
+    override func wrapper() -> ComponentWrapper? {
+        guard let entity = entity?.wrapper() else {
+            return nil
+        }
+
+        var wrapColliders: [ColliderWrapper] = []
+
+        for collider in attachedColliders {
+            if let colliderWrap = collider.wrapper() as? ColliderWrapper {
+                wrapColliders.append(colliderWrap)
+            }
+        }
+
+        return RigidbodyWrapper(id: id, entity: entity, angularDrag: angularDrag, angularVelocity: angularVelocity, mass: mass, rotation: rotation, totalForce: totalForce, gravityScale: gravityScale, gravity: gravity, inertia: inertia, attachedColliderCount: attachedColliderCount, collisionDetectionMode: collisionDetectionMode, position: position.toPointWrapper(), velocity: velocity.toVectorWrapper(), attachedColliders: wrapColliders)
+
+    }
 
     init(id: EntityID, entity: Entity, angularDrag: Double, angularVelocity: Double, mass: Double,
          rotation: Double, totalForce: Double, gravityScale: Double, gravity: Double, inertia: Double,

@@ -29,6 +29,10 @@ struct Vector {
         Vector(horizontal: self.horizontal + vector.horizontal, vertical: self.vertical + vector.vertical)
     }
 
+    func add(_ magnitude: Double) -> Vector {
+        Vector(horizontal: self.horizontal + magnitude, vertical: self.vertical + magnitude)
+    }
+
     func subtract(vector: Vector) -> Vector {
         Vector(horizontal: self.horizontal - vector.horizontal, vertical: self.vertical - vector.vertical)
     }

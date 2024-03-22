@@ -6,10 +6,7 @@
 //
 
 import Foundation
-import UIKit
-
 import SwiftUI
-import Combine
 
 // Game Loop using CADisplayLink adapted for SwiftUI
 class GameLoopManager {

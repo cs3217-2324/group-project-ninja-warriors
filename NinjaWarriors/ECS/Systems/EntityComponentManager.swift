@@ -38,11 +38,12 @@ class EntityComponentManager {
 
     func add(entity: Entity) {
         assertRepresentation()
-
+        print("add", entity)
         entityMap[entity.id] = entity
         entityComponentMap[entity.id] = []
 
         let newComponents = entity.getInitializingComponents()
+        print("new", newComponents)
         newComponents.forEach({add(component: $0, to: entity)})
 
         assertRepresentation()
