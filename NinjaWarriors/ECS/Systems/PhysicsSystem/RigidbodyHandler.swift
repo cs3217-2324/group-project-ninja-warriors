@@ -15,7 +15,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     }
 
     func update(after time: TimeInterval) {
-        print("[RigidbodyHandler] componentMap:", manager?.componentMap)
+        // print("[RigidbodyHandler] componentMap:", manager?.componentMap)
         guard let componentMap = manager?.componentMap else {
             return
         }
@@ -27,7 +27,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                 let acceleration = gravitationalForce / rigidbody.mass
                 rigidbody.velocity = rigidbody.velocity.add(acceleration)
                 rigidbody.position = rigidbody.position.add(vector: rigidbody.velocity)
-                print("rigid position update", rigidbody.position)
+                print("[RigidbodyHandler] rigid position update: ", rigidbody.position)
             }
         }
     }

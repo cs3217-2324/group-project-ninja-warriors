@@ -46,6 +46,9 @@ class EntityComponentManager {
         print("[EntityComponentManager] new", newComponents)
         newComponents.forEach({add(component: $0, to: entity)})
 
+        print("[EntityComponentManager] entityMap", entityMap)
+        print("[EntityComponentManager] entityComponentMap", entityComponentMap)
+
         assertRepresentation()
     }
 

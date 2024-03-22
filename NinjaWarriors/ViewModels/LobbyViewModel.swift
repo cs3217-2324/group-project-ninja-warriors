@@ -75,21 +75,6 @@ final class LobbyViewModel: ObservableObject {
         let shape = Shape(center: position, halfLength: Constants.defaultSize)
         let player = Player(id: playerId, shape: shape)
 
-        let playerRigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: player,
-                                               angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
-                                               rotation: 0.0, totalForce: 0.0, gravityScale: 1.0,
-                                               gravity: 5.0, inertia: 0.0, attachedColliderCount: 0,
-                                               collisionDetectionMode: true, position: position,
-                                               velocity: Vector(horizontal: 5.0, vertical: 5.0),
-                                               attachedColliders: [])
-
-        let playerCollider = Collider(id: RandomNonce().randomNonceString(), entity: player,
-                                      colliderShape: shape, bounciness: 0.0, density: 0.0, restitution: 0.0,
-                                      isColliding: false, offset: Vector(horizontal: 0.0, vertical: 0.0))
-
-//        player.components?.append(playerRigidbody)
-//        player.components?.append(playerCollider)
-
         return player
     }
 

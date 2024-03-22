@@ -12,6 +12,7 @@ class GameEngine {
     private let systemManager: SystemManager
 
     init() {
+        print("=== [GameEngine] INIT ===")
         entityComponentManager = EntityComponentManager()
         systemManager = SystemManager()
         setUpSystems()
