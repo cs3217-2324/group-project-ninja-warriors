@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-// TODO: Convert to REST API
 final class MatchManagerAdapter: MatchManager {
     private let collection = "matches"
     private let countLabel = "count"
@@ -28,8 +27,13 @@ final class MatchManagerAdapter: MatchManager {
         return matchToQueue
     }
 
-    func startMatch() async throws -> String? {
-        try await getMatch(limit: Constants.playerCount)
+    func startMatch(matchId: String) async throws -> [String]? {
+        let matchRef = matches.document(matchId)
+        let documentSnapshot = try await matchRef.getDocument()
+        if let players = documentSnapshot.data()?[playersLabel] as? [String]? {
+            return players
+        }
+        return nil
     }
 
     internal func createMatch() async throws -> String {
@@ -83,33 +87,34 @@ final class MatchManagerAdapter: MatchManager {
     internal func addPlayerToMatch(playerId: String, matchId: String) async {
         let matchRef = matches.document(matchId)
         do {
-            _ = try await Firestore.firestore().runTransaction { transaction, errorPointer in
-                do {
-                    try self.updateMatchData(transaction: transaction, matchRef: matchRef, playerId: playerId)
-                } catch let error as NSError {
-                    errorPointer?.pointee = error
-                }
-                return nil
+            let snapshot = try await matchRef.getDocument()
+            guard let matchData = snapshot.data(), snapshot.exists else {
+                print("Document does not exist")
+                return
             }
+            let updatedMatchData = updateMatchData(matchData: matchData, playerId: playerId)
+            try await matchRef.setData(updatedMatchData)
         } catch {
             print("Error adding player to match: \(error)")
         }
     }
 
-    private func updateMatchData(transaction: Transaction, matchRef: DocumentReference, playerId: String) throws {
-        let matchDocument = try transaction.getDocument(matchRef)
-        var matchData = matchDocument.data() ?? [:]
-        guard let readyPlayers = matchData[playersLabel] as? [String],
-              !readyPlayers.contains(playerId) else {
-            return
+    private func updateMatchData(matchData: [String: Any], playerId: String) -> [String: Any] {
+        var updatedMatchData = matchData
+        if var existingPlayerIds = matchData[playersLabel] as? [String] {
+            if !existingPlayerIds.contains(playerId) {
+                existingPlayerIds.append(playerId)
+                updatedMatchData[playersLabel] = existingPlayerIds
+                let currentCount = matchData[countLabel] as? Int ?? 0
+                updatedMatchData[countLabel] = currentCount + 1
+            }
+        } else {
+            updatedMatchData[playersLabel] = [playerId]
         }
-
-        matchData[playersLabel] = (readyPlayers + [playerId])
-        matchData[countLabel] = (matchData[countLabel] as? Int ?? 0) + 1
-
-        transaction.setData(matchData, forDocument: matchRef)
+        return updatedMatchData
     }
 
+    // TODO: Reduce bloat
     func removePlayerFromMatch(playerId: String, matchId: String) async {
         let matchRef = matches.document(matchId)
         do {
@@ -125,6 +130,8 @@ final class MatchManagerAdapter: MatchManager {
                     }
                     if let index = readyPlayers.firstIndex(of: playerId) {
                         readyPlayers.remove(at: index)
+                        let currentCount = matchData[self.countLabel] as? Int ?? 0
+                        matchData[self.countLabel] = currentCount - 1
                     }
                     matchData[self.playersLabel] = readyPlayers
                     transaction.setData(matchData, forDocument: matchRef)

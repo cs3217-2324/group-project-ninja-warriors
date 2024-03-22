@@ -16,4 +16,5 @@ protocol MatchManager {
     func getMatchCount(matchId: String) async throws -> Int?
     func getMatch(limit: Int) async throws -> String?
     func getMatchBelowLimit(limit: Int) async throws -> String?
+    func startMatch(matchId: String) async throws -> [String]?
 }

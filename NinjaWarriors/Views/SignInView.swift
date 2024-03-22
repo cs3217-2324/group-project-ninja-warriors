@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SignInView: View {
-
     @StateObject private var viewModel = SignInViewModel(authentication: AuthenticationAdapter())
     @State private var loggedIn = false
 

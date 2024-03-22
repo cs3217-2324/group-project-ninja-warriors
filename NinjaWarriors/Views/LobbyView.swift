@@ -14,41 +14,60 @@ struct LobbyView: View {
     @ObservedObject var viewModel = LobbyViewModel()
 
     var body: some View {
-        VStack {
-            if let user = signInViewModel.user {
-                Text("UID: \(user.uid)")
-                    .padding()
-                Text("Email: \(user.email ?? "N/A")")
-                    .padding()
-            }
-            if let playerCount = viewModel.playerCount {
-                Text("Player Count: \(playerCount)")
-                    .padding()
-            }
-            if let matchId = viewModel.matchId {
-                Text("Match Id: \(matchId)")
-                    .padding()
-            }
-            Button(action: {
-                if let userId = signInViewModel.getUserId() {
-                    if isReady {
-                        viewModel.unready(userId: userId)
-                        isReady = false
-                    } else {
-                        viewModel.ready(userId: userId)
-                        isReady = true
-
+        NavigationView {
+            VStack {
+                if let user = signInViewModel.user {
+                    Text("UID: \(user.uid)")
+                        .padding()
+                    Text("Email: \(user.email ?? "N/A")")
+                        .padding()
+                }
+                if let playerCount = viewModel.getPlayerCount() {
+                    Text("Player Count: \(playerCount) / \(Constants.playerCount)")
+                        .padding()
+                    if playerCount == Constants.playerCount {
+                        Text("")
+                            .hidden()
+                            .onAppear {
+                                Task {
+                                    try await viewModel.start()
+                                }
+                            }
+                        if let matchId = viewModel.matchId,
+                           let _ = viewModel.playerIds {
+                            NavigationLink(destination: CanvasView(matchId: matchId,
+                                                                   currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)) {
+                                Text("Start Game")
+                                    .font(.system(size: 30))
+                                    .padding()
+                                    .background(Color.blue)
+                                    .foregroundColor(.black)
+                                    .cornerRadius(10)
+                            }
+                            .padding()
+                        }
                     }
                 }
-            }) {
-                Text(isReady ? "Unready" : "Ready")
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                Button(action: {
+                    if let userId = signInViewModel.getUserId() {
+                        if isReady {
+                            viewModel.unready(userId: userId)
+                            isReady = false
+                        } else {
+                            viewModel.ready(userId: userId)
+                            isReady = true
+                        }
+                    }
+                }) {
+                    Text(isReady ? "Unready" : "Ready")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding()
+                .opacity(isReady ? 0.7 : 1.0)
             }
-            .padding()
-            .opacity(isReady ? 0.7 : 1.0)
-        }
+        }.navigationViewStyle(.stack)
     }
 }

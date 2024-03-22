@@ -7,30 +7,28 @@
 
 import Foundation
 
-struct PlayerWrapper: FactoryWrapper, Codable {
-    typealias Item = PlayerWrapper
-    let id: String
-    let gameObject: GameObjectWrapper
+class PlayerWrapper: EntityWrapper {
+   var components: [ComponentWrapper]?
 
-    init(id: String, gameObject: GameObjectWrapper) {
-        self.id = id
-        self.gameObject = gameObject
+    init(id: EntityID, shape: ShapeWrapper, components: [ComponentWrapper]? = nil) {
+        self.components = components
+        super.init(id: id, shape: shape)
     }
 
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: AnyCodingKey.self)
-        id = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "id"))
-        gameObject = try container.decode(GameObjectWrapper.self,
-                                   forKey: AnyCodingKey(stringValue: "gameObject"))
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
     }
 
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: AnyCodingKey.self)
-        try container.encode(id, forKey: AnyCodingKey(stringValue: "id"))
-        try container.encode(gameObject, forKey: AnyCodingKey(stringValue: "gameObject"))
-    }
-
-    func toPlayer() -> Player {
-        Player(id: id, gameObject: gameObject.toGameObject())
+    override func toEntity() -> Entity? {
+        var componentsUnwrap: [Component] = []
+        guard let components = components else {
+            return Player(id: id, shape: shape.toShape())
+        }
+        for component in components {
+            if let componentUnwrap = component.toComponent() {
+                componentsUnwrap.append(componentUnwrap)
+            }
+        }
+        return Player(id: id, shape: shape.toShape(), components: componentsUnwrap)
     }
 }

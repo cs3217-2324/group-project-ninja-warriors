@@ -9,8 +9,8 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class PlayersListener: FactoryListener<PlayerPublisher, PlayerWrapper> {
-    init() {
-        super.init(collectionName: "players", publisher: PlayerPublisher())
+class PlayersListener: RealTimeFactoryListener<PlayerPublisher, PlayerWrapper> {
+    init(matchId: String) {
+        super.init(referenceName: matchId, publisher: PlayerPublisher(), entityName: "Player")
     }
 }
