@@ -7,36 +7,30 @@
 
 import Foundation
 
-// TODO: Restructure to ECS
-class RigidbodyHandler: PhysicsElasticCollision, PhysicsRigidBody {
-    private(set) var position: Vector
-    private(set) var mass = 8.0
+class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
+    var manager: EntityComponentManager?
 
-    var velocity = Vector(horizontal: 0.0, vertical: 0.0)
-    var dampVelocity = Vector(horizontal: 0.0, vertical: -5)
-
-    init(position: Vector) {
-        self.position = position
+    required init(for manager: EntityComponentManager) {
+        self.manager = manager
     }
 
-    init(position: Point) {
-        self.position = position.convertToVector()
-    }
+    // TODO: Add loop to handle every entity
 
-    init(position: Vector, mass: Double) {
-        self.position = position
-        self.mass = mass
-    }
+    private func getRigidBodies() -> [Rigidbody] {
+        var rigidbody: [Rigidbody] = []
+        guard let entityMap = manager?.entityMap else {
+            return []
+        }
+        for (entityId, _) in entityMap {
+            guard let componentIdSet = manager?.entityComponentMap[entityId] else { return [] }
 
-    init(position: Point, mass: Double) {
-        self.position = position.convertToVector()
-        self.mass = mass
-    }
-
-    init(position: Vector, mass: Double, velocity: Vector) {
-        self.position = position
-        self.mass = mass
-        self.velocity = velocity
+            for componentId in componentIdSet {
+                if let component = manager?.componentMap[componentId] as? Rigidbody {
+                    rigidbody.append(component)
+                }
+            }
+        }
+        return rigidbody
     }
 
     private func getUnitNormVector(from: Vector, to: Vector) -> Vector? {
@@ -52,7 +46,7 @@ class RigidbodyHandler: PhysicsElasticCollision, PhysicsRigidBody {
         vector.dotProduct(with: velocity)
     }
 
-    internal func resultantNormVec(normVec: Vector, src: RigidbodyHandler, dst: RigidbodyHandler) -> Vector {
+    internal func resultantNormVec(normVec: Vector, src: Rigidbody, dst: Rigidbody) -> Vector {
         let srcVelProj = getProjection(vector: normVec, velocity: src.velocity)
         let dstVelProj = getProjection(vector: normVec, velocity: dst.velocity)
 
@@ -61,25 +55,26 @@ class RigidbodyHandler: PhysicsElasticCollision, PhysicsRigidBody {
         return normVec.scale(kineticConservation / momentumConservation)
     }
 
-    internal func resultantTanVector(tanVec: Vector, src: RigidbodyHandler) -> Vector {
+    internal func resultantTanVector(tanVec: Vector, src: Rigidbody) -> Vector {
         let srcVelProj = getProjection(vector: tanVec, velocity: src.velocity)
         return tanVec.scale(srcVelProj)
     }
 
     internal func assignResultantVel(normVel: Vector, tanVel: Vector,
-                                     collider: inout RigidbodyHandler, collidee: inout RigidbodyHandler) {
+                                     collider: inout Rigidbody, collidee: inout Rigidbody) {
         let resultantNormVel = resultantNormVec(normVec: normVel, src: collider, dst: collidee)
         let resultantTanVel = resultantTanVector(tanVec: tanVel, src: collider)
         collider.velocity = resultantNormVel.add(vector: resultantTanVel)
         collidee.velocity = collider.velocity.getComplement()
-        collider.velocity = collider.velocity.add(vector: dampVelocity)
+        // TODO: Check if damp velocity is needed
+        // collider.velocity = collider.velocity.add(vector: dampVelocity)
     }
 
-    func doElasticCollision(collider: inout RigidbodyHandler, collidee: inout RigidbodyHandler) {
+    func doElasticCollision(collider: inout Rigidbody, collidee: inout Rigidbody) {
         guard !collider.mass.isZero && !collidee.mass.isZero else {
             return
         }
-        guard let unitNormVec = getUnitNormVector(from: collider.position, to: collidee.position) else {
+        guard let unitNormVec = getUnitNormVector(from: collider.position.convertToVector(), to: collidee.position.convertToVector()) else {
             return
         }
         let unitTanVec = getTangentVector(from: unitNormVec)

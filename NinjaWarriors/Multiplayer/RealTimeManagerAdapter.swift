@@ -8,7 +8,6 @@
 import Foundation
 import FirebaseDatabase
 
-// TODO: Remove all force unwraps
 final class RealTimeManagerAdapter: EntitiesManager {
     private let databaseRef = Database.database().reference()
     private var entitiesRef: DatabaseReference
@@ -54,7 +53,9 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
     private func getEntity(from dict: Any, with wrapper: Codable.Type) throws -> Entity? {
         let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])
-        let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper, from: entityData) as! EntityWrapper
+        guard let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper, from: entityData) as? EntityWrapper else {
+            return nil
+        }
         guard let entity = entityWrapper.toEntity() else {
             return nil
         }

@@ -7,8 +7,54 @@
 
 import Foundation
 
-// TODO: Restructure to ECS
-struct CollisionManager {
+class CollisionManager: System {
+    var manager: EntityComponentManager?
+
+    required init(for manager: EntityComponentManager) {
+        self.manager = manager
+    }
+
+    private func getColliders(entityId: EntityID) -> [Collider] {
+        guard let componentIdSet = manager?.entityComponentMap[entityId] else { return [] }
+
+        var colliders: [Collider] = []
+        for componentId in componentIdSet {
+            if let component = manager?.componentMap[componentId] as? Rigidbody {
+                for collider in component.attachedColliders where collider.attachedRigidBody.isAwake() {
+                    colliders.append(collider)
+                }
+            }
+        }
+        return colliders
+    }
+
+    private func checkSafeToInsert(sourceColliders: [Collider], entityColliders: [Collider]) -> Bool {
+        for sourceCollider in sourceColliders {
+            let sourceColliderShape = sourceCollider.colliderShape
+            for entityCollider in entityColliders {
+                let entityColliderShape = entityCollider.colliderShape
+                if !checkSafeToInsert(source: sourceColliderShape, with: entityColliderShape) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
+    func checkCollision(sourceId: EntityID) -> Bool {
+        let sourceEntityColliders = getColliders(entityId: sourceId)
+        var entityColliders: [Collider] = []
+        guard let entityMap = manager?.entityMap else {
+            return false
+        }
+
+        for (entityId, _) in entityMap where entityId != sourceId {
+            entityColliders.append(contentsOf: getColliders(entityId: entityId))
+        }
+
+        return !checkSafeToInsert(sourceColliders: sourceEntityColliders, entityColliders: entityColliders)
+    }
+
     func checkSafeToInsert(source object: Shape, with shape: Shape) -> Bool {
         isNotIntersecting(source: object, with: shape)
         && !isIntersecting(source: object, with: shape)
