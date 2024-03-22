@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RigidbodyHandler: System {
+class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     var manager: EntityComponentManager?
 
     required init(for manager: EntityComponentManager) {

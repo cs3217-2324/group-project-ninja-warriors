@@ -55,54 +55,6 @@ class CollisionManager: System {
         return !checkSafeToInsert(sourceColliders: sourceEntityColliders, entityColliders: entityColliders)
     }
 
-    /*
-    func checkCollision(sourceId: EntityID) -> Bool {
-        var sourceEntityColliders: [Collider] = []
-            if let componentIdSet = entityComponentMap[sourceId] {
-                for componentId in componentIdSet {
-                    let component = componentMap[componentId]
-                    if let component = componentMap[componentId] as? Rigidbody {
-                        for collider in component.attachedColliders {
-                            if collider.attachedRigidBody.isAwake() {
-                                sourceEntityColliders.append(collider)
-                            }
-                        }
-                    }
-                }
-            }
-
-        var entityColliders: [Collider] = []
-        for (entityId, _) in entityMap {
-            if entityId == sourceId {
-                continue
-            }
-            if let componentIdSet = entityComponentMap[entityId] {
-                for componentId in componentIdSet {
-                    let component = componentMap[componentId]
-                    if let component = componentMap[componentId] as? Rigidbody {
-                        for collider in component.attachedColliders {
-                            if collider.attachedRigidBody.isAwake() {
-                                entityColliders.append(collider)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        for sourceCollider in sourceEntityColliders {
-            let sourceColliderShape = sourceCollider.colliderShape
-            for entityCollider in entityColliders {
-                let entityColliderShape = entityCollider.colliderShape
-                if !checkSafeToInsert(source: sourceColliderShape, with: entityColliderShape) {
-                    return false
-                }
-            }
-        }
-        return true
-    }
-    */
-
     func checkSafeToInsert(source object: Shape, with shape: Shape) -> Bool {
         isNotIntersecting(source: object, with: shape)
         && !isIntersecting(source: object, with: shape)
