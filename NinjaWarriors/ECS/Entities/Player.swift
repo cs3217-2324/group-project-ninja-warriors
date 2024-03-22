@@ -23,7 +23,7 @@ class Player: Equatable, Entity {
         return components
     }
 
-    // TODO: Must remove this and make adapter change position based on system instead
+    // TODO: Must remove this and make change based on system instead
     /// *
     func getPosition() -> CGPoint {
         shape.getCenter()
