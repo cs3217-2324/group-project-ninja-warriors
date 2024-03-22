@@ -36,7 +36,7 @@ struct EntityDetailView: View {
         VStack(alignment: .leading) {
             Text("Entity ID: \(entity.id)")
                 .bold()
-            // This assumes Component has a CustomStringConvertible conformance, as mentioned before
+            // This assumes Component has a CustomStringConvertible conformance
             ForEach(componentManager.getAllComponents(for: entity), id: \.self) { component in
                 Text("Component: \(component.id)")
             }

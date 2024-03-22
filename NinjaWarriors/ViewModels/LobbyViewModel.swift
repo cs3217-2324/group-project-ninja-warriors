@@ -87,8 +87,8 @@ final class LobbyViewModel: ObservableObject {
                                       colliderShape: shape, bounciness: 0.0, density: 0.0, restitution: 0.0,
                                       isColliding: false, offset: Vector(horizontal: 0.0, vertical: 0.0))
 
-        player.components?.append(playerRigidbody)
-        player.components?.append(playerCollider)
+//        player.components?.append(playerRigidbody)
+//        player.components?.append(playerCollider)
 
         return player
     }

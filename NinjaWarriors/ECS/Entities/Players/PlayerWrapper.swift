@@ -10,8 +10,7 @@ import Foundation
 class PlayerWrapper: EntityWrapper {
    var components: [ComponentWrapper]?
 
-    init(id: EntityID, shape: ShapeWrapper, components: [ComponentWrapper]? = nil) {
-        self.components = components
+    override init(id: EntityID, shape: ShapeWrapper) {
         super.init(id: id, shape: shape)
     }
 
@@ -20,15 +19,6 @@ class PlayerWrapper: EntityWrapper {
     }
 
     override func toEntity() -> Entity? {
-        var componentsUnwrap: [Component] = []
-        guard let components = components else {
-            return Player(id: id, shape: shape.toShape())
-        }
-        for component in components {
-            if let componentUnwrap = component.toComponent() {
-                componentsUnwrap.append(componentUnwrap)
-            }
-        }
-        return Player(id: id, shape: shape.toShape(), components: componentsUnwrap)
+        return Player(id: id, shape: shape.toShape())
     }
 }

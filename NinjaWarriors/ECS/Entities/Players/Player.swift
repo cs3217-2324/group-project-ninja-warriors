@@ -10,17 +10,14 @@ import Foundation
 class Player: Equatable, Entity {
     let id: EntityID
     var shape: Shape
-    var components: [Component]?
 
-    init(id: EntityID, shape: Shape, components: [Component]? = nil) {
+    init(id: EntityID, shape: Shape) {
         self.id = id
         self.shape = shape
-        self.components = components
     }
 
     func getInitializingComponents() -> [Component] {
-        guard let components = components else { return [] }
-        return components
+        return []
     }
 
     // TODO: Must remove this and make change based on system instead
@@ -35,16 +32,7 @@ class Player: Equatable, Entity {
     // */
 
     func wrapper() -> EntityWrapper? {
-        var componentsWrapper: [ComponentWrapper] = []
-        guard let components = components else {
-            return PlayerWrapper(id: id, shape: shape.toShapeWrapper())
-        }
-        for component in components {
-            if let componentWrap = component.wrapper() {
-                componentsWrapper.append(componentWrap)
-            }
-        }
-        return PlayerWrapper(id: id, shape: shape.toShapeWrapper(), components: componentsWrapper)
+        return PlayerWrapper(id: id, shape: shape.toShapeWrapper())
     }
 
     static func == (lhs: Player, rhs: Player) -> Bool {
