@@ -39,13 +39,6 @@ class Shape {
         return vertices.count
     }
 
-    /*
-    func checkSafeToInsert(with Shape: Shape) -> Bool {
-        let CollisionManager = CollisionManager()
-        return CollisionManager.checkSafeToInsert(source: self, with: Shape)
-    }
-    */
-
     func makeDeepCopy() -> Shape? {
         guard let edges = edges, let orientation = orientation, let vertices = vertices else {
             return nil

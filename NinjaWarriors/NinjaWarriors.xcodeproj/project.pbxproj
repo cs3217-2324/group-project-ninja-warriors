@@ -486,9 +486,9 @@
 			children = (
 				916A7D6B2BA1550700319C26 /* Shape.swift */,
 				9132AF862BA6AEAB000F2AC4 /* Shape+EXT.swift */,
+				916A7DA42BA3F89500319C26 /* ShapeWrapper.swift */,
 				9180F9C52BAAE53F000CC390 /* TriangleShape.swift */,
 				9180F9C72BAAE54A000CC390 /* RectangleShape.swift */,
-				9180F9CC2BAAF8CF000CC390 /* ShapeWrappers */,
 			);
 			path = Shapes;
 			sourceTree = "<group>";
@@ -513,14 +513,6 @@
 				916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */,
 			);
 			path = PrimitiveWrappers;
-			sourceTree = "<group>";
-		};
-		9180F9CC2BAAF8CF000CC390 /* ShapeWrappers */ = {
-			isa = PBXGroup;
-			children = (
-				916A7DA42BA3F89500319C26 /* ShapeWrapper.swift */,
-			);
-			path = ShapeWrappers;
 			sourceTree = "<group>";
 		};
 		9180F9CD2BAB19A4000CC390 /* Nonce */ = {

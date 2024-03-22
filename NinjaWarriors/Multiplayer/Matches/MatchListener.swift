@@ -8,7 +8,8 @@
 import Foundation
 
 class MatchListener: FactoryListener<MatchPublisher, MatchWrapper> {
+    private let collectionName = "matches"
     init() {
-        super.init(collectionName: "matches", publisher: MatchPublisher())
+        super.init(collectionName: collectionName, publisher: MatchPublisher())
     }
 }

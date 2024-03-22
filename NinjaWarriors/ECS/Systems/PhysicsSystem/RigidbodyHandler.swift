@@ -15,6 +15,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     }
 
     func update(after time: TimeInterval) {
+        print("component map inside rigid body", manager?.componentMap)
         guard let componentMap = manager?.componentMap else {
             return
         }

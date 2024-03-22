@@ -50,7 +50,7 @@ final class LobbyViewModel: ObservableObject {
         initPlayers(ids: playerIds)
     }
 
-    // Add all relevant entities and systems here
+    // Add all relevant entities here
     func initPlayers(ids playerIds: [String]?) {
         guard let playerIds = playerIds else {
             return
@@ -71,7 +71,7 @@ final class LobbyViewModel: ObservableObject {
     }
 
     private func makePlayer(id playerId: String, position: Point) -> Player {
-        // Mock components
+        // TODO: Remove mock components
         let shape = Shape(center: position, halfLength: Constants.defaultSize)
         let player = Player(id: playerId, shape: shape)
 

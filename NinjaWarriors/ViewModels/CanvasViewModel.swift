@@ -49,11 +49,9 @@ final class CanvasViewModel: ObservableObject {
             }
             addEntitiesToWorld()
         }
-
     }
 
     func addEntitiesToWorld() {
-        print("add entities to world")
         for entity in entities {
             gameWorld.entityComponentManager.add(entity: entity)
         }
