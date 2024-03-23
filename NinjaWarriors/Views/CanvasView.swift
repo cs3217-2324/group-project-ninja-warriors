@@ -15,8 +15,6 @@ struct CanvasView: View {
     @State private var matchId: String
     @State private var joystickPosition: CGPoint = .zero
     @State private var playerPosition = CGPoint(x: 300.0, y: 300.0)
-    // Add state to hold the joystick's output
-    //@State private var joystickOutput: CGPoint = .zero
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -95,19 +93,3 @@ struct CanvasView_Previews: PreviewProvider {
         CanvasView(matchId: "SampleMatchID", currPlayerId: "SamplePlayerID")
     }
 }
-
-
-
-/*
-    .gesture(
-        DragGesture()
-            .onChanged { gesture in
-                let newX = max(0, min(gesture.location.x, geometry.size.width))
-                let newY = max(0, min(gesture.location.y, geometry.size.height))
-                joystickPosition = CGPoint(x: newX, y: newY)
-                let entityId = entity.id
-                viewModel.changePosition(entityId: entityId,
-                                         newPosition: joystickPosition)
-            }
-    )
-*/

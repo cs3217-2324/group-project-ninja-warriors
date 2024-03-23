@@ -15,8 +15,8 @@ struct NinjaWarriorsApp: App {
     var body: some Scene {
         WindowGroup {
             // TODO: Remove after testing
-            CanvasView(matchId: "0QkhbxGv8ZdrZxNMukr6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            //AuthenticationView()
+            //CanvasView(matchId: "0QkhbxGv8ZdrZxNMukr6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            AuthenticationView()
         }
     }
 }
