@@ -59,16 +59,15 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
-    // TODO: Update position and check for collision using systems
-    func changePosition(entityId: String, newPosition: CGPoint) {
+    func changePosition(newPosition: CGPoint) {
         let newCenter = Point(xCoord: newPosition.x, yCoord: newPosition.y)
 
-        if let index = entities.firstIndex(where: { $0.id == entityId }) {
+        if let index = entities.firstIndex(where: { $0.id == currPlayerId }) {
             let entity = entities[index]
             entity.shape.center.setCartesian(xCoord: newPosition.x, yCoord: newPosition.y)
         }
         Task {
-            try? await manager.updateEntity(id: entityId, position: newCenter)
+            try? await manager.updateEntity(id: currPlayerId, position: newCenter)
         }
     }
 }

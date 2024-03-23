@@ -5,23 +5,28 @@
 //  Created by proglab on 17/3/24.
 //
 
+import Foundation
 import SwiftUI
 
 struct JoystickView: View {
-    @State private var location: CGPoint
-    @State private var innerCircleLocation: CGPoint
+    @Binding var playerPosition: CGPoint
+    //@State private var vectorX: CGFloat = 0
+    //@State private var vectorY: CGFloat = 0
+    @State var location: CGPoint
+    @State var innerCircleLocation: CGPoint
 
-    private var setInputVector: (CGVector) -> Void
-    private let bigCircleRadius: CGFloat = 100
-    private var bigCircleDiameter: CGFloat {
+    var setInputVector: (CGVector) -> Void
+    let bigCircleRadius: CGFloat = 100
+    var bigCircleDiameter: CGFloat {
         bigCircleRadius * 2
     }
-    private let smallCircleRadius: CGFloat = 25
-    private var smallCircleDiameter: CGFloat {
+    let smallCircleRadius: CGFloat = 25
+    var smallCircleDiameter: CGFloat {
         smallCircleRadius * 2
     }
 
-    init(setInputVector: @escaping (CGVector) -> Void, location: CGPoint) {
+    init(playerPosition: Binding<CGPoint>, setInputVector: @escaping (CGVector) -> Void, location: CGPoint) {
+        _playerPosition = playerPosition
         self.setInputVector = setInputVector
         self.location = location
         self.innerCircleLocation = location
@@ -49,17 +54,29 @@ struct JoystickView: View {
                 innerCircleLocation = CGPoint(x: newX, y: newY)
 
                 // Set input vector
-                let vector = CGVector(dx: newX - location.x, dy: newY - location.y)
+                let vector = CGVector(dx: (newX - location.x) / 10, dy: (newY - location.y) / 10)
                 setInputVector(vector)
+
+                playerPosition = CGPoint(x: max(0, playerPosition.x + vector.dx),
+                                         y: max(0, playerPosition.y + vector.dy))
+                //vectorX = vector.dx
+                //vectorY = vector.dy
             }
             .onEnded {_ in
                 // Snap the smaller circle to the center of the larger circle
                 innerCircleLocation = location
                 setInputVector(CGVector.zero)
+                //vectorX = 0
+                //vectorY = 0
             }
     }
 
     var body: some View {
+        // Text view to display player's x-coordinate
+        //Text("Player X: \(vectorX)")
+
+        // Text view to display player's y-coordinate
+        //Text("Player Y: \(vectorY)")
         ZStack {
             // Larger circle (blue circle)
             Circle()

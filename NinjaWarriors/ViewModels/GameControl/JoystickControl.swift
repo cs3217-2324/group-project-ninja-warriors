@@ -11,7 +11,7 @@ class JoystickControl: GameControl {
     internal var inputVector: CGVector = .zero
 
     func getInputVector() -> CGVector {
-        inputVector
+        return inputVector
     }
 
     func setInputVector(_ vector: CGVector) {
