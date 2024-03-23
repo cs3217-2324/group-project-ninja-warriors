@@ -34,10 +34,12 @@ struct LobbyView: View {
                                 }
                             }
                         if let matchId = viewModel.matchId,
-                           let _ = viewModel.playerIds {
+                           viewModel.playerIds != nil {
                             Text("\(matchId)")
-                            NavigationLink(destination: CanvasView(matchId: matchId,
-                                                                   currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)) {
+                            NavigationLink(destination:
+                                            CanvasView(matchId: matchId,
+                                                       currPlayerId: signInViewModel.getUserId() ??
+                                                       "none").navigationBarBackButtonHidden(true)) {
                                 Text("Start Game")
                                     .font(.system(size: 30))
                                     .padding()
@@ -59,13 +61,13 @@ struct LobbyView: View {
                             isReady = true
                         }
                     }
-                }) {
+                }, label: {
                     Text(isReady ? "Unready" : "Ready")
                         .foregroundColor(.white)
                         .padding()
                         .background(Color.blue)
                         .cornerRadius(10)
-                }
+                })
                 .padding()
                 .opacity(isReady ? 0.7 : 1.0)
             }

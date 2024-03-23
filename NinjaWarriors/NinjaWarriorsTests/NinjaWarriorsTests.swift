@@ -12,10 +12,10 @@ final class NinjaWarriorsTests: XCTestCase {
 
     func testSkillCasterActivatesSkillCorrectly() {
         // Setup
-        let Shape1 = Shape(center: Point(xCoord: 150.0 + Double.random(in: -50.0...50.0),
+        let shape1 = Shape(center: Point(xCoord: 150.0 + Double.random(in: -50.0...50.0),
                                                    yCoord: 150.0), halfLength: 25.0)
         let dashSkill = DashSkill()
-        let player = Player(id: "1", Shape: Shape1, skills: [dashSkill]) // Adjust based on your actual Player init
+        let player = Player(id: "1", Shape: shape1, skills: [dashSkill]) // Adjust based on your actual Player init
         guard let skillCaster = player.skillCaster else {
             XCTFail("Player should have a SkillCaster component.")
             return

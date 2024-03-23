@@ -90,7 +90,8 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         guard !collider.mass.isZero && !collidee.mass.isZero else {
             return
         }
-        guard let unitNormVec = getUnitNormVector(from: collider.position.convertToVector(), to: collidee.position.convertToVector()) else {
+        guard let unitNormVec = getUnitNormVector(from: collider.position.convertToVector(),
+                                                  to: collidee.position.convertToVector()) else {
             return
         }
         let unitTanVec = getTangentVector(from: unitNormVec)

@@ -27,7 +27,6 @@ class Rigidbody: Component {
         guard let entity = entity.wrapper() else {
             return nil
         }
-
         var wrapColliders: [ColliderWrapper] = []
 
         for collider in attachedColliders {
@@ -35,8 +34,14 @@ class Rigidbody: Component {
                 wrapColliders.append(colliderWrap)
             }
         }
-
-        return RigidbodyWrapper(id: id, entity: entity, angularDrag: angularDrag, angularVelocity: angularVelocity, mass: mass, rotation: rotation, totalForce: totalForce, gravityScale: gravityScale, gravity: gravity, inertia: inertia, attachedColliderCount: attachedColliderCount, collisionDetectionMode: collisionDetectionMode, position: position.toPointWrapper(), velocity: velocity.toVectorWrapper(), attachedColliders: wrapColliders)
+        return RigidbodyWrapper(id: id, entity: entity, angularDrag: angularDrag,
+                                angularVelocity: angularVelocity, mass: mass,
+                                rotation: rotation, totalForce: totalForce,
+                                gravityScale: gravityScale, gravity: gravity,
+                                inertia: inertia, attachedColliderCount: attachedColliderCount,
+                                collisionDetectionMode: collisionDetectionMode,
+                                position: position.toPointWrapper(), velocity: velocity.toVectorWrapper(),
+                                attachedColliders: wrapColliders)
 
     }
 

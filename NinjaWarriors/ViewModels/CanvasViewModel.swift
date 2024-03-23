@@ -73,7 +73,8 @@ final class CanvasViewModel: ObservableObject {
 
 extension CanvasViewModel {
     func activateSkill(forEntityWithId entityId: String, skillId: String) {
-        guard let skillCasterComponent = gameWorld.entityComponentManager.getComponentFromId(ofType: SkillCaster.self, of: entityId) else {
+        guard let skillCasterComponent = gameWorld.entityComponentManager
+            .getComponentFromId(ofType: SkillCaster.self, of: entityId) else {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }

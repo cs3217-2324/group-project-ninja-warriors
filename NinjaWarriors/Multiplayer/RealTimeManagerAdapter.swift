@@ -53,7 +53,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
     private func getEntity(from dict: Any, with wrapper: Codable.Type) throws -> Entity? {
         let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])
-        guard let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper, from: entityData) as? EntityWrapper else {
+        guard let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper,
+                                                                         from: entityData) as? EntityWrapper else {
             return nil
         }
         guard let entity = entityWrapper.toEntity() else {
@@ -120,7 +121,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
             let key = componentKey + "\(index)"
             guard let data = component.wrapper(),
                   let componentData = try? JSONEncoder().encode(data),
-                  let dataDict = try? JSONSerialization.jsonObject(with: componentData, options: []) as? [String: Any] else {
+                  let dataDict = try? JSONSerialization.jsonObject(with: componentData,
+                                                                   options: []) as? [String: Any] else {
                 continue
             }
             componentDict[key] = dataDict

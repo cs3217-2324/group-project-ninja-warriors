@@ -29,9 +29,10 @@ class Player: Equatable, Entity {
         let playerCollider = Collider(id: RandomNonce().randomNonceString(), entity: self,
                                       colliderShape: shape, bounciness: 0.0, density: 0.0, restitution: 0.0,
                                       isColliding: false, offset: Vector(horizontal: 0.0, vertical: 0.0))
-
-        let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(), entity: self, skills: [SlashAOESkill(id: "skill1", cooldownDuration: 8.0)]) // TODO: remove hardcode
-
+        // TODO: remove hardcode
+        let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
+                                      entity: self, skills: [SlashAOESkill(id: "skill1",
+                                                                           cooldownDuration: 8.0)])
         return [playerRigidbody, playerCollider, skillCaster]
     }
 

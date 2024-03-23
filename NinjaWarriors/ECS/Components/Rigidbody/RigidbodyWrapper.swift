@@ -31,11 +31,14 @@ struct RigidbodyWrapper: ComponentWrapper {
                 collidersUnwrap.append(colliderUnwrap)
             }
         }
-
         guard let entity = entity.toEntity() else {
             return nil
         }
-
-        return Rigidbody(id: id, entity: entity, angularDrag: angularDrag, angularVelocity: angularVelocity, mass: mass, rotation: rotation, totalForce: totalForce, gravityScale: gravityScale, gravity: gravity, inertia: inertia, attachedColliderCount: attachedColliderCount, collisionDetectionMode: collisionDetectionMode, position: position.toPoint(), velocity: velocity.toVector(), attachedColliders: collidersUnwrap)
+        return Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
+                         angularVelocity: angularVelocity, mass: mass, rotation: rotation,
+                         totalForce: totalForce, gravityScale: gravityScale, gravity: gravity,
+                         inertia: inertia, attachedColliderCount: attachedColliderCount,
+                         collisionDetectionMode: collisionDetectionMode, position: position.toPoint(),
+                         velocity: velocity.toVector(), attachedColliders: collidersUnwrap)
     }
 }

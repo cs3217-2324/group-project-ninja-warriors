@@ -32,6 +32,7 @@ struct TypeHelper {
     }
 }
 
+// TODO: Remove enum case
 @propertyWrapper
 struct AnyMainCodable<T>: Codable, CustomDebugStringConvertible {
     private struct Container: Codable, CustomDebugStringConvertible {
@@ -51,7 +52,9 @@ struct AnyMainCodable<T>: Codable, CustomDebugStringConvertible {
             let name = try container.decode(String.self, forKey: .className)
 
             guard let type = TypeHelper.typeFrom(name: name) as? MainCodable.Type else {
-                throw DecodingError.valueNotFound(String.self, .init(codingPath: decoder.codingPath, debugDescription: "invalid type \(name)"))
+                throw DecodingError
+                    .valueNotFound(String.self,
+                                   .init(codingPath: decoder.codingPath, debugDescription: "invalid type \(name)"))
             }
             data = try type.init(from: decoder)
         }
@@ -68,7 +71,7 @@ struct AnyMainCodable<T>: Codable, CustomDebugStringConvertible {
     }
 
     var wrappedValue: [T] {
-        get { containers.map { $0.data as! T } }
+        get { containers.map { $0.data as? T } }
         set { containers = newValue.compactMap({ Container(data: $0) }) }
     }
 

@@ -27,7 +27,8 @@ struct SkillCasterWrapper: ComponentWrapper {
         try container.encode(entity, forKey: AnyCodingKey(stringValue: "entity"))
         try container.encode(activationQueue, forKey: AnyCodingKey(stringValue: "activationQueue"))
 
-        var skillsContainer = container.nestedContainer(keyedBy: AnyCodingKey.self, forKey: AnyCodingKey(stringValue: "skills"))
+        var skillsContainer = container.nestedContainer(keyedBy: AnyCodingKey.self,
+                                                        forKey: AnyCodingKey(stringValue: "skills"))
         for (skillID, skill) in skills {
             let skillName: String = String(describing: type(of: skill))
             try skillsContainer.encode(skillName, forKey: AnyCodingKey(stringValue: skillID))
@@ -40,7 +41,8 @@ struct SkillCasterWrapper: ComponentWrapper {
         entity = try container.decode(EntityWrapper.self, forKey: AnyCodingKey(stringValue: "entity"))
         activationQueue = try container.decode([SkillID].self, forKey: AnyCodingKey(stringValue: "activationQueue"))
 
-        let skillsContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self, forKey: AnyCodingKey(stringValue: "skills"))
+        let skillsContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
+                                                            forKey: AnyCodingKey(stringValue: "skills"))
 
         for key in skillsContainer.allKeys {
             let skillID = key.stringValue

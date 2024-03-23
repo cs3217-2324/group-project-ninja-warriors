@@ -35,12 +35,13 @@ class SlashAOESkill: EntitySpawnerSkill {
 
        if isOnCooldown() { return }
 
-       spawnEntity(at: entity.shape.center, in: manager)
+       _ = spawnEntity(at: entity.shape.center, in: manager)
        cooldownRemaining = cooldownDuration
    }
 
     func spawnEntity(at position: Point, in manager: EntityComponentManager) -> Entity {
-        let slashAOE = SlashAOE(id: RandomNonce().randomNonceString(), shape: CircleShape(center: position, radius: 20.0))
+        let slashAOE = SlashAOE(id: RandomNonce().randomNonceString(),
+                                shape: CircleShape(center: position, radius: 20.0))
         manager.add(entity: slashAOE)
         return slashAOE
     }

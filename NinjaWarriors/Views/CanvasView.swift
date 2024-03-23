@@ -24,7 +24,8 @@ struct CanvasView: View {
 
     var body: some View {
         ZStack {
-            EntityOverlayView(entities: viewModel.entities, componentManager: viewModel.gameWorld.entityComponentManager)
+            EntityOverlayView(entities: viewModel.entities,
+                              componentManager: viewModel.gameWorld.entityComponentManager)
                 .frame(maxWidth: 1000, alignment: .leading)
                 .transition(.move(edge: .trailing))
                 .animation(.default, value: isShowingEntityOverlay)
@@ -33,10 +34,10 @@ struct CanvasView: View {
 
             Button(action: {
                 isShowingEntityOverlay.toggle()
-            }) {
+            }, label: {
                 Image(systemName: "eye")
                     .accessibilityLabel("Toggle Entity Overlay")
-            }
+            })
             .padding()
             .background(Color.blue.opacity(0.7))
             .foregroundColor(.white)
@@ -58,14 +59,14 @@ struct CanvasView: View {
                                                 let newY = max(0, min(gesture.location.y, geometry.size.height))
                                                 joystickPosition = CGPoint(x: newX, y: newY)
                                                 let entityId = entity.id
-                                                viewModel.changePosition(entityId: entityId, newPosition: joystickPosition)
+                                                viewModel.changePosition(entityId: entityId,
+                                                                         newPosition: joystickPosition)
                                             }
                                     )
                                 Text("\(entity.id)")
                             }
                         }
                     }
-
                     HStack {
                         JoystickView(location: CGPoint(x: 120, y: geometry.size.height - 120),
                                      innerCircleLocation: joystickOutput)
@@ -77,20 +78,13 @@ struct CanvasView: View {
                         Spacer()
 
                         ForEach(viewModel.getSkillIds(for: viewModel.currPlayerId), id: \.self) { skillId in
-                                        Button(action: {
-                                            viewModel.activateSkill(forEntityWithId: viewModel.currPlayerId, skillId: skillId)
-                                        }) {
-                                            Text("\(skillId)")
-                                        }
-                                        .padding()
-                                    }
-
-//                        Button(action: {
-//
-//                        }) {
-//                            Text("Skill 4")
-//                        }.offset(y: geometry.size.height - 500)
-//                            .padding()
+                            Button(action: {
+                                viewModel.activateSkill(forEntityWithId: viewModel.currPlayerId,
+                                                        skillId: skillId)
+                            }) {
+                                Text("\(skillId)")
+                            }.padding()
+                        }
                     }
                 }
             }
