@@ -100,6 +100,8 @@
 		91EF1F912BAECA30000B52A2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F902BAECA30000B52A2 /* FirebaseAuth */; };
 		91EF1F932BAECA30000B52A2 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F922BAECA30000B52A2 /* FirebaseDatabase */; };
 		91EF1F952BAECA30000B52A2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F942BAECA30000B52A2 /* FirebaseFirestore */; };
+		91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */; };
+		91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */; };
 		E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */; };
 		E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */; };
 		E6CDFFBD2BAEDA58007BB867 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CDFFBC2BAEDA58007BB867 /* SpriteComponent.swift */; };
@@ -210,6 +212,8 @@
 		91C65BE42BACF1AA0085D96F /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		91C65BE62BACF1BF0085D96F /* SkillCaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCaster.swift; sourceTree = "<group>"; };
 		91C65BE92BACF3310085D96F /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
+		91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTests.swift; sourceTree = "<group>"; };
+		91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveTests.swift; sourceTree = "<group>"; };
 		E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoopHandler.swift; sourceTree = "<group>"; };
 		E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorld.swift; sourceTree = "<group>"; };
 		E6CDFFBC2BAEDA58007BB867 /* SpriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
@@ -428,8 +432,9 @@
 		916A7D4E2BA1541800319C26 /* NinjaWarriorsTests */ = {
 			isa = PBXGroup;
 			children = (
+				91EF1F992BAED512000B52A2 /* PrimitiveTests */,
+				91EF1F982BAED4F8000B52A2 /* MultiplayerTests */,
 				916A7D4F2BA1541800319C26 /* NinjaWarriorsTests.swift */,
-				915301C52BAEC670007F2A12 /* AuthenticationTests.swift */,
 			);
 			path = NinjaWarriorsTests;
 			sourceTree = "<group>";
@@ -601,6 +606,23 @@
 				91C65BE92BACF3310085D96F /* GameEngine.swift */,
 			);
 			path = GameSystem;
+			sourceTree = "<group>";
+		};
+		91EF1F982BAED4F8000B52A2 /* MultiplayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				915301C52BAEC670007F2A12 /* AuthenticationTests.swift */,
+				91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */,
+			);
+			path = MultiplayerTests;
+			sourceTree = "<group>";
+		};
+		91EF1F992BAED512000B52A2 /* PrimitiveTests */ = {
+			isa = PBXGroup;
+			children = (
+				91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */,
+			);
+			path = PrimitiveTests;
 			sourceTree = "<group>";
 		};
 		E6ECF6302BADABAD00DDDE9C /* SkillCasterSystem */ = {
@@ -871,8 +893,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */,
 				916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */,
 				915301C62BAEC670007F2A12 /* AuthenticationTests.swift in Sources */,
+				91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

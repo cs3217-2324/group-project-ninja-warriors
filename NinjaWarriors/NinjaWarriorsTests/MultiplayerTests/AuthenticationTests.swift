@@ -11,7 +11,6 @@ import FirebaseDatabase
 @testable import NinjaWarriors
 
 final class AuthenticationTests: XCTestCase {
-
     var authenticationAdapter: Authentication?
 
     override func setUp() {
@@ -30,8 +29,6 @@ final class AuthenticationTests: XCTestCase {
             XCTFail("Authentication adapter is nil")
             return
         }
-        //try await authenticationAdapter.delete()
-
         do {
             let user = try await authenticationAdapter.signUp(email: "test@example.com", password: "Password123")
             XCTAssertNotNil(user)
@@ -39,16 +36,24 @@ final class AuthenticationTests: XCTestCase {
             XCTFail("Error occurred while signing up: \(error)")
         }
         expectation.fulfill()
-
         wait(for: [expectation], timeout: 5.0)
+        try await authenticationAdapter.delete()
     }
 
-    func testGetAuthenticatedUserWhenLoggedIn() async {
+    func testGetAuthenticatedUserWhenLoggedIn() async throws {
         let expectation = XCTestExpectation(description: "Get authenticated user when logged in")
+
         guard let authenticationAdapter = authenticationAdapter else {
             XCTFail("Authentication adapter is nil")
             return
         }
+        do {
+            let user = try await authenticationAdapter.signUp(email: "test@example.com", password: "Password123")
+            XCTAssertNotNil(user)
+        } catch {
+            XCTFail("Error occurred while signing up: \(error)")
+        }
+
         do {
             let user = try authenticationAdapter.getAuthenticatedUser()
             XCTAssertNotNil(user)
@@ -56,8 +61,8 @@ final class AuthenticationTests: XCTestCase {
             XCTFail("Error occurred while getting authenticated user: \(error)")
         }
         expectation.fulfill()
-
         wait(for: [expectation], timeout: 5.0)
+        try await authenticationAdapter.delete()
     }
 
     func testResetPasswordWithValidEmail() async throws {
@@ -67,14 +72,20 @@ final class AuthenticationTests: XCTestCase {
             return
         }
         do {
+            let user = try await authenticationAdapter.signUp(email: "test@example.com", password: "Password123")
+            XCTAssertNotNil(user)
+        } catch {
+            XCTFail("Error occurred while signing up: \(error)")
+        }
+
+        do {
             try await authenticationAdapter.resetPassword(email: "test@example.com")
-            try await authenticationAdapter.delete()
         } catch {
             XCTFail("Error occurred while resetting password: \(error)")
         }
         expectation.fulfill()
-
         wait(for: [expectation], timeout: 5.0)
+        try await authenticationAdapter.delete()
     }
 
     func testSignUpWithEmptyEmail() async {
@@ -94,12 +105,20 @@ final class AuthenticationTests: XCTestCase {
         wait(for: [expectation], timeout: 5.0)
     }
 
-    func testSignUpWithEmptyPassword() async {
+    func testSignUpWithEmptyPassword() async throws {
         let expectation = XCTestExpectation(description: "Sign up with empty password")
         guard let authenticationAdapter = authenticationAdapter else {
             XCTFail("Authentication adapter is nil")
             return
         }
+        do {
+            let user = try await authenticationAdapter.signUp(email: "test@example.com", password: "Password123")
+            XCTAssertNotNil(user)
+        } catch {
+            XCTFail("Error occurred while signing up: \(error)")
+        }
+        try await authenticationAdapter.delete()
+        
         do {
             _ = try await authenticationAdapter.signUp(email: "test@example.com", password: "")
             XCTFail("Expected sign up with empty password to throw an error")
@@ -155,6 +174,7 @@ final class AuthenticationTests: XCTestCase {
             do {
                 _ = try await authenticationAdapter.signUp(email: "exist@example.com", password: "AnotherPassword")
                 XCTFail("Expected sign up with existing email to throw an error")
+                try await authenticationAdapter.delete()
             } catch {
                 XCTAssertNotNil(error)
             }
