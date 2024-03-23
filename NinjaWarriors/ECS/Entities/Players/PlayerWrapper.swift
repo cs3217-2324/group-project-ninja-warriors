@@ -8,7 +8,6 @@
 import Foundation
 
 class PlayerWrapper: EntityWrapper {
-   var components: [ComponentWrapper]?
 
     override init(id: EntityID, shape: ShapeWrapper) {
         super.init(id: id, shape: shape)

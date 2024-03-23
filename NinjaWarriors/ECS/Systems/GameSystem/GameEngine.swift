@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: Deprecate if not used
 class GameEngine {
     private let entityComponentManager: EntityComponentManager
     private let systemManager: SystemManager

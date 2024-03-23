@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ColliderWrapper: Codable, ComponentWrapper {
+struct ColliderWrapper: ComponentWrapper {
     var id: EntityID
     var entity: EntityWrapper
     var colliderShape: ShapeWrapper

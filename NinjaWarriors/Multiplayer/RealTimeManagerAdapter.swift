@@ -12,6 +12,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
     private let databaseRef = Database.database().reference()
     private var entitiesRef: DatabaseReference
     private let matchId: String
+    private let componentKey = "component"
 
     init(matchId: String) {
         self.matchId = matchId
@@ -37,7 +38,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entitiesDict
     }
 
-    // MARK: Dynamically retrieve entity type based on key in database by mapping key -> keyWrapper
     private func getWrapperType(of entityType: String) -> Codable.Type? {
         let wrapperTypeName = "\(entityType.capitalized)" + Constants.wrapperName
         guard let wrapperType = NSClassFromString(Constants.directory + wrapperTypeName) as? Codable.Type else {
@@ -77,10 +77,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 if id != nil && entityId != id {
                     continue
                 }
-                guard let dataDict = entitiesDict[entityType]?[entityId] else {
-                    return (nil, nil)
-                }
-                guard let entity = try getEntity(from: dataDict, with: wrapperType) else {
+                guard let dataDict = entitiesDict[entityType]?[entityId],
+                      let entity = try getEntity(from: dataDict, with: wrapperType)else {
                     return (nil, nil)
                 }
                 entities.append(entity)
@@ -105,13 +103,38 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entities[0]
     }
 
-    func uploadEntity(entity: Entity, entityName: String) async throws {
+    private func formEntityDict(from entity: Entity) throws -> [String: Any] {
         let entityData = try JSONEncoder().encode(entity.wrapper())
 
         guard let entityDict = try JSONSerialization.jsonObject(with: entityData, options: []) as? [String: Any] else {
             throw NSError(domain: "com.yourapp", code: -1,
                           userInfo: [NSLocalizedDescriptionKey: "Failed to serialize player data"])
         }
+        return entityDict
+    }
+
+    private func formAndAppendComponentDict(from components: [Component]) -> [String: Any] {
+        var componentDict: [String: Any] = [:]
+
+        for (index, component) in components.enumerated() {
+            let key = componentKey + "\(index)"
+            guard let data = component.wrapper(),
+                  let componentData = try? JSONEncoder().encode(data),
+                  let dataDict = try? JSONSerialization.jsonObject(with: componentData, options: []) as? [String: Any] else {
+                continue
+            }
+            componentDict[key] = dataDict
+        }
+        return componentDict
+    }
+
+    func uploadEntity(entity: Entity, entityName: String) async throws {
+        var entityDict = try formEntityDict(from: entity)
+
+        let components = entity.getInitializingComponents()
+        let componentDict = formAndAppendComponentDict(from: components)
+        entityDict[componentKey] = componentDict
+
         try await entitiesRef.child(entityName).child(entity.id).setValue(entityDict)
     }
 

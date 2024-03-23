@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ComponentWrapper {
+protocol ComponentWrapper: MainCodable {
     func toComponent() -> Component?
 }
 

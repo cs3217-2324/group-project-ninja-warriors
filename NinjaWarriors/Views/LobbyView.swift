@@ -35,6 +35,7 @@ struct LobbyView: View {
                             }
                         if let matchId = viewModel.matchId,
                            let _ = viewModel.playerIds {
+                            Text("\(matchId)")
                             NavigationLink(destination: CanvasView(matchId: matchId,
                                                                    currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)) {
                                 Text("Start Game")

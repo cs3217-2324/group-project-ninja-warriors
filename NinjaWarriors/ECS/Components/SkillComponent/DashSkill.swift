@@ -10,7 +10,7 @@ import Foundation
 class DashSkill: MovementSkill {
     var id: SkillID
 
-    init(id: SkillID) {
+    required init(id: SkillID) {
         self.id = id
     }
 

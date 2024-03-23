@@ -11,10 +11,16 @@ class SlashAOESkill: EntitySpawnerSkill {
     private var cooldownDuration: TimeInterval // Cooldown duration in seconds
     private var cooldownRemaining: TimeInterval = 0 // Time remaining on cooldown
 
-    init(id: SkillID, cooldownDuration: TimeInterval) {
-       self.id = id
-       self.cooldownDuration = cooldownDuration
-   }
+    required init(id: SkillID) {
+        self.id = id
+        self.cooldownDuration = 0
+    }
+
+    convenience init(id: SkillID, cooldownDuration: TimeInterval) {
+        self.init(id: id)
+        // self.id = id
+        self.cooldownDuration = cooldownDuration
+    }
 
    func isOnCooldown() -> Bool {
        return cooldownRemaining > 0

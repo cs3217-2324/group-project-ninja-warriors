@@ -42,6 +42,8 @@
 		915301B52BAD1E85007F2A12 /* Collider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B42BAD1E85007F2A12 /* Collider.swift */; };
 		915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B62BAD8035007F2A12 /* RigidbodyWrapper.swift */; };
 		915301B92BAD8411007F2A12 /* ColliderWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B82BAD8411007F2A12 /* ColliderWrapper.swift */; };
+		915301BD2BAE3CE0007F2A12 /* MainCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301BC2BAE3CE0007F2A12 /* MainCodable.swift */; };
+		915301BF2BAE4C25007F2A12 /* SkillCasterWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301BE2BAE4C25007F2A12 /* SkillCasterWrapper.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -151,6 +153,8 @@
 		915301B42BAD1E85007F2A12 /* Collider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collider.swift; sourceTree = "<group>"; };
 		915301B62BAD8035007F2A12 /* RigidbodyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RigidbodyWrapper.swift; sourceTree = "<group>"; };
 		915301B82BAD8411007F2A12 /* ColliderWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderWrapper.swift; sourceTree = "<group>"; };
+		915301BC2BAE3CE0007F2A12 /* MainCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCodable.swift; sourceTree = "<group>"; };
+		915301BE2BAE4C25007F2A12 /* SkillCasterWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCasterWrapper.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -490,6 +494,7 @@
 				9180F9D22BAB9C26000CC390 /* ComponentWrapper.swift */,
 				9180F9D02BAB96C7000CC390 /* CodableWrapper.swift */,
 				916A7DA92BA3FBBF00319C26 /* AnyCodingKey.swift */,
+				915301BC2BAE3CE0007F2A12 /* MainCodable.swift */,
 			);
 			path = GenericWrappers;
 			sourceTree = "<group>";
@@ -552,6 +557,7 @@
 				91C65BE22BACF1920085D96F /* DashSkill.swift */,
 				91C65BE62BACF1BF0085D96F /* SkillCaster.swift */,
 				E6ECF6372BADE99700DDDE9C /* SlashAOESkill.swift */,
+				915301BE2BAE4C25007F2A12 /* SkillCasterWrapper.swift */,
 			);
 			path = SkillComponent;
 			sourceTree = "<group>";
@@ -753,6 +759,7 @@
 				9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */,
 				7113A4942BA60E2E00805340 /* Entity.swift in Sources */,
 				E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */,
+				915301BF2BAE4C25007F2A12 /* SkillCasterWrapper.swift in Sources */,
 				9180F9D52BAB9C89000CC390 /* EntityWrapper.swift in Sources */,
 				714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
@@ -793,6 +800,7 @@
 				9132AF742BA597FD000F2AC4 /* MatchWrapper.swift in Sources */,
 				916A7DAA2BA3FBBF00319C26 /* AnyCodingKey.swift in Sources */,
 				916A7D6C2BA1550700319C26 /* Shape.swift in Sources */,
+				915301BD2BAE3CE0007F2A12 /* MainCodable.swift in Sources */,
 				915301B92BAD8411007F2A12 /* ColliderWrapper.swift in Sources */,
 				915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */,
 				9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */,

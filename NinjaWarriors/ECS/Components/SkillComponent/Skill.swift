@@ -10,6 +10,9 @@ import Foundation
 typealias SkillID = String
 protocol Skill {
     var id: SkillID { get }
+
+    init(id: SkillID)
+
     func isOnCooldown() -> Bool
 
     func decrementCooldown(deltaTime: TimeInterval)

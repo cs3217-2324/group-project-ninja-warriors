@@ -13,13 +13,13 @@ final class LobbyViewModel: ObservableObject {
     @Published private(set) var matches: [Match] = []
     @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
-    @Published private(set) var systemManager: SystemManager
+    // @Published private(set) var systemManager: SystemManager
     @Published var matchId: String?
     @Published var playerIds: [String]?
 
     init() {
         matchManager = MatchManagerAdapter()
-        systemManager = SystemManager()
+        // systemManager = SystemManager()
     }
 
     func ready(userId: String) {

@@ -39,4 +39,11 @@ class SkillCaster: Component {
     func removeSkill(withId id: SkillID) {
         skills.removeValue(forKey: id)
     }
+
+    override func wrapper() -> ComponentWrapper? {
+        guard let entity = entity.wrapper() else {
+            return nil
+        }
+        return SkillCasterWrapper(id: id, entity: entity, skills: skills, activationQueue: activationQueue)
+    }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RigidbodyWrapper: Codable, ComponentWrapper {
+struct RigidbodyWrapper: ComponentWrapper {
     var id: ComponentID
     var entity: EntityWrapper
     var angularDrag: Double

@@ -12,12 +12,10 @@ class EntityWrapper: FactoryWrapper {
 
     var id: EntityID
     var shape: ShapeWrapper
-    // var components: [Component]?
 
-    init(id: EntityID, shape: ShapeWrapper/*, components: [Component]?*/) {
+    init(id: EntityID, shape: ShapeWrapper) {
         self.id = id
         self.shape = shape
-        // self.components = components
     }
 
     func toEntity() -> Entity? { return nil }
