@@ -64,9 +64,8 @@ struct CanvasView: View {
                                     viewModel.changePosition(newPosition: playerPosition)
                                 //viewModel.gameControl.setInputVector(vector)
                             }, location: CGPoint(x: 100, y: 100))
-                            .background(Color.red)
                             .frame(width: 200, height: 200)
-                            .offset(x: 20, y: Constants.screenHeight - 220)
+                            .offset(y: 500)
                         }
                         Spacer()
                         ForEach(viewModel.getSkillIds(for: viewModel.currPlayerId), id: \.self) { skillId in
