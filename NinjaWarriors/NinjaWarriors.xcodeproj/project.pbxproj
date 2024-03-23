@@ -105,6 +105,10 @@
 		E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */; };
 		E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */; };
 		E6CDFFBD2BAEDA58007BB867 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CDFFBC2BAEDA58007BB867 /* SpriteComponent.swift */; };
+		E6CDFFC02BAF1DB0007BB867 /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFBF2BAF1DB0007BB867 /* player.png */; };
+		E6CDFFC22BAF22A1007BB867 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC12BAF22A1007BB867 /* grass.png */; };
+		E6CDFFC42BAF2306007BB867 /* player-copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC32BAF2306007BB867 /* player-copy.png */; };
+		E6CDFFC62BAF2689007BB867 /* grass-stone.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC52BAF2689007BB867 /* grass-stone.jpeg */; };
 		E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */; };
 		E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */; };
 		E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */; };
@@ -217,6 +221,10 @@
 		E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoopHandler.swift; sourceTree = "<group>"; };
 		E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorld.swift; sourceTree = "<group>"; };
 		E6CDFFBC2BAEDA58007BB867 /* SpriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
+		E6CDFFBF2BAF1DB0007BB867 /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
+		E6CDFFC12BAF22A1007BB867 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass.png; sourceTree = "<group>"; };
+		E6CDFFC32BAF2306007BB867 /* player-copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player-copy.png"; sourceTree = "<group>"; };
+		E6CDFFC52BAF2689007BB867 /* grass-stone.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grass-stone.jpeg"; sourceTree = "<group>"; };
 		E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCasterSystem.swift; sourceTree = "<group>"; };
 		E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityOverlayView.swift; sourceTree = "<group>"; };
 		E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOE.swift; sourceTree = "<group>"; };
@@ -382,6 +390,7 @@
 		916A7D2D2BA1541700319C26 = {
 			isa = PBXGroup;
 			children = (
+				E6CDFFBE2BAF1D9D007BB867 /* Assets */,
 				9180F9CD2BAB19A4000CC390 /* Nonce */,
 				9180F9CA2BAAF845000CC390 /* Primitives */,
 				7113A4922BA60E2200805340 /* ECS */,
@@ -625,6 +634,17 @@
 			path = PrimitiveTests;
 			sourceTree = "<group>";
 		};
+		E6CDFFBE2BAF1D9D007BB867 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				E6CDFFC12BAF22A1007BB867 /* grass.png */,
+				E6CDFFC52BAF2689007BB867 /* grass-stone.jpeg */,
+				E6CDFFBF2BAF1DB0007BB867 /* player.png */,
+				E6CDFFC32BAF2306007BB867 /* player-copy.png */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		E6ECF6302BADABAD00DDDE9C /* SkillCasterSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,6 +781,10 @@
 			files = (
 				916A7D412BA1541800319C26 /* Preview Assets.xcassets in Resources */,
 				916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */,
+				E6CDFFC62BAF2689007BB867 /* grass-stone.jpeg in Resources */,
+				E6CDFFC22BAF22A1007BB867 /* grass.png in Resources */,
+				E6CDFFC42BAF2306007BB867 /* player-copy.png in Resources */,
+				E6CDFFC02BAF1DB0007BB867 /* player.png in Resources */,
 				9132AF8D2BA7E9CA000F2AC4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

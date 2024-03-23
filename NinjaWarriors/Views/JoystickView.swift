@@ -69,12 +69,13 @@ struct JoystickView: View {
     var body: some View {
         ZStack {
             Circle()
-                .foregroundColor(.blue)
+                .strokeBorder(Color.blue, lineWidth: 4)
+                .background(Circle().foregroundColor(Color.white.opacity(0.1)))
                 .frame(width: bigCircleDiameter, height: bigCircleDiameter)
                 .position(location)
 
             Circle()
-                .foregroundColor(.green)
+                .foregroundColor(.blue)
                 .frame(width: smallCircleDiameter, height: smallCircleDiameter)
                 .position(innerCircleLocation)
                 .gesture(fingerDrag)

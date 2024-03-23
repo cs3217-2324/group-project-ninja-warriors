@@ -23,6 +23,10 @@ struct CanvasView: View {
 
     var body: some View {
         ZStack {
+            Image("grass-stone")
+                .resizable()
+                .scaledToFill()
+                .edgesIgnoringSafeArea(.all)
             EntityOverlayView(entities: viewModel.entities,
                               componentManager: viewModel.gameWorld.entityComponentManager)
                 .transition(.move(edge: .trailing))
@@ -46,8 +50,9 @@ struct CanvasView: View {
                     ZStack {
                         ForEach(viewModel.entities.compactMap { $0 }, id: \.id) { entity in
                             VStack {
-                                Circle()
-                                    .fill(Color.blue)
+                                Image("player-copy")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
                                     .frame(width: 50, height: 50)
                                     .position(entity.shape.getCenter())
                                     .position(x: playerPosition.x,
@@ -63,9 +68,8 @@ struct CanvasView: View {
                                 setInputVector: { vector in
                                     viewModel.changePosition(newPosition: playerPosition)
                                 //viewModel.gameControl.setInputVector(vector)
-                            }, location: CGPoint(x: 100, y: 100))
+                                }, location: CGPoint(x: 200, y: geometry.size.height - 400))
                             .frame(width: 200, height: 200)
-                            .offset(y: 500)
                         }
                         Spacer()
                         ForEach(viewModel.getSkillIds(for: viewModel.currPlayerId), id: \.self) { skillId in
