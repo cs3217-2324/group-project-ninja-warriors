@@ -33,7 +33,9 @@ class Player: Equatable, Entity {
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
                                       entity: self, skills: [SlashAOESkill(id: "skill1",
                                                                            cooldownDuration: 8.0)])
-        return [playerRigidbody, playerCollider, skillCaster]
+        // TODO: edit sprite component with player sprite
+        let spriteComponent = SpriteComponent(id: RandomNonce().randomNonceString(), entity: self)
+        return [playerRigidbody, playerCollider, skillCaster, spriteComponent]
     }
 
     // TODO: Must remove this and make change based on system instead

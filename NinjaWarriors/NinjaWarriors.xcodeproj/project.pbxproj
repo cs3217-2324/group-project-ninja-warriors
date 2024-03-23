@@ -102,6 +102,7 @@
 		91EF1F952BAECA30000B52A2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F942BAECA30000B52A2 /* FirebaseFirestore */; };
 		E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */; };
 		E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */; };
+		E6CDFFBD2BAEDA58007BB867 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CDFFBC2BAEDA58007BB867 /* SpriteComponent.swift */; };
 		E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */; };
 		E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */; };
 		E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */; };
@@ -211,6 +212,7 @@
 		91C65BE92BACF3310085D96F /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoopHandler.swift; sourceTree = "<group>"; };
 		E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorld.swift; sourceTree = "<group>"; };
+		E6CDFFBC2BAEDA58007BB867 /* SpriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCasterSystem.swift; sourceTree = "<group>"; };
 		E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityOverlayView.swift; sourceTree = "<group>"; };
 		E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOE.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 			isa = PBXGroup;
 			children = (
 				7113A4952BA60E8400805340 /* Component.swift */,
+				E6CDFFBC2BAEDA58007BB867 /* SpriteComponent.swift */,
 				915301B32BAD1E7D007F2A12 /* Collider */,
 				915301B02BAD1AB6007F2A12 /* Rigidbody */,
 				91C65BE12BACF1790085D96F /* SkillComponent */,
@@ -807,6 +810,7 @@
 				916A7D8E2BA1A1C500319C26 /* SignInViewModel.swift in Sources */,
 				7113A4962BA60E8400805340 /* Component.swift in Sources */,
 				9132AF702BA58C61000F2AC4 /* MatchManager.swift in Sources */,
+				E6CDFFBD2BAEDA58007BB867 /* SpriteComponent.swift in Sources */,
 				9180F9D12BAB96C7000CC390 /* CodableWrapper.swift in Sources */,
 				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
 				E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */,
