@@ -45,6 +45,7 @@
 		915301BF2BAE4C25007F2A12 /* SkillCasterWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301BE2BAE4C25007F2A12 /* SkillCasterWrapper.swift */; };
 		915301C22BAE9327007F2A12 /* GameControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301C12BAE9327007F2A12 /* GameControl.swift */; };
 		915301C42BAE9337007F2A12 /* JoystickControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301C32BAE9337007F2A12 /* JoystickControl.swift */; };
+		915301C62BAEC670007F2A12 /* AuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301C52BAEC670007F2A12 /* AuthenticationTests.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -92,6 +93,13 @@
 		91C65BE52BACF1AA0085D96F /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C65BE42BACF1AA0085D96F /* Skill.swift */; };
 		91C65BE72BACF1BF0085D96F /* SkillCaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C65BE62BACF1BF0085D96F /* SkillCaster.swift */; };
 		91C65BEA2BACF3310085D96F /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C65BE92BACF3310085D96F /* GameEngine.swift */; };
+		91EF1F892BAECA20000B52A2 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F882BAECA20000B52A2 /* FirebaseAnalyticsSwift */; };
+		91EF1F8B2BAECA20000B52A2 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8A2BAECA20000B52A2 /* FirebaseDatabaseSwift */; };
+		91EF1F8D2BAECA20000B52A2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8C2BAECA20000B52A2 /* FirebaseFirestoreSwift */; };
+		91EF1F8F2BAECA30000B52A2 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8E2BAECA30000B52A2 /* FirebaseAnalytics */; };
+		91EF1F912BAECA30000B52A2 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F902BAECA30000B52A2 /* FirebaseAuth */; };
+		91EF1F932BAECA30000B52A2 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F922BAECA30000B52A2 /* FirebaseDatabase */; };
+		91EF1F952BAECA30000B52A2 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F942BAECA30000B52A2 /* FirebaseFirestore */; };
 		E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */; };
 		E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */; };
 		E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */; };
@@ -157,6 +165,7 @@
 		915301BE2BAE4C25007F2A12 /* SkillCasterWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCasterWrapper.swift; sourceTree = "<group>"; };
 		915301C12BAE9327007F2A12 /* GameControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControl.swift; sourceTree = "<group>"; };
 		915301C32BAE9337007F2A12 /* JoystickControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickControl.swift; sourceTree = "<group>"; };
+		915301C52BAEC670007F2A12 /* AuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTests.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -228,6 +237,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91EF1F932BAECA30000B52A2 /* FirebaseDatabase in Frameworks */,
+				91EF1F8B2BAECA20000B52A2 /* FirebaseDatabaseSwift in Frameworks */,
+				91EF1F912BAECA30000B52A2 /* FirebaseAuth in Frameworks */,
+				91EF1F892BAECA20000B52A2 /* FirebaseAnalyticsSwift in Frameworks */,
+				91EF1F8F2BAECA30000B52A2 /* FirebaseAnalytics in Frameworks */,
+				91EF1F8D2BAECA20000B52A2 /* FirebaseFirestoreSwift in Frameworks */,
+				91EF1F952BAECA30000B52A2 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,10 +315,10 @@
 		9136A5B52BA9943100197971 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
-				E6ECF6302BADABAD00DDDE9C /* SkillCasterSystem */,
 				714A4A632BA717B80067D5CB /* System.swift */,
 				714A4A652BA721E50067D5CB /* SystemManager.swift */,
 				714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */,
+				E6ECF6302BADABAD00DDDE9C /* SkillCasterSystem */,
 				9180F9D62BACE93C000CC390 /* TransformSystem */,
 				9136A5B82BA9955400197971 /* CollisionSystem */,
 				9132AF602BA50E46000F2AC4 /* PhysicsSystem */,
@@ -411,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				916A7D4F2BA1541800319C26 /* NinjaWarriorsTests.swift */,
+				915301C52BAEC670007F2A12 /* AuthenticationTests.swift */,
 			);
 			path = NinjaWarriorsTests;
 			sourceTree = "<group>";
@@ -427,9 +444,9 @@
 		916A7D682BA154E000319C26 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				7113A4952BA60E8400805340 /* Component.swift */,
 				915301B32BAD1E7D007F2A12 /* Collider */,
 				915301B02BAD1AB6007F2A12 /* Rigidbody */,
-				7113A4952BA60E8400805340 /* Component.swift */,
 				91C65BE12BACF1790085D96F /* SkillComponent */,
 				916A7DA62BA3F9FC00319C26 /* GenericWrappers */,
 			);
@@ -635,6 +652,15 @@
 				916A7D4D2BA1541800319C26 /* PBXTargetDependency */,
 			);
 			name = NinjaWarriorsTests;
+			packageProductDependencies = (
+				91EF1F882BAECA20000B52A2 /* FirebaseAnalyticsSwift */,
+				91EF1F8A2BAECA20000B52A2 /* FirebaseDatabaseSwift */,
+				91EF1F8C2BAECA20000B52A2 /* FirebaseFirestoreSwift */,
+				91EF1F8E2BAECA30000B52A2 /* FirebaseAnalytics */,
+				91EF1F902BAECA30000B52A2 /* FirebaseAuth */,
+				91EF1F922BAECA30000B52A2 /* FirebaseDatabase */,
+				91EF1F942BAECA30000B52A2 /* FirebaseFirestore */,
+			);
 			productName = NinjaWarriorsTests;
 			productReference = 916A7D4B2BA1541800319C26 /* NinjaWarriorsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -842,6 +868,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */,
+				915301C62BAEC670007F2A12 /* AuthenticationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1207,6 +1234,41 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 916A7D782BA18ABE00319C26 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		91EF1F882BAECA20000B52A2 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 916A7D782BA18ABE00319C26 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		91EF1F8A2BAECA20000B52A2 /* FirebaseDatabaseSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 916A7D782BA18ABE00319C26 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabaseSwift;
+		};
+		91EF1F8C2BAECA20000B52A2 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 916A7D782BA18ABE00319C26 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+		91EF1F8E2BAECA30000B52A2 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 916A7D782BA18ABE00319C26 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		91EF1F902BAECA30000B52A2 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 916A7D782BA18ABE00319C26 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		91EF1F922BAECA30000B52A2 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 916A7D782BA18ABE00319C26 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		91EF1F942BAECA30000B52A2 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 916A7D782BA18ABE00319C26 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 
