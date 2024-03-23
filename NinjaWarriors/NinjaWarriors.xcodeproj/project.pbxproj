@@ -43,6 +43,8 @@
 		915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B62BAD8035007F2A12 /* RigidbodyWrapper.swift */; };
 		915301B92BAD8411007F2A12 /* ColliderWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B82BAD8411007F2A12 /* ColliderWrapper.swift */; };
 		915301BF2BAE4C25007F2A12 /* SkillCasterWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301BE2BAE4C25007F2A12 /* SkillCasterWrapper.swift */; };
+		915301C22BAE9327007F2A12 /* GameControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301C12BAE9327007F2A12 /* GameControl.swift */; };
+		915301C42BAE9337007F2A12 /* JoystickControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301C32BAE9337007F2A12 /* JoystickControl.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -153,6 +155,8 @@
 		915301B62BAD8035007F2A12 /* RigidbodyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RigidbodyWrapper.swift; sourceTree = "<group>"; };
 		915301B82BAD8411007F2A12 /* ColliderWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColliderWrapper.swift; sourceTree = "<group>"; };
 		915301BE2BAE4C25007F2A12 /* SkillCasterWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCasterWrapper.swift; sourceTree = "<group>"; };
+		915301C12BAE9327007F2A12 /* GameControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControl.swift; sourceTree = "<group>"; };
+		915301C32BAE9337007F2A12 /* JoystickControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickControl.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -344,6 +348,15 @@
 			path = Collider;
 			sourceTree = "<group>";
 		};
+		915301C02BAE9314007F2A12 /* GameControl */ = {
+			isa = PBXGroup;
+			children = (
+				915301C12BAE9327007F2A12 /* GameControl.swift */,
+				915301C32BAE9337007F2A12 /* JoystickControl.swift */,
+			);
+			path = GameControl;
+			sourceTree = "<group>";
+		};
 		916A7D2D2BA1541700319C26 = {
 			isa = PBXGroup;
 			children = (
@@ -447,6 +460,7 @@
 		916A7D8C2BA1A0EB00319C26 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				915301C02BAE9314007F2A12 /* GameControl */,
 				916A7D8D2BA1A1C500319C26 /* SignInViewModel.swift */,
 				916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */,
 				9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */,
@@ -772,6 +786,7 @@
 				E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */,
 				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
 				916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */,
+				915301C42BAE9337007F2A12 /* JoystickControl.swift in Sources */,
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
 				916A7DA52BA3F89500319C26 /* ShapeWrapper.swift in Sources */,
 				91C65BE52BACF1AA0085D96F /* Skill.swift in Sources */,
@@ -810,6 +825,7 @@
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
 				91C65BE72BACF1BF0085D96F /* SkillCaster.swift in Sources */,
 				E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */,
+				915301C22BAE9327007F2A12 /* GameControl.swift in Sources */,
 				91C65BEA2BACF3310085D96F /* GameEngine.swift in Sources */,
 				9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */,
 				9132AF722BA5971E000F2AC4 /* Match.swift in Sources */,
