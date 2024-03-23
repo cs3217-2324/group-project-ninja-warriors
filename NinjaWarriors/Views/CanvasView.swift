@@ -76,15 +76,15 @@ struct CanvasView: View {
                         .offset(x: 120, y: geometry.size.height - 120)
 
                         Spacer()
-
                         ForEach(viewModel.getSkillIds(for: viewModel.currPlayerId), id: \.self) { skillId in
                             Button(action: {
-                                viewModel.activateSkill(forEntityWithId: viewModel.currPlayerId,
-                                                        skillId: skillId)
+                                viewModel.activateSkill(forEntityWithId: viewModel.currPlayerId, skillId: skillId)
                             }) {
                                 Text("\(skillId)")
-                            }.padding()
+                            }
+                            .padding()
                         }
+
                     }
                 }
             }

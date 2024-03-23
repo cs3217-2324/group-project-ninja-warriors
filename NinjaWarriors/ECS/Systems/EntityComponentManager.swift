@@ -137,6 +137,23 @@ class EntityComponentManager {
         }
     }
 
+    func getAllEntities() -> [Entity] {
+        Array(entityMap.values)
+    }
+
+    func setEntities(to entities: [Entity]) {
+        reset()
+        for entity in entities {
+            add(entity: entity)
+        }
+    }
+
+    func reset() {
+        entityComponentMap = [:]
+        entityMap = [:]
+        componentMap = [:]
+    }
+
     // All IDs in entityComponentMap should exist in one of the two maps, vice versa
     private func assertRepresentation() {
         for (entityID, componentIDs) in entityComponentMap {

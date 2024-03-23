@@ -118,7 +118,9 @@ final class RealTimeManagerAdapter: EntitiesManager {
         var componentDict: [String: Any] = [:]
 
         for (index, component) in components.enumerated() {
-            let key = componentKey + "\(index)"
+            let key = NSStringFromClass(type(of: component))
+                .components(separatedBy: ".").last ?? componentKey + "\(index)"
+
             guard let data = component.wrapper(),
                   let componentData = try? JSONEncoder().encode(data),
                   let dataDict = try? JSONSerialization.jsonObject(with: componentData,

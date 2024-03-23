@@ -34,14 +34,14 @@ final class CanvasViewModel: ObservableObject {
         Task { [weak self] in
             guard let self = self else { return }
             if let allEntities = try await self.manager.getAllEntities() {
-                print("all entities", allEntities)
                 self.entities = allEntities
             }
 
             // TODO: Find a way to add listeners in one go
             let publishers = self.manager.addPlayerListeners()
             for publisher in publishers {
-                publisher.subscribe(update: { entities in
+                publisher.subscribe(update: { [weak self] entities in
+                    guard let self = self else { return }
                     self.entities = entities.compactMap { $0.toEntity() }
                 }, error: { error in
                     print(error)
@@ -57,7 +57,7 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
-    // TODO: Change to game loop and systems
+    // TODO: Update position and check for collision using systems
     func changePosition(entityId: String, newPosition: CGPoint) {
         let newCenter = Point(xCoord: newPosition.x, yCoord: newPosition.y)
 
@@ -78,14 +78,19 @@ extension CanvasViewModel {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }
-
         print("[CanvasViewModel] \(skillId) queued for activation")
         skillCasterComponent.queueSkillActivation(skillId)
     }
 
     func getSkillIds(for entityId: String) -> [String] {
-        // This method assumes we have a way to retrieve the SkillCaster component
-        // and then fetch the skill IDs from it. For simplicity, here's a placeholder:
-        return ["skill1", "skill2"] // TODO: remove hardcode
+        let skillCaster = gameWorld.entityComponentManager
+            .getComponentFromId(ofType: SkillCaster.self, of: entityId)
+
+        if let skillCasterIds = skillCaster?.skills.keys {
+            print("skill caster ids: ", Array(skillCasterIds))
+            return Array(skillCasterIds)
+        } else {
+            return []
+        }
     }
 }
