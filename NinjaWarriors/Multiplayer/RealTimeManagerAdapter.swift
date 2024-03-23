@@ -114,7 +114,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entityDict
     }
 
-    private func formAndAppendComponentDict(from components: [Component]) -> [String: Any] {
+    private func formComponentDict(from components: [Component]) -> [String: Any] {
         var componentDict: [String: Any] = [:]
 
         for (index, component) in components.enumerated() {
@@ -132,17 +132,31 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return componentDict
     }
 
-    func uploadEntity(entity: Entity, entityName: String) async throws {
+    func uploadEntity(entity: Entity, entityName: String, component: Component? = nil) async throws {
         var entityDict = try formEntityDict(from: entity)
+        var components: [Component] = []
 
-        let components = entity.getInitializingComponents()
-        let componentDict = formAndAppendComponentDict(from: components)
-        entityDict[componentKey] = componentDict
+        if let component = component {
+            components = [component]
+        } else {
+            components = entity.getInitializingComponents()
+        }
+        let componentDict = formComponentDict(from: components)
+
+        if var existingComponentDict = entityDict[componentKey] as? [String: Any] {
+            // Merge new component dictionary with existing one
+            existingComponentDict.merge(componentDict) { (_, new) in new }
+            // Update entityDict with merged component dictionary
+            entityDict[componentKey] = existingComponentDict
+        } else {
+            // If componentKey does not exist, simply set the component dictionary
+            entityDict[componentKey] = componentDict
+        }
 
         try await entitiesRef.child(entityName).child(entity.id).setValue(entityDict)
     }
 
-    // Update only player position for now.
+    // Updates player position, and / or additional one component at a time
     func updateEntity(id: EntityID, position: Point, component: Component? = nil) async throws {
         let entity = try await getEntity(entityId: id)
         guard let entity = entity else {
@@ -155,7 +169,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         try await uploadEntity(entity: entity, entityName: entityType)
     }
 
-    // Add all entity listners here
+    // Add all entity listners
     func addPlayerListeners() -> [PlayerPublisher] {
         var listenerPublishers: [PlayerPublisher] = []
         let playersListener = PlayersListener(matchId: matchId)
