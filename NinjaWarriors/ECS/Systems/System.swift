@@ -13,9 +13,3 @@ protocol System: AnyObject {
     init(for manager: EntityComponentManager)
     func update(after time: TimeInterval)
 }
-
-/*
-extension System {
-    func update(after time: TimeInterval) { }
-}
-*/
