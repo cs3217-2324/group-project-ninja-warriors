@@ -10,6 +10,7 @@ import Foundation
 typealias SkillID = String
 protocol Skill {
     var id: SkillID { get }
+    var cooldownRemaining: TimeInterval { get set }
 
     init(id: SkillID)
 

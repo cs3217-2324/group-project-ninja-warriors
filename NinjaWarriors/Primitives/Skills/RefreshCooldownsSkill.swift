@@ -10,7 +10,7 @@ import Foundation
 class RefreshCooldownsSkill: CooldownModifierSkill {
     var id: SkillID
     private var cooldownDuration: TimeInterval
-    private var cooldownRemaining: TimeInterval
+    var cooldownRemaining: TimeInterval
 
     required init(id: SkillID) {
         self.id = id

@@ -93,4 +93,15 @@ extension CanvasViewModel {
             return []
         }
     }
+    
+    func getSkills(for entityId: String) -> [Dictionary<SkillID, any Skill>.Element] {
+        let skillCaster = gameWorld.entityComponentManager
+            .getComponentFromId(ofType: SkillCaster.self, of: entityId)
+        
+        if let skills = skillCaster?.skills {
+            return Array(skills)
+        } else {
+            return []
+        }
+    }
 }

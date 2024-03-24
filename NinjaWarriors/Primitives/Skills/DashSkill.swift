@@ -10,7 +10,7 @@ import Foundation
 class DashSkill: MovementSkill {
     var id: SkillID
     private var cooldownDuration: TimeInterval // Cooldown duration in seconds
-    private var cooldownRemaining: TimeInterval = 0 // Time remaining on cooldown
+    var cooldownRemaining: TimeInterval = 0 // Time remaining on cooldown
 
     required init(id: SkillID) {
         self.id = id

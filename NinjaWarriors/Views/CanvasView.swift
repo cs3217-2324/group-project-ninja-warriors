@@ -67,11 +67,11 @@ struct CanvasView: View {
                                 .clipShape(Circle())
                             }
                             HStack {
-                                ForEach(viewModel.getSkillIds(for: viewModel.currPlayerId), id: \.self) { skillId in
+                                ForEach(viewModel.getSkills(for: viewModel.currPlayerId), id: \.key) { key, value in
                                     Button(action: {
-                                        viewModel.activateSkill(forEntityWithId: viewModel.currPlayerId, skillId: skillId)
+                                        viewModel.activateSkill(forEntityWithId: viewModel.currPlayerId, skillId: key)
                                     }, label: {
-                                        Text("\(skillId)")
+                                        Text("\(key) \(String(format: "%.1f", value.cooldownRemaining))")
                                     })
                                     .padding()
                                     .background(Color.white.opacity(0.7))
