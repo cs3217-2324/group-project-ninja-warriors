@@ -14,6 +14,8 @@ protocol Skill {
     init(id: SkillID)
 
     func isOnCooldown() -> Bool
+    
+    func resetCooldown()
 
     func decrementCooldown(deltaTime: TimeInterval)
 
@@ -21,7 +23,7 @@ protocol Skill {
 }
 
 protocol SelfModifyingSkill: Skill {
-    func modifySelf()
+    func modifySelf(_ entity: Entity, in manager: EntityComponentManager)
 }
 
 protocol EntitySpawnerSkill: Skill {
@@ -29,9 +31,9 @@ protocol EntitySpawnerSkill: Skill {
 }
 
 protocol CooldownModifierSkill: Skill {
-    func modifyCooldowns()
+    func modifyCooldowns(_ entity: Entity, in manager: EntityComponentManager)
 }
 
 protocol MovementSkill: Skill {
-    func performMovement(on target: Entity)
+    func performMovement(on target: Entity, in manager: EntityComponentManager)
 }

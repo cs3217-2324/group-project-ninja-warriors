@@ -2,14 +2,14 @@
 //  SlashAOESkill.swift
 //  NinjaWarriors
 //
-//  Created by proglab on 23/3/24.
+//  Created by Joshen on 23/3/24.
 //
 
 import Foundation
 class SlashAOESkill: EntitySpawnerSkill {
     var id: SkillID
-    private var cooldownDuration: TimeInterval // Cooldown duration in seconds
-    private var cooldownRemaining: TimeInterval = 0 // Time remaining on cooldown
+    private var cooldownDuration: TimeInterval
+    private var cooldownRemaining: TimeInterval = 0
 
     required init(id: SkillID) {
         self.id = id
@@ -25,13 +25,17 @@ class SlashAOESkill: EntitySpawnerSkill {
    func isOnCooldown() -> Bool {
        return cooldownRemaining > 0
    }
+    
+    func resetCooldown() {
+        cooldownRemaining = 0
+    }
 
    func decrementCooldown(deltaTime: TimeInterval) {
        cooldownRemaining = max(0, cooldownRemaining - deltaTime)
    }
 
    func activate(from entity: Entity, in manager: EntityComponentManager) {
-       print("slash aoe activated")
+       print("[SlashAOESkill] Activated by \(entity)")
 
        if isOnCooldown() { return }
 
