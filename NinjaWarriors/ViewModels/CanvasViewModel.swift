@@ -59,6 +59,7 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
+    // TODO: Change to command pattern
     func changePosition(newPosition: CGPoint) {
         let newCenter = Point(xCoord: newPosition.x, yCoord: newPosition.y)
 
