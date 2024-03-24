@@ -92,6 +92,13 @@
 		91C65BE32BACF1920085D96F /* DashSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C65BE22BACF1920085D96F /* DashSkill.swift */; };
 		91C65BE52BACF1AA0085D96F /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C65BE42BACF1AA0085D96F /* Skill.swift */; };
 		91C65BE72BACF1BF0085D96F /* SkillCaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C65BE62BACF1BF0085D96F /* SkillCaster.swift */; };
+		91D496F62BB059090027C657 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
+		91D496F72BB059090027C657 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D402BA1541800319C26 /* Preview Assets.xcassets */; };
+		91D496F82BB059110027C657 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC12BAF22A1007BB867 /* grass.png */; };
+		91D496F92BB059110027C657 /* grass-stone.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC52BAF2689007BB867 /* grass-stone.jpeg */; };
+		91D496FA2BB059120027C657 /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFBF2BAF1DB0007BB867 /* player.png */; };
+		91D496FB2BB059120027C657 /* player-copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC32BAF2306007BB867 /* player-copy.png */; };
+		91D496FC2BB0591D0027C657 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9132AF8C2BA7E9CA000F2AC4 /* GoogleService-Info.plist */; };
 		91EF1F892BAECA20000B52A2 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F882BAECA20000B52A2 /* FirebaseAnalyticsSwift */; };
 		91EF1F8B2BAECA20000B52A2 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8A2BAECA20000B52A2 /* FirebaseDatabaseSwift */; };
 		91EF1F8D2BAECA20000B52A2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8C2BAECA20000B52A2 /* FirebaseFirestoreSwift */; };
@@ -798,6 +805,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91D496FC2BB0591D0027C657 /* GoogleService-Info.plist in Resources */,
+				91D496F82BB059110027C657 /* grass.png in Resources */,
+				91D496F92BB059110027C657 /* grass-stone.jpeg in Resources */,
+				91D496FA2BB059120027C657 /* player.png in Resources */,
+				91D496FB2BB059120027C657 /* player-copy.png in Resources */,
+				91D496F62BB059090027C657 /* Assets.xcassets in Resources */,
+				91D496F72BB059090027C657 /* Preview Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
