@@ -14,6 +14,9 @@ class Rigidbody: Component {
     var mass: Double
     var rotation: Double
     var totalForce: Vector
+    var acceleration: Vector {
+        totalForce.scale(1 / mass)
+    }
     var gravityScale: Double
     var inertia: Double
     var collisionDetectionMode: Bool
@@ -87,8 +90,12 @@ class Rigidbody: Component {
         collisionDetectionMode = true
     }
 
-    func movePosition(to position: Point) {
-        self.position = position
+    func movePosition(by vector: Vector) {
+        self.position = position.add(vector: vector)
+
+        for collider in attachedColliders {
+            collider.movePosition(by: vector)
+        }
     }
 
     func moveRotation(to rotation: Double) {
@@ -120,5 +127,17 @@ class Rigidbody: Component {
     func closestPoint() -> Point? {
         let (_, closestPoint) = minDistancePoint()
         return closestPoint
+    }
+
+    func update(dt deltaTime: TimeInterval) {
+        // Update position
+        let deltaPosition = velocity.scale(deltaTime).add(vector: acceleration.scale(0.5 * pow(deltaTime, 2)))
+        movePosition(by: deltaPosition)
+
+        // Update velocity
+        velocity = velocity.add(vector: acceleration.scale(deltaTime))
+
+        // Reset force
+        totalForce = Vector.zero
     }
 }

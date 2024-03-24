@@ -19,9 +19,8 @@ class Player: Equatable, Entity {
     func getInitializingComponents() -> [Component] {
         let playerRigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: self,
                                         angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
-                                        rotation: 0.0, totalForce: 0.0, gravityScale: 1.0,
-                                        gravity: 5.0, inertia: 0.0, attachedColliderCount: 0,
-                                        collisionDetectionMode: true, position: shape.center,
+                                        rotation: 0.0, totalForce: Vector.zero, gravityScale: 1.0,
+                                        inertia: 0.0, collisionDetectionMode: true, position: shape.center,
                                         velocity: Vector(horizontal: 5.0, vertical: 5.0),
                                         attachedColliders: [])
 

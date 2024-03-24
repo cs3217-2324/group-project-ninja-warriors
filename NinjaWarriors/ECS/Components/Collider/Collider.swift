@@ -29,6 +29,10 @@ class Collider: Component {
         super.init(id: id, entity: entity)
     }
 
+    func movePosition(by vector: Vector) {
+        colliderShape.center = colliderShape.center.add(vector: vector)
+    }
+
     func getPosition() -> Point {
         colliderShape.center.add(vector: offset)
     }

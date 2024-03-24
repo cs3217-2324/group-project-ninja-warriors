@@ -8,6 +8,7 @@
 import Foundation
 
 struct Vector {
+    static let zero = Vector(horizontal: 0, vertical: 0)
 
     private(set) var horizontal: Double
     private(set) var vertical: Double
