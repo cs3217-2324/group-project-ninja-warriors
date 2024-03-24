@@ -15,7 +15,7 @@ struct EntityOverlayView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                ForEach(entities, id: \.id) { entity in
+                ForEach(componentManager.getAllEntities(), id: \.id) { entity in
                     EntityDetailView(entity: entity, componentManager: componentManager)
                 }
             }

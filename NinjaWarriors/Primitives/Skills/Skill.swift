@@ -25,7 +25,7 @@ protocol SelfModifyingSkill: Skill {
 }
 
 protocol EntitySpawnerSkill: Skill {
-    func spawnEntity(at position: Point, in manager: EntityComponentManager) -> Entity
+    func spawnEntity(from casterEntity: Entity, in manager: EntityComponentManager) -> Entity
 }
 
 protocol CooldownModifierSkill: Skill {

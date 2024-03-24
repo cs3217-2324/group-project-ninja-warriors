@@ -558,6 +558,7 @@
 		9180F9CA2BAAF845000CC390 /* Primitives */ = {
 			isa = PBXGroup;
 			children = (
+				E63243B62BB035DB00CC0899 /* Skills */,
 				9180F9C92BAAF81A000CC390 /* Shapes */,
 				9180F9CB2BAAF85C000CC390 /* PrimitiveWrappers */,
 				916A7D6F2BA1552100319C26 /* Point.swift */,
@@ -596,10 +597,7 @@
 		91C65BE12BACF1790085D96F /* SkillComponent */ = {
 			isa = PBXGroup;
 			children = (
-				91C65BE42BACF1AA0085D96F /* Skill.swift */,
-				91C65BE22BACF1920085D96F /* DashSkill.swift */,
 				91C65BE62BACF1BF0085D96F /* SkillCaster.swift */,
-				E6ECF6372BADE99700DDDE9C /* SlashAOESkill.swift */,
 				915301BE2BAE4C25007F2A12 /* SkillCasterWrapper.swift */,
 			);
 			path = SkillComponent;
@@ -629,6 +627,16 @@
 				91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */,
 			);
 			path = PrimitiveTests;
+			sourceTree = "<group>";
+		};
+		E63243B62BB035DB00CC0899 /* Skills */ = {
+			isa = PBXGroup;
+			children = (
+				91C65BE42BACF1AA0085D96F /* Skill.swift */,
+				91C65BE22BACF1920085D96F /* DashSkill.swift */,
+				E6ECF6372BADE99700DDDE9C /* SlashAOESkill.swift */,
+			);
+			path = Skills;
 			sourceTree = "<group>";
 		};
 		E6CDFFBE2BAF1D9D007BB867 /* Assets */ = {
