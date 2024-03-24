@@ -22,7 +22,13 @@ class SkillCasterSystem: System {
         for skillCaster in skillCasters {
             while !skillCaster.activationQueue.isEmpty {
                 let skillId = skillCaster.activationQueue.removeFirst()
-                guard let skill = skillCaster.skills[skillId], !skill.isOnCooldown() else { continue }
+                
+                guard let skill = skillCaster.skills[skillId] else { continue }
+                
+                if (skill.isOnCooldown()) {
+                    print("[Skill <\(skill.id)>] On cooldown!")
+                    continue
+                }
 
                 skill.activate(from: skillCaster.entity, in: manager)
 

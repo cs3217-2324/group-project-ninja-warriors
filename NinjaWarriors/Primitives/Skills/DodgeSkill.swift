@@ -36,11 +36,6 @@ class DodgeSkill: SelfModifyingSkill {
     }
     
     func activate(from entity: Entity, in manager: EntityComponentManager) {
-        if isOnCooldown() {
-            print("[DodgeSkill] cooldown Remaining: \(cooldownRemaining)")
-            return
-        }
-
         modifySelf(entity, in: manager)
         cooldownRemaining = cooldownDuration
     }

@@ -78,7 +78,7 @@ extension CanvasViewModel {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }
-        print("[CanvasViewModel] \(skillId) queued for activation")
+//        print("[CanvasViewModel] \(skillId) queued for activation")
         skillCasterComponent.queueSkillActivation(skillId)
     }
 

@@ -35,11 +35,6 @@ class SlashAOESkill: EntitySpawnerSkill {
    }
 
    func activate(from entity: Entity, in manager: EntityComponentManager) {
-       if isOnCooldown() {
-           print("[SlashAOESkill] cooldown Remaining: \(cooldownRemaining)")
-           return
-       }
-
        _ = spawnEntity(from: entity, in: manager)
        cooldownRemaining = cooldownDuration
    }
