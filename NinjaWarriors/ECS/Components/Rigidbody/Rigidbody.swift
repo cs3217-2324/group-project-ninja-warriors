@@ -13,15 +13,16 @@ class Rigidbody: Component {
     var angularVelocity: Double
     var mass: Double
     var rotation: Double
-    var totalForce: Double
+    var totalForce: Vector
     var gravityScale: Double
-    var gravity: Double
     var inertia: Double
-    var attachedColliderCount: Int
     var collisionDetectionMode: Bool
     var position: Point
     var velocity: Vector
     var attachedColliders: [Collider]
+    var attachedColliderCount: Int {
+        attachedColliders.count
+    }
 
     override func wrapper() -> ComponentWrapper? {
         guard let entity = entity.wrapper() else {
@@ -36,9 +37,8 @@ class Rigidbody: Component {
         }
         return RigidbodyWrapper(id: id, entity: entity, angularDrag: angularDrag,
                                 angularVelocity: angularVelocity, mass: mass,
-                                rotation: rotation, totalForce: totalForce,
-                                gravityScale: gravityScale, gravity: gravity,
-                                inertia: inertia, attachedColliderCount: attachedColliderCount,
+                                rotation: rotation, totalForce: totalForce.toVectorWrapper(),
+                                gravityScale: gravityScale, inertia: inertia, 
                                 collisionDetectionMode: collisionDetectionMode,
                                 position: position.toPointWrapper(), velocity: velocity.toVectorWrapper(),
                                 attachedColliders: wrapColliders)
@@ -46,18 +46,15 @@ class Rigidbody: Component {
     }
 
     init(id: EntityID, entity: Entity, angularDrag: Double, angularVelocity: Double, mass: Double,
-         rotation: Double, totalForce: Double, gravityScale: Double, gravity: Double, inertia: Double,
-         attachedColliderCount: Int, collisionDetectionMode: Bool, position: Point, velocity: Vector,
-         attachedColliders: [Collider]) {
+         rotation: Double, totalForce: Vector, gravityScale: Double, inertia: Double,
+         collisionDetectionMode: Bool, position: Point, velocity: Vector, attachedColliders: [Collider]) {
         self.angularDrag = angularDrag
         self.angularVelocity = angularVelocity
         self.mass = mass
         self.rotation = rotation
         self.totalForce = totalForce
         self.gravityScale = gravityScale
-        self.gravity = gravity
         self.inertia = inertia
-        self.attachedColliderCount = attachedColliderCount
         self.collisionDetectionMode = collisionDetectionMode
         self.position = position
         self.velocity = velocity
@@ -66,8 +63,8 @@ class Rigidbody: Component {
         super.init(id: id, entity: entity)
     }
 
-    func addForce(_ force: Double) {
-        totalForce += force
+    func addForce(_ force: Vector) {
+        totalForce = totalForce.add(vector: force)
     }
 
     func addCollider(_ collider: Collider) {
