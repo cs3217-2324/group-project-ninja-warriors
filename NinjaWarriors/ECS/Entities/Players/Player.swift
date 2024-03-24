@@ -30,8 +30,9 @@ class Player: Equatable, Entity {
                                       isColliding: false, offset: Vector(horizontal: 0.0, vertical: 0.0))
         // TODO: remove hardcode
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
-                                      entity: self, skills: [SlashAOESkill(id: "skill1",
-                                                                           cooldownDuration: 8.0)])
+                                      entity: self, skills: [SlashAOESkill(id: "skill1", cooldownDuration: 8.0),
+                                                             SlashAOESkill(id: "skill2", cooldownDuration: 8.0),
+                                                             SlashAOESkill(id: "skill3", cooldownDuration: 8.0)])
         // TODO: edit sprite component with player sprite
         let spriteComponent = SpriteComponent(id: RandomNonce().randomNonceString(), entity: self)
         return [playerRigidbody, playerCollider, skillCaster, spriteComponent]

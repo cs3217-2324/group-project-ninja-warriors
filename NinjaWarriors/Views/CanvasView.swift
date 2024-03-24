@@ -66,17 +66,15 @@ struct CanvasView: View {
                                 .foregroundColor(.white)
                                 .clipShape(Circle())
                             }
-                            VStack {
+                            HStack {
                                 ForEach(viewModel.getSkillIds(for: viewModel.currPlayerId), id: \.self) { skillId in
                                     Button(action: {
                                         viewModel.activateSkill(forEntityWithId: viewModel.currPlayerId, skillId: skillId)
                                     }, label: {
                                         Text("\(skillId)")
-                                            .background(Color.white.opacity(1.0))
                                     })
                                     .padding()
-                                    .background(Color.blue.opacity(0.7))
-                                    .foregroundColor(.white)
+                                    .background(Color.white.opacity(0.7))
                                 }
                             }
                         }.frame(maxWidth: .infinity, maxHeight: 100)
