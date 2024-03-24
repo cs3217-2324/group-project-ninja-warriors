@@ -25,7 +25,6 @@ struct CanvasView: View {
         ZStack {
             Image("grass-stone")
                 .resizable()
-                .scaledToFill()
                 .edgesIgnoringSafeArea(.all)
             
             ZStack {
@@ -50,41 +49,39 @@ struct CanvasView: View {
                             setInputVector: { vector in
                                 viewModel.changePosition(newPosition: playerPosition)
                             //viewModel.gameControl.setInputVector(vector)
-                            }, location: CGPoint(x: 200, y: geometry.size.height - 400))
+                            }, location: CGPoint(x: 200, y: geometry.size.height - 300))
                         .frame(width: 200, height: 200)
                     }
-                }
-                VStack {
-                    Spacer()
-                    HStack {
-                        ZStack {
-                            
-                            
-                            Button(action: {
-                                isShowingEntityOverlay.toggle()
-                            }, label: {
-                                Image(systemName: "eye")
-                                .accessibilityLabel("Toggle Entity Overlay")})
-                            .padding()
-                            .background(Color.blue.opacity(0.7))
-                            .foregroundColor(.white)
-                            .clipShape(Circle())
-                        }
-                        VStack {
-                            ForEach(viewModel.getSkillIds(for: viewModel.currPlayerId), id: \.self) { skillId in
+                    VStack {
+                        Spacer()
+                        HStack {
+                            ZStack {
                                 Button(action: {
-                                    viewModel.activateSkill(forEntityWithId: viewModel.currPlayerId, skillId: skillId)
+                                    isShowingEntityOverlay.toggle()
                                 }, label: {
-                                    Text("\(skillId)")
-                                        .background(Color.white.opacity(1.0))
-                                })
+                                    Image(systemName: "eye")
+                                    .accessibilityLabel("Toggle Entity Overlay")})
                                 .padding()
                                 .background(Color.blue.opacity(0.7))
                                 .foregroundColor(.white)
+                                .clipShape(Circle())
                             }
-                        }
-                    }.frame(maxWidth: .infinity, maxHeight: 100)
-                        .background(Color.red.opacity(0.5))
+                            VStack {
+                                ForEach(viewModel.getSkillIds(for: viewModel.currPlayerId), id: \.self) { skillId in
+                                    Button(action: {
+                                        viewModel.activateSkill(forEntityWithId: viewModel.currPlayerId, skillId: skillId)
+                                    }, label: {
+                                        Text("\(skillId)")
+                                            .background(Color.white.opacity(1.0))
+                                    })
+                                    .padding()
+                                    .background(Color.blue.opacity(0.7))
+                                    .foregroundColor(.white)
+                                }
+                            }
+                        }.frame(maxWidth: .infinity, maxHeight: 100)
+                            .background(Color.red.opacity(0.5))
+                    }
                 }
                 EntityOverlayView(entities: viewModel.entities,
                                       componentManager: viewModel.gameWorld.entityComponentManager)
