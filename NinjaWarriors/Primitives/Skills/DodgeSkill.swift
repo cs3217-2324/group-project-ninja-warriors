@@ -15,7 +15,12 @@ class DodgeSkill: SelfModifyingSkill {
 
     required init(id: SkillID) {
         self.id = id
-        self.cooldownDuration = 10
+        self.cooldownDuration = 0
+    }
+    
+    convenience init(id: SkillID, cooldownDuration: TimeInterval) {
+        self.init(id: id)
+        self.cooldownDuration = cooldownDuration
     }
 
     func isOnCooldown() -> Bool {
@@ -31,7 +36,10 @@ class DodgeSkill: SelfModifyingSkill {
     }
     
     func activate(from entity: Entity, in manager: EntityComponentManager) {
-        if isOnCooldown() { return }
+        if isOnCooldown() {
+            print("[DodgeSkill] cooldown Remaining: \(cooldownRemaining)")
+            return
+        }
 
         modifySelf(entity, in: manager)
         cooldownRemaining = cooldownDuration

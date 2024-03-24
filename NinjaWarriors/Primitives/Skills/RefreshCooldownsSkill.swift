@@ -31,7 +31,10 @@ class RefreshCooldownsSkill: CooldownModifierSkill {
     }
 
     func activate(from entity: Entity, in manager: EntityComponentManager) {
-        if isOnCooldown() { return }
+        if isOnCooldown() {
+            print("[RefreshSkill] cooldown Remaining: \(cooldownRemaining)")
+            return
+        }
 
         print("[RefreshSkill] Activated, all skill cooldowns reset except for RefreshSkill")
         modifyCooldowns(entity, in: manager)

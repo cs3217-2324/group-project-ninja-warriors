@@ -35,15 +35,17 @@ class SlashAOESkill: EntitySpawnerSkill {
    }
 
    func activate(from entity: Entity, in manager: EntityComponentManager) {
-       print("[SlashAOESkill] Activated by \(entity)")
-
-       if isOnCooldown() { return }
+       if isOnCooldown() {
+           print("[SlashAOESkill] cooldown Remaining: \(cooldownRemaining)")
+           return
+       }
 
        _ = spawnEntity(from: entity, in: manager)
        cooldownRemaining = cooldownDuration
    }
 
     func spawnEntity(from casterEntity: Entity, in manager: EntityComponentManager) -> Entity {
+        print("[SlashAOESkill] Activated by \(casterEntity)")
         let slashAOE = SlashAOE(id: RandomNonce().randomNonceString(),
                                 shape: CircleShape(center: casterEntity.shape.center, radius: 20.0), casterEntity: casterEntity)
         manager.add(entity: slashAOE)

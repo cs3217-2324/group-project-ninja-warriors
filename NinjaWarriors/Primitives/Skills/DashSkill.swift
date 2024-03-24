@@ -23,7 +23,10 @@ class DashSkill: MovementSkill {
     }
 
     func activate(from entity: Entity, in manager: EntityComponentManager) {
-        if isOnCooldown() { return }
+        if isOnCooldown() {
+            print("[DashSkill] cooldown Remaining: \(cooldownRemaining)")
+            return
+        }
         
         performMovement(on: entity, in: manager)
         cooldownRemaining = cooldownDuration

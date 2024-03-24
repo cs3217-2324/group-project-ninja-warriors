@@ -27,7 +27,7 @@ class SkillCasterSystem: System {
                 skill.activate(from: skillCaster.entity, in: manager)
 
             }
-
+            
             skillCaster.decrementAllCooldowns(deltaTime: time)
         }
     }
