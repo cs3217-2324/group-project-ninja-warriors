@@ -7,6 +7,5 @@
 
 import Foundation
 
-// TODO: Implement
 class RectangleShape: Shape {
 }

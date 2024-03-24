@@ -8,7 +8,6 @@
 import Foundation
 
 typealias EntityID = String
-// TODO: check whether better to use a class or a protocol or a struct
 protocol Entity: AnyObject {
     var shape: Shape { get set }
     var id: EntityID { get }

@@ -29,7 +29,7 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() {
-        gameWorld.systemManager.update(after: 1/60) // TODO: probably refactor this to match update loop
+        gameWorld.systemManager.update(after: 1/60)
     }
 
     func addListeners() {
@@ -39,7 +39,6 @@ final class CanvasViewModel: ObservableObject {
                 self.entities = allEntities
             }
 
-            // TODO: Find a way to add listeners in one go
             let publishers = self.manager.addPlayerListeners()
             for publisher in publishers {
                 publisher.subscribe(update: { [weak self] entities in
@@ -59,7 +58,6 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
-    // TODO: Change to command pattern
     func changePosition(newPosition: CGPoint) {
         let newCenter = Point(xCoord: newPosition.x, yCoord: newPosition.y)
 

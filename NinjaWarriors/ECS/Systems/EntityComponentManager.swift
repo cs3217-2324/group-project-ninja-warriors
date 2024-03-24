@@ -171,7 +171,5 @@ class EntityComponentManager {
         for (componentID, _) in componentMap {
             assert(allComponentIDs.contains(componentID))
         }
-
-        // TODO: check that no entity has multiple components of the same type
     }
 }

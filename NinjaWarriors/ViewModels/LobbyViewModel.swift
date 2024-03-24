@@ -71,7 +71,6 @@ final class LobbyViewModel: ObservableObject {
     }
 
     private func makePlayer(id playerId: String, position: Point) -> Player {
-        // TODO: Remove mock components
         let shape = Shape(center: position, halfLength: Constants.defaultSize)
         let player = Player(id: playerId, shape: shape)
 
