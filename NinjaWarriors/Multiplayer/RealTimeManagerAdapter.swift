@@ -169,6 +169,25 @@ final class RealTimeManagerAdapter: EntitiesManager {
         try await uploadEntity(entity: entity, entityName: entityType)
     }
 
+    // Function to delete all keys except the specified one
+    private func deleteAllKeysExcept(matchId: String) {
+        let ref = Database.database().reference()
+        ref.observeSingleEvent(of: .value) { snapshot in
+            guard snapshot.exists() else {
+                return
+            }
+
+            let enumerator = snapshot.children
+            while let rest = enumerator.nextObject() as? DataSnapshot {
+                let key = rest.key
+                if key != matchId {
+                    ref.child(key).removeValue()
+                }
+            }
+        }
+    }
+
+
     // Add all entity listners
     func addPlayerListeners() -> [PlayerPublisher] {
         var listenerPublishers: [PlayerPublisher] = []
