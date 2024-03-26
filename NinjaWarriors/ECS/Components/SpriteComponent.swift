@@ -8,4 +8,5 @@
 import Foundation
 
 class SpriteComponent: Component {
+    // TODO: Add relevant fields for sprite component
 }

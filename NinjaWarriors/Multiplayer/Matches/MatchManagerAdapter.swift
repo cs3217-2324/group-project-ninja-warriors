@@ -114,6 +114,7 @@ final class MatchManagerAdapter: MatchManager {
         return updatedMatchData
     }
 
+    // TODO: Reduce bloat
     func removePlayerFromMatch(playerId: String, matchId: String) async {
         let matchRef = matches.document(matchId)
         do {

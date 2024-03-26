@@ -73,6 +73,8 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         let resultantTanVel = resultantTanVector(tanVec: tanVel, src: collider)
         collider.velocity = resultantNormVel.add(vector: resultantTanVel)
         collidee.velocity = collider.velocity.getComplement()
+        // TODO: Check if damp velocity is needed
+        // collider.velocity = collider.velocity.add(vector: dampVelocity)
     }
 
     func doElasticCollision(collider: inout Rigidbody, collidee: inout Rigidbody) {

@@ -39,6 +39,7 @@ final class CanvasViewModel: ObservableObject {
                 self.entities = allEntities
             }
 
+            // TODO: Find a way to add listeners in one go
             let publishers = self.manager.addPlayerListeners()
             for publisher in publishers {
                 publisher.subscribe(update: { [weak self] entities in

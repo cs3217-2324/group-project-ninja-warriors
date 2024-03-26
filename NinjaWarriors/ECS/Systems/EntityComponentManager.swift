@@ -43,6 +43,7 @@ class EntityComponentManager {
         entityMap[entity.id] = entity
         entityComponentMap[entity.id] = []
 
+        // TODO: Replace this with results from database
         let newComponents = entity.getInitializingComponents()
         print("[EntityComponentManager] new", newComponents)
         newComponents.forEach({add(component: $0, to: entity)})
@@ -171,5 +172,6 @@ class EntityComponentManager {
         for (componentID, _) in componentMap {
             assert(allComponentIDs.contains(componentID))
         }
+        // TODO: check that no entity has multiple components of the same type
     }
 }
