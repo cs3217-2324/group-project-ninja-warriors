@@ -99,6 +99,7 @@
 		91D496FA2BB059120027C657 /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFBF2BAF1DB0007BB867 /* player.png */; };
 		91D496FB2BB059120027C657 /* player-copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC32BAF2306007BB867 /* player-copy.png */; };
 		91D496FC2BB0591D0027C657 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9132AF8C2BA7E9CA000F2AC4 /* GoogleService-Info.plist */; };
+		91DDE6522BB3806100851603 /* ComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE6512BB3806100851603 /* ComponentType.swift */; };
 		91EF1F892BAECA20000B52A2 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F882BAECA20000B52A2 /* FirebaseAnalyticsSwift */; };
 		91EF1F8B2BAECA20000B52A2 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8A2BAECA20000B52A2 /* FirebaseDatabaseSwift */; };
 		91EF1F8D2BAECA20000B52A2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8C2BAECA20000B52A2 /* FirebaseFirestoreSwift */; };
@@ -223,6 +224,7 @@
 		91C65BE22BACF1920085D96F /* DashSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashSkill.swift; sourceTree = "<group>"; };
 		91C65BE42BACF1AA0085D96F /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		91C65BE62BACF1BF0085D96F /* SkillCaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCaster.swift; sourceTree = "<group>"; };
+		91DDE6512BB3806100851603 /* ComponentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentType.swift; sourceTree = "<group>"; };
 		91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTests.swift; sourceTree = "<group>"; };
 		91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveTests.swift; sourceTree = "<group>"; };
 		E6A0564C2BB0687500398D67 /* DodgeSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeSkill.swift; sourceTree = "<group>"; };
@@ -346,6 +348,7 @@
 				9136A5B82BA9955400197971 /* CollisionSystem */,
 				9132AF602BA50E46000F2AC4 /* PhysicsSystem */,
 				91C65BE82BACF2350085D96F /* GameSystem */,
+				91DDE6512BB3806100851603 /* ComponentType.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -925,6 +928,7 @@
 				9132AF6C2BA57130000F2AC4 /* EntitiesManager.swift in Sources */,
 				9132AF782BA59B0F000F2AC4 /* FactoryPublisher.swift in Sources */,
 				E6ECF63A2BADE9D900DDDE9C /* CircleShape.swift in Sources */,
+				91DDE6522BB3806100851603 /* ComponentType.swift in Sources */,
 				9132AF682BA53E54000F2AC4 /* LobbyView.swift in Sources */,
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
 				91C65BE72BACF1BF0085D96F /* SkillCaster.swift in Sources */,

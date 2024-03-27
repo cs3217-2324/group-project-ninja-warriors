@@ -16,7 +16,9 @@ class CollisionManager: System {
         self.manager = manager
     }
 
+    // TODO: Refactor
     private func getColliders(entityId: EntityID) -> [Collider] {
+        /*
         guard let componentIdSet = manager?.entityComponentMap[entityId] else { return [] }
 
         var colliders: [Collider] = []
@@ -28,9 +30,12 @@ class CollisionManager: System {
             }
         }
         return colliders
+        */
+        return []
     }
 
     private func checkSafeToInsert(sourceColliders: [Collider], entityColliders: [Collider]) -> Bool {
+        /*
         for sourceCollider in sourceColliders {
             let sourceColliderShape = sourceCollider.colliderShape
             for entityCollider in entityColliders {
@@ -40,6 +45,7 @@ class CollisionManager: System {
                 }
             }
         }
+        */
         return true
     }
 

@@ -8,14 +8,16 @@
 import Foundation
 
 class EntityComponentManager {
-    var entityComponentMap: [EntityID: Set<ComponentID>]
+    var entityComponentMap: [EntityID: Set<Component>]
     var entityMap: [EntityID: Entity]
-    // alternate organisation is [componentTypeString: [ComponentID: Component]]
-    // but idk if there are data locality wins there
-    var componentMap: [ComponentID: Component]
+    var componentMap: [ComponentType: Set<Component>]
 
     var components: [Component] {
-        return Array(componentMap.values)
+        var allComponents: [Component] = []
+        for (_, componentArray) in componentMap {
+            allComponents.append(contentsOf: componentArray)
+        }
+        return allComponents
     }
 
     init() {
@@ -43,7 +45,7 @@ class EntityComponentManager {
         entityMap[entity.id] = entity
         entityComponentMap[entity.id] = []
 
-        // TODO: Replace this with results from database
+        // MARK: Insert intializing components of entity
         let newComponents = entity.getInitializingComponents()
         print("[EntityComponentManager] new", newComponents)
         newComponents.forEach({add(component: $0, to: entity)})
@@ -67,7 +69,10 @@ class EntityComponentManager {
     // MARK: - Component-related functions
     /// Checks if an entity already has a component of a given type
     func containsComponent<T: Component>(ofType type: T.Type, for entity: Entity) -> Bool {
-        return entityComponentMap[entity.id]?.contains(where: {componentMap[$0] is T}) ?? false
+        guard let components = entityComponentMap[entity.id] else {
+            return false
+        }
+        return components.contains { $0 is T }
     }
 
     func getComponentFromId<T: Component>(ofType type: T.Type, of entityID: EntityID) -> T? {
@@ -85,35 +90,42 @@ class EntityComponentManager {
             return
         }
         component.entity = entity
-        componentMap[component.id] = component
-        entityComponentMap[entity.id]?.insert(component.id)
+
+        componentMap[ComponentType(type(of: component))]?.insert(component)
+        entityComponentMap[entity.id]?.insert(component)
 
         assertRepresentation()
     }
 
     func getComponent<T: Component>(ofType: T.Type, for entity: Entity) -> T? {
-        guard let entityComponentIDs = entityComponentMap[entity.id] else {
+        guard let entityComponents = entityComponentMap[entity.id] else {
             return nil
         }
 
-        let componentIDs = entityComponentIDs.filter({componentMap[$0] is T})
+        let components = entityComponents.filter({$0 is T})
 
-        assert(componentIDs.count <= 1, "Entity has multiple components of the same type")
+        assert(components.count <= 1, "Entity has multiple components of the same type")
 
-        guard let componentID = componentIDs.first else {
+        guard let component = components.first else {
             return nil
         }
 
-        return componentMap[componentID] as? T
+        return component as? T
     }
 
     func getAllComponents(for entity: Entity) -> [Component] {
-        guard let componentIDs = entityComponentMap[entity.id] else { return [] }
-        return componentIDs.compactMap { componentMap[$0] }
+        guard let components = entityComponentMap[entity.id] else { return [] }
+        return Array(components)
     }
 
     func getAllComponents<T: Component>(ofType: T.Type) -> [T] {
-        return componentMap.values.compactMap({$0 as? T})
+        guard let componentsWithType = componentMap[ComponentType(ofType)] else {
+            return []
+        }
+        guard let components = Array(componentsWithType) as? [T] else {
+            return []
+        }
+        return components
     }
 
     private func remove(component: Component, from entity: Entity) {
@@ -121,14 +133,19 @@ class EntityComponentManager {
             assertionFailure("Entity not found in removeComponent call")
             return
         }
-        componentMap[component.id] = nil
-        entityComponentMap[entity.id]?.remove(component.id)
+        entityComponentMap[entity.id]?.remove(component)
+        componentMap[ComponentType(type(of: component))]?.remove(component)
     }
 
     private func removeComponents(from entity: Entity) {
-        let targetComponentIDs = entityComponentMap[entity.id] ?? []
-        let targetComponents = targetComponentIDs.compactMap({componentMap[$0]})
-        targetComponents.forEach({remove(component: $0, from: entity)})
+        let entityID = entity.id
+        if let componentsToRemove = entityComponentMap[entityID] {
+            for component in componentsToRemove {
+                let componentType = type(of: component)
+
+                componentMap[ComponentType(componentType)]?.remove(component)
+            }
+        }
     }
 
     func remove<T: Component>(ofComponentType: T.Type, from entity: Entity) {
@@ -155,23 +172,27 @@ class EntityComponentManager {
         componentMap = [:]
     }
 
-    // All IDs in entityComponentMap should exist in one of the two maps, vice versa
     private func assertRepresentation() {
-        for (entityID, componentIDs) in entityComponentMap {
-            assert(entityMap[entityID] != nil)
-            for componentID in componentIDs {
-                assert(componentMap[componentID] != nil)
+        // Assert no entityId has two components of the same type
+        for (entityID, components) in entityComponentMap {
+            var componentTypes = Set<ComponentType>()
+            for component in components {
+                let componentType = ComponentType(type(of: component))
+                assert(!componentTypes.contains(componentType),
+                       "Error: EntityID \(entityID) has two components of the same type")
+                componentTypes.insert(componentType)
             }
         }
 
-        for (entityID, _) in entityMap {
-            assert(entityComponentMap[entityID] != nil)
+        // Assert all components in entityComponentMap appear in at most one componentMap key
+        var componentIDs = Set<ComponentID>()
+        for (_, components) in entityComponentMap {
+            for component in components {
+                let componentID = component.id
+                assert(!componentIDs.contains(componentID),
+                       "Error: Component \(componentID) appears in multiple entityComponentMap entries")
+                componentIDs.insert(componentID)
+            }
         }
-
-        let allComponentIDs = entityComponentMap.values.flatMap({$0})
-        for (componentID, _) in componentMap {
-            assert(allComponentIDs.contains(componentID))
-        }
-        // TODO: check that no entity has multiple components of the same type
     }
 }

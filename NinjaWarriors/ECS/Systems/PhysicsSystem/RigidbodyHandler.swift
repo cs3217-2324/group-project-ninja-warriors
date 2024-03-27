@@ -23,7 +23,9 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         }
     }
 
+    // TODO: Refactor
     private func getRigidBodies() -> [Rigidbody] {
+        /*
         var rigidbody: [Rigidbody] = []
         guard let entityMap = manager?.entityMap else {
             return []
@@ -38,6 +40,8 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
             }
         }
         return rigidbody
+        */
+        return []
     }
 
     private func getUnitNormVector(from: Vector, to: Vector) -> Vector? {
