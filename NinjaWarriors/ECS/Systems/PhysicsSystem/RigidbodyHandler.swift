@@ -17,31 +17,32 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     func update(after time: TimeInterval) {
         guard let manager else { return }
 
+        // Do elastic collisions for rigidbodies whose colliders have collided
+        let colliders = manager.getAllComponents(ofType: Collider.self)
+        for collider in colliders where collider.isColliding {
+            // Check if the collided entity has a rigidbody
+            guard var rigidBody = manager.getComponent(ofType: Rigidbody.self, for: collider.entity) else {
+                return
+            }
+            
+            for collidedEntityID in collider.collidedEntities {
+                // Check if the other collided entity has a rigidbody
+                guard let otherEntity = manager.entity(with: collidedEntityID) else {
+                    return
+                }
+                guard var otherRigidBody = manager.getComponent(ofType: Rigidbody.self, for: otherEntity) else {
+                    return
+                }
+
+                doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
+            }
+        }
+
+        // Move rigidbodies
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
         for rigidBody in rigidBodies {
             rigidBody.update(dt: time)
         }
-    }
-
-    // TODO: Refactor
-    private func getRigidBodies() -> [Rigidbody] {
-        /*
-        var rigidbody: [Rigidbody] = []
-        guard let entityMap = manager?.entityMap else {
-            return []
-        }
-        for (entityId, _) in entityMap {
-            guard let componentIdSet = manager?.entityComponentMap[entityId] else { return [] }
-
-            for componentId in componentIdSet {
-                if let component = manager?.componentMap[componentId] as? Rigidbody {
-                    rigidbody.append(component)
-                }
-            }
-        }
-        return rigidbody
-        */
-        return []
     }
 
     private func getUnitNormVector(from: Vector, to: Vector) -> Vector? {
