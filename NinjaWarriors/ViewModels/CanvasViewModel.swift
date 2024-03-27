@@ -23,7 +23,7 @@ final class CanvasViewModel: ObservableObject {
         manager = RealTimeManagerAdapter(matchId: matchId)
 
         gameWorld.start()
-        gameWorld.updateViewModel = { [weak self] in
+        gameWorld.updateViewModel = { [unowned self] in
             self?.updateViewModel()
         }
     }
@@ -33,7 +33,7 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func addListeners() {
-        Task { [weak self] in
+        Task { [unowned self] in
             guard let self = self else { return }
             if let allEntities = try await self.manager.getAllEntities() {
                 self.entities = allEntities
@@ -42,7 +42,7 @@ final class CanvasViewModel: ObservableObject {
             // TODO: Find a way to add listeners in one go
             let publishers = self.manager.addPlayerListeners()
             for publisher in publishers {
-                publisher.subscribe(update: { [weak self] entities in
+                publisher.subscribe(update: { [unowned self] entities in
                     guard let self = self else { return }
                     self.entities = entities.compactMap { $0.toEntity() }
                 }, error: { error in

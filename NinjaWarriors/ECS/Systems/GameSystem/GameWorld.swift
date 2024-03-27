@@ -30,7 +30,7 @@ class GameWorld {
     }
 
     private func setupGameLoop() {
-        gameLoopManager.onUpdate = { [weak self] deltaTime in
+        gameLoopManager.onUpdate = { [unowned self] deltaTime in
             self?.update(deltaTime: deltaTime)
             self?.updateViewModel()
         }
