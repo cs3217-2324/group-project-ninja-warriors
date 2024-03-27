@@ -38,6 +38,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
             }
         }
 
+        // TODO: Find a way to update the joystick vector into velocity
         // Move rigidbodies
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
         for rigidBody in rigidBodies {

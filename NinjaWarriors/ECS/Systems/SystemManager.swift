@@ -8,7 +8,7 @@
 import Foundation
 
 class SystemManager {
-    private var systems: [String: System]
+    private var systems: [SystemType: System]
 
     init() {
         systems = [:]
@@ -21,12 +21,10 @@ class SystemManager {
     }
 
     func system<T: System>(ofType: T.Type) -> T? {
-        let systemName = String(describing: ofType)
-        return systems[systemName] as? T
+        return systems[SystemType(ofType)] as? T
     }
 
     func add(system: System) {
-        let systemName = String(describing: type(of: system))
-        systems[systemName] = system
+        systems[SystemType(type(of: system))] = system
     }
 }

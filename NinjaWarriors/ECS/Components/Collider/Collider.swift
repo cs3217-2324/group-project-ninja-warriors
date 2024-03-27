@@ -10,9 +10,7 @@ import Foundation
 class Collider: Component {
     var colliderShape: Shape
     var collidedEntities: Set<EntityID>
-    var isColliding: Bool {
-        !collidedEntities.isEmpty
-    }
+    var isColliding: Bool = false
 
     init(id: EntityID, entity: Entity, colliderShape: Shape, collidedEntities: Set<EntityID> = []) {
         self.colliderShape = colliderShape

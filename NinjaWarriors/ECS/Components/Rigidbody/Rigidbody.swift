@@ -27,27 +27,6 @@ class Rigidbody: Component {
         attachedColliders.count
     }
 
-    override func wrapper() -> ComponentWrapper? {
-        guard let entity = entity.wrapper() else {
-            return nil
-        }
-        var wrapColliders: [ColliderWrapper] = []
-
-        for collider in attachedColliders {
-            if let colliderWrap = collider.wrapper() as? ColliderWrapper {
-                wrapColliders.append(colliderWrap)
-            }
-        }
-        return RigidbodyWrapper(id: id, entity: entity, angularDrag: angularDrag,
-                                angularVelocity: angularVelocity, mass: mass,
-                                rotation: rotation, totalForce: totalForce.toVectorWrapper(),
-                                gravityScale: gravityScale, inertia: inertia, 
-                                collisionDetectionMode: collisionDetectionMode,
-                                position: position.toPointWrapper(), velocity: velocity.toVectorWrapper(),
-                                attachedColliders: wrapColliders)
-
-    }
-
     init(id: EntityID, entity: Entity, angularDrag: Double, angularVelocity: Double, mass: Double,
          rotation: Double, totalForce: Vector, gravityScale: Double, inertia: Double,
          collisionDetectionMode: Bool, position: Point, velocity: Vector, attachedColliders: [Collider]) {
@@ -139,5 +118,26 @@ class Rigidbody: Component {
 
         // Reset force
         totalForce = Vector.zero
+    }
+
+    override func wrapper() -> ComponentWrapper? {
+        guard let entity = entity.wrapper() else {
+            return nil
+        }
+        var wrapColliders: [ColliderWrapper] = []
+
+        for collider in attachedColliders {
+            if let colliderWrap = collider.wrapper() as? ColliderWrapper {
+                wrapColliders.append(colliderWrap)
+            }
+        }
+        return RigidbodyWrapper(id: id, entity: entity, angularDrag: angularDrag,
+                                angularVelocity: angularVelocity, mass: mass,
+                                rotation: rotation, totalForce: totalForce.toVectorWrapper(),
+                                gravityScale: gravityScale, inertia: inertia,
+                                collisionDetectionMode: collisionDetectionMode,
+                                position: position.toPointWrapper(), velocity: velocity.toVectorWrapper(),
+                                attachedColliders: wrapColliders)
+
     }
 }
