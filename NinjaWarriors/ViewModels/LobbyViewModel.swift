@@ -24,7 +24,6 @@ final class LobbyViewModel: ObservableObject {
 
     func ready(userId: String) {
         Task { [unowned self] in
-            guard let self = self else { return }
             let newMatchId = try await matchManager.enterQueue(playerId: userId)
             self.matchId = newMatchId
             addListenerForMatches()
@@ -36,7 +35,6 @@ final class LobbyViewModel: ObservableObject {
             return
         }
         Task { [unowned self] in
-            guard let self = self else { return }
             await self.matchManager.removePlayerFromMatch(playerId: userId, matchId: match)
         }
     }
@@ -88,7 +86,7 @@ final class LobbyViewModel: ObservableObject {
     func addListenerForMatches() {
         let publisher = matchManager.addListenerForAllMatches()
         publisher.subscribe(update: { [unowned self] matches in
-            self?.matches = matches.map { $0.toMatch() }
+            self.matches = matches.map { $0.toMatch() }
         }, error: { error in
             print(error)
         })

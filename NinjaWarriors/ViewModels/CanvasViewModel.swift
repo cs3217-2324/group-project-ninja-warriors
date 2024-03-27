@@ -24,7 +24,7 @@ final class CanvasViewModel: ObservableObject {
 
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
-            self?.updateViewModel()
+            self.updateViewModel()
         }
     }
 
@@ -34,7 +34,6 @@ final class CanvasViewModel: ObservableObject {
 
     func addListeners() {
         Task { [unowned self] in
-            guard let self = self else { return }
             if let allEntities = try await self.manager.getAllEntities() {
                 self.entities = allEntities
             }
@@ -43,7 +42,6 @@ final class CanvasViewModel: ObservableObject {
             let publishers = self.manager.addPlayerListeners()
             for publisher in publishers {
                 publisher.subscribe(update: { [unowned self] entities in
-                    guard let self = self else { return }
                     self.entities = entities.compactMap { $0.toEntity() }
                 }, error: { error in
                     print(error)

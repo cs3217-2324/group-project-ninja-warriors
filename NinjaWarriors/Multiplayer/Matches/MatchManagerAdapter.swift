@@ -120,9 +120,6 @@ final class MatchManagerAdapter: MatchManager {
         do {
             _ = try await Firestore.firestore().runTransaction({ [unowned self] (transaction, errorPointer) -> Any? in
                 do {
-                    guard let self = self else {
-                        return nil
-                    }
                     let matchDocument = try transaction.getDocument(matchRef)
                     guard var matchData = matchDocument.data(),
                           var readyPlayers = matchData[self.playersLabel] as? [String] else {
