@@ -20,9 +20,7 @@ class SlashAOE: Entity {
 
     func getInitializingComponents() -> [Component] {
         let collider = Collider(id: RandomNonce().randomNonceString(), entity: self,
-                                colliderShape: shape, bounciness: 0, density: 0,
-                                restitution: 0, isColliding: false,
-                                offset: Vector(horizontal: 0, vertical: 0))
+                                colliderShape: shape)
         return [collider]
     }
 
