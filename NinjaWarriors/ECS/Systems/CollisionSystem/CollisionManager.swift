@@ -8,16 +8,13 @@
 import Foundation
 
 class CollisionManager: System {
-    var manager: EntityComponentManager?
+    var manager: EntityComponentManager
 
     required init(for manager: EntityComponentManager) {
         self.manager = manager
     }
 
     func update(after time: TimeInterval) {
-        guard let manager = manager else {
-            return
-        }
         let colliders = manager.getAllComponents(ofType: Collider.self)
         for collider in colliders {
             for otherCollider in colliders where otherCollider != collider {

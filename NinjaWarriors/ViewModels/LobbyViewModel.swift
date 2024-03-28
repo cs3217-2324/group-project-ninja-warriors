@@ -13,13 +13,11 @@ final class LobbyViewModel: ObservableObject {
     @Published private(set) var matches: [Match] = []
     @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
-    // @Published private(set) var systemManager: SystemManager
     @Published var matchId: String?
     @Published var playerIds: [String]?
 
     init() {
         matchManager = MatchManagerAdapter()
-        // systemManager = SystemManager()
     }
 
     func ready(userId: String) {
@@ -48,18 +46,18 @@ final class LobbyViewModel: ObservableObject {
         initPlayers(ids: playerIds)
     }
 
-    // Add all relevant entities here
+    // Add all relevant initial entities here
     func initPlayers(ids playerIds: [String]?) {
         guard let playerIds = playerIds else {
             return
         }
-        for (index, playerId) in playerIds.enumerated() {
-            addPlayerToDatabase(id: playerId, position: Constants.playerPositions[index])
+        for playerId in playerIds {
+            addPlayerToDatabase(id: playerId)
         }
     }
 
-    private func addPlayerToDatabase(id playerId: String, position: Point) {
-        let player = makePlayer(id: playerId, position: position)
+    private func addPlayerToDatabase(id playerId: String) {
+        let player = makePlayer(id: playerId)
         guard let realTimeManager = realTimeManager else {
             return
         }
@@ -68,10 +66,8 @@ final class LobbyViewModel: ObservableObject {
         }
     }
 
-    private func makePlayer(id playerId: String, position: Point) -> Player {
-        // TODO: Remove mock components
-        let shape = Shape(center: position, halfLength: Constants.defaultSize)
-        let player = Player(id: playerId, shape: shape)
+    private func makePlayer(id playerId: String) -> Player {
+        let player = Player(id: playerId)
 
         return player
     }

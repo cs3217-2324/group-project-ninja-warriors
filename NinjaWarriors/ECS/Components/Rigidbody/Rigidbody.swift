@@ -62,9 +62,11 @@ class Rigidbody: Component {
         self.rotation = rotation
     }
 
+    /*
     func getShape() -> Shape? {
         entity.shape
     }
+    */
 
     func minDistancePoint() -> (Double, Point?) {
         var minDistance = Double.greatestFiniteMagnitude
@@ -92,13 +94,11 @@ class Rigidbody: Component {
     func update(dt deltaTime: TimeInterval) {
         // Update position
 
-        let deltaPosition = velocity.scale(deltaTime).add(vector: acceleration.scale(0.5 * pow(deltaTime, 2)))
+        let deltaPosition = velocity.scale(deltaTime * 2).add(vector: acceleration.scale(0.5 * pow(deltaTime, 2)))
         movePosition(by: deltaPosition)
 
         // Update velocity
         velocity = velocity.add(vector: acceleration.scale(deltaTime))
-
-        print("rigid body vel", velocity)
 
         // Reset force
         totalForce = Vector.zero

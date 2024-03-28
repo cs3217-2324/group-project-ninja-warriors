@@ -8,7 +8,7 @@
 import Foundation
 
 class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
-    var manager: EntityComponentManager?
+    var manager: EntityComponentManager
     var gameControl: GameControl?
 
     required init(for manager: EntityComponentManager) {
@@ -21,8 +21,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     }
 
     func update(after time: TimeInterval) {
-        guard let manager else { return }
-
         // Do elastic collisions for rigidbodies whose colliders have collided
         let colliders = manager.getAllComponents(ofType: Collider.self)
         for collider in colliders where collider.isColliding {

@@ -11,16 +11,16 @@ import SwiftUI
 
 // Represents the game world, containing entities and systems
 class GameWorld {
+    // TODO: Populate entityComponentManager from realtime so that other entities can see the component as well
     let entityComponentManager = EntityComponentManager()
     let systemManager = SystemManager()
     var gameLoopManager = GameLoopManager()
     var gameControl: GameControl = JoystickControl()
     var updateViewModel: () -> Void = {}
 
-    // TODO: Remove all optional entityComponentManager
     init() {
         setupGameLoop()
-        // TODO: Link transform to rigid body
+
         let transformHandler = TransformHandler(for: entityComponentManager)
         let collisionManager = CollisionManager(for: entityComponentManager)
         let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager, with: gameControl)

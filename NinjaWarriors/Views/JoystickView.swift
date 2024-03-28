@@ -70,7 +70,7 @@ struct JoystickView: View {
         innerCircleLocation = CGPoint(x: innerNewX, y: innerNewY)
 
         // Set input vector
-        let scaleFactor: CGFloat = 0.5
+        let scaleFactor: CGFloat = 20
         let vector = CGVector(dx: (newX - location.x) * scaleFactor,
                               dy: (newY - location.y) * scaleFactor)
         // TODO: Perhaps set game control vector here rather than canvas view

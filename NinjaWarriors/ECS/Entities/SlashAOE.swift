@@ -25,6 +25,6 @@ class SlashAOE: Entity {
     }
 
     func wrapper() -> EntityWrapper? {
-        return EntityWrapper(id: id, shape: shape.toShapeWrapper())
+        return EntityWrapper(id: id)
     }
 }

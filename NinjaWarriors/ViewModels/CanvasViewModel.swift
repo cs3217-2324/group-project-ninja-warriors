@@ -14,7 +14,7 @@ final class CanvasViewModel: ObservableObject {
     @Published private(set) var manager: RealTimeManagerAdapter
     @Published private(set) var matchId: String
     @Published private(set) var currPlayerId: String
-    @Published private(set) var position: CGPoint? /*= CGPoint(x: 400.0, y: 400.0)*/
+    @Published private(set) var position: CGPoint?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -23,17 +23,21 @@ final class CanvasViewModel: ObservableObject {
 
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
-            self.updateViewModel()
+            Task {
+                await self.updateViewModel()
+            }
         }
     }
 
-    func updateViewModel() {
+    func updateViewModel() async {
         // TODO: Tidy up to obey law of demeter
-        print(gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId)?.position)
+        //print(gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId)?.position)
 
         position = gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId)?.position.get()
 
-        gameWorld.systemManager.update(after: 1/60)
+        await publishData()
+
+        //gameWorld.systemManager.update(after: 1/60)
         //publishData()
     }
 
@@ -61,30 +65,16 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
-    func publishData() {
-        guard let position = position else {
+    // TODO: Find a way to obey law of demeter
+    func publishData() async {
+        guard let foundEntity = entities.first(where: { $0.id == currPlayerId }) else {
+            print("No entity found with ID: \(currPlayerId)")
             return
         }
-        let newCenter = Point(xCoord: Double(position.x), yCoord: Double(position.y))
-        Task {
-            try? await manager.updateEntity(id: currPlayerId, position: newCenter)
-        }
-    }
 
-    /*
-    // TODO: Deprecate
-    func changePosition(newPosition: CGPoint) {
-        let newCenter = Point(xCoord: newPosition.x, yCoord: newPosition.y)
+        try? await manager.uploadEntity(entity: foundEntity, entityName: "Player", component: gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId))
 
-        if let index = entities.firstIndex(where: { $0.id == currPlayerId }) {
-            let entity = entities[index]
-            entity.shape.center.setCartesian(xCoord: newPosition.x, yCoord: newPosition.y)
-        }
-        Task {
-            try? await manager.updateEntity(id: currPlayerId, position: newCenter)
-        }
     }
-    */
 }
 
 extension CanvasViewModel {

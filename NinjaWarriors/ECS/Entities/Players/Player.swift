@@ -9,14 +9,15 @@ import Foundation
 
 class Player: Equatable, Entity {
     let id: EntityID
-    var shape: Shape
 
-    init(id: EntityID, shape: Shape) {
+    init(id: EntityID) {
         self.id = id
-        self.shape = shape
     }
 
+    // TODO: remove hardcode
     func getInitializingComponents() -> [Component] {
+        let shape = Shape(center: Constants.playerOnePosition, halfLength: Constants.defaultSize)
+
         let playerRigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: self,
                                         angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
                                         rotation: 0.0, totalForce: Vector.zero, inertia: 0.0,
@@ -25,7 +26,6 @@ class Player: Equatable, Entity {
 
         // Create the default Collider component for the player
         let playerCollider = Collider(id: RandomNonce().randomNonceString(), entity: self, colliderShape: shape)
-        // TODO: remove hardcode
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
                                       entity: self, skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
                                                              DashSkill(id: "dash", cooldownDuration: 8.0),
@@ -36,19 +36,8 @@ class Player: Equatable, Entity {
         return [playerRigidbody, playerCollider, skillCaster, spriteComponent]
     }
 
-    // TODO: Must remove this and make change based on system instead
-    ///*
-    func getPosition() -> CGPoint {
-        shape.getCenter()
-    }
-
-    func changePosition(to center: Point) {
-        shape.center = center
-    }
-    //*/
-
     func wrapper() -> EntityWrapper? {
-        return PlayerWrapper(id: id, shape: shape.toShapeWrapper())
+        return PlayerWrapper(id: id)
     }
 
     static func == (lhs: Player, rhs: Player) -> Bool {
