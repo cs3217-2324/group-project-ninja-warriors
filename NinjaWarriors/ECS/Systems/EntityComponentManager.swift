@@ -7,9 +7,7 @@
 
 import Foundation
 
-// TODO: Change all entity id and component id to return the entity and component itself
 class EntityComponentManager {
-    // TODO: Change to [Entity: Set<Component>]
     var entityComponentMap: [EntityID: Set<Component>]
     var entityMap: [EntityID: Entity]
     var componentMap: [ComponentType: Set<Component>]

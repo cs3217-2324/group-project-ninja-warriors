@@ -101,6 +101,8 @@
 		91D496FC2BB0591D0027C657 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9132AF8C2BA7E9CA000F2AC4 /* GoogleService-Info.plist */; };
 		91DDE6522BB3806100851603 /* ComponentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE6512BB3806100851603 /* ComponentType.swift */; };
 		91DDE6562BB4460800851603 /* SystemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE6552BB4460800851603 /* SystemType.swift */; };
+		91DDE6582BB5118400851603 /* EntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE6572BB5118400851603 /* EntityType.swift */; };
+		91DDE65B2BB51D8800851603 /* AnyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE65A2BB51D8800851603 /* AnyEntity.swift */; };
 		91EF1F892BAECA20000B52A2 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F882BAECA20000B52A2 /* FirebaseAnalyticsSwift */; };
 		91EF1F8B2BAECA20000B52A2 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8A2BAECA20000B52A2 /* FirebaseDatabaseSwift */; };
 		91EF1F8D2BAECA20000B52A2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8C2BAECA20000B52A2 /* FirebaseFirestoreSwift */; };
@@ -227,6 +229,8 @@
 		91C65BE62BACF1BF0085D96F /* SkillCaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCaster.swift; sourceTree = "<group>"; };
 		91DDE6512BB3806100851603 /* ComponentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentType.swift; sourceTree = "<group>"; };
 		91DDE6552BB4460800851603 /* SystemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemType.swift; sourceTree = "<group>"; };
+		91DDE6572BB5118400851603 /* EntityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityType.swift; sourceTree = "<group>"; };
+		91DDE65A2BB51D8800851603 /* AnyEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyEntity.swift; sourceTree = "<group>"; };
 		91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTests.swift; sourceTree = "<group>"; };
 		91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveTests.swift; sourceTree = "<group>"; };
 		E6A0564C2BB0687500398D67 /* DodgeSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeSkill.swift; sourceTree = "<group>"; };
@@ -358,10 +362,12 @@
 		9136A5B62BA9943900197971 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				9132AF832BA5A871000F2AC4 /* Players */,
 				7113A4932BA60E2E00805340 /* Entity.swift */,
 				9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */,
-				E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */,
+				91DDE6572BB5118400851603 /* EntityType.swift */,
+				9132AF832BA5A871000F2AC4 /* Players */,
+				91DDE6592BB5122600851603 /* Slash */,
+				91DDE65A2BB51D8800851603 /* AnyEntity.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -629,6 +635,14 @@
 			path = GameSystem;
 			sourceTree = "<group>";
 		};
+		91DDE6592BB5122600851603 /* Slash */ = {
+			isa = PBXGroup;
+			children = (
+				E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */,
+			);
+			path = Slash;
+			sourceTree = "<group>";
+		};
 		91EF1F982BAED4F8000B52A2 /* MultiplayerTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -868,6 +882,7 @@
 				9132AF662BA50E9A000F2AC4 /* RigidbodyHandler.swift in Sources */,
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
 				E6ECF6382BADE99700DDDE9C /* SlashAOESkill.swift in Sources */,
+				91DDE6582BB5118400851603 /* EntityType.swift in Sources */,
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
 				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
@@ -886,6 +901,7 @@
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
 				916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */,
 				E6A0564F2BB0691B00398D67 /* RefreshCooldownsSkill.swift in Sources */,
+				91DDE65B2BB51D8800851603 /* AnyEntity.swift in Sources */,
 				916A7D8B2BA1A0D400319C26 /* SignInView.swift in Sources */,
 				916A7D8E2BA1A1C500319C26 /* SignInViewModel.swift in Sources */,
 				7113A4962BA60E8400805340 /* Component.swift in Sources */,

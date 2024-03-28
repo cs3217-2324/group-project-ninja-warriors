@@ -62,6 +62,13 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
+    func getCurrPlayer() -> Entity? {
+        for entity in entities where entity.id == currPlayerId {
+            return entity
+        }
+        return nil
+    }
+
     // TODO: Find a way to obey law of demeter
     func publishData() async {
         guard let foundEntity = entities.first(where: { $0.id == currPlayerId }) else {
@@ -75,7 +82,8 @@ final class CanvasViewModel: ObservableObject {
 }
 
 extension CanvasViewModel {
-    func activateSkill(forEntityWithId entityId: String, skillId: String) {
+    func activateSkill(forEntity entity: Entity, skillId: String) {
+        let entityId = entity.id
         guard let skillCasterComponent = gameWorld.entityComponentManager
             .getComponentFromId(ofType: SkillCaster.self, of: entityId) else {
             print("No SkillCaster component found for entity with ID: \(entityId)")
@@ -85,7 +93,8 @@ extension CanvasViewModel {
         skillCasterComponent.queueSkillActivation(skillId)
     }
 
-    func getSkillIds(for entityId: String) -> [String] {
+    func getSkillIds(for entity: Entity) -> [String] {
+        let entityId = entity.id
         let skillCaster = gameWorld.entityComponentManager
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
         
@@ -97,7 +106,8 @@ extension CanvasViewModel {
         }
     }
     
-    func getSkills(for entityId: String) -> [Dictionary<SkillID, any Skill>.Element] {
+    func getSkills(for entity: Entity) -> [Dictionary<SkillID, any Skill>.Element] {
+        let entityId = entity.id
         let skillCaster = gameWorld.entityComponentManager
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
         

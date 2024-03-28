@@ -43,12 +43,11 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         // Move rigidbodies
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
         for rigidBody in rigidBodies {
-            guard let gameControl = gameControl else {
+            guard let gameControl = gameControl, let gameControlEntity = gameControl.entity else {
                 continue
             }
-            let gameControlEntityID = gameControl.entityID
             // TODO: Compare entity instead of just id
-            if rigidBody.entity.id == gameControlEntityID {
+            if rigidBody.entity.id == gameControlEntity.id {
                 rigidBody.velocity = gameControl.getInput()
             }
             rigidBody.update(dt: time)

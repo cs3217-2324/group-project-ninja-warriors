@@ -51,8 +51,6 @@ class Rigidbody: Component {
     func movePosition(by vector: Vector) {
         self.position = position.add(vector: vector)
 
-        print("move vector", vector, "to position", position)
-
         for collider in attachedColliders {
             collider.movePosition(by: vector)
         }
@@ -88,7 +86,7 @@ class Rigidbody: Component {
     func update(dt deltaTime: TimeInterval) {
         // Update position
 
-        let deltaPosition = velocity.scale(deltaTime * 2).add(vector: acceleration.scale(0.5 * pow(deltaTime, 2)))
+        let deltaPosition = velocity.scale(deltaTime).add(vector: acceleration.scale(0.5 * pow(deltaTime, 2)))
         movePosition(by: deltaPosition)
 
         // Update velocity

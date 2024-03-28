@@ -32,8 +32,8 @@ class GameWorld {
         systemManager.add(system: skillsManager)
     }
 
-    func setInput(_ vector: CGVector, for entityID: EntityID) {
-        gameControl.setInput(vector, for: entityID)
+    func setInput(_ vector: CGVector, for entity: Entity) {
+        gameControl.setInput(vector, for: entity)
     }
 
     private func setupGameLoop() {

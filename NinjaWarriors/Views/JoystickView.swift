@@ -61,7 +61,7 @@ struct JoystickView: View {
         innerCircleLocation = CGPoint(x: newX, y: newY)
 
         // Set input vector
-        let scaleFactor: CGFloat = 1
+        let scaleFactor: CGFloat = 2
         let vector = CGVector(dx: (newX - location.x) * scaleFactor,
                               dy: (newY - location.y) * scaleFactor)
 
