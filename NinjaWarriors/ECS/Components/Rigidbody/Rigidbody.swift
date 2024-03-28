@@ -61,13 +61,7 @@ class Rigidbody: Component {
     func moveRotation(to rotation: Double) {
         self.rotation = rotation
     }
-
-    /*
-    func getShape() -> Shape? {
-        entity.shape
-    }
-    */
-
+    
     func minDistancePoint() -> (Double, Point?) {
         var minDistance = Double.greatestFiniteMagnitude
         var closestPoint: Point?

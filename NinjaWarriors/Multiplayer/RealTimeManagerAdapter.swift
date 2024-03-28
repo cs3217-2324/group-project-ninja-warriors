@@ -156,21 +156,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         try await entitiesRef.child(entityName).child(entity.id).setValue(entityDict)
     }
 
-    /*
-    // Updates player position, and / or additional one component at a time
-    func updateEntity(id: EntityID, position: Point, component: Component? = nil) async throws {
-        let entity = try await getEntity(entityId: id)
-        guard let entity = entity else {
-            return
-        }
-        guard let entityType = try await getWrapperType(from: entity.id) else {
-            return
-        }
-        entity.shape.center.setCartesian(xCoord: position.xCoord, yCoord: position.yCoord)
-        try await uploadEntity(entity: entity, entityName: entityType)
-    }
-    */
-
     // Function to delete all keys except the specified one
     private func deleteAllKeysExcept(matchId: String) {
         let ref = Database.database().reference()
@@ -188,7 +173,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
             }
         }
     }
-
 
     // Add all entity listners
     func addPlayerListeners() -> [PlayerPublisher] {

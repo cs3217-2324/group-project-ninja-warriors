@@ -36,9 +36,6 @@ final class CanvasViewModel: ObservableObject {
         position = gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId)?.position.get()
 
         await publishData()
-
-        //gameWorld.systemManager.update(after: 1/60)
-        //publishData()
     }
 
     func addListeners() {

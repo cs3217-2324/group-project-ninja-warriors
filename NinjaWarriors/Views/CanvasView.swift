@@ -34,23 +34,24 @@ struct CanvasView: View {
                     ZStack {
                         ForEach(viewModel.entities.compactMap { $0 }, id: \.id) { entity in
                             VStack {
-                                Image("player-copy")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 50, height: 50)
-                                    // TODO: Fetch other player position from databse
-                                    // TODO: Remove hardcode dafault value
-                                    .position(viewModel.position ?? CGPoint(x: 400.0, y: 400.0))
+                                // TODO: Fetch other player position from database
+                                if let position = viewModel.position {
+                                    Image("player-copy")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 50, height: 50)
+                                        .position(position)
+                                }
+
                                 Text("\(entity.id)")
                             }
+
                         }
                     }
                     JoystickView(
                         playerPosition: $playerPosition,
                         setInputVector: { vector in
                             viewModel.gameWorld.setInput(vector, for: playerId)
-                            //viewModel.changePosition(newPosition: playerPosition)
-                            //viewModel.gameControl.setInputVector(vector)
                         }, location: CGPoint(x: 200, y: geometry.size.height - 300))
                     .frame(width: 200, height: 200)
                     VStack {
