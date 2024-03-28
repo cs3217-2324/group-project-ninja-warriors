@@ -15,9 +15,7 @@ struct RigidbodyWrapper: ComponentWrapper {
     var mass: Double
     var rotation: Double
     var totalForce: VectorWrapper
-    var gravityScale: Double
     var inertia: Double
-    var collisionDetectionMode: Bool
     var position: PointWrapper
     var velocity: VectorWrapper
     var attachedColliders: [ColliderWrapper]
@@ -34,9 +32,7 @@ struct RigidbodyWrapper: ComponentWrapper {
         }
         return Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
                          angularVelocity: angularVelocity, mass: mass, rotation: rotation,
-                         totalForce: totalForce.toVector(), gravityScale: gravityScale,
-                         inertia: inertia, collisionDetectionMode: collisionDetectionMode,
-                         position: position.toPoint(), velocity: velocity.toVector(),
+                         totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(), velocity: velocity.toVector(),
                          attachedColliders: collidersUnwrap)
     }
 }

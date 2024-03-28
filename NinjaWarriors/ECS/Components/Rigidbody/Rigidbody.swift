@@ -17,9 +17,7 @@ class Rigidbody: Component {
     var acceleration: Vector {
         totalForce.scale(1 / mass)
     }
-    var gravityScale: Double
     var inertia: Double
-    var collisionDetectionMode: Bool
     var position: Point
     var velocity: Vector
     var attachedColliders: [Collider]
@@ -28,16 +26,13 @@ class Rigidbody: Component {
     }
 
     init(id: EntityID, entity: Entity, angularDrag: Double, angularVelocity: Double, mass: Double,
-         rotation: Double, totalForce: Vector, gravityScale: Double, inertia: Double,
-         collisionDetectionMode: Bool, position: Point, velocity: Vector, attachedColliders: [Collider]) {
+         rotation: Double, totalForce: Vector, inertia: Double, position: Point, velocity: Vector, attachedColliders: [Collider]) {
         self.angularDrag = angularDrag
         self.angularVelocity = angularVelocity
         self.mass = mass
         self.rotation = rotation
         self.totalForce = totalForce
-        self.gravityScale = gravityScale
         self.inertia = inertia
-        self.collisionDetectionMode = collisionDetectionMode
         self.position = position
         self.velocity = velocity
         self.attachedColliders = attachedColliders
@@ -53,24 +48,10 @@ class Rigidbody: Component {
         attachedColliders.append(collider)
     }
 
-    func isAwake() -> Bool {
-        collisionDetectionMode
-    }
-
-    func isSleeping() -> Bool {
-        !collisionDetectionMode
-    }
-
-    func sleep() {
-        collisionDetectionMode = false
-    }
-
-    func wakeUp() {
-        collisionDetectionMode = true
-    }
-
     func movePosition(by vector: Vector) {
         self.position = position.add(vector: vector)
+
+        print("move vector", vector, "to position", position)
 
         for collider in attachedColliders {
             collider.movePosition(by: vector)
@@ -110,11 +91,14 @@ class Rigidbody: Component {
 
     func update(dt deltaTime: TimeInterval) {
         // Update position
+
         let deltaPosition = velocity.scale(deltaTime).add(vector: acceleration.scale(0.5 * pow(deltaTime, 2)))
         movePosition(by: deltaPosition)
 
         // Update velocity
         velocity = velocity.add(vector: acceleration.scale(deltaTime))
+
+        print("rigid body vel", velocity)
 
         // Reset force
         totalForce = Vector.zero
@@ -134,10 +118,8 @@ class Rigidbody: Component {
         return RigidbodyWrapper(id: id, entity: entity, angularDrag: angularDrag,
                                 angularVelocity: angularVelocity, mass: mass,
                                 rotation: rotation, totalForce: totalForce.toVectorWrapper(),
-                                gravityScale: gravityScale, inertia: inertia,
-                                collisionDetectionMode: collisionDetectionMode,
-                                position: position.toPointWrapper(), velocity: velocity.toVectorWrapper(),
-                                attachedColliders: wrapColliders)
+                                inertia: inertia, position: position.toPointWrapper(),
+                                velocity: velocity.toVectorWrapper(), attachedColliders: wrapColliders)
 
     }
 }

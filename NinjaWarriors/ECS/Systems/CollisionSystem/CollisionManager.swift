@@ -20,10 +20,18 @@ class CollisionManager: System {
         }
         let colliders = manager.getAllComponents(ofType: Collider.self)
         for collider in colliders {
-            for otherCollider in colliders where otherCollider.id != collider.id {
+            for otherCollider in colliders where otherCollider != collider {
                 if !checkSafeToInsert(source: collider.colliderShape, with: otherCollider.colliderShape) {
                     collider.isColliding = true
                     otherCollider.isColliding = true
+                    guard let otherCollidedEntityID = manager.getEntityId(from: otherCollider) else {
+                        continue
+                    }
+                    guard let collidedEntityID = manager.getEntityId(from: collider) else {
+                        continue
+                    }
+                    collider.collidedEntities.insert(otherCollidedEntityID)
+                    otherCollider.collidedEntities.insert(collidedEntityID)
                 }
             }
         }

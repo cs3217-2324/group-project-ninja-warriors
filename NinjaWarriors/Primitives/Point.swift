@@ -68,6 +68,10 @@ struct Point {
         return (xCoord, yCoord)
     }
 
+    func get() -> CGPoint {
+        CGPoint(x: xCoord, y: yCoord)
+    }
+
     func convertToVector() -> Vector {
         Vector(horizontal: xCoord, vertical: yCoord)
     }

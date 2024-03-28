@@ -19,9 +19,8 @@ class Player: Equatable, Entity {
     func getInitializingComponents() -> [Component] {
         let playerRigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: self,
                                         angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
-                                        rotation: 0.0, totalForce: Vector.zero, gravityScale: 1.0,
-                                        inertia: 0.0, collisionDetectionMode: true, position: shape.center,
-                                        velocity: Vector(horizontal: 5.0, vertical: 5.0),
+                                        rotation: 0.0, totalForce: Vector.zero, inertia: 0.0,
+                                        position: shape.center, velocity: Vector(horizontal: 0.0, vertical: 0.0),
                                         attachedColliders: [])
 
         // Create the default Collider component for the player

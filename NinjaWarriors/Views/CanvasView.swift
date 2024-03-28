@@ -13,11 +13,13 @@ struct CanvasView: View {
     @State private var isShowingEntityOverlay = false
 
     @State private var matchId: String
+    @State private var playerId: String
     @State private var joystickPosition: CGPoint = .zero
     @State private var playerPosition = CGPoint(x: 300.0, y: 300.0)
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
+        self.playerId = currPlayerId
         self.viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
@@ -36,22 +38,21 @@ struct CanvasView: View {
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 50, height: 50)
-                                    .position(entity.shape.getCenter())
-                                    .position(x: playerPosition.x,
-                                              y: playerPosition.y)
+                                    // TODO: Fetch other player position from databse
+                                    // TODO: Remove hardcode dafault value
+                                    .position(viewModel.position ?? CGPoint(x: 400.0, y: 400.0))
                                 Text("\(entity.id)")
                             }
                         }
                     }
-                    if viewModel.gameControl is JoystickControl {
-                        JoystickView(
-                            playerPosition: $playerPosition,
-                            setInputVector: { vector in
-                                viewModel.changePosition(newPosition: playerPosition)
+                    JoystickView(
+                        playerPosition: $playerPosition,
+                        setInputVector: { vector in
+                            viewModel.gameWorld.setInput(vector, for: playerId)
+                            //viewModel.changePosition(newPosition: playerPosition)
                             //viewModel.gameControl.setInputVector(vector)
-                            }, location: CGPoint(x: 200, y: geometry.size.height - 300))
-                        .frame(width: 200, height: 200)
-                    }
+                        }, location: CGPoint(x: 200, y: geometry.size.height - 300))
+                    .frame(width: 200, height: 200)
                     VStack {
                         Spacer()
                         HStack {

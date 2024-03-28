@@ -9,9 +9,15 @@ import Foundation
 
 class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     var manager: EntityComponentManager?
+    var gameControl: GameControl?
 
     required init(for manager: EntityComponentManager) {
         self.manager = manager
+    }
+
+    convenience init(for manager: EntityComponentManager, with gameControl: GameControl) {
+        self.init(for: manager)
+        self.gameControl = gameControl
     }
 
     func update(after time: TimeInterval) {
@@ -33,15 +39,20 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                 guard var otherRigidBody = manager.getComponent(ofType: Rigidbody.self, for: otherEntity) else {
                     return
                 }
-
                 doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
             }
         }
-
-        // TODO: Find a way to update the joystick vector into velocity
         // Move rigidbodies
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
         for rigidBody in rigidBodies {
+            guard let gameControl = gameControl else {
+                continue
+            }
+            let gameControlEntityID = gameControl.entityID
+            // TODO: Compare entity instead of just id
+            if rigidBody.entity.id == gameControlEntityID {
+                rigidBody.velocity = gameControl.getInput()
+            }
             rigidBody.update(dt: time)
         }
     }

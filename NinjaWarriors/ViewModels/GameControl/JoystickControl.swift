@@ -9,14 +9,19 @@ import Foundation
 
 class JoystickControl: GameControl {
     internal var inputVector: CGVector = .zero
+    internal var entityID: EntityID?
 
-    func getInputVector() -> CGVector {
-        return inputVector
+    func getInput() -> Vector {
+        return Vector(horizontal: inputVector.dx, vertical: inputVector.dy)
     }
 
-    func setInputVector(_ vector: CGVector) {
+    func setInput(_ vector: CGVector, for entityID: EntityID) {
         inputVector = vector
+        self.entityID = entityID
     }
 
-    init() {}
+    func setInput(_ vector: Vector, for entityID: EntityID) {
+        inputVector = CGVector(dx: vector.horizontal, dy: vector.vertical)
+        self.entityID = entityID
+    }
 }

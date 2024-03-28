@@ -9,6 +9,7 @@ import Foundation
 
 class Collider: Component {
     var colliderShape: Shape
+    // TODO: Change to Set<Entity>
     var collidedEntities: Set<EntityID>
     var isColliding: Bool = false
 

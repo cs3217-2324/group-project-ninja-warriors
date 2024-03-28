@@ -7,7 +7,9 @@
 
 import Foundation
 
+// TODO: Change all entity id and component id to return the entity and component itself
 class EntityComponentManager {
+    // TODO: Change to [Entity: Set<Component>]
     var entityComponentMap: [EntityID: Set<Component>]
     var entityMap: [EntityID: Entity]
     var componentMap: [ComponentType: Set<Component>]
@@ -66,6 +68,15 @@ class EntityComponentManager {
         assertRepresentation()
     }
 
+    func getEntityId(from component: Component) -> EntityID? {
+        for (entityID, components) in entityComponentMap {
+            if components.contains(component) {
+                return entityID
+            }
+        }
+        return nil
+    }
+
     // MARK: - Component-related functions
     /// Checks if an entity already has a component of a given type
     func containsComponent<T: Component>(ofType type: T.Type, for entity: Entity) -> Bool {
@@ -91,7 +102,8 @@ class EntityComponentManager {
         }
         component.entity = entity
 
-        componentMap[ComponentType(type(of: component))]?.insert(component)
+        let componentType = ComponentType(type(of: component))
+        componentMap[componentType, default: Set<Component>()].insert(component)
         entityComponentMap[entity.id]?.insert(component)
 
         assertRepresentation()

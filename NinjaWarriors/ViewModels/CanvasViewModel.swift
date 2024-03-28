@@ -14,12 +14,11 @@ final class CanvasViewModel: ObservableObject {
     @Published private(set) var manager: RealTimeManagerAdapter
     @Published private(set) var matchId: String
     @Published private(set) var currPlayerId: String
-    @Published private(set) var gameControl: GameControl
+    @Published private(set) var position: CGPoint? /*= CGPoint(x: 400.0, y: 400.0)*/
 
-    init(matchId: String, currPlayerId: String, gameControl: GameControl = JoystickControl()) {
+    init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.gameControl = gameControl
         manager = RealTimeManagerAdapter(matchId: matchId)
 
         gameWorld.start()
@@ -29,7 +28,13 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() {
+        // TODO: Tidy up to obey law of demeter
+        print(gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId)?.position)
+
+        position = gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId)?.position.get()
+
         gameWorld.systemManager.update(after: 1/60)
+        //publishData()
     }
 
     func addListeners() {
@@ -38,7 +43,6 @@ final class CanvasViewModel: ObservableObject {
                 self.entities = allEntities
             }
 
-            // TODO: Find a way to add listeners in one go
             let publishers = self.manager.addPlayerListeners()
             for publisher in publishers {
                 publisher.subscribe(update: { [unowned self] entities in
@@ -57,6 +61,18 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
+    func publishData() {
+        guard let position = position else {
+            return
+        }
+        let newCenter = Point(xCoord: Double(position.x), yCoord: Double(position.y))
+        Task {
+            try? await manager.updateEntity(id: currPlayerId, position: newCenter)
+        }
+    }
+
+    /*
+    // TODO: Deprecate
     func changePosition(newPosition: CGPoint) {
         let newCenter = Point(xCoord: newPosition.x, yCoord: newPosition.y)
 
@@ -68,6 +84,7 @@ final class CanvasViewModel: ObservableObject {
             try? await manager.updateEntity(id: currPlayerId, position: newCenter)
         }
     }
+    */
 }
 
 extension CanvasViewModel {
