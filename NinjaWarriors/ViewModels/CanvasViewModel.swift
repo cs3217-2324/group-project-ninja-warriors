@@ -34,7 +34,6 @@ final class CanvasViewModel: ObservableObject {
     func updateViewModel() async {
         // TODO: Tidy up to obey law of demeter
         // TODO: Only update those positions that changed
-
         let rigidbodies = gameWorld.entityComponentManager.getAllComponents(ofType: Rigidbody.self)
         var rigidPositions: [CGPoint] = []
         for rigidbody in rigidbodies {
@@ -45,6 +44,10 @@ final class CanvasViewModel: ObservableObject {
         await publishData()
     }
     
+    func updateViews() {
+        objectWillChange.send()
+    }
+
     func updateViews() {
         objectWillChange.send()
     }

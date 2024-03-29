@@ -16,65 +16,119 @@ class CollisionManager: System {
 
     func update(after time: TimeInterval) {
         let colliders = manager.getAllComponents(ofType: Collider.self)
+
         for collider in colliders {
-            for otherCollider in colliders where otherCollider != collider {
-                if !checkSafeToInsert(source: collider.colliderShape, with: otherCollider.colliderShape) {
-                    collider.isColliding = true
-                    otherCollider.isColliding = true
-                    guard let otherCollidedEntityID = manager.getEntityId(from: otherCollider) else {
-                        continue
-                    }
-                    guard let collidedEntityID = manager.getEntityId(from: collider) else {
-                        continue
-                    }
-                    collider.collidedEntities.insert(otherCollidedEntityID)
-                    otherCollider.collidedEntities.insert(collidedEntityID)
-                } else {
-                    collider.isColliding = false
-                    otherCollider.isColliding = false
-                }
-            }
+            handleCollisions(for: collider, colliders: colliders)
         }
     }
 
-    func checkSafeToInsert(source object: Shape, with shape: Shape) -> Bool {
-        /*
-        print("collision", isNotIntersecting(source: object, with: shape),
-              !isIntersecting(source: object, with: shape),
-              !isOverlap(source: object, with: shape),
-              !pointInside(object: object, point: shape.getCenter()),
-              !pointInside(object: shape, point: object.getCenter()))
-        */
-        return isNotIntersecting(source: object, with: shape)
-        && !isIntersecting(source: object, with: shape)
-        && !isOverlap(source: object, with: shape)
-        && !pointInside(object: object, point: shape.getCenter())
-        && !pointInside(object: shape, point: object.getCenter())
+    private func handleCollisions(for collider: Collider, colliders: [Collider]) {
+        var isSafeToInsert = true
+
+        for otherCollider in colliders where otherCollider != collider {
+            if !checkSafeToInsert(source: collider.colliderShape, with: otherCollider.colliderShape, isColliding: collider.isColliding) {
+                handleCollisionBetween(collider, and: otherCollider)
+                isSafeToInsert = false
+                break
+            }
+        }
+        if isSafeToInsert {
+            handleBoundaries(for: collider)
+        }
+    }
+
+    private func handleCollisionBetween(_ collider: Collider, and otherCollider: Collider) {
+        collider.isColliding = true
+        otherCollider.isColliding = true
+
+        if let otherCollidedEntityID = manager.getEntityId(from: otherCollider),
+           let collidedEntityID = manager.getEntityId(from: collider) {
+            collider.collidedEntities.insert(otherCollidedEntityID)
+            otherCollider.collidedEntities.insert(collidedEntityID)
+        }
+    }
+
+    private func handleBoundaries(for collider: Collider) {
+        if !intersectingBoundaries(source: collider.colliderShape, isColliding: collider.isColliding) {
+            collider.isColliding = false
+            collider.colliderShape.resetOffset()
+            collider.collidedEntities.removeAll()
+            // TODO: Clear rigid body collider as well once 1-1 mapping has been implemented
+        } else {
+            collider.isColliding = true
+        }
+    }
+
+    func checkSafeToInsert(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
+        var shapeCenter: CGPoint
+        var objectCenter: CGPoint
+        // TODO: TBC
+        if isColliding {
+            shapeCenter = shape.getCenter()
+            objectCenter = object.getCenter()
+        } else {
+            shapeCenter = shape.getOffset()
+            objectCenter = object.getOffset()
+        }
+
+        return isNotIntersecting(source: object, with: shape, isColliding: isColliding)
+        && !isIntersecting(source: object, with: shape, isColliding: isColliding)
+        && !isOverlap(source: object, with: shape, isColliding: isColliding)
+        && !pointInside(object: object, point: shapeCenter)
+        && !pointInside(object: shape, point: objectCenter)
+    }
+
+    func intersectingBoundaries(source object: Shape, isColliding: Bool) -> Bool {
+        var center: Point
+        if isColliding {
+            center = object.offset
+        } else {
+            center = object.center
+        }
+        if (center.xCoord - object.halfLength <= 0)
+            || (center.xCoord + object.halfLength >= Constants.screenWidth)
+            || (center.yCoord - object.halfLength <= 0)
+            || (center.yCoord + object.halfLength >= Constants.screenHeight) {
+            return true
+        }
+        return false
     }
 
     // Non-Polygon - Non-Polygon Intersection (both do not contain edges)
-    private func isOverlap(source object: Shape, with shape: Shape) -> Bool {
-        let distanceObjectSquared: Double = object.center.squareDistance(to: shape.center)
+    private func isOverlap(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
+        var objectCenter: Point
+        let shapeCenter: Point = shape.center
+        if isColliding {
+            objectCenter = object.offset
+        } else {
+            objectCenter = object.center
+        }
+        let distanceObjectSquared: Double = objectCenter.squareDistance(to: shapeCenter)
         let sumHalfLengthSquared: Double = (object.halfLength + shape.halfLength)
         * (object.halfLength + shape.halfLength)
         return distanceObjectSquared < sumHalfLengthSquared
     }
 
     // Polygon - Non-Polygon Intersection (one contains edges)
-    private func isIntersecting(source object: Shape, with shape: Shape) -> Bool {
+    private func isIntersecting(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
         guard let edges = shape.edges ?? object.edges else {
             return false
         }
-        return checkEdgePointIntersection(edges: edges, source: object, with: shape)
+        return checkEdgePointIntersection(edges: edges, source: object, with: shape, isColliding: isColliding)
     }
 
-    private func checkEdgePointIntersection(edges: [Line], source object: Shape, with shape: Shape) -> Bool {
+    private func checkEdgePointIntersection(edges: [Line], source object: Shape,
+                                            with shape: Shape, isColliding: Bool) -> Bool {
         var squaredLength: Double
         var objectCenter: Point
 
         if shape.edges != nil {
             squaredLength = object.halfLength * object.halfLength
-            objectCenter = object.center
+            if isColliding {
+                objectCenter = object.offset
+            } else {
+                objectCenter = object.center
+            }
         } else {
             squaredLength = shape.halfLength * shape.halfLength
             objectCenter = shape.center
@@ -96,7 +150,7 @@ class CollisionManager: System {
     }
 
     // Polygon - Polygon Intersection (both contains edges)
-    private func isNotIntersecting(source object: Shape, with shape: Shape) -> Bool {
+    private func isNotIntersecting(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
         guard let edges = object.edges, let objectEdges = shape.edges else {
             return true
         }

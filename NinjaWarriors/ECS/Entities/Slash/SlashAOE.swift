@@ -24,6 +24,10 @@ class SlashAOE: Entity {
         return [collider]
     }
 
+    func deepCopy() -> Entity {
+        SlashAOE(id: id, shape: shape.deepCopy(), casterEntity: casterEntity.deepCopy())
+    }
+
     func wrapper() -> EntityWrapper? {
         return EntityWrapper(id: id)
     }

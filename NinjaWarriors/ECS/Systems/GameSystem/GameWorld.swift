@@ -22,20 +22,14 @@ class GameWorld {
         setupGameLoop()
 
         let transformHandler = TransformHandler(for: entityComponentManager)
-        let collisionManager = CollisionManager(for: entityComponentManager)
         let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager, with: gameControl)
+        let collisionManager = CollisionManager(for: entityComponentManager)
         let skillsManager = SkillCasterSystem(for: entityComponentManager)
 
         systemManager.add(system: transformHandler)
-        systemManager.add(system: collisionManager)
         systemManager.add(system: rigidbodyHandler)
+        systemManager.add(system: collisionManager)
         systemManager.add(system: skillsManager)
-
-        /*
-        _ = $entityComponentManager.sink { [unowned self] _ in
-            self.updateViewModel()
-        }
-        */
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {

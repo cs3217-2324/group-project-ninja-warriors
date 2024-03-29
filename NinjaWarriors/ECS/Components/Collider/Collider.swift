@@ -20,7 +20,11 @@ class Collider: Component {
     }
 
     func movePosition(by vector: Vector) {
-        colliderShape.center = colliderShape.center.add(vector: vector)
+        if isColliding {
+            colliderShape.offset = colliderShape.offset.add(vector: vector)
+        } else {
+            colliderShape.center = colliderShape.center.add(vector: vector)
+        }
     }
 
     func getPosition() -> Point {
@@ -29,6 +33,10 @@ class Collider: Component {
 
     func distanceTo(collider: Collider) -> Double {
         self.getPosition().distance(to: collider.getPosition())
+    }
+
+    func deepCopy() -> Collider {
+        Collider(id: id, entity: entity.deepCopy(), colliderShape: colliderShape.deepCopy())
     }
 
     override func wrapper() -> ComponentWrapper? {
