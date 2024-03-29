@@ -34,7 +34,7 @@ class Player: Equatable, Entity {
                                         angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
                                         rotation: 0.0, totalForce: Vector.zero, inertia: 0.0,
                                         position: shape.center, velocity: Vector(horizontal: 0.0, vertical: 0.0),
-                                        attachedColliders: [playerCollider])
+                                        attachedCollider: playerCollider)
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: self, image: "player-copy", width: 50.0, height: 50.0, health: 10, maxHealth: 100)
 

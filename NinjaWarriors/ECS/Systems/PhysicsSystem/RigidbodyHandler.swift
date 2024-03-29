@@ -20,70 +20,50 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         self.gameControl = gameControl
     }
 
+    // Update function after a given time interval.
     func update(after time: TimeInterval) {
-        // Do elastic collisions for rigidbodies whose colliders have collided
+        handleElasticCollisions()
+        moveRigidBodies(with: time)
+    }
+
+    // Handle elastic collisions between colliding rigid bodies
+    private func handleElasticCollisions() {
         let colliders = manager.getAllComponents(ofType: Collider.self)
         for collider in colliders where collider.isColliding {
-            // Check if the collided entity has a rigidbody
             guard var rigidBody = manager.getComponent(ofType: Rigidbody.self, for: collider.entity) else {
                 return
             }
-            
             for collidedEntityID in collider.collidedEntities {
-                // Check if the other collided entity has a rigidbody
-                guard let otherEntity = manager.entity(with: collidedEntityID) else {
+                guard let otherEntity = manager.entity(with: collidedEntityID),
+                      var otherRigidBody = manager.getComponent(ofType: Rigidbody.self, for: otherEntity) else {
                     return
                 }
-                guard var otherRigidBody = manager.getComponent(ofType: Rigidbody.self, for: otherEntity) else {
-                    return
-                }
-                //doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
+                // Not fully implemented yet
+                // doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
             }
         }
-        // Move rigidbodies
-        let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
-        for rigidBody in rigidBodies {
-            let collider = rigidBody.attachedColliders[0]
+    }
 
-            guard let gameControl = gameControl, let gameControlEntity = gameControl.entity else {
+    // Move all rigid bodies according to their current velocities
+    private func moveRigidBodies(with deltaTime: TimeInterval) {
+        let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
+
+        for rigidBody in rigidBodies {
+            let collider = rigidBody.attachedCollider
+
+            guard let gameControl = gameControl,
+                  let gameControlEntity = gameControl.entity else {
                 continue
             }
 
-            /*
-            if collider.isColliding {
-                if rigidBody.entity.id == gameControlEntity.id {
-                    let rigidBodyCopy = rigidBody.deepCopy()
-                    rigidBodyCopy.velocity = gameControl.getInput()
-                    rigidBodyCopy.update(dt: time)
-                    let collisionManager = CollisionManager(for: EntityComponentManager())
-                    if collisionManager.intersectingBoundaries(source: rigidBodyCopy.attachedColliders[0].colliderShape) {
-                        rigidBody.velocity = Vector(horizontal: 0.0, vertical: 0.0)
-                    } else {
-                        rigidBody.velocity = gameControl.getInput()
-                    }
-                }
-            } else {
-                if rigidBody.entity.id == gameControlEntity.id {
-                    rigidBody.velocity = gameControl.getInput()
-                }
-            }
-            */
             if !collider.isColliding && rigidBody.entity.id == gameControlEntity.id  {
                 rigidBody.velocity = gameControl.getInput()
                 rigidBody.collidingVelocity = nil
-                print("not rigid colliding", rigidBody.collidingVelocity)
             } else if collider.isColliding && rigidBody.entity.id == gameControlEntity.id {
                 rigidBody.collidingVelocity = gameControl.getInput()
-                print("rigid colliding", rigidBody.collidingVelocity)
-
-                /*
-                rigidBody.velocity = calculateReflectedVelocity(velocity: rigidBody.velocity,
-                                                                collisionNormal: Vector(horizontal: 1.0, vertical: 0.0)).scale(0.01)
-                */
-                // rigidBody.velocity = Vector(horizontal: -50, vertical: 25)
-
             }
-            rigidBody.update(dt: time)
+
+            rigidBody.update(dt: deltaTime)
         }
     }
 
