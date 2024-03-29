@@ -37,7 +37,7 @@ struct LobbyView: View {
                            viewModel.playerIds != nil {
                             Text("\(matchId)")
                             NavigationLink(destination:
-                                            CanvasView(matchId: matchId,
+                                            RenderView(matchId: matchId,
                                                        currPlayerId: signInViewModel.getUserId() ??
                                                        "none").navigationBarBackButtonHidden(true)) {
                                 Text("Start Game")

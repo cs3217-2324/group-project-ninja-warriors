@@ -42,6 +42,10 @@ class Player: Equatable, Entity {
         return [playerRigidbody, playerCollider, skillCaster, spriteComponent]
     }
 
+    func deepCopy() -> Entity {
+        Player(id: id)
+    }
+
     func wrapper() -> EntityWrapper? {
         return PlayerWrapper(id: id)
     }

@@ -31,6 +31,10 @@ class Collider: Component {
         self.getPosition().distance(to: collider.getPosition())
     }
 
+    func deepCopy() -> Collider {
+        Collider(id: id, entity: entity.deepCopy(), colliderShape: colliderShape.deepCopy())
+    }
+
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
             return nil

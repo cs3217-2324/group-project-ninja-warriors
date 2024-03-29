@@ -13,5 +13,6 @@ protocol Entity: AnyObject {
 
     // Every entity must define the components that it needs to be created with
     func getInitializingComponents() -> [Component]
+    func deepCopy() -> Entity
     func wrapper() -> EntityWrapper?
 }

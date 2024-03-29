@@ -95,6 +95,20 @@ class Rigidbody: Component {
         totalForce = Vector.zero
     }
 
+    func deepCopyColliders() -> [Collider] {
+        var deepCopyColliders: [Collider] = []
+        for collider in attachedColliders {
+            deepCopyColliders.append(collider.deepCopy())
+        }
+        return deepCopyColliders
+    }
+
+    func deepCopy() -> Rigidbody {
+        Rigidbody(id: id, entity: entity, angularDrag: angularDrag, angularVelocity: angularVelocity,
+                  mass: mass, rotation: rotation, totalForce: totalForce, inertia: inertia,
+                  position: position, velocity: velocity, attachedColliders: deepCopyColliders())
+    }
+
     override func wrapper() -> ComponentWrapper? {
         guard let entity = entity.wrapper() else {
             return nil

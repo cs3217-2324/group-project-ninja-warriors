@@ -1,5 +1,5 @@
 //
-//  CanvasView.swift
+//  RenderView.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 15/3/24.
@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct CanvasView: View {
-    @ObservedObject var viewModel: CanvasViewModel
+struct RenderView: View {
+    @ObservedObject var viewModel: RenderViewModel
     @State private var isShowingEntityOverlay = false
 
     @State private var matchId: String
@@ -20,7 +20,7 @@ struct CanvasView: View {
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        self.viewModel = RenderViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
     var body: some View {
@@ -109,8 +109,8 @@ struct CanvasView: View {
     }
 }
 
-struct CanvasView_Previews: PreviewProvider {
+struct RenderView_Previews: PreviewProvider {
     static var previews: some View {
-        CanvasView(matchId: "SampleMatchID", currPlayerId: "SamplePlayerID")
+        RenderView(matchId: "SampleMatchID", currPlayerId: "SamplePlayerID")
     }
 }

@@ -39,12 +39,14 @@ class Shape {
         return vertices.count
     }
 
-    func makeDeepCopy() -> Shape? {
-        guard let edges = edges, let orientation = orientation, let vertices = vertices else {
-            return nil
+    func deepCopy() -> Shape {
+        if let edges = edges, let orientation = orientation, let vertices = vertices {
+            return Shape(center: center, halfLength: halfLength,
+                         orientation: orientation, edges: edges, vertices: vertices)
+        } else {
+            return Shape(center: center, halfLength: halfLength)
         }
-        return Shape(center: center, halfLength: halfLength,
-                     orientation: orientation, edges: edges, vertices: vertices)
+
     }
 }
 

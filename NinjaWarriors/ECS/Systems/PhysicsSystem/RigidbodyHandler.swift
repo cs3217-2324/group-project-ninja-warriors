@@ -37,17 +37,37 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                 guard var otherRigidBody = manager.getComponent(ofType: Rigidbody.self, for: otherEntity) else {
                     return
                 }
-                doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
+                //doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
             }
         }
         // Move rigidbodies
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
         for rigidBody in rigidBodies {
+            let collider = rigidBody.attachedColliders[0]
+
             guard let gameControl = gameControl, let gameControlEntity = gameControl.entity else {
                 continue
             }
-            if rigidBody.entity.id == gameControlEntity.id {
-                rigidBody.velocity = gameControl.getInput()
+
+            if collider.isColliding {
+                if rigidBody.entity.id == gameControlEntity.id {
+                    let rigidBodyCopy = rigidBody.deepCopy()
+                    rigidBodyCopy.velocity = gameControl.getInput()
+                    rigidBodyCopy.update(dt: time)
+                    let collisionManager = CollisionManager(for: EntityComponentManager())
+                    if collisionManager.intersectingBoundaries(source: rigidBodyCopy.attachedColliders[0].colliderShape) {
+                        print("still")
+                        rigidBody.velocity = Vector(horizontal: 0.0, vertical: 0.0)
+                    } else {
+                        rigidBody.velocity = gameControl.getInput()
+                        print("not intersecting anymore")
+                    }
+                }
+            } else {
+                print("else")
+                if rigidBody.entity.id == gameControlEntity.id {
+                    rigidBody.velocity = gameControl.getInput()
+                }
             }
             rigidBody.update(dt: time)
         }

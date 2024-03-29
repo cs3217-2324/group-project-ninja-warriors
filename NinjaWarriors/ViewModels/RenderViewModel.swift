@@ -1,5 +1,5 @@
 //
-//  CanvasViewModel.swift
+//  RenderViewModel.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 15/3/24.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class CanvasViewModel: ObservableObject {
+final class RenderViewModel: ObservableObject {
     @Published var gameWorld: GameWorld
     @Published private(set) var entities: [Entity] = []
     @Published private(set) var manager: EntitiesManager
@@ -87,7 +87,7 @@ final class CanvasViewModel: ObservableObject {
     }
 }
 
-extension CanvasViewModel {
+extension RenderViewModel {
     func activateSkill(forEntity entity: Entity, skillId: String) {
         let entityId = entity.id
         guard let skillCasterComponent = gameWorld.entityComponentManager
@@ -95,7 +95,7 @@ extension CanvasViewModel {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }
-//        print("[CanvasViewModel] \(skillId) queued for activation")
+//        print("[RenderViewModel] \(skillId) queued for activation")
         skillCasterComponent.queueSkillActivation(skillId)
     }
 
