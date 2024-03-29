@@ -12,6 +12,9 @@
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
+		7183D07B2BB03C400078C960 /* EntityComponentManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07A2BB03C400078C960 /* EntityComponentManagerTests.swift */; };
+		7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */; };
+		7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07E2BB06E790078C960 /* SystemManagerTests.swift */; };
 		9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */; };
 		9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF572BA5087F000F2AC4 /* PlayersListener.swift */; };
 		9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF592BA50C1E000F2AC4 /* Publisher.swift */; };
@@ -152,6 +155,9 @@
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
+		7183D07A2BB03C400078C960 /* EntityComponentManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManagerTests.swift; sourceTree = "<group>"; };
+		7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECSTestUtils.swift; sourceTree = "<group>"; };
+		7183D07E2BB06E790078C960 /* SystemManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManagerTests.swift; sourceTree = "<group>"; };
 		9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPublisher.swift; sourceTree = "<group>"; };
 		9132AF572BA5087F000F2AC4 /* PlayersListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListener.swift; sourceTree = "<group>"; };
 		9132AF592BA50C1E000F2AC4 /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
@@ -298,6 +304,16 @@
 				9136A5B52BA9943100197971 /* Systems */,
 			);
 			path = ECS;
+			sourceTree = "<group>";
+		};
+		7183D0792BB03C2E0078C960 /* ECSTests */ = {
+			isa = PBXGroup;
+			children = (
+				7183D07A2BB03C400078C960 /* EntityComponentManagerTests.swift */,
+				7183D07E2BB06E790078C960 /* SystemManagerTests.swift */,
+				7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */,
+			);
+			path = ECSTests;
 			sourceTree = "<group>";
 		};
 		9132AF602BA50E46000F2AC4 /* PhysicsSystem */ = {
@@ -463,6 +479,7 @@
 		916A7D4E2BA1541800319C26 /* NinjaWarriorsTests */ = {
 			isa = PBXGroup;
 			children = (
+				7183D0792BB03C2E0078C960 /* ECSTests */,
 				91EF1F992BAED512000B52A2 /* PrimitiveTests */,
 				91EF1F982BAED4F8000B52A2 /* MultiplayerTests */,
 				916A7D4F2BA1541800319C26 /* NinjaWarriorsTests.swift */,
@@ -980,10 +997,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7183D07B2BB03C400078C960 /* EntityComponentManagerTests.swift in Sources */,
 				91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */,
+				7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */,
 				916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */,
 				915301C62BAEC670007F2A12 /* AuthenticationTests.swift in Sources */,
 				91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */,
+				7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
