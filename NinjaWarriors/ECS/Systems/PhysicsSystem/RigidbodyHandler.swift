@@ -49,6 +49,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                 continue
             }
 
+            /*
             if collider.isColliding {
                 if rigidBody.entity.id == gameControlEntity.id {
                     let rigidBodyCopy = rigidBody.deepCopy()
@@ -56,18 +57,31 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                     rigidBodyCopy.update(dt: time)
                     let collisionManager = CollisionManager(for: EntityComponentManager())
                     if collisionManager.intersectingBoundaries(source: rigidBodyCopy.attachedColliders[0].colliderShape) {
-                        print("still")
                         rigidBody.velocity = Vector(horizontal: 0.0, vertical: 0.0)
                     } else {
                         rigidBody.velocity = gameControl.getInput()
-                        print("not intersecting anymore")
                     }
                 }
             } else {
-                print("else")
                 if rigidBody.entity.id == gameControlEntity.id {
                     rigidBody.velocity = gameControl.getInput()
                 }
+            }
+            */
+            if !collider.isColliding && rigidBody.entity.id == gameControlEntity.id  {
+                rigidBody.velocity = gameControl.getInput()
+                rigidBody.collidingVelocity = nil
+                print("not rigid colliding", rigidBody.collidingVelocity)
+            } else if collider.isColliding && rigidBody.entity.id == gameControlEntity.id {
+                rigidBody.collidingVelocity = gameControl.getInput()
+                print("rigid colliding", rigidBody.collidingVelocity)
+
+                /*
+                rigidBody.velocity = calculateReflectedVelocity(velocity: rigidBody.velocity,
+                                                                collisionNormal: Vector(horizontal: 1.0, vertical: 0.0)).scale(0.01)
+                */
+                // rigidBody.velocity = Vector(horizontal: -50, vertical: 25)
+
             }
             rigidBody.update(dt: time)
         }
@@ -107,6 +121,18 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         collider.velocity = resultantNormVel.add(vector: resultantTanVel)
         collidee.velocity = collider.velocity.getComplement()
         collider.velocity = collider.velocity.scale(1)
+    }
+
+    internal func calculateReflectedVelocity(velocity: Vector, collisionNormal: Vector) -> Vector {
+        let velocityMagnitude = velocity.getLength()
+        let normal = collisionNormal.normalize()
+
+        let velocityProjection = velocity.dotProduct(with: normal)
+        let velocityProjectionVector = normal.scale(velocityProjection)
+
+        let reflectedVelocity = velocity.subtract(vector: velocityProjectionVector.scale(2))
+
+        return reflectedVelocity.scale(velocityMagnitude)
     }
 
     func doElasticCollision(collider: inout Rigidbody, collidee: inout Rigidbody) {

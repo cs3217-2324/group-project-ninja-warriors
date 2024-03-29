@@ -9,6 +9,7 @@ import Foundation
 
 class Shape {
     var center: Point
+    var offset: Point
     var halfLength: Double
     var orientation: Double?
     var edges: [Line]?
@@ -16,12 +17,24 @@ class Shape {
 
     init (center: Point, halfLength: Double) {
         self.center = center
+        self.offset = center
         self.halfLength = halfLength
     }
 
     init (center: Point, halfLength: Double,
           orientation: Double, edges: [Line], vertices: [Point]) {
         self.center = center
+        self.offset = center
+        self.halfLength = halfLength
+        self.orientation = orientation
+        self.edges = edges
+        self.vertices = vertices
+    }
+
+    init (center: Point, offset: Point, halfLength: Double,
+          orientation: Double, edges: [Line], vertices: [Point]) {
+        self.center = center
+        self.offset = center
         self.halfLength = halfLength
         self.orientation = orientation
         self.edges = edges
@@ -30,6 +43,14 @@ class Shape {
 
     func getCenter() -> CGPoint {
         CGPoint(x: center.xCoord, y: center.yCoord)
+    }
+
+    func getOffset() -> CGPoint {
+        CGPoint(x: offset.xCoord, y: offset.yCoord)
+    }
+
+    func resetOffset() {
+        offset = center
     }
 
     func countVetices() -> Int {
@@ -41,7 +62,7 @@ class Shape {
 
     func deepCopy() -> Shape {
         if let edges = edges, let orientation = orientation, let vertices = vertices {
-            return Shape(center: center, halfLength: halfLength,
+            return Shape(center: center, offset: offset, halfLength: halfLength,
                          orientation: orientation, edges: edges, vertices: vertices)
         } else {
             return Shape(center: center, halfLength: halfLength)
@@ -83,6 +104,7 @@ extension Shape {
         let verticesWrapper = createVerticesWrapper()
 
         return ShapeWrapper(center: center.toPointWrapper(),
+                            offset: offset.toPointWrapper(),
                             orientation: orientation ?? 0.0,
                             halfLength: halfLength,
                             edges: edgesWrapper,

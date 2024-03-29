@@ -9,6 +9,7 @@ import Foundation
 
 struct ShapeWrapper: Codable {
     var center: PointWrapper
+    var offset: PointWrapper
     var orientation: Double
     var halfLength: Double
     var edges: [LineWrapper]
@@ -16,6 +17,7 @@ struct ShapeWrapper: Codable {
 
     func toShape() -> Shape {
         let center = center.toPoint()
+        let offset = offset.toPoint()
         var objectEdges: [Line] = []
         for edge in edges {
             objectEdges.append(edge.toLine())
@@ -24,7 +26,7 @@ struct ShapeWrapper: Codable {
         for vertex in vertices {
             objectVertices.append(vertex.toPoint())
         }
-        return Shape(center: center, halfLength: halfLength,
+        return Shape(center: center, offset: offset, halfLength: halfLength,
                           orientation: orientation, edges: objectEdges, vertices: objectVertices)
     }
 }

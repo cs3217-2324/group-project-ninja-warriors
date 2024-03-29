@@ -20,7 +20,11 @@ class Collider: Component {
     }
 
     func movePosition(by vector: Vector) {
-        colliderShape.center = colliderShape.center.add(vector: vector)
+        if isColliding {
+            colliderShape.offset = colliderShape.offset.add(vector: vector)
+        } else {
+            colliderShape.center = colliderShape.center.add(vector: vector)
+        }
     }
 
     func getPosition() -> Point {

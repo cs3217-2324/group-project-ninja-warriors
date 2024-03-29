@@ -19,7 +19,9 @@ class Rigidbody: Component {
     }
     var inertia: Double
     var position: Point
+    var offset: Point
     var velocity: Vector
+    var collidingVelocity: Vector?
     var attachedColliders: [Collider]
     var attachedColliderCount: Int {
         attachedColliders.count
@@ -34,6 +36,25 @@ class Rigidbody: Component {
         self.totalForce = totalForce
         self.inertia = inertia
         self.position = position
+        self.offset = position
+        self.velocity = velocity
+        self.attachedColliders = attachedColliders
+
+        super.init(id: id, entity: entity)
+    }
+
+    init(id: EntityID, entity: Entity, angularDrag: Double, angularVelocity: Double, mass: Double,
+         rotation: Double, totalForce: Vector, inertia: Double, position: Point, offset: Point,
+         velocity: Vector, attachedColliders: [Collider]) {
+        self.angularDrag = angularDrag
+        self.angularVelocity = angularVelocity
+        self.mass = mass
+        self.rotation = rotation
+        self.totalForce = totalForce
+        self.inertia = inertia
+        self.position = position
+        self.offset = offset
+        self.offset = position
         self.velocity = velocity
         self.attachedColliders = attachedColliders
 
@@ -49,8 +70,9 @@ class Rigidbody: Component {
     }
 
     func movePosition(by vector: Vector) {
-        self.position = position.add(vector: vector)
-
+        if collidingVelocity == nil {
+            self.position = position.add(vector: vector)
+        }
         for collider in attachedColliders {
             collider.movePosition(by: vector)
         }
@@ -84,15 +106,31 @@ class Rigidbody: Component {
     }
 
     func update(dt deltaTime: TimeInterval) {
-        // Update position
-        let deltaPosition = velocity.scale(deltaTime).add(vector: acceleration.scale(0.5 * pow(deltaTime, 2)))
-        movePosition(by: deltaPosition)
 
-        // Update velocity
-        velocity = velocity.add(vector: acceleration.scale(deltaTime))
+        if var collidingVelocity = collidingVelocity {
+            // Update position
+            let deltaPosition = collidingVelocity.scale(deltaTime).add(vector: acceleration.scale(0.5 * pow(deltaTime, 2)))
+            movePosition(by: deltaPosition)
 
-        // Reset force
-        totalForce = Vector.zero
+            collidingVelocity = collidingVelocity.add(vector: acceleration.scale(deltaTime))
+            self.collidingVelocity = collidingVelocity
+
+            // Update velocity
+            //collidingVelocity = collidingVelocity.add(vector: acceleration.scale(deltaTime))
+
+            // Reset force
+            totalForce = Vector.zero
+        } else {
+            // Update position
+            let deltaPosition = velocity.scale(deltaTime).add(vector: acceleration.scale(0.5 * pow(deltaTime, 2)))
+            movePosition(by: deltaPosition)
+
+            // Update velocity
+            velocity = velocity.add(vector: acceleration.scale(deltaTime))
+
+            // Reset force
+            totalForce = Vector.zero
+        }
     }
 
     func deepCopyColliders() -> [Collider] {
@@ -104,9 +142,11 @@ class Rigidbody: Component {
     }
 
     func deepCopy() -> Rigidbody {
-        Rigidbody(id: id, entity: entity, angularDrag: angularDrag, angularVelocity: angularVelocity,
-                  mass: mass, rotation: rotation, totalForce: totalForce, inertia: inertia,
-                  position: position, velocity: velocity, attachedColliders: deepCopyColliders())
+        return Rigidbody(id: id, entity: entity, angularDrag: angularDrag, angularVelocity: angularVelocity,
+                         mass: mass, rotation: rotation, totalForce: totalForce, inertia: inertia,
+                         position: position, offset: offset, velocity: velocity,
+                         attachedColliders: deepCopyColliders())
+
     }
 
     override func wrapper() -> ComponentWrapper? {
@@ -124,7 +164,6 @@ class Rigidbody: Component {
                                 angularVelocity: angularVelocity, mass: mass,
                                 rotation: rotation, totalForce: totalForce.toVectorWrapper(),
                                 inertia: inertia, position: position.toPointWrapper(),
-                                velocity: velocity.toVectorWrapper(), attachedColliders: wrapColliders)
-
+                                offset: offset.toPointWrapper(), velocity: velocity.toVectorWrapper(), attachedColliders: wrapColliders)
     }
 }
