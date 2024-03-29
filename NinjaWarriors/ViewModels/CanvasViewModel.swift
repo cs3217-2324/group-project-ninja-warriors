@@ -10,12 +10,12 @@ import SwiftUI
 
 @MainActor
 final class CanvasViewModel: ObservableObject {
-    @Published var gameWorld: GameWorld
-    @Published private(set) var entities: [Entity] = []
-    @Published private(set) var manager: EntitiesManager
-    @Published private(set) var matchId: String
-    @Published private(set) var currPlayerId: String
-    @Published var positions: [CGPoint]?
+    var gameWorld: GameWorld
+    private(set) var entities: [Entity] = []
+    private(set) var manager: EntitiesManager
+    private(set) var matchId: String
+    private(set) var currPlayerId: String
+    var positions: [CGPoint]?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -41,7 +41,12 @@ final class CanvasViewModel: ObservableObject {
             rigidPositions.append(rigidbody.position.get())
         }
         positions = rigidPositions
+        updateViews()
         await publishData()
+    }
+    
+    func updateViews() {
+        objectWillChange.send()
     }
 
     func addListeners() {
