@@ -30,12 +30,6 @@ class GameWorld {
         systemManager.add(system: rigidbodyHandler)
         systemManager.add(system: collisionManager)
         systemManager.add(system: skillsManager)
-
-        /*
-        _ = $entityComponentManager.sink { [unowned self] _ in
-            self.updateViewModel()
-        }
-        */
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {

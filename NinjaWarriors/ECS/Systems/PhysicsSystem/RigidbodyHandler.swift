@@ -20,13 +20,11 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         self.gameControl = gameControl
     }
 
-    // Update function after a given time interval.
     func update(after time: TimeInterval) {
-        handleElasticCollisions()
+        //handleElasticCollisions()
         moveRigidBodies(with: time)
     }
 
-    // Handle elastic collisions between colliding rigid bodies
     private func handleElasticCollisions() {
         let colliders = manager.getAllComponents(ofType: Collider.self)
         for collider in colliders where collider.isColliding {
@@ -39,7 +37,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                     return
                 }
                 // Not fully implemented yet
-                // doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
+                doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
             }
         }
     }
@@ -52,13 +50,15 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
             let collider = rigidBody.attachedCollider
 
             guard let gameControl = gameControl,
-                  let gameControlEntity = gameControl.entity else {
+                  let gameControlEntity = gameControl.entity,
+                  let collider = collider else {
                 continue
             }
 
             if !collider.isColliding && rigidBody.entity.id == gameControlEntity.id  {
                 rigidBody.velocity = gameControl.getInput()
                 rigidBody.collidingVelocity = nil
+                rigidBody.attachedCollider = nil
             } else if collider.isColliding && rigidBody.entity.id == gameControlEntity.id {
                 rigidBody.collidingVelocity = gameControl.getInput()
             }

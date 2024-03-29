@@ -34,7 +34,6 @@ final class RenderViewModel: ObservableObject {
     func updateViewModel() async {
         // TODO: Tidy up to obey law of demeter
         // TODO: Only update those positions that changed
-
         let rigidbodies = gameWorld.entityComponentManager.getAllComponents(ofType: Rigidbody.self)
         var rigidPositions: [CGPoint] = []
         for rigidbody in rigidbodies {

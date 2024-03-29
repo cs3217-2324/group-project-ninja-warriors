@@ -22,10 +22,10 @@ class Rigidbody: Component {
     var offset: Point
     var velocity: Vector
     var collidingVelocity: Vector?
-    var attachedCollider: Collider
+    var attachedCollider: Collider?
 
     init(id: EntityID, entity: Entity, angularDrag: Double, angularVelocity: Double, mass: Double,
-         rotation: Double, totalForce: Vector, inertia: Double, position: Point, velocity: Vector, attachedCollider: Collider) {
+         rotation: Double, totalForce: Vector, inertia: Double, position: Point, velocity: Vector, attachedCollider: Collider? = nil) {
         self.angularDrag = angularDrag
         self.angularVelocity = angularVelocity
         self.mass = mass
@@ -42,7 +42,7 @@ class Rigidbody: Component {
 
     init(id: EntityID, entity: Entity, angularDrag: Double, angularVelocity: Double, mass: Double,
          rotation: Double, totalForce: Vector, inertia: Double, position: Point, offset: Point,
-         velocity: Vector, attachedCollider: Collider) {
+         velocity: Vector, attachedCollider: Collider? = nil) {
         self.angularDrag = angularDrag
         self.angularVelocity = angularVelocity
         self.mass = mass
@@ -69,6 +69,9 @@ class Rigidbody: Component {
     func movePosition(by vector: Vector) {
         if collidingVelocity == nil {
             self.position = position.add(vector: vector)
+        }
+        guard let attachedCollider = attachedCollider else {
+            return
         }
         attachedCollider.movePosition(by: vector)
     }
@@ -98,10 +101,17 @@ class Rigidbody: Component {
     }
 
     func deepCopy() -> Rigidbody {
-        return Rigidbody(id: id, entity: entity, angularDrag: angularDrag, angularVelocity: angularVelocity,
-                         mass: mass, rotation: rotation, totalForce: totalForce, inertia: inertia,
-                         position: position, offset: offset, velocity: velocity,
-                         attachedCollider: attachedCollider.deepCopy())
+        if let attachedCollider = attachedCollider {
+            return Rigidbody(id: id, entity: entity, angularDrag: angularDrag, angularVelocity: angularVelocity,
+                             mass: mass, rotation: rotation, totalForce: totalForce, inertia: inertia,
+                             position: position, offset: offset, velocity: velocity,
+                             attachedCollider: attachedCollider.deepCopy())
+        } else {
+            return Rigidbody(id: id, entity: entity, angularDrag: angularDrag, angularVelocity: angularVelocity,
+                             mass: mass, rotation: rotation, totalForce: totalForce, inertia: inertia,
+                             position: position, offset: offset, velocity: velocity)
+        }
+
     }
 
     override func wrapper() -> ComponentWrapper? {
@@ -109,7 +119,7 @@ class Rigidbody: Component {
             return nil
         }
 
-        if let colliderWrap = attachedCollider.wrapper() as? ColliderWrapper {
+        if let colliderWrap = attachedCollider?.wrapper() as? ColliderWrapper {
             return RigidbodyWrapper(id: id, entity: entity, angularDrag: angularDrag,
                                     angularVelocity: angularVelocity, mass: mass,
                                     rotation: rotation, totalForce: totalForce.toVectorWrapper(),

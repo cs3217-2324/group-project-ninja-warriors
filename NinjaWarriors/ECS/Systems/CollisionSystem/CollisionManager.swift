@@ -52,6 +52,7 @@ class CollisionManager: System {
         if !intersectingBoundaries(source: collider.colliderShape, isColliding: collider.isColliding) {
             collider.isColliding = false
             collider.colliderShape.resetOffset()
+            collider.collidedEntities.removeAll()
             // TODO: Clear rigid body collider as well once 1-1 mapping has been implemented
         } else {
             collider.isColliding = true
@@ -73,10 +74,8 @@ class CollisionManager: System {
         return isNotIntersecting(source: object, with: shape, isColliding: isColliding)
         && !isIntersecting(source: object, with: shape, isColliding: isColliding)
         && !isOverlap(source: object, with: shape, isColliding: isColliding)
-        /*
-        && !pointInside(object: object, point: shapeCenter, isColliding: isColliding)
-        && !pointInside(object: shape, point: objectCenter, isColliding: isColliding)
-        */
+        && !pointInside(object: object, point: shapeCenter)
+        && !pointInside(object: shape, point: objectCenter)
     }
 
     func intersectingBoundaries(source object: Shape, isColliding: Bool) -> Bool {
@@ -118,7 +117,6 @@ class CollisionManager: System {
         return checkEdgePointIntersection(edges: edges, source: object, with: shape, isColliding: isColliding)
     }
 
-    // TODO: TBC on isColliding and setting of centers
     private func checkEdgePointIntersection(edges: [Line], source object: Shape,
                                             with shape: Shape, isColliding: Bool) -> Bool {
         var squaredLength: Double
