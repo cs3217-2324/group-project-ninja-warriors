@@ -58,7 +58,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
             if !collider.isColliding && rigidBody.entity.id == gameControlEntity.id  {
                 rigidBody.velocity = gameControl.getInput()
                 rigidBody.collidingVelocity = nil
-                rigidBody.attachedCollider = nil
             } else if collider.isColliding && rigidBody.entity.id == gameControlEntity.id {
                 rigidBody.collidingVelocity = gameControl.getInput()
             }

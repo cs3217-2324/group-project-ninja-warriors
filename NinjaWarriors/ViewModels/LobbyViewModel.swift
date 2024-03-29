@@ -51,7 +51,7 @@ final class LobbyViewModel: ObservableObject {
         guard var playerIds = playerIds else {
             return
         }
-        playerIds.append("opponent")
+        //playerIds.append("opponent")
         for playerId in playerIds {
             addPlayerToDatabase(id: playerId)
         }

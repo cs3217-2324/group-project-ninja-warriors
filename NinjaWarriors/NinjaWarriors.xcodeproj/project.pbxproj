@@ -81,8 +81,8 @@
 		916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAB2BA3FD4800319C26 /* LineWrapper.swift */; };
 		916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */; };
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
-		916A7DB22BA42F7F00319C26 /* RenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB12BA42F7F00319C26 /* RenderView.swift */; };
-		916A7DB42BA42F8B00319C26 /* RenderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* RenderViewModel.swift */; };
+		916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB12BA42F7F00319C26 /* CanvasView.swift */; };
+		916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */; };
 		9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* TriangleShape.swift */; };
 		9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* RectangleShape.swift */; };
 		9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */; };
@@ -217,8 +217,8 @@
 		916A7DAB2BA3FD4800319C26 /* LineWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineWrapper.swift; sourceTree = "<group>"; };
 		916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorWrapper.swift; sourceTree = "<group>"; };
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
-		916A7DB12BA42F7F00319C26 /* RenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderView.swift; sourceTree = "<group>"; };
-		916A7DB32BA42F8B00319C26 /* RenderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderViewModel.swift; sourceTree = "<group>"; };
+		916A7DB12BA42F7F00319C26 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
 		9180F9C52BAAE53F000CC390 /* TriangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleShape.swift; sourceTree = "<group>"; };
 		9180F9C72BAAE54A000CC390 /* RectangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleShape.swift; sourceTree = "<group>"; };
 		9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNonce.swift; sourceTree = "<group>"; };
@@ -506,7 +506,7 @@
 			children = (
 				916A7D882BA19F5100319C26 /* AuthenticationView.swift */,
 				916A7D8A2BA1A0D400319C26 /* SignInView.swift */,
-				916A7DB12BA42F7F00319C26 /* RenderView.swift */,
+				916A7DB12BA42F7F00319C26 /* CanvasView.swift */,
 				9132AF672BA53E54000F2AC4 /* LobbyView.swift */,
 				9132AF902BA83E54000F2AC4 /* JoystickView.swift */,
 				E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */,
@@ -519,7 +519,7 @@
 			children = (
 				915301C02BAE9314007F2A12 /* GameControl */,
 				916A7D8D2BA1A1C500319C26 /* SignInViewModel.swift */,
-				916A7DB32BA42F8B00319C26 /* RenderViewModel.swift */,
+				916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */,
 				9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */,
 			);
 			path = ViewModels;
@@ -896,7 +896,7 @@
 				91DDE6582BB5118400851603 /* EntityType.swift in Sources */,
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
-				916A7DB22BA42F7F00319C26 /* RenderView.swift in Sources */,
+				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
 				915301B22BAD1ADA007F2A12 /* Rigidbody.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
 				9132AF762BA59A30000F2AC4 /* FactoryListener.swift in Sources */,
@@ -938,7 +938,7 @@
 				9132AF7C2BA59C6C000F2AC4 /* Listener.swift in Sources */,
 				915301B52BAD1E85007F2A12 /* Collider.swift in Sources */,
 				9136A5BA2BAA8B3900197971 /* TransformHandler.swift in Sources */,
-				916A7DB42BA42F8B00319C26 /* RenderViewModel.swift in Sources */,
+				916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */,
 				916A7D952BA1AB2A00319C26 /* User.swift in Sources */,
 				916A7D892BA19F5100319C26 /* AuthenticationView.swift in Sources */,
 				714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */,

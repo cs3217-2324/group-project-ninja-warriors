@@ -1,5 +1,5 @@
 //
-//  RenderViewModel.swift
+//  CanvasViewModel.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 15/3/24.
@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class RenderViewModel: ObservableObject {
-    @Published var gameWorld: GameWorld
-    @Published private(set) var entities: [Entity] = []
-    @Published private(set) var manager: EntitiesManager
-    @Published private(set) var matchId: String
-    @Published private(set) var currPlayerId: String
-    @Published var positions: [CGPoint]?
+final class CanvasViewModel: ObservableObject {
+    var gameWorld: GameWorld
+    private(set) var entities: [Entity] = []
+    private(set) var manager: EntitiesManager
+    private(set) var matchId: String
+    private(set) var currPlayerId: String
+    var positions: [CGPoint]?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -40,7 +40,12 @@ final class RenderViewModel: ObservableObject {
             rigidPositions.append(rigidbody.position.get())
         }
         positions = rigidPositions
+        updateViews()
         await publishData()
+    }
+
+    func updateViews() {
+        objectWillChange.send()
     }
 
     func addListeners() {
@@ -86,7 +91,7 @@ final class RenderViewModel: ObservableObject {
     }
 }
 
-extension RenderViewModel {
+extension CanvasViewModel {
     func activateSkill(forEntity entity: Entity, skillId: String) {
         let entityId = entity.id
         guard let skillCasterComponent = gameWorld.entityComponentManager
@@ -94,7 +99,7 @@ extension RenderViewModel {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }
-//        print("[RenderViewModel] \(skillId) queued for activation")
+//        print("[CanvasViewModel] \(skillId) queued for activation")
         skillCasterComponent.queueSkillActivation(skillId)
     }
 
