@@ -8,11 +8,11 @@
 import Foundation
 import SwiftUI
 
-
 // Represents the game world, containing entities and systems
 class GameWorld {
-    // TODO: Populate entityComponentManager from realtime so that other entities can see the component as well
-    let entityComponentManager = EntityComponentManager()
+    // TODO: entityComponentManager need to have access to database so that other players will know
+    // what components others have, as well as to add entity on the fly
+    var entityComponentManager = EntityComponentManager()
     let systemManager = SystemManager()
     var gameLoopManager = GameLoopManager()
     var gameControl: GameControl = JoystickControl()
@@ -30,6 +30,12 @@ class GameWorld {
         systemManager.add(system: collisionManager)
         systemManager.add(system: rigidbodyHandler)
         systemManager.add(system: skillsManager)
+
+        /*
+        _ = $entityComponentManager.sink { [unowned self] _ in
+            self.updateViewModel()
+        }
+        */
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {

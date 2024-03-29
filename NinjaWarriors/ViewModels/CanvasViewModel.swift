@@ -6,20 +6,22 @@
 //
 
 import Foundation
+import SwiftUI
 
 @MainActor
 final class CanvasViewModel: ObservableObject {
-    @Published var gameWorld = GameWorld()
+    @Published var gameWorld: GameWorld
     @Published private(set) var entities: [Entity] = []
-    @Published private(set) var manager: RealTimeManagerAdapter
+    @Published private(set) var manager: EntitiesManager
     @Published private(set) var matchId: String
     @Published private(set) var currPlayerId: String
-    @Published private(set) var position: CGPoint?
+    @Published var positions: [CGPoint]?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        manager = RealTimeManagerAdapter(matchId: matchId)
+        self.manager = RealTimeManagerAdapter(matchId: matchId)
+        self.gameWorld = GameWorld()
 
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
@@ -31,10 +33,14 @@ final class CanvasViewModel: ObservableObject {
 
     func updateViewModel() async {
         // TODO: Tidy up to obey law of demeter
-        //print(gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId)?.position)
+        // TODO: Only update those positions that changed
 
-        position = gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId)?.position.get()
-
+        let rigidbodies = gameWorld.entityComponentManager.getAllComponents(ofType: Rigidbody.self)
+        var rigidPositions: [CGPoint] = []
+        for rigidbody in rigidbodies {
+            rigidPositions.append(rigidbody.position.get())
+        }
+        positions = rigidPositions
         await publishData()
     }
 
@@ -69,7 +75,7 @@ final class CanvasViewModel: ObservableObject {
         return nil
     }
 
-    // TODO: Find a way to obey law of demeter
+    // TODO: Find a way to obey law of demeter and upload all changed positions
     func publishData() async {
         guard let foundEntity = entities.first(where: { $0.id == currPlayerId }) else {
             print("No entity found with ID: \(currPlayerId)")

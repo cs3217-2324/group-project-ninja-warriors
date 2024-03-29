@@ -45,7 +45,7 @@ class EntityComponentManager {
         entityMap[entity.id] = entity
         entityComponentMap[entity.id] = []
 
-        // MARK: Insert intializing components of entity
+        // Insert intializing components of entity
         let newComponents = entity.getInitializingComponents()
         print("[EntityComponentManager] new", newComponents)
         newComponents.forEach({add(component: $0, to: entity)})

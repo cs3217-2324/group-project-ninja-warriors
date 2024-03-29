@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct JoystickView: View {
-    @Binding var playerPosition: CGPoint
     @State var location: CGPoint
     @State var innerCircleLocation: CGPoint
 
@@ -23,8 +22,7 @@ struct JoystickView: View {
         smallCircleRadius * 2
     }
 
-    init(playerPosition: Binding<CGPoint>, setInputVector: @escaping (CGVector) -> Void, location: CGPoint) {
-        _playerPosition = playerPosition
+    init(setInputVector: @escaping (CGVector) -> Void, location: CGPoint) {
         self.setInputVector = setInputVector
         self.location = location
         self.innerCircleLocation = location
@@ -65,12 +63,7 @@ struct JoystickView: View {
         let vector = CGVector(dx: (newX - location.x) * scaleFactor,
                               dy: (newY - location.y) * scaleFactor)
 
-        // TODO: Perhaps set game control vector here rather than canvas view
         setInputVector(vector)
-
-        // Update player position
-        playerPosition = CGPoint(x: max(0, playerPosition.x + vector.dx),
-                                 y: max(0, playerPosition.y + vector.dy))
     }
 
     var body: some View {

@@ -85,7 +85,6 @@ class Rigidbody: Component {
 
     func update(dt deltaTime: TimeInterval) {
         // Update position
-
         let deltaPosition = velocity.scale(deltaTime).add(vector: acceleration.scale(0.5 * pow(deltaTime, 2)))
         movePosition(by: deltaPosition)
 

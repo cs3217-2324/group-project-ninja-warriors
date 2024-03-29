@@ -48,9 +48,10 @@ final class LobbyViewModel: ObservableObject {
 
     // Add all relevant initial entities here
     func initPlayers(ids playerIds: [String]?) {
-        guard let playerIds = playerIds else {
+        guard var playerIds = playerIds else {
             return
         }
+        playerIds.append("opponent")
         for playerId in playerIds {
             addPlayerToDatabase(id: playerId)
         }

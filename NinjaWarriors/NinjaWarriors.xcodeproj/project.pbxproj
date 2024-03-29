@@ -103,6 +103,7 @@
 		91DDE6562BB4460800851603 /* SystemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE6552BB4460800851603 /* SystemType.swift */; };
 		91DDE6582BB5118400851603 /* EntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE6572BB5118400851603 /* EntityType.swift */; };
 		91DDE65B2BB51D8800851603 /* AnyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE65A2BB51D8800851603 /* AnyEntity.swift */; };
+		91DDE6602BB5720A00851603 /* SpriteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE65F2BB5720A00851603 /* SpriteWrapper.swift */; };
 		91EF1F892BAECA20000B52A2 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F882BAECA20000B52A2 /* FirebaseAnalyticsSwift */; };
 		91EF1F8B2BAECA20000B52A2 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8A2BAECA20000B52A2 /* FirebaseDatabaseSwift */; };
 		91EF1F8D2BAECA20000B52A2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8C2BAECA20000B52A2 /* FirebaseFirestoreSwift */; };
@@ -116,7 +117,7 @@
 		E6A0564F2BB0691B00398D67 /* RefreshCooldownsSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */; };
 		E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */; };
 		E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */; };
-		E6CDFFBD2BAEDA58007BB867 /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CDFFBC2BAEDA58007BB867 /* SpriteComponent.swift */; };
+		E6CDFFBD2BAEDA58007BB867 /* Sprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CDFFBC2BAEDA58007BB867 /* Sprite.swift */; };
 		E6CDFFC02BAF1DB0007BB867 /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFBF2BAF1DB0007BB867 /* player.png */; };
 		E6CDFFC22BAF22A1007BB867 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC12BAF22A1007BB867 /* grass.png */; };
 		E6CDFFC42BAF2306007BB867 /* player-copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC32BAF2306007BB867 /* player-copy.png */; };
@@ -231,13 +232,14 @@
 		91DDE6552BB4460800851603 /* SystemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemType.swift; sourceTree = "<group>"; };
 		91DDE6572BB5118400851603 /* EntityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityType.swift; sourceTree = "<group>"; };
 		91DDE65A2BB51D8800851603 /* AnyEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyEntity.swift; sourceTree = "<group>"; };
+		91DDE65F2BB5720A00851603 /* SpriteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteWrapper.swift; sourceTree = "<group>"; };
 		91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTests.swift; sourceTree = "<group>"; };
 		91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveTests.swift; sourceTree = "<group>"; };
 		E6A0564C2BB0687500398D67 /* DodgeSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeSkill.swift; sourceTree = "<group>"; };
 		E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCooldownsSkill.swift; sourceTree = "<group>"; };
 		E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoopHandler.swift; sourceTree = "<group>"; };
 		E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorld.swift; sourceTree = "<group>"; };
-		E6CDFFBC2BAEDA58007BB867 /* SpriteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
+		E6CDFFBC2BAEDA58007BB867 /* Sprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprite.swift; sourceTree = "<group>"; };
 		E6CDFFBF2BAF1DB0007BB867 /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
 		E6CDFFC12BAF22A1007BB867 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass.png; sourceTree = "<group>"; };
 		E6CDFFC32BAF2306007BB867 /* player-copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player-copy.png"; sourceTree = "<group>"; };
@@ -482,7 +484,7 @@
 			children = (
 				7113A4952BA60E8400805340 /* Component.swift */,
 				91DDE6512BB3806100851603 /* ComponentType.swift */,
-				E6CDFFBC2BAEDA58007BB867 /* SpriteComponent.swift */,
+				91DDE65C2BB5636600851603 /* Sprite */,
 				915301B32BAD1E7D007F2A12 /* Collider */,
 				915301B02BAD1AB6007F2A12 /* Rigidbody */,
 				91C65BE12BACF1790085D96F /* SkillComponent */,
@@ -641,6 +643,15 @@
 				E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */,
 			);
 			path = Slash;
+			sourceTree = "<group>";
+		};
+		91DDE65C2BB5636600851603 /* Sprite */ = {
+			isa = PBXGroup;
+			children = (
+				E6CDFFBC2BAEDA58007BB867 /* Sprite.swift */,
+				91DDE65F2BB5720A00851603 /* SpriteWrapper.swift */,
+			);
+			path = Sprite;
 			sourceTree = "<group>";
 		};
 		91EF1F982BAED4F8000B52A2 /* MultiplayerTests */ = {
@@ -906,7 +917,7 @@
 				916A7D8E2BA1A1C500319C26 /* SignInViewModel.swift in Sources */,
 				7113A4962BA60E8400805340 /* Component.swift in Sources */,
 				9132AF702BA58C61000F2AC4 /* MatchManager.swift in Sources */,
-				E6CDFFBD2BAEDA58007BB867 /* SpriteComponent.swift in Sources */,
+				E6CDFFBD2BAEDA58007BB867 /* Sprite.swift in Sources */,
 				9180F9D12BAB96C7000CC390 /* CodableWrapper.swift in Sources */,
 				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
 				E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */,
@@ -939,6 +950,7 @@
 				916A7DAA2BA3FBBF00319C26 /* AnyCodingKey.swift in Sources */,
 				916A7D6C2BA1550700319C26 /* Shape.swift in Sources */,
 				915301B92BAD8411007F2A12 /* ColliderWrapper.swift in Sources */,
+				91DDE6602BB5720A00851603 /* SpriteWrapper.swift in Sources */,
 				915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */,
 				9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */,
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,

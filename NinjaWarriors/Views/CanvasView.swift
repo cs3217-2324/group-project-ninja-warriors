@@ -15,7 +15,7 @@ struct CanvasView: View {
     @State private var matchId: String
     @State private var playerId: String
     @State private var joystickPosition: CGPoint = .zero
-    @State private var playerPosition = CGPoint(x: 300.0, y: 300.0)
+    @State private var renderedImage: Image?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -32,25 +32,30 @@ struct CanvasView: View {
             ZStack {
                 GeometryReader { geometry in
                     ZStack {
-                        ForEach(viewModel.entities.compactMap { $0 }, id: \.id) { entity in
-                            VStack {
-                                // TODO: Fetch other player position from database
-                                if let position = viewModel.position {
-                                    Image("player-copy")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 50, height: 50)
-                                        .position(position)
+                        Text("\(viewModel.entities.count)")
+                        if let positions = viewModel.positions, positions.count > 0 {
+                            ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
+                                VStack {
+                                    Group {
+                                        if let renderedImage = renderedImage {
+                                            renderedImage
+                                                .resizable()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 50, height: 50)
+                                                .position(positions[index])
+                                        } else {
+                                            Text("Loading...")
+                                        }
+                                    }
+                                    .onAppear {
+                                        renderImage(for: entity)
+                                    }
                                 }
-
-                                Text("\(entity.id)")
                             }
-
                         }
                     }
                     if let currPlayer = viewModel.getCurrPlayer() {
                         JoystickView(
-                            playerPosition: $playerPosition,
                             setInputVector: { vector in
                                 viewModel.gameWorld.setInput(vector, for: currPlayer)
                             }, location: CGPoint(x: 200, y: geometry.size.height - 300))
@@ -94,6 +99,12 @@ struct CanvasView: View {
                     viewModel.addListeners()
                 }
             }
+        }
+    }
+
+    private func renderImage(for entity: Entity) {
+        if let spriteComponent = viewModel.gameWorld.entityComponentManager.getComponent(ofType: Sprite.self, for: entity) {
+            renderedImage = Image(spriteComponent.image)
         }
     }
 }

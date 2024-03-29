@@ -29,13 +29,23 @@ class CollisionManager: System {
                     }
                     collider.collidedEntities.insert(otherCollidedEntityID)
                     otherCollider.collidedEntities.insert(collidedEntityID)
+                } else {
+                    collider.isColliding = false
+                    otherCollider.isColliding = false
                 }
             }
         }
     }
 
     func checkSafeToInsert(source object: Shape, with shape: Shape) -> Bool {
-        isNotIntersecting(source: object, with: shape)
+        /*
+        print("collision", isNotIntersecting(source: object, with: shape),
+              !isIntersecting(source: object, with: shape),
+              !isOverlap(source: object, with: shape),
+              !pointInside(object: object, point: shape.getCenter()),
+              !pointInside(object: shape, point: object.getCenter()))
+        */
+        return isNotIntersecting(source: object, with: shape)
         && !isIntersecting(source: object, with: shape)
         && !isOverlap(source: object, with: shape)
         && !pointInside(object: object, point: shape.getCenter())
@@ -43,22 +53,22 @@ class CollisionManager: System {
     }
 
     // Non-Polygon - Non-Polygon Intersection (both do not contain edges)
-    func isOverlap(source object: Shape, with shape: Shape) -> Bool {
+    private func isOverlap(source object: Shape, with shape: Shape) -> Bool {
         let distanceObjectSquared: Double = object.center.squareDistance(to: shape.center)
         let sumHalfLengthSquared: Double = (object.halfLength + shape.halfLength)
         * (object.halfLength + shape.halfLength)
-        return distanceObjectSquared > sumHalfLengthSquared
+        return distanceObjectSquared < sumHalfLengthSquared
     }
 
     // Polygon - Non-Polygon Intersection (one contains edges)
-    func isIntersecting(source object: Shape, with shape: Shape) -> Bool {
+    private func isIntersecting(source object: Shape, with shape: Shape) -> Bool {
         guard let edges = shape.edges ?? object.edges else {
             return false
         }
         return checkEdgePointIntersection(edges: edges, source: object, with: shape)
     }
 
-    func checkEdgePointIntersection(edges: [Line], source object: Shape, with shape: Shape) -> Bool {
+    private func checkEdgePointIntersection(edges: [Line], source object: Shape, with shape: Shape) -> Bool {
         var squaredLength: Double
         var objectCenter: Point
 
@@ -81,12 +91,12 @@ class CollisionManager: System {
         return false
     }
 
-    func distanceFromPointToLine(point: Point, line: Line) -> Double {
+    private func distanceFromPointToLine(point: Point, line: Line) -> Double {
         line.distanceFromPointToLine(point: point)
     }
 
     // Polygon - Polygon Intersection (both contains edges)
-    func isNotIntersecting(source object: Shape, with shape: Shape) -> Bool {
+    private func isNotIntersecting(source object: Shape, with shape: Shape) -> Bool {
         guard let edges = object.edges, let objectEdges = shape.edges else {
             return true
         }
@@ -105,27 +115,28 @@ class CollisionManager: System {
         return false
     }
 
-    func checkStartEndIntersect(_ point1: Point, _ point2: Point, _ point3: Point) -> Bool {
+    private func checkStartEndIntersect(_ point1: Point, _ point2: Point, _ point3: Point) -> Bool {
         (point3.yCoord - point1.yCoord) * (point2.xCoord - point1.xCoord) >
         (point2.yCoord - point1.yCoord) * (point3.xCoord - point1.xCoord)
     }
 
-    func linesIntersect(line1: Line, line2: Line) -> Bool {
+    private func linesIntersect(line1: Line, line2: Line) -> Bool {
         checkStartEndIntersect(line1.start, line2.start, line2.end) !=
         checkStartEndIntersect(line1.end, line2.start, line2.end) &&
         checkStartEndIntersect(line1.start, line1.end, line2.start) !=
         checkStartEndIntersect(line1.start, line1.end, line2.end)
     }
 
-    func pointOnLine(point: Point, line: Line) -> Bool {
+    private func pointOnLine(point: Point, line: Line) -> Bool {
         (point.xCoord >= min(line.start.xCoord, line.end.xCoord) &&
          point.xCoord <= max(line.start.xCoord, line.end.xCoord)) &&
         (point.yCoord >= min(line.start.yCoord, line.end.yCoord) &&
          point.yCoord <= max(line.start.yCoord, line.end.yCoord))
     }
 
+
     // Object inside of another object check
-    func pointInside(object: Shape, point: CGPoint) -> Bool {
+    private func pointInside(object: Shape, point: CGPoint) -> Bool {
         guard let vertices = object.vertices else {
             return false
         }

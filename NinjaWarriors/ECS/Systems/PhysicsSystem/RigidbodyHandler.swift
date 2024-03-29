@@ -46,7 +46,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
             guard let gameControl = gameControl, let gameControlEntity = gameControl.entity else {
                 continue
             }
-            // TODO: Compare entity instead of just id
             if rigidBody.entity.id == gameControlEntity.id {
                 rigidBody.velocity = gameControl.getInput()
             }
@@ -87,8 +86,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         let resultantTanVel = resultantTanVector(tanVec: tanVel, src: collider)
         collider.velocity = resultantNormVel.add(vector: resultantTanVel)
         collidee.velocity = collider.velocity.getComplement()
-        // TODO: Check if damp velocity is needed
-        // collider.velocity = collider.velocity.add(vector: dampVelocity)
+        collider.velocity = collider.velocity.scale(1)
     }
 
     func doElasticCollision(collider: inout Rigidbody, collidee: inout Rigidbody) {

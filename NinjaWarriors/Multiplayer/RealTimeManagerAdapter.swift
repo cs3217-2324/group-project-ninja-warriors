@@ -30,10 +30,18 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return Array(entitiesData.keys)
     }
 
+    private func getDict(from ref: DatabaseReference) async throws -> [String: [String: Any]] {
+        let dataSnapshot = try await ref.getData()
+        guard let dict = dataSnapshot.value as? [String: [String: Any]] else {
+            throw NSError(domain: "Invalid data format", code: -1, userInfo: nil)
+        }
+        return dict
+    }
+
     private func getEntititesDict() async throws -> [String: [String: Any]] {
         let dataSnapshot = try await entitiesRef.getData()
         guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
-            throw NSError(domain: "Invalid player data format", code: -1, userInfo: nil)
+            throw NSError(domain: "Invalid entity data format", code: -1, userInfo: nil)
         }
         return entitiesDict
     }
@@ -132,28 +140,72 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return componentDict
     }
 
+    // TODO: Take in an array of components instead
     func uploadEntity(entity: Entity, entityName: String, component: Component? = nil) async throws {
-        var entityDict = try formEntityDict(from: entity)
-        var components: [Component] = []
+        let entityRef = entitiesRef.child(entityName).child(entity.id)
+
+        entityRef.observeSingleEvent(of: .value) { [weak self] snapshot in
+            guard let self = self else { return }
+
+            if snapshot.exists() {
+                self.updateExistingEntity(snapshot, entityRef, entity, component)
+            } else {
+                self.createEntity(snapshot, entityRef, entity, component)
+            }
+        }
+    }
+
+    func updateExistingEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference, _ entity: Entity, _ component: Component?) {
+        guard var entityDict = snapshot.value as? [String: Any] else {
+            print("Data at \(entityRef) is not in the expected format")
+            return
+        }
+
+        guard let component = component else {
+            return
+        }
+
+        // Case 1a: If componentKey exists, merge newComponentDict with existingComponentDict
+        if entityDict[self.componentKey] is [String: Any] {
+            updateExistingComponent(&entityDict, component)
+        // Case 1b: If componentKey doesn't exist, append newComponentDict
+        } else {
+            appendNewComponent(&entityDict, component)
+        }
+
+        entityRef.setValue(entityDict)
+    }
+
+    func updateExistingComponent(_ entityDict: inout [String: Any], _ component: Component) {
+        guard var existingComponentDict = entityDict[componentKey] as? [String: Any] else { return }
+        let components = [component]
+        let newComponentDict = formComponentDict(from: components)
+        existingComponentDict.merge(newComponentDict) { (_, new) in new }
+        entityDict[componentKey] = existingComponentDict
+    }
+
+    func appendNewComponent(_ entityDict: inout [String: Any], _ component: Component) {
+        let components = [component]
+        let newComponentDict = formComponentDict(from: components)
+        entityDict[componentKey] = newComponentDict
+    }
+
+    func createEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference, _ entity: Entity, _ component: Component?) {
+        var newEntityDict: [String: Any] = [:]
+
+        if let entityDict = try? formEntityDict(from: entity) {
+            newEntityDict.merge(entityDict) { (_, new) in new }
+        }
 
         if let component = component {
-            components = [component]
-        } else {
-            components = entity.getInitializingComponents()
-        }
-        let componentDict = formComponentDict(from: components)
-
-        if var existingComponentDict = entityDict[componentKey] as? [String: Any] {
-            // Merge new component dictionary with existing one
-            existingComponentDict.merge(componentDict) { (_, new) in new }
-            // Update entityDict with merged component dictionary
-            entityDict[componentKey] = existingComponentDict
-        } else {
-            // If componentKey does not exist, simply set the component dictionary
-            entityDict[componentKey] = componentDict
+            appendNewComponent(&newEntityDict, component)
         }
 
-        try await entitiesRef.child(entityName).child(entity.id).setValue(entityDict)
+        let initializingComponents = entity.getInitializingComponents()
+        let initialComponentDict = formComponentDict(from: initializingComponents)
+        newEntityDict[componentKey] = initialComponentDict
+
+        entityRef.setValue(newEntityDict)
     }
 
     // Function to delete all keys except the specified one
