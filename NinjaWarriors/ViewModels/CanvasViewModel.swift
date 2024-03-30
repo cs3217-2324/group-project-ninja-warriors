@@ -33,7 +33,6 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() async {
-        // TODO: Tidy up to obey law of demeter
         var rigidbodies = gameWorld.entityComponentManager.getAllComponents(ofType: Rigidbody.self)
         rigidbodies = rearrageRigidbodies(rigidbodies: rigidbodies)
         var rigidPositions: [CGPoint] = []

@@ -9,28 +9,7 @@ import Foundation
 
 class Obstacle: Equatable, Entity {
     let id: EntityID
-    /*
-    let shape: Shape
-    let position: Point
-    let mass: Double
-    let width: Double
-    let height: Double
-    let image: String
-    */
-
-    /*
-    init(id: EntityID, shape: Shape, position: Point, mass: Double,
-         width: Double, height: Double, image: String) {
-        self.id = id
-        self.shape = shape
-        self.position = position
-        self.mass = mass
-        self.width = width
-        self.height = height
-        self.image = image
-    }
-    */
-
+    
     init(id: EntityID) {
         self.id = id
     }
@@ -62,18 +41,6 @@ class Obstacle: Equatable, Entity {
 
         return [collider, rigidbody, spriteComponent]
     }
-
-    /*
-    func deepCopy() -> Entity {
-        Obstacle(id: id, shape: shape, position: position, mass: mass,
-                 width: width, height: height, image: image)
-    }
-
-    func wrapper() -> EntityWrapper? {
-        return ObstacleWrapper(id: id, shape: shape.wrapper(), position: position.wrapper(),
-                               mass: mass, width: width, height: height, image: image)
-    }
-    */
 
     func deepCopy() -> Entity {
         Obstacle(id: id)

@@ -15,11 +15,11 @@ struct NinjaWarriorsApp: App {
     var body: some Scene {
         WindowGroup {
             // TODO: Remove after testing
-            //CanvasView(matchId: "oy3D5fA5M9ekwQycOrfj", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            //CanvasView(matchId: "aTwImDd1xQPq5P32YgJ6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            //CanvasView(matchId: "EGBGdEcu0wBTjoCcNKcN", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            //CanvasView(matchId: "bFrUBaoVzEQUPU5IsBLk, currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            AuthenticationView()
+            //CanvasView(matchId: "2d1NvyaH3GKGtGOLUwHV", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            CanvasView(matchId: "zSLmreubuKYSk7GpgJP6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "PkRyBoW0zgNTF9ktPb3d", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "9GhnqE6FqN1tn4C27Wh4, currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //AuthenticationView()
         }
     }
 }
