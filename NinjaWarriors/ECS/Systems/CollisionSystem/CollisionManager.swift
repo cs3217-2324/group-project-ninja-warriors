@@ -75,6 +75,7 @@ class CollisionManager: System {
         && !isOverlap(source: object, with: shape, isColliding: isColliding)
         && !pointInside(object: object, point: shapeCenter)
         && !pointInside(object: shape, point: objectCenter)
+        && !moveReduces(object: object, with: shape, isColliding: isColliding)
     }
 
     func intersectingBoundaries(source object: Shape, isColliding: Bool) -> Bool {
@@ -105,7 +106,36 @@ class CollisionManager: System {
         let distanceObjectSquared: Double = objectCenter.squareDistance(to: shapeCenter)
         let sumHalfLengthSquared: Double = (object.halfLength + shape.halfLength)
         * (object.halfLength + shape.halfLength)
-        return distanceObjectSquared < sumHalfLengthSquared
+        return (distanceObjectSquared < sumHalfLengthSquared)
+    }
+
+    // Checks if next movement during collision will still result in collision
+    private func moveReduces(object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
+        if isColliding && object.center != object.offset && shape.center == shape.offset {
+            var unitVector = (object.offset.subtract(point: object.center))
+            unitVector.scaleToSize(1)
+
+            let endPoint = object.center.add(vector: unitVector)
+
+            let prevSquaredDistance = object.center.squareDistance(to: shape.center)
+            let newSquaredDistance = endPoint.squareDistance(to: shape.center)
+
+            return newSquaredDistance < prevSquaredDistance
+
+        } else if isColliding && object.center != object.offset && shape.center != shape.offset {
+            var unitVector = (object.offset.subtract(point: object.center))
+            unitVector.scaleToSize(1)
+
+            let endPoint = object.center.add(vector: unitVector)
+
+            let prevSquaredDistance = object.center.squareDistance(to: shape.center)
+            let newSquaredDistance = endPoint.squareDistance(to: shape.offset)
+
+            return newSquaredDistance < prevSquaredDistance
+
+        } else {
+            return false
+        }
     }
 
     // Polygon - Non-Polygon Intersection (one contains edges)
