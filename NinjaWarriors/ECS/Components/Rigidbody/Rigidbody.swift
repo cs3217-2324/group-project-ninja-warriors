@@ -122,9 +122,9 @@ class Rigidbody: Component {
         if let colliderWrap = attachedCollider?.wrapper() as? ColliderWrapper {
             return RigidbodyWrapper(id: id, entity: entity, angularDrag: angularDrag,
                                     angularVelocity: angularVelocity, mass: mass,
-                                    rotation: rotation, totalForce: totalForce.toVectorWrapper(),
-                                    inertia: inertia, position: position.toPointWrapper(),
-                                    offset: offset.toPointWrapper(), velocity: velocity.toVectorWrapper(), attachedCollider: colliderWrap)
+                                    rotation: rotation, totalForce: totalForce.wrapper(),
+                                    inertia: inertia, position: position.wrapper(),
+                                    offset: offset.wrapper(), velocity: velocity.wrapper(), attachedCollider: colliderWrap)
         } else {
             return nil
         }

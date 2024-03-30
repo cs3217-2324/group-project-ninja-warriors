@@ -24,7 +24,7 @@ class TestEntity: Entity {
     }
 
     func wrapper() -> EntityWrapper? {
-        return TestEntityWrapper(id: id, shape: shape.toShapeWrapper())
+        return TestEntityWrapper(id: id, shape: shape.wrapper())
     }
 }
 

@@ -36,20 +36,11 @@ struct CanvasView: View {
                         if let positions = viewModel.positions, positions.count > 0 {
                             ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
                                 VStack {
-                                    Group {
-                                        if let renderedImage = renderedImage {
-                                            renderedImage
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: 50, height: 50)
-                                                .position(positions[index])
-                                        } else {
-                                            Text("Loading...")
-                                        }
-                                    }
-                                    .onAppear {
-                                        renderImage(for: entity)
-                                    }
+                                    Image(viewModel.entityImages[index])
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 50, height: 50)
+                                        .position(positions[index])
                                 }
                             }
                         }
@@ -58,7 +49,7 @@ struct CanvasView: View {
                         JoystickView(
                             setInputVector: { vector in
                                 viewModel.gameWorld.setInput(vector, for: currPlayer)
-                            }, location: CGPoint(x: 200, y: geometry.size.height - 300))
+                            }, location: CGPoint(x: 150, y: geometry.size.height - 250))
                         .frame(width: 200, height: 200)
                         VStack {
                             Spacer()
@@ -104,6 +95,7 @@ struct CanvasView: View {
 
     private func renderImage(for entity: Entity) {
         if let spriteComponent = viewModel.gameWorld.entityComponentManager.getComponent(ofType: Sprite.self, for: entity) {
+            print("spriteComponentImage", spriteComponent.image)
             renderedImage = Image(spriteComponent.image)
         }
     }

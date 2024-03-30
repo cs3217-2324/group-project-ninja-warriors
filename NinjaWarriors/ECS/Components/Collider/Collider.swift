@@ -44,7 +44,7 @@ class Collider: Component {
             return nil
         }
         return ColliderWrapper(id: id, entity: entityWrapper,
-                               colliderShape: colliderShape.toShapeWrapper(),
+                               colliderShape: colliderShape.wrapper(),
                                collidedEntities: collidedEntities)
     }
 }

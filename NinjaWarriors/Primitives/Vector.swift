@@ -104,7 +104,7 @@ struct Vector {
         return atan2(crossProduct, dotProduct)
     }
 
-    func toVectorWrapper() -> VectorWrapper {
+    func wrapper() -> VectorWrapper {
         VectorWrapper(horizontal: horizontal, vertical: vertical)
     }
 }

@@ -114,7 +114,7 @@ struct Point {
         Point(xCoord: self.xCoord, yCoord: self.yCoord)
     }
 
-    func toPointWrapper() -> PointWrapper {
+    func wrapper() -> PointWrapper {
         PointWrapper(xCoord: xCoord, yCoord: yCoord, radial: radial, theta: theta)
     }
 }

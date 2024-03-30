@@ -100,6 +100,13 @@ class EntityComponentManager {
         }
         component.entity = entity
 
+        ///*
+        if let test = component as? Sprite {
+            print("componentCheck", test.image)
+        }
+        //*/
+
+
         let componentType = ComponentType(type(of: component))
         componentMap[componentType, default: Set<Component>()].insert(component)
         entityComponentMap[entity.id]?.insert(component)

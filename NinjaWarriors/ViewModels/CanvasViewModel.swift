@@ -12,6 +12,7 @@ import SwiftUI
 final class CanvasViewModel: ObservableObject {
     var gameWorld: GameWorld
     private(set) var entities: [Entity] = []
+    private(set) var entityImages: [String] = []
     private(set) var manager: EntitiesManager
     private(set) var matchId: String
     private(set) var currPlayerId: String
@@ -33,9 +34,10 @@ final class CanvasViewModel: ObservableObject {
 
     func updateViewModel() async {
         // TODO: Tidy up to obey law of demeter
-        // TODO: Only update those positions that changed
-        let rigidbodies = gameWorld.entityComponentManager.getAllComponents(ofType: Rigidbody.self)
+        var rigidbodies = gameWorld.entityComponentManager.getAllComponents(ofType: Rigidbody.self)
+        rigidbodies = rearrageRigidbodies(rigidbodies: rigidbodies)
         var rigidPositions: [CGPoint] = []
+
         for rigidbody in rigidbodies {
             rigidPositions.append(rigidbody.position.get())
         }
@@ -43,11 +45,27 @@ final class CanvasViewModel: ObservableObject {
         updateViews()
         await publishData()
     }
-    
-    func updateViews() {
-        objectWillChange.send()
+
+    // Since EntityComponentManager have unordered sets,
+    // need to reorder based on entity index in entities
+    func rearrageRigidbodies(rigidbodies: [Rigidbody]) -> [Rigidbody] {
+        var rigidbodyMap = [EntityID: Rigidbody]()
+
+        for rigidbody in rigidbodies {
+            rigidbodyMap[rigidbody.entity.id] = rigidbody
+        }
+        var rearrangedRigidBodies = [Rigidbody]()
+
+        // Rearrange the rigid bodies based on the order of the entities
+        for entity in entities {
+            if let rigidbody = rigidbodyMap[entity.id] {
+                rearrangedRigidBodies.append(rigidbody)
+            }
+        }
+        return rearrangedRigidBodies
     }
 
+    // Only update positions that changed
     func updateViews() {
         objectWillChange.send()
     }
@@ -59,6 +77,9 @@ final class CanvasViewModel: ObservableObject {
             }
 
             let publishers = self.manager.addPlayerListeners()
+
+            /*
+            let publishers = self.manager.addPlayerListeners()
             for publisher in publishers {
                 publisher.subscribe(update: { [unowned self] entities in
                     self.entities = entities.compactMap { $0.toEntity() }
@@ -66,6 +87,7 @@ final class CanvasViewModel: ObservableObject {
                     print(error)
                 })
             }
+            */
             addEntitiesToWorld()
         }
     }
@@ -73,6 +95,11 @@ final class CanvasViewModel: ObservableObject {
     func addEntitiesToWorld() {
         for entity in entities {
             gameWorld.entityComponentManager.add(entity: entity)
+
+            if let spriteComponent = gameWorld.entityComponentManager.getComponent(ofType: Sprite.self, for: entity) {
+                print("spriteComponentImage", spriteComponent.image, entity.id, currPlayerId)
+                entityImages.append(spriteComponent.image)
+            }
         }
     }
 

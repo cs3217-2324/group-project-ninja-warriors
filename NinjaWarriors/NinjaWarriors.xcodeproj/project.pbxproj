@@ -107,6 +107,8 @@
 		91DDE6582BB5118400851603 /* EntityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE6572BB5118400851603 /* EntityType.swift */; };
 		91DDE65B2BB51D8800851603 /* AnyEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE65A2BB51D8800851603 /* AnyEntity.swift */; };
 		91DDE6602BB5720A00851603 /* SpriteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE65F2BB5720A00851603 /* SpriteWrapper.swift */; };
+		91DDE6632BB79DF300851603 /* Obstacle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE6622BB79DF300851603 /* Obstacle.swift */; };
+		91DDE6652BB7A07100851603 /* ObstacleWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE6642BB7A07100851603 /* ObstacleWrapper.swift */; };
 		91EF1F892BAECA20000B52A2 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F882BAECA20000B52A2 /* FirebaseAnalyticsSwift */; };
 		91EF1F8B2BAECA20000B52A2 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8A2BAECA20000B52A2 /* FirebaseDatabaseSwift */; };
 		91EF1F8D2BAECA20000B52A2 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 91EF1F8C2BAECA20000B52A2 /* FirebaseFirestoreSwift */; };
@@ -239,6 +241,8 @@
 		91DDE6572BB5118400851603 /* EntityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityType.swift; sourceTree = "<group>"; };
 		91DDE65A2BB51D8800851603 /* AnyEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyEntity.swift; sourceTree = "<group>"; };
 		91DDE65F2BB5720A00851603 /* SpriteWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteWrapper.swift; sourceTree = "<group>"; };
+		91DDE6622BB79DF300851603 /* Obstacle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Obstacle.swift; sourceTree = "<group>"; };
+		91DDE6642BB7A07100851603 /* ObstacleWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstacleWrapper.swift; sourceTree = "<group>"; };
 		91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTests.swift; sourceTree = "<group>"; };
 		91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveTests.swift; sourceTree = "<group>"; };
 		E6A0564C2BB0687500398D67 /* DodgeSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeSkill.swift; sourceTree = "<group>"; };
@@ -380,6 +384,7 @@
 		9136A5B62BA9943900197971 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				91DDE6612BB79DE200851603 /* Obstacles */,
 				7113A4932BA60E2E00805340 /* Entity.swift */,
 				9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */,
 				91DDE6572BB5118400851603 /* EntityType.swift */,
@@ -671,6 +676,15 @@
 			path = Sprite;
 			sourceTree = "<group>";
 		};
+		91DDE6612BB79DE200851603 /* Obstacles */ = {
+			isa = PBXGroup;
+			children = (
+				91DDE6622BB79DF300851603 /* Obstacle.swift */,
+				91DDE6642BB7A07100851603 /* ObstacleWrapper.swift */,
+			);
+			path = Obstacles;
+			sourceTree = "<group>";
+		};
 		91EF1F982BAED4F8000B52A2 /* MultiplayerTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -919,6 +933,7 @@
 				9132AF762BA59A30000F2AC4 /* FactoryListener.swift in Sources */,
 				9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */,
 				E6A0564D2BB0687500398D67 /* DodgeSkill.swift in Sources */,
+				91DDE6632BB79DF300851603 /* Obstacle.swift in Sources */,
 				7113A4942BA60E2E00805340 /* Entity.swift in Sources */,
 				E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */,
 				915301BF2BAE4C25007F2A12 /* SkillCasterWrapper.swift in Sources */,
@@ -939,6 +954,7 @@
 				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
 				E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */,
 				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
+				91DDE6652BB7A07100851603 /* ObstacleWrapper.swift in Sources */,
 				916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */,
 				915301C42BAE9337007F2A12 /* JoystickControl.swift in Sources */,
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
