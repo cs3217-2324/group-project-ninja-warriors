@@ -96,7 +96,6 @@ final class CanvasViewModel: ObservableObject {
             gameWorld.entityComponentManager.add(entity: entity)
 
             if let spriteComponent = gameWorld.entityComponentManager.getComponent(ofType: Sprite.self, for: entity) {
-                print("spriteComponentImage", spriteComponent.image, entity.id, currPlayerId)
                 entityImages.append(spriteComponent.image)
             }
         }

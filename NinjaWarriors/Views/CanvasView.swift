@@ -92,13 +92,6 @@ struct CanvasView: View {
             }
         }
     }
-
-    private func renderImage(for entity: Entity) {
-        if let spriteComponent = viewModel.gameWorld.entityComponentManager.getComponent(ofType: Sprite.self, for: entity) {
-            print("spriteComponentImage", spriteComponent.image)
-            renderedImage = Image(spriteComponent.image)
-        }
-    }
 }
 
 struct CanvasView_Previews: PreviewProvider {

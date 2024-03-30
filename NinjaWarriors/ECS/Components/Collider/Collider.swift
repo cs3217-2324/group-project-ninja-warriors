@@ -12,7 +12,7 @@ class Collider: Component {
     var collidedEntities: Set<EntityID>
     var isColliding: Bool = false
 
-    init(id: EntityID, entity: Entity, colliderShape: Shape, collidedEntities: Set<EntityID> = []) {
+    init(id: ComponentID, entity: Entity, colliderShape: Shape, collidedEntities: Set<EntityID> = []) {
         self.colliderShape = colliderShape
         self.collidedEntities = collidedEntities
 

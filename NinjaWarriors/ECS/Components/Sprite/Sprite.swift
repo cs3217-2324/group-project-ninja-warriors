@@ -20,7 +20,7 @@ class Sprite: Component {
         return Double(health) / Double(maxHealth)
     }
 
-    init(id: EntityID, entity: Entity, image: String, width: CGFloat,
+    init(id: ComponentID, entity: Entity, image: String, width: CGFloat,
          height: CGFloat, health: Int, maxHealth: Int) {
         self.image = image
         self.width = width
@@ -29,21 +29,7 @@ class Sprite: Component {
         self.maxHealth = maxHealth
         super.init(id: id, entity: entity)
     }
-
-    func loadImage(completion: @escaping (Image?) -> Void) {
-        guard let uiImage = UIImage(named: image) else {
-            print("Error loading image named '\(image)' from asset catalog")
-            completion(nil)
-            return
-        }
-        let image = Image(uiImage: uiImage)
-            .resizable()
-            .frame(width: width, height: height)
-            .opacity(opacity)
-
-        completion(image as? Image)
-    }
-
+    
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
             return nil

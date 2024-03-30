@@ -9,7 +9,7 @@ import Foundation
 
 
 struct SpriteWrapper: ComponentWrapper {
-    var id: EntityID
+    var id: ComponentID
     var entity: EntityWrapper
     var image: String
     var width: CGFloat

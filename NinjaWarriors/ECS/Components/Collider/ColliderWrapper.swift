@@ -8,7 +8,7 @@
 import Foundation
 
 struct ColliderWrapper: ComponentWrapper {
-    var id: EntityID
+    var id: ComponentID
     var entity: EntityWrapper
     var colliderShape: ShapeWrapper
     var collidedEntities: Set<EntityID>

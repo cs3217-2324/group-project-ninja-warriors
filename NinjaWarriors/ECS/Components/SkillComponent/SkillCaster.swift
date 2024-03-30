@@ -11,7 +11,7 @@ class SkillCaster: Component {
     var skills: [SkillID: Skill] = [:]
     var activationQueue: [SkillID] = []
 
-    init(id: EntityID, entity: Entity, skills: [Skill] = []) {
+    init(id: ComponentID, entity: Entity, skills: [Skill] = []) {
         super.init(id: id, entity: entity) // Player in most cases
         for skill in skills {
             self.skills[skill.id] = skill

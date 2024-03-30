@@ -53,7 +53,6 @@ class CollisionManager: System {
             collider.isColliding = false
             collider.colliderShape.resetOffset()
             collider.collidedEntities.removeAll()
-            // TODO: Clear rigid body collider as well once 1-1 mapping has been implemented
         } else {
             collider.isColliding = true
         }
