@@ -49,6 +49,7 @@ class HealthSystem: System {
     }
 
     // TODO: Remove hardcoded health deduction and take from skills
+    // TODO: Only reduce health when collide with skills entity
     func updateHealthForCollision(collider: Collider, health: Health, collidedEntityID: EntityID) {
         // Entity previously collided but then moved away, so reduce health
         if let damagedStatus = health.entityInflictDamageMap[collidedEntityID], !damagedStatus {
