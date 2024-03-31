@@ -55,6 +55,23 @@ class EntityComponentManager {
 
         assertRepresentation()
     }
+    
+    func add(entity: Entity, components: [Component]) {
+        assertRepresentation()
+        print("[EntityComponentManager] add", entity)
+        entityMap[entity.id] = entity
+        entityComponentMap[entity.id] = []
+
+        // Insert intializing components of entity
+        let newComponents = components
+        print("[EntityComponentManager] new", newComponents)
+        newComponents.forEach({add(component: $0, to: entity)})
+
+        print("[EntityComponentManager] entityMap", entityMap)
+        print("[EntityComponentManager] entityComponentMap", entityComponentMap)
+
+        assertRepresentation()
+    }
 
     func remove(entity: Entity) {
         assertRepresentation()

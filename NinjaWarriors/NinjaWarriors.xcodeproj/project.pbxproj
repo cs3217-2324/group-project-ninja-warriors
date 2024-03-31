@@ -130,6 +130,9 @@
 		E6CDFFC22BAF22A1007BB867 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC12BAF22A1007BB867 /* grass.png */; };
 		E6CDFFC42BAF2306007BB867 /* player-copy.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC32BAF2306007BB867 /* player-copy.png */; };
 		E6CDFFC62BAF2689007BB867 /* grass-stone.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC52BAF2689007BB867 /* grass-stone.jpeg */; };
+		E6DB870C2BB9F756003AC063 /* DodgeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DB870B2BB9F756003AC063 /* DodgeSystem.swift */; };
+		E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DB870E2BB9F79F003AC063 /* Dodge.swift */; };
+		E6DB87112BB9F7BA003AC063 /* DodgeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DB87102BB9F7BA003AC063 /* DodgeWrapper.swift */; };
 		E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */; };
 		E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */; };
 		E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */; };
@@ -260,6 +263,9 @@
 		E6CDFFC12BAF22A1007BB867 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass.png; sourceTree = "<group>"; };
 		E6CDFFC32BAF2306007BB867 /* player-copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "player-copy.png"; sourceTree = "<group>"; };
 		E6CDFFC52BAF2689007BB867 /* grass-stone.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grass-stone.jpeg"; sourceTree = "<group>"; };
+		E6DB870B2BB9F756003AC063 /* DodgeSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeSystem.swift; sourceTree = "<group>"; };
+		E6DB870E2BB9F79F003AC063 /* Dodge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dodge.swift; sourceTree = "<group>"; };
+		E6DB87102BB9F7BA003AC063 /* DodgeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeWrapper.swift; sourceTree = "<group>"; };
 		E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCasterSystem.swift; sourceTree = "<group>"; };
 		E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityOverlayView.swift; sourceTree = "<group>"; };
 		E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOE.swift; sourceTree = "<group>"; };
@@ -374,6 +380,7 @@
 		9136A5B52BA9943100197971 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				E6DB870A2BB9F745003AC063 /* DodgeSystem */,
 				91DDE66B2BB7C3C900851603 /* HealthSystem */,
 				714A4A632BA717B80067D5CB /* System.swift */,
 				91DDE6552BB4460800851603 /* SystemType.swift */,
@@ -511,6 +518,7 @@
 		916A7D682BA154E000319C26 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E6DB870D2BB9F799003AC063 /* Dodge */,
 				7113A4952BA60E8400805340 /* Component.swift */,
 				91DDE6512BB3806100851603 /* ComponentType.swift */,
 				91DDE6662BB7BFD300851603 /* Health */,
@@ -750,6 +758,23 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		E6DB870A2BB9F745003AC063 /* DodgeSystem */ = {
+			isa = PBXGroup;
+			children = (
+				E6DB870B2BB9F756003AC063 /* DodgeSystem.swift */,
+			);
+			path = DodgeSystem;
+			sourceTree = "<group>";
+		};
+		E6DB870D2BB9F799003AC063 /* Dodge */ = {
+			isa = PBXGroup;
+			children = (
+				E6DB870E2BB9F79F003AC063 /* Dodge.swift */,
+				E6DB87102BB9F7BA003AC063 /* DodgeWrapper.swift */,
+			);
+			path = Dodge;
+			sourceTree = "<group>";
+		};
 		E6ECF6302BADABAD00DDDE9C /* SkillCasterSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -966,6 +991,7 @@
 				714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
 				9132AF872BA6AEAB000F2AC4 /* Shape+EXT.swift in Sources */,
+				E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
 				916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */,
 				E6A0564F2BB0691B00398D67 /* RefreshCooldownsSkill.swift in Sources */,
@@ -1015,9 +1041,11 @@
 				9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */,
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,
+				E6DB870C2BB9F756003AC063 /* DodgeSystem.swift in Sources */,
 				9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */,
 				91DDE6682BB7BFE100851603 /* Health.swift in Sources */,
 				9132AF6C2BA57130000F2AC4 /* EntitiesManager.swift in Sources */,
+				E6DB87112BB9F7BA003AC063 /* DodgeWrapper.swift in Sources */,
 				9132AF782BA59B0F000F2AC4 /* FactoryPublisher.swift in Sources */,
 				E6ECF63A2BADE9D900DDDE9C /* CircleShape.swift in Sources */,
 				91DDE6522BB3806100851603 /* ComponentType.swift in Sources */,
