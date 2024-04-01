@@ -39,7 +39,10 @@ class HealthSystem: System {
     func updateHealth(for colliderHealthMap: [Collider: Health]) {
         for (collider, health) in colliderHealthMap {
             // Assuming 1-1 mapping for now, as it will be refactored accordingly
-            guard let collidedEntityID = collider.collidedEntities.first else {
+            // TODO: TBC
+            guard let collidedEntityID = collider.collidedEntities.first,
+                  collider.isColliding,
+                  !collider.isOutOfBounds else {
                 continue
             }
 

@@ -95,6 +95,9 @@
 		91C65BE32BACF1920085D96F /* DashSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C65BE22BACF1920085D96F /* DashSkill.swift */; };
 		91C65BE52BACF1AA0085D96F /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C65BE42BACF1AA0085D96F /* Skill.swift */; };
 		91C65BE72BACF1BF0085D96F /* SkillCaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C65BE62BACF1BF0085D96F /* SkillCaster.swift */; };
+		91CC28362BBA831E009318C7 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CC28352BBA831E009318C7 /* Score.swift */; };
+		91CC28382BBA832A009318C7 /* ScoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CC28372BBA832A009318C7 /* ScoreWrapper.swift */; };
+		91CC283C2BBA86E7009318C7 /* ScoreSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CC283B2BBA86E7009318C7 /* ScoreSystem.swift */; };
 		91D496F62BB059090027C657 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
 		91D496F72BB059090027C657 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D402BA1541800319C26 /* Preview Assets.xcassets */; };
 		91D496F82BB059110027C657 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC12BAF22A1007BB867 /* grass.png */; };
@@ -242,6 +245,9 @@
 		91C65BE22BACF1920085D96F /* DashSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashSkill.swift; sourceTree = "<group>"; };
 		91C65BE42BACF1AA0085D96F /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		91C65BE62BACF1BF0085D96F /* SkillCaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCaster.swift; sourceTree = "<group>"; };
+		91CC28352BBA831E009318C7 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		91CC28372BBA832A009318C7 /* ScoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreWrapper.swift; sourceTree = "<group>"; };
+		91CC283B2BBA86E7009318C7 /* ScoreSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSystem.swift; sourceTree = "<group>"; };
 		91DDE6512BB3806100851603 /* ComponentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentType.swift; sourceTree = "<group>"; };
 		91DDE6552BB4460800851603 /* SystemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemType.swift; sourceTree = "<group>"; };
 		91DDE6572BB5118400851603 /* EntityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityType.swift; sourceTree = "<group>"; };
@@ -380,6 +386,7 @@
 		9136A5B52BA9943100197971 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				91CC283A2BBA86DB009318C7 /* ScoreSystem */,
 				E6DB870A2BB9F745003AC063 /* DodgeSystem */,
 				91DDE66B2BB7C3C900851603 /* HealthSystem */,
 				714A4A632BA717B80067D5CB /* System.swift */,
@@ -518,9 +525,10 @@
 		916A7D682BA154E000319C26 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				E6DB870D2BB9F799003AC063 /* Dodge */,
 				7113A4952BA60E8400805340 /* Component.swift */,
 				91DDE6512BB3806100851603 /* ComponentType.swift */,
+				91CC28392BBA8330009318C7 /* Score */,
+				E6DB870D2BB9F799003AC063 /* Dodge */,
 				91DDE6662BB7BFD300851603 /* Health */,
 				91DDE65C2BB5636600851603 /* Sprite */,
 				915301B32BAD1E7D007F2A12 /* Collider */,
@@ -673,6 +681,23 @@
 				E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */,
 			);
 			path = GameSystem;
+			sourceTree = "<group>";
+		};
+		91CC28392BBA8330009318C7 /* Score */ = {
+			isa = PBXGroup;
+			children = (
+				91CC28352BBA831E009318C7 /* Score.swift */,
+				91CC28372BBA832A009318C7 /* ScoreWrapper.swift */,
+			);
+			path = Score;
+			sourceTree = "<group>";
+		};
+		91CC283A2BBA86DB009318C7 /* ScoreSystem */ = {
+			isa = PBXGroup;
+			children = (
+				91CC283B2BBA86E7009318C7 /* ScoreSystem.swift */,
+			);
+			path = ScoreSystem;
 			sourceTree = "<group>";
 		};
 		91DDE6592BB5122600851603 /* Slash */ = {
@@ -978,6 +1003,7 @@
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
 				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
+				91CC28382BBA832A009318C7 /* ScoreWrapper.swift in Sources */,
 				915301B22BAD1ADA007F2A12 /* Rigidbody.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
 				9132AF762BA59A30000F2AC4 /* FactoryListener.swift in Sources */,
@@ -991,6 +1017,7 @@
 				714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
 				9132AF872BA6AEAB000F2AC4 /* Shape+EXT.swift in Sources */,
+				91CC283C2BBA86E7009318C7 /* ScoreSystem.swift in Sources */,
 				E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
 				916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */,
@@ -1057,6 +1084,7 @@
 				9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */,
 				91DDE6562BB4460800851603 /* SystemType.swift in Sources */,
 				9132AF722BA5971E000F2AC4 /* Match.swift in Sources */,
+				91CC28362BBA831E009318C7 /* Score.swift in Sources */,
 				9132AF6E2BA58C1E000F2AC4 /* MatchManagerAdapter.swift in Sources */,
 				9136A5BC2BAAA80200197971 /* RealTimeManagerAdapter.swift in Sources */,
 				9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */,

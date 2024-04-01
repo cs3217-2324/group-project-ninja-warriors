@@ -26,12 +26,14 @@ class GameWorld {
         let collisionManager = CollisionManager(for: entityComponentManager)
         let skillsManager = SkillCasterSystem(for: entityComponentManager)
         let healthManager = HealthSystem(for: entityComponentManager)
+        let scoreManager = ScoreSystem(for: entityComponentManager)
 
         systemManager.add(system: transformHandler)
         systemManager.add(system: rigidbodyHandler)
         systemManager.add(system: collisionManager)
         systemManager.add(system: skillsManager)
         systemManager.add(system: healthManager)
+        systemManager.add(system: scoreManager)
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {
