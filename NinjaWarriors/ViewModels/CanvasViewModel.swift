@@ -33,12 +33,18 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() async {
-        await updatePositions()
+        updatePositions()
         updateViews()
-        await publishData()
+        //await publishData()
+
+        do {
+            try await publishData()
+        } catch {
+            print("Error publishing data: \(error)")
+        }
     }
 
-    func updatePositions() async {
+    func updatePositions() {
         var rigidbodies = gameWorld.entityComponentManager.getAllComponents(ofType: Rigidbody.self)
         rigidbodies = rearrageRigidbodies(rigidbodies: rigidbodies)
         var rigidPositions: [CGPoint] = []
@@ -77,18 +83,19 @@ final class CanvasViewModel: ObservableObject {
                 self.entities = allEntities
             }
 
-            let publishers = self.manager.addPlayerListeners()
+            //let publishers = self.manager.addPlayerListeners()
 
-            /*
+            ///*
             let publishers = self.manager.addPlayerListeners()
             for publisher in publishers {
                 publisher.subscribe(update: { [unowned self] entities in
                     self.entities = entities.compactMap { $0.toEntity() }
+                    print("changed")
                 }, error: { error in
                     print(error)
                 })
             }
-            */
+            //*/
             addEntitiesToWorld()
         }
     }
@@ -111,8 +118,21 @@ final class CanvasViewModel: ObservableObject {
         return nil
     }
 
-    func publishData() async {
-        guard let foundEntity = entities.first(where: { $0.id == currPlayerId }) else {
+    func publishData(for entityId: EntityID? = nil) async throws {
+        try await manager.decodeEntitiesWithComponents()
+
+
+
+
+
+        var publishEntityId: EntityID
+        if let entityId = entityId {
+            publishEntityId = entityId
+        } else {
+            publishEntityId = currPlayerId
+        }
+
+        guard let foundEntity = entities.first(where: { $0.id == publishEntityId }) else {
             print("No entity found with ID: \(currPlayerId)")
             return
         }
@@ -123,7 +143,6 @@ final class CanvasViewModel: ObservableObject {
             try? await manager.uploadEntity(entity: foundEntity, entityName: "Player",
                                             component: componentToPublish)
         }
-        //try? await manager.uploadEntity(entity: foundEntity, entityName: "Player", component: gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId))
     }
 }
 

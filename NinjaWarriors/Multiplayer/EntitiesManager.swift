@@ -12,4 +12,8 @@ protocol EntitiesManager {
     func getEntity(entityId: EntityID) async throws -> Entity?
     func uploadEntity(entity: Entity, entityName: String, component: Component?) async throws
     func addPlayerListeners() -> [PlayerPublisher]
+
+
+    // TODO: Abstract out with more general name
+    func decodeEntitiesWithComponents() async throws -> ([EntityID: Component])
 }

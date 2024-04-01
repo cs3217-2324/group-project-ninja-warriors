@@ -16,10 +16,10 @@ struct NinjaWarriorsApp: App {
         WindowGroup {
             // TODO: Remove after testing
             //CanvasView(matchId: "2d1NvyaH3GKGtGOLUwHV", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            CanvasView(matchId: "6X9aHfYZZ4jGhKiZ4j5e", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "JG0PPjHI9ujgjkNfXnc7", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
             //CanvasView(matchId: "PkRyBoW0zgNTF9ktPb3d", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
             //CanvasView(matchId: "9GhnqE6FqN1tn4C27Wh4, currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            //AuthenticationView()
+            AuthenticationView()
         }
     }
 }

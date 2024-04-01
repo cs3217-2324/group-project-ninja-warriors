@@ -23,6 +23,13 @@ final class RealTimeManagerAdapter: EntitiesManager {
         Array(entitiesDict.keys)
     }
 
+    private func getComponentTypes(from idDict: [String: [String: Any]]) -> [String]? {
+        guard let componentDict = idDict[componentKey] else {
+            return nil
+        }
+        return Array(componentDict.keys)
+    }
+
     private func getIds(of type: String, from entitiesDict: [String: [String: Any]]) -> [String] {
         guard let entitiesData = entitiesDict[type] else {
             return []
@@ -46,8 +53,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entitiesDict
     }
 
-    private func getWrapperType(of entityType: String) -> Codable.Type? {
-        let wrapperTypeName = "\(entityType.capitalized)" + Constants.wrapperName
+    private func getWrapperType(of type: String) -> Codable.Type? {
+        let wrapperTypeName = "\(type.capitalized)" + Constants.wrapperName
         guard let wrapperType = NSClassFromString(Constants.directory + wrapperTypeName) as? Codable.Type else {
             return nil
         }
@@ -87,7 +94,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
                     continue
                 }
                 guard let dataDict = entitiesDict[entityType]?[entityId],
-                      let entity = try getEntity(from: dataDict, with: wrapperType)else {
+                      let entity = try getEntity(from: dataDict, with: wrapperType) else {
                     return (nil, nil)
                 }
                 entities.append(entity)
@@ -140,6 +147,57 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return componentDict
     }
 
+    private func getComponent(from dict: Any, with wrapper: Codable.Type) throws -> Component? {
+        let componentData = try JSONSerialization.data(withJSONObject: dict, options: [])
+        guard let componentWrapper: ComponentWrapper = try JSONDecoder().decode(wrapper,
+                                                                         from: componentData) as? ComponentWrapper else {
+            return nil
+        }
+        guard let component = componentWrapper.toComponent() else {
+            return nil
+        }
+        return component
+    }
+
+    // TODO: Tidy up
+    func decodeEntitiesWithComponents() async throws -> ([EntityID: Component]) {
+        var entityComponent: [EntityID: Component] = [:]
+        let entitiesDict = try await getEntititesDict()
+        let entityTypes = getEntityTypes(from: entitiesDict)
+
+        for entityType in entityTypes {
+
+            let entityIds = getIds(of: entityType, from: entitiesDict)
+
+            for entityId in entityIds {
+
+                guard let idData = entitiesDict[entityType]?[entityId] as? [String: [String: Any]],
+                      let componentTypes = getComponentTypes(from: idData) else {
+                    return [:]
+                }
+
+                for componentType in componentTypes {
+                    guard let componentWrapper = getWrapperType(of: componentType) else {
+                        continue
+                    }
+
+                    guard let componentDict = idData[componentKey]?[componentType] else {
+                        continue
+                    }
+
+                    let component = try getComponent(from: componentDict, with: componentWrapper)
+
+                    entityComponent[entityId] = component
+                }
+            }
+        }
+        print(entityComponent)
+        return entityComponent
+    }
+
+
+
+
     // TODO: Take in an array of components instead
     func uploadEntity(entity: Entity, entityName: String, component: Component? = nil) async throws {
         let entityRef = entitiesRef.child(entityName).child(entity.id)
@@ -190,6 +248,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         entityDict[componentKey] = newComponentDict
     }
 
+    // TODO: Possiblt remove optional component
     func createEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference, _ entity: Entity, _ component: Component?) {
         var newEntityDict: [String: Any] = [:]
 
