@@ -40,14 +40,16 @@ class HealthSystem: System {
         for (collider, health) in colliderHealthMap {
             // Assuming 1-1 mapping for now, as it will be refactored accordingly
             // TODO: TBC
-            guard let collidedEntityID = collider.collidedEntities.first,
+            guard let collidedEntityID = collider.collidedEntities.first/*,
                   collider.isColliding,
-                  !collider.isOutOfBounds else {
+                  !collider.isOutOfBounds*/ else {
+                removeNonCollidingEntities(from: health, with: collider)
                 continue
             }
 
             updateHealthForCollision(collider: collider, health: health, collidedEntityID: collidedEntityID)
-            removeNonCollidingEntities(from: health, collidedEntityID: collidedEntityID)
+            //removeNonCollidingEntities(from: health, collidedEntityID: collidedEntityID)
+
         }
     }
 
@@ -59,6 +61,7 @@ class HealthSystem: System {
             health.entityInflictDamageMap[collidedEntityID] = true
             health.health -= 10
             print("reduce health: \(health.health) / 100")
+
         // This is the first collision with this entity, so reduce health
         } else if health.entityInflictDamageMap[collidedEntityID] == nil {
             health.entityInflictDamageMap[collidedEntityID] = true
@@ -68,11 +71,10 @@ class HealthSystem: System {
     }
 
     // Remove non-colliding entities from the health map
-    func removeNonCollidingEntities(from health: Health, collidedEntityID: EntityID) {
-        health.entityInflictDamageMap.forEach { (entityID, _) in
-            if entityID != collidedEntityID {
-                health.entityInflictDamageMap[entityID] = nil
-            }
+    func removeNonCollidingEntities(from health: Health, with collider: Collider) {
+        if !collider.isColliding {
+            //print("no longer colliding, clearing health map")
+            health.entityInflictDamageMap = [:]
         }
     }
 }

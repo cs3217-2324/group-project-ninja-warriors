@@ -33,6 +33,12 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() async {
+        await updatePositions()
+        updateViews()
+        await publishData()
+    }
+
+    func updatePositions() async {
         var rigidbodies = gameWorld.entityComponentManager.getAllComponents(ofType: Rigidbody.self)
         rigidbodies = rearrageRigidbodies(rigidbodies: rigidbodies)
         var rigidPositions: [CGPoint] = []
@@ -41,12 +47,9 @@ final class CanvasViewModel: ObservableObject {
             rigidPositions.append(rigidbody.position.get())
         }
         positions = rigidPositions
-        updateViews()
-        await publishData()
     }
 
-    // Since EntityComponentManager have unordered sets,
-    // need to reorder based on entity index in entities
+    // Since EntityComponentManager have unordered sets, need to reorder based on entity index in entities
     func rearrageRigidbodies(rigidbodies: [Rigidbody]) -> [Rigidbody] {
         var rigidbodyMap = [EntityID: Rigidbody]()
 
@@ -55,7 +58,6 @@ final class CanvasViewModel: ObservableObject {
         }
         var rearrangedRigidBodies = [Rigidbody]()
 
-        // Rearrange the rigid bodies based on the order of the entities
         for entity in entities {
             if let rigidbody = rigidbodyMap[entity.id] {
                 rearrangedRigidBodies.append(rigidbody)
@@ -95,7 +97,8 @@ final class CanvasViewModel: ObservableObject {
         for entity in entities {
             gameWorld.entityComponentManager.add(entity: entity)
 
-            if let spriteComponent = gameWorld.entityComponentManager.getComponent(ofType: Sprite.self, for: entity) {
+            if let spriteComponent = gameWorld.entityComponentManager.getComponent(ofType: Sprite.self,
+                                                                                   for: entity) {
                 entityImages.append(spriteComponent.image)
             }
         }
@@ -108,15 +111,19 @@ final class CanvasViewModel: ObservableObject {
         return nil
     }
 
-    // TODO: Find a way to obey law of demeter and upload all changed positions
     func publishData() async {
         guard let foundEntity = entities.first(where: { $0.id == currPlayerId }) else {
             print("No entity found with ID: \(currPlayerId)")
             return
         }
 
-        try? await manager.uploadEntity(entity: foundEntity, entityName: "Player", component: gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId))
+        let componentsToPublish = gameWorld.entityComponentManager.getAllComponents(for: foundEntity)
 
+        for componentToPublish in componentsToPublish {
+            try? await manager.uploadEntity(entity: foundEntity, entityName: "Player",
+                                            component: componentToPublish)
+        }
+        //try? await manager.uploadEntity(entity: foundEntity, entityName: "Player", component: gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId))
     }
 }
 

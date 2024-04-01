@@ -42,7 +42,9 @@ class Player: Equatable, Entity {
         let health = Health(id: RandomNonce().randomNonceString(), entity: self,
                             entityInflictDamageMap: [:], health: 100, maxHealth: 100)
 
-        return [playerRigidbody, playerCollider, skillCaster, spriteComponent, health]
+        let score = Score(id: RandomNonce().randomNonceString(), entity: self, score: 0, entityGainScoreMap: [:])
+
+        return [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score]
     }
 
     func deepCopy() -> Entity {
