@@ -16,8 +16,11 @@ class Obstacle: Equatable, Entity {
 
     func getInitializingComponents() -> [Component] {
         // TODO: Remove random
-        let xCoord = Double.random(in: 200...300)
-        let yCoord = Double.random(in: 400...500)
+        //let xCoord = Double.random(in: 200...300)
+        //let yCoord = Double.random(in: 400...500)
+
+        let xCoord = 249.6940593427741
+        let yCoord = 492.5799112615923
 
         let position = Point(xCoord: xCoord, yCoord: yCoord)
 
