@@ -12,11 +12,9 @@ import SwiftUI
 final class CanvasViewModel: ObservableObject {
     var gameWorld: GameWorld
     private(set) var entities: [Entity] = []
-    //private(set) var entityImages: [String] = []
     private(set) var manager: EntitiesManager
     private(set) var matchId: String
     private(set) var currPlayerId: String
-    //var positions: [CGPoint]?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -33,10 +31,9 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() async {
-        //updatePositions()
         updateEntities()
         updateViews()
-        //await publishData()
+        await publishData()
     }
 
     func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {
@@ -54,99 +51,10 @@ final class CanvasViewModel: ObservableObject {
         entities = gameWorld.entityComponentManager.getAllEntities()
     }
 
-    /*
-    func updatePositions() {
-        var rigidbodies = gameWorld.entityComponentManager.getAllComponents(ofType: Rigidbody.self)
-
-        var sprites = gameWorld.entityComponentManager.getAllComponents(ofType: Sprite.self)
-
-
-        var entities = gameWorld.entityComponentManager.getAllEntities()
-        print("entities", entities)
-
-
-        for entity in entities {
-            if let spriteComponent = gameWorld.entityComponentManager.getComponent(ofType: Sprite.self,
-                                                                                   for: entity) {
-                print("sprite component", spriteComponent.image)
-                entityImages.append(spriteComponent.image)
-            }
-        }
-
-        print("index", entityImages, entities)
-
-        self.entities = entities
-        //print("rigidbodies", rigidbodies)
-        rigidbodies = rearrageRigidbodies(rigidbodies: rigidbodies)
-        var rigidPositions: [CGPoint] = []
-
-        for rigidbody in rigidbodies {
-            rigidPositions.append(rigidbody.position.get())
-        }
-        positions = rigidPositions
-    }
-
-    // Since EntityComponentManager have unordered sets, need to reorder based on entity index in entities
-    func rearrageRigidbodies(rigidbodies: [Rigidbody]) -> [Rigidbody] {
-        var rigidbodyMap = [EntityID: Rigidbody]()
-
-        for rigidbody in rigidbodies {
-            rigidbodyMap[rigidbody.entity.id] = rigidbody
-        }
-        var rearrangedRigidBodies = [Rigidbody]()
-
-        for entity in entities {
-            if let rigidbody = rigidbodyMap[entity.id] {
-                rearrangedRigidBodies.append(rigidbody)
-            }
-        }
-        return rearrangedRigidBodies
-    }
-    */
-
     // Only update positions that changed
     func updateViews() {
         objectWillChange.send()
     }
-
-    
-    func addListeners() {
-        Task { [unowned self] in
-            if let allEntities = try await self.manager.getAllEntities() {
-                self.entities = allEntities
-            }
-
-            //let publishers = self.manager.addPlayerListeners()
-
-            ///*
-            // TODO: Fetch and listen to all entities, not only players
-            let publishers = self.manager.addPlayerListeners()
-            for publisher in publishers {
-                publisher.subscribe(update: { [unowned self] entities in
-                    self.entities = entities.compactMap { $0.toEntity() }
-                    print("changed")
-                }, error: { error in
-                    print(error)
-                })
-            }
-            //*/
-            //addEntitiesToWorld()
-        }
-    }
-
-    /*
-    // TODO: Only allow host to add entities to world
-    func addEntitiesToWorld() {
-        for entity in entities {
-            gameWorld.entityComponentManager.add(entity: entity)
-
-            if let spriteComponent = gameWorld.entityComponentManager.getComponent(ofType: Sprite.self,
-                                                                                   for: entity) {
-                entityImages.append(spriteComponent.image)
-            }
-        }
-    }
-    */
 
     func getCurrPlayer() -> Entity? {
         for entity in entities where entity.id == currPlayerId {
