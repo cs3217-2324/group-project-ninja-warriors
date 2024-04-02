@@ -18,8 +18,8 @@ class GameWorld {
     var gameControl: GameControl = JoystickControl()
     var updateViewModel: () -> Void = {}
 
-    init(for match: String) {
-        self.entityComponentManager = EntityComponentManager(for: match)
+    init(for match: String, playerId: String) {
+        self.entityComponentManager = EntityComponentManager(for: match, id: playerId)
 
         setupGameLoop()
         

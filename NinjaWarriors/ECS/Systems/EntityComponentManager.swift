@@ -6,12 +6,13 @@
 //
 
 import Foundation
-import Combine
 
 class EntityComponentManager {
     var entityComponentMap: [EntityID: Set<Component>]
     var entityMap: [EntityID: Entity]
     var componentMap: [ComponentType: Set<Component>]
+
+    var id: String
 
     var manager: EntitiesManager
 
@@ -23,11 +24,13 @@ class EntityComponentManager {
         return allComponents
     }
 
-    init(for match: String) {
+    init(for match: String, id: String) {
         entityComponentMap = [:]
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
+        self.id = id
+
         self.startListening()
     }
 
@@ -43,8 +46,13 @@ class EntityComponentManager {
     }
 
     func startListening() {
+        print("start listening")
         manager.addEntitiesListener { snapshot in
-            print("Snapshot received: \(snapshot)")
+
+            print(self.id)
+
+            //print("snapshot received")
+            //print("Snapshot received: \(snapshot)")
             Task { [unowned self] in
                 try await self.repopulate()
             }
@@ -56,6 +64,7 @@ class EntityComponentManager {
     }
 
     func repopulate() async throws {
+        print("repopulate")
         var newEntityMap: [EntityID: Entity] = [:]
         let newEntityComponentMap = try await manager.getEntitiesWithComponents()
 

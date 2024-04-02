@@ -33,6 +33,15 @@ struct CanvasView: View {
                 GeometryReader { geometry in
                     ZStack {
                         Text("\(viewModel.entities.count)")
+                        ForEach(viewModel.entityImages.indices, id: \.self) { index in
+                            Image(viewModel.entityImages[index])
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 50, height: 50)
+                                .position(viewModel.entityPositions[index])
+                        }
+
+                        /*
                         ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
                             if let (render, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
                                 render
@@ -42,6 +51,7 @@ struct CanvasView: View {
                                     .position(pos)
                             }
                         }
+                        */
                     }
 
                     if let currPlayer = viewModel.getCurrPlayer() {
@@ -87,6 +97,8 @@ struct CanvasView: View {
                 }
                 .onAppear {
                     viewModel.gameWorld.entityComponentManager.populate()
+                    viewModel.updateEntities()
+                    viewModel.entityHasRigidAndSprite()
                 }
             }
         }
