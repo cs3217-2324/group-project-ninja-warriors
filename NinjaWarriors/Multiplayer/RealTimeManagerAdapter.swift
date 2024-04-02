@@ -19,6 +19,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         entitiesRef = databaseRef.child(matchId)
     }
 
+    // MARK: Decode / Retrieve
     private func getEntityTypes(from entitiesDict: [String: [String: Any]]) -> [String] {
         Array(entitiesDict.keys)
     }
@@ -28,6 +29,13 @@ final class RealTimeManagerAdapter: EntitiesManager {
             return []
         }
         return Array(entitiesData.keys)
+    }
+
+    private func getComponentTypes(from idDict: [String: [String: Any]]) -> [String]? {
+        guard let componentDict = idDict[componentKey] else {
+            return nil
+        }
+        return Array(componentDict.keys)
     }
 
     private func getDict(from ref: DatabaseReference) async throws -> [String: [String: Any]] {
@@ -46,8 +54,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entitiesDict
     }
 
-    private func getWrapperType(of entityType: String) -> Codable.Type? {
-        let wrapperTypeName = "\(entityType.capitalized)" + Constants.wrapperName
+    private func getWrapperType(of type: String) -> Codable.Type? {
+        let wrapperTypeName = "\(type.capitalized)" + Constants.wrapperName
         guard let wrapperType = NSClassFromString(Constants.directory + wrapperTypeName) as? Codable.Type else {
             return nil
         }
@@ -87,7 +95,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
                     continue
                 }
                 guard let dataDict = entitiesDict[entityType]?[entityId],
-                      let entity = try getEntity(from: dataDict, with: wrapperType)else {
+                      let entity = try getEntity(from: dataDict, with: wrapperType) else {
                     return (nil, nil)
                 }
                 entities.append(entity)
@@ -112,6 +120,85 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entities[0]
     }
 
+    private func getComponent(from dict: Any, with wrapper: Codable.Type) throws -> Component? {
+        let componentData = try JSONSerialization.data(withJSONObject: dict, options: [])
+        guard let componentWrapper: ComponentWrapper = try JSONDecoder().decode(wrapper,
+                                                                         from: componentData) as? ComponentWrapper else {
+            return nil
+        }
+        guard let component = componentWrapper.toComponent() else {
+            return nil
+        }
+        return component
+    }
+
+    func getEntitiesWithComponents() async throws -> ([EntityID: Component]) {
+        var entityComponent: [EntityID: Component] = [:]
+        let entitiesDict = try await getEntititesDict()
+        let entityTypes = getEntityTypes(from: entitiesDict)
+
+        ///*
+        for entityType in entityTypes {
+            try await processEntities(for: entityType, withEntities: entitiesDict, into: &entityComponent)
+        }
+        //*/
+
+        /*
+        for entityType in entityTypes {
+            let entityIds = getIds(of: entityType, from: entitiesDict)
+
+            for entityId in entityIds {
+                guard let idData = entitiesDict[entityType]?[entityId] as? [String: [String: Any]],
+                      let componentTypes = getComponentTypes(from: idData) else {
+                    return [:]
+                }
+                try await processComponents(for: entityId, withComponentTypes: componentTypes,
+                                            from: idData, into: &entityComponent)
+                for componentType in componentTypes {
+                    guard let componentWrapper = getWrapperType(of: componentType),
+                          let componentDict = idData[componentKey]?[componentType] else {
+                        continue
+                    }
+                    let component = try getComponent(from: componentDict, with: componentWrapper)
+
+                    entityComponent[entityId] = component
+                }
+            }
+        }
+        */
+        //print("hello", entityComponent)
+        return entityComponent
+    }
+
+    private func processEntities(for entityType: String,
+                                 withEntities entitiesDict: [String: [String: Any]],
+                                 into entityComponent: inout [EntityID: Component]) async throws {
+        let entityIds = getIds(of: entityType, from: entitiesDict)
+
+        for entityId in entityIds {
+            guard let idData = entitiesDict[entityType]?[entityId] as? [String: [String: Any]],
+                  let componentTypes = getComponentTypes(from: idData) else {
+                return
+            }
+            try await processComponents(for: entityId, withComponentTypes: componentTypes, from: idData, into: &entityComponent)
+        }
+    }
+
+    private func processComponents(for entityId: EntityID, withComponentTypes componentTypes: [String],
+                           from idData: [String: [String: Any]],
+                           into entityComponent: inout [EntityID: Component]) async throws {
+        for componentType in componentTypes {
+            guard let componentWrapper = getWrapperType(of: componentType),
+                  let componentDict = idData[componentKey]?[componentType] else {
+                continue
+            }
+
+            let component = try getComponent(from: componentDict, with: componentWrapper)
+            entityComponent[entityId] = component
+        }
+    }
+
+    // MARK: Encode / Upload
     private func formEntityDict(from entity: Entity) throws -> [String: Any] {
         let entityData = try JSONEncoder().encode(entity.wrapper())
 
@@ -140,65 +227,63 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return componentDict
     }
 
-    // TODO: Take in an array of components instead
-    func uploadEntity(entity: Entity, entityName: String, component: Component? = nil) async throws {
+    func uploadEntity(entity: Entity, components: [Component]? = nil) async throws {
+        let entityName = NSStringFromClass(type(of: entity))
+            .components(separatedBy: ".").last ?? "entity"
+
         let entityRef = entitiesRef.child(entityName).child(entity.id)
 
         entityRef.observeSingleEvent(of: .value) { [weak self] snapshot in
             guard let self = self else { return }
 
             if snapshot.exists() {
-                self.updateExistingEntity(snapshot, entityRef, entity, component)
+                self.updateExistingEntity(snapshot, entityRef, entity, components)
             } else {
-                self.createEntity(snapshot, entityRef, entity, component)
+                self.createEntity(snapshot, entityRef, entity)
             }
         }
     }
 
-    func updateExistingEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference, _ entity: Entity, _ component: Component?) {
+    private func updateExistingEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference,
+                              _ entity: Entity, _ components: [Component]?) {
         guard var entityDict = snapshot.value as? [String: Any] else {
             print("Data at \(entityRef) is not in the expected format")
             return
         }
 
-        guard let component = component else {
+        guard let components = components else {
             return
         }
 
         // Case 1a: If componentKey exists, merge newComponentDict with existingComponentDict
         if entityDict[self.componentKey] is [String: Any] {
-            updateExistingComponent(&entityDict, component)
+            updateExistingComponents(&entityDict, components)
         // Case 1b: If componentKey doesn't exist, append newComponentDict
         } else {
-            appendNewComponent(&entityDict, component)
+            appendNewComponents(&entityDict, components)
         }
 
         entityRef.setValue(entityDict)
     }
 
-    func updateExistingComponent(_ entityDict: inout [String: Any], _ component: Component) {
+    private func updateExistingComponents(_ entityDict: inout [String: Any], _ components: [Component]) {
         guard var existingComponentDict = entityDict[componentKey] as? [String: Any] else { return }
-        let components = [component]
+
         let newComponentDict = formComponentDict(from: components)
         existingComponentDict.merge(newComponentDict) { (_, new) in new }
         entityDict[componentKey] = existingComponentDict
     }
 
-    func appendNewComponent(_ entityDict: inout [String: Any], _ component: Component) {
-        let components = [component]
+    private func appendNewComponents(_ entityDict: inout [String: Any], _ components: [Component]) {
         let newComponentDict = formComponentDict(from: components)
         entityDict[componentKey] = newComponentDict
     }
 
-    func createEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference, _ entity: Entity, _ component: Component?) {
+    private func createEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference, _ entity: Entity) {
         var newEntityDict: [String: Any] = [:]
 
         if let entityDict = try? formEntityDict(from: entity) {
             newEntityDict.merge(entityDict) { (_, new) in new }
-        }
-
-        if let component = component {
-            appendNewComponent(&newEntityDict, component)
         }
 
         let initializingComponents = entity.getInitializingComponents()
@@ -208,7 +293,54 @@ final class RealTimeManagerAdapter: EntitiesManager {
         entityRef.setValue(newEntityDict)
     }
 
-    // Function to delete all keys except the specified one
+    // MARK: Delete
+    func delete(entity: Entity) {
+        let entityName = NSStringFromClass(type(of: entity))
+            .components(separatedBy: ".").last ?? "entity"
+
+        let entityId = entity.id
+
+        let entityRef = entitiesRef.child(entityName).child(entityId)
+        entityRef.removeValue { error, _ in
+            if let error = error {
+                print("Error deleting entity: \(error)")
+            } else {
+                print("Entity deleted successfully")
+            }
+        }
+    }
+
+    func delete(component: Component, from entity: Entity) {
+        let entityName = NSStringFromClass(type(of: entity))
+            .components(separatedBy: ".").last ?? "entity"
+
+        let componentName = NSStringFromClass(type(of: component))
+            .components(separatedBy: ".").last ?? "component"
+
+        let entityId = entity.id
+
+        let entityRef = entitiesRef.child(entityName).child(entityId)
+            .child(componentKey).child(componentName)
+
+        entityRef.removeValue { error, _ in
+            if let error = error {
+                print("Error deleting component: \(error)")
+            } else {
+                print("Entity deleted successfully")
+            }
+        }
+    }
+
+    func delete() {
+        entitiesRef.removeValue { error, _ in
+            if let error = error {
+                print("Error deleting match data: \(error)")
+            } else {
+                print("Entity deleted successfully")
+            }
+        }
+    }
+
     private func deleteAllKeysExcept(matchId: String) {
         let ref = Database.database().reference()
         ref.observeSingleEvent(of: .value) { snapshot in
@@ -226,7 +358,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
     }
 
-    // Add all entity listners
+    // MARK: Listeners
     func addPlayerListeners() -> [PlayerPublisher] {
         var listenerPublishers: [PlayerPublisher] = []
         let playersListener = PlayersListener(matchId: matchId)

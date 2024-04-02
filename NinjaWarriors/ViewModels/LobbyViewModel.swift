@@ -67,7 +67,7 @@ final class LobbyViewModel: ObservableObject {
             return
         }
         Task {
-            try? await realTimeManager.uploadEntity(entity: player, entityName: "Player")
+            try? await realTimeManager.uploadEntity(entity: player)
         }
     }
 
@@ -90,7 +90,7 @@ final class LobbyViewModel: ObservableObject {
             return
         }
         Task {
-            try? await realTimeManager.uploadEntity(entity: obstacle, entityName: "Obstacle")
+            try? await realTimeManager.uploadEntity(entity: obstacle)
         }
     }
 

@@ -10,6 +10,14 @@ import Foundation
 protocol EntitiesManager {
     func getAllEntities() async throws -> [Entity]?
     func getEntity(entityId: EntityID) async throws -> Entity?
-    func uploadEntity(entity: Entity, entityName: String, component: Component?) async throws
+    func getEntitiesWithComponents() async throws -> ([EntityID: Component])
+
+    func uploadEntity(entity: Entity, components: [Component]?) async throws
+
+    func delete()
+    func delete(entity: Entity)
+    func delete(component: Component, from entity: Entity)
+
+
     func addPlayerListeners() -> [PlayerPublisher]
 }

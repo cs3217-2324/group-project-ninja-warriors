@@ -22,7 +22,7 @@ final class CanvasViewModel: ObservableObject {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
-        self.gameWorld = GameWorld()
+        self.gameWorld = GameWorld(for: matchId)
 
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
@@ -33,12 +33,18 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() async {
-        await updatePositions()
+        updatePositions()
         updateViews()
-        await publishData()
+        //await publishData()
+
+        do {
+            try await publishData()
+        } catch {
+            print("Error publishing data: \(error)")
+        }
     }
 
-    func updatePositions() async {
+    func updatePositions() {
         var rigidbodies = gameWorld.entityComponentManager.getAllComponents(ofType: Rigidbody.self)
         rigidbodies = rearrageRigidbodies(rigidbodies: rigidbodies)
         var rigidPositions: [CGPoint] = []
@@ -77,22 +83,24 @@ final class CanvasViewModel: ObservableObject {
                 self.entities = allEntities
             }
 
-            let publishers = self.manager.addPlayerListeners()
+            //let publishers = self.manager.addPlayerListeners()
 
-            /*
+            ///*
             let publishers = self.manager.addPlayerListeners()
             for publisher in publishers {
                 publisher.subscribe(update: { [unowned self] entities in
                     self.entities = entities.compactMap { $0.toEntity() }
+                    //print("changed")
                 }, error: { error in
                     print(error)
                 })
             }
-            */
+            //*/
             addEntitiesToWorld()
         }
     }
 
+    // TODO: Only allow host to add entities to world
     func addEntitiesToWorld() {
         for entity in entities {
             gameWorld.entityComponentManager.add(entity: entity)
@@ -111,19 +119,24 @@ final class CanvasViewModel: ObservableObject {
         return nil
     }
 
-    func publishData() async {
-        guard let foundEntity = entities.first(where: { $0.id == currPlayerId }) else {
-            print("No entity found with ID: \(currPlayerId)")
+    func publishData(for entityId: EntityID? = nil) async throws {
+
+        try await manager.getEntitiesWithComponents()
+
+        var publishEntityId: EntityID
+        if let entityId = entityId {
+            publishEntityId = entityId
+        } else {
+            publishEntityId = currPlayerId
+        }
+
+        guard let foundEntity = entities.first(where: { $0.id == publishEntityId }) else {
             return
         }
 
         let componentsToPublish = gameWorld.entityComponentManager.getAllComponents(for: foundEntity)
 
-        for componentToPublish in componentsToPublish {
-            try? await manager.uploadEntity(entity: foundEntity, entityName: "Player",
-                                            component: componentToPublish)
-        }
-        //try? await manager.uploadEntity(entity: foundEntity, entityName: "Player", component: gameWorld.entityComponentManager.getComponentFromId(ofType: Rigidbody.self, of: currPlayerId))
+        try? await manager.uploadEntity(entity: foundEntity, components: componentsToPublish)
     }
 }
 
@@ -143,7 +156,7 @@ extension CanvasViewModel {
         let entityId = entity.id
         let skillCaster = gameWorld.entityComponentManager
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
-        
+
         if let skillCasterIds = skillCaster?.skills.keys {
 //            print("skill caster ids: ", Array(skillCasterIds))
             return Array(skillCasterIds)
