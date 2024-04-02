@@ -44,7 +44,7 @@ class Player: Equatable, Entity {
 
         let score = Score(id: RandomNonce().randomNonceString(), entity: self, score: 0, entityGainScoreMap: [:])
 
-        return [playerRigidbody, playerCollider, skillCaster, spriteComponent/*, health, score*/]
+        return [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score]
     }
 
     func deepCopy() -> Entity {

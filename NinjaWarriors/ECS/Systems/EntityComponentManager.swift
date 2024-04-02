@@ -56,9 +56,11 @@ class EntityComponentManager {
         print("[EntityComponentManager] entityMap", entityMap)
         print("[EntityComponentManager] entityComponentMap", entityComponentMap)
 
+        Task {
+            try await manager.uploadEntity(entity: entity, components: newComponents)
+        }
+
         assertRepresentation()
-        
-        //manager
     }
 
     func add(entity: Entity, components: [Component]) {
@@ -75,6 +77,10 @@ class EntityComponentManager {
         print("[EntityComponentManager] entityMap", entityMap)
         print("[EntityComponentManager] entityComponentMap", entityComponentMap)
 
+        Task {
+            try await manager.uploadEntity(entity: entity, components: newComponents)
+        }
+
         assertRepresentation()
     }
 
@@ -84,6 +90,8 @@ class EntityComponentManager {
         removeComponents(from: entity)
         entityMap[entity.id] = nil
         entityComponentMap[entity.id] = nil
+
+        manager.delete(entity: entity)
 
         assertRepresentation()
     }
@@ -126,6 +134,10 @@ class EntityComponentManager {
         componentMap[componentType, default: Set<Component>()].insert(component)
         entityComponentMap[entity.id]?.insert(component)
 
+        Task {
+            try await manager.uploadEntity(entity: entity, components: [component])
+        }
+
         assertRepresentation()
     }
 
@@ -167,6 +179,8 @@ class EntityComponentManager {
         }
         entityComponentMap[entity.id]?.remove(component)
         componentMap[ComponentType(type(of: component))]?.remove(component)
+
+        manager.delete(component: component, from: entity)
     }
 
     private func removeComponents(from entity: Entity) {
@@ -176,6 +190,8 @@ class EntityComponentManager {
                 let componentType = type(of: component)
 
                 componentMap[ComponentType(componentType)]?.remove(component)
+
+                manager.delete(component: component, from: entity)
             }
         }
     }
@@ -202,6 +218,8 @@ class EntityComponentManager {
         entityComponentMap = [:]
         entityMap = [:]
         componentMap = [:]
+
+        manager.delete()
     }
 
     private func assertRepresentation() {

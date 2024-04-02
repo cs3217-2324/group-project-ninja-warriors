@@ -96,13 +96,14 @@ final class CanvasViewModel: ObservableObject {
                 })
             }
             //*/
-            addEntitiesToWorld()
+            try await addEntitiesToWorld()
         }
     }
 
-    func addEntitiesToWorld() {
+    // TODO: Only allow host to add entities to world
+    func addEntitiesToWorld() async throws {
         for entity in entities {
-            gameWorld.entityComponentManager.add(entity: entity)
+            try await gameWorld.entityComponentManager.add(entity: entity)
 
             if let spriteComponent = gameWorld.entityComponentManager.getComponent(ofType: Sprite.self,
                                                                                    for: entity) {
@@ -119,8 +120,6 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func publishData(for entityId: EntityID? = nil) async throws {
-        //try await manager.decodeEntitiesWithComponents()
-
         var publishEntityId: EntityID
         if let entityId = entityId {
             publishEntityId = entityId
@@ -136,14 +135,6 @@ final class CanvasViewModel: ObservableObject {
         let componentsToPublish = gameWorld.entityComponentManager.getAllComponents(for: foundEntity)
 
         try? await manager.uploadEntity(entity: foundEntity, components: componentsToPublish)
-
-
-        /*
-        for componentToPublish in componentsToPublish {
-            try? await manager.uploadEntity(entity: foundEntity/*, entityName: "Player"*/,
-                                            component: componentToPublish)
-        }
-        */
     }
 }
 

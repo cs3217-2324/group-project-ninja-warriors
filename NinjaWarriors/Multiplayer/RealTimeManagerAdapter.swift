@@ -19,15 +19,9 @@ final class RealTimeManagerAdapter: EntitiesManager {
         entitiesRef = databaseRef.child(matchId)
     }
 
+    // MARK: Decode
     private func getEntityTypes(from entitiesDict: [String: [String: Any]]) -> [String] {
         Array(entitiesDict.keys)
-    }
-
-    private func getComponentTypes(from idDict: [String: [String: Any]]) -> [String]? {
-        guard let componentDict = idDict[componentKey] else {
-            return nil
-        }
-        return Array(componentDict.keys)
     }
 
     private func getIds(of type: String, from entitiesDict: [String: [String: Any]]) -> [String] {
@@ -35,6 +29,13 @@ final class RealTimeManagerAdapter: EntitiesManager {
             return []
         }
         return Array(entitiesData.keys)
+    }
+
+    private func getComponentTypes(from idDict: [String: [String: Any]]) -> [String]? {
+        guard let componentDict = idDict[componentKey] else {
+            return nil
+        }
+        return Array(componentDict.keys)
     }
 
     private func getDict(from ref: DatabaseReference) async throws -> [String: [String: Any]] {
@@ -119,34 +120,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entities[0]
     }
 
-    private func formEntityDict(from entity: Entity) throws -> [String: Any] {
-        let entityData = try JSONEncoder().encode(entity.wrapper())
-
-        guard let entityDict = try JSONSerialization.jsonObject(with: entityData, options: []) as? [String: Any] else {
-            throw NSError(domain: "com.yourapp", code: -1,
-                          userInfo: [NSLocalizedDescriptionKey: "Failed to serialize player data"])
-        }
-        return entityDict
-    }
-
-    private func formComponentDict(from components: [Component]) -> [String: Any] {
-        var componentDict: [String: Any] = [:]
-
-        for (index, component) in components.enumerated() {
-            let key = NSStringFromClass(type(of: component))
-                .components(separatedBy: ".").last ?? componentKey + "\(index)"
-
-            guard let data = component.wrapper(),
-                  let componentData = try? JSONEncoder().encode(data),
-                  let dataDict = try? JSONSerialization.jsonObject(with: componentData,
-                                                                   options: []) as? [String: Any] else {
-                continue
-            }
-            componentDict[key] = dataDict
-        }
-        return componentDict
-    }
-
     private func getComponent(from dict: Any, with wrapper: Codable.Type) throws -> Component? {
         let componentData = try JSONSerialization.data(withJSONObject: dict, options: [])
         guard let componentWrapper: ComponentWrapper = try JSONDecoder().decode(wrapper,
@@ -160,7 +133,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
     }
 
     // TODO: Tidy up
-    func decodeEntitiesWithComponents() async throws -> ([EntityID: Component]) {
+    func getEntitiesWithComponents() async throws -> ([EntityID: Component]) {
         var entityComponent: [EntityID: Component] = [:]
         let entitiesDict = try await getEntititesDict()
         let entityTypes = getEntityTypes(from: entitiesDict)
@@ -191,11 +164,39 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 }
             }
         }
-        print(entityComponent)
         return entityComponent
     }
 
-    func uploadEntity(entity: Entity/*, entityName: String*/, components: [Component]? = nil) async throws {
+    // MARK: Encode
+    private func formEntityDict(from entity: Entity) throws -> [String: Any] {
+        let entityData = try JSONEncoder().encode(entity.wrapper())
+
+        guard let entityDict = try JSONSerialization.jsonObject(with: entityData, options: []) as? [String: Any] else {
+            throw NSError(domain: "com.yourapp", code: -1,
+                          userInfo: [NSLocalizedDescriptionKey: "Failed to serialize player data"])
+        }
+        return entityDict
+    }
+
+    private func formComponentDict(from components: [Component]) -> [String: Any] {
+        var componentDict: [String: Any] = [:]
+
+        for (index, component) in components.enumerated() {
+            let key = NSStringFromClass(type(of: component))
+                .components(separatedBy: ".").last ?? componentKey + "\(index)"
+
+            guard let data = component.wrapper(),
+                  let componentData = try? JSONEncoder().encode(data),
+                  let dataDict = try? JSONSerialization.jsonObject(with: componentData,
+                                                                   options: []) as? [String: Any] else {
+                continue
+            }
+            componentDict[key] = dataDict
+        }
+        return componentDict
+    }
+
+    func uploadEntity(entity: Entity, components: [Component]? = nil) async throws {
         let entityName = NSStringFromClass(type(of: entity))
             .components(separatedBy: ".").last ?? "entity"
 
@@ -212,7 +213,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
     }
 
-    func updateExistingEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference,
+    private func updateExistingEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference,
                               _ entity: Entity, _ components: [Component]?) {
         guard var entityDict = snapshot.value as? [String: Any] else {
             print("Data at \(entityRef) is not in the expected format")
@@ -234,7 +235,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         entityRef.setValue(entityDict)
     }
 
-    func updateExistingComponents(_ entityDict: inout [String: Any], _ components: [Component]) {
+    private func updateExistingComponents(_ entityDict: inout [String: Any], _ components: [Component]) {
         guard var existingComponentDict = entityDict[componentKey] as? [String: Any] else { return }
 
         let newComponentDict = formComponentDict(from: components)
@@ -242,12 +243,12 @@ final class RealTimeManagerAdapter: EntitiesManager {
         entityDict[componentKey] = existingComponentDict
     }
 
-    func appendNewComponents(_ entityDict: inout [String: Any], _ components: [Component]) {
+    private func appendNewComponents(_ entityDict: inout [String: Any], _ components: [Component]) {
         let newComponentDict = formComponentDict(from: components)
         entityDict[componentKey] = newComponentDict
     }
 
-    func createEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference, _ entity: Entity) {
+    private func createEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference, _ entity: Entity) {
         var newEntityDict: [String: Any] = [:]
 
         if let entityDict = try? formEntityDict(from: entity) {
@@ -261,7 +262,54 @@ final class RealTimeManagerAdapter: EntitiesManager {
         entityRef.setValue(newEntityDict)
     }
 
-    // Function to delete all keys except the specified one
+    // MARK: Delete
+    func delete(entity: Entity) {
+        let entityName = NSStringFromClass(type(of: entity))
+            .components(separatedBy: ".").last ?? "entity"
+
+        let entityId = entity.id
+
+        let entityRef = entitiesRef.child(entityName).child(entityId)
+        entityRef.removeValue { error, _ in
+            if let error = error {
+                print("Error deleting entity: \(error)")
+            } else {
+                print("Entity deleted successfully")
+            }
+        }
+    }
+
+    func delete(component: Component, from entity: Entity) {
+        let entityName = NSStringFromClass(type(of: entity))
+            .components(separatedBy: ".").last ?? "entity"
+
+        let componentName = NSStringFromClass(type(of: component))
+            .components(separatedBy: ".").last ?? "component"
+
+        let entityId = entity.id
+
+        let entityRef = entitiesRef.child(entityName).child(entityId)
+            .child(componentKey).child(componentName)
+
+        entityRef.removeValue { error, _ in
+            if let error = error {
+                print("Error deleting component: \(error)")
+            } else {
+                print("Entity deleted successfully")
+            }
+        }
+    }
+
+    func delete() {
+        entitiesRef.removeValue { error, _ in
+            if let error = error {
+                print("Error deleting match data: \(error)")
+            } else {
+                print("Entity deleted successfully")
+            }
+        }
+    }
+
     private func deleteAllKeysExcept(matchId: String) {
         let ref = Database.database().reference()
         ref.observeSingleEvent(of: .value) { snapshot in
@@ -279,7 +327,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
     }
 
-    // Add all entity listners
+    // MARK: Listeners
     func addPlayerListeners() -> [PlayerPublisher] {
         var listenerPublishers: [PlayerPublisher] = []
         let playersListener = PlayersListener(matchId: matchId)
