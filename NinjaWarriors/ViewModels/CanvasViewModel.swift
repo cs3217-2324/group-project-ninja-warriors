@@ -22,7 +22,7 @@ final class CanvasViewModel: ObservableObject {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
-        self.gameWorld = GameWorld()
+        self.gameWorld = GameWorld(for: matchId)
 
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
@@ -90,7 +90,7 @@ final class CanvasViewModel: ObservableObject {
             for publisher in publishers {
                 publisher.subscribe(update: { [unowned self] entities in
                     self.entities = entities.compactMap { $0.toEntity() }
-                    print("changed")
+                    //print("changed")
                 }, error: { error in
                     print(error)
                 })
@@ -119,11 +119,7 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func publishData(for entityId: EntityID? = nil) async throws {
-        try await manager.decodeEntitiesWithComponents()
-
-
-
-
+        //try await manager.decodeEntitiesWithComponents()
 
         var publishEntityId: EntityID
         if let entityId = entityId {
@@ -139,10 +135,15 @@ final class CanvasViewModel: ObservableObject {
 
         let componentsToPublish = gameWorld.entityComponentManager.getAllComponents(for: foundEntity)
 
+        try? await manager.uploadEntity(entity: foundEntity, components: componentsToPublish)
+
+
+        /*
         for componentToPublish in componentsToPublish {
-            try? await manager.uploadEntity(entity: foundEntity, entityName: "Player",
+            try? await manager.uploadEntity(entity: foundEntity/*, entityName: "Player"*/,
                                             component: componentToPublish)
         }
+        */
     }
 }
 
@@ -162,7 +163,7 @@ extension CanvasViewModel {
         let entityId = entity.id
         let skillCaster = gameWorld.entityComponentManager
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
-        
+
         if let skillCasterIds = skillCaster?.skills.keys {
 //            print("skill caster ids: ", Array(skillCasterIds))
             return Array(skillCasterIds)

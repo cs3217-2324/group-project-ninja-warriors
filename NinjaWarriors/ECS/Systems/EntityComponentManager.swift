@@ -12,6 +12,8 @@ class EntityComponentManager {
     var entityMap: [EntityID: Entity]
     var componentMap: [ComponentType: Set<Component>]
 
+    var manager: EntitiesManager
+
     var components: [Component] {
         var allComponents: [Component] = []
         for (_, componentArray) in componentMap {
@@ -20,10 +22,11 @@ class EntityComponentManager {
         return allComponents
     }
 
-    init() {
+    init(for match: String) {
         entityComponentMap = [:]
         entityMap = [:]
         componentMap = [:]
+        manager = RealTimeManagerAdapter(matchId: match)
     }
 
     // MARK: - Entity-related functions
@@ -54,8 +57,10 @@ class EntityComponentManager {
         print("[EntityComponentManager] entityComponentMap", entityComponentMap)
 
         assertRepresentation()
+        
+        //manager
     }
-    
+
     func add(entity: Entity, components: [Component]) {
         assertRepresentation()
         print("[EntityComponentManager] add", entity)

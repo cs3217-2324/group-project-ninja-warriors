@@ -12,15 +12,17 @@ import SwiftUI
 class GameWorld {
     // TODO: entityComponentManager need to have access to database so that other players will know
     // what components others have, as well as to add entity on the fly
-    var entityComponentManager = EntityComponentManager()
+    var entityComponentManager: EntityComponentManager
     let systemManager = SystemManager()
     var gameLoopManager = GameLoopManager()
     var gameControl: GameControl = JoystickControl()
     var updateViewModel: () -> Void = {}
 
-    init() {
-        setupGameLoop()
+    init(for match: String) {
+        self.entityComponentManager = EntityComponentManager(for: match)
 
+        setupGameLoop()
+        
         let transformHandler = TransformHandler(for: entityComponentManager)
         let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager, with: gameControl)
         let collisionManager = CollisionManager(for: entityComponentManager)
