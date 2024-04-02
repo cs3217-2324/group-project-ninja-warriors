@@ -137,36 +137,9 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entitiesDict = try await getEntititesDict()
         let entityTypes = getEntityTypes(from: entitiesDict)
 
-        ///*
         for entityType in entityTypes {
             try await processEntities(for: entityType, withEntities: entitiesDict, into: &entityComponent)
         }
-        //*/
-
-        /*
-        for entityType in entityTypes {
-            let entityIds = getIds(of: entityType, from: entitiesDict)
-
-            for entityId in entityIds {
-                guard let idData = entitiesDict[entityType]?[entityId] as? [String: [String: Any]],
-                      let componentTypes = getComponentTypes(from: idData) else {
-                    return [:]
-                }
-                try await processComponents(for: entityId, withComponentTypes: componentTypes,
-                                            from: idData, into: &entityComponent)
-                for componentType in componentTypes {
-                    guard let componentWrapper = getWrapperType(of: componentType),
-                          let componentDict = idData[componentKey]?[componentType] else {
-                        continue
-                    }
-                    let component = try getComponent(from: componentDict, with: componentWrapper)
-
-                    entityComponent[entityId] = component
-                }
-            }
-        }
-        */
-        //print("hello", entityComponent)
         return entityComponent
     }
 

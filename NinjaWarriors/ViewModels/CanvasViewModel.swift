@@ -120,9 +120,6 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func publishData(for entityId: EntityID? = nil) async throws {
-
-        try await manager.getEntitiesWithComponents()
-
         var publishEntityId: EntityID
         if let entityId = entityId {
             publishEntityId = entityId
@@ -133,7 +130,6 @@ final class CanvasViewModel: ObservableObject {
         guard let foundEntity = entities.first(where: { $0.id == publishEntityId }) else {
             return
         }
-
         let componentsToPublish = gameWorld.entityComponentManager.getAllComponents(for: foundEntity)
 
         try? await manager.uploadEntity(entity: foundEntity, components: componentsToPublish)
