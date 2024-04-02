@@ -12,11 +12,11 @@ import SwiftUI
 final class CanvasViewModel: ObservableObject {
     var gameWorld: GameWorld
     private(set) var entities: [Entity] = []
-    private(set) var entityImages: [String] = []
+    //private(set) var entityImages: [String] = []
     private(set) var manager: EntitiesManager
     private(set) var matchId: String
     private(set) var currPlayerId: String
-    var positions: [CGPoint]?
+    //var positions: [CGPoint]?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -33,19 +33,50 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() async {
-        updatePositions()
+        //updatePositions()
+        updateEntities()
         updateViews()
         //await publishData()
-
-        do {
-            try await publishData()
-        } catch {
-            print("Error publishing data: \(error)")
-        }
     }
 
+    func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {
+        let entityComponents = gameWorld.entityComponentManager.getAllComponents(for: entity)
+
+        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
+              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
+            return nil
+        }
+        return (image: Image(sprite.image), position: rigidbody.position.get())
+    }
+
+
+    func updateEntities() {
+        entities = gameWorld.entityComponentManager.getAllEntities()
+    }
+
+    /*
     func updatePositions() {
         var rigidbodies = gameWorld.entityComponentManager.getAllComponents(ofType: Rigidbody.self)
+
+        var sprites = gameWorld.entityComponentManager.getAllComponents(ofType: Sprite.self)
+
+
+        var entities = gameWorld.entityComponentManager.getAllEntities()
+        print("entities", entities)
+
+
+        for entity in entities {
+            if let spriteComponent = gameWorld.entityComponentManager.getComponent(ofType: Sprite.self,
+                                                                                   for: entity) {
+                print("sprite component", spriteComponent.image)
+                entityImages.append(spriteComponent.image)
+            }
+        }
+
+        print("index", entityImages, entities)
+
+        self.entities = entities
+        //print("rigidbodies", rigidbodies)
         rigidbodies = rearrageRigidbodies(rigidbodies: rigidbodies)
         var rigidPositions: [CGPoint] = []
 
@@ -71,12 +102,14 @@ final class CanvasViewModel: ObservableObject {
         }
         return rearrangedRigidBodies
     }
+    */
 
     // Only update positions that changed
     func updateViews() {
         objectWillChange.send()
     }
 
+    
     func addListeners() {
         Task { [unowned self] in
             if let allEntities = try await self.manager.getAllEntities() {
@@ -86,20 +119,22 @@ final class CanvasViewModel: ObservableObject {
             //let publishers = self.manager.addPlayerListeners()
 
             ///*
+            // TODO: Fetch and listen to all entities, not only players
             let publishers = self.manager.addPlayerListeners()
             for publisher in publishers {
                 publisher.subscribe(update: { [unowned self] entities in
                     self.entities = entities.compactMap { $0.toEntity() }
-                    //print("changed")
+                    print("changed")
                 }, error: { error in
                     print(error)
                 })
             }
             //*/
-            addEntitiesToWorld()
+            //addEntitiesToWorld()
         }
     }
 
+    /*
     // TODO: Only allow host to add entities to world
     func addEntitiesToWorld() {
         for entity in entities {
@@ -111,6 +146,7 @@ final class CanvasViewModel: ObservableObject {
             }
         }
     }
+    */
 
     func getCurrPlayer() -> Entity? {
         for entity in entities where entity.id == currPlayerId {
@@ -119,7 +155,7 @@ final class CanvasViewModel: ObservableObject {
         return nil
     }
 
-    func publishData(for entityId: EntityID? = nil) async throws {
+    func publishData(for entityId: EntityID? = nil) async {
         var publishEntityId: EntityID
         if let entityId = entityId {
             publishEntityId = entityId

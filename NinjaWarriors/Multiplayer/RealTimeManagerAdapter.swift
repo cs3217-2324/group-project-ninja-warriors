@@ -13,10 +13,15 @@ final class RealTimeManagerAdapter: EntitiesManager {
     private var entitiesRef: DatabaseReference
     private let matchId: String
     private let componentKey = "component"
+    private var listenerHandle: DatabaseHandle?
 
     init(matchId: String) {
         self.matchId = matchId
         entitiesRef = databaseRef.child(matchId)
+    }
+
+    func getEntitiesRef() -> DatabaseReference {
+        entitiesRef
     }
 
     // MARK: Decode / Retrieve
@@ -71,9 +76,11 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])
         guard let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper,
                                                                          from: entityData) as? EntityWrapper else {
+            print("guard 4")
             return nil
         }
         guard let entity = entityWrapper.toEntity() else {
+            print("guard 5", entityWrapper)
             return nil
         }
         return entity
@@ -86,6 +93,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
         for entityType in entityTypes {
             guard let wrapperType = getWrapperType(of: entityType) else {
+                print("guard 1")
                 return (nil, nil)
             }
             let entityIds = getIds(of: entityType, from: entitiesDict)
@@ -132,8 +140,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return component
     }
 
-    func getEntitiesWithComponents() async throws -> ([EntityID: Component]) {
-        var entityComponent: [EntityID: Component] = [:]
+    func getEntitiesWithComponents() async throws -> [EntityID: [Component]] {
+        var entityComponent: [EntityID: [Component]] = [:]
         let entitiesDict = try await getEntititesDict()
         let entityTypes = getEntityTypes(from: entitiesDict)
 
@@ -145,7 +153,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
     private func processEntities(for entityType: String,
                                  withEntities entitiesDict: [String: [String: Any]],
-                                 into entityComponent: inout [EntityID: Component]) async throws {
+                                 into entityComponent: inout [EntityID: [Component]]) async throws {
         let entityIds = getIds(of: entityType, from: entitiesDict)
 
         for entityId in entityIds {
@@ -158,18 +166,23 @@ final class RealTimeManagerAdapter: EntitiesManager {
     }
 
     private func processComponents(for entityId: EntityID, withComponentTypes componentTypes: [String],
-                           from idData: [String: [String: Any]],
-                           into entityComponent: inout [EntityID: Component]) async throws {
+                                   from idData: [String: [String: Any]],
+                                   into entityComponent: inout [EntityID: [Component]]) async throws {
         for componentType in componentTypes {
             guard let componentWrapper = getWrapperType(of: componentType),
-                  let componentDict = idData[componentKey]?[componentType] else {
+                  let componentDict = idData[componentKey]?[componentType],
+                  let component = try getComponent(from: componentDict, with: componentWrapper) else {
                 continue
             }
 
-            let component = try getComponent(from: componentDict, with: componentWrapper)
-            entityComponent[entityId] = component
+            if entityComponent[entityId] == nil {
+                entityComponent[entityId] = [component]
+            } else {
+                entityComponent[entityId]?.append(component)
+            }
         }
     }
+
 
     // MARK: Encode / Upload
     private func formEntityDict(from entity: Entity) throws -> [String: Any] {
@@ -332,6 +345,20 @@ final class RealTimeManagerAdapter: EntitiesManager {
     }
 
     // MARK: Listeners
+    func addEntitiesListener(completion: @escaping (DataSnapshot) -> Void) {
+        removeEntitiesListener()
+        listenerHandle = entitiesRef.observe(.value) { snapshot in
+            completion(snapshot)
+        }
+    }
+
+    func removeEntitiesListener() {
+        if let handle = listenerHandle {
+            entitiesRef.removeObserver(withHandle: handle)
+        }
+        listenerHandle = nil
+    }
+
     func addPlayerListeners() -> [PlayerPublisher] {
         var listenerPublishers: [PlayerPublisher] = []
         let playersListener = PlayersListener(matchId: matchId)

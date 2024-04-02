@@ -33,18 +33,17 @@ struct CanvasView: View {
                 GeometryReader { geometry in
                     ZStack {
                         Text("\(viewModel.entities.count)")
-                        if let positions = viewModel.positions, positions.count > 0 {
-                            ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
-                                VStack {
-                                    Image(viewModel.entityImages[index])
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 50, height: 50)
-                                        .position(positions[index])
-                                }
+                        ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
+                            if let (render, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
+                                render
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 50, height: 50)
+                                    .position(pos)
                             }
                         }
                     }
+
                     if let currPlayer = viewModel.getCurrPlayer() {
                         JoystickView(
                             setInputVector: { vector in
@@ -87,7 +86,7 @@ struct CanvasView: View {
 
                 }
                 .onAppear {
-                    viewModel.addListeners()
+                    //viewModel.addListeners()
                 }
             }
         }

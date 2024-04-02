@@ -27,6 +27,9 @@ class SlashAOE: Entity {
     }
 
     func wrapper() -> EntityWrapper? {
-        return EntityWrapper(id: id)
+        guard let casterEntityWrapper = casterEntity.wrapper() else {
+            return nil
+        }
+        return SlashaoeWrapper(id: id, casterEntity: casterEntityWrapper)
     }
 }

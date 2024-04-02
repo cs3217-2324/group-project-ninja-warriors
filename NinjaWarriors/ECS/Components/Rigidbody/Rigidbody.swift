@@ -7,7 +7,6 @@
 
 import Foundation
 
-// https://docs.unity3d.com/ScriptReference/Rigidbody2D.html
 class Rigidbody: Component {
     var angularDrag: Double
     var angularVelocity: Double

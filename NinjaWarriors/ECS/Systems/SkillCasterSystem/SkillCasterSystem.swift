@@ -27,9 +27,7 @@ class SkillCasterSystem: System {
                     print("[Skill <\(skill.id)>] On cooldown!")
                     continue
                 }
-
                 skill.activate(from: skillCaster.entity, in: manager)
-
             }
             
             skillCaster.decrementAllCooldowns(deltaTime: time)

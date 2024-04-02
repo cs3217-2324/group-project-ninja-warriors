@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class EntityComponentManager {
     var entityComponentMap: [EntityID: Set<Component>]
@@ -27,6 +28,63 @@ class EntityComponentManager {
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
+        populate()
+    }
+
+    func populate() {
+        print("populating")
+        Task { [unowned self] in
+            if let entities = try await self.manager.getAllEntities() {
+                for entity in entities {
+                    add(entity: entity)
+                    print("ecm", entityComponentMap)
+                }
+                self.startListening()
+            }
+        }
+    }
+
+    func startListening() {
+        manager.addEntitiesListener { snapshot in
+            print("Snapshot received: \(snapshot)")
+            Task { [unowned self] in
+                try await self.repopulate()
+            }
+        }
+    }
+
+    func stopListening() {
+        manager.removeEntitiesListener()
+    }
+
+    func repopulate() async throws {
+        //var newEntities = try await manager.getAllEntities()
+        var newEntityMap: [EntityID: Entity] = [:]
+        let newEntityComponentMap = try await manager.getEntitiesWithComponents()
+
+        for newEntityID in newEntityComponentMap.keys {
+            newEntityMap[newEntityID] = try await manager.getEntity(entityId: newEntityID)
+        }
+
+        // TODO: Allow reset so that can remove entities once they die
+        //reset()
+
+        /*
+        guard let newEntities = newEntities else {
+            return
+        }
+        */
+
+        for (newEntityId, newEntity) in newEntityMap {
+            var newComponents: [Component]
+
+            if let newEntityComponents = newEntityComponentMap[newEntityId] {
+                newComponents = newEntityComponents
+                add(entity: newEntity, components: newComponents)
+            } else {
+                add(entity: newEntity)
+            }
+        }
     }
 
     // MARK: - Entity-related functions
@@ -42,7 +100,7 @@ class EntityComponentManager {
         contains(entityID: entity.id)
     }
 
-    func add(entity: Entity) {
+    func add(entity: Entity, isAdded: Bool = true) {
         assertRepresentation()
         print("[EntityComponentManager] add", entity)
         entityMap[entity.id] = entity
@@ -56,14 +114,15 @@ class EntityComponentManager {
         print("[EntityComponentManager] entityMap", entityMap)
         print("[EntityComponentManager] entityComponentMap", entityComponentMap)
 
-        Task {
-            try await manager.uploadEntity(entity: entity, components: newComponents)
+        if !isAdded {
+            Task {
+                try await manager.uploadEntity(entity: entity, components: newComponents)
+            }
         }
-
         assertRepresentation()
     }
 
-    func add(entity: Entity, components: [Component]) {
+    func add(entity: Entity, components: [Component], isAdded: Bool = true) {
         assertRepresentation()
         print("[EntityComponentManager] add", entity)
         entityMap[entity.id] = entity
@@ -77,22 +136,24 @@ class EntityComponentManager {
         print("[EntityComponentManager] entityMap", entityMap)
         print("[EntityComponentManager] entityComponentMap", entityComponentMap)
 
-        Task {
-            try await manager.uploadEntity(entity: entity, components: newComponents)
+        if !isAdded {
+            Task {
+                try await manager.uploadEntity(entity: entity, components: newComponents)
+            }
         }
-
         assertRepresentation()
     }
 
-    func remove(entity: Entity) {
+    func remove(entity: Entity, isRemoved: Bool = true) {
         assertRepresentation()
 
         removeComponents(from: entity)
         entityMap[entity.id] = nil
         entityComponentMap[entity.id] = nil
 
-        manager.delete(entity: entity)
-
+        if !isRemoved {
+            manager.delete(entity: entity)
+        }
         assertRepresentation()
     }
 
@@ -121,7 +182,7 @@ class EntityComponentManager {
         return getComponent(ofType: type, for: entity)
     }
 
-    private func add(component: Component, to entity: Entity) {
+    private func add(component: Component, to entity: Entity, isAdded: Bool = true) {
         assertRepresentation()
 
         guard entityMap[entity.id] != nil else {
@@ -134,10 +195,11 @@ class EntityComponentManager {
         componentMap[componentType, default: Set<Component>()].insert(component)
         entityComponentMap[entity.id]?.insert(component)
 
-        Task {
-            try await manager.uploadEntity(entity: entity, components: [component])
+        if !isAdded {
+            Task {
+                try await manager.uploadEntity(entity: entity, components: [component])
+            }
         }
-
         assertRepresentation()
     }
 
@@ -172,7 +234,7 @@ class EntityComponentManager {
         return components
     }
 
-    private func remove(component: Component, from entity: Entity) {
+    private func remove(component: Component, from entity: Entity, isRemoved: Bool = true) {
         guard entityMap[entity.id] != nil && entityComponentMap[entity.id] != nil else {
             assertionFailure("Entity not found in removeComponent call")
             return
@@ -180,10 +242,12 @@ class EntityComponentManager {
         entityComponentMap[entity.id]?.remove(component)
         componentMap[ComponentType(type(of: component))]?.remove(component)
 
-        manager.delete(component: component, from: entity)
+        if !isRemoved {
+            manager.delete(component: component, from: entity)
+        }
     }
 
-    private func removeComponents(from entity: Entity) {
+    private func removeComponents(from entity: Entity, isRemoved: Bool = true) {
         let entityID = entity.id
         if let componentsToRemove = entityComponentMap[entityID] {
             for component in componentsToRemove {
@@ -191,7 +255,9 @@ class EntityComponentManager {
 
                 componentMap[ComponentType(componentType)]?.remove(component)
 
-                manager.delete(component: component, from: entity)
+                if !isRemoved {
+                    manager.delete(component: component, from: entity)
+                }
             }
         }
     }
@@ -214,12 +280,14 @@ class EntityComponentManager {
         }
     }
 
-    func reset() {
+    func reset(isRemoved: Bool = true) {
         entityComponentMap = [:]
         entityMap = [:]
         componentMap = [:]
 
-        manager.delete()
+        if !isRemoved {
+            manager.delete()
+        }
     }
 
     private func assertRepresentation() {
