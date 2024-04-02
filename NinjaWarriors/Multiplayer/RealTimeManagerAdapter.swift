@@ -26,7 +26,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
     // MARK: Decode / Retrieve
     private func getEntityTypes(from entitiesDict: [String: [String: Any]]) -> [String] {
-        Array(entitiesDict.keys)
+        print("entity types", Array(entitiesDict.keys))
+        return Array(entitiesDict.keys)
     }
 
     private func getIds(of type: String, from entitiesDict: [String: [String: Any]]) -> [String] {
@@ -53,6 +54,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
     private func getEntititesDict() async throws -> [String: [String: Any]] {
         let dataSnapshot = try await entitiesRef.getData()
+        print("data snapshot", dataSnapshot)
         guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
             throw NSError(domain: "Invalid entity data format", code: -1, userInfo: nil)
         }
@@ -104,6 +106,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 }
                 guard let dataDict = entitiesDict[entityType]?[entityId],
                       let entity = try getEntity(from: dataDict, with: wrapperType) else {
+                    print("guard 2")
                     return (nil, nil)
                 }
                 entities.append(entity)

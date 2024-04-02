@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor
 final class CanvasViewModel: ObservableObject {
     var gameWorld: GameWorld
-    private(set) var entities: [Entity] = []
+    @Published private(set) var entities: [Entity] = []
     private(set) var manager: EntitiesManager
     private(set) var matchId: String
     private(set) var currPlayerId: String
@@ -21,11 +21,21 @@ final class CanvasViewModel: ObservableObject {
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
         self.gameWorld = GameWorld(for: matchId)
+        fetchIntialEntity()
 
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
             Task {
                 await self.updateViewModel()
+            }
+        }
+    }
+
+    func fetchIntialEntity() {
+        Task {
+            entities = try await manager.getAllEntities()!
+            for entity in entities {
+                gameWorld.entityComponentManager.add(entity: entity)
             }
         }
     }
@@ -48,7 +58,8 @@ final class CanvasViewModel: ObservableObject {
 
 
     func updateEntities() {
-        entities = gameWorld.entityComponentManager.getAllEntities()
+        //entities = gameWorld.entityComponentManager.getAllEntities()
+        //print("entities", entities)
     }
 
     // Only update positions that changed

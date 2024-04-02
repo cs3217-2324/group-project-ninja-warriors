@@ -28,20 +28,7 @@ class EntityComponentManager {
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
-        populate()
-    }
-
-    func populate() {
-        print("populating")
-        Task { [unowned self] in
-            if let entities = try await self.manager.getAllEntities() {
-                for entity in entities {
-                    add(entity: entity)
-                    print("ecm", entityComponentMap)
-                }
-                self.startListening()
-            }
-        }
+        self.startListening()
     }
 
     func startListening() {

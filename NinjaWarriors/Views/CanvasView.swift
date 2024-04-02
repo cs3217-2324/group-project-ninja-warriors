@@ -85,6 +85,9 @@ struct CanvasView: View {
                     .opacity(isShowingEntityOverlay ? 1 : 0)
 
                 }
+                .onAppear {
+                    viewModel.fetchIntialEntity()
+                }
             }
         }
     }
