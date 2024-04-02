@@ -31,6 +31,17 @@ class EntityComponentManager {
         self.startListening()
     }
 
+    func populate() {
+        Task { [unowned self] in
+            if let entities = try await self.manager.getAllEntities() {
+                for entity in entities {
+                    add(entity: entity)
+                }
+                self.startListening()
+            }
+        }
+    }
+
     func startListening() {
         manager.addEntitiesListener { snapshot in
             print("Snapshot received: \(snapshot)")
@@ -45,22 +56,12 @@ class EntityComponentManager {
     }
 
     func repopulate() async throws {
-        //var newEntities = try await manager.getAllEntities()
         var newEntityMap: [EntityID: Entity] = [:]
         let newEntityComponentMap = try await manager.getEntitiesWithComponents()
 
         for newEntityID in newEntityComponentMap.keys {
             newEntityMap[newEntityID] = try await manager.getEntity(entityId: newEntityID)
         }
-
-        // TODO: Allow reset so that can remove entities once they die
-        //reset()
-
-        /*
-        guard let newEntities = newEntities else {
-            return
-        }
-        */
 
         for (newEntityId, newEntity) in newEntityMap {
             var newComponents: [Component]

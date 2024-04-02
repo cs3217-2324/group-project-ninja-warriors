@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor
 final class CanvasViewModel: ObservableObject {
     var gameWorld: GameWorld
-    @Published private(set) var entities: [Entity] = []
+    private(set) var entities: [Entity] = []
     private(set) var manager: EntitiesManager
     private(set) var matchId: String
     private(set) var currPlayerId: String
@@ -21,7 +21,6 @@ final class CanvasViewModel: ObservableObject {
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
         self.gameWorld = GameWorld(for: matchId)
-        fetchIntialEntity()
 
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
@@ -31,12 +30,9 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
-    func fetchIntialEntity() {
-        Task {
-            entities = try await manager.getAllEntities()!
-            for entity in entities {
-                gameWorld.entityComponentManager.add(entity: entity)
-            }
+    func populateEntityComponentManager(with entities: [Entity]) {
+        for entity in entities {
+            gameWorld.entityComponentManager.add(entity: entity)
         }
     }
 
@@ -46,20 +42,8 @@ final class CanvasViewModel: ObservableObject {
         await publishData()
     }
 
-    func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {
-        let entityComponents = gameWorld.entityComponentManager.getAllComponents(for: entity)
-
-        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
-              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
-            return nil
-        }
-        return (image: Image(sprite.image), position: rigidbody.position.get())
-    }
-
-
     func updateEntities() {
-        //entities = gameWorld.entityComponentManager.getAllEntities()
-        //print("entities", entities)
+        entities = gameWorld.entityComponentManager.getAllEntities()
     }
 
     // Only update positions that changed
@@ -88,6 +72,16 @@ final class CanvasViewModel: ObservableObject {
         let componentsToPublish = gameWorld.entityComponentManager.getAllComponents(for: foundEntity)
 
         try? await manager.uploadEntity(entity: foundEntity, components: componentsToPublish)
+    }
+
+    func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {
+        let entityComponents = gameWorld.entityComponentManager.getAllComponents(for: entity)
+
+        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
+              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
+            return nil
+        }
+        return (image: Image(sprite.image), position: rigidbody.position.get())
     }
 }
 

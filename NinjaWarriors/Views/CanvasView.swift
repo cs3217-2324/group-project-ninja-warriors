@@ -86,7 +86,7 @@ struct CanvasView: View {
 
                 }
                 .onAppear {
-                    viewModel.fetchIntialEntity()
+                    viewModel.gameWorld.entityComponentManager.populate()
                 }
             }
         }
