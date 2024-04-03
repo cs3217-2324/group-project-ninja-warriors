@@ -28,14 +28,17 @@ class EntityComponentManager {
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
 
-        self.startListening()
+        populate()
+        //populate()
+        startListening()
     }
 
     func startListening() {
         print("start listening")
         manager.addEntitiesListener { snapshot in
+            print("snap shot received")
             Task { [unowned self] in
-                //self.repopulate()
+               //self.populate()
             }
         }
     }
@@ -44,158 +47,62 @@ class EntityComponentManager {
         manager.removeEntitiesListener()
     }
 
-    // Fetches from realtime and repopulates the ecm
-
-    /*
+    // Fetches from realtime and populates the ecm
     func populate() {
         Task {
             var newEntityMap: [EntityID: Entity] = [:]
             let newEntityComponentMap = try await manager.getEntitiesWithComponents()
-            print("new entity component map", newEntityComponentMap)
 
             for newEntityID in newEntityComponentMap.keys {
                 newEntityMap[newEntityID] = try await manager.getEntity(entityId: newEntityID)
             }
 
             for (newEntityId, newEntity) in newEntityMap {
-                var newComponents: [Component]
+                //var newComponents: [Component]
 
-                if let newEntityComponents = newEntityComponentMap[newEntityId] {
-                    newComponents = newEntityComponents
-
-                    for newComponent in newComponents {
-                        if var rigidBody = newComponent as? Rigidbody,
-                           var componentCollider = rigidBody.attachedCollider {
-                            rigidBody.entity = newEntity
-                            componentCollider.entity = newEntity
-                        }
-                    }
-
-                    add(entity: newEntity, components: newComponents)
-                } else {
-                    add(entity: newEntity)
-                }
-            }
-        }
-        */
-
-    func repopulate() {
-            print("repopulate")
-        Task {
-            var newEntityMap: [EntityID: Entity] = [:]
-            let newEntityComponentMap = try await manager.getEntitiesWithComponents()
-            print("new entity component map", newEntityComponentMap)
-
-            for newEntityID in newEntityComponentMap.keys {
-                newEntityMap[newEntityID] = try await manager.getEntity(entityId: newEntityID)
-            }
-
-            print("after for", newEntityMap)
-
-            ///*
-            for (newEntityId, newEntity) in newEntityMap {
-                var newComponents: [Component]
                 if let oldEntity = entityMap[newEntityId] {
-                    print("using old entity", oldEntity)
-                    // TODO: FIX THIS
-                    if let newEntityComponents = newEntityComponentMap[newEntityId] {
-                        newComponents = newEntityComponents
+                    print("populate ifffff")
+                    if let newComponents = newEntityComponentMap[newEntityId] {
+                        //newComponents = newEntityComponents
                         add(entity: oldEntity, components: newComponents)
                     } else {
                         add(entity: oldEntity)
                     }
                 } else {
-                    print("using new entity", entityMap, newEntityId)
-                    if let newEntityComponents = newEntityComponentMap[newEntityId] {
-                        newComponents = newEntityComponents
+                    print("populate elseee")
+                    if let newComponents = newEntityComponentMap[newEntityId] {
+                        //newComponents = newEntityComponents
                         add(entity: newEntity, components: newComponents)
                     } else {
                         add(entity: newEntity)
                     }
                 }
             }
-            //*/
-
-
-
-            /*
-             for (newEntityId, newEntity) in newEntityMap {
-             var newComponents: [Component]
-
-             // TODO: FIX THIS
-             if let newEntityComponents = newEntityComponentMap[newEntityId] {
-             newComponents = newEntityComponents
-             add(entity: newEntity, components: newComponents)
-             } else {
-             add(entity: newEntity)
-             }
-             }
-             */
-
-            print("after second for entity component map:", entityComponentMap)
-            print("after second for entity map:", entityMap)
-            print("after second for component map:", componentMap)
-            //self.startListening()
         }
     }
 
-
     func publish () async throws {
-            print("publishing", entityMap, entityComponentMap)
-            for (entityId, entity) in entityMap {
-                guard let components = entityComponentMap[entityId] else {
-                    continue
-                }
-
-                ///*
-                for component in components {
-                    if var componentToUpload = component as? Rigidbody {
-                        if let componentCollider = componentToUpload.attachedCollider {
-                            componentCollider.entity = componentToUpload.entity
-                        }
-
-                        // TODO: Print rigid body position here to check if upload changes
-                        print("component to upload", componentToUpload.attachedCollider?.entity.id)
-                        print("position to upload", componentToUpload.position.xCoord, getAllComponents(ofType: Rigidbody.self)[0].position.xCoord)
-
-                        try await manager.uploadEntity(entity: entity, components: [componentToUpload])
-                    }
-
-
-                }
-                //*/
-
-                var count = 0
-
-                //try await manager.uploadEntity(entity: entity, components: Array(components))
-
-                print("published successfully")
-
-                /*
-                for component in components {
-                    count += 1
-                    print("-------- iterating ---------", count, components)
-                    // Get the memory address of component.entity and entity
-                    if ObjectIdentifier(component.entity) == ObjectIdentifier(entity) {
-                        print("component.entity and entity are the same object")
-                    } else {
-                        print("component.entity and entity are different objects")
-                    }
-
-                    // Now, you can proceed with uploading if needed
-                    try await manager.uploadEntity(entity: entity, components: [component])
-                }
-                */
-
-
-                //print("check unowned reference", (Array(components))[0].entity)
-
-
-                //add(entity: entity, components: Array(components), isAdded: false)
+        for (entityId, entity) in entityMap {
+            guard let components = entityComponentMap[entityId] else {
+                continue
             }
-            // print("published successfully")
-        }
+            for component in components {
+                if let componentToUpload = component as? Rigidbody {
+                    if let componentCollider = componentToUpload.attachedCollider {
+                        componentCollider.entity = componentToUpload.entity
+                        let test = getAllComponents(ofType: Rigidbody.self)[0].position.xCoord
 
+                        //print("checking status last time", componentToUpload.position.xCoord, test)
+                    }
+                    try await manager.uploadEntity(entity: entity, components: [componentToUpload])
+                    /*
+                    try await manager.uploadEntity(entity: entity,
+                                                   components: [getAllComponents(ofType: Rigidbody.self)[0]])
+                    */
+                }
+            }
+        }
+    }
 
     // MARK: - Entity-related functions
     func entity(with entityID: EntityID) -> Entity? {
@@ -214,7 +121,10 @@ class EntityComponentManager {
         assertRepresentation()
         print("[EntityComponentManager] add", entity)
         entityMap[entity.id] = entity
-        entityComponentMap[entity.id] = []
+
+        if entityComponentMap[entity.id] == nil {
+            entityComponentMap[entity.id] = []
+        }
 
         // Insert intializing components of entity
         let newComponents = entity.getInitializingComponents()
@@ -236,7 +146,10 @@ class EntityComponentManager {
         assertRepresentation()
         print("[EntityComponentManager] add", entity)
         entityMap[entity.id] = entity
-        entityComponentMap[entity.id] = []
+
+        if entityComponentMap[entity.id] == nil {
+            entityComponentMap[entity.id] = []
+        }
 
         // Insert intializing components of entity
         let newComponents = components
@@ -303,6 +216,7 @@ class EntityComponentManager {
 
         let componentType = ComponentType(type(of: component))
         componentMap[componentType, default: Set<Component>()].insert(component)
+
         entityComponentMap[entity.id]?.insert(component)
 
         if !isAdded {
@@ -310,6 +224,15 @@ class EntityComponentManager {
                 try await manager.uploadEntity(entity: entity, components: [component])
             }
         }
+
+        if let test = componentType.type as? Rigidbody.Type {
+            print("checking yet again", componentMap[componentType])
+            print("check one", entityComponentMap)
+            print("check two", entityMap)
+            print("check three", componentMap)
+
+        }
+
         assertRepresentation()
     }
 

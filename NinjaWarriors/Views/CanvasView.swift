@@ -85,7 +85,8 @@ struct CanvasView: View {
 
                 }
                 .onAppear {
-                    viewModel.gameWorld.entityComponentManager.repopulate()
+                    /*viewModel.gameWorld.entityComponentManager.populate()*/
+                    //viewModel.gameWorld.entityComponentManager.startListening()
                 }
             }
         }
