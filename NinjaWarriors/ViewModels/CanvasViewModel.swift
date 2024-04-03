@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Dispatch
 
 @MainActor
 final class CanvasViewModel: ObservableObject {
@@ -15,6 +16,7 @@ final class CanvasViewModel: ObservableObject {
     private(set) var manager: EntitiesManager
     private(set) var matchId: String
     private(set) var currPlayerId: String
+    let semaphore = DispatchSemaphore(value: 1)
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -23,17 +25,58 @@ final class CanvasViewModel: ObservableObject {
         self.gameWorld = GameWorld(for: matchId)
 
         gameWorld.start()
-        gameWorld.updateViewModel = { [unowned self] in
+        gameWorld.updateViewModel = { [weak self] in
+            guard let self = self else { return }
+        //gameWorld.updateViewModel = { [unowned self] in
             Task {
                 await self.updateViewModel()
             }
         }
+
+        Task {
+            await test()
+        }
+    }
+
+    func test() async {
+        updateEntities()
+        do {
+            semaphore.wait()
+            try await gameWorld.entityComponentManager.publish()
+            semaphore.signal()
+        } catch {
+            print("catch")
+        }
     }
 
     func updateViewModel() async {
-        updateEntities()
+        print("update view model")
+        // Publish data
+        //await publishData()
+
+        // Signal the semaphore to indicate that publishData has finished
+
+        //semaphore.wait()
+        //updateEntities()
+        //semaphore.signal()
+
+        semaphore.wait()
+
+        do {
+            try await gameWorld.entityComponentManager.publish()
+        } catch {
+            print("catch")
+        }
+
+        semaphore.signal()
+
+        // Wait for the semaphore before updating entities
+        //await publishData()
+
+        // Update views
         updateViews()
-        await publishData()
+
+        print("one loop done")
     }
 
     func updateEntities() {
@@ -53,6 +96,21 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func publishData(for entityId: EntityID? = nil) async {
+        //print("publish data")
+
+        // Inside a function or method
+        /*
+        Task {
+            if let fetchedEntities = try await manager.getAllEntities() {
+                entities = fetchedEntities
+            } else {
+                // Handle the case where getAllEntities() returns nil
+                // For example:
+                print("Error: Unable to fetch entities")
+            }
+        }
+        */
+
         var publishEntityId: EntityID
         if let entityId = entityId {
             publishEntityId = entityId
@@ -63,9 +121,18 @@ final class CanvasViewModel: ObservableObject {
         guard let foundEntity = entities.first(where: { $0.id == publishEntityId }) else {
             return
         }
+        //print("found entity", foundEntity)
         let componentsToPublish = gameWorld.entityComponentManager.getAllComponents(for: foundEntity)
 
-        try? await manager.uploadEntity(entity: foundEntity, components: componentsToPublish)
+        do {
+            //semaphore.wait()
+            try await manager.uploadEntity(entity: foundEntity, components: componentsToPublish)
+            //semaphore.signal()
+        } catch {
+            print("Error occurred: \(error)")
+        }
+        //entities = gameWorld.entityComponentManager.getAllEntities()
+        print("entities check", entities)
     }
 
     func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {

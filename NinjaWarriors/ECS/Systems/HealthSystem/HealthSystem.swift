@@ -23,6 +23,7 @@ class HealthSystem: System {
     func createColliderHealthMap() -> [Collider: Health] {
         var colliderHealthMap: [Collider: Health] = [:]
 
+        /*
         let colliders = manager.getAllComponents(ofType: Collider.self)
         let healthComponents = manager.getAllComponents(ofType: Health.self)
 
@@ -33,6 +34,7 @@ class HealthSystem: System {
                 }
             }
         }
+        */
         return colliderHealthMap
     }
 

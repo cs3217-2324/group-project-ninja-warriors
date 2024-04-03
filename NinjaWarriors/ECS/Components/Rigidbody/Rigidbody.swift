@@ -114,6 +114,7 @@ class Rigidbody: Component {
     }
 
     override func wrapper() -> ComponentWrapper? {
+        print("check entity", entity.id)
         guard let entity = entity.wrapper() else {
             return nil
         }

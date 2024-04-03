@@ -30,6 +30,6 @@ class SlashAOE: Entity {
         guard let casterEntityWrapper = casterEntity.wrapper() else {
             return nil
         }
-        return SlashaoeWrapper(id: id, casterEntity: casterEntityWrapper)
+        return SlashAOEWrapper(id: id, casterEntity: casterEntityWrapper)
     }
 }

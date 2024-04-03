@@ -78,6 +78,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
     private func getWrapperType(of type: String) -> Codable.Type? {
         let wrapperTypeName = "\(type)" + Constants.wrapperName
         guard let wrapperType = NSClassFromString(Constants.directory + wrapperTypeName) as? Codable.Type else {
+            print("wrapper type name", wrapperTypeName)
             return nil
         }
         return wrapperType
@@ -107,6 +108,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
         for entityType in entityTypes {
             guard let wrapperType = getWrapperType(of: entityType) else {
+                print("guard return")
                 return (nil, nil)
             }
             let entityIds = getIds(of: entityType, from: entitiesDict)
@@ -117,6 +119,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 }
                 guard let dataDict = entitiesDict[entityType]?[entityId],
                       let entity = try getEntity(from: dataDict, with: wrapperType) else {
+                    print("guard return")
                     return (nil, nil)
                 }
                 entities.append(entity)
@@ -130,6 +133,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
     func getAllEntities() async throws -> [Entity]? {
         let (entities, _) = try await decodeEntities()
+        print("get all entities", entities)
         return entities
     }
 
@@ -254,7 +258,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         print("old entity component", entityComponent)
     }
 
-
     // MARK: Encode / Upload
     private func formEntityDict(from entity: Entity) throws -> [String: Any] {
         let entityData = try JSONEncoder().encode(entity.wrapper())
@@ -285,6 +288,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
     }
 
     func uploadEntity(entity: Entity, components: [Component]? = nil) async throws {
+        print("upload entity")
         let entityName = NSStringFromClass(type(of: entity))
             .components(separatedBy: ".").last ?? "entity"
 
@@ -292,11 +296,14 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityRef = entitiesRef.child(entityName).child(entity.id)
 
         entityRef.observeSingleEvent(of: .value) { [weak self] snapshot in
-            guard let self = self else { return }
+            guard let self = self else { return print("return")}
 
             if snapshot.exists() {
+                print("update existing entity")
                 self.updateExistingEntity(snapshot, entityRef, entity, components)
+
             } else {
+                print("create entity")
                 self.createEntity(snapshot, entityRef, entity)
             }
         }
@@ -313,15 +320,21 @@ final class RealTimeManagerAdapter: EntitiesManager {
             return
         }
 
+        print("outside guard again")
+
         // Case 1a: If componentKey exists, merge newComponentDict with existingComponentDict
         if entityDict[self.componentKey] is [String: Any] {
+            print("iffff")
             updateExistingComponents(&entityDict, components)
         // Case 1b: If componentKey doesn't exist, append newComponentDict
         } else {
+            print("elseee")
             appendNewComponents(&entityDict, components)
         }
 
+        print("ENTITY DICT!!", entityDict)
         entityRef.setValue(entityDict)
+        print("AFTER SET!!!!")
     }
 
     private func updateExistingComponents(_ entityDict: inout [String: Any], _ components: [Component]) {
@@ -330,6 +343,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let newComponentDict = formComponentDict(from: components)
         existingComponentDict.merge(newComponentDict) { (_, new) in new }
         entityDict[componentKey] = existingComponentDict
+        print("entity dict in update", entityDict)
     }
 
     private func appendNewComponents(_ entityDict: inout [String: Any], _ components: [Component]) {

@@ -21,7 +21,9 @@ final class LobbyViewModel: ObservableObject {
     }
 
     func ready(userId: String) {
-        Task { [unowned self] in
+        //Task { [unowned self] in
+        Task { [weak self] in
+            guard let self = self else { return }
             let newMatchId = try await matchManager.enterQueue(playerId: userId)
             self.matchId = newMatchId
             addListenerForMatches()
@@ -32,7 +34,9 @@ final class LobbyViewModel: ObservableObject {
         guard let match = matchId else {
             return
         }
-        Task { [unowned self] in
+        Task { [weak self] in
+            guard let self = self else { return }
+        //Task { [unowned self] in
             await self.matchManager.removePlayerFromMatch(playerId: userId, matchId: match)
         }
     }
@@ -48,21 +52,23 @@ final class LobbyViewModel: ObservableObject {
 
     // Add all relevant initial entities here
     func initEntities(ids playerIds: [String]?) {
+        /*
         for _ in 0...1 {
             addObstacleToDatabase()
         }
+        */
 
         guard let playerIds = playerIds else {
             return
         }
         //playerIds.append("opponent")
-        for playerId in playerIds {
-            addPlayerToDatabase(id: playerId)
+        for (index, playerId) in playerIds.enumerated() {
+            addPlayerToDatabase(id: playerId, at: Constants.playerPositions[index])
         }
     }
 
-    private func addPlayerToDatabase(id playerId: String) {
-        let player = makePlayer(id: playerId)
+    private func addPlayerToDatabase(id playerId: String, at position: Point) {
+        let player = makePlayer(id: playerId, at: position)
         guard let realTimeManager = realTimeManager else {
             return
         }
@@ -71,10 +77,8 @@ final class LobbyViewModel: ObservableObject {
         }
     }
 
-    private func makePlayer(id playerId: String) -> Player {
-        let player = Player(id: playerId)
-
-        return player
+    private func makePlayer(id playerId: String, at position: Point) -> Player {
+        Player(id: playerId, position: position)
     }
 
     func getPlayerCount() -> Int? {
@@ -100,7 +104,10 @@ final class LobbyViewModel: ObservableObject {
 
     func addListenerForMatches() {
         let publisher = matchManager.addListenerForAllMatches()
-        publisher.subscribe(update: { [unowned self] matches in
+        //publisher.subscribe(update: { [unowned self] matches in
+
+        publisher.subscribe(update: { [weak self] matches in
+            guard let self = self else { return }
             self.matches = matches.map { $0.toMatch() }
         }, error: { error in
             print(error)

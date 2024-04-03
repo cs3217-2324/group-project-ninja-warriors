@@ -9,19 +9,20 @@ import Foundation
 
 class Player: Equatable, Entity {
     let id: EntityID
+    var initializePosition: Point = Point(xCoord: 400, yCoord: 400)
 
     init(id: EntityID) {
         self.id = id
     }
 
+    convenience init(id: EntityID, position: Point) {
+        self.init(id: id)
+        self.initializePosition = position
+    }
+
     // TODO: remove hardcode after testing
     func getInitializingComponents() -> [Component] {
-            var shape: Shape
-            if id == "opponent" {
-                shape = Shape(center: Constants.playerOnePosition, halfLength: Constants.defaultSize)
-            } else {
-                shape = Shape(center: Constants.playerTwoPosition, halfLength: Constants.defaultSize)
-            }
+            let shape = Shape(center: initializePosition, halfLength: Constants.defaultSize)
 
             let playerCollider = Collider(id: RandomNonce().randomNonceString(), entity: self,
                                           colliderShape: shape, collidedEntities: Set(["1"]))
