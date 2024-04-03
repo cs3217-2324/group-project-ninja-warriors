@@ -63,31 +63,15 @@ struct CanvasView: View {
                         .frame(width: 200, height: 200)
                         VStack {
                             Spacer()
-                            HStack {
-                                ZStack {
-                                    Button(action: {
-                                        isShowingEntityOverlay.toggle()
-                                    }, label: {
-                                        Image(systemName: "eye")
-                                        .accessibilityLabel("Toggle Entity Overlay")})
-                                    .padding()
-                                    .background(Color.blue.opacity(0.7))
-                                    .foregroundColor(.white)
-                                    .clipShape(Circle())
+                            PlayerControlsView(
+                                skills: viewModel.getSkills(for: currPlayer),
+                                toggleEntityOverlay: {
+                                    isShowingEntityOverlay.toggle()
+                                },
+                                activateSkill: { skillId in
+                                    viewModel.activateSkill(forEntity: currPlayer, skillId: skillId)
                                 }
-                                HStack {
-                                    ForEach(viewModel.getSkills(for: currPlayer), id: \.key) { key, value in
-                                        Button(action: {
-                                            viewModel.activateSkill(forEntity: currPlayer, skillId: key)
-                                        }, label: {
-                                            Text("\(key) \(String(format: "%.1f", value.cooldownRemaining))")
-                                        })
-                                        .padding()
-                                        .background(Color.white.opacity(0.7))
-                                    }
-                                }
-                            }.frame(maxWidth: .infinity, maxHeight: 100)
-                                .background(Color.red.opacity(0.5))
+                            )
                         }
                     }
                     EntityOverlayView(entities: viewModel.entities,
