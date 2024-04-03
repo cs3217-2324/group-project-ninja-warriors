@@ -32,7 +32,8 @@ struct CanvasView: View {
             ZStack {
                 GeometryReader { geometry in
                     ZStack {
-                        Text("\(viewModel.entities.count)")
+                        //Text("\(viewModel.entities.count)")
+                        Text("\(viewModel.entityImages.count)")
                         ForEach(viewModel.entityImages.indices, id: \.self) { index in
                             Image(viewModel.entityImages[index])
                                 .resizable()
@@ -96,8 +97,8 @@ struct CanvasView: View {
 
                 }
                 .onAppear {
-                    viewModel.gameWorld.entityComponentManager.populate()
-                    viewModel.updateEntities()
+                    //viewModel.gameWorld.entityComponentManager.populate()
+                    //viewModel.updateEntities()
                     viewModel.entityHasRigidAndSprite()
                 }
             }

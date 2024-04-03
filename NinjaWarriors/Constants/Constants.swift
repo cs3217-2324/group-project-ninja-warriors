@@ -22,5 +22,5 @@ struct Constants {
     static let playerFourPosition = Point(xCoord: 600, yCoord: 600)
     static let playerPositions = [playerOnePosition, playerTwoPosition, playerThreePosition, playerFourPosition]
     // TODO: Reset to 4 after testing
-    static let playerCount = 2
+    static let playerCount = 1
 }

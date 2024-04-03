@@ -34,10 +34,10 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() async throws {
-        updateEntities()
-        updateViews()
-        await publishData()
-        entityHasRigidAndSprite()
+        //updateEntities()
+        //updateViews()
+        //await publishData()
+        //entityHasRigidAndSprite()
     }
 
     func updateEntities() {
@@ -46,6 +46,7 @@ final class CanvasViewModel: ObservableObject {
                 return
             }
             entities = fetchedEntities
+            print("fetched entities", entities)
         }
         //entities = gameWorld.entityComponentManager.getAllEntities()
     }
@@ -79,13 +80,18 @@ final class CanvasViewModel: ObservableObject {
         try? await manager.uploadEntity(entity: foundEntity, components: componentsToPublish)
     }
 
-
     func entityHasRigidAndSprite() {
+        print("execute")
         Task {
+            print("inside task")
             let entitiesWithComponents = try await manager.getEntitiesWithComponents()
+            print("entities with components", entitiesWithComponents)
             let test = try await manager.getAllEntities()
             print("test", entitiesWithComponents, test)
             var index = 0 // Initialize index variable
+
+            entityImages = []
+            entityPositions = []
 
             //print("before for")
             for entityId in entitiesWithComponents.keys {
@@ -98,9 +104,12 @@ final class CanvasViewModel: ObservableObject {
                     continue // Skip to the next iteration if either rigidbody or sprite is nil
                 }
                 // Populate arrays with data at the current index
-                entityImages[index] = sprite.image
+                entityImages.append(sprite.image)
+                entityPositions.append(rigidbody.position.get())
+                //entityImages[index] = sprite.image
                 print("sprite image", sprite.image)
-                entityPositions[index] = rigidbody.position.get()
+                print("sprite position", rigidbody.position.get())
+                //entityPositions[index] = rigidbody.position.get()
                 index += 1 // Increment the index
             }
         }
