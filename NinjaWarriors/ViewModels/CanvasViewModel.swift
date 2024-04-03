@@ -34,6 +34,9 @@ final class CanvasViewModel: ObservableObject {
         updateEntities()
         updateViews()
         try await gameWorld.entityComponentManager.publish()
+        if !entities.isEmpty {
+            getSkills(for: entities[0])
+        }
     }
 
     func updateEntities() {
@@ -93,9 +96,13 @@ extension CanvasViewModel {
         let skillCaster = gameWorld.entityComponentManager
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
+        //print("testing", skillCaster.)
+
         if let skills = skillCaster?.skills {
+            print("skills", skills)
             return Array(skills)
         } else {
+            print("else")
             return []
         }
     }

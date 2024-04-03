@@ -12,7 +12,7 @@ import SwiftUI
 class GameLoopManager {
     var displayLink: CADisplayLink?
     var lastUpdateTime: TimeInterval = 0
-    let updateInterval: TimeInterval = 1.0 / 10.0  // Update at 60 FPS
+    let updateInterval: TimeInterval = 1.0 / 60.0  // Update at 60 FPS
     var onUpdate: ((TimeInterval) -> Void)?
 
     func start() {

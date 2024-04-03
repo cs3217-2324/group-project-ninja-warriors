@@ -86,6 +86,13 @@ class EntityComponentManager {
                     }
                     try await manager.uploadEntity(entity: entity, components: [componentToUpload])
                 }
+
+                // TODO: IMPORTANT! NEED TO MODIFY ADD TO NOT ALLOW DUPLICATE COMPONENTS OTHERWISE ERROR WILL BE THROWN
+                /*
+                else {
+                    try await manager.uploadEntity(entity: entity, components: [component])
+                }
+                */
             }
         }
     }
