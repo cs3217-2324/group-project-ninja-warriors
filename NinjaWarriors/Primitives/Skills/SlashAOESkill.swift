@@ -43,7 +43,7 @@ class SlashAOESkill: EntitySpawnerSkill {
     func spawnEntity(from casterEntity: Entity, in manager: EntityComponentManager) -> Entity {
         print("[SlashAOESkill] Activated by \(casterEntity)")
         let slashAOE = SlashAOE(id: RandomNonce().randomNonceString(), casterEntity: casterEntity)
-        //manager.add(entity: slashAOE, isAdded: false)
+        manager.add(entity: slashAOE, isAdded: false)
         return slashAOE
     }
 }

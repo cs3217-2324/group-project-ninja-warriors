@@ -87,84 +87,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "ABCAF021-A99B-401C-9A6D-DB73AE8906B6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ECS/Systems/EntityComponentManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "publish()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "ABCAF021-A99B-401C-9A6D-DB73AE8906B6 - 55b7c340a90839b5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for NinjaWarriors.EntityComponentManager.publish() async throws -&gt; ()"
-                  moduleName = "NinjaWarriors"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/muhammadreyaaz/Desktop/CS3217/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/EntityComponentManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "181"
-                  endingLineNumber = "181"
-                  offsetFromSymbolStart = "832">
-               </Location>
-               <Location
-                  uuid = "ABCAF021-A99B-401C-9A6D-DB73AE8906B6 - 657bec46d03a003c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for NinjaWarriors.EntityComponentManager.publish() async throws -&gt; ()"
-                  moduleName = "NinjaWarriors"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/muhammadreyaaz/Desktop/CS3217/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/EntityComponentManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "181"
-                  endingLineNumber = "181"
-                  offsetFromSymbolStart = "40">
-               </Location>
-               <Location
-                  uuid = "ABCAF021-A99B-401C-9A6D-DB73AE8906B6 - af71059811e7f9b3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for NinjaWarriors.EntityComponentManager.publish() async throws -&gt; ()"
-                  moduleName = "NinjaWarriors"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/muhammadreyaaz/Desktop/CS3217/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/EntityComponentManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "181"
-                  endingLineNumber = "181"
-                  offsetFromSymbolStart = "116">
-               </Location>
-               <Location
-                  uuid = "ABCAF021-A99B-401C-9A6D-DB73AE8906B6 - 4a11a70c2d9619b2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for NinjaWarriors.EntityComponentManager.publish() async throws -&gt; ()"
-                  moduleName = "NinjaWarriors"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/muhammadreyaaz/Desktop/CS3217/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/EntityComponentManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "181"
-                  endingLineNumber = "181"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "07BD6A3F-DC61-4422-BAC5-928892D234AB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -188,58 +110,10 @@
             filePath = "ECS/Components/Rigidbody/Rigidbody.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "wrapper()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "030F0FE7-3129-4698-9BB3-01C9098E2C69"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ECS/Systems/EntityComponentManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "publish()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "030F0FE7-3129-4698-9BB3-01C9098E2C69 - 55b7c340a9083918"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for NinjaWarriors.EntityComponentManager.publish() async throws -&gt; ()"
-                  moduleName = "NinjaWarriors"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/muhammadreyaaz/Desktop/CS3217/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/EntityComponentManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "176"
-                  endingLineNumber = "176"
-                  offsetFromSymbolStart = "1016">
-               </Location>
-               <Location
-                  uuid = "030F0FE7-3129-4698-9BB3-01C9098E2C69 - af71059811e7f91e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for NinjaWarriors.EntityComponentManager.publish() async throws -&gt; ()"
-                  moduleName = "NinjaWarriors"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/muhammadreyaaz/Desktop/CS3217/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/EntityComponentManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "176"
-                  endingLineNumber = "176"
-                  offsetFromSymbolStart = "712">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -28,11 +28,10 @@ struct CanvasView: View {
             Image("grass-stone")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
-            
+
             ZStack {
                 GeometryReader { geometry in
                     ZStack {
-                        Text("\(viewModel.entities.count)")
                         ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
                             if let (render, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
                                 render
@@ -86,8 +85,7 @@ struct CanvasView: View {
 
                 }
                 .onAppear {
-                    //viewModel.updateEntities()
-                    //viewModel.gameWorld.entityComponentManager.repopulate()
+                    viewModel.gameWorld.entityComponentManager.repopulate()
                 }
             }
         }

@@ -73,6 +73,7 @@ class Rigidbody: Component {
             return
         }
         attachedCollider.movePosition(by: vector)
+        print("self position", self.position)
     }
 
     func moveRotation(to rotation: Double) {
