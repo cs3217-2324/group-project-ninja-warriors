@@ -26,7 +26,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
     // MARK: Decode / Retrieve
     private func getEntityTypes(from entitiesDict: [String: [String: Any]]) -> [String] {
-        print("entity types", Array(entitiesDict.keys))
         return Array(entitiesDict.keys)
     }
 
@@ -37,11 +36,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return Array(entitiesData.keys)
     }
 
-    private func getComponentTypes(from idDict: [String: [String: Any]]) -> [String]? {
-        guard let componentDict = idDict[componentKey] else {
-            return nil
-        }
-        return Array(componentDict.keys)
+    private func getComponentTypes(from idDict: [String: Any]) -> [String]? {
+        return Array(idDict.keys)
     }
 
     private func getDict(from ref: DatabaseReference) async throws -> [String: [String: Any]] {
@@ -54,15 +50,33 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
     private func getEntititesDict() async throws -> [String: [String: Any]] {
         let dataSnapshot = try await entitiesRef.getData()
-        print("data snapshot", dataSnapshot)
         guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
             throw NSError(domain: "Invalid entity data format", code: -1, userInfo: nil)
         }
         return entitiesDict
     }
 
+    // TODO: Abstract out to type registry
+    private func getComponentWrapperType(of type: String) -> Codable.Type? {
+        let wrapperTypes: [String: Codable.Type] = [
+            "SkillCasterWrapper": SkillCasterWrapper.self,
+            "SpriteWrapper": SpriteWrapper.self,
+            "HealthWrapper": HealthWrapper.self,
+            "ColliderWrapper": ColliderWrapper.self,
+            "ScoreWrapper": ScoreWrapper.self,
+            "RigidbodyWrapper": RigidbodyWrapper.self
+        ]
+
+        let wrapperTypeName = "\(type)" + Constants.wrapperName
+        guard let wrapperType = wrapperTypes[wrapperTypeName] else {
+            print("return nil")
+            return nil
+        }
+        return wrapperType
+    }
+
     private func getWrapperType(of type: String) -> Codable.Type? {
-        let wrapperTypeName = "\(type.capitalized)" + Constants.wrapperName
+        let wrapperTypeName = "\(type)" + Constants.wrapperName
         guard let wrapperType = NSClassFromString(Constants.directory + wrapperTypeName) as? Codable.Type else {
             return nil
         }
@@ -78,11 +92,9 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])
         guard let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper,
                                                                          from: entityData) as? EntityWrapper else {
-            print("guard 4")
             return nil
         }
         guard let entity = entityWrapper.toEntity() else {
-            print("guard 5", entityWrapper)
             return nil
         }
         return entity
@@ -95,7 +107,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
         for entityType in entityTypes {
             guard let wrapperType = getWrapperType(of: entityType) else {
-                print("guard 1")
                 return (nil, nil)
             }
             let entityIds = getIds(of: entityType, from: entitiesDict)
@@ -106,7 +117,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 }
                 guard let dataDict = entitiesDict[entityType]?[entityId],
                       let entity = try getEntity(from: dataDict, with: wrapperType) else {
-                    print("guard 2")
                     return (nil, nil)
                 }
                 entities.append(entity)
@@ -131,16 +141,49 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entities[0]
     }
 
-    private func getComponent(from dict: Any, with wrapper: Codable.Type) throws -> Component? {
-        let componentData = try JSONSerialization.data(withJSONObject: dict, options: [])
-        guard let componentWrapper: ComponentWrapper = try JSONDecoder().decode(wrapper,
-                                                                         from: componentData) as? ComponentWrapper else {
+    private func getComponent(from dict: Any, with wrapper: Codable.Type) -> Component? {
+        do {
+            print("dict", dict)
+
+            /*
+            guard var dict = dict as? [String: Any] else {
+                print("Error: Input is not a dictionary")
+                return nil
+            }
+
+            // Check if the "activationQueue" key exists
+            if dict["activationQueue"] == nil {
+                dict["activationQueue"] = []
+                // Key exists, handle the value
+            }
+
+            if dict["collidedEntities"] == nil {
+                print("COLLIDED ENTITIES IS NIL, APPENDING!!!")
+                dict["collidedEntities"] = []
+                print(dict)
+                // Key exists, handle the value
+            }
+
+            dict["entityInflictDamageMap"] = [:]
+            dict["entityGainScoreMap"] = [:]
+            dict["entityGainScoreMap"] = [:]
+            */
+
+            let componentData = try JSONSerialization.data(withJSONObject: dict, options: [])
+            guard let componentWrapper: ComponentWrapper = try JSONDecoder().decode(wrapper, from: componentData) as? ComponentWrapper else {
+                print("Error: Failed to decode component wrapper")
+                return nil
+            }
+            guard let component = componentWrapper.toComponent() else {
+                print("Error: Failed to convert wrapper to component")
+                return nil
+            }
+            return component
+        } catch {
+            print("Error: \(error)")
+            print("error dict", dict)
             return nil
         }
-        guard let component = componentWrapper.toComponent() else {
-            return nil
-        }
-        return component
     }
 
     func getEntitiesWithComponents() async throws -> [EntityID: [Component]] {
@@ -149,41 +192,66 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityTypes = getEntityTypes(from: entitiesDict)
 
         for entityType in entityTypes {
-            try await processEntities(for: entityType, withEntities: entitiesDict, into: &entityComponent)
+            print("entity type", entityType)
+            try processEntities(for: entityType, withEntities: entitiesDict, into: &entityComponent)
         }
         return entityComponent
     }
 
     private func processEntities(for entityType: String,
                                  withEntities entitiesDict: [String: [String: Any]],
-                                 into entityComponent: inout [EntityID: [Component]]) async throws {
+                                 into entityComponent: inout [EntityID: [Component]]) throws {
         let entityIds = getIds(of: entityType, from: entitiesDict)
 
         for entityId in entityIds {
+            print("entity id", entityId)
+            guard let test = entitiesDict[entityType]?[entityId] as? [String: Any] else {
+                print("guard return")
+                return
+            }
+
+            //print("testing", test[componentKey] as? [String: Any])
+            //print("testing", entitiesDict[entityType]?[entityId] as? [String: [String: Any]])
+
+            /*
             guard let idData = entitiesDict[entityType]?[entityId] as? [String: [String: Any]],
                   let componentTypes = getComponentTypes(from: idData) else {
                 return
             }
-            try await processComponents(for: entityId, withComponentTypes: componentTypes, from: idData, into: &entityComponent)
+            */
+            guard let idData = test[componentKey] as? [String: Any],
+                  let componentTypes = getComponentTypes(from: idData) else {
+                print("guard return 2")
+                return
+            }
+            try processComponents(for: entityId, withComponentTypes: componentTypes, from: idData, into: &entityComponent)
         }
     }
 
     private func processComponents(for entityId: EntityID, withComponentTypes componentTypes: [String],
-                                   from idData: [String: [String: Any]],
-                                   into entityComponent: inout [EntityID: [Component]]) async throws {
+                                   from idData: [String: Any],
+                                   into entityComponent: inout [EntityID: [Component]]) throws {
+        var componentCount = componentTypes.count
         for componentType in componentTypes {
-            guard let componentWrapper = getWrapperType(of: componentType),
-                  let componentDict = idData[componentKey]?[componentType],
+            print("component type", componentType)
+            componentCount -= 1
+            guard let componentWrapper = getComponentWrapperType(of: componentType),
+                  let componentDict = idData[componentType],
                   let component = try getComponent(from: componentDict, with: componentWrapper) else {
+                print("continue guard")
+                //print("continue 1", componentType, getWrapperType(of: componentType), idData[componentType])
                 continue
             }
-
+            print("outside continue guard")
             if entityComponent[entityId] == nil {
                 entityComponent[entityId] = [component]
             } else {
                 entityComponent[entityId]?.append(component)
             }
+            print("end of loop", componentCount)
         }
+        print("outside loop")
+        print("old entity component", entityComponent)
     }
 
 
@@ -220,6 +288,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityName = NSStringFromClass(type(of: entity))
             .components(separatedBy: ".").last ?? "entity"
 
+        print("entity name", entityName)
         let entityRef = entitiesRef.child(entityName).child(entity.id)
 
         entityRef.observeSingleEvent(of: .value) { [weak self] snapshot in

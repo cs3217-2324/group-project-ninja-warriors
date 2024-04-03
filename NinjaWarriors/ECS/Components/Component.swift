@@ -13,13 +13,6 @@ class Component: Hashable {
     var id: ComponentID
     unowned var entity: Entity
 
-
-    var positionDidChange: (() -> Void)?
-
-    func notifyPositionChange() {
-        positionDidChange?()
-    }
-
     init(id: ComponentID, entity: Entity) {
         self.id = id
         self.entity = entity

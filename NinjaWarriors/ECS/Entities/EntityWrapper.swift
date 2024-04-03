@@ -16,5 +16,13 @@ class EntityWrapper: FactoryWrapper {
         self.id = id
     }
 
-    func toEntity() -> Entity? { return nil }
+    open func toEntity() -> Entity? {
+        Player(id: "1")
+    }
 }
+
+/*
+protocol EntityWrapper: Codable {
+    func toEntity() -> Entity?
+}
+*/

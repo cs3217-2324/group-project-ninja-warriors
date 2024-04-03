@@ -206,6 +206,11 @@ class CollisionManager: System {
                 return false
             }
         }
+
+        guard edges.count >= 2 && objectEdges.count >= 2 else {
+            return false
+        }
+
         guard edges[0].end.xCoord < objectEdges[1].start.xCoord
                 && edges[1].start.xCoord > objectEdges[0].end.xCoord
                 && edges[0].end.yCoord < objectEdges[1].start.yCoord

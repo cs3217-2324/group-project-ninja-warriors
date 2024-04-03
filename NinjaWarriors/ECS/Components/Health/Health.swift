@@ -20,12 +20,18 @@ class Health: Component {
         self.health = health
         self.maxHealth = maxHealth
         super.init(id: id, entity: entity)
+
     }
 
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
+
+        if entityInflictDamageMap.isEmpty {
+            entityInflictDamageMap = ["1": true]
+        }
+
         return HealthWrapper(id: id, entity: entityWrapper, entityInflictDamageMap: entityInflictDamageMap,
                              health: health, maxHealth: maxHealth)
     }

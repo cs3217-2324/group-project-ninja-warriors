@@ -58,6 +58,7 @@ class EntityComponentManager {
     func repopulate() async throws {
         var newEntityMap: [EntityID: Entity] = [:]
         let newEntityComponentMap = try await manager.getEntitiesWithComponents()
+        print("new entity component map", newEntityComponentMap)
 
         for newEntityID in newEntityComponentMap.keys {
             newEntityMap[newEntityID] = try await manager.getEntity(entityId: newEntityID)

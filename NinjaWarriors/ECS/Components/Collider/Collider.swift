@@ -44,6 +44,11 @@ class Collider: Component {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
+
+        if collidedEntities.isEmpty {
+            collidedEntities = ["1"]
+        }
+
         return ColliderWrapper(id: id, entity: entityWrapper,
                                colliderShape: colliderShape.wrapper(),
                                collidedEntities: collidedEntities)

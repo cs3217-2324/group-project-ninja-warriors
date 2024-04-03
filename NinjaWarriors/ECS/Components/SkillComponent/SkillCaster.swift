@@ -44,6 +44,15 @@ class SkillCaster: Component {
         guard let entity = entity.wrapper() else {
             return nil
         }
+
+        if activationQueue == [] {
+            activationQueue = ["1"]
+        }
+
+        if skills.isEmpty {
+            skills = ["1": SlashAOESkill(id: "1")]
+        }
+
         return SkillCasterWrapper(id: id, entity: entity, skills: skills, activationQueue: activationQueue)
     }
 }

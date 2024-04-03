@@ -30,12 +30,6 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
-    func populateEntityComponentManager(with entities: [Entity]) {
-        for entity in entities {
-            gameWorld.entityComponentManager.add(entity: entity)
-        }
-    }
-
     func updateViewModel() async {
         updateEntities()
         updateViews()
