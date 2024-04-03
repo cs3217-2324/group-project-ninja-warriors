@@ -29,7 +29,6 @@ class EntityComponentManager {
         manager = RealTimeManagerAdapter(matchId: match)
 
         populate()
-        //populate()
         startListening()
     }
 
@@ -38,7 +37,7 @@ class EntityComponentManager {
         manager.addEntitiesListener { snapshot in
             print("snap shot received")
             Task { [unowned self] in
-               //self.populate()
+               self.populate()
             }
         }
     }
@@ -58,20 +57,14 @@ class EntityComponentManager {
             }
 
             for (newEntityId, newEntity) in newEntityMap {
-                //var newComponents: [Component]
-
                 if let oldEntity = entityMap[newEntityId] {
-                    print("populate ifffff")
                     if let newComponents = newEntityComponentMap[newEntityId] {
-                        //newComponents = newEntityComponents
                         add(entity: oldEntity, components: newComponents)
                     } else {
                         add(entity: oldEntity)
                     }
                 } else {
-                    print("populate elseee")
                     if let newComponents = newEntityComponentMap[newEntityId] {
-                        //newComponents = newEntityComponents
                         add(entity: newEntity, components: newComponents)
                     } else {
                         add(entity: newEntity)
@@ -90,15 +83,8 @@ class EntityComponentManager {
                 if let componentToUpload = component as? Rigidbody {
                     if let componentCollider = componentToUpload.attachedCollider {
                         componentCollider.entity = componentToUpload.entity
-                        let test = getAllComponents(ofType: Rigidbody.self)[0].position.xCoord
-
-                        //print("checking status last time", componentToUpload.position.xCoord, test)
                     }
                     try await manager.uploadEntity(entity: entity, components: [componentToUpload])
-                    /*
-                    try await manager.uploadEntity(entity: entity,
-                                                   components: [getAllComponents(ofType: Rigidbody.self)[0]])
-                    */
                 }
             }
         }
@@ -119,7 +105,7 @@ class EntityComponentManager {
 
     func add(entity: Entity, isAdded: Bool = true) {
         assertRepresentation()
-        print("[EntityComponentManager] add", entity)
+        //print("[EntityComponentManager] add", entity)
         entityMap[entity.id] = entity
 
         if entityComponentMap[entity.id] == nil {
@@ -128,11 +114,11 @@ class EntityComponentManager {
 
         // Insert intializing components of entity
         let newComponents = entity.getInitializingComponents()
-        print("[EntityComponentManager] new", newComponents)
+        //print("[EntityComponentManager] new", newComponents)
         newComponents.forEach({add(component: $0, to: entity)})
 
-        print("[EntityComponentManager] entityMap", entityMap)
-        print("[EntityComponentManager] entityComponentMap", entityComponentMap)
+        //print("[EntityComponentManager] entityMap", entityMap)
+        //print("[EntityComponentManager] entityComponentMap", entityComponentMap)
 
         if !isAdded {
             Task {
@@ -144,7 +130,7 @@ class EntityComponentManager {
 
     func add(entity: Entity, components: [Component], isAdded: Bool = true) {
         assertRepresentation()
-        print("[EntityComponentManager] add", entity)
+        //print("[EntityComponentManager] add", entity)
         entityMap[entity.id] = entity
 
         if entityComponentMap[entity.id] == nil {
@@ -153,11 +139,11 @@ class EntityComponentManager {
 
         // Insert intializing components of entity
         let newComponents = components
-        print("[EntityComponentManager] new", newComponents)
+        //print("[EntityComponentManager] new", newComponents)
         newComponents.forEach({add(component: $0, to: entity)})
 
-        print("[EntityComponentManager] entityMap", entityMap)
-        print("[EntityComponentManager] entityComponentMap", entityComponentMap)
+        //print("[EntityComponentManager] entityMap", entityMap)
+        //print("[EntityComponentManager] entityComponentMap", entityComponentMap)
 
         if !isAdded {
             Task {
@@ -224,15 +210,6 @@ class EntityComponentManager {
                 try await manager.uploadEntity(entity: entity, components: [component])
             }
         }
-
-        if let test = componentType.type as? Rigidbody.Type {
-            print("checking yet again", componentMap[componentType])
-            print("check one", entityComponentMap)
-            print("check two", entityMap)
-            print("check three", componentMap)
-
-        }
-
         assertRepresentation()
     }
 

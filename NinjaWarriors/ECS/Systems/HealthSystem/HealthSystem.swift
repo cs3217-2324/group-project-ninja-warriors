@@ -75,7 +75,6 @@ class HealthSystem: System {
     // Remove non-colliding entities from the health map
     func removeNonCollidingEntities(from health: Health, with collider: Collider) {
         if !collider.isColliding {
-            //print("no longer colliding, clearing health map")
             health.entityInflictDamageMap = [:]
         }
     }
