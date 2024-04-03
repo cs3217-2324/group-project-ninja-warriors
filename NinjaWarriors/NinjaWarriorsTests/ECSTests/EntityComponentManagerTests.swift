@@ -10,7 +10,7 @@ import XCTest
 
 final class EntityComponentManagerTests: XCTestCase {
     func test_addEntityToManager_entityAdded() {
-        let manager = EntityComponentManager()
+        let manager = EntityComponentManager(for: "test")
         let entity = TestEntity(id: "test", shape: Shape(center: Point(xCoord: 0, yCoord: 0), halfLength: 5))
         manager.add(entity: entity)
 
@@ -20,7 +20,7 @@ final class EntityComponentManagerTests: XCTestCase {
     }
 
     func test_addEntityToManager_componentsAdded() {
-        let manager = EntityComponentManager()
+        let manager = EntityComponentManager(for: "test")
         let entity = TestEntity(id: "test", shape: Shape(center: Point(xCoord: 0, yCoord: 0), halfLength: 5))
         manager.add(entity: entity)
 
@@ -32,7 +32,7 @@ final class EntityComponentManagerTests: XCTestCase {
     }
 
     func test_removeEntityFromManager_entityRemoved() {
-        let manager = EntityComponentManager()
+        let manager = EntityComponentManager(for: "test")
         let entity = TestEntity(id: "test", shape: Shape(center: Point(xCoord: 0, yCoord: 0), halfLength: 5))
         manager.add(entity: entity)
 
@@ -44,7 +44,7 @@ final class EntityComponentManagerTests: XCTestCase {
     }
 
     func test_removeEntityFromManager_componentsRemoved() {
-        let manager = EntityComponentManager()
+        let manager = EntityComponentManager(for: "test")
         let entity = TestEntity(id: "test", shape: Shape(center: Point(xCoord: 0, yCoord: 0), halfLength: 5))
         manager.add(entity: entity)
 
