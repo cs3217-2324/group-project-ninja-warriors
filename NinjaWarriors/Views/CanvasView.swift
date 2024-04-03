@@ -25,7 +25,7 @@ struct CanvasView: View {
 
     var body: some View {
         ZStack {
-            Image("grass-stone")
+            Image("gray-wall")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
             
@@ -108,6 +108,6 @@ struct CanvasView: View {
 
 struct CanvasView_Previews: PreviewProvider {
     static var previews: some View {
-        CanvasView(matchId: "SampleMatchID", currPlayerId: "SamplePlayerID")
+        CanvasView(matchId: "2d1NvyaH3GKGtGOLUwHV", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
     }
 }
