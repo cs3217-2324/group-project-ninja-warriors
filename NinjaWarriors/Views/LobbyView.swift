@@ -19,17 +19,23 @@ struct LobbyView: View {
                     Image("player-copy")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 50, height: 50)
+                        .frame(width: 100, height: 100)
                         .position(x: Constants.screenWidth / 2, y: Constants.screenHeight / 2)
                 if let user = signInViewModel.user {
                     Text("UID: \(user.uid)")
                         .padding()
+                        .fontWeight(.medium)
+                        .foregroundColor(.white)
                     Text("Email: \(user.email ?? "N/A")")
                         .padding()
+                        .fontWeight(.medium)
+                        .foregroundColor(.white)
                 }
                 if let playerCount = viewModel.getPlayerCount() {
                     Text("Player Count: \(playerCount) / \(Constants.playerCount)")
                         .padding()
+                        .fontWeight(.medium)
+                        .foregroundColor(.white)
                     if playerCount == Constants.playerCount {
                         Text("")
                             .hidden()
@@ -41,15 +47,18 @@ struct LobbyView: View {
                         if let matchId = viewModel.matchId,
                            viewModel.playerIds != nil {
                             Text("\(matchId)")
+                                .fontWeight(.medium)
+                                .foregroundColor(.white)
                             NavigationLink(destination:
                                             CanvasView(matchId: matchId,
                                                        currPlayerId: signInViewModel.getUserId() ??
                                                        "none").navigationBarBackButtonHidden(true)) {
-                                Text("Start Game")
+                                Text("START GAME")
                                     .font(.system(size: 30))
                                     .padding()
-                                    .background(Color.blue)
-                                    .foregroundColor(.black)
+                                    .background(Color.purple)
+                                    .foregroundColor(.white)
+                                    .fontWeight(.bold)
                                     .cornerRadius(10)
                             }
                             .padding()
@@ -68,8 +77,8 @@ struct LobbyView: View {
                     }
                 }, label: {
                     Text(isReady ? "Unready" : "Ready")
-                        .foregroundColor(.white)
                         .padding()
+                        .foregroundColor(.white)
                         .background(Color.blue)
                         .cornerRadius(10)
                 })

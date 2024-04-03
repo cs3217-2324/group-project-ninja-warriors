@@ -14,16 +14,23 @@ struct AuthenticationView: View {
                 Spacer(minLength: 0)
                 NavigationLink(destination: SignInView().navigationBarBackButtonHidden(true)) {
                     Text("Sign In With Email")
-                        .foregroundColor(.white)
+                        .foregroundColor(.black)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 55)
-                        .background(Color.blue)
+                        .frame(width: 300, height: 55)
+                        .background(Color.white)
                         .cornerRadius(10)
                 }.padding()
                 Spacer(minLength: 0)
             }
             .navigationBarTitle("Sign In")
             .navigationBarHidden(true)
+            .background(
+                Image("lobby-bg")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .edgesIgnoringSafeArea(.all)
+                    .frame(width: Constants.screenWidth, height: Constants.screenHeight)
+            )
         }.navigationViewStyle(.stack)
     }
 }

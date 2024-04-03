@@ -108,6 +108,6 @@ struct CanvasView: View {
 
 struct CanvasView_Previews: PreviewProvider {
     static var previews: some View {
-        CanvasView(matchId: "2d1NvyaH3GKGtGOLUwHV", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+        CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
     }
 }
