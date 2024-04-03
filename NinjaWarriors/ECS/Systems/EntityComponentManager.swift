@@ -35,7 +35,7 @@ class EntityComponentManager {
         print("start listening")
         manager.addEntitiesListener { snapshot in
             Task { [unowned self] in
-                self.repopulate()
+                //self.repopulate()
             }
         }
     }
@@ -154,7 +154,9 @@ class EntityComponentManager {
                             componentCollider.entity = componentToUpload.entity
                         }
 
+                        // TODO: Print rigid body position here to check if upload changes
                         print("component to upload", componentToUpload.attachedCollider?.entity.id)
+                        print("position to upload", componentToUpload.position.xCoord, getAllComponents(ofType: Rigidbody.self)[0].position.xCoord)
 
                         try await manager.uploadEntity(entity: entity, components: [componentToUpload])
                     }

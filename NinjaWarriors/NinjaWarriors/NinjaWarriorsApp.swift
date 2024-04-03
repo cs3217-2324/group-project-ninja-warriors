@@ -17,14 +17,14 @@ struct NinjaWarriorsApp: App {
             // TODO: Remove after testing
             //CanvasView(matchId: "2d1NvyaH3GKGtGOLUwHV", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
-            //CanvasView(matchId: "gammYcsWelOBkv56y550", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            CanvasView(matchId: "eAFtdcxMu1Wujx36mgp8", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
             //CanvasView(matchId: "jZRiyvyjHIpvnAWdnmj0", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
 
 
             //CanvasView(matchId: "PkRyBoW0zgNTF9ktPb3d", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
             //CanvasView(matchId: "9GhnqE6FqN1tn4C27Wh4, currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            AuthenticationView()
+            //AuthenticationView()
 
             //A4nHFb0EdwYAJxPoDwDQ
         }
