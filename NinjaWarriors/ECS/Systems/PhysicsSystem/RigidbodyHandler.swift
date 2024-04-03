@@ -23,6 +23,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     func update(after time: TimeInterval) {
         //handleElasticCollisions()
         moveRigidBodies(with: time)
+        syncTransform()
     }
 
     private func handleElasticCollisions() {
@@ -63,6 +64,15 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
             }
 
             rigidBody.update(dt: deltaTime)
+        }
+    }
+
+    private func syncTransform() {
+        let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
+        for rigidBody in rigidBodies {
+            if let transform = manager.getComponent(ofType: Transform.self, for: rigidBody.entity) {
+                transform.position = rigidBody.position
+            }
         }
     }
 
