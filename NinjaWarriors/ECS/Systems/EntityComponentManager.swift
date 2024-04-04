@@ -12,7 +12,11 @@ class EntityComponentManager {
     var entityMap: [EntityID: Entity]
     var componentMap: [ComponentType: Set<Component>]
 
+    var id: String
+
     var manager: EntitiesManager
+
+    var isPublished = false
 
     var components: [Component] {
         var allComponents: [Component] = []
@@ -22,13 +26,13 @@ class EntityComponentManager {
         return allComponents
     }
 
-    init(for match: String) {
+    init(for match: String, id: String) {
         entityComponentMap = [:]
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
 
-        //startListening()
+        startListening()
     }
 
     deinit {
@@ -36,11 +40,11 @@ class EntityComponentManager {
     }
 
     func startListening() {
-        //print("start listening")
+        print("start listening")
         manager.addEntitiesListener { snapshot in
-            //print("snap shot received")
+            // print("snap shot received")
             Task { [unowned self] in
-                self.populate()
+                //self.populate()
             }
         }
     }
@@ -50,21 +54,6 @@ class EntityComponentManager {
     }
 
     // Fetches from realtime and populates the ecm
-    func initialPopulate() {
-        Task {
-            var newEntityMap: [EntityID: Entity] = [:]
-            let newEntityComponentMap = try await manager.getEntitiesWithComponents()
-
-            for newEntityID in newEntityComponentMap.keys {
-                newEntityMap[newEntityID] = try await manager.getEntity(entityId: newEntityID)
-            }
-            addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
-            remapAttachCollider()
-            remapColliderRigidbody()
-            startListening()
-        }
-    }
-
     func populate() {
         Task {
             var newEntityMap: [EntityID: Entity] = [:]
@@ -73,34 +62,49 @@ class EntityComponentManager {
             for newEntityID in newEntityComponentMap.keys {
                 newEntityMap[newEntityID] = try await manager.getEntity(entityId: newEntityID)
             }
-            addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
-            remapAttachCollider()
-            remapColliderRigidbody()
-        }
-    }
 
-    func addEntitiesFromNewMap(_ newEntityMap: [EntityID: Entity], _ newEntityComponentMap: [EntityID: [Component]]) {
-        for (newEntityId, newEntity) in newEntityMap {
-            // If entity exists, use original (old) entity memory reference
-            if let oldEntity = entityMap[newEntityId] {
-                if let newComponents = newEntityComponentMap[newEntityId] {
-                    add(entity: oldEntity, components: newComponents)
+            for (newEntityId, newEntity) in newEntityMap {
+                // If entity exists, use original (old) entity memory reference
+                if let oldEntity = entityMap[newEntityId] {
+                    if let newComponents = newEntityComponentMap[newEntityId] {
+                        add(entity: oldEntity, components: newComponents)
+                    } else {
+                        add(entity: oldEntity)
+                    }
+                    // If entity exists, use old entity memory reference
                 } else {
-                    add(entity: oldEntity)
-                }
-            // If entity doesn't exist, use new entity memory reference
-            } else {
-                if let newComponents = newEntityComponentMap[newEntityId] {
-                    add(entity: newEntity, components: newComponents)
-                } else {
-                    add(entity: newEntity)
+                    if let newComponents = newEntityComponentMap[newEntityId] {
+                        add(entity: newEntity, components: newComponents)
+                    } else {
+                        add(entity: newEntity)
+                    }
                 }
             }
+            remapAttachCollider()
+            remapColliderRigidbody()
+            // remapAttachSkills()
         }
     }
+    
+//    func remapAttachSkills() {
+//        for (entityId, entity) in entityMap {
+//            guard let components = entityComponentMap[entityId] else {
+//                continue
+//            }
+//            for component in components {
+//                if let componentToUpload = component as? SkillCaster {
+//                    if let componentSkills = componentToUpload.skills {
+//                        print("skills: \(componentSkills)")
+//                    } else {
+//                        print("no attached skills")
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     func remapAttachCollider() {
-        for (entityId, _) in entityMap {
+        for (entityId, entity) in entityMap {
             guard let components = entityComponentMap[entityId] else {
                 continue
             }
@@ -124,7 +128,7 @@ class EntityComponentManager {
         for collider in colliders {
             if let matchingRigidBody = rigidBodies.first(where: { $0.entity.id == collider.entity.id }) {
                 matchingRigidBody.attachedCollider = collider
-                //print("Attached collider to rigid body with entity ID:", matchingRigidBody.entity.id)
+                print("Attached collider to rigid body with entity ID:", matchingRigidBody.entity.id)
             }
         }
     }
@@ -252,8 +256,6 @@ class EntityComponentManager {
         componentMap[componentType, default: Set<Component>()].insert(component)
 
         entityComponentMap[entity.id]?.insert(component)
-
-        print("after add to:", entity.id, entityComponentMap)
 
         if !isAdded {
             Task {

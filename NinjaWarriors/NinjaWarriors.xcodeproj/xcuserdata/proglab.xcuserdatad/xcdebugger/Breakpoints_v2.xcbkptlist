@@ -30,8 +30,8 @@
             filePath = "ECS/Systems/SkillCasterSystem/SkillCasterSystem.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "update(after:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -40,46 +40,78 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "48ABA9D2-811A-41DA-AD79-A6A7B3589A20"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Primitives/Skills/SlashAOESkill.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "activate(from:in:)"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "init(id:cooldownDuration:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3758F1E8-6598-4B1F-B919-100B3D4D709C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ECS/Components/SkillComponent/SkillCaster.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "startSkillCooldown(skillId:cooldownDuration:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B6BAA97D-441C-44FE-96FF-B5BD69EF5EB2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ECS/Components/SkillComponent/SkillCasterWrapper.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "toComponent()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "48ABA9D2-811A-41DA-AD79-A6A7B3589A20 - 564997f719f90fb4"
+                  uuid = "B6BAA97D-441C-44FE-96FF-B5BD69EF5EB2 - 268f7da062e61780"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "NinjaWarriors.SlashAOESkill.activate(from: NinjaWarriors.Entity, in: NinjaWarriors.EntityComponentManager) -&gt; ()"
+                  symbolName = "NinjaWarriors.SkillCasterWrapper.toComponent() -&gt; Swift.Optional&lt;NinjaWarriors.Component&gt;"
                   moduleName = "NinjaWarriors"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/proglab/Desktop/group-project-ninja-warriors/NinjaWarriors/Primitives/Skills/SlashAOESkill.swift"
+                  urlString = "file:///Users/proglab/Desktop/group-project-ninja-warriors/NinjaWarriors/ECS/Components/SkillComponent/SkillCasterWrapper.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "128">
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "76">
                </Location>
                <Location
-                  uuid = "48ABA9D2-811A-41DA-AD79-A6A7B3589A20 - 564997f719f90fb4"
+                  uuid = "B6BAA97D-441C-44FE-96FF-B5BD69EF5EB2 - 268f7da062e6167e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "NinjaWarriors.SlashAOESkill.activate(from: NinjaWarriors.Entity, in: NinjaWarriors.EntityComponentManager) -&gt; ()"
+                  symbolName = "NinjaWarriors.SkillCasterWrapper.toComponent() -&gt; Swift.Optional&lt;NinjaWarriors.Component&gt;"
                   moduleName = "NinjaWarriors"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/proglab/Desktop/group-project-ninja-warriors/NinjaWarriors/Primitives/Skills/SlashAOESkill.swift"
+                  urlString = "file:///Users/proglab/Desktop/group-project-ninja-warriors/NinjaWarriors/ECS/Components/SkillComponent/SkillCasterWrapper.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "68">
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "656">
                </Location>
             </Locations>
          </BreakpointContent>

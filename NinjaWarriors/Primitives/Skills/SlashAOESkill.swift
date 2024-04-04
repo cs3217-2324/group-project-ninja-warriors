@@ -8,8 +8,7 @@
 import Foundation
 class SlashAOESkill: EntitySpawnerSkill {
     var id: SkillID
-    private var cooldownDuration: TimeInterval
-    var cooldownRemaining: TimeInterval = 0
+    var cooldownDuration: TimeInterval
 
     required init(id: SkillID) {
         self.id = id
@@ -18,25 +17,11 @@ class SlashAOESkill: EntitySpawnerSkill {
 
     convenience init(id: SkillID, cooldownDuration: TimeInterval) {
         self.init(id: id)
-        // self.id = id
         self.cooldownDuration = cooldownDuration
-    }
-
-    func isOnCooldown() -> Bool {
-       return cooldownRemaining > 0
-    }
-    
-    func resetCooldown() {
-        cooldownRemaining = 0
-    }
-
-    func decrementCooldown(deltaTime: TimeInterval) {
-       cooldownRemaining = max(0, cooldownRemaining - deltaTime)
     }
 
     func activate(from entity: Entity, in manager: EntityComponentManager) {
        _ = spawnEntity(from: entity, in: manager)
-       cooldownRemaining = cooldownDuration
     }
 
     func spawnEntity(from casterEntity: Entity, in manager: EntityComponentManager) -> Entity {
@@ -44,5 +29,9 @@ class SlashAOESkill: EntitySpawnerSkill {
         let slashAOE = SlashAOE(id: RandomNonce().randomNonceString(), casterEntity: casterEntity)
         manager.add(entity: slashAOE, isAdded: false)
         return slashAOE
+    }
+    
+    func wrapper() -> SkillWrapper {
+        return SkillWrapper(id: id, type: "SlashAOESkill", cooldownDuration: cooldownDuration)
     }
 }

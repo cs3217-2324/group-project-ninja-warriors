@@ -140,6 +140,7 @@
 		E6DB870C2BB9F756003AC063 /* DodgeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DB870B2BB9F756003AC063 /* DodgeSystem.swift */; };
 		E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DB870E2BB9F79F003AC063 /* Dodge.swift */; };
 		E6DB87112BB9F7BA003AC063 /* DodgeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DB87102BB9F7BA003AC063 /* DodgeWrapper.swift */; };
+		E6E5B47F2BBEEA0C0089D14D /* SkillWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E5B47E2BBEEA0C0089D14D /* SkillWrapper.swift */; };
 		E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */; };
 		E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */; };
 		E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */; };
@@ -280,6 +281,7 @@
 		E6DB870B2BB9F756003AC063 /* DodgeSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeSystem.swift; sourceTree = "<group>"; };
 		E6DB870E2BB9F79F003AC063 /* Dodge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dodge.swift; sourceTree = "<group>"; };
 		E6DB87102BB9F7BA003AC063 /* DodgeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeWrapper.swift; sourceTree = "<group>"; };
+		E6E5B47E2BBEEA0C0089D14D /* SkillWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillWrapper.swift; sourceTree = "<group>"; };
 		E6ECF62E2BADAB7E00DDDE9C /* SkillCasterSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillCasterSystem.swift; sourceTree = "<group>"; };
 		E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityOverlayView.swift; sourceTree = "<group>"; };
 		E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOE.swift; sourceTree = "<group>"; };
@@ -779,6 +781,7 @@
 				E6ECF6372BADE99700DDDE9C /* SlashAOESkill.swift */,
 				E6A0564C2BB0687500398D67 /* DodgeSkill.swift */,
 				E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */,
+				E6E5B47E2BBEEA0C0089D14D /* SkillWrapper.swift */,
 			);
 			path = Skills;
 			sourceTree = "<group>";
@@ -1015,6 +1018,7 @@
 			files = (
 				9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */,
 				916A7D6A2BA154F000319C26 /* CollisionManager.swift in Sources */,
+				E6E5B47F2BBEEA0C0089D14D /* SkillWrapper.swift in Sources */,
 				E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */,
 				E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */,
 				9132AF662BA50E9A000F2AC4 /* RigidbodyHandler.swift in Sources */,

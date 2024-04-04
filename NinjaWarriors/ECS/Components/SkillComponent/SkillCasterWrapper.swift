@@ -11,13 +11,15 @@ struct SkillCasterWrapper: ComponentWrapper {
 
     var id: ComponentID
     var entity: EntityWrapper
-    var skills: [SkillID: Skill] = [:]
+    var skills: [SkillID: SkillWrapper] = [:]
+    var skillCooldowns: [SkillID: TimeInterval] = [:]
     var activationQueue: [SkillID] = []
 
-    init(id: ComponentID, entity: EntityWrapper, skills: [SkillID: Skill], activationQueue: [SkillID]) {
+    init(id: ComponentID, entity: EntityWrapper, skills: [SkillID: SkillWrapper], skillCooldowns: [SkillID: TimeInterval], activationQueue: [SkillID]) {
         self.id = id
         self.entity = entity
         self.skills = skills
+        self.skillCooldowns = skillCooldowns
         self.activationQueue = activationQueue
     }
 
@@ -25,13 +27,13 @@ struct SkillCasterWrapper: ComponentWrapper {
         var container = encoder.container(keyedBy: AnyCodingKey.self)
         try container.encode(id, forKey: AnyCodingKey(stringValue: "id"))
         try container.encode(entity, forKey: AnyCodingKey(stringValue: "entity"))
+        try container.encode(skillCooldowns, forKey: AnyCodingKey(stringValue: "skillCooldowns"))
         try container.encode(activationQueue, forKey: AnyCodingKey(stringValue: "activationQueue"))
 
         var skillsContainer = container.nestedContainer(keyedBy: AnyCodingKey.self,
-                                                        forKey: AnyCodingKey(stringValue: "skills"))
-        for (skillID, skill) in skills {
-            let skillName: String = String(describing: type(of: skill))
-            try skillsContainer.encode(skillName, forKey: AnyCodingKey(stringValue: skillID))
+                                                            forKey: AnyCodingKey(stringValue: "skills"))
+        for (skillID, skillWrapper) in skills {
+            try skillsContainer.encode(skillWrapper, forKey: AnyCodingKey(stringValue: skillID))
         }
     }
 
@@ -39,37 +41,32 @@ struct SkillCasterWrapper: ComponentWrapper {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
         id = try container.decode(ComponentID.self, forKey: AnyCodingKey(stringValue: "id"))
         entity = try container.decode(EntityWrapper.self, forKey: AnyCodingKey(stringValue: "entity"))
+        skillCooldowns = try container.decode([SkillID: TimeInterval].self, forKey: AnyCodingKey(stringValue: "skillCooldowns"))
+        activationQueue = try container.decodeIfPresent([SkillID].self, forKey: AnyCodingKey(stringValue: "activationQueue")) ?? []
 
-        do {
-            activationQueue = try container.decode([SkillID].self, forKey: AnyCodingKey(stringValue: "activationQueue"))
-        } catch {
-            activationQueue = []
-        }
-
-        do {
-            let skillsContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
-                                                                    forKey: AnyCodingKey(stringValue: "skills"))
-            for key in skillsContainer.allKeys {
-                let skillID = key.stringValue
-                let skillName = try skillsContainer.decode(String.self, forKey: key)
-                if let skillType = NSClassFromString(Constants.directory + skillName) as? Skill.Type {
-                    let skillInstance = skillType.init(id: skillID)
-                    skills[skillID] = skillInstance
-                } else {
-                    print("Decoding skills dictionary error")
-                }
-            }
-        } catch {
-            skills = [:] // Assign an empty dictionary if field is missing
+        let skillsContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self, forKey: AnyCodingKey(stringValue: "skills"))
+        for key in skillsContainer.allKeys {
+            let skillWrapper = try skillsContainer.decode(SkillWrapper.self, forKey: key)
+            skills[key.stringValue] = skillWrapper
         }
     }
 
     func toComponent() -> Component? {
-        guard let entity = entity.toEntity() else {
+        guard let entityObj = entity.toEntity() else {
             return nil
         }
-        let skillCaster = SkillCaster(id: id, entity: entity)
-        skillCaster.skills = skills
+        let skillCaster = SkillCaster(id: id, entity: entityObj)
+
+        // Reconstruct skills from SkillWrapper
+        var reconstructedSkills: [SkillID: Skill] = [:]
+        for (skillID, skillWrapper) in skills {
+            reconstructedSkills[skillID] = skillWrapper.toSkill()
+        }
+        skillCaster.skills = reconstructedSkills
+
+        skillCaster.skillCooldowns = skillCooldowns
+        skillCaster.activationQueue = activationQueue
+
         return skillCaster
     }
 }

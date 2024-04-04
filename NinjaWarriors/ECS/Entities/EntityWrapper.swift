@@ -21,3 +21,9 @@ class EntityWrapper: FactoryWrapper {
         Obstacle(id: "1")
     }
 }
+
+/*
+protocol EntityWrapper: Codable {
+    func toEntity() -> Entity?
+}
+*/
