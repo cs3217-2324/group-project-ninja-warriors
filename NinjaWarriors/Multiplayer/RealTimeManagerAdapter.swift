@@ -70,7 +70,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
         let wrapperTypeName = "\(type)" + Constants.wrapperName
         guard let wrapperType = wrapperTypes[wrapperTypeName] else {
-            print("return nil")
             return nil
         }
         return wrapperType
@@ -79,7 +78,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
     private func getWrapperType(of type: String) -> Codable.Type? {
         let wrapperTypeName = "\(type)" + Constants.wrapperName
         guard let wrapperType = NSClassFromString(Constants.directory + wrapperTypeName) as? Codable.Type else {
-            print("wrapper type name", wrapperTypeName)
             return nil
         }
         return wrapperType
@@ -90,6 +88,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return wrapperType
     }
 
+    /*
     private func getEntity(from dict: Any, with wrapper: Codable.Type) throws -> Entity? {
         let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])
         guard let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper,
@@ -100,6 +99,23 @@ final class RealTimeManagerAdapter: EntitiesManager {
             return nil
         }
         return entity
+    }
+    */
+
+    private func getEntity(from dict: Any, with wrapper: Codable.Type) -> Entity? {
+        do {
+            let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])
+            guard let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper, from: entityData) as? EntityWrapper else {
+                return nil
+            }
+            guard let entity = entityWrapper.toEntity() else {
+                return nil
+            }
+            return entity
+        } catch {
+            print("Error while getting entity:", error)
+            return nil
+        }
     }
 
     private func decodeEntities(id: EntityID? = nil) async throws -> ([Entity]?, String?) {
@@ -156,7 +172,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
             }
             return component
         } catch {
-            print("Error: \(error)")
+            print("Error in decoding component: \(error)")
             return nil
         }
     }
@@ -167,7 +183,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityTypes = getEntityTypes(from: entitiesDict)
 
         for entityType in entityTypes {
-            print("entity type", entityType)
             try processEntities(for: entityType, withEntities: entitiesDict, into: &entityComponent)
         }
         return entityComponent

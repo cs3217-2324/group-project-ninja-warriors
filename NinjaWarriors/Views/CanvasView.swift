@@ -84,12 +84,10 @@ struct CanvasView: View {
                     .opacity(isShowingEntityOverlay ? 1 : 0)
 
                 }
-                /*
                 .onAppear {
                     viewModel.gameWorld.entityComponentManager.populate()
-                    viewModel.gameWorld.entityComponentManager.startListening()
+                    viewModel.updateEntities()
                 }
-                */
             }
         }
     }

@@ -34,9 +34,6 @@ final class CanvasViewModel: ObservableObject {
         updateEntities()
         updateViews()
         try await gameWorld.entityComponentManager.publish()
-        if !entities.isEmpty {
-            getSkills(for: entities[0])
-        }
     }
 
     func updateEntities() {

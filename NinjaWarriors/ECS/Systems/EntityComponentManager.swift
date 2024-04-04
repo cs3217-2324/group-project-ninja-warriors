@@ -27,8 +27,8 @@ class EntityComponentManager {
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
-
-        populate()
+        
+        //populate()
         startListening()
     }
 
@@ -37,7 +37,7 @@ class EntityComponentManager {
         manager.addEntitiesListener { snapshot in
             print("snap shot received")
             Task { [unowned self] in
-               self.populate()
+               //self.populate()
             }
         }
     }
