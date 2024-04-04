@@ -28,9 +28,11 @@ class Health: Component {
             return nil
         }
 
+        /*
         if entityInflictDamageMap.isEmpty {
             entityInflictDamageMap = ["1": true]
         }
+        */
 
         return HealthWrapper(id: id, entity: entityWrapper, entityInflictDamageMap: entityInflictDamageMap,
                              health: health, maxHealth: maxHealth)

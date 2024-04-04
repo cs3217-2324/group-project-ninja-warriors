@@ -30,7 +30,8 @@ class Obstacle: Equatable, Entity {
         let height = 50.0
         let image = "rock"
 
-        let collider = Collider(id: RandomNonce().randomNonceString(), entity: self, colliderShape: shape)
+        let collider = Collider(id: RandomNonce().randomNonceString(), entity: self,
+                                colliderShape: shape, isColliding: false, isOutOfBounds: false)
 
         let rigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: self, angularDrag: .zero,
                                   angularVelocity: .zero, mass: mass, rotation: .zero, totalForce: Vector.zero,

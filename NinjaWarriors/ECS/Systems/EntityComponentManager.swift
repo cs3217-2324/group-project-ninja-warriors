@@ -14,6 +14,8 @@ class EntityComponentManager {
 
     var manager: EntitiesManager
 
+    var isPublished = false
+
     var components: [Component] {
         var allComponents: [Component] = []
         for (_, componentArray) in componentMap {
@@ -27,17 +29,22 @@ class EntityComponentManager {
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
-        
-        //populate()
+
         startListening()
+    }
+
+    deinit {
+        stopListening()
     }
 
     func startListening() {
         print("start listening")
         manager.addEntitiesListener { snapshot in
             print("snap shot received")
-            Task { [unowned self] in
-               //self.populate()
+            if !self.isPublished {
+                Task { [unowned self] in
+                    //self.populate()
+                }
             }
         }
     }
@@ -74,6 +81,56 @@ class EntityComponentManager {
         }
     }
 
+
+    /*
+    func populate() {
+        Task {
+            var newEntityMap: [EntityID: Entity] = [:]
+            var newEntityComponentMap = try await manager.getEntitiesWithComponents()
+            var newComponentMap: [ComponentType: Set<Component>] = [:]
+
+            for newEntityID in newEntityComponentMap.keys {
+                newEntityMap[newEntityID] = try await manager.getEntity(entityId: newEntityID)
+            }
+
+
+            // Iterate through entityComponentMap
+            for (_, components) in newEntityComponentMap {
+                // Iterate through components in the set
+                for component in components {
+                    // Determine the type of the component
+                    let componentType = ComponentType(type(of: component))
+
+                    // Check if the componentType already exists in componentMap
+                    if var existingSet = newComponentMap[componentType] {
+                        // If exists, add the component to the existing set
+                        existingSet.insert(component)
+                        newComponentMap[componentType] = existingSet
+                    } else {
+                        // If not exists, create a new key-value pair
+                        newComponentMap[componentType] = Set([component])
+                    }
+                }
+            }
+
+            var temp: [EntityID: Set<Component>] = [:]
+
+            // Iterate through each (EntityID, [Component]) pair
+            for (entityID, componentArray) in newEntityComponentMap {
+                // Convert the array of components to a set
+                let componentSet = Set(componentArray)
+
+                // Store the set of components for the current EntityID
+                temp[entityID] = componentSet
+            }
+
+            entityMap = newEntityMap
+            entityComponentMap = temp
+            componentMap = newComponentMap
+        }
+    }
+    */
+
     func publish () async throws {
         for (entityId, entity) in entityMap {
             guard let components = entityComponentMap[entityId] else {
@@ -90,6 +147,7 @@ class EntityComponentManager {
                 // TODO: IMPORTANT! NEED TO MODIFY ADD TO NOT ALLOW DUPLICATE COMPONENTS OTHERWISE ERROR WILL BE THROWN
                 ///*
                 else {
+                    isPublished = true
                     try await manager.uploadEntity(entity: entity, components: [component])
                 }
                 //*/

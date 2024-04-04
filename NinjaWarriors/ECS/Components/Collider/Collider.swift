@@ -10,12 +10,15 @@ import Foundation
 class Collider: Component {
     var colliderShape: Shape
     var collidedEntities: Set<EntityID>
-    var isColliding: Bool = false
-    var isOutOfBounds: Bool = false
+    var isColliding: Bool
+    var isOutOfBounds: Bool
 
-    init(id: ComponentID, entity: Entity, colliderShape: Shape, collidedEntities: Set<EntityID> = []) {
+    init(id: ComponentID, entity: Entity, colliderShape: Shape,
+         collidedEntities: Set<EntityID> = [], isColliding: Bool, isOutOfBounds: Bool) {
         self.colliderShape = colliderShape
         self.collidedEntities = collidedEntities
+        self.isColliding = isColliding
+        self.isOutOfBounds = isOutOfBounds
 
         super.init(id: id, entity: entity)
     }
@@ -37,7 +40,8 @@ class Collider: Component {
     }
 
     func deepCopy() -> Collider {
-        Collider(id: id, entity: entity.deepCopy(), colliderShape: colliderShape.deepCopy())
+        Collider(id: id, entity: entity.deepCopy(), colliderShape: colliderShape.deepCopy(),
+                 isColliding: isColliding, isOutOfBounds: isOutOfBounds)
     }
 
     override func wrapper() -> ComponentWrapper? {
@@ -45,12 +49,16 @@ class Collider: Component {
             return nil
         }
 
+        /*
         if collidedEntities.isEmpty {
             collidedEntities = ["1"]
         }
+        */
 
+        // TODO: Add isColliding and isOutOfBounds here
         return ColliderWrapper(id: id, entity: entityWrapper,
                                colliderShape: colliderShape.wrapper(),
-                               collidedEntities: collidedEntities)
+                               collidedEntities: collidedEntities,
+                               isColliding: isColliding, isOutOfBounds: isOutOfBounds)
     }
 }

@@ -12,14 +12,12 @@ import SwiftUI
 final class CanvasViewModel: ObservableObject {
     var gameWorld: GameWorld
     private(set) var entities: [Entity] = []
-    private(set) var manager: EntitiesManager
     private(set) var matchId: String
     private(set) var currPlayerId: String
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.manager = RealTimeManagerAdapter(matchId: matchId)
         self.gameWorld = GameWorld(for: matchId)
 
         gameWorld.start()
@@ -93,13 +91,10 @@ extension CanvasViewModel {
         let skillCaster = gameWorld.entityComponentManager
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
-        //print("testing", skillCaster.)
-
         if let skills = skillCaster?.skills {
             print("skills", skills)
             return Array(skills)
         } else {
-            print("else")
             return []
         }
     }

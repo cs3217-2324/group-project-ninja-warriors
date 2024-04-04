@@ -18,7 +18,7 @@ class SlashAOE: Entity {
 
     func getInitializingComponents() -> [Component] {
         let shape = Shape(center: Constants.playerTwoPosition, halfLength: Constants.defaultSize)
-        let collider = Collider(id: RandomNonce().randomNonceString(), entity: self, colliderShape: shape)
+        let collider = Collider(id: RandomNonce().randomNonceString(), entity: self, colliderShape: shape, isColliding: false, isOutOfBounds: false)
         return [collider]
     }
 

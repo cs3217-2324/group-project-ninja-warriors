@@ -25,7 +25,8 @@ class Player: Equatable, Entity {
             let shape = Shape(center: initializePosition, halfLength: Constants.defaultSize)
 
             let playerCollider = Collider(id: RandomNonce().randomNonceString(), entity: self,
-                                          colliderShape: shape, collidedEntities: Set(["1"]))
+                                          colliderShape: shape, collidedEntities: [],
+                                          isColliding: false, isOutOfBounds: false)
 
             let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
                                           entity: self, skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
@@ -42,11 +43,12 @@ class Player: Equatable, Entity {
             let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: self, image: "player-copy", width: 50.0, height: 50.0, health: 10, maxHealth: 100)
 
             let health = Health(id: RandomNonce().randomNonceString(), entity: self,
-                                entityInflictDamageMap: ["1":true, "2":true], health: 100, maxHealth: 100)
+                                entityInflictDamageMap: [:], health: 100, maxHealth: 100)
 
-            let score = Score(id: RandomNonce().randomNonceString(), entity: self, score: 0, entityGainScoreMap: ["1":true, "2":true])
+        let score = Score(id: RandomNonce().randomNonceString(), entity: self,
+                          score: 0, entityGainScoreMap: [:])
 
-            return [playerRigidbody, playerCollider, skillCaster, spriteComponent/*, health, score*/]
+            return [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score]
         }
 
     func deepCopy() -> Entity {
