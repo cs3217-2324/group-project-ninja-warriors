@@ -55,12 +55,6 @@ final class LobbyViewModel: ObservableObject {
 
         addObstacleToDatabase()
 
-        /*
-        for _ in 0...1 {
-            addObstacleToDatabase()
-        }
-        */
-
         guard let playerIds = playerIds else {
             return
         }

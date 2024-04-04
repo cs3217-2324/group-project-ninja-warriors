@@ -23,7 +23,6 @@ class ScoreSystem: System {
     func createHealthScoreMap() -> [Health: Score] {
         var healthScoreMap: [Health: Score] = [:]
 
-        /*
         let healthComponents = manager.getAllComponents(ofType: Health.self)
         let scoreComponents = manager.getAllComponents(ofType: Score.self)
 
@@ -34,7 +33,6 @@ class ScoreSystem: System {
                 }
             }
         }
-        */
         return healthScoreMap
     }
 

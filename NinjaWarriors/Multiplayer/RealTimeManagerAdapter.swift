@@ -88,20 +88,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return wrapperType
     }
 
-    /*
-    private func getEntity(from dict: Any, with wrapper: Codable.Type) throws -> Entity? {
-        let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])
-        guard let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper,
-                                                                         from: entityData) as? EntityWrapper else {
-            return nil
-        }
-        guard let entity = entityWrapper.toEntity() else {
-            return nil
-        }
-        return entity
-    }
-    */
-
     private func getEntity(from dict: Any, with wrapper: Codable.Type) -> Entity? {
         do {
             let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])

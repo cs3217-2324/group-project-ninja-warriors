@@ -30,7 +30,7 @@ final class CanvasViewModel: ObservableObject {
     func updateViewModel() async throws {
         updateEntities()
         updateViews()
-        //try await gameWorld.entityComponentManager.publish()
+        try await gameWorld.entityComponentManager.publish()
     }
 
     func updateEntities() {
@@ -52,13 +52,6 @@ final class CanvasViewModel: ObservableObject {
     func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {
         let entityComponents = gameWorld.entityComponentManager.getAllComponents(for: entity)
 
-        /*
-        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
-              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
-            return nil
-        }
-        return (image: Image(sprite.image), position: rigidbody.position.get())
-        */
         guard let rigidbody = entityComponents.first(where: { $0 is Collider }) as? Collider,
               let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
             return nil
