@@ -10,8 +10,6 @@ import SwiftUI
 
 // Represents the game world, containing entities and systems
 class GameWorld {
-    // TODO: entityComponentManager need to have access to database so that other players will know
-    // what components others have, as well as to add entity on the fly
     var entityComponentManager: EntityComponentManager
     let systemManager = SystemManager()
     var gameLoopManager = GameLoopManager()

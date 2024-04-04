@@ -127,6 +127,7 @@
 		91F3D9C42BBBF735001D7DE7 /* SlashAOEWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */; };
 		E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC002BBADA55006C2C4C /* Transform.swift */; };
 		E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */; };
+		E699DDBF2BBDDC5800E8CA80 /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */; };
 		E6A0564D2BB0687500398D67 /* DodgeSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0564C2BB0687500398D67 /* DodgeSkill.swift */; };
 		E6A0564F2BB0691B00398D67 /* RefreshCooldownsSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */; };
 		E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */; };
@@ -266,6 +267,7 @@
 		91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOEWrapper.swift; sourceTree = "<group>"; };
 		E63FFC002BBADA55006C2C4C /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformWrapper.swift; sourceTree = "<group>"; };
+		E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
 		E6A0564C2BB0687500398D67 /* DodgeSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeSkill.swift; sourceTree = "<group>"; };
 		E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCooldownsSkill.swift; sourceTree = "<group>"; };
 		E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLoopHandler.swift; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 				9132AF672BA53E54000F2AC4 /* LobbyView.swift */,
 				9132AF902BA83E54000F2AC4 /* JoystickView.swift */,
 				E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */,
+				E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1044,6 +1047,7 @@
 				916A7D8B2BA1A0D400319C26 /* SignInView.swift in Sources */,
 				916A7D8E2BA1A1C500319C26 /* SignInViewModel.swift in Sources */,
 				7113A4962BA60E8400805340 /* Component.swift in Sources */,
+				E699DDBF2BBDDC5800E8CA80 /* PlayerControlsView.swift in Sources */,
 				9132AF702BA58C61000F2AC4 /* MatchManager.swift in Sources */,
 				E6CDFFBD2BAEDA58007BB867 /* Sprite.swift in Sources */,
 				9180F9D12BAB96C7000CC390 /* CodableWrapper.swift in Sources */,

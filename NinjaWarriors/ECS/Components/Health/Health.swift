@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
-import UIKit
 
 class Health: Component {
     var entityInflictDamageMap: [EntityID: Bool]

@@ -7,102 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F9400632-5505-40EA-95C7-D76A0ADC1915"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Multiplayer/RealTimeManagerAdapter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
-            landmarkName = "updateExistingEntity(_:_:_:_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A8D90DFC-8AD3-47B3-81D0-E5E35A24BBFD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Multiplayer/RealTimeManagerAdapter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "243"
-            endingLineNumber = "243"
-            landmarkName = "uploadEntity(entity:components:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "A8D90DFC-8AD3-47B3-81D0-E5E35A24BBFD - e63b18f30b8bad84"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "NinjaWarriors.RealTimeManagerAdapter.uploadEntity(entity: NinjaWarriors.Entity, components: Swift.Optional&lt;Swift.Array&lt;NinjaWarriors.Component&gt;&gt;) async throws -&gt; ()"
-                  moduleName = "NinjaWarriors"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/muhammadreyaaz/Desktop/CS3217/group-project-ninja-warriors/NinjaWarriors/Multiplayer/RealTimeManagerAdapter.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "290"
-                  endingLineNumber = "290"
-                  offsetFromSymbolStart = "144">
-               </Location>
-               <Location
-                  uuid = "A8D90DFC-8AD3-47B3-81D0-E5E35A24BBFD - 7ce4d6cc2867933d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for NinjaWarriors.RealTimeManagerAdapter.uploadEntity(entity: NinjaWarriors.Entity, components: Swift.Optional&lt;Swift.Array&lt;NinjaWarriors.Component&gt;&gt;) async throws -&gt; ()"
-                  moduleName = "NinjaWarriors"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/muhammadreyaaz/Desktop/CS3217/group-project-ninja-warriors/NinjaWarriors/Multiplayer/RealTimeManagerAdapter.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "290"
-                  endingLineNumber = "290"
-                  offsetFromSymbolStart = "128">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2EF78228-EDFE-486D-8AEB-E91C65389737"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Multiplayer/RealTimeManagerAdapter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
-            landmarkName = "updateExistingComponents(_:_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "07BD6A3F-DC61-4422-BAC5-928892D234AB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Multiplayer/RealTimeManagerAdapter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
-            landmarkName = "formComponentDict(from:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "9D9C3D65-6795-46AC-A46B-F9AC7B89E26D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -113,54 +17,6 @@
             startingLineNumber = "121"
             endingLineNumber = "121"
             landmarkName = "wrapper()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "311F0AE4-4E8A-4D42-B6D1-BEA2B32F3D7B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewModels/CanvasViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "getSkills(for:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "597351B3-D789-4910-9E15-BA78CB4CFEE0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Multiplayer/RealTimeManagerAdapter.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
-            landmarkName = "formComponentDict(from:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6B404707-8DC4-4A3A-BFF2-55D3D9A51959"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ViewModels/CanvasViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "getSkills(for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -183,7 +39,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7E23A2BC-91A7-45B7-B618-8005F2624383"
+            uuid = "E4B682B5-2CC2-4C2A-938F-83229654AD86"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -192,7 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "53"
             endingLineNumber = "53"
-            landmarkName = "populate()"
+            landmarkName = "initialPopulate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

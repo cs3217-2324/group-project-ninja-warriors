@@ -19,6 +19,9 @@ struct NinjaWarriorsApp: App {
 
             //CanvasView(matchId: "WXdUJLa8c4ViFBicCk15", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
             //CanvasView(matchId: "ksx1siVdVOW8oVvlFGRv", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "5YDCcayYXncRuYP6ngYB", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+
             //CanvasView(matchId: "PkRyBoW0zgNTF9ktPb3d", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
             //CanvasView(matchId: "9GhnqE6FqN1tn4C27Wh4, currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
             AuthenticationView()

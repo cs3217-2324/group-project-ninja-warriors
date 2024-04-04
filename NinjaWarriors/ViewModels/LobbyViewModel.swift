@@ -52,7 +52,6 @@ final class LobbyViewModel: ObservableObject {
 
     // Add all relevant initial entities here
     func initEntities(ids playerIds: [String]?) {
-
         addObstacleToDatabase()
 
         guard let playerIds = playerIds else {
