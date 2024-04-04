@@ -13,12 +13,7 @@ struct CanvasView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    //TODO: remove hardcoded values, GameWorld should determine this
-    @State private var circleCenter: CGPoint = CGPoint(x: 500, y: 500)
-    @State private var circleRadius: CGFloat = 500
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State var timeRemaining = 60
-    
+
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
@@ -30,15 +25,6 @@ struct CanvasView: View {
             Image("gray-wall")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
-
-            Text("\(timeRemaining)")
-                .font(.largeTitle)
-                .foregroundStyle(.white)
-                .onReceive(timer) { _ in
-                    timeRemaining = max(0, timeRemaining - 1)
-                }.offset(CGSize(width: 0, height: -500))
-
-            ClosingZone(circleCenter: $circleCenter, circleRadius: $circleRadius)
 
             ZStack {
                 GeometryReader { geometry in

@@ -12,6 +12,7 @@
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
+		7181B1432BBF1C6A009711DE /* ClosingZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B1422BBF1C6A009711DE /* ClosingZone.swift */; };
 		7183D07B2BB03C400078C960 /* EntityComponentManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07A2BB03C400078C960 /* EntityComponentManagerTests.swift */; };
 		7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */; };
 		7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07E2BB06E790078C960 /* SystemManagerTests.swift */; };
@@ -170,6 +171,7 @@
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
+		7181B1422BBF1C6A009711DE /* ClosingZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingZone.swift; sourceTree = "<group>"; };
 		7183D07A2BB03C400078C960 /* EntityComponentManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManagerTests.swift; sourceTree = "<group>"; };
 		7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECSTestUtils.swift; sourceTree = "<group>"; };
 		7183D07E2BB06E790078C960 /* SystemManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManagerTests.swift; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 				916A7D882BA19F5100319C26 /* AuthenticationView.swift */,
 				916A7D8A2BA1A0D400319C26 /* SignInView.swift */,
 				916A7DB12BA42F7F00319C26 /* CanvasView.swift */,
+				7181B1422BBF1C6A009711DE /* ClosingZone.swift */,
 				9132AF672BA53E54000F2AC4 /* LobbyView.swift */,
 				9132AF902BA83E54000F2AC4 /* JoystickView.swift */,
 				E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */,
@@ -1042,6 +1045,7 @@
 				E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
 				916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */,
+				7181B1432BBF1C6A009711DE /* ClosingZone.swift in Sources */,
 				E6A0564F2BB0691B00398D67 /* RefreshCooldownsSkill.swift in Sources */,
 				91DDE65B2BB51D8800851603 /* AnyEntity.swift in Sources */,
 				916A7D8B2BA1A0D400319C26 /* SignInView.swift in Sources */,
