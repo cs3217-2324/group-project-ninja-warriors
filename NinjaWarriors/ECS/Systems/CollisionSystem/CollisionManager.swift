@@ -88,7 +88,6 @@ class CollisionManager: System {
         } else {
             center = object.center
         }
-
         if (center.xCoord - object.halfLength <= 0)
             || (center.xCoord + object.halfLength >= Constants.screenWidth)
             || (center.yCoord - object.halfLength <= 0)
@@ -154,12 +153,17 @@ class CollisionManager: System {
         return startPoint.squareDistance(to: endPoint)
     }
 
-
     // Polygon - Non-Polygon Intersection (one contains edges)
     private func isIntersecting(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
-        guard let edges = shape.edges ?? object.edges else {
+        var edges: [Line] = []
+        if !object.edges.isEmpty {
+            edges = object.edges
+        } else if !shape.edges.isEmpty {
+            edges = shape.edges
+        } else {
             return false
         }
+
         return checkEdgePointIntersection(edges: edges, source: object, with: shape, isColliding: isColliding)
     }
 
@@ -168,7 +172,7 @@ class CollisionManager: System {
         var squaredLength: Double
         var objectCenter: Point
 
-        if shape.edges != nil {
+        if !shape.edges.isEmpty {
             squaredLength = object.halfLength * object.halfLength
             if isColliding {
                 objectCenter = object.offset
@@ -197,7 +201,13 @@ class CollisionManager: System {
 
     // Polygon - Polygon Intersection (both contains edges)
     private func isNotIntersecting(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
-        guard let edges = object.edges, let objectEdges = shape.edges else {
+        var edges: [Line] = []
+        var objectEdges: [Line] = []
+
+        if !object.edges.isEmpty && !shape.edges.isEmpty {
+            edges = object.edges
+            objectEdges = shape.edges
+        } else {
             return true
         }
 
@@ -239,12 +249,12 @@ class CollisionManager: System {
          point.yCoord <= max(line.start.yCoord, line.end.yCoord))
     }
 
-
     // Object inside of another object check
     private func pointInside(object: Shape, point: CGPoint) -> Bool {
-        guard let vertices = object.vertices else {
+        guard !object.vertices.isEmpty else {
             return false
         }
+        let vertices = object.vertices
         let nvert: Int = object.countVetices()
         var isPointInside = false
         var iter = nvert - 1

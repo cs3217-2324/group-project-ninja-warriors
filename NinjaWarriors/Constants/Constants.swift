@@ -16,10 +16,10 @@ struct Constants {
     static let wrapperName = "Wrapper"
 
     // MARK: Players initial positions
-    static let playerOnePosition = Point(xCoord: 100, yCoord: 300)
-    static let playerTwoPosition = Point(xCoord: 400, yCoord: 400)
+    static let playerOnePosition = Point(xCoord: 100, yCoord: 100)
+    static let playerTwoPosition = Point(xCoord: 300, yCoord: 300)
     static let playerThreePosition = Point(xCoord: 500, yCoord: 500)
-    static let playerFourPosition = Point(xCoord: 600, yCoord: 600)
+    static let playerFourPosition = Point(xCoord: 700, yCoord: 700)
     static let playerPositions = [playerOnePosition, playerTwoPosition, playerThreePosition, playerFourPosition]
     // TODO: Reset to 4 after testing
     static let playerCount = 1

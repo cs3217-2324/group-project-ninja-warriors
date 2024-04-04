@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseDatabase
 
+// TODO: Tidy up
 final class RealTimeManagerAdapter: EntitiesManager {
     private let databaseRef = Database.database().reference()
     private var entitiesRef: DatabaseReference
@@ -69,7 +70,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
         let wrapperTypeName = "\(type)" + Constants.wrapperName
         guard let wrapperType = wrapperTypes[wrapperTypeName] else {
-            print("return nil")
             return nil
         }
         return wrapperType
@@ -88,16 +88,20 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return wrapperType
     }
 
-    private func getEntity(from dict: Any, with wrapper: Codable.Type) throws -> Entity? {
-        let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])
-        guard let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper,
-                                                                         from: entityData) as? EntityWrapper else {
+    private func getEntity(from dict: Any, with wrapper: Codable.Type) -> Entity? {
+        do {
+            let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])
+            guard let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper, from: entityData) as? EntityWrapper else {
+                return nil
+            }
+            guard let entity = entityWrapper.toEntity() else {
+                return nil
+            }
+            return entity
+        } catch {
+            print("Error while getting entity:", error)
             return nil
         }
-        guard let entity = entityWrapper.toEntity() else {
-            return nil
-        }
-        return entity
     }
 
     private func decodeEntities(id: EntityID? = nil) async throws -> ([Entity]?, String?) {
@@ -143,32 +147,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
     private func getComponent(from dict: Any, with wrapper: Codable.Type) -> Component? {
         do {
-            print("dict", dict)
-
-            /*
-            guard var dict = dict as? [String: Any] else {
-                print("Error: Input is not a dictionary")
-                return nil
-            }
-
-            // Check if the "activationQueue" key exists
-            if dict["activationQueue"] == nil {
-                dict["activationQueue"] = []
-                // Key exists, handle the value
-            }
-
-            if dict["collidedEntities"] == nil {
-                print("COLLIDED ENTITIES IS NIL, APPENDING!!!")
-                dict["collidedEntities"] = []
-                print(dict)
-                // Key exists, handle the value
-            }
-
-            dict["entityInflictDamageMap"] = [:]
-            dict["entityGainScoreMap"] = [:]
-            dict["entityGainScoreMap"] = [:]
-            */
-
             let componentData = try JSONSerialization.data(withJSONObject: dict, options: [])
             guard let componentWrapper: ComponentWrapper = try JSONDecoder().decode(wrapper, from: componentData) as? ComponentWrapper else {
                 print("Error: Failed to decode component wrapper")
@@ -180,8 +158,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
             }
             return component
         } catch {
-            print("Error: \(error)")
-            print("error dict", dict)
+            print("Error in decoding component: \(error)")
+            print("Error dict", dict)
             return nil
         }
     }
@@ -192,7 +170,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityTypes = getEntityTypes(from: entitiesDict)
 
         for entityType in entityTypes {
-            print("entity type", entityType)
             try processEntities(for: entityType, withEntities: entitiesDict, into: &entityComponent)
         }
         return entityComponent
@@ -204,24 +181,11 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityIds = getIds(of: entityType, from: entitiesDict)
 
         for entityId in entityIds {
-            print("entity id", entityId)
             guard let test = entitiesDict[entityType]?[entityId] as? [String: Any] else {
-                print("guard return")
                 return
             }
-
-            //print("testing", test[componentKey] as? [String: Any])
-            //print("testing", entitiesDict[entityType]?[entityId] as? [String: [String: Any]])
-
-            /*
-            guard let idData = entitiesDict[entityType]?[entityId] as? [String: [String: Any]],
-                  let componentTypes = getComponentTypes(from: idData) else {
-                return
-            }
-            */
             guard let idData = test[componentKey] as? [String: Any],
                   let componentTypes = getComponentTypes(from: idData) else {
-                print("guard return 2")
                 return
             }
             try processComponents(for: entityId, withComponentTypes: componentTypes, from: idData, into: &entityComponent)
@@ -233,27 +197,19 @@ final class RealTimeManagerAdapter: EntitiesManager {
                                    into entityComponent: inout [EntityID: [Component]]) throws {
         var componentCount = componentTypes.count
         for componentType in componentTypes {
-            print("component type", componentType)
             componentCount -= 1
             guard let componentWrapper = getComponentWrapperType(of: componentType),
                   let componentDict = idData[componentType],
                   let component = try getComponent(from: componentDict, with: componentWrapper) else {
-                print("continue guard")
-                //print("continue 1", componentType, getWrapperType(of: componentType), idData[componentType])
                 continue
             }
-            print("outside continue guard")
             if entityComponent[entityId] == nil {
                 entityComponent[entityId] = [component]
             } else {
                 entityComponent[entityId]?.append(component)
             }
-            print("end of loop", componentCount)
         }
-        print("outside loop")
-        print("old entity component", entityComponent)
     }
-
 
     // MARK: Encode / Upload
     private func formEntityDict(from entity: Entity) throws -> [String: Any] {
@@ -288,14 +244,14 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityName = NSStringFromClass(type(of: entity))
             .components(separatedBy: ".").last ?? "entity"
 
-        print("entity name", entityName)
         let entityRef = entitiesRef.child(entityName).child(entity.id)
 
         entityRef.observeSingleEvent(of: .value) { [weak self] snapshot in
-            guard let self = self else { return }
+            guard let self = self else { return print("return")}
 
             if snapshot.exists() {
                 self.updateExistingEntity(snapshot, entityRef, entity, components)
+
             } else {
                 self.createEntity(snapshot, entityRef, entity)
             }
@@ -312,7 +268,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         guard let components = components else {
             return
         }
-
         // Case 1a: If componentKey exists, merge newComponentDict with existingComponentDict
         if entityDict[self.componentKey] is [String: Any] {
             updateExistingComponents(&entityDict, components)
@@ -320,7 +275,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         } else {
             appendNewComponents(&entityDict, components)
         }
-
         entityRef.setValue(entityDict)
     }
 
@@ -399,7 +353,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
     }
 
-    private func deleteAllKeysExcept(matchId: String) {
+    func deleteAllKeysExcept(matchId: String) {
         let ref = Database.database().reference()
         ref.observeSingleEvent(of: .value) { snapshot in
             guard snapshot.exists() else {

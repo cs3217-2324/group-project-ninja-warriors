@@ -17,16 +17,14 @@ struct NinjaWarriorsApp: App {
             // TODO: Remove after testing
             //CanvasView(matchId: "2d1NvyaH3GKGtGOLUwHV", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
-            CanvasView(matchId: "1Db8UfW4aF0Q01T1NMCa", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            //CanvasView(matchId: "jZRiyvyjHIpvnAWdnmj0", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-
-
+            //CanvasView(matchId: "WXdUJLa8c4ViFBicCk15", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "ksx1siVdVOW8oVvlFGRv", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "5YDCcayYXncRuYP6ngYB", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
             //CanvasView(matchId: "PkRyBoW0zgNTF9ktPb3d", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
             //CanvasView(matchId: "9GhnqE6FqN1tn4C27Wh4, currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            //AuthenticationView()
-
-            //A4nHFb0EdwYAJxPoDwDQ
+            AuthenticationView()
         }
     }
 }
@@ -38,5 +36,4 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         FirebaseApp.configure()
         return true
     }
-
 }

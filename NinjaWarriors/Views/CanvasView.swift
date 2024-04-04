@@ -11,11 +11,8 @@ import SwiftUI
 struct CanvasView: View {
     @ObservedObject var viewModel: CanvasViewModel
     @State private var isShowingEntityOverlay = false
-
     @State private var matchId: String
     @State private var playerId: String
-    @State private var joystickPosition: CGPoint = .zero
-    @State private var renderedImage: Image?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -25,14 +22,13 @@ struct CanvasView: View {
 
     var body: some View {
         ZStack {
-            Image("grass-stone")
+            Image("gray-wall")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
-            
+
             ZStack {
                 GeometryReader { geometry in
                     ZStack {
-                        Text("\(viewModel.entities.count)")
                         ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
                             if let (render, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
                                 render
@@ -52,31 +48,15 @@ struct CanvasView: View {
                         .frame(width: 200, height: 200)
                         VStack {
                             Spacer()
-                            HStack {
-                                ZStack {
-                                    Button(action: {
-                                        isShowingEntityOverlay.toggle()
-                                    }, label: {
-                                        Image(systemName: "eye")
-                                        .accessibilityLabel("Toggle Entity Overlay")})
-                                    .padding()
-                                    .background(Color.blue.opacity(0.7))
-                                    .foregroundColor(.white)
-                                    .clipShape(Circle())
+                            PlayerControlsView(
+                                skills: viewModel.getSkills(for: currPlayer),
+                                toggleEntityOverlay: {
+                                    isShowingEntityOverlay.toggle()
+                                },
+                                activateSkill: { skillId in
+                                    viewModel.activateSkill(forEntity: currPlayer, skillId: skillId)
                                 }
-                                HStack {
-                                    ForEach(viewModel.getSkills(for: currPlayer), id: \.key) { key, value in
-                                        Button(action: {
-                                            viewModel.activateSkill(forEntity: currPlayer, skillId: key)
-                                        }, label: {
-                                            Text("\(key) \(String(format: "%.1f", value.cooldownRemaining))")
-                                        })
-                                        .padding()
-                                        .background(Color.white.opacity(0.7))
-                                    }
-                                }
-                            }.frame(maxWidth: .infinity, maxHeight: 100)
-                                .background(Color.red.opacity(0.5))
+                            )
                         }
                     }
                     EntityOverlayView(entities: viewModel.entities,
@@ -86,7 +66,8 @@ struct CanvasView: View {
 
                 }
                 .onAppear {
-                    viewModel.gameWorld.entityComponentManager.populate()
+                    viewModel.gameWorld.entityComponentManager.initialPopulate()
+                    viewModel.updateEntities()
                 }
             }
         }
@@ -95,6 +76,6 @@ struct CanvasView: View {
 
 struct CanvasView_Previews: PreviewProvider {
     static var previews: some View {
-        CanvasView(matchId: "SampleMatchID", currPlayerId: "SamplePlayerID")
+        CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
     }
 }

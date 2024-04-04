@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
-import UIKit
 
 class Health: Component {
     var entityInflictDamageMap: [EntityID: Bool]
@@ -26,10 +24,6 @@ class Health: Component {
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
             return nil
-        }
-
-        if entityInflictDamageMap.isEmpty {
-            entityInflictDamageMap = ["1": true]
         }
 
         return HealthWrapper(id: id, entity: entityWrapper, entityInflictDamageMap: entityInflictDamageMap,

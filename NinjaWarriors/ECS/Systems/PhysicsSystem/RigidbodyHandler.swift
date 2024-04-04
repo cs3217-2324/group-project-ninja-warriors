@@ -46,8 +46,17 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     private func moveRigidBodies(with deltaTime: TimeInterval) {
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
 
+        //print("rigid bodies count", rigidBodies)
         for rigidBody in rigidBodies {
             let collider = rigidBody.attachedCollider
+
+            //print("rigid body attached collider", collider?.entity.id, "attached collider status", collider?.isOutOfBounds)
+
+
+            //let testing = manager.getAllComponents(ofType: Collider.self)[0]
+            //print("testing collider", testing.isOutOfBounds, testing.entity.id)
+
+            //rigidBody.attachedCollider = testing
 
             guard let gameControl = gameControl,
                   let gameControlEntity = gameControl.entity,
@@ -55,14 +64,26 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                 continue
             }
 
-            if !collider.isColliding && rigidBody.entity.id == gameControlEntity.id  {
+            if !collider.isColliding && !collider.isOutOfBounds
+                && rigidBody.entity.id == gameControlEntity.id {
+                print("not colliding apprently")
                 rigidBody.velocity = gameControl.getInput()
                 rigidBody.collidingVelocity = nil
-            } else if collider.isColliding && rigidBody.entity.id == gameControlEntity.id {
+            } else if (collider.isColliding || collider.isOutOfBounds)
+                        && rigidBody.entity.id == gameControlEntity.id {
+                print("is colliding")
                 rigidBody.collidingVelocity = gameControl.getInput()
+            } else if collider.isColliding {
+                print("is colliding 2")
             }
 
             rigidBody.update(dt: deltaTime)
+
+
+            manager.getComponent(ofType: Collider.self, for: rigidBody.entity)?
+                .colliderShape.center = rigidBody.position
+
+
         }
     }
 

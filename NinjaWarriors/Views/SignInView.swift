@@ -14,16 +14,20 @@ struct SignInView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Spacer()
                 TextField("Email...", text: $viewModel.email)
                     .padding()
-                    .background(Color.gray.opacity(0.4))
+                    .foregroundColor(.black)
+                    .background(Color.white.opacity(0.7))
                     .cornerRadius(10)
 
                 SecureField("Password...", text: $viewModel.password)
                     .padding()
-                    .background(Color.gray.opacity(0.4))
+                    .foregroundColor(.black)
+                    .background(Color.white.opacity(0.7))
                     .cornerRadius(10)
-
+                
+                Divider()
                 Button {
                     Task {
                         do {
@@ -36,10 +40,10 @@ struct SignInView: View {
                 } label: {
                     Text("Sign Up")
                         .font(.headline)
-                        .foregroundColor(.white)
+                        .foregroundColor(.gray)
                         .frame(height: 55)
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(Color.white)
                         .cornerRadius(10)
                 }
 
@@ -58,14 +62,21 @@ struct SignInView: View {
                         .foregroundColor(.white)
                         .frame(height: 55)
                         .frame(maxWidth: .infinity)
-                        .background(Color.blue)
+                        .background(Color.purple)
                         .cornerRadius(10)
                 }
 
                 Spacer()
             }
             .padding()
-            .navigationTitle("Sign In With Email")
+            .frame(width: 500)
+            .background(
+                Image("lobby-bg")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .edgesIgnoringSafeArea(.all)
+                    .frame(width: Constants.screenWidth, height: Constants.screenHeight)
+            )
             .background(
                 NavigationLink(
                     destination: LobbyView().navigationBarBackButtonHidden(true),

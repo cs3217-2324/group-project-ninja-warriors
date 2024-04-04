@@ -12,35 +12,32 @@ import SwiftUI
 final class CanvasViewModel: ObservableObject {
     var gameWorld: GameWorld
     private(set) var entities: [Entity] = []
-    private(set) var manager: EntitiesManager
     private(set) var matchId: String
     private(set) var currPlayerId: String
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.manager = RealTimeManagerAdapter(matchId: matchId)
         self.gameWorld = GameWorld(for: matchId)
-
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
             Task {
-                await self.updateViewModel()
+                try await self.updateViewModel()
             }
         }
     }
 
-    func updateViewModel() async {
+    func updateViewModel() async throws {
         updateEntities()
         updateViews()
-        await publishData()
+        try await gameWorld.entityComponentManager.publish()
     }
 
     func updateEntities() {
         entities = gameWorld.entityComponentManager.getAllEntities()
     }
 
-    // Only update positions that changed
+    // Only update values that changed
     func updateViews() {
         objectWillChange.send()
     }
@@ -52,30 +49,14 @@ final class CanvasViewModel: ObservableObject {
         return nil
     }
 
-    func publishData(for entityId: EntityID? = nil) async {
-        var publishEntityId: EntityID
-        if let entityId = entityId {
-            publishEntityId = entityId
-        } else {
-            publishEntityId = currPlayerId
-        }
-
-        guard let foundEntity = entities.first(where: { $0.id == publishEntityId }) else {
-            return
-        }
-        let componentsToPublish = gameWorld.entityComponentManager.getAllComponents(for: foundEntity)
-
-        try? await manager.uploadEntity(entity: foundEntity, components: componentsToPublish)
-    }
-
     func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {
         let entityComponents = gameWorld.entityComponentManager.getAllComponents(for: entity)
 
-        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
+        guard let rigidbody = entityComponents.first(where: { $0 is Collider }) as? Collider,
               let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
             return nil
         }
-        return (image: Image(sprite.image), position: rigidbody.position.get())
+        return (image: Image(sprite.image), position: rigidbody.colliderShape.center.get())
     }
 }
 
@@ -103,13 +84,14 @@ extension CanvasViewModel {
             return []
         }
     }
-    
+
     func getSkills(for entity: Entity) -> [Dictionary<SkillID, any Skill>.Element] {
         let entityId = entity.id
         let skillCaster = gameWorld.entityComponentManager
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
-        
+
         if let skills = skillCaster?.skills {
+            print("skills", skills)
             return Array(skills)
         } else {
             return []

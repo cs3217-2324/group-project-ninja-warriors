@@ -21,11 +21,7 @@ class Score: Component {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
-
-        if entityGainScoreMap.isEmpty {
-            entityGainScoreMap = ["1": true]
-        }
-
+        
         return ScoreWrapper(id: id, entity: entityWrapper, score: score, entityGainScoreMap: entityGainScoreMap)
     }
 }

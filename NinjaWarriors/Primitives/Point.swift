@@ -21,17 +21,21 @@ struct Point {
     private(set) var theta: Double
 
     init(xCoord: Double, yCoord: Double) {
-        if xCoord >= 0 && yCoord >= 0 {
-            self.xCoord = xCoord
-            self.yCoord = yCoord
-        } else {
+        self.xCoord = xCoord
+        self.yCoord = yCoord
+
+        if xCoord < 0 {
             self.xCoord = originX
+        }
+        if yCoord < 0 {
             self.yCoord = originY
         }
 
-        (self.radial, self.theta) = Point.calculatePolarFromCartesian(xCoord: xCoord, yCoord: yCoord)
+        (self.radial, self.theta) = Point.calculatePolarFromCartesian(xCoord: self.xCoord, yCoord: self.yCoord)
+
         assert(checkRepresentation())
     }
+
 
     init(radial: Double, theta: Double) {
         self.radial = radial

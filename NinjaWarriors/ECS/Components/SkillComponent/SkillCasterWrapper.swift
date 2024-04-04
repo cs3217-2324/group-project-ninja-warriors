@@ -39,18 +39,28 @@ struct SkillCasterWrapper: ComponentWrapper {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
         id = try container.decode(ComponentID.self, forKey: AnyCodingKey(stringValue: "id"))
         entity = try container.decode(EntityWrapper.self, forKey: AnyCodingKey(stringValue: "entity"))
-        activationQueue = try container.decode([SkillID].self, forKey: AnyCodingKey(stringValue: "activationQueue"))
 
-        let skillsContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
-                                                            forKey: AnyCodingKey(stringValue: "skills"))
+        do {
+            activationQueue = try container.decode([SkillID].self, forKey: AnyCodingKey(stringValue: "activationQueue"))
+        } catch {
+            activationQueue = []
+        }
 
-        for key in skillsContainer.allKeys {
-            let skillID = key.stringValue
-            let skillName = try skillsContainer.decode(String.self, forKey: AnyCodingKey(stringValue: skillID))
-            if let skillType = NSClassFromString(skillName) as? Skill.Type {
-                let skillInstance = skillType.init(id: skillID)
-                skills[skillID] = skillInstance
+        do {
+            let skillsContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
+                                                                    forKey: AnyCodingKey(stringValue: "skills"))
+            for key in skillsContainer.allKeys {
+                let skillID = key.stringValue
+                let skillName = try skillsContainer.decode(String.self, forKey: key)
+                if let skillType = NSClassFromString(Constants.directory + skillName) as? Skill.Type {
+                    let skillInstance = skillType.init(id: skillID)
+                    skills[skillID] = skillInstance
+                } else {
+                    print("Decoding skills dictionary error")
+                }
             }
+        } catch {
+            skills = [:] // Assign an empty dictionary if field is missing
         }
     }
 

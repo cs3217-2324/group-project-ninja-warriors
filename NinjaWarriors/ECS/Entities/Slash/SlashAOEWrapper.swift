@@ -1,5 +1,5 @@
 //
-//  SlashaoeWrapper.swift
+//  SlashAOEWrapper.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 2/4/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SlashaoeWrapper: EntityWrapper {
+class SlashAOEWrapper: EntityWrapper {
     var casterEntity: EntityWrapper = PlayerWrapper(id: RandomNonce().randomNonceString())
 
     init(id: EntityID, casterEntity: EntityWrapper) {
