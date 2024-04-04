@@ -42,15 +42,16 @@ struct HealthWrapper: ComponentWrapper {
         entity = try container.decode(EntityWrapper.self, forKey: AnyCodingKey(stringValue: "entity"))
         health = try container.decode(Int.self, forKey: AnyCodingKey(stringValue: "health"))
         maxHealth = try container.decode(Int.self, forKey: AnyCodingKey(stringValue: "maxHealth"))
-
-
-        let entityContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
-                                                            forKey: AnyCodingKey(stringValue: "skills"))
-
-        for key in entityContainer.allKeys {
-            let entityID = key.stringValue
-            let isDamaged = try entityContainer.decode(Bool.self, forKey: key)
-            entityInflictDamageMap[entityID] = isDamaged
+        do {
+            let entityContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
+                                                                forKey: AnyCodingKey(stringValue: "entityInflictDamageMap"))
+            for key in entityContainer.allKeys {
+                let entityID = key.stringValue
+                let isDamaged = try entityContainer.decode(Bool.self, forKey: key)
+                entityInflictDamageMap[entityID] = isDamaged
+            }
+        } catch {
+            entityInflictDamageMap = [:] // Assign an empty dictionary if field is missing
         }
     }
 

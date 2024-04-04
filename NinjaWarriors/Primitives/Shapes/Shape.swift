@@ -10,10 +10,10 @@ import Foundation
 class Shape {
     var center: Point
     var offset: Point
-    var halfLength: Double
-    var orientation: Double?
-    var edges: [Line]?
-    var vertices: [Point]?
+    var halfLength: Double = 25.0
+    var orientation: Double = 0.0
+    var edges: [Line] = []
+    var vertices: [Point] = []
 
     init (center: Point, halfLength: Double) {
         self.center = center
@@ -54,20 +54,25 @@ class Shape {
     }
 
     func countVetices() -> Int {
+        /*
         guard let vertices = vertices else {
             return 0
         }
+        */
         return vertices.count
     }
 
     func deepCopy() -> Shape {
+        /*
         if let edges = edges, let orientation = orientation, let vertices = vertices {
             return Shape(center: center, offset: offset, halfLength: halfLength,
                          orientation: orientation, edges: edges, vertices: vertices)
         } else {
             return Shape(center: center, halfLength: halfLength)
         }
-
+        */
+        return Shape(center: center, offset: offset, halfLength: halfLength,
+                     orientation: orientation, edges: edges, vertices: vertices)
     }
 }
 
@@ -83,19 +88,33 @@ extension Shape {
     }
 
     private func createEdgesWrapper(_ defaultLine: LineWrapper) -> [LineWrapper] {
+        /*
         if let edges = edges {
             return edges.map { $0.wrapper() }
         } else {
             return [defaultLine]
         }
+        */
+        var edgesWrapper: [LineWrapper] = []
+        for edge in edges {
+            edgesWrapper.append(edge.wrapper())
+        }
+        return edgesWrapper
     }
 
     private func createVerticesWrapper() -> [PointWrapper] {
+        /*
         if let vertices = vertices {
             return vertices.map { $0.wrapper() }
         } else {
             return [createDefaultPoint()]
         }
+        */
+        var pointWrapper: [PointWrapper] = []
+        for vertex in vertices {
+            pointWrapper.append(vertex.wrapper())
+        }
+        return pointWrapper
     }
 
     func wrapper() -> ShapeWrapper {
@@ -105,7 +124,7 @@ extension Shape {
 
         return ShapeWrapper(center: center.wrapper(),
                             offset: offset.wrapper(),
-                            orientation: orientation ?? 0.0,
+                            orientation: orientation,
                             halfLength: halfLength,
                             edges: edgesWrapper,
                             vertices: verticesWrapper)

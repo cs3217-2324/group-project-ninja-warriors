@@ -16,6 +16,7 @@ class CollisionManager: System {
 
     func update(after time: TimeInterval) {
         let colliders = manager.getAllComponents(ofType: Collider.self)
+        print("collider count", colliders)
 
         for collider in colliders {
             handleCollisions(for: collider, colliders: colliders)
@@ -73,6 +74,15 @@ class CollisionManager: System {
             objectCenter = object.getOffset()
         }
 
+
+        print("check safe to insert", isNotIntersecting(source: object, with: shape, isColliding: isColliding),
+              !isIntersecting(source: object, with: shape, isColliding: isColliding),
+              !isOverlap(source: object, with: shape, isColliding: isColliding),
+              !pointInside(object: object, point: shapeCenter),
+              !pointInside(object: shape, point: objectCenter),
+              !moveReduces(object: object, with: shape, isColliding: isColliding, isOutOfBounds: isOutOfBounds)
+              )
+
         return isNotIntersecting(source: object, with: shape, isColliding: isColliding)
         && !isIntersecting(source: object, with: shape, isColliding: isColliding)
         && !isOverlap(source: object, with: shape, isColliding: isColliding)
@@ -88,6 +98,11 @@ class CollisionManager: System {
         } else {
             center = object.center
         }
+
+        print("boundaries", center.xCoord, (center.xCoord - object.halfLength <= 0),
+              (center.xCoord + object.halfLength >= Constants.screenWidth),
+              (center.yCoord - object.halfLength <= 0),
+              (center.yCoord + object.halfLength >= Constants.screenHeight))
 
         if (center.xCoord - object.halfLength <= 0)
             || (center.xCoord + object.halfLength >= Constants.screenWidth)
@@ -157,9 +172,22 @@ class CollisionManager: System {
 
     // Polygon - Non-Polygon Intersection (one contains edges)
     private func isIntersecting(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
+        /*
         guard let edges = shape.edges ?? object.edges else {
             return false
         }
+        */
+
+        var edges: [Line] = []
+        if !object.edges.isEmpty {
+            edges = object.edges
+        } else if !shape.edges.isEmpty {
+            edges = shape.edges
+        } else {
+            return false
+        }
+
+
         return checkEdgePointIntersection(edges: edges, source: object, with: shape, isColliding: isColliding)
     }
 
@@ -168,7 +196,7 @@ class CollisionManager: System {
         var squaredLength: Double
         var objectCenter: Point
 
-        if shape.edges != nil {
+        if !shape.edges.isEmpty /*!= nil*/ {
             squaredLength = object.halfLength * object.halfLength
             if isColliding {
                 objectCenter = object.offset
@@ -197,9 +225,22 @@ class CollisionManager: System {
 
     // Polygon - Polygon Intersection (both contains edges)
     private func isNotIntersecting(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
+        var edges: [Line] = []
+        var objectEdges: [Line] = []
+
+        if !object.edges.isEmpty && !shape.edges.isEmpty {
+            edges = object.edges
+            objectEdges = shape.edges
+        } else {
+            return true
+        }
+
+        /*
         guard let edges = object.edges, let objectEdges = shape.edges else {
             return true
         }
+        */
+        print("edges", edges, "objectEdges", objectEdges)
 
         for edge in edges {
             for objectEdge in objectEdges where linesIntersect(line1: edge, line2: objectEdge) {
@@ -242,9 +283,16 @@ class CollisionManager: System {
 
     // Object inside of another object check
     private func pointInside(object: Shape, point: CGPoint) -> Bool {
+        guard !object.vertices.isEmpty else {
+            return false
+        }
+        let vertices = object.vertices
+        /*
         guard let vertices = object.vertices else {
             return false
         }
+        */
+
         let nvert: Int = object.countVetices()
         var isPointInside = false
         var iter = nvert - 1

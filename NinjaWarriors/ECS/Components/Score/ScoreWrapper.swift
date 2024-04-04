@@ -40,13 +40,16 @@ struct ScoreWrapper: ComponentWrapper {
         entity = try container.decode(EntityWrapper.self, forKey: AnyCodingKey(stringValue: "entity"))
         score = try container.decode(Int.self, forKey: AnyCodingKey(stringValue: "score"))
 
-        let entityContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
-                                                            forKey: AnyCodingKey(stringValue: "entityGainScoreMap"))
-
-        for key in entityContainer.allKeys {
-            let entityID = key.stringValue
-            let hasScore = try entityContainer.decode(Bool.self, forKey: key)
-            entityGainScoreMap[entityID] = hasScore
+        do {
+            let entityContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
+                                                                forKey: AnyCodingKey(stringValue: "entityGainScoreMap"))
+            for key in entityContainer.allKeys {
+                let entityID = key.stringValue
+                let hasScore = try entityContainer.decode(Bool.self, forKey: key)
+                entityGainScoreMap[entityID] = hasScore
+            }
+        } catch {
+            entityGainScoreMap = [:] // Assign an empty dictionary if field is missing
         }
     }
 

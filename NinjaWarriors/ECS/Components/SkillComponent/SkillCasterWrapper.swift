@@ -39,11 +39,16 @@ struct SkillCasterWrapper: ComponentWrapper {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
         id = try container.decode(ComponentID.self, forKey: AnyCodingKey(stringValue: "id"))
         entity = try container.decode(EntityWrapper.self, forKey: AnyCodingKey(stringValue: "entity"))
-        activationQueue = try container.decode([SkillID].self, forKey: AnyCodingKey(stringValue: "activationQueue"))
 
-        let skillsContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
-                                                                forKey: AnyCodingKey(stringValue: "skills"))
+        do {
+            activationQueue = try container.decode([SkillID].self, forKey: AnyCodingKey(stringValue: "activationQueue"))
+        } catch {
+            activationQueue = []
+        }
 
+        do {
+            let skillsContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
+                                                                    forKey: AnyCodingKey(stringValue: "skills"))
             for key in skillsContainer.allKeys {
                 let skillID = key.stringValue
                 let skillName = try skillsContainer.decode(String.self, forKey: key)
@@ -54,6 +59,9 @@ struct SkillCasterWrapper: ComponentWrapper {
                     print("Decoding skills dictionary error")
                 }
             }
+        } catch {
+            skills = [:] // Assign an empty dictionary if field is missing
+        }
     }
 
     func toComponent() -> Component? {

@@ -173,6 +173,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
             return component
         } catch {
             print("Error in decoding component: \(error)")
+            print("Error dict", dict)
             return nil
         }
     }
@@ -366,7 +367,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
     }
 
-    private func deleteAllKeysExcept(matchId: String) {
+    func deleteAllKeysExcept(matchId: String) {
         let ref = Database.database().reference()
         ref.observeSingleEvent(of: .value) { snapshot in
             guard snapshot.exists() else {

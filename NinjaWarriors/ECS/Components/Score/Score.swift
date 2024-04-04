@@ -22,9 +22,11 @@ class Score: Component {
             return nil
         }
 
+        /*
         if entityGainScoreMap.isEmpty {
             entityGainScoreMap = ["1": true]
         }
+        */
 
         return ScoreWrapper(id: id, entity: entityWrapper, score: score, entityGainScoreMap: entityGainScoreMap)
     }

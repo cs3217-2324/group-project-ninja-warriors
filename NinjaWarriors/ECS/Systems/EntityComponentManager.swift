@@ -14,8 +14,6 @@ class EntityComponentManager {
 
     var manager: EntitiesManager
 
-    var isPublished = false
-
     var components: [Component] {
         var allComponents: [Component] = []
         for (_, componentArray) in componentMap {
@@ -41,10 +39,8 @@ class EntityComponentManager {
         print("start listening")
         manager.addEntitiesListener { snapshot in
             print("snap shot received")
-            if !self.isPublished {
-                Task { [unowned self] in
-                    //self.populate()
-                }
+            Task { [unowned self] in
+                //self.populate()
             }
         }
     }
@@ -78,14 +74,101 @@ class EntityComponentManager {
                     }
                 }
             }
+
+            for (entityId, entity) in entityMap {
+                guard let components = entityComponentMap[entityId] else {
+                    continue
+                }
+                for component in components {
+                    if let componentToUpload = component as? Rigidbody {
+                        if let componentCollider = componentToUpload.attachedCollider {
+                            componentCollider.entity = componentToUpload.entity
+                        } else {
+                            print("no attached collider")
+                        }
+                    }
+                }
+
+                // Assuming manager is your component manager
+
+                // Get all components of Collider
+                let colliders = getAllComponents(ofType: Collider.self)
+
+                // Get all components of RigidBody
+                let rigidBodies = getAllComponents(ofType: Rigidbody.self)
+
+                // Iterate through Collider components
+                for collider in colliders {
+                    // Find matching RigidBody component based on entity ID
+                    if let matchingRigidBody = rigidBodies.first(where: { $0.entity.id == collider.entity.id }) {
+                        // Set the attachedCollider of matching RigidBody to current collider
+                        matchingRigidBody.attachedCollider = collider
+                        print("Attached collider to rigid body with entity ID:", matchingRigidBody.entity.id)
+                    }
+                }
+
+
+            }
         }
     }
+
+    /*
+    func populate() {
+        Task {
+            var newEntityMap: [EntityID: Entity] = [:]
+            var newEntityComponentMap = try await manager.getEntitiesWithComponents()
+            var newComponentMap: [ComponentType: Set<Component>] = [:]
+
+            for newEntityID in newEntityComponentMap.keys {
+                newEntityMap[newEntityID] = try await manager.getEntity(entityId: newEntityID)
+            }
+
+
+            // Iterate through entityComponentMap
+            for (_, components) in newEntityComponentMap {
+                // Iterate through components in the set
+                for component in components {
+                    // Determine the type of the component
+                    let componentType = ComponentType(type(of: component))
+
+                    // Check if the componentType already exists in componentMap
+                    if var existingSet = newComponentMap[componentType] {
+                        // If exists, add the component to the existing set
+                        existingSet.insert(component)
+                        newComponentMap[componentType] = existingSet
+                    } else {
+                        // If not exists, create a new key-value pair
+                        newComponentMap[componentType] = Set([component])
+                    }
+                }
+            }
+
+            var temp: [EntityID: Set<Component>] = [:]
+
+            // Iterate through each (EntityID, [Component]) pair
+            for (entityID, componentArray) in newEntityComponentMap {
+                // Convert the array of components to a set
+                let componentSet = Set(componentArray)
+
+                // Store the set of components for the current EntityID
+                temp[entityID] = componentSet
+            }
+
+            entityMap = newEntityMap
+            entityComponentMap = temp
+            componentMap = newComponentMap
+        }
+    }
+    */
 
     func publish () async throws {
         for (entityId, entity) in entityMap {
             guard let components = entityComponentMap[entityId] else {
                 continue
             }
+            try await manager.uploadEntity(entity: entity, components: Array(components))
+
+            /*
             for component in components {
                 if let componentToUpload = component as? Rigidbody {
                     if let componentCollider = componentToUpload.attachedCollider {
@@ -93,15 +176,11 @@ class EntityComponentManager {
                     }
                     try await manager.uploadEntity(entity: entity, components: [componentToUpload])
                 }
-
-                // TODO: IMPORTANT! NEED TO MODIFY ADD TO NOT ALLOW DUPLICATE COMPONENTS OTHERWISE ERROR WILL BE THROWN
-                ///*
                 else {
-                    isPublished = true
                     try await manager.uploadEntity(entity: entity, components: [component])
                 }
-                //*/
             }
+            */
         }
     }
 

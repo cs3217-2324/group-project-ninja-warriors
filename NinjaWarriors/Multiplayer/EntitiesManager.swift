@@ -18,7 +18,7 @@ protocol EntitiesManager {
     func delete()
     func delete(entity: Entity)
     func delete(component: Component, from entity: Entity)
-
+    func deleteAllKeysExcept(matchId: String)
 
     func addPlayerListeners() -> [PlayerPublisher]
     func addEntitiesListener(completion: @escaping (DataSnapshot) -> Void)
