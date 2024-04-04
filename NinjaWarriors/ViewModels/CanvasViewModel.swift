@@ -91,7 +91,7 @@ extension CanvasViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skills = skillCaster?.skills {
-            print("skills", skills)
+            // print("skills", skills)
             return Array(skills)
         } else {
             return []
