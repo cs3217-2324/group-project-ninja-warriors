@@ -54,23 +54,10 @@ class Shape {
     }
 
     func countVetices() -> Int {
-        /*
-        guard let vertices = vertices else {
-            return 0
-        }
-        */
         return vertices.count
     }
 
     func deepCopy() -> Shape {
-        /*
-        if let edges = edges, let orientation = orientation, let vertices = vertices {
-            return Shape(center: center, offset: offset, halfLength: halfLength,
-                         orientation: orientation, edges: edges, vertices: vertices)
-        } else {
-            return Shape(center: center, halfLength: halfLength)
-        }
-        */
         return Shape(center: center, offset: offset, halfLength: halfLength,
                      orientation: orientation, edges: edges, vertices: vertices)
     }
@@ -88,13 +75,6 @@ extension Shape {
     }
 
     private func createEdgesWrapper(_ defaultLine: LineWrapper) -> [LineWrapper] {
-        /*
-        if let edges = edges {
-            return edges.map { $0.wrapper() }
-        } else {
-            return [defaultLine]
-        }
-        */
         var edgesWrapper: [LineWrapper] = []
         for edge in edges {
             edgesWrapper.append(edge.wrapper())
@@ -103,13 +83,6 @@ extension Shape {
     }
 
     private func createVerticesWrapper() -> [PointWrapper] {
-        /*
-        if let vertices = vertices {
-            return vertices.map { $0.wrapper() }
-        } else {
-            return [createDefaultPoint()]
-        }
-        */
         var pointWrapper: [PointWrapper] = []
         for vertex in vertices {
             pointWrapper.append(vertex.wrapper())
