@@ -60,12 +60,14 @@ class EntityComponentManager {
             }
 
             for (newEntityId, newEntity) in newEntityMap {
+                // If entity exists, use original (old) entity memory reference
                 if let oldEntity = entityMap[newEntityId] {
                     if let newComponents = newEntityComponentMap[newEntityId] {
                         add(entity: oldEntity, components: newComponents)
                     } else {
                         add(entity: oldEntity)
                     }
+                    // If entity exists, use old entity memory reference
                 } else {
                     if let newComponents = newEntityComponentMap[newEntityId] {
                         add(entity: newEntity, components: newComponents)
@@ -74,10 +76,12 @@ class EntityComponentManager {
                     }
                 }
             }
+            remapAttachCollider()
+            remapColliderRigidbody()
         }
     }
 
-    func remapMemory() {
+    func remapAttachCollider() {
         for (entityId, entity) in entityMap {
             guard let components = entityComponentMap[entityId] else {
                 continue
@@ -91,16 +95,18 @@ class EntityComponentManager {
                     }
                 }
             }
+        }
+    }
 
-            let colliders = getAllComponents(ofType: Collider.self)
+    func remapColliderRigidbody() {
+        let colliders = getAllComponents(ofType: Collider.self)
 
-            let rigidBodies = getAllComponents(ofType: Rigidbody.self)
+        let rigidBodies = getAllComponents(ofType: Rigidbody.self)
 
-            for collider in colliders {
-                if let matchingRigidBody = rigidBodies.first(where: { $0.entity.id == collider.entity.id }) {
-                    matchingRigidBody.attachedCollider = collider
-                    print("Attached collider to rigid body with entity ID:", matchingRigidBody.entity.id)
-                }
+        for collider in colliders {
+            if let matchingRigidBody = rigidBodies.first(where: { $0.entity.id == collider.entity.id }) {
+                matchingRigidBody.attachedCollider = collider
+                print("Attached collider to rigid body with entity ID:", matchingRigidBody.entity.id)
             }
         }
     }
