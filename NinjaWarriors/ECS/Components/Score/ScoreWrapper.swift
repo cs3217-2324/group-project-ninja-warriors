@@ -7,51 +7,6 @@
 
 import Foundation
 
-/*
-struct ScoreWrapper: ComponentWrapper {
-    var id: ComponentID
-    var entity: EntityWrapper
-    var score: Int
-    var entityGainScoreMap: [EntityID: Bool]
-
-    init(id: ComponentID, entity: EntityWrapper, score: Int, entityGainScoreMap: [EntityID: Bool]) {
-        self.id = id
-        self.entity = entity
-        self.score = score
-        self.entityGainScoreMap = entityGainScoreMap
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: AnyCodingKey.self)
-        try container.encode(id, forKey: AnyCodingKey(stringValue: "id"))
-        try container.encode(entity, forKey: AnyCodingKey(stringValue: "entity"))
-        try container.encode(score, forKey: AnyCodingKey(stringValue: "score"))
-        try container.encode(entityGainScoreMap, forKey: AnyCodingKey(stringValue: "entityGainScoreMap"))
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: AnyCodingKey.self)
-        id = try container.decode(ComponentID.self, forKey: AnyCodingKey(stringValue: "id"))
-        entity = try container.decode(EntityWrapper.self, forKey: AnyCodingKey(stringValue: "entity"))
-        score = try container.decode(Int.self, forKey: AnyCodingKey(stringValue: "score"))
-
-        // Check if entityGainScoreMap field is present
-        if container.contains(AnyCodingKey(stringValue: "entityGainScoreMap")) {
-            entityGainScoreMap = try container.decode([EntityID: Bool].self, forKey: AnyCodingKey(stringValue: "entityGainScoreMap"))
-        } else {
-            entityGainScoreMap = [:]
-        }
-    }
-
-    func toComponent() -> Component? {
-        guard let entity = entity.toEntity() else {
-            return nil
-        }
-        return Score(id: id, entity: entity, score: score, entityGainScoreMap: entityGainScoreMap)
-    }
-}
-*/
-
 struct ScoreWrapper: ComponentWrapper {
     var id: ComponentID
     var entity: EntityWrapper
