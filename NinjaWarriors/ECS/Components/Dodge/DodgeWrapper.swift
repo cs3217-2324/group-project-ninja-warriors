@@ -58,7 +58,8 @@ struct DodgeWrapper: ComponentWrapper {
     }
     */
 
-    func toComponent() -> (Component, Entity)? {
+    func toComponent(entity: Entity) -> (Component, Entity)? {
+        /*
         if wrapperType == Constants.directory + "PlayerWrapper" {
             let newEntity = Player(id: entity.id)
             /*
@@ -66,7 +67,7 @@ struct DodgeWrapper: ComponentWrapper {
                 return nil
             }
             */
-            return (Dodge(id: id, entity: newEntity, isEnabled: isEnabled), newEntity)
+            return (Dodge(id: id, entity: entity, isEnabled: isEnabled), entity)
         } else if wrapperType == Constants.directory + "ObstacleWrapper" {
             let newEntity = Obstacle(id: entity.id)
             /*
@@ -74,9 +75,11 @@ struct DodgeWrapper: ComponentWrapper {
                 return nil
             }
             */
-            return (Dodge(id: id, entity: newEntity, isEnabled: isEnabled), newEntity)
+            return (Dodge(id: id, entity: entity, isEnabled: isEnabled), entity)
         } else {
             return nil
         }
+        */
+        return (Dodge(id: id, entity: entity, isEnabled: isEnabled), entity)
     }
 }

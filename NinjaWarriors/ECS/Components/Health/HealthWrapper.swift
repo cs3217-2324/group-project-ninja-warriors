@@ -65,7 +65,7 @@ struct HealthWrapper: ComponentWrapper {
         }
     }
 
-    func toComponent() -> (Component, Entity)? {
+    func toComponent(entity: Entity) -> (Component, Entity)? {
         /*
         if let entity = entity as? PlayerWrapper {
             guard let entity = entity.toEntity() else {
@@ -85,6 +85,7 @@ struct HealthWrapper: ComponentWrapper {
         }
         */
 
+        /*
         if wrapperType == Constants.directory + "PlayerWrapper" {
             let newEntity = Player(id: entity.id)
 
@@ -94,8 +95,8 @@ struct HealthWrapper: ComponentWrapper {
                 return nil
             }
             */
-            return (Health(id: id, entity: newEntity, entityInflictDamageMap: entityInflictDamageMap,
-                          health: health, maxHealth: maxHealth), newEntity)
+            return (Health(id: id, entity: entity, entityInflictDamageMap: entityInflictDamageMap,
+                          health: health, maxHealth: maxHealth), entity)
         } else if wrapperType == Constants.directory + "ObstacleWrapper" {
             let newEntity = Obstacle(id: entity.id)
             /*
@@ -104,11 +105,14 @@ struct HealthWrapper: ComponentWrapper {
                 return nil
             }
             */
-            return (Health(id: id, entity: newEntity, entityInflictDamageMap: entityInflictDamageMap,
-                          health: health, maxHealth: maxHealth), newEntity)
+            return (Health(id: id, entity: entity, entityInflictDamageMap: entityInflictDamageMap,
+                          health: health, maxHealth: maxHealth), entity)
         } else {
             print("--------- return nil ----------", type(of: entity))
             return nil
         }
+        */
+        return (Health(id: id, entity: entity, entityInflictDamageMap: entityInflictDamageMap,
+                      health: health, maxHealth: maxHealth), entity)
     }
 }

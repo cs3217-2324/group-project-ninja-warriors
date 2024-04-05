@@ -42,7 +42,7 @@ struct RigidbodyWrapper: ComponentWrapper {
         var container = encoder.container(keyedBy: AnyCodingKey.self)
         try container.encode(id, forKey: AnyCodingKey(stringValue: "id"))
         try container.encode(entity, forKey: AnyCodingKey(stringValue: "entity"))
-        try container.encode(angularDrag, forKey: AnyCodingKey(stringValue: "angulardDrag"))
+        try container.encode(angularDrag, forKey: AnyCodingKey(stringValue: "angularDrag"))
         try container.encode(angularVelocity, forKey: AnyCodingKey(stringValue: "angularVelocity"))
         try container.encode(mass, forKey: AnyCodingKey(stringValue: "mass"))
         try container.encode(rotation, forKey: AnyCodingKey(stringValue: "rotation"))
@@ -78,8 +78,9 @@ struct RigidbodyWrapper: ComponentWrapper {
         attachedCollider = try container.decode(ColliderWrapper.self, forKey: AnyCodingKey(stringValue: "attachedCollider"))
     }
 
-    func toComponent() -> (Component, Entity)? {
+    func toComponent(entity: Entity) -> (Component, Entity)? {
 
+        /*
         if wrapperType == Constants.directory + "PlayerWrapper" {
             let newEntity = Player(id: entity.id)
 
@@ -89,12 +90,12 @@ struct RigidbodyWrapper: ComponentWrapper {
             }
             */
 
-            if let colliderEntityUnwrap = attachedCollider.toComponent() as? (Collider, Entity) {
-                return (Rigidbody(id: id, entity: colliderEntityUnwrap.1, angularDrag: angularDrag,
+            if let colliderEntityUnwrap = attachedCollider.toComponent(entity: entity) as? (Collider, Entity) {
+                return (Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
                                  angularVelocity: angularVelocity, mass: mass, rotation: rotation,
                                  totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
                                  offset: offset.toPoint(), velocity: velocity.toVector(),
-                                  attachedCollider: colliderEntityUnwrap.0), colliderEntityUnwrap.1)
+                                  attachedCollider: colliderEntityUnwrap.0), entity)
             } else {
                 return nil
             }
@@ -104,16 +105,27 @@ struct RigidbodyWrapper: ComponentWrapper {
                 return nil
             }
             */
-
-            if let colliderEntityUnwrap = attachedCollider.toComponent() as? (Collider, Entity) {
-                return (Rigidbody(id: id, entity: colliderEntityUnwrap.1, angularDrag: angularDrag,
+            let newEntity = Obstacle(id: entity.id)
+            if let colliderEntityUnwrap = attachedCollider.toComponent(entity: entity) as? (Collider, Entity) {
+                return (Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
                                  angularVelocity: angularVelocity, mass: mass, rotation: rotation,
                                  totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
                                  offset: offset.toPoint(), velocity: velocity.toVector(),
-                                  attachedCollider: colliderEntityUnwrap.0), colliderEntityUnwrap.1)
+                                  attachedCollider: colliderEntityUnwrap.0), entity)
             } else {
                 return nil
             }
+        } else {
+            return nil
+        }
+        */
+
+        if let colliderEntityUnwrap = attachedCollider.toComponent(entity: entity) as? (Collider, Entity) {
+            return (Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
+                             angularVelocity: angularVelocity, mass: mass, rotation: rotation,
+                             totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
+                             offset: offset.toPoint(), velocity: velocity.toVector(),
+                              attachedCollider: colliderEntityUnwrap.0), entity)
         } else {
             return nil
         }

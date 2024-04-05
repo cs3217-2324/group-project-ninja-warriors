@@ -64,7 +64,9 @@ class EntityComponentManager {
                 newEntityMap[entity.id] = entity
             }
             */
-
+            for entity in newEntity {
+                print("entity", entity)
+            }
             ///*
             for (entityId, components) in newEntityComponentMap {
                 for component in components {
@@ -79,6 +81,7 @@ class EntityComponentManager {
     }
 
     func populate() {
+        print("populate executed")
         Task {
             //newEntityMap: [EntityID: Entity] = [:]
             (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()

@@ -20,7 +20,15 @@ struct NinjaWarriorsApp: App {
             //CanvasView(matchId: "o00bBaCw2Co3XmkTAKjV", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
 
-            //CanvasView(matchId: "QVpQ1w5keumvmbPu5u5s", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+
+
+
+            //CanvasView(matchId: "QF82Op4YaRE0Y9S4NEdE", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+
+
+
+
+
 
             
             //CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
