@@ -74,9 +74,9 @@ struct SkillCasterWrapper: ComponentWrapper {
         }
     }
 
-    func toComponent(entity: Entity) -> (Component, Entity)? {
+    func toComponent(entity: Entity) -> Component? {
         let skillCaster = SkillCaster(id: id, entity: entity)
         skillCaster.skills = skills
-        return (skillCaster, entity)
+        return skillCaster
     }
 }

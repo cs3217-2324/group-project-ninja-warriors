@@ -8,7 +8,6 @@
 import Foundation
 import FirebaseDatabase
 
-// TODO: Tidy up
 final class RealTimeManagerAdapter: EntitiesManager {
     private let databaseRef = Database.database().reference()
     private var entitiesRef: DatabaseReference

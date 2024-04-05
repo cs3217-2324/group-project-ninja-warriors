@@ -11,16 +11,12 @@ class EntityWrapper: FactoryWrapper {
     typealias Item = EntityWrapper
 
     var id: EntityID
-    //var entityType: String
 
-    init(id: EntityID/*, entityType: String*/) {
+    init(id: EntityID) {
         self.id = id
-        //self.entityType = entityType
     }
 
-    // TODO: FIX THIS ASAP
     open func toEntity() -> Entity? {
         return nil
-        //Obstacle(id: "1")
     }
 }

@@ -64,7 +64,7 @@ struct RigidbodyWrapper: ComponentWrapper {
         guard let wrapperClass = NSClassFromString(wrapperType) as? EntityWrapper.Type else {
             throw NSError(domain: "NinjaWarriors.Wrapper", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
         }
-
+        
         entity = try container.decode(wrapperClass.self, forKey: AnyCodingKey(stringValue: "entity"))
         angularDrag = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "angularDrag"))
         angularVelocity = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "angularVelocity"))
