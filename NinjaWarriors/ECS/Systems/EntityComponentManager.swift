@@ -253,40 +253,6 @@ class EntityComponentManager {
         assertRepresentation()
     }
 
-    /*
-    private func addComponentToEntityMap(_ component: Component, for entity: Entity) {
-        if var entityComponents = entityComponentMap[entity.id] {
-            var foundMatchingComponent = false
-
-            for existingComponent in entityComponents {
-                let existingComponentType = ComponentType(type(of: existingComponent))
-                if existingComponentType == ComponentType(type(of: component)) {
-
-                    if existingComponentType == ComponentType(Rigidbody.self) {
-                        existingComponent.updateAttributes(component)
-                    }
-                    foundMatchingComponent = true
-                    break
-                }
-            }
-
-            if !foundMatchingComponent {
-                print("insert new components")
-                entityComponents.insert(component)
-                componentMap[ComponentType(type(of: component)), default: Set<Component>()].insert(component)
-            }
-
-            entityComponentMap[entity.id] = entityComponents
-        } else {
-            print("insert new entity with new component")
-            var newEntityComponents = Set<Component>()
-            newEntityComponents.insert(component)
-            entityComponentMap[entity.id] = newEntityComponents
-            componentMap[ComponentType(type(of: component)), default: Set<Component>()].insert(component)
-        }
-    }
-    */
-
     private func addComponentToEntityMap(_ component: Component, for entity: Entity) {
         let componentType = ComponentType(type(of: component))
         var entityComponents = entityComponentMap[entity.id] ?? Set<Component>()
