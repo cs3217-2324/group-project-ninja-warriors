@@ -122,7 +122,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
                     continue
                 }
                 guard let dataDict = entitiesDict[entityType]?[entityId],
-                      let entity = try getEntity(from: dataDict, with: wrapperType) else {
+                      let entity = getEntity(from: dataDict, with: wrapperType) else {
                     return (nil, nil)
                 }
                 entities.append(entity)
@@ -147,18 +147,60 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entities[0]
     }
 
-    private func getComponent(from dict: Any, with wrapper: Codable.Type) -> Component? {
+    private func getComponent(from dict: Any, with wrapper: Codable.Type) -> (Component, Entity)? {
         do {
             let componentData = try JSONSerialization.data(withJSONObject: dict, options: [])
             guard let componentWrapper: ComponentWrapper = try JSONDecoder().decode(wrapper, from: componentData) as? ComponentWrapper else {
                 print("Error: Failed to decode component wrapper")
                 return nil
             }
-            guard let component = componentWrapper.toComponent() else {
-                print("Error: Failed to convert wrapper to component")
+
+            if let scoreWrapper = componentWrapper as? ScoreWrapper {
+                guard let componentEntity = scoreWrapper.toComponent() else {
+                    print("Error: Failed to convert wrapper to component for \(scoreWrapper)")
+                    return nil
+                }
+                return componentEntity
+            } else if let dodgeWrapper = componentWrapper as? DodgeWrapper {
+                guard let componentEntity = dodgeWrapper.toComponent() else {
+                    print("Error: Failed to convert wrapper to component for \(dodgeWrapper)")
+                    return nil
+                }
+                return componentEntity
+            } else if let healthWrapper = componentWrapper as? HealthWrapper {
+                guard let componentEntity = healthWrapper.toComponent() else {
+                    print("Error: Failed to convert wrapper to component for \(healthWrapper)")
+                    return nil
+                }
+                return componentEntity
+            } else if let spriteWrapper = componentWrapper as? SpriteWrapper {
+                guard let componentEntity = spriteWrapper.toComponent() else {
+                    print("Error: Failed to convert wrapper to component for \(spriteWrapper)")
+                    return nil
+                }
+                return componentEntity
+            } else if let colliderWrapper = componentWrapper as? ColliderWrapper {
+                guard let componentEntity = colliderWrapper.toComponent() else {
+                    print("Error: Failed to convert wrapper to component for \(colliderWrapper)")
+                    return nil
+                }
+                return componentEntity
+            } else if let rigidbodyWrapper = componentWrapper as? RigidbodyWrapper {
+                guard let componentEntity = rigidbodyWrapper.toComponent() else {
+                    print("Error: Failed to convert wrapper to component for \(rigidbodyWrapper)")
+                    return nil
+                }
+                return componentEntity
+            } else if let skillCasterWrapper = componentWrapper as? SkillCasterWrapper {
+                guard let componentEntity = skillCasterWrapper.toComponent() else {
+                    print("Error: Failed to convert wrapper to component for \(skillCasterWrapper)")
+                    return nil
+                }
+                return componentEntity
+            } else {
                 return nil
             }
-            return component
+
         } catch {
             print("Error in decoding component: \(error)")
             print("Error dict", dict)
@@ -166,43 +208,48 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
     }
 
-    func getEntitiesWithComponents() async throws -> [EntityID: [Component]] {
+    func getEntitiesWithComponents() async throws -> ([Entity], [EntityID: [Component]]) {
+        var entities: [Entity] = []
         var entityComponent: [EntityID: [Component]] = [:]
         let entitiesDict = try await getEntititesDict()
         let entityTypes = getEntityTypes(from: entitiesDict)
 
         for entityType in entityTypes {
-            try processEntities(for: entityType, withEntities: entitiesDict, into: &entityComponent)
+            try processEntities(for: entityType, withEntities: entitiesDict, into: &entityComponent,
+                                for: &entities)
         }
-        return entityComponent
+        return (entities, entityComponent)
     }
 
     private func processEntities(for entityType: String,
                                  withEntities entitiesDict: [String: [String: Any]],
-                                 into entityComponent: inout [EntityID: [Component]]) throws {
+                                 into entityComponent: inout [EntityID: [Component]],
+                                 for entities: inout [Entity]) throws {
         let entityIds = getIds(of: entityType, from: entitiesDict)
 
         for entityId in entityIds {
-            guard let test = entitiesDict[entityType]?[entityId] as? [String: Any] else {
+            guard let data = entitiesDict[entityType]?[entityId] as? [String: Any] else {
                 return
             }
-            guard let idData = test[componentKey] as? [String: Any],
+            guard let idData = data[componentKey] as? [String: Any],
                   let componentTypes = getComponentTypes(from: idData) else {
                 return
             }
-            try processComponents(for: entityId, withComponentTypes: componentTypes, from: idData, into: &entityComponent)
+            try processComponents(for: entityId, withComponentTypes: componentTypes, from: idData,
+                                  into: &entityComponent, for: &entities)
         }
     }
 
     private func processComponents(for entityId: EntityID, withComponentTypes componentTypes: [String],
                                    from idData: [String: Any],
-                                   into entityComponent: inout [EntityID: [Component]]) throws {
+                                   into entityComponent: inout [EntityID: [Component]],
+                                   for entities: inout [Entity]) throws {
         var componentCount = componentTypes.count
         for componentType in componentTypes {
             componentCount -= 1
             guard let componentWrapper = getComponentWrapperType(of: componentType),
                   let componentDict = idData[componentType],
-                  let component = try getComponent(from: componentDict, with: componentWrapper) else {
+                  let (component, entity) = getComponent(from: componentDict, with: componentWrapper) else {
                 continue
             }
             if entityComponent[entityId] == nil {
@@ -210,6 +257,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
             } else {
                 entityComponent[entityId]?.append(component)
             }
+            entities.append(entity)
         }
     }
 

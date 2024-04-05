@@ -13,6 +13,7 @@ struct HealthWrapper: ComponentWrapper {
     var entityInflictDamageMap: [EntityID: Bool] = [:]
     var health: Int
     var maxHealth: Int
+    var wrapperType: String
 
     init(id: ComponentID, entity: EntityWrapper, entityInflictDamageMap: [EntityID: Bool], health: Int, maxHealth: Int) {
         self.id = id
@@ -55,11 +56,22 @@ struct HealthWrapper: ComponentWrapper {
         }
     }
 
-    func toComponent() -> Component? {
-        guard let entity = entity.toEntity() else {
+    func toComponent() -> (Component, Entity)? {
+        if let entity = entity as? PlayerWrapper {
+            guard let entity = entity.toEntity() else {
+                return nil
+            }
+            return (Health(id: id, entity: entity, entityInflictDamageMap: entityInflictDamageMap,
+                          health: health, maxHealth: maxHealth), entity)
+        } else if let entity = entity as? ObstacleWrapper {
+            guard let entity = entity.toEntity() else {
+                return nil
+            }
+            return (Health(id: id, entity: entity, entityInflictDamageMap: entityInflictDamageMap,
+                          health: health, maxHealth: maxHealth), entity)
+        } else {
+            print("--------- return nil ----------")
             return nil
         }
-        return Health(id: id, entity: entity, entityInflictDamageMap: entityInflictDamageMap,
-                      health: health, maxHealth: maxHealth)
     }
 }

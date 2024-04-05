@@ -11,7 +11,7 @@ import FirebaseDatabase
 protocol EntitiesManager {
     func getAllEntities() async throws -> [Entity]?
     func getEntity(entityId: EntityID) async throws -> Entity?
-    func getEntitiesWithComponents() async throws -> ([EntityID: [Component]])
+    func getEntitiesWithComponents() async throws -> ([Entity], [EntityID: [Component]])
 
     func uploadEntity(entity: Entity, components: [Component]?) async throws
 

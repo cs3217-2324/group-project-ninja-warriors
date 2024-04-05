@@ -13,6 +13,7 @@ struct SkillCasterWrapper: ComponentWrapper {
     var entity: EntityWrapper
     var skills: [SkillID: Skill] = [:]
     var activationQueue: [SkillID] = []
+    var wrapperType: String
 
     init(id: ComponentID, entity: EntityWrapper, skills: [SkillID: Skill], activationQueue: [SkillID]) {
         self.id = id
@@ -64,12 +65,24 @@ struct SkillCasterWrapper: ComponentWrapper {
         }
     }
 
-    func toComponent() -> Component? {
-        guard let entity = entity.toEntity() else {
+    func toComponent() -> (Component, Entity)? {
+        if let entity = entity as? PlayerWrapper {
+            guard let entity = entity.toEntity() else {
+                return nil
+            }
+            let skillCaster = SkillCaster(id: id, entity: entity)
+            skillCaster.skills = skills
+            return (skillCaster, entity)
+        } else if let entity = entity as? ObstacleWrapper {
+            guard let entity = entity.toEntity() else {
+                return nil
+            }
+            let skillCaster = SkillCaster(id: id, entity: entity)
+            skillCaster.skills = skills
+            return (skillCaster, entity)
+        } else {
             return nil
         }
-        let skillCaster = SkillCaster(id: id, entity: entity)
-        skillCaster.skills = skills
-        return skillCaster
+
     }
 }

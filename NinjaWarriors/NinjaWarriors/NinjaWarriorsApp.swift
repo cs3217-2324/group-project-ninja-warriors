@@ -17,7 +17,7 @@ struct NinjaWarriorsApp: App {
             // TODO: Remove after testing
             //CanvasView(matchId: "2d1NvyaH3GKGtGOLUwHV", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
-            //CanvasView(matchId: "tzuR0EhuCp2jg4X0LRK9", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "o00bBaCw2Co3XmkTAKjV", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
 
             //CanvasView(matchId: "QVpQ1w5keumvmbPu5u5s", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")

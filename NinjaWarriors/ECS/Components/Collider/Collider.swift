@@ -62,6 +62,7 @@ class Collider: Component {
         return ColliderWrapper(id: id, entity: entityWrapper,
                                colliderShape: colliderShape.wrapper(),
                                collidedEntities: collidedEntities,
-                               isColliding: isColliding, isOutOfBounds: isOutOfBounds)
+                               isColliding: isColliding, isOutOfBounds: isOutOfBounds,
+                               wrapperType: NSStringFromClass(type(of: entityWrapper)))
     }
 }

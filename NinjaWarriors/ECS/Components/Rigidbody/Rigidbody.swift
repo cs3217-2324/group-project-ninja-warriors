@@ -140,7 +140,7 @@ class Rigidbody: Component {
                                     angularVelocity: angularVelocity, mass: mass,
                                     rotation: rotation, totalForce: totalForce.wrapper(),
                                     inertia: inertia, position: position.wrapper(),
-                                    offset: offset.wrapper(), velocity: velocity.wrapper(), attachedCollider: colliderWrap)
+                                    offset: offset.wrapper(), velocity: velocity.wrapper(), attachedCollider: colliderWrap, wrapperType: NSStringFromClass(type(of: entity)))
         } else {
             return nil
         }

@@ -20,18 +20,38 @@ struct RigidbodyWrapper: ComponentWrapper {
     var offset: PointWrapper
     var velocity: VectorWrapper
     var attachedCollider: ColliderWrapper
+    var wrapperType: String
 
-    func toComponent() -> Component? {
-        guard let entity = entity.toEntity() else {
-            return nil
-        }
+    func toComponent() -> (Component, Entity)? {
 
-        if let colliderUnwrap = attachedCollider.toComponent() as? Collider {
-            return Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
-                             angularVelocity: angularVelocity, mass: mass, rotation: rotation,
-                             totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
-                             offset: offset.toPoint(), velocity: velocity.toVector(),
-                             attachedCollider: colliderUnwrap)
+        if let entity = entity as? PlayerWrapper {
+            guard let entity = entity.toEntity() else {
+                return nil
+            }
+
+            if let colliderEntityUnwrap = attachedCollider.toComponent() as? (Collider, Entity) {
+                return (Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
+                                 angularVelocity: angularVelocity, mass: mass, rotation: rotation,
+                                 totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
+                                 offset: offset.toPoint(), velocity: velocity.toVector(),
+                                  attachedCollider: colliderEntityUnwrap.0), colliderEntityUnwrap.1)
+            } else {
+                return nil
+            }
+        } else if let entity = entity as? ObstacleWrapper {
+            guard let entity = entity.toEntity() else {
+                return nil
+            }
+
+            if let colliderEntityUnwrap = attachedCollider.toComponent() as? (Collider, Entity) {
+                return (Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
+                                 angularVelocity: angularVelocity, mass: mass, rotation: rotation,
+                                 totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
+                                 offset: offset.toPoint(), velocity: velocity.toVector(),
+                                  attachedCollider: colliderEntityUnwrap.0), colliderEntityUnwrap.1)
+            } else {
+                return nil
+            }
         } else {
             return nil
         }

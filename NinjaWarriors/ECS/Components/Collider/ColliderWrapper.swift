@@ -14,6 +14,7 @@ struct ColliderWrapper: ComponentWrapper {
     var collidedEntities: Set<EntityID>
     var isColliding: Bool
     var isOutOfBounds: Bool
+    var wrapperType: String
 
     init(id: ComponentID, entity: EntityWrapper, colliderShape: ShapeWrapper,
          collidedEntities: Set<EntityID> = [], isColliding: Bool, isOutOfBounds: Bool) {
@@ -51,12 +52,23 @@ struct ColliderWrapper: ComponentWrapper {
         isOutOfBounds = try container.decode(Bool.self, forKey: AnyCodingKey(stringValue: "isOutOfBounds"))
     }
 
-    func toComponent() -> Component? {
-        guard let entity = entity.toEntity() else {
+    func toComponent() -> (Component, Entity)? {
+        if let entity = entity as? PlayerWrapper {
+            guard let entity = entity.toEntity() else {
+                return nil
+            }
+            return (Collider(id: id, entity: entity, colliderShape: colliderShape.toShape(),
+                            collidedEntities: collidedEntities,
+                            isColliding: isColliding, isOutOfBounds: isOutOfBounds), entity)
+        } else if let entity = entity as? ObstacleWrapper {
+            guard let entity = entity.toEntity() else {
+                return nil
+            }
+            return (Collider(id: id, entity: entity, colliderShape: colliderShape.toShape(),
+                            collidedEntities: collidedEntities,
+                            isColliding: isColliding, isOutOfBounds: isOutOfBounds), entity)
+        } else {
             return nil
         }
-        return Collider(id: id, entity: entity, colliderShape: colliderShape.toShape(),
-                        collidedEntities: collidedEntities,
-                        isColliding: isColliding, isOutOfBounds: isOutOfBounds)
     }
 }

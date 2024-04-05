@@ -52,6 +52,7 @@ class SkillCaster: Component {
         guard let entity = entity.wrapper() else {
             return nil
         }
-        return SkillCasterWrapper(id: id, entity: entity, skills: skills, activationQueue: activationQueue)
+        return SkillCasterWrapper(id: id, entity: entity, skills: skills, activationQueue: activationQueue,
+                                  wrapperType: NSStringFromClass(type(of: entity)))
     }
 }

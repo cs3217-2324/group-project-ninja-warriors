@@ -16,12 +16,24 @@ struct SpriteWrapper: ComponentWrapper {
     var height: CGFloat
     var health: Int
     var maxHealth: Int
+    var wrapperType: String
 
-    func toComponent() -> Component? {
-        guard let entity = entity.toEntity() else {
+    func toComponent() -> (Component, Entity)? {
+        if let entity = entity as? PlayerWrapper {
+            guard let entity = entity.toEntity() else {
+                return nil
+            }
+            return (Sprite(id: id, entity: entity, image: image, width: width,
+                          height: height, health: health, maxHealth: maxHealth), entity)
+        } else if let entity = entity as? ObstacleWrapper {
+            guard let entity = entity.toEntity() else {
+                return nil
+            }
+            return (Sprite(id: id, entity: entity, image: image, width: width,
+                          height: height, health: health, maxHealth: maxHealth), entity)
+        } else {
             return nil
         }
-        return Sprite(id: id, entity: entity, image: image, width: width,
-                      height: height, health: health, maxHealth: maxHealth)
     }
+
 }

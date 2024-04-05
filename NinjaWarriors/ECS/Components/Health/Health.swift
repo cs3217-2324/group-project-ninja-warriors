@@ -35,6 +35,6 @@ class Health: Component {
         }
 
         return HealthWrapper(id: id, entity: entityWrapper, entityInflictDamageMap: entityInflictDamageMap,
-                             health: health, maxHealth: maxHealth)
+                             health: health, maxHealth: maxHealth, wrapperType: NSStringFromClass(type(of: entityWrapper)))
     }
 }

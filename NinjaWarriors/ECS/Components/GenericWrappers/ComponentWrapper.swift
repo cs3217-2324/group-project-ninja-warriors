@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ComponentWrapper: Codable {
-    func toComponent() -> Component?
+    func toComponent() -> (Component, Entity)?
 }
