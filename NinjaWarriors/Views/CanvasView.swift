@@ -44,7 +44,7 @@ struct CanvasView: View {
                         JoystickView(
                             setInputVector: { vector in
                                 viewModel.gameWorld.setInput(vector, for: currPlayer)
-                            }, location: CGPoint(x: 150, y: geometry.size.height - 250))
+                            }, location: CGPoint(x: 150, y: geometry.size.height - 300))
                         .frame(width: 200, height: 200)
                         VStack {
                             Spacer()

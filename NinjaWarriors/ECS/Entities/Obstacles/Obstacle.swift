@@ -9,20 +9,19 @@ import Foundation
 
 class Obstacle: Equatable, Entity {
     let id: EntityID
-    
+    var initializePosition: Point = Point(xCoord: 400, yCoord: 400)
+
     init(id: EntityID) {
         self.id = id
     }
 
+    convenience init(id: EntityID, position: Point) {
+        self.init(id: id)
+        self.initializePosition = position
+    }
+
     func getInitializingComponents() -> [Component] {
-        // TODO: Remove random
-        //let xCoord = Double.random(in: 200...300)
-        //let yCoord = Double.random(in: 400...500)
-
-        let xCoord = 249.6940593427741
-        let yCoord = 492.5799112615923
-
-        let position = Point(xCoord: xCoord, yCoord: yCoord)
+        let position = initializePosition
 
         let shape: Shape = CircleShape(center: position, radius: Constants.defaultSize)
         let mass = 8.0

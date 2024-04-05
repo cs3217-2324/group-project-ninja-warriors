@@ -41,23 +41,29 @@ final class LobbyViewModel: ObservableObject {
         }
     }
 
-    func start() async throws {
+    func start() async {
         guard let matchId = matchId else {
             return
         }
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
-        playerIds = try await matchManager.startMatch(matchId: matchId)
+        do {
+            playerIds = try await matchManager.startMatch(matchId: matchId)
+        } catch {
+            print("Error starting match: \(error)")
+        }
         initEntities(ids: playerIds)
     }
 
     // Add all relevant initial entities here
     func initEntities(ids playerIds: [String]?) {
-        addObstacleToDatabase()
+        for index in 0..<Constants.obstacleCount {
+            addObstacleToDatabase(at: Constants.obstaclePositions[index])
+        }
 
         guard let playerIds = playerIds else {
             return
         }
-        //playerIds.append("opponent")
+
         for (index, playerId) in playerIds.enumerated() {
             addPlayerToDatabase(id: playerId, at: Constants.playerPositions[index])
         }
@@ -84,8 +90,8 @@ final class LobbyViewModel: ObservableObject {
         return nil
     }
 
-    private func addObstacleToDatabase() {
-        let obstacle = makeObstacle()
+    private func addObstacleToDatabase(at position: Point) {
+        let obstacle = makeObstacle(at: position)
         guard let realTimeManager = realTimeManager else {
             return
         }
@@ -94,8 +100,8 @@ final class LobbyViewModel: ObservableObject {
         }
     }
 
-    private func makeObstacle() -> Obstacle {
-        Obstacle(id: RandomNonce().randomNonceString())
+    private func makeObstacle(at position: Point) -> Obstacle {
+        Obstacle(id: RandomNonce().randomNonceString(), position: position)
     }
 
     func addListenerForMatches() {

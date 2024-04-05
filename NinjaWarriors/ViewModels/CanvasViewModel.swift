@@ -27,10 +27,14 @@ final class CanvasViewModel: ObservableObject {
         }
     }
 
-    func updateViewModel() async throws {
+    func updateViewModel() async {
         updateEntities()
         updateViews()
-        try await gameWorld.entityComponentManager.publish()
+        do {
+            try await gameWorld.entityComponentManager.publish()
+        } catch {
+            print("Error publishing updated state: \(error)")
+        }
     }
 
     func updateEntities() {

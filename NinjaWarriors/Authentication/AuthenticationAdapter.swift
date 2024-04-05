@@ -33,35 +33,51 @@ final class AuthenticationAdapter: Authentication {
         return User(uid: user.uid, email: user.email)
     }
 
-    func resetPassword(email: String) async throws {
-        try await Auth.auth().sendPasswordReset(withEmail: email)
+    func resetPassword(email: String) async {
+        do {
+            try await Auth.auth().sendPasswordReset(withEmail: email)
+        } catch {
+            print("Error with reset password: \(error)")
+        }
     }
 
-    func updatePassword(password: String) async throws {
+    func updatePassword(password: String) async {
         guard let user = Auth.auth().currentUser else {
-            throw URLError(.badServerResponse)
+            print("User not logged in to any account to update password")
+            return
         }
-
-        try await user.updatePassword(to: password)
+        do {
+            try await user.updatePassword(to: password)
+        } catch {
+            print("Error updating password: \(error)")
+        }
     }
 
-    func updateEmail(email: String) async throws {
+    func updateEmail(email: String) async {
         guard let user = Auth.auth().currentUser else {
-            throw URLError(.badServerResponse)
+            print("User not logged in to any account to update email")
+            return
         }
-
-        try await user.sendEmailVerification(beforeUpdatingEmail: email)
+        do {
+            try await user.sendEmailVerification(beforeUpdatingEmail: email)
+        } catch {
+            print("Error updating email: \(error)")
+        }
     }
 
     func signOut() throws {
         try Auth.auth().signOut()
     }
 
-    func delete() async throws {
+    func delete() async {
         guard let user = Auth.auth().currentUser else {
-            throw URLError(.badURL)
+            print("User not logged in to any account to delete account")
+            return
         }
-
-        try await user.delete()
+        do {
+            try await user.delete()
+        } catch {
+            print("Error deleting user: \(error)")
+        }
     }
 }

@@ -57,8 +57,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entitiesDict
     }
 
-    // TODO: Abstract out to type registry
-    private func getComponentWrapperType(of type: String) -> Codable.Type? {
+    private func getComponentTypeRegistry(for wrapperType: String) -> Codable.Type? {
         let wrapperTypes: [String: Codable.Type] = [
             "SkillCasterWrapper": SkillCasterWrapper.self,
             "SpriteWrapper": SpriteWrapper.self,
@@ -67,9 +66,12 @@ final class RealTimeManagerAdapter: EntitiesManager {
             "ScoreWrapper": ScoreWrapper.self,
             "RigidbodyWrapper": RigidbodyWrapper.self
         ]
+        return wrapperTypes[wrapperType]
+    }
 
+    private func getComponentWrapperType(of type: String) -> Codable.Type? {
         let wrapperTypeName = "\(type)" + Constants.wrapperName
-        guard let wrapperType = wrapperTypes[wrapperTypeName] else {
+        guard let wrapperType = getComponentTypeRegistry(for: wrapperTypeName) else {
             return nil
         }
         return wrapperType

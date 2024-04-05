@@ -29,6 +29,7 @@ final class SignInViewModel: ObservableObject {
         print("user", user)
     }
 
+    // TODO: Display shaking animation if user already signed up before
     func signIn() async throws {
         guard !email.isEmpty, !password.isEmpty else {
             print("No email or password found.")
