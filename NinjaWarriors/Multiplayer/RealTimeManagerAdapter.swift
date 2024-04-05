@@ -308,8 +308,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
         let entityRef = entitiesRef.child(entityName).child(entity.id)
 
-        entityRef.observeSingleEvent(of: .value) { [weak self] snapshot in
-            guard let self = self else { return print("return")}
+        entityRef.observeSingleEvent(of: .value) { [unowned self] snapshot in
+            //guard let self = self else { return print("return")}
 
             if snapshot.exists() {
                 self.updateExistingEntity(snapshot, entityRef, entity, components)

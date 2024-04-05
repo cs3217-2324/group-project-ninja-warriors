@@ -22,7 +22,7 @@ struct Constants {
     static let playerFourPosition = Point(xCoord: screenWidth - 100, yCoord: screenHeight - 500)
     static let playerPositions = [playerOnePosition, playerTwoPosition, playerThreePosition, playerFourPosition]
     // TODO: Reset to 4 after testing
-    static let playerCount = 2
+    static let playerCount = 1
 
     // MARK: Obstacles initial positions
 

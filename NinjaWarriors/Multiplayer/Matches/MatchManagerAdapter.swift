@@ -117,9 +117,9 @@ final class MatchManagerAdapter: MatchManager {
     func removePlayerFromMatch(playerId: String, matchId: String) async {
         let matchRef = matches.document(matchId)
         do {
-            //_ = try await Firestore.firestore().runTransaction({ [unowned self] (transaction, errorPointer) -> Any? in
+            _ = try await Firestore.firestore().runTransaction({ [unowned self] (transaction, errorPointer) -> Any? in
 
-            _ = try await Firestore.firestore().runTransaction({ [weak self] (transaction, errorPointer) -> Any? in
+            //_ = try await Firestore.firestore().runTransaction({ [weak self] (transaction, errorPointer) -> Any? in
                 guard let self = self else { return }
                 do {
                     let matchDocument = try transaction.getDocument(matchRef)
