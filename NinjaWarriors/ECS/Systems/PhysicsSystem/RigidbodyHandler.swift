@@ -47,7 +47,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     private func moveRigidBodies(with deltaTime: TimeInterval) {
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
 
-        //print("rigid bodies count", rigidBodies)
         for rigidBody in rigidBodies {
             let collider = rigidBody.attachedCollider
 
@@ -59,15 +58,12 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
 
             if !collider.isColliding && !collider.isOutOfBounds
                 && rigidBody.entity.id == gameControlEntity.id {
-                print("not colliding apprently")
                 rigidBody.velocity = gameControl.getInput()
                 rigidBody.collidingVelocity = nil
             } else if (collider.isColliding || collider.isOutOfBounds)
                         && rigidBody.entity.id == gameControlEntity.id {
-                print("is colliding")
                 rigidBody.collidingVelocity = gameControl.getInput()
             } else if collider.isColliding {
-                print("is colliding 2")
             }
 
             moveRigidBody(rigidBody, across: deltaTime)
