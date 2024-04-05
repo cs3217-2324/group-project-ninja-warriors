@@ -15,12 +15,13 @@ struct HealthWrapper: ComponentWrapper {
     var maxHealth: Int
     var wrapperType: String
 
-    init(id: ComponentID, entity: EntityWrapper, entityInflictDamageMap: [EntityID: Bool], health: Int, maxHealth: Int) {
+    init(id: ComponentID, entity: EntityWrapper, entityInflictDamageMap: [EntityID: Bool], health: Int, maxHealth: Int, wrapperType: String) {
         self.id = id
         self.entity = entity
         self.entityInflictDamageMap = entityInflictDamageMap
         self.health = health
         self.maxHealth = maxHealth
+        self.wrapperType = wrapperType
     }
 
     func encode(to encoder: Encoder) throws {
@@ -35,12 +36,20 @@ struct HealthWrapper: ComponentWrapper {
         }
         try container.encode(health, forKey: AnyCodingKey(stringValue: "health"))
         try container.encode(maxHealth, forKey: AnyCodingKey(stringValue: "maxHealth"))
+        try container.encode(wrapperType, forKey: AnyCodingKey(stringValue: "wrapperType"))
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
         id = try container.decode(ComponentID.self, forKey: AnyCodingKey(stringValue: "id"))
-        entity = try container.decode(EntityWrapper.self, forKey: AnyCodingKey(stringValue: "entity"))
+
+        wrapperType = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "wrapperType"))
+
+        guard let wrapperClass = NSClassFromString(wrapperType) as? EntityWrapper.Type else {
+            throw NSError(domain: "NinjaWarriors.Wrapper", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
+        }
+        entity = try container.decode(wrapperClass.self, forKey: AnyCodingKey(stringValue: "entity"))
+
         health = try container.decode(Int.self, forKey: AnyCodingKey(stringValue: "health"))
         maxHealth = try container.decode(Int.self, forKey: AnyCodingKey(stringValue: "maxHealth"))
         do {
@@ -57,6 +66,7 @@ struct HealthWrapper: ComponentWrapper {
     }
 
     func toComponent() -> (Component, Entity)? {
+        /*
         if let entity = entity as? PlayerWrapper {
             guard let entity = entity.toEntity() else {
                 return nil
@@ -70,7 +80,27 @@ struct HealthWrapper: ComponentWrapper {
             return (Health(id: id, entity: entity, entityInflictDamageMap: entityInflictDamageMap,
                           health: health, maxHealth: maxHealth), entity)
         } else {
-            print("--------- return nil ----------")
+            print("--------- return nil ----------", type(of: entity))
+            return nil
+        }
+        */
+
+        if wrapperType == Constants.directory + "PlayerWrapper" {
+            guard let entity = entity.toEntity() else {
+                print("--------- return nil ----------", type(of: entity))
+                return nil
+            }
+            return (Health(id: id, entity: entity, entityInflictDamageMap: entityInflictDamageMap,
+                          health: health, maxHealth: maxHealth), entity)
+        } else if wrapperType == Constants.directory + "ObstacleWrapper" {
+            guard let entity = entity.toEntity() else {
+                print("--------- return nil ----------", type(of: entity))
+                return nil
+            }
+            return (Health(id: id, entity: entity, entityInflictDamageMap: entityInflictDamageMap,
+                          health: health, maxHealth: maxHealth), entity)
+        } else {
+            print("--------- return nil ----------", type(of: entity))
             return nil
         }
     }

@@ -13,6 +13,13 @@ struct DodgeWrapper: ComponentWrapper {
     var isEnabled: Bool
     var wrapperType: String
 
+    init(id: ComponentID, entity: EntityWrapper, isEnabled: Bool, wrapperType: String) {
+        self.id = id
+        self.entity = entity
+        self.isEnabled = isEnabled
+        self.wrapperType = wrapperType
+    }
+
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: AnyCodingKey.self)
         try container.encode(id, forKey: AnyCodingKey(stringValue: "id"))
@@ -33,16 +40,7 @@ struct DodgeWrapper: ComponentWrapper {
         isEnabled = try container.decode(Bool.self, forKey: AnyCodingKey(stringValue: "isEnabled"))
     }
 
-    func toComponent() -> (Component, Entity)? {
-        guard let entity = entity as? PlayerWrapper ?? entity as? ObstacleWrapper, let unwrappedEntity = entity.toEntity() else {
-            return nil
-        }
-        return (Score(id: id, entity: unwrappedEntity, score: score, entityGainScoreMap: entityGainScoreMap), unwrappedEntity)
-    }
-
-
-
-
+    /*
     func toComponent() -> (Component, Entity)? {
         if let entity = entity as? PlayerWrapper {
             guard let unwrappedEntity = entity.toEntity() else {
@@ -50,6 +48,23 @@ struct DodgeWrapper: ComponentWrapper {
             }
             return (Dodge(id: id, entity: unwrappedEntity, isEnabled: isEnabled), unwrappedEntity)
         } else if let entity = entity as? ObstacleWrapper {
+            guard let unwrappedEntity = entity.toEntity() else {
+                return nil
+            }
+            return (Dodge(id: id, entity: unwrappedEntity, isEnabled: isEnabled), unwrappedEntity)
+        } else {
+            return nil
+        }
+    }
+    */
+
+    func toComponent() -> (Component, Entity)? {
+        if wrapperType == Constants.directory + "PlayerWrapper" {
+            guard let unwrappedEntity = entity.toEntity() else {
+                return nil
+            }
+            return (Dodge(id: id, entity: unwrappedEntity, isEnabled: isEnabled), unwrappedEntity)
+        } else if wrapperType == Constants.directory + "ObstacleWrapper" {
             guard let unwrappedEntity = entity.toEntity() else {
                 return nil
             }
