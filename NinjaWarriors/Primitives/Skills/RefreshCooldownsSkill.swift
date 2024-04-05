@@ -50,5 +50,4 @@ class RefreshCooldownsSkill: CooldownModifierSkill {
             }
         }
     }
-    
 }

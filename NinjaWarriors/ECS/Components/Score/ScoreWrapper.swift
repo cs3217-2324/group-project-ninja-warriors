@@ -63,29 +63,7 @@ struct ScoreWrapper: ComponentWrapper {
         }
     }
 
-    func toComponent(entity: Entity) -> (Component, Entity)? {
-        /*
-        if wrapperType == Constants.directory + "PlayerWrapper" {
-            let newEntity = Player(id: entity.id)
-            /*
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            */
-            return (Score(id: id, entity: entity, score: score, entityGainScoreMap: entityGainScoreMap), newEntity)
-        } else if wrapperType == Constants.directory + "ObstacleWrapper" {
-            let newEntity = Obstacle(id: entity.id)
-            /*
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            */
-            return (Score(id: id, entity: entity, score: score, entityGainScoreMap: entityGainScoreMap), newEntity)
-        } else {
-            print("--------- return nil ----------", type(of: entity))
-            return nil
-        }
-        */
-        return (Score(id: id, entity: entity, score: score, entityGainScoreMap: entityGainScoreMap), entity)
+    func toComponent(entity: Entity) -> Component? {
+        return Score(id: id, entity: entity, score: score, entityGainScoreMap: entityGainScoreMap)
     }
 }

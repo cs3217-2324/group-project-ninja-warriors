@@ -15,7 +15,7 @@ extension Shape {
     }
 
     func withCenter(xCoord: Double, yCoord: Double) -> Shape {
-        self.center.setCartesian(xCoord: xCoord, yCoord: yCoord)
+        center.setCartesian(xCoord: xCoord, yCoord: yCoord)
         return self
     }
 

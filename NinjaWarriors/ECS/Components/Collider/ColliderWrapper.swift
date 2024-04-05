@@ -62,34 +62,9 @@ struct ColliderWrapper: ComponentWrapper {
         isOutOfBounds = try container.decode(Bool.self, forKey: AnyCodingKey(stringValue: "isOutOfBounds"))
     }
 
-    func toComponent(entity: Entity) -> (Component, Entity)? {
-        /*
-        if wrapperType == Constants.directory + "PlayerWrapper" {
-            let newEntity = Player(id: entity.id)
-            /*
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            */
-            return (Collider(id: id, entity: entity, colliderShape: colliderShape.toShape(),
-                            collidedEntities: collidedEntities,
-                            isColliding: isColliding, isOutOfBounds: isOutOfBounds), entity)
-        } else if wrapperType == Constants.directory + "ObstacleWrapper" {
-            let newEntity = Obstacle(id: entity.id)
-            /*
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            */
-            return (Collider(id: id, entity: entity, colliderShape: colliderShape.toShape(),
-                            collidedEntities: collidedEntities,
-                            isColliding: isColliding, isOutOfBounds: isOutOfBounds), entity)
-        } else {
-            return nil
-        }
-        */
-        return (Collider(id: id, entity: entity, colliderShape: colliderShape.toShape(),
+    func toComponent(entity: Entity) -> Component? {
+        return Collider(id: id, entity: entity, colliderShape: colliderShape.toShape(),
                         collidedEntities: collidedEntities,
-                        isColliding: isColliding, isOutOfBounds: isOutOfBounds), entity)
+                        isColliding: isColliding, isOutOfBounds: isOutOfBounds)
     }
 }

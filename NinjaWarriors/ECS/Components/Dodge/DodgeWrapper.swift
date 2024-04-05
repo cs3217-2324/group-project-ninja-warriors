@@ -40,46 +40,7 @@ struct DodgeWrapper: ComponentWrapper {
         isEnabled = try container.decode(Bool.self, forKey: AnyCodingKey(stringValue: "isEnabled"))
     }
 
-    /*
-    func toComponent() -> (Component, Entity)? {
-        if let entity = entity as? PlayerWrapper {
-            guard let unwrappedEntity = entity.toEntity() else {
-                return nil
-            }
-            return (Dodge(id: id, entity: unwrappedEntity, isEnabled: isEnabled), unwrappedEntity)
-        } else if let entity = entity as? ObstacleWrapper {
-            guard let unwrappedEntity = entity.toEntity() else {
-                return nil
-            }
-            return (Dodge(id: id, entity: unwrappedEntity, isEnabled: isEnabled), unwrappedEntity)
-        } else {
-            return nil
-        }
-    }
-    */
-
-    func toComponent(entity: Entity) -> (Component, Entity)? {
-        /*
-        if wrapperType == Constants.directory + "PlayerWrapper" {
-            let newEntity = Player(id: entity.id)
-            /*
-            guard let unwrappedEntity = entity.toEntity() else {
-                return nil
-            }
-            */
-            return (Dodge(id: id, entity: entity, isEnabled: isEnabled), entity)
-        } else if wrapperType == Constants.directory + "ObstacleWrapper" {
-            let newEntity = Obstacle(id: entity.id)
-            /*
-            guard let unwrappedEntity = entity.toEntity() else {
-                return nil
-            }
-            */
-            return (Dodge(id: id, entity: entity, isEnabled: isEnabled), entity)
-        } else {
-            return nil
-        }
-        */
-        return (Dodge(id: id, entity: entity, isEnabled: isEnabled), entity)
+    func toComponent(entity: Entity) -> Component? {
+        return Dodge(id: id, entity: entity, isEnabled: isEnabled)
     }
 }

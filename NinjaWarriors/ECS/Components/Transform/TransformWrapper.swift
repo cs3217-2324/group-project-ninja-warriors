@@ -13,22 +13,7 @@ struct TransformWrapper: ComponentWrapper {
     var position: PointWrapper
     var rotation: Double
 
-    func toComponent(entity: Entity) -> (Component, Entity)? {
-        /*
-        if let entity = entity as? PlayerWrapper {
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            return (Transform(id: id, entity: entity, position: position.toPoint(), rotation: rotation), entity)
-        } else if let entity = entity as? ObstacleWrapper {
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            return (Transform(id: id, entity: entity, position: position.toPoint(), rotation: rotation), entity)
-        } else {
-            return nil
-        }
-        */
-        return (Transform(id: id, entity: entity, position: position.toPoint(), rotation: rotation), entity)
+    func toComponent(entity: Entity) -> Component? {
+        return Transform(id: id, entity: entity, position: position.toPoint(), rotation: rotation)
     }
 }

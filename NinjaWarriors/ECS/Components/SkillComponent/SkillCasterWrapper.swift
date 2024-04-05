@@ -75,31 +75,6 @@ struct SkillCasterWrapper: ComponentWrapper {
     }
 
     func toComponent(entity: Entity) -> (Component, Entity)? {
-        /*
-        if wrapperType == Constants.directory + "PlayerWrapper" {
-            let newEntity = Player(id: entity.id)
-            /*
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            */
-            let skillCaster = SkillCaster(id: id, entity: entity)
-            skillCaster.skills = skills
-            return (skillCaster, entity)
-        } else if wrapperType == Constants.directory + "ObstacleWrapper" {
-            let newEntity = Obstacle(id: entity.id)
-            /*
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            */
-            let skillCaster = SkillCaster(id: id, entity: entity)
-            skillCaster.skills = skills
-            return (skillCaster, entity)
-        } else {
-            return nil
-        }
-        */
         let skillCaster = SkillCaster(id: id, entity: entity)
         skillCaster.skills = skills
         return (skillCaster, entity)

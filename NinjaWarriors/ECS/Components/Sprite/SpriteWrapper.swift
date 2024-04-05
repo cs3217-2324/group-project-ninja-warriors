@@ -18,7 +18,8 @@ struct SpriteWrapper: ComponentWrapper {
     var maxHealth: Int
     var wrapperType: String
 
-    init(id: ComponentID, entity: EntityWrapper, image: String, width: CGFloat, height: CGFloat, health: Int, maxHealth: Int, wrapperType: String) {
+    init(id: ComponentID, entity: EntityWrapper, image: String, width: CGFloat,
+         height: CGFloat, health: Int, maxHealth: Int, wrapperType: String) {
         self.id = id
         self.entity = entity
         self.image = image
@@ -59,32 +60,9 @@ struct SpriteWrapper: ComponentWrapper {
         maxHealth = try container.decode(Int.self, forKey: AnyCodingKey(stringValue: "maxHealth"))
     }
 
-    func toComponent(entity: Entity) -> (Component, Entity)? {
-        /*
-        if wrapperType == Constants.directory + "PlayerWrapper" {
-            let newEntity = Player(id: entity.id)
-            /*
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            */
-            return (Sprite(id: id, entity: entity, image: image, width: width,
-                          height: height, health: health, maxHealth: maxHealth), entity)
-        } else if wrapperType == Constants.directory + "ObstacleWrapper" {
-            let newEntity = Obstacle(id: entity.id)
-            /*
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            */
-            return (Sprite(id: id, entity: entity, image: image, width: width,
-                          height: height, health: health, maxHealth: maxHealth), entity)
-        } else {
-            return nil
-        }
-        */
-        return (Sprite(id: id, entity: entity, image: image, width: width,
-                      height: height, health: health, maxHealth: maxHealth), entity)
+    func toComponent(entity: Entity) -> Component? {
+        return Sprite(id: id, entity: entity, image: image, width: width,
+                      height: height, health: health, maxHealth: maxHealth)
     }
 
 }

@@ -21,7 +21,8 @@ class Transform: Component {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
-        return TransformWrapper(id: id, entity: entityWrapper, position: position.wrapper(), rotation: rotation)
+        return TransformWrapper(id: id, entity: entityWrapper, position: position.wrapper(),
+                                rotation: rotation)
     }
 }
 

@@ -78,54 +78,14 @@ struct RigidbodyWrapper: ComponentWrapper {
         attachedCollider = try container.decode(ColliderWrapper.self, forKey: AnyCodingKey(stringValue: "attachedCollider"))
     }
 
-    func toComponent(entity: Entity) -> (Component, Entity)? {
-
-        /*
-        if wrapperType == Constants.directory + "PlayerWrapper" {
-            let newEntity = Player(id: entity.id)
-
-            /*
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            */
-
-            if let colliderEntityUnwrap = attachedCollider.toComponent(entity: entity) as? (Collider, Entity) {
-                return (Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
-                                 angularVelocity: angularVelocity, mass: mass, rotation: rotation,
-                                 totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
-                                 offset: offset.toPoint(), velocity: velocity.toVector(),
-                                  attachedCollider: colliderEntityUnwrap.0), entity)
-            } else {
-                return nil
-            }
-        } else if wrapperType == Constants.directory + "ObstacleWrapper" {
-            /*
-            guard let entity = entity.toEntity() else {
-                return nil
-            }
-            */
-            let newEntity = Obstacle(id: entity.id)
-            if let colliderEntityUnwrap = attachedCollider.toComponent(entity: entity) as? (Collider, Entity) {
-                return (Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
-                                 angularVelocity: angularVelocity, mass: mass, rotation: rotation,
-                                 totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
-                                 offset: offset.toPoint(), velocity: velocity.toVector(),
-                                  attachedCollider: colliderEntityUnwrap.0), entity)
-            } else {
-                return nil
-            }
-        } else {
-            return nil
-        }
-        */
-
-        if let colliderEntityUnwrap = attachedCollider.toComponent(entity: entity) as? (Collider, Entity) {
-            return (Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
+    // TODO: TBC on colliderEntityUnwrap.0
+    func toComponent(entity: Entity) -> Component? {
+        if let colliderUnwrap = attachedCollider.toComponent(entity: entity) as? Collider {
+            return Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
                              angularVelocity: angularVelocity, mass: mass, rotation: rotation,
                              totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
                              offset: offset.toPoint(), velocity: velocity.toVector(),
-                              attachedCollider: colliderEntityUnwrap.0), entity)
+                              attachedCollider: colliderUnwrap)
         } else {
             return nil
         }
