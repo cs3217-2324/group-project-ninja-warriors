@@ -22,7 +22,7 @@ struct Constants {
     static let playerFourPosition = Point(xCoord: screenWidth - 100, yCoord: screenHeight - 500)
     static let playerPositions = [playerOnePosition, playerTwoPosition, playerThreePosition, playerFourPosition]
     // TODO: Reset to 4 after testing
-    static let playerCount = 1
+    static let playerCount = 2
 
     // MARK: Obstacles initial positions
 
@@ -39,7 +39,7 @@ struct Constants {
     static let obstacleCount = 6
     */
 
-    static let obstacleCount = 8 // Increase obstacle count for more positions
+    static let obstacleCount = 1 // Increase obstacle count for more positions
 
     static let center = Point(xCoord: screenWidth / 2, yCoord: screenHeight / 2) // Center of the circle
     static let radius: Double = 200 // Radius of the circle
