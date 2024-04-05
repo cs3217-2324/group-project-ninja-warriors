@@ -8,10 +8,12 @@
 import Foundation
 
 class EntityComponentManager {
+    // To store local entity component data
     var entityComponentMap: [EntityID: Set<Component>]
     var entityMap: [EntityID: Entity]
     var componentMap: [ComponentType: Set<Component>]
 
+    // To store entity component data fetched from database
     var newEntityComponentMap: [EntityID: [Component]] = [:]
     var newEntity: [Entity] = []
     var newEntityMap: [EntityID: Entity] = [:]
@@ -54,36 +56,25 @@ class EntityComponentManager {
         manager.removeEntitiesListener()
     }
 
+    // No queue needed for intial population
     func initialPopulate() {
         Task {
-            //newEntityMap: [EntityID: Entity] = [:]
             (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
 
-            /*
-            for entity in newEntity {
-                newEntityMap[entity.id] = entity
-            }
-            */
-            for entity in newEntity {
-                print("entity", entity)
-            }
-            ///*
             for (entityId, components) in newEntityComponentMap {
                 for component in components {
                     newEntityMap[entityId] = component.entity
                 }
             }
-            //*/
 
             addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
             startListening()
         }
     }
 
+    // Queue needed for subsequent population as it runs concurrently with publish
     func populate() {
-        print("populate executed")
         Task {
-            //newEntityMap: [EntityID: Entity] = [:]
             (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
 
             for entity in newEntity {
@@ -179,7 +170,6 @@ class EntityComponentManager {
         assertRepresentation()
         //print("[EntityComponentManager] add", entity)
 
-        // TODO: TBC
         var dstEntity: Entity
         if let originalEntity = entityMap[entity.id] {
             dstEntity = originalEntity
@@ -255,21 +245,6 @@ class EntityComponentManager {
             assertionFailure("Entity not found")
             return
         }
-
-        //component.entity = entity
-
-        // This is causing some issue
-        //print("component entity reference check", component.entity, entity)
-
-        if let entity = entity as AnyObject?, let componentEntity = component.entity as AnyObject? {
-            let entityId = ObjectIdentifier(entity)
-            let componentEntityId = ObjectIdentifier(componentEntity)
-            print("Component entity reference check:", entityId, componentEntityId)
-        } else {
-            print("One or both entities are nil")
-        }
-
-        //addComponentToMap(component, ofType: ComponentType(type(of: component)))
         addComponentToEntityMap(component, for: entity)
 
         if !isAdded {
@@ -278,28 +253,6 @@ class EntityComponentManager {
         assertRepresentation()
     }
 
-    /*
-    private func addComponentToMap(_ component: Component, ofType componentType: ComponentType) {
-        let existingComponents = componentMap[componentType, default: Set<Component>()]
-        var foundMatchingID = false
-
-        for existingComponent in existingComponents {
-            if existingComponent.id == component.id {
-                // Update existing component's attributes
-                print("update existing component attributes")
-                existingComponent.updateAttributes(component)
-                foundMatchingID = true
-                break
-            }
-        }
-
-        if !foundMatchingID {
-            print("insert new components")
-            componentMap[componentType, default: Set<Component>()].insert(component)
-        }
-    }
-    */
-
     private func addComponentToEntityMap(_ component: Component, for entity: Entity) {
         if var entityComponents = entityComponentMap[entity.id] {
             var foundMatchingComponent = false
@@ -307,15 +260,6 @@ class EntityComponentManager {
             for existingComponent in entityComponents {
                 let existingComponentType = ComponentType(type(of: existingComponent))
                 if existingComponentType == ComponentType(type(of: component)) {
-
-                    /*
-                    if existingComponentType != ComponentType(Collider.self)
-                        && existingComponentType != ComponentType(Sprite.self)
-                        && existingComponentType != ComponentType(Score.self)
-                        && existingComponentType != ComponentType(SkillCaster.self) {
-                        existingComponent.updateAttributes(component)
-                    }
-                    */
 
                     if existingComponentType == ComponentType(Rigidbody.self) {
                         existingComponent.updateAttributes(component)
@@ -330,7 +274,7 @@ class EntityComponentManager {
                 entityComponents.insert(component)
                 componentMap[ComponentType(type(of: component)), default: Set<Component>()].insert(component)
             }
-            // TODO: TBC if it is needed
+
             entityComponentMap[entity.id] = entityComponents
         } else {
             print("insert new entity with new component")
@@ -348,9 +292,7 @@ class EntityComponentManager {
     }
 
     func getComponent<T: Component>(ofType type: T.Type, for entity: Entity) -> T? {
-        //let queue = DispatchQueue(label: "entityComponentQueue")
         var result: T?
-
         queue.sync {
             guard let entityComponents = entityComponentMap[entity.id] else {
                 return
@@ -365,21 +307,10 @@ class EntityComponentManager {
         return result
     }
 
-    /*
-    func getAllComponents(for entity: Entity) -> [Component] {
-        guard let components = entityComponentMap[entity.id] else { return [] }
-        return Array(components)
-    }
-    */
-
     func getAllComponents(for entity: Entity) -> [Component] {
         var result: [Component] = []
-        //let queue = DispatchQueue(label: "entityComponentQueue")
-
         queue.sync {
-            // Check if components exist for the entity ID
             if let components = entityComponentMap[entity.id] {
-                // Convert the set of components into an array
                 result = Array(components)
             }
         }
