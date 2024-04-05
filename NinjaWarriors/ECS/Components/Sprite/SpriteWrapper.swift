@@ -61,17 +61,23 @@ struct SpriteWrapper: ComponentWrapper {
 
     func toComponent() -> (Component, Entity)? {
         if wrapperType == Constants.directory + "PlayerWrapper" {
+            let newEntity = Player(id: entity.id)
+            /*
             guard let entity = entity.toEntity() else {
                 return nil
             }
-            return (Sprite(id: id, entity: entity, image: image, width: width,
-                          height: height, health: health, maxHealth: maxHealth), entity)
+            */
+            return (Sprite(id: id, entity: newEntity, image: image, width: width,
+                          height: height, health: health, maxHealth: maxHealth), newEntity)
         } else if wrapperType == Constants.directory + "ObstacleWrapper" {
+            let newEntity = Obstacle(id: entity.id)
+            /*
             guard let entity = entity.toEntity() else {
                 return nil
             }
-            return (Sprite(id: id, entity: entity, image: image, width: width,
-                          height: height, health: health, maxHealth: maxHealth), entity)
+            */
+            return (Sprite(id: id, entity: newEntity, image: image, width: width,
+                          height: height, health: health, maxHealth: maxHealth), newEntity)
         } else {
             return nil
         }

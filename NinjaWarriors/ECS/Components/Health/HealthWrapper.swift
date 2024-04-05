@@ -86,19 +86,26 @@ struct HealthWrapper: ComponentWrapper {
         */
 
         if wrapperType == Constants.directory + "PlayerWrapper" {
+            let newEntity = Player(id: entity.id)
+
+            /*
             guard let entity = entity.toEntity() else {
                 print("--------- return nil ----------", type(of: entity))
                 return nil
             }
-            return (Health(id: id, entity: entity, entityInflictDamageMap: entityInflictDamageMap,
-                          health: health, maxHealth: maxHealth), entity)
+            */
+            return (Health(id: id, entity: newEntity, entityInflictDamageMap: entityInflictDamageMap,
+                          health: health, maxHealth: maxHealth), newEntity)
         } else if wrapperType == Constants.directory + "ObstacleWrapper" {
+            let newEntity = Obstacle(id: entity.id)
+            /*
             guard let entity = entity.toEntity() else {
                 print("--------- return nil ----------", type(of: entity))
                 return nil
             }
-            return (Health(id: id, entity: entity, entityInflictDamageMap: entityInflictDamageMap,
-                          health: health, maxHealth: maxHealth), entity)
+            */
+            return (Health(id: id, entity: newEntity, entityInflictDamageMap: entityInflictDamageMap,
+                          health: health, maxHealth: maxHealth), newEntity)
         } else {
             print("--------- return nil ----------", type(of: entity))
             return nil

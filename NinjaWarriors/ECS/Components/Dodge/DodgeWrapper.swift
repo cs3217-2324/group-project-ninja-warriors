@@ -60,15 +60,21 @@ struct DodgeWrapper: ComponentWrapper {
 
     func toComponent() -> (Component, Entity)? {
         if wrapperType == Constants.directory + "PlayerWrapper" {
+            let newEntity = Player(id: entity.id)
+            /*
             guard let unwrappedEntity = entity.toEntity() else {
                 return nil
             }
-            return (Dodge(id: id, entity: unwrappedEntity, isEnabled: isEnabled), unwrappedEntity)
+            */
+            return (Dodge(id: id, entity: newEntity, isEnabled: isEnabled), newEntity)
         } else if wrapperType == Constants.directory + "ObstacleWrapper" {
+            let newEntity = Obstacle(id: entity.id)
+            /*
             guard let unwrappedEntity = entity.toEntity() else {
                 return nil
             }
-            return (Dodge(id: id, entity: unwrappedEntity, isEnabled: isEnabled), unwrappedEntity)
+            */
+            return (Dodge(id: id, entity: newEntity, isEnabled: isEnabled), newEntity)
         } else {
             return nil
         }

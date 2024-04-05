@@ -81,12 +81,16 @@ struct RigidbodyWrapper: ComponentWrapper {
     func toComponent() -> (Component, Entity)? {
 
         if wrapperType == Constants.directory + "PlayerWrapper" {
+            let newEntity = Player(id: entity.id)
+
+            /*
             guard let entity = entity.toEntity() else {
                 return nil
             }
+            */
 
             if let colliderEntityUnwrap = attachedCollider.toComponent() as? (Collider, Entity) {
-                return (Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
+                return (Rigidbody(id: id, entity: colliderEntityUnwrap.1, angularDrag: angularDrag,
                                  angularVelocity: angularVelocity, mass: mass, rotation: rotation,
                                  totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
                                  offset: offset.toPoint(), velocity: velocity.toVector(),
@@ -95,12 +99,14 @@ struct RigidbodyWrapper: ComponentWrapper {
                 return nil
             }
         } else if wrapperType == Constants.directory + "ObstacleWrapper" {
+            /*
             guard let entity = entity.toEntity() else {
                 return nil
             }
+            */
 
             if let colliderEntityUnwrap = attachedCollider.toComponent() as? (Collider, Entity) {
-                return (Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
+                return (Rigidbody(id: id, entity: colliderEntityUnwrap.1, angularDrag: angularDrag,
                                  angularVelocity: angularVelocity, mass: mass, rotation: rotation,
                                  totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
                                  offset: offset.toPoint(), velocity: velocity.toVector(),

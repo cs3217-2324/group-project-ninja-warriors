@@ -64,19 +64,25 @@ struct ColliderWrapper: ComponentWrapper {
 
     func toComponent() -> (Component, Entity)? {
         if wrapperType == Constants.directory + "PlayerWrapper" {
+            let newEntity = Player(id: entity.id)
+            /*
             guard let entity = entity.toEntity() else {
                 return nil
             }
-            return (Collider(id: id, entity: entity, colliderShape: colliderShape.toShape(),
+            */
+            return (Collider(id: id, entity: newEntity, colliderShape: colliderShape.toShape(),
                             collidedEntities: collidedEntities,
-                            isColliding: isColliding, isOutOfBounds: isOutOfBounds), entity)
+                            isColliding: isColliding, isOutOfBounds: isOutOfBounds), newEntity)
         } else if wrapperType == Constants.directory + "ObstacleWrapper" {
+            let newEntity = Obstacle(id: entity.id)
+            /*
             guard let entity = entity.toEntity() else {
                 return nil
             }
-            return (Collider(id: id, entity: entity, colliderShape: colliderShape.toShape(),
+            */
+            return (Collider(id: id, entity: newEntity, colliderShape: colliderShape.toShape(),
                             collidedEntities: collidedEntities,
-                            isColliding: isColliding, isOutOfBounds: isOutOfBounds), entity)
+                            isColliding: isColliding, isOutOfBounds: isOutOfBounds), newEntity)
         } else {
             return nil
         }
