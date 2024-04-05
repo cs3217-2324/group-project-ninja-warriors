@@ -28,6 +28,7 @@ class GameWorld {
         let healthManager = HealthSystem(for: entityComponentManager)
         let scoreManager = ScoreSystem(for: entityComponentManager)
         let destroyManager = DestroySystem(for: entityComponentManager)
+        let environmentEffectSystem = EnvironmentEffectSystem(for: entityComponentManager)
 
         systemManager.add(system: transformHandler)
         systemManager.add(system: rigidbodyHandler)
@@ -36,6 +37,7 @@ class GameWorld {
         systemManager.add(system: healthManager)
         systemManager.add(system: scoreManager)
         systemManager.add(system: destroyManager)
+        systemManager.add(system: environmentEffectSystem)
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {

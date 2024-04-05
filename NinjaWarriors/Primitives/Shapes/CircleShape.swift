@@ -23,7 +23,7 @@ class CircleShape: Shape {
         return Double.pi * halfLength * halfLength
     }
 
-    func contains(point: Point) -> Bool {
+    override func contains(point: Point) -> Bool {
         return center.distance(to: point) <= halfLength
     }
 

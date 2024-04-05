@@ -12,6 +12,11 @@
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
+		7181B1462BC03ECD009711DE /* EnvironmentEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B1452BC03ECD009711DE /* EnvironmentEffect.swift */; };
+		7181B1482BC0404A009711DE /* EnvironmentEffectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B1472BC0404A009711DE /* EnvironmentEffectWrapper.swift */; };
+		7181B14A2BC046F6009711DE /* ClosingZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B1492BC046F6009711DE /* ClosingZone.swift */; };
+		7181B14D2BC0480E009711DE /* ClosingZoneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B14C2BC0480E009711DE /* ClosingZoneWrapper.swift */; };
+		7181B1502BC05385009711DE /* EnvironmentEffectSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B14F2BC05385009711DE /* EnvironmentEffectSystem.swift */; };
 		7183D07B2BB03C400078C960 /* EntityComponentManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07A2BB03C400078C960 /* EntityComponentManagerTests.swift */; };
 		7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */; };
 		7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07E2BB06E790078C960 /* SystemManagerTests.swift */; };
@@ -171,6 +176,11 @@
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
+		7181B1452BC03ECD009711DE /* EnvironmentEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentEffect.swift; sourceTree = "<group>"; };
+		7181B1472BC0404A009711DE /* EnvironmentEffectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentEffectWrapper.swift; sourceTree = "<group>"; };
+		7181B1492BC046F6009711DE /* ClosingZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingZone.swift; sourceTree = "<group>"; };
+		7181B14C2BC0480E009711DE /* ClosingZoneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingZoneWrapper.swift; sourceTree = "<group>"; };
+		7181B14F2BC05385009711DE /* EnvironmentEffectSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentEffectSystem.swift; sourceTree = "<group>"; };
 		7183D07A2BB03C400078C960 /* EntityComponentManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManagerTests.swift; sourceTree = "<group>"; };
 		7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECSTestUtils.swift; sourceTree = "<group>"; };
 		7183D07E2BB06E790078C960 /* SystemManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManagerTests.swift; sourceTree = "<group>"; };
@@ -338,6 +348,32 @@
 			path = ECS;
 			sourceTree = "<group>";
 		};
+		7181B1442BC03DFC009711DE /* EnvironmentEffect */ = {
+			isa = PBXGroup;
+			children = (
+				7181B1452BC03ECD009711DE /* EnvironmentEffect.swift */,
+				7181B1472BC0404A009711DE /* EnvironmentEffectWrapper.swift */,
+			);
+			path = EnvironmentEffect;
+			sourceTree = "<group>";
+		};
+		7181B14B2BC047FE009711DE /* ClosingZone */ = {
+			isa = PBXGroup;
+			children = (
+				7181B1492BC046F6009711DE /* ClosingZone.swift */,
+				7181B14C2BC0480E009711DE /* ClosingZoneWrapper.swift */,
+			);
+			path = ClosingZone;
+			sourceTree = "<group>";
+		};
+		7181B14E2BC05372009711DE /* EnvironmentEffectSystem */ = {
+			isa = PBXGroup;
+			children = (
+				7181B14F2BC05385009711DE /* EnvironmentEffectSystem.swift */,
+			);
+			path = EnvironmentEffectSystem;
+			sourceTree = "<group>";
+		};
 		7183D0792BB03C2E0078C960 /* ECSTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,6 +432,7 @@
 		9136A5B52BA9943100197971 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				7181B14E2BC05372009711DE /* EnvironmentEffectSystem */,
 				E67F53382BBFEF930051A900 /* DestroySystem */,
 				91CC283A2BBA86DB009318C7 /* ScoreSystem */,
 				E6DB870A2BB9F745003AC063 /* DodgeSystem */,
@@ -420,6 +457,7 @@
 				9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */,
 				91DDE6572BB5118400851603 /* EntityType.swift */,
 				91DDE65A2BB51D8800851603 /* AnyEntity.swift */,
+				7181B14B2BC047FE009711DE /* ClosingZone */,
 				91DDE6612BB79DE200851603 /* Obstacles */,
 				9132AF832BA5A871000F2AC4 /* Players */,
 				91DDE6592BB5122600851603 /* Slash */,
@@ -546,6 +584,7 @@
 				915301B32BAD1E7D007F2A12 /* Collider */,
 				915301B02BAD1AB6007F2A12 /* Rigidbody */,
 				91C65BE12BACF1790085D96F /* SkillComponent */,
+				7181B1442BC03DFC009711DE /* EnvironmentEffect */,
 				916A7DA62BA3F9FC00319C26 /* GenericWrappers */,
 			);
 			path = Components;
@@ -1053,9 +1092,11 @@
 				91CC283C2BBA86E7009318C7 /* ScoreSystem.swift in Sources */,
 				E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
+				7181B14A2BC046F6009711DE /* ClosingZone.swift in Sources */,
 				916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */,
 				E6A0564F2BB0691B00398D67 /* RefreshCooldownsSkill.swift in Sources */,
 				91DDE65B2BB51D8800851603 /* AnyEntity.swift in Sources */,
+				7181B14D2BC0480E009711DE /* ClosingZoneWrapper.swift in Sources */,
 				916A7D8B2BA1A0D400319C26 /* SignInView.swift in Sources */,
 				916A7D8E2BA1A1C500319C26 /* SignInViewModel.swift in Sources */,
 				7113A4962BA60E8400805340 /* Component.swift in Sources */,
@@ -1068,6 +1109,7 @@
 				91DDE66A2BB7C19C00851603 /* HealthWrapper.swift in Sources */,
 				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
 				91DDE6652BB7A07100851603 /* ObstacleWrapper.swift in Sources */,
+				7181B1482BC0404A009711DE /* EnvironmentEffectWrapper.swift in Sources */,
 				916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */,
 				915301C42BAE9337007F2A12 /* JoystickControl.swift in Sources */,
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
@@ -1100,8 +1142,10 @@
 				91DDE6602BB5720A00851603 /* SpriteWrapper.swift in Sources */,
 				915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */,
 				9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */,
+				7181B1502BC05385009711DE /* EnvironmentEffectSystem.swift in Sources */,
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,
+				7181B1462BC03ECD009711DE /* EnvironmentEffect.swift in Sources */,
 				E6DB870C2BB9F756003AC063 /* DodgeSystem.swift in Sources */,
 				9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */,
 				91DDE6682BB7BFE100851603 /* Health.swift in Sources */,
