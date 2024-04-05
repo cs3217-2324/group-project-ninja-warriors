@@ -13,10 +13,7 @@ struct TransformWrapper: ComponentWrapper {
     var position: PointWrapper
     var rotation: Double
 
-    func toComponent() -> Component? {
-        guard let entity = entity.toEntity() else {
-            return nil
-        }
+    func toComponent(entity: Entity) -> Component? {
         return Transform(id: id, entity: entity, position: position.toPoint(), rotation: rotation)
     }
 }

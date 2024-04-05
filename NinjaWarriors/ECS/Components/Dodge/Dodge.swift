@@ -27,6 +27,7 @@ class Dodge: Component {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
-        return DodgeWrapper(id: id, entity: entityWrapper, isEnabled: isEnabled)
+        return DodgeWrapper(id: id, entity: entityWrapper, isEnabled: isEnabled,
+                            wrapperType: NSStringFromClass(type(of: entityWrapper)))
     }
 }

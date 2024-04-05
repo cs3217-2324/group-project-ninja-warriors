@@ -20,7 +20,6 @@ class Player: Equatable, Entity {
         self.initializePosition = position
     }
 
-    // TODO: remove hardcode after testing
     func getInitializingComponents() -> [Component] {
         let shape = Shape(center: initializePosition, halfLength: Constants.defaultSize)
 

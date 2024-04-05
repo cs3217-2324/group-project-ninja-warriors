@@ -13,18 +13,22 @@ struct SkillCasterWrapper: ComponentWrapper {
     var entity: EntityWrapper
     var skills: [SkillID: Skill] = [:]
     var activationQueue: [SkillID] = []
+    var wrapperType: String
 
-    init(id: ComponentID, entity: EntityWrapper, skills: [SkillID: Skill], activationQueue: [SkillID]) {
+    init(id: ComponentID, entity: EntityWrapper, skills: [SkillID: Skill],
+         activationQueue: [SkillID], wrapperType: String) {
         self.id = id
         self.entity = entity
         self.skills = skills
         self.activationQueue = activationQueue
+        self.wrapperType = wrapperType
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: AnyCodingKey.self)
         try container.encode(id, forKey: AnyCodingKey(stringValue: "id"))
         try container.encode(entity, forKey: AnyCodingKey(stringValue: "entity"))
+        try container.encode(wrapperType, forKey: AnyCodingKey(stringValue: "wrapperType"))
         try container.encode(activationQueue, forKey: AnyCodingKey(stringValue: "activationQueue"))
 
         var skillsContainer = container.nestedContainer(keyedBy: AnyCodingKey.self,
@@ -38,7 +42,13 @@ struct SkillCasterWrapper: ComponentWrapper {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
         id = try container.decode(ComponentID.self, forKey: AnyCodingKey(stringValue: "id"))
-        entity = try container.decode(EntityWrapper.self, forKey: AnyCodingKey(stringValue: "entity"))
+        wrapperType = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "wrapperType"))
+
+        guard let wrapperClass = NSClassFromString(wrapperType) as? EntityWrapper.Type else {
+            throw NSError(domain: "NinjaWarriors.Wrapper", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
+        }
+
+        entity = try container.decode(wrapperClass.self, forKey: AnyCodingKey(stringValue: "entity"))
 
         do {
             activationQueue = try container.decode([SkillID].self, forKey: AnyCodingKey(stringValue: "activationQueue"))
@@ -64,10 +74,7 @@ struct SkillCasterWrapper: ComponentWrapper {
         }
     }
 
-    func toComponent() -> Component? {
-        guard let entity = entity.toEntity() else {
-            return nil
-        }
+    func toComponent(entity: Entity) -> Component? {
         let skillCaster = SkillCaster(id: id, entity: entity)
         skillCaster.skills = skills
         return skillCaster

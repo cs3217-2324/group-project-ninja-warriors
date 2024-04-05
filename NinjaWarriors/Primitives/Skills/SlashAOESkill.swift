@@ -18,7 +18,6 @@ class SlashAOESkill: EntitySpawnerSkill {
 
     convenience init(id: SkillID, cooldownDuration: TimeInterval) {
         self.init(id: id)
-        // self.id = id
         self.cooldownDuration = cooldownDuration
     }
 

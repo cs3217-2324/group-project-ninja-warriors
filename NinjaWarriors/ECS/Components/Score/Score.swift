@@ -29,7 +29,8 @@ class Score: Component {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
-        
-        return ScoreWrapper(id: id, entity: entityWrapper, score: score, entityGainScoreMap: entityGainScoreMap)
+        return ScoreWrapper(id: id, entity: entityWrapper, score: score,
+                            entityGainScoreMap: entityGainScoreMap,
+                            wrapperType: NSStringFromClass(type(of: entityWrapper)))
     }
 }

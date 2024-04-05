@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 // Represents the game world, containing entities and systems
+@MainActor
 class GameWorld {
     var entityComponentManager: EntityComponentManager
     let systemManager = SystemManager()
@@ -43,9 +44,9 @@ class GameWorld {
     }
 
     private func setupGameLoop() {
-        //gameLoopManager.onUpdate = { [unowned self] deltaTime in
-        gameLoopManager.onUpdate = { [weak self] deltaTime in
-            guard let self = self else { return }
+        gameLoopManager.onUpdate = { [unowned self] deltaTime in
+        //gameLoopManager.onUpdate = { [weak self] deltaTime in
+            //guard let self = self else { return }
             self.update(deltaTime: deltaTime)
             self.updateViewModel()
         }

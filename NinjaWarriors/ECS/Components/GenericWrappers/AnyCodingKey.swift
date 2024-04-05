@@ -5,8 +5,6 @@
 //  Created by Muhammad Reyaaz on 15/3/24.
 //
 
-// TODO: Remove hardcode wrap, add dictionary for health and score, add collision fields, add host
-
 import Foundation
 
 struct AnyCodingKey: CodingKey {

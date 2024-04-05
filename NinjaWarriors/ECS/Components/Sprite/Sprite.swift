@@ -45,6 +45,6 @@ class Sprite: Component {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
-        return SpriteWrapper(id: id, entity: entityWrapper, image: image, width: width, height: height, health: health, maxHealth: maxHealth)
+        return SpriteWrapper(id: id, entity: entityWrapper, image: image, width: width, height: height, health: health, maxHealth: maxHealth, wrapperType: NSStringFromClass(type(of: entityWrapper)))
     }
 }
