@@ -318,9 +318,8 @@ class EntityComponentManager {
         }
     }
 
-    func getComponent<T: Component>(ofType: T.Type, for entity: Entity) -> T? {
+    func getComponent<T: Component>(ofType type: T.Type, for entity: Entity) -> T? {
         let queue = DispatchQueue(label: "entityComponentQueue")
-
         var result: T?
 
         queue.sync {
@@ -328,16 +327,18 @@ class EntityComponentManager {
                 return
             }
 
-            let components = entityComponents.filter({$0 is T})
-
-            assert(components.count <= 1, "Entity has multiple components of the same type")
-
-            if let component = components.first as? T {
-                result = component
+            for component in entityComponents {
+                if let typedComponent = component as? T {
+                    result = typedComponent
+                    break
+                }
             }
         }
+
         return result
     }
+
+
 
     func getAllComponents(for entity: Entity) -> [Component] {
         guard let components = entityComponentMap[entity.id] else { return [] }

@@ -127,7 +127,11 @@ class Rigidbody: Component {
         self.offset.updateAttributes(newRigidbody.offset)
         self.velocity = newRigidbody.velocity
         self.collidingVelocity = newRigidbody.collidingVelocity
-        self.attachedCollider = newRigidbody.attachedCollider
+        // TODO: FIX THIS
+        guard let newAttachedCollider = newRigidbody.attachedCollider else {
+            return
+        }
+        self.attachedCollider?.updateAttributes(newAttachedCollider)
     }
 
     override func wrapper() -> ComponentWrapper? {

@@ -23,7 +23,7 @@ struct NinjaWarriorsApp: App {
 
 
 
-            //CanvasView(matchId: "QF82Op4YaRE0Y9S4NEdE", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            CanvasView(matchId: "eWvrjsxllGFWvtEPK7Ce", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
 
 
@@ -36,7 +36,7 @@ struct NinjaWarriorsApp: App {
 
             //CanvasView(matchId: "PkRyBoW0zgNTF9ktPb3d", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
             //CanvasView(matchId: "9GhnqE6FqN1tn4C27Wh4, currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            AuthenticationView()
+            //AuthenticationView()
         }
     }
 }
