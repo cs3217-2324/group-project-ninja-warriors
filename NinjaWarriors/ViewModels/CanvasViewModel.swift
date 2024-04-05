@@ -62,6 +62,17 @@ final class CanvasViewModel: ObservableObject {
         }
         return (image: Image(sprite.image), position: rigidbody.colliderShape.center.get())
     }
+
+    func closingZone() -> (center: CGPoint, radius: CGFloat)? {
+        let environmentalEffects = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
+        guard let closingZoneShape = environmentalEffects.first?.environmentShape else {
+            assertionFailure("Missing closing zone!!")
+            return nil
+        }
+
+        let radius = CGFloat(closingZoneShape.halfLength)
+        return (center: closingZoneShape.center.get(), radius: radius)
+    }
 }
 
 extension CanvasViewModel {
