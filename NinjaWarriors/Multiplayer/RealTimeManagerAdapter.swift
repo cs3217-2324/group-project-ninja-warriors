@@ -159,53 +159,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 return nil
             }
             return componentEntity
-            /*
-            if let scoreWrapper = componentWrapper as? ScoreWrapper {
-                guard let componentEntity = scoreWrapper.toComponent(entity: ref) else {
-                    print("Error: Failed to convert wrapper to component for \(scoreWrapper)")
-                    return nil
-                }
-                return componentEntity
-            } else if let dodgeWrapper = componentWrapper as? DodgeWrapper {
-                guard let componentEntity = dodgeWrapper.toComponent(entity: ref) else {
-                    print("Error: Failed to convert wrapper to component for \(dodgeWrapper)")
-                    return nil
-                }
-                return componentEntity
-            } else if let healthWrapper = componentWrapper as? HealthWrapper {
-                guard let componentEntity = healthWrapper.toComponent(entity: ref) else {
-                    print("Error: Failed to convert wrapper to component for \(healthWrapper)")
-                    return nil
-                }
-                return componentEntity
-            } else if let spriteWrapper = componentWrapper as? SpriteWrapper {
-                guard let componentEntity = spriteWrapper.toComponent(entity: ref) else {
-                    print("Error: Failed to convert wrapper to component for \(spriteWrapper)")
-                    return nil
-                }
-                return componentEntity
-            } else if let colliderWrapper = componentWrapper as? ColliderWrapper {
-                guard let componentEntity = colliderWrapper.toComponent(entity: ref) else {
-                    print("Error: Failed to convert wrapper to component for \(colliderWrapper)")
-                    return nil
-                }
-                return componentEntity
-            } else if let rigidbodyWrapper = componentWrapper as? RigidbodyWrapper {
-                guard let componentEntity = rigidbodyWrapper.toComponent(entity: ref) else {
-                    print("Error: Failed to convert wrapper to component for \(rigidbodyWrapper)")
-                    return nil
-                }
-                return componentEntity
-            } else if let skillCasterWrapper = componentWrapper as? SkillCasterWrapper {
-                guard let componentEntity = skillCasterWrapper.toComponent(entity: ref) else {
-                    print("Error: Failed to convert wrapper to component for \(skillCasterWrapper)")
-                    return nil
-                }
-                return componentEntity
-            } else {
-                return nil
-            }
-            */
         } catch {
             print("Error in decoding component: \(error)")
             print("Error dict", dict)

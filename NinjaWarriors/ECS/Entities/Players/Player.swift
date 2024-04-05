@@ -39,7 +39,7 @@ class Player: Equatable, Entity {
                                         position: shape.center, velocity: Vector.zero,
                                         attachedCollider: playerCollider)
 
-        let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: self, image: "playerIcon", width: 50.0, height: 50.0, health: 10, maxHealth: 100)
+        let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: self, image: "player-icon", width: 50.0, height: 50.0, health: 10, maxHealth: 100)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: self,
                             entityInflictDamageMap: ["1": true], health: 100, maxHealth: 100)

@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 // Represents the game world, containing entities and systems
-@MainActor
 class GameWorld {
     var entityComponentManager: EntityComponentManager
     let systemManager = SystemManager()
