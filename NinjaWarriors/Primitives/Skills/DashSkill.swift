@@ -39,6 +39,12 @@ class DashSkill: MovementSkill {
         cooldownRemaining = 0
     }
 
+    func updateAttributes(_ newDashSkill: DashSkill) {
+        self.id = newDashSkill.id
+        self.cooldownDuration = newDashSkill.cooldownDuration
+        self.cooldownRemaining = newDashSkill.cooldownRemaining
+    }
+
     func performMovement(on target: Entity, in manager: EntityComponentManager) {
         // TODO: Add movement vector to GameWorld similar to how joystick so that can check for collision
         /*

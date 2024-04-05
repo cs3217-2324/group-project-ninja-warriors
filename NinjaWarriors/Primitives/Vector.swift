@@ -114,3 +114,10 @@ extension Vector: Equatable {
         lhs.horizontal == rhs.horizontal && lhs.vertical == rhs.vertical
     }
 }
+
+extension Vector {
+    mutating func updateAttributes(_ newVector: Vector) {
+        self.horizontal = newVector.horizontal
+        self.vertical = newVector.vertical
+    }
+}

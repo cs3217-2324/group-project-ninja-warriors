@@ -44,6 +44,16 @@ class Collider: Component {
                  isColliding: isColliding, isOutOfBounds: isOutOfBounds)
     }
 
+    override func updateAttributes(_ newCollider: Component) {
+        guard let newCollider = newCollider as? Collider else {
+            return
+        }
+        self.colliderShape.updateAttributes(newCollider.colliderShape)
+        self.collidedEntities = newCollider.collidedEntities
+        self.isColliding = newCollider.isColliding
+        self.isOutOfBounds = newCollider.isOutOfBounds
+    }
+
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
             return nil

@@ -198,3 +198,11 @@ extension Line: Equatable {
         && lhs.vector == rhs.vector
     }
 }
+
+extension Line {
+    mutating func updateAttributes(_ newLine: Line) {
+        self.start.updateAttributes(newLine.start)
+        self.end.updateAttributes(newLine.end)
+        self.vector.updateAttributes(newLine.vector)
+    }
+}

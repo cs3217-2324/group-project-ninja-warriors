@@ -16,6 +16,13 @@ class Dodge: Component {
         super.init(id: id, entity: entity)
     }
 
+    override func updateAttributes(_ newDodge: Component) {
+        guard let newDodge = newDodge as? Dodge else {
+            return
+        }
+        self.isEnabled = newDodge.isEnabled
+    }
+
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
             return nil

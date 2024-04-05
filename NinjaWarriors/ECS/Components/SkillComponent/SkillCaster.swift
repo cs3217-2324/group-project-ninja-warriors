@@ -40,19 +40,18 @@ class SkillCaster: Component {
         skills.removeValue(forKey: id)
     }
 
+    override func updateAttributes(_ newSkillCaster: Component) {
+        guard let newSkillCaster = newSkillCaster as? SkillCaster else {
+            return
+        }
+        self.skills = newSkillCaster.skills
+        self.activationQueue = newSkillCaster.activationQueue
+    }
+
     override func wrapper() -> ComponentWrapper? {
         guard let entity = entity.wrapper() else {
             return nil
         }
-
-        if activationQueue == [] {
-            activationQueue = ["1"]
-        }
-
-        if skills.isEmpty {
-            skills = ["1": SlashAOESkill(id: "1")]
-        }
-
         return SkillCasterWrapper(id: id, entity: entity, skills: skills, activationQueue: activationQueue)
     }
 }

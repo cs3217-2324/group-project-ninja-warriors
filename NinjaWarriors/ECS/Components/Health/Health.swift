@@ -18,7 +18,15 @@ class Health: Component {
         self.health = health
         self.maxHealth = maxHealth
         super.init(id: id, entity: entity)
+    }
 
+    override func updateAttributes(_ newHealth: Component) {
+        guard let newHealth = newHealth as? Health else {
+            return
+        }
+        self.entityInflictDamageMap = newHealth.entityInflictDamageMap
+        self.health = newHealth.health
+        self.maxHealth = newHealth.maxHealth
     }
 
     override func wrapper() -> ComponentWrapper? {

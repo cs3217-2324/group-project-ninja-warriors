@@ -24,3 +24,10 @@ class Transform: Component {
         return TransformWrapper(id: id, entity: entityWrapper, position: position.wrapper(), rotation: rotation)
     }
 }
+
+extension Transform {
+    func updateAttributes(_ newTransform: Transform) {
+        self.position.updateAttributes(newTransform.position)
+        self.rotation = newTransform.rotation
+    }
+}

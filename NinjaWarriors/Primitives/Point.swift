@@ -114,6 +114,17 @@ struct Point {
         return axisVector.getAngleInRadians(with: touchVector)
     }
 
+    mutating func updateAttributes(_ newPoint: Point) {
+        self.originX = newPoint.originX
+        self.originY = newPoint.originY
+        self.lowerBound = newPoint.lowerBound
+        self.upperBound = newPoint.upperBound
+        self.xCoord = newPoint.xCoord
+        self.yCoord = newPoint.yCoord
+        self.radial = newPoint.radial
+        self.theta = newPoint.theta
+    }
+
     func deepCopy() -> Point {
         Point(xCoord: self.xCoord, yCoord: self.yCoord)
     }

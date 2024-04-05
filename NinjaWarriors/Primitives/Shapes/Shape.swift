@@ -103,3 +103,29 @@ extension Shape {
                             vertices: verticesWrapper)
     }
 }
+
+extension Shape {
+    func updateAttributes(_ newShape: Shape) {
+        self.center.updateAttributes(newShape.center)
+        self.offset.updateAttributes(newShape.offset)
+
+        self.halfLength = newShape.halfLength
+        self.orientation = newShape.orientation
+
+        for (index, newLine) in newShape.edges.enumerated() {
+            if index < self.edges.count {
+                self.edges[index].updateAttributes(newLine)
+            } else {
+                self.edges.append(newLine)
+            }
+        }
+
+        for (index, newPoint) in newShape.vertices.enumerated() {
+            if index < self.vertices.count {
+                self.vertices[index].updateAttributes(newPoint)
+            } else {
+                self.vertices.append(newPoint)
+            }
+        }
+    }
+}

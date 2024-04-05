@@ -112,6 +112,23 @@ class Rigidbody: Component {
         }
 
     }
+    
+    override func updateAttributes(_ newRigidbody: Component) {
+        guard let newRigidbody = newRigidbody as? Rigidbody else {
+            return
+        }
+        self.angularDrag = newRigidbody.angularDrag
+        self.angularVelocity = newRigidbody.angularVelocity
+        self.mass = newRigidbody.mass
+        self.rotation = newRigidbody.rotation
+        self.totalForce = newRigidbody.totalForce
+        self.inertia = newRigidbody.inertia
+        self.position.updateAttributes(newRigidbody.position)
+        self.offset.updateAttributes(newRigidbody.offset)
+        self.velocity = newRigidbody.velocity
+        self.collidingVelocity = newRigidbody.collidingVelocity
+        self.attachedCollider = newRigidbody.attachedCollider
+    }
 
     override func wrapper() -> ComponentWrapper? {
         guard let entity = entity.wrapper() else {

@@ -22,7 +22,7 @@ final class CanvasViewModel: ObservableObject {
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
             Task {
-                try await self.updateViewModel()
+                await self.updateViewModel()
             }
         }
     }

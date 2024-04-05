@@ -39,6 +39,12 @@ class SlashAOESkill: EntitySpawnerSkill {
        cooldownRemaining = cooldownDuration
     }
 
+    func updateAttributes(_ newSlashAOESkill: SlashAOESkill) {
+        self.id = newSlashAOESkill.id
+        self.cooldownDuration = newSlashAOESkill.cooldownDuration
+        self.cooldownRemaining = newSlashAOESkill.cooldownRemaining
+    }
+
     func spawnEntity(from casterEntity: Entity, in manager: EntityComponentManager) -> Entity {
         print("[SlashAOESkill] Activated by \(casterEntity)")
         let slashAOE = SlashAOE(id: RandomNonce().randomNonceString(), casterEntity: casterEntity)

@@ -39,6 +39,13 @@ class DodgeSkill: SelfModifyingSkill {
         modifySelf(entity, in: manager)
         cooldownRemaining = cooldownDuration
     }
+
+    func updateAttributes(_ newDodgeSkill: DodgeSkill) {
+        self.id = newDodgeSkill.id
+        self.cooldownDuration = newDodgeSkill.cooldownDuration
+        self.cooldownRemaining = newDodgeSkill.cooldownRemaining
+        self.invulnerabilityDuration = newDodgeSkill.invulnerabilityDuration
+    }
     
     func modifySelf(_ entity: Entity, in manager: EntityComponentManager) {
         print("[DodgeSkill] Activated on \(entity), invulnerable for \(invulnerabilityDuration) seconds")

@@ -35,6 +35,12 @@ class RefreshCooldownsSkill: CooldownModifierSkill {
         modifyCooldowns(entity, in: manager)
         cooldownRemaining = cooldownDuration
     }
+
+    func updateAttributes(_ newRefreshCooldownsSkill: RefreshCooldownsSkill) {
+        self.id = newRefreshCooldownsSkill.id
+        self.cooldownDuration = newRefreshCooldownsSkill.cooldownDuration
+        self.cooldownRemaining = newRefreshCooldownsSkill.cooldownRemaining
+    }
     
     func modifyCooldowns(_ entity: Entity, in manager: EntityComponentManager) {
         // Reset the cooldowns of all skills except itself

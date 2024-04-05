@@ -14,8 +14,8 @@
             filePath = "ECS/Components/Rigidbody/Rigidbody.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "wrapper()"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,10 +30,23 @@
             filePath = "ECS/Systems/EntityComponentManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
             landmarkName = "initialPopulate()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            uuid = "10A1B13B-600B-4409-9928-BCCE24BFCA33"
+            shouldBeEnabled = "Yes"
+            nameForDebugger = "Thread"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            breakpointStackSelectionBehavior = "1"
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -26,5 +26,9 @@ class Component: Hashable {
         hasher.combine(id)
     }
 
-     func wrapper() -> ComponentWrapper? { return nil }
+    func updateAttributes(_ newComponent: Component) {
+        self.id = newComponent.id
+    }
+
+    func wrapper() -> ComponentWrapper? { return nil }
 }

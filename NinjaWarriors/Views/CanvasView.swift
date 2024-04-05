@@ -25,6 +25,7 @@ struct CanvasView: View {
             Image("gray-wall")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
+                .statusBar(hidden: true)
 
             ZStack {
                 GeometryReader { geometry in

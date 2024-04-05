@@ -29,6 +29,17 @@ class Sprite: Component {
         self.maxHealth = maxHealth
         super.init(id: id, entity: entity)
     }
+
+    override func updateAttributes(_ newSprite: Component) {
+        guard let newSprite = newSprite as? Sprite else {
+            return
+        }
+        self.image = newSprite.image
+        self.width = newSprite.width
+        self.height = newSprite.height
+        self.health = newSprite.health
+        self.maxHealth = newSprite.maxHealth
+    }
     
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
