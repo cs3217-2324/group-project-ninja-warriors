@@ -193,33 +193,6 @@ class EntityComponentManager {
         return getComponent(ofType: type, for: entity)
     }
 
-    // Original add
-    /*
-    private func add(component: Component, to entity: Entity, isAdded: Bool = true) {
-        assertRepresentation()
-
-        guard entityMap[entity.id] != nil else {
-            assertionFailure("Entity not found")
-            return
-        }
-        component.entity = entity
-
-        let componentType = ComponentType(type(of: component))
-        componentMap[componentType, default: Set<Component>()].insert(component)
-
-        entityComponentMap[entity.id]?.insert(component)
-
-        //print("after add to:", entity.id, entityComponentMap)
-
-        if !isAdded {
-            Task {
-                try await manager.uploadEntity(entity: entity, components: [component])
-            }
-        }
-        assertRepresentation()
-    }
-    */
-
     // New add by updating attributes
     private func add(component: Component, to entity: Entity, isAdded: Bool = true) {
         assertRepresentation()
@@ -289,24 +262,6 @@ class EntityComponentManager {
             try await manager.uploadEntity(entity: entity, components: [component])
         }
     }
-
-    /*
-    func getComponent<T: Component>(ofType: T.Type, for entity: Entity) -> T? {
-        guard let entityComponents = entityComponentMap[entity.id] else {
-            return nil
-        }
-
-        let components = entityComponents.filter({$0 is T})
-
-        assert(components.count <= 1, "Entity has multiple components of the same type")
-
-        guard let component = components.first else {
-            return nil
-        }
-
-        return component as? T
-    }
-    */
 
     func getComponent<T: Component>(ofType: T.Type, for entity: Entity) -> T? {
         let queue = DispatchQueue(label: "entityComponentQueue")
