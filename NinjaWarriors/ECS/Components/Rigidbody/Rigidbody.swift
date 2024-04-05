@@ -79,26 +79,6 @@ class Rigidbody: Component {
         self.rotation = rotation
     }
 
-    func update(dt deltaTime: TimeInterval) {
-        // Determine the velocity to use for calculations
-        var currentVelocity = collidingVelocity ?? velocity
-
-        // Update position
-        let deltaPosition = currentVelocity.scale(deltaTime).add(vector: acceleration.scale(0.5 * pow(deltaTime, 2)))
-        movePosition(by: deltaPosition)
-
-        // Update velocity
-        currentVelocity = currentVelocity.add(vector: acceleration.scale(deltaTime))
-        if collidingVelocity != nil {
-            self.collidingVelocity = currentVelocity
-        } else {
-            velocity = currentVelocity
-        }
-
-        // Reset force
-        totalForce = Vector.zero
-    }
-
     func deepCopy() -> Rigidbody {
         if let attachedCollider = attachedCollider {
             return Rigidbody(id: id, entity: entity, angularDrag: angularDrag, angularVelocity: angularVelocity,
