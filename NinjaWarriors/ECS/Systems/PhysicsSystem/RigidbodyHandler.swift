@@ -21,7 +21,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     }
 
     func update(after time: TimeInterval) {
-        //handleElasticCollisions()
         moveRigidBodies(with: time)
         syncTransform()
     }
