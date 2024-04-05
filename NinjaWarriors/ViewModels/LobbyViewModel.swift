@@ -128,15 +128,7 @@ final class LobbyViewModel: ObservableObject {
 
 extension LobbyViewModel {
     func getPlayerPositions() -> [Point] {
-        let screenWidth = Constants.screenWidth
-        let screenHeight = Constants.screenHeight
-
-        let playerOnePosition = Point(xCoord: 100, yCoord: 100)
-        let playerTwoPosition = Point(xCoord: screenWidth - 100, yCoord: 100)
-        let playerThreePosition = Point(xCoord: 100, yCoord: screenHeight - 500)
-        let playerFourPosition = Point(xCoord: screenWidth - 100, yCoord: screenHeight - 500)
-
-        return [playerOnePosition, playerTwoPosition, playerThreePosition, playerFourPosition]
+        Constants.playerPositions
     }
 
     func getObstaclePositions() -> [Point] {

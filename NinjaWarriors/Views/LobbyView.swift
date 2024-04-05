@@ -16,7 +16,7 @@ struct LobbyView: View {
     var body: some View {
         NavigationView {
             VStack {
-                    Image("player-copy")
+                    Image("playerIcon")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 100, height: 100)

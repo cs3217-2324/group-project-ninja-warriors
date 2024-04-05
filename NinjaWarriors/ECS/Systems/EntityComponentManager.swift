@@ -45,7 +45,7 @@ class EntityComponentManager {
     func startListening() {
         print("start listening")
         manager.addEntitiesListener { snapshot in
-            print("snap shot received")
+            //print("snap shot received")
             self.queue.async {
                 self.populate()
             }
@@ -137,17 +137,7 @@ class EntityComponentManager {
         assertRepresentation()
         //print("[EntityComponentManager] add", entity)
 
-        var dstEntity: Entity
-        if let originalEntity = entityMap[entity.id] {
-            dstEntity = originalEntity
-        } else {
-            entityMap[entity.id] = entity
-            dstEntity = entity
-        }
-
-        if entityComponentMap[entity.id] == nil {
-            entityComponentMap[entity.id] = []
-        }
+        let dstEntity = getDestinationEntity(for: entity)
 
         // Insert intializing components of entity
         let newComponents = entity.getInitializingComponents()
@@ -170,13 +160,7 @@ class EntityComponentManager {
         assertRepresentation()
         //print("[EntityComponentManager] add", entity)
 
-        var dstEntity: Entity
-        if let originalEntity = entityMap[entity.id] {
-            dstEntity = originalEntity
-        } else {
-            entityMap[entity.id] = entity
-            dstEntity = entity
-        }
+        let dstEntity = getDestinationEntity(for: entity)
 
         if entityComponentMap[entity.id] == nil {
             entityComponentMap[entity.id] = []
@@ -197,6 +181,15 @@ class EntityComponentManager {
             }
         }
         assertRepresentation()
+    }
+
+    private func getDestinationEntity(for entity: Entity) -> Entity {
+        if let originalEntity = entityMap[entity.id] {
+            return originalEntity
+        } else {
+            entityMap[entity.id] = entity
+            return entity
+        }
     }
 
     func remove(entity: Entity, isRemoved: Bool = true) {
