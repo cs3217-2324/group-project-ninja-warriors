@@ -17,7 +17,7 @@ class EntityComponentManager {
     var newEntityMap: [EntityID: Entity] = [:]
     var newComponentMap: [ComponentType: Set<Component>] = [:]
 
-    private var queue = DispatchQueue(label: "queue")
+    private var queue = EventQueue(label: "entityComponentMapQueue")
 
     var manager: EntitiesManager
 
@@ -474,52 +474,6 @@ class EntityComponentManager {
                 assert(!componentIDs.contains(componentID),
                        "Error: Component \(componentID) appears in multiple entityComponentMap entries")
                 componentIDs.insert(componentID)
-            }
-        }
-    }
-}
-
-// TODO: Not in use anymore. To be deprecated
-extension EntityComponentManager {
-    func remapAttachCollider() {
-        for (entityId, _) in entityMap {
-            guard let components = entityComponentMap[entityId] else {
-                continue
-            }
-            for component in components {
-                if let componentToUpload = component as? Rigidbody {
-                    if let componentCollider = componentToUpload.attachedCollider {
-                        componentCollider.entity = componentToUpload.entity
-                    } else {
-                        print("no attached collider")
-                    }
-                }
-            }
-        }
-    }
-
-    func remapColliderRigidbody() {
-        let colliders = getAllComponents(ofType: Collider.self)
-
-        let rigidBodies = getAllComponents(ofType: Rigidbody.self)
-
-        for collider in colliders {
-            if let matchingRigidBody = rigidBodies.first(where: { $0.entity.id == collider.entity.id }) {
-                matchingRigidBody.attachedCollider = collider
-                //print("Attached collider to rigid body with entity ID:", matchingRigidBody.entity.id)
-            }
-        }
-    }
-
-    func remapCollider() {
-        let colliders = getAllComponents(ofType: Collider.self)
-
-        let rigidBodies = getAllComponents(ofType: Rigidbody.self)
-
-        for collider in colliders {
-            if let matchingRigidBody = rigidBodies.first(where: { $0.entity.id == collider.entity.id }) {
-                collider.entity = matchingRigidBody.entity
-                //print("Attached collider to rigid body with entity ID:", matchingRigidBody.entity.id)
             }
         }
     }
