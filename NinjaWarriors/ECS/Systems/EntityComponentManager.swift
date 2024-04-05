@@ -7,8 +7,6 @@
 
 import Foundation
 
-// TODO: TBC
-//@MainActor
 class EntityComponentManager {
     var entityComponentMap: [EntityID: Set<Component>]
     var entityMap: [EntityID: Entity]
@@ -18,6 +16,8 @@ class EntityComponentManager {
     var newEntity: [Entity] = []
     var newEntityMap: [EntityID: Entity] = [:]
     var newComponentMap: [ComponentType: Set<Component>] = [:]
+
+    private var queue = DispatchQueue(label: "queue")
 
     var manager: EntitiesManager
 
@@ -44,7 +44,7 @@ class EntityComponentManager {
         print("start listening")
         manager.addEntitiesListener { snapshot in
             print("snap shot received")
-            DispatchQueue.main.async {
+            self.queue.async {
                 self.populate()
             }
         }
@@ -89,10 +89,12 @@ class EntityComponentManager {
             for entity in newEntity {
                 newEntityMap[entity.id] = entity
             }
-
-            addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
+            queue.sync {
+                addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
+            }
             startListening()
         }
+
     }
 
     func addEntitiesFromNewMap(_ newEntityMap: [EntityID: Entity],
@@ -106,13 +108,25 @@ class EntityComponentManager {
         }
     }
 
-    func publish () async throws {
-        for (entityId, entity) in entityMap {
-            guard let components = entityComponentMap[entityId] else {
-                continue
+    func publish() async throws {
+        //queue.async {
+            for (entityId, entity) in entityMap {
+                var entityComponents: Set<Component> = []
+                queue.sync {
+                    guard let components = entityComponentMap[entityId] else {
+                        return
+                    }
+                    entityComponents = components
+                }
+                do {
+                    // Upload the entity with its components
+                    try await manager.uploadEntity(entity: entity, components: Array(entityComponents))
+                } catch {
+                    // Handle errors during upload
+                    print("Error uploading entity with ID \(entityId): \(error)")
+                }
             }
-            try await manager.uploadEntity(entity: entity, components: Array(components))
-        }
+        //}
     }
 
     // MARK: - Entity-related functions
@@ -264,6 +278,7 @@ class EntityComponentManager {
         assertRepresentation()
     }
 
+    /*
     private func addComponentToMap(_ component: Component, ofType componentType: ComponentType) {
         let existingComponents = componentMap[componentType, default: Set<Component>()]
         var foundMatchingID = false
@@ -283,14 +298,28 @@ class EntityComponentManager {
             componentMap[componentType, default: Set<Component>()].insert(component)
         }
     }
+    */
 
     private func addComponentToEntityMap(_ component: Component, for entity: Entity) {
         if var entityComponents = entityComponentMap[entity.id] {
             var foundMatchingComponent = false
 
             for existingComponent in entityComponents {
-                if ComponentType(type(of: existingComponent)) == ComponentType(type(of: component)) {
-                    existingComponent.updateAttributes(component)
+                let existingComponentType = ComponentType(type(of: existingComponent))
+                if existingComponentType == ComponentType(type(of: component)) {
+
+                    /*
+                    if existingComponentType != ComponentType(Collider.self)
+                        && existingComponentType != ComponentType(Sprite.self)
+                        && existingComponentType != ComponentType(Score.self)
+                        && existingComponentType != ComponentType(SkillCaster.self) {
+                        existingComponent.updateAttributes(component)
+                    }
+                    */
+
+                    if existingComponentType == ComponentType(Rigidbody.self) {
+                        existingComponent.updateAttributes(component)
+                    }
                     foundMatchingComponent = true
                     break
                 }
@@ -319,14 +348,13 @@ class EntityComponentManager {
     }
 
     func getComponent<T: Component>(ofType type: T.Type, for entity: Entity) -> T? {
-        let queue = DispatchQueue(label: "entityComponentQueue")
+        //let queue = DispatchQueue(label: "entityComponentQueue")
         var result: T?
 
         queue.sync {
             guard let entityComponents = entityComponentMap[entity.id] else {
                 return
             }
-
             for component in entityComponents {
                 if let typedComponent = component as? T {
                     result = typedComponent
@@ -334,16 +362,31 @@ class EntityComponentManager {
                 }
             }
         }
-
         return result
     }
 
-
-
+    /*
     func getAllComponents(for entity: Entity) -> [Component] {
         guard let components = entityComponentMap[entity.id] else { return [] }
         return Array(components)
     }
+    */
+
+    func getAllComponents(for entity: Entity) -> [Component] {
+        var result: [Component] = []
+        //let queue = DispatchQueue(label: "entityComponentQueue")
+
+        queue.sync {
+            // Check if components exist for the entity ID
+            if let components = entityComponentMap[entity.id] {
+                // Convert the set of components into an array
+                result = Array(components)
+            }
+        }
+
+        return result
+    }
+
 
     func getAllComponents<T: Component>(ofType: T.Type) -> [T] {
         guard let componentsWithType = componentMap[ComponentType(ofType)] else {

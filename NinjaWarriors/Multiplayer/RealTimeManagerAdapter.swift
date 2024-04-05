@@ -427,15 +427,14 @@ final class RealTimeManagerAdapter: EntitiesManager {
     }
 
     // MARK: Listeners
-    /*
     func addEntitiesListener(completion: @escaping (DataSnapshot) -> Void) {
         removeEntitiesListener()
         listenerHandle = entitiesRef.observe(.value) { snapshot in
             completion(snapshot)
         }
     }
-    */
 
+    /*
     func addEntitiesListener(completion: @escaping (DataSnapshot) -> Void) {
 
         // Iterate over each entity
@@ -457,6 +456,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
             }
         }
     }
+    */
 
     func removeEntitiesListener() {
         if let handle = listenerHandle {
