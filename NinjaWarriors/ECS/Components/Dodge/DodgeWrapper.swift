@@ -11,11 +11,13 @@ struct DodgeWrapper: ComponentWrapper {
     var id: ComponentID
     var entity: EntityWrapper
     var isEnabled: Bool
+    var invulnerabilityDuration: TimeInterval
+    var elapsedTimeSinceEnabled: CGFloat
 
     func toComponent() -> Component? {
         guard let entity = entity.toEntity() else {
             return nil
         }
-        return Dodge(id: id, entity: entity, isEnabled: isEnabled)
+        return Dodge(id: id, entity: entity, isEnabled: isEnabled, invulnerabilityDuration: invulnerabilityDuration, elapsedTimeSinceEnabled: elapsedTimeSinceEnabled)
     }
 }

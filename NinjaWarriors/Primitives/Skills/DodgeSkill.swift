@@ -27,9 +27,16 @@ class DodgeSkill: SelfModifyingSkill {
     }
     
     func modifySelf(_ entity: Entity, in manager: EntityComponentManager) {
-        print("[DodgeSkill] Activated on \(entity), invulnerable for \(invulnerabilityDuration) seconds")
+        if let dodgeComponent = manager.getComponent(ofType: Dodge.self, for: entity) {
+            dodgeComponent.isEnabled = true
+            dodgeComponent.invulnerabilityDuration = self.invulnerabilityDuration
+            dodgeComponent.elapsedTimeSinceEnabled = 0
+        } else {
+            let dodgeComponent = Dodge(id: RandomNonce().randomNonceString(), entity: entity, isEnabled: true, invulnerabilityDuration: self.invulnerabilityDuration)
+            manager.add(entity: entity, components: [dodgeComponent])
+        }
     }
-    
+
     func wrapper() -> SkillWrapper {
         return SkillWrapper(id: id, type: "DodgeSkill", cooldownDuration: cooldownDuration)
     }

@@ -10,9 +10,13 @@ import SwiftUI
 
 class Dodge: Component {
     var isEnabled: Bool
+    var invulnerabilityDuration: TimeInterval
+    var elapsedTimeSinceEnabled: CGFloat
 
-    init(id: ComponentID, entity: Entity, isEnabled: Bool) {
+    init(id: ComponentID, entity: Entity, isEnabled: Bool, invulnerabilityDuration: TimeInterval, elapsedTimeSinceEnabled: CGFloat = 0) {
         self.isEnabled = isEnabled
+        self.invulnerabilityDuration = invulnerabilityDuration
+        self.elapsedTimeSinceEnabled = elapsedTimeSinceEnabled
         super.init(id: id, entity: entity)
     }
 
@@ -20,6 +24,6 @@ class Dodge: Component {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
-        return DodgeWrapper(id: id, entity: entityWrapper, isEnabled: isEnabled)
+        return DodgeWrapper(id: id, entity: entityWrapper, isEnabled: isEnabled, invulnerabilityDuration: invulnerabilityDuration, elapsedTimeSinceEnabled: elapsedTimeSinceEnabled)
     }
 }
