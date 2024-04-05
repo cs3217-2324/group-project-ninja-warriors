@@ -104,6 +104,20 @@ final class LobbyViewModel: ObservableObject {
         Obstacle(id: RandomNonce().randomNonceString(), position: position)
     }
 
+    private func addClosingZone(center: Point, radius: Double) {
+        let closingZone = makeClosingZone(center: center, radius: radius)
+        guard let realTimeManager = realTimeManager else {
+            return
+        }
+        Task {
+            try? await realTimeManager.uploadEntity(entity: closingZone)
+        }
+    }
+
+    private func makeClosingZone(center: Point, radius: Double) -> ClosingZone {
+        ClosingZone(id: RandomNonce().randomNonceString(), center: center, initialRadius: radius)
+    }
+
     func addListenerForMatches() {
         let publisher = matchManager.addListenerForAllMatches()
         //publisher.subscribe(update: { [unowned self] matches in

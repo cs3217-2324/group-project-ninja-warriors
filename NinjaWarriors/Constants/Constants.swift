@@ -56,4 +56,6 @@ struct Constants {
         return positions
     }
 
+    static var closingZonePosition: Point { center }
+    static var closingZoneRadius: Double { screenHeight / 2.0 }
 }
