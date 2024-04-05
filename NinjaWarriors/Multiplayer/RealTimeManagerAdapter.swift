@@ -146,13 +146,20 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entities[0]
     }
 
-    private func getComponent(from dict: Any, with wrapper: Codable.Type, ref: Entity) -> (Component, Entity)? {
+    private func getComponent(from dict: Any, with wrapper: Codable.Type, ref: Entity) -> Component? {
         do {
             let componentData = try JSONSerialization.data(withJSONObject: dict, options: [])
             guard let componentWrapper: ComponentWrapper = try JSONDecoder().decode(wrapper, from: componentData) as? ComponentWrapper else {
                 print("Error: Failed to decode component wrapper")
                 return nil
             }
+
+            guard let componentEntity = componentWrapper.toComponent(entity: ref) else {
+                print("Error: Failed to convert wrapper to component for \(componentWrapper)")
+                return nil
+            }
+            return componentEntity
+            /*
             if let scoreWrapper = componentWrapper as? ScoreWrapper {
                 guard let componentEntity = scoreWrapper.toComponent(entity: ref) else {
                     print("Error: Failed to convert wrapper to component for \(scoreWrapper)")
@@ -198,6 +205,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
             } else {
                 return nil
             }
+            */
         } catch {
             print("Error in decoding component: \(error)")
             print("Error dict", dict)
@@ -249,12 +257,11 @@ final class RealTimeManagerAdapter: EntitiesManager {
                                    from idData: [String: Any],
                                    into entityComponent: inout [EntityID: [Component]],
                                    for entities: inout [Entity], ref entityInstance: Entity) throws {
-        var componentCount = componentTypes.count
+
         for componentType in componentTypes {
-            componentCount -= 1
             guard let componentWrapper = getComponentWrapperType(of: componentType),
                   let componentDict = idData[componentType],
-                  let (component, entity) = getComponent(from: componentDict, with: componentWrapper, ref: entityInstance) else {
+                  let component = getComponent(from: componentDict, with: componentWrapper, ref: entityInstance) else {
                 continue
             }
             if entityComponent[entityId] == nil {
