@@ -127,6 +127,7 @@
 		91F3D9C42BBBF735001D7DE7 /* SlashAOEWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */; };
 		E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC002BBADA55006C2C4C /* Transform.swift */; };
 		E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */; };
+		E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F53392BBFEFA10051A900 /* DestroySystem.swift */; };
 		E699DDBF2BBDDC5800E8CA80 /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */; };
 		E6A0564D2BB0687500398D67 /* DodgeSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0564C2BB0687500398D67 /* DodgeSkill.swift */; };
 		E6A0564F2BB0691B00398D67 /* RefreshCooldownsSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */; };
@@ -267,6 +268,7 @@
 		91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOEWrapper.swift; sourceTree = "<group>"; };
 		E63FFC002BBADA55006C2C4C /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformWrapper.swift; sourceTree = "<group>"; };
+		E67F53392BBFEFA10051A900 /* DestroySystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroySystem.swift; sourceTree = "<group>"; };
 		E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
 		E6A0564C2BB0687500398D67 /* DodgeSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeSkill.swift; sourceTree = "<group>"; };
 		E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCooldownsSkill.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 		9136A5B52BA9943100197971 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				E67F53382BBFEF930051A900 /* DestroySystem */,
 				91CC283A2BBA86DB009318C7 /* ScoreSystem */,
 				E6DB870A2BB9F745003AC063 /* DodgeSystem */,
 				91DDE66B2BB7C3C900851603 /* HealthSystem */,
@@ -792,6 +795,14 @@
 			path = Transform;
 			sourceTree = "<group>";
 		};
+		E67F53382BBFEF930051A900 /* DestroySystem */ = {
+			isa = PBXGroup;
+			children = (
+				E67F53392BBFEFA10051A900 /* DestroySystem.swift */,
+			);
+			path = DestroySystem;
+			sourceTree = "<group>";
+		};
 		E6CDFFBE2BAF1D9D007BB867 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1022,6 +1033,7 @@
 				E6ECF6382BADE99700DDDE9C /* SlashAOESkill.swift in Sources */,
 				91DDE6582BB5118400851603 /* EntityType.swift in Sources */,
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
+				E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
 				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
 				91CC28382BBA832A009318C7 /* ScoreWrapper.swift in Sources */,
