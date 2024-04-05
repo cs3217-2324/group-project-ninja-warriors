@@ -27,8 +27,6 @@ class EntityComponentManager {
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
-
-        //startListening()
     }
 
     deinit {
@@ -36,17 +34,12 @@ class EntityComponentManager {
     }
 
     func startListening() {
-        //print("start listening")
+        print("start listening")
         manager.addEntitiesListener { snapshot in
             //print("snap shot received")
             DispatchQueue.main.async {
-                        self.populate()
-                    }
-            /*
-            Task { [unowned self] in
                 self.populate()
             }
-            */
         }
     }
 
@@ -54,7 +47,6 @@ class EntityComponentManager {
         manager.removeEntitiesListener()
     }
 
-    // Fetches from realtime and populates the ecm
     func initialPopulate() {
         Task {
             var newEntityMap: [EntityID: Entity] = [:]
@@ -64,9 +56,6 @@ class EntityComponentManager {
                 newEntityMap[newEntityID] = try await manager.getEntity(entityId: newEntityID)
             }
             addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
-
-            //remapAttachCollider()
-            //remapColliderRigidbody()
             startListening()
         }
     }
@@ -80,108 +69,19 @@ class EntityComponentManager {
                 newEntityMap[newEntityID] = try await manager.getEntity(entityId: newEntityID)
             }
             addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
-
-            /*
-            remapAttachCollider()
-            remapColliderRigidbody()
-            remapCollider()
-
-            remapAttachCollider()
-            remapColliderRigidbody()
-            remapCollider()
-            */
         }
     }
 
     func addEntitiesFromNewMap(_ newEntityMap: [EntityID: Entity],
                                _ newEntityComponentMap: [EntityID: [Component]]) {
         for (newEntityId, newEntity) in newEntityMap {
-            // If entity exists, use original (old) entity memory reference
-
-
-            /*
-            if let oldEntity = entityMap[newEntityId] {
-                print("if")
-                if let newComponents = newEntityComponentMap[newEntityId] {
-                    add(entity: oldEntity, components: newComponents)
-                } else {
-                    add(entity: oldEntity)
-                }
-            // If entity doesn't exist, use new entity memory reference
-            } else {
-                if let newComponents = newEntityComponentMap[newEntityId] {
-                    add(entity: newEntity, components: newComponents)
-                } else {
-                    add(entity: newEntity)
-                }
-            }
-            */
-
             if let newComponents = newEntityComponentMap[newEntityId] {
                 add(entity: newEntity, components: newComponents)
             } else {
                 add(entity: newEntity)
             }
-
-
         }
     }
-
-    func remapAttachCollider() {
-        for (entityId, _) in entityMap {
-            guard let components = entityComponentMap[entityId] else {
-                continue
-            }
-            for component in components {
-                if let componentToUpload = component as? Rigidbody {
-                    if let componentCollider = componentToUpload.attachedCollider {
-                        componentCollider.entity = componentToUpload.entity
-                    } else {
-                        print("no attached collider")
-                    }
-                }
-            }
-        }
-    }
-
-    func remapColliderRigidbody() {
-        let colliders = getAllComponents(ofType: Collider.self)
-
-        let rigidBodies = getAllComponents(ofType: Rigidbody.self)
-
-        for collider in colliders {
-            if let matchingRigidBody = rigidBodies.first(where: { $0.entity.id == collider.entity.id }) {
-                matchingRigidBody.attachedCollider = collider
-                //print("Attached collider to rigid body with entity ID:", matchingRigidBody.entity.id)
-            }
-        }
-    }
-
-
-    func remapCollider() {
-        let colliders = getAllComponents(ofType: Collider.self)
-
-        let rigidBodies = getAllComponents(ofType: Rigidbody.self)
-
-        for collider in colliders {
-            if let matchingRigidBody = rigidBodies.first(where: { $0.entity.id == collider.entity.id }) {
-                collider.entity = matchingRigidBody.entity
-                //print("Attached collider to rigid body with entity ID:", matchingRigidBody.entity.id)
-            }
-        }
-    }
-
-    /*
-    func remapCollider() {
-        let colliders = getAllComponents(ofType: Collider.self)
-
-        for collider in colliders {
-            if let entity = entityMap[collider.entity.id] {
-                collider.entity = entity
-            }
-        }
-    }
-    */
 
     func publish () async throws {
         for (entityId, entity) in entityMap {
@@ -293,8 +193,7 @@ class EntityComponentManager {
         return getComponent(ofType: type, for: entity)
     }
 
-
-
+    // Original add
     /*
     private func add(component: Component, to entity: Entity, isAdded: Bool = true) {
         assertRepresentation()
@@ -321,6 +220,7 @@ class EntityComponentManager {
     }
     */
 
+    // New add by updating attributes
     private func add(component: Component, to entity: Entity, isAdded: Bool = true) {
         assertRepresentation()
 
@@ -329,7 +229,7 @@ class EntityComponentManager {
             return
         }
 
-        // This is causing the issue
+        // This is causing some issue
         component.entity = entity
 
         addComponentToMap(component, ofType: ComponentType(type(of: component)))
@@ -408,13 +308,11 @@ class EntityComponentManager {
     }
     */
 
-    ///*
     func getComponent<T: Component>(ofType: T.Type, for entity: Entity) -> T? {
-        let queue = DispatchQueue(label: "com.example.entityComponentQueue")
+        let queue = DispatchQueue(label: "entityComponentQueue")
 
         var result: T?
 
-        print("entity id", entity.id)
         queue.sync {
             guard let entityComponents = entityComponentMap[entity.id] else {
                 return
@@ -430,7 +328,6 @@ class EntityComponentManager {
         }
         return result
     }
-    //*/
 
     func getAllComponents(for entity: Entity) -> [Component] {
         guard let components = entityComponentMap[entity.id] else { return [] }
@@ -523,6 +420,52 @@ class EntityComponentManager {
                 assert(!componentIDs.contains(componentID),
                        "Error: Component \(componentID) appears in multiple entityComponentMap entries")
                 componentIDs.insert(componentID)
+            }
+        }
+    }
+}
+
+// TODO: Not in use anymore. To be deprecated
+extension EntityComponentManager {
+    func remapAttachCollider() {
+        for (entityId, _) in entityMap {
+            guard let components = entityComponentMap[entityId] else {
+                continue
+            }
+            for component in components {
+                if let componentToUpload = component as? Rigidbody {
+                    if let componentCollider = componentToUpload.attachedCollider {
+                        componentCollider.entity = componentToUpload.entity
+                    } else {
+                        print("no attached collider")
+                    }
+                }
+            }
+        }
+    }
+
+    func remapColliderRigidbody() {
+        let colliders = getAllComponents(ofType: Collider.self)
+
+        let rigidBodies = getAllComponents(ofType: Rigidbody.self)
+
+        for collider in colliders {
+            if let matchingRigidBody = rigidBodies.first(where: { $0.entity.id == collider.entity.id }) {
+                matchingRigidBody.attachedCollider = collider
+                //print("Attached collider to rigid body with entity ID:", matchingRigidBody.entity.id)
+            }
+        }
+    }
+
+    func remapCollider() {
+        let colliders = getAllComponents(ofType: Collider.self)
+
+        let rigidBodies = getAllComponents(ofType: Rigidbody.self)
+
+        for collider in colliders {
+            if let matchingRigidBody = rigidBodies.first(where: { $0.entity.id == collider.entity.id }) {
+                collider.entity = matchingRigidBody.entity
+                //print("Attached collider to rigid body with entity ID:", matchingRigidBody.entity.id)
             }
         }
     }
