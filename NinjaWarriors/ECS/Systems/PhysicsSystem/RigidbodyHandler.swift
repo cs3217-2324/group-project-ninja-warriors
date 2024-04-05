@@ -51,14 +51,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         for rigidBody in rigidBodies {
             let collider = rigidBody.attachedCollider
 
-            //print("rigid body attached collider", collider?.entity.id, "attached collider status", collider?.isOutOfBounds)
-
-
-            //let testing = manager.getAllComponents(ofType: Collider.self)[0]
-            //print("testing collider", testing.isOutOfBounds, testing.entity.id)
-
-            //rigidBody.attachedCollider = testing
-
             guard let gameControl = gameControl,
                   let gameControlEntity = gameControl.entity,
                   let collider = collider else {
