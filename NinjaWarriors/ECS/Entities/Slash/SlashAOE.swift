@@ -27,7 +27,7 @@ class SlashAOE: Entity {
                                   position: shape.center, velocity: Vector.zero,
                                   attachedCollider: collider)
 
-        // TODO: Add different image
+        // TODO: Add different images
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(),
                                      entity: self, image: "rock", width: 100,
                                      height: 100, health: 10, maxHealth: 100)

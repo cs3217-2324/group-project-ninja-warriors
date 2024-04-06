@@ -197,8 +197,11 @@ final class RealTimeManagerAdapter: EntitiesManager {
             var entityInstance: Entity
             if entityType == "Player" {
                 entityInstance = Player(id: entityId)
-            } else {
+            } else if entityType == "Obstacle" {
                 entityInstance = Obstacle(id: entityId)
+            // TODO: TBC
+            } else {
+                entityInstance = SlashAOE(id: entityId, casterEntity: Player(id: entityId))
             }
 
             try processComponents(for: entityId, withComponentTypes: componentTypes, from: idData,
