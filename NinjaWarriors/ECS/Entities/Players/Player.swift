@@ -21,23 +21,23 @@ class Player: Equatable, Entity {
     }
 
     func getInitializingComponents() -> [Component] {
-            let shape = Shape(center: initializePosition, halfLength: Constants.defaultSize)
+        let shape = Shape(center: initializePosition, halfLength: Constants.defaultSize)
 
-            let playerCollider = Collider(id: RandomNonce().randomNonceString(), entity: self,
-                                          colliderShape: shape, collidedEntities: [],
-                                          isColliding: false, isOutOfBounds: false)
+        let playerCollider = Collider(id: RandomNonce().randomNonceString(), entity: self,
+                                      colliderShape: shape, collidedEntities: [],
+                                      isColliding: false, isOutOfBounds: false)
 
-            let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
-                                          entity: self, skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                                                 DashSkill(id: "dash", cooldownDuration: 8.0),
-                                                                 DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                                                RefreshCooldownsSkill(id: "refresh")])
+        let playerRigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: self,
+                                        angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
+                                        rotation: 0.0, totalForce: Vector.zero, inertia: 0.0,
+                                        position: shape.center, velocity: Vector.zero,
+                                        attachedCollider: playerCollider)
 
-            let playerRigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: self,
-                                            angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
-                                            rotation: 0.0, totalForce: Vector.zero, inertia: 0.0,
-                                            position: shape.center, velocity: Vector.zero,
-                                            attachedCollider: playerCollider)
+        let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
+                                      entity: self, skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                                             DashSkill(id: "dash", cooldownDuration: 8.0),
+                                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                                            RefreshCooldownsSkill(id: "refresh")])
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: self,
                                      image: "player-icon", width: 50.0, height: 50.0, health: 10,

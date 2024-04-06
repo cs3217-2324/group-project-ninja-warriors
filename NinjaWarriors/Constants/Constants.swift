@@ -15,7 +15,6 @@ struct Constants {
     static let directory = "NinjaWarriors."
     static let wrapperName = "Wrapper"
 
-
     // MARK: Player intial positions
     static let playerOnePosition = Point(xCoord: 100, yCoord: 100)
     static let playerTwoPosition = Point(xCoord: screenWidth - 100, yCoord: 100)
@@ -28,4 +27,7 @@ struct Constants {
     static let playerCount = 1
 
     static let obstacleCount = 1
+
+    static let slashDamage = 10
+    static let slashRadius = 50.0
 }
