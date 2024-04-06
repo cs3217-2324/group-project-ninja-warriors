@@ -28,6 +28,7 @@ struct CanvasView: View {
                 .statusBar(hidden: true)
 
             ZStack {
+                Text("THIS IS A CANVAS VIEW")
                 GeometryReader { geometry in
                     ZStack {
                         ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in

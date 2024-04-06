@@ -72,6 +72,37 @@ final class ClientViewModel: ObservableObject {
         return nil
     }
 
+    func move(_ vector: CGVector) {
+        print("test", vector)
+        guard let entityIdComponents = entityComponents[currPlayerId] else {
+            return
+        }
+        for entityIdComponent in entityIdComponents {
+            if let entityIdComponent = entityIdComponent as? Rigidbody {
+                if entityIdComponent.attachedCollider?.isColliding == true {
+                    entityIdComponent.collidingVelocity = Vector(horizontal: vector.dx,
+                                                                 vertical: vector.dy)
+                } else {
+                    entityIdComponent.velocity = Vector(horizontal: vector.dx, vertical: vector.dy)
+                }
+            }
+        }
+    }
+
+    func test(for entity: Entity) -> (image: Image, position: CGPoint)? {
+        guard let entityComponents = entityComponents[entity.id] else {
+            return nil
+        }
+        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
+              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
+            return nil
+        }
+        return (image: Image(sprite.image), position: rigidbody.position.get())
+
+
+        //return (image: Image("player-icon"), position: CGPoint(x: 150.0, y: 150.0))
+    }
+
     func process(_ fetchEntities: [Entity], _ fetchComponents: [EntityID: [Component]]) {
         for (entityId, entityIdComponents) in fetchComponents {
             if entityComponents[entityId] == nil {
@@ -99,17 +130,18 @@ final class ClientViewModel: ObservableObject {
             }
         }
 
-        func publish() {
-            Task {
+        func publish() async {
+            //Task {
                 for entity in entities {
                     do {
+                        let componentsToUpload = entityComponents[entity.id]
                         try await manager.uploadEntity(entity: entity,
-                                                       components: entityComponents[entity.id])
+                                                       components: componentsToUpload)
                     } catch {
                         print("Error updating client data \(error)")
                     }
                 }
-            }
+            //}
         }
 
         // Only update values that changed
@@ -117,7 +149,12 @@ final class ClientViewModel: ObservableObject {
             objectWillChange.send()
         }
 
+        func newTest() {
+            
+        }
+
         func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {
+            /*
             guard let entityComponents = entityComponents[entity.id] else {
                 return nil
             }
@@ -126,22 +163,8 @@ final class ClientViewModel: ObservableObject {
                 return nil
             }
             return (image: Image(sprite.image), position: rigidbody.position.get())
-        }
-
-        func setInput(_ vector: CGVector, for entity: Entity) {
-            guard let entityIdComponents = entityComponents[entity.id] else {
-                return
-            }
-            for entityIdComponent in entityIdComponents {
-                if let entityIdComponent = entityIdComponent as? Rigidbody {
-                    if entityIdComponent.attachedCollider?.isColliding == true {
-                        entityIdComponent.collidingVelocity = Vector(horizontal: vector.dx,
-                                                                     vertical: vector.dy)
-                    } else {
-                        entityIdComponent.velocity = Vector(horizontal: vector.dx, vertical: vector.dy)
-                    }
-                }
-            }
+            */
+            return (image: Image("player-icon"), position: CGPoint(x: 150.0, y: 150.0))
         }
     }
 }

@@ -295,6 +295,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
     }
 
     func uploadEntity(entity: Entity, components: [Component]? = nil) async throws {
+        print("uploading entity!!!")
         let entityName = NSStringFromClass(type(of: entity))
             .components(separatedBy: ".").last ?? "entity"
 

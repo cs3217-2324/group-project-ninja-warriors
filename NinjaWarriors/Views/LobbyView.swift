@@ -50,7 +50,7 @@ struct LobbyView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
 
-                            if signInViewModel.getUserId() == viewModel.hostId {
+                            if signInViewModel.getUserId() != viewModel.hostId {
                                 NavigationLink(
                                     destination: CanvasView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
                                 ) {
