@@ -13,6 +13,7 @@ struct ClientView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
+    @State private var isInitialized = false
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -26,6 +27,25 @@ struct ClientView: View {
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
                 .statusBar(hidden: true)
+
+            if isInitialized {
+                Text("\(viewModel.entities.count)")
+                    .font(.title) // Increase the size
+                    .foregroundColor(.blue) // Make it red
+            } else {
+                ProgressView("Loading...")
+                    .onAppear {
+                        // Call initialPopulate() here
+                        viewModel.entityComponentManager.intialPopulateWithCompletion {
+                            // This closure is called when initialPopulate completes
+                            // Update the state to show the main view
+                            viewModel.test()
+                            isInitialized = true
+                        }
+                    }
+            }
+
+
             ZStack {
                 GeometryReader { geometry in
                     ZStack {
@@ -36,7 +56,8 @@ struct ClientView: View {
                                 .font(.title) // Increase the size
                                 .foregroundColor(.red) // Make it red
 
-                            
+                            //Image("player-icon")
+
                             if let (render, pos) = viewModel.render(for: entity) {
                                 render
                                     .resizable()
@@ -44,6 +65,8 @@ struct ClientView: View {
                                     .frame(width: 50, height: 50)
                                     .position(pos)
                                     .animation(.easeOut(duration: 0.2))
+                            } else {
+                                Text("Hello!!!")
                             }
                         }
 
@@ -90,6 +113,10 @@ struct ClientView: View {
                 }
             }
         }
+        .onAppear {
+            viewModel.entityComponentManager.initialPopulate()
+            viewModel.updateEntities()
+        }
         /*
         .onAppear {
             Timer.scheduledTimer(withTimeInterval: 1/60, repeats: true) { timer in
@@ -106,7 +133,6 @@ struct ClientView: View {
             }
         }
         */
-
     }
 }
 
@@ -173,3 +199,10 @@ struct ClientView_Previews: PreviewProvider {
     }
 }
 */
+
+
+struct ClientView_Previews: PreviewProvider {
+    static var previews: some View {
+        ClientView(matchId: "5NjVOKbhQrXDnlcmeVpE", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+    }
+}

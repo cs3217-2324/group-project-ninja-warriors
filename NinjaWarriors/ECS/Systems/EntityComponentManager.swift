@@ -79,6 +79,27 @@ class EntityComponentManager {
         }
     }
 
+
+    func intialPopulateWithCompletion(completion: @escaping () -> Void) {
+        Task {
+            do {
+                let (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
+
+                for (entityId, components) in newEntityComponentMap {
+                    for component in components {
+                        newEntityMap[entityId] = component.entity
+                    }
+                }
+                addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
+                startListening()
+                completion()
+            } catch {
+                print("Error: \(error)")
+            }
+        }
+    }
+
+
     // Queue needed for subsequent population as it runs concurrently with publish
     func populate() {
         Task {

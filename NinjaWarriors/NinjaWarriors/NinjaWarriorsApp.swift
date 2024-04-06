@@ -16,9 +16,11 @@ struct NinjaWarriorsApp: App {
         WindowGroup {
             // TODO: Remove after testing
 
-            //CanvasView(matchId: "VfBlPjxnjGGZrHPai336", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "5NjVOKbhQrXDnlcmeVpE", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
-            AuthenticationView()
+            ClientView(matchId: "5NjVOKbhQrXDnlcmeVpE", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+
+            //AuthenticationView()
         }
     }
 }

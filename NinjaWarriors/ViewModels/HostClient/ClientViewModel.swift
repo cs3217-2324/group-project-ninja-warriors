@@ -12,25 +12,61 @@ final class ClientViewModel: ObservableObject {
     var manager: EntitiesManager
     // TODO: Might abstract out to another simpler entity component manager
     var entityComponents: [EntityID: [Component]] = [:]
-    var entities: [Entity] = []
+    var entityComponentManager: EntityComponentManager
+    @Published var entities: [Entity] = []
     var matchId: String
     var currPlayerId: String
     var queue = EventQueue(label: "clientEventQueue")
+    var timer: Timer?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
-        self.initialPopulate()
-        startListening()
+        self.entityComponentManager = EntityComponentManager(for: matchId)
+        initialPopulate()
+
+        //self.updateEntities()
+        //self.updateViews()
+
+        //startListening()
+        ///*
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+            //self.loop()
+        }
+        //*/
     }
+
+
+    func test() {
+        entityComponentManager.initialPopulate()
+        entities = entityComponentManager.getAllEntities()
+    }
+
+    func loop() {
+        print("looping")
+        self.updateEntities()
+        //self.updateViews()
+    }
+
+    /*
+    func updateViewModel() async {
+        do {
+            try await gameWorld.entityComponentManager.publish()
+        } catch {
+            print("Error publishing updated state: \(error)")
+        }
+        updateEntities()
+        updateViews()
+    }
+    */
 
     func startListening() {
         print("start listening")
         manager.addEntitiesListener { snapshot in
             //print("snap shot received")
             self.queue.async {
-                self.populate()
+                //self.populate()
             }
         }
     }
@@ -44,11 +80,30 @@ final class ClientViewModel: ObservableObject {
         return nil
     }
 
+    /*
+    func getCurrPlayer() -> Entity? {
+        Task {
+            entities = try await manager.getEntitiesWithComponents().0
+            print("entity count", entities.count)
+        }
+        for entity in entities where entity.id == currPlayerId {
+            return entity
+        }
+        print("no current player")
+        return nil
+    }
+    */
+
     func getCurrPlayer() -> Entity? {
         for entity in entities where entity.id == currPlayerId {
             return entity
         }
+        print("returning nil")
         return nil
+    }
+
+    func updateEntities() {
+        entities = entityComponentManager.getAllEntities()
     }
 
     func initialPopulate() {
@@ -59,6 +114,7 @@ final class ClientViewModel: ObservableObject {
                 if entities.isEmpty {
                     entities = fetchEntities
                 }
+                print("entity count", entities.count)
                 if entityComponents == [:] {
                     entityComponents = fetchEntitiesComponents
                 }
@@ -135,16 +191,35 @@ final class ClientViewModel: ObservableObject {
         }
     }
 
+    func testing() {
+        print("testingggggg")
+    }
+
     func render(for entity: Entity) -> (image: Image, position: CGPoint)? {
-        guard let entityComponents = entityComponents[entity.id] else {
-            return nil
-        }
+        let entityComponents = entityComponentManager.getAllComponents(for: entity)
+
         guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
               let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
             return nil
         }
         return (image: Image(sprite.image), position: rigidbody.position.get())
     }
+
+    /*
+    func render(for entity: Entity) -> (image: Image, position: CGPoint)? {
+        print("RENDER")
+        guard let entityComponents = entityComponents[entity.id] else {
+            print("render return nil")
+            return nil
+        }
+        print("else")
+        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
+              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
+            return nil
+        }
+        return (image: Image(sprite.image), position: rigidbody.position.get())
+    }
+    */
 
     // Only update values that changed
     func updateViews() {
