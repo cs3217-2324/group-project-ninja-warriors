@@ -87,9 +87,22 @@ final class ClientViewModel: ObservableObject {
                 }
             }
         }
+
+        Task {
+            for entity in entities {
+                do {
+                    let componentsToUpload = entityComponents[entity.id]
+                    try await manager.uploadEntity(entity: entity,
+                                                   components: componentsToUpload)
+                } catch {
+                    print("Error updating client data \(error)")
+                }
+            }
+        }
+
     }
 
-    func test(for entity: Entity) -> (image: Image, position: CGPoint)? {
+    func render(for entity: Entity) -> (image: Image, position: CGPoint)? {
         guard let entityComponents = entityComponents[entity.id] else {
             return nil
         }
@@ -98,9 +111,6 @@ final class ClientViewModel: ObservableObject {
             return nil
         }
         return (image: Image(sprite.image), position: rigidbody.position.get())
-
-
-        //return (image: Image("player-icon"), position: CGPoint(x: 150.0, y: 150.0))
     }
 
     func process(_ fetchEntities: [Entity], _ fetchComponents: [EntityID: [Component]]) {

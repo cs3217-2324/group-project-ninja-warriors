@@ -50,9 +50,9 @@ struct LobbyView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
 
-                            if signInViewModel.getUserId() != viewModel.hostId {
+                            if signInViewModel.getUserId() == viewModel.hostId {
                                 NavigationLink(
-                                    destination: CanvasView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
+                                    destination: ClientView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
                                 ) {
                                     Text("START GAME") // Label for the NavigationLink
                                         .font(.system(size: 30))

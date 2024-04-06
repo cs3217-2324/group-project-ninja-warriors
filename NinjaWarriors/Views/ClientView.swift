@@ -30,10 +30,14 @@ struct ClientView: View {
                 GeometryReader { geometry in
                     ZStack {
                         ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
+
+
                             Text("\(viewModel.entities.count)")
-                            //Image("player-icon")
+                                .font(.title) // Increase the size
+                                .foregroundColor(.red) // Make it red
+
                             
-                            if let (render, pos) = viewModel.test(for: entity) {
+                            if let (render, pos) = viewModel.render(for: entity) {
                                 render
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
@@ -86,6 +90,7 @@ struct ClientView: View {
                 }
             }
         }
+        /*
         .onAppear {
             Timer.scheduledTimer(withTimeInterval: 1/60, repeats: true) { timer in
                 Task {
@@ -100,6 +105,7 @@ struct ClientView: View {
                 }
             }
         }
+        */
 
     }
 }
