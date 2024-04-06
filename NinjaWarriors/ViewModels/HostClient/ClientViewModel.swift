@@ -65,6 +65,13 @@ final class ClientViewModel: ObservableObject {
         return nil
     }
 
+    func getCurrPlayer() -> Entity? {
+        for entity in entities where entity.id == currPlayerId {
+            return entity
+        }
+        return nil
+    }
+
     func process(_ fetchEntities: [Entity], _ fetchComponents: [EntityID: [Component]]) {
         for (entityId, entityIdComponents) in fetchComponents {
             if entityComponents[entityId] == nil {
@@ -135,6 +142,60 @@ final class ClientViewModel: ObservableObject {
                     }
                 }
             }
+        }
+    }
+}
+
+
+extension ClientViewModel {
+    func activateSkill(forEntity entity: Entity, skillId: String) {
+        let entityId = entity.id
+        guard let components = entityComponents[entityId] else {
+            return
+        }
+        for component in components {
+            if let component = component as? SkillCaster {
+                component.queueSkillActivation(skillId)
+            }
+        }
+    }
+
+    func getSkillIds(for entity: Entity) -> [String] {
+        let entityId = entity.id
+        let skillCaster = gameWorld.entityComponentManager
+            .getComponentFromId(ofType: SkillCaster.self, of: entityId)
+
+        if let skillCasterIds = skillCaster?.skills.keys {
+//            print("skill caster ids: ", Array(skillCasterIds))
+            return Array(skillCasterIds)
+        } else {
+            return []
+        }
+    }
+
+    func getSkills(for entity: Entity) -> [Dictionary<SkillID, any Skill>.Element] {
+        let entityId = entity.id
+        let skillCaster = gameWorld.entityComponentManager
+            .getComponentFromId(ofType: SkillCaster.self, of: entityId)
+
+        if let skills = skillCaster?.skills {
+            print("skills", skills)
+            return Array(skills)
+        } else {
+            return []
+        }
+    }
+
+    func getSkillCooldowns(for entity: Entity) -> Dictionary<SkillID, TimeInterval> {
+        let entityId = entity.id
+        let skillCaster = gameWorld.entityComponentManager
+            .getComponentFromId(ofType: SkillCaster.self, of: entityId)
+
+        if let skillCooldowns = skillCaster?.skillCooldowns {
+            print("skillsCds", skillCooldowns)
+            return skillCooldowns
+        } else {
+            return [:]
         }
     }
 }

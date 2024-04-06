@@ -45,7 +45,7 @@ struct ClientView: View {
                     if let currPlayer = viewModel.getCurrPlayer() {
                         JoystickView(
                             setInputVector: { vector in
-                                viewModel.gameWorld.setInput(vector, for: currPlayer)
+                                viewModel.setInput(vector, for: currPlayer)
                             }, location: CGPoint(x: 150, y: geometry.size.height - 300))
                         .frame(width: 200, height: 200)
                         VStack {
@@ -62,15 +62,13 @@ struct ClientView: View {
                             )
                         }
                     }
+                    /*
                     EntityOverlayView(entities: viewModel.entities,
                                       componentManager: viewModel.gameWorld.entityComponentManager)
+                    */
                     .zIndex(-1)
                     .opacity(isShowingEntityOverlay ? 1 : 0)
 
-                }
-                .onAppear {
-                    viewModel.gameWorld.entityComponentManager.initialPopulate()
-                    viewModel.updateEntities()
                 }
             }
         }
