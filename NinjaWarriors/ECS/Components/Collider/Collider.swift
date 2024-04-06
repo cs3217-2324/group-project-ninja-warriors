@@ -44,11 +44,12 @@ class Collider: Component {
                  isColliding: isColliding, isOutOfBounds: isOutOfBounds)
     }
 
+    // TODO: Check to see why must collide about 8 times only before it starts working
     override func updateAttributes(_ newCollider: Component) {
         guard let newCollider = newCollider as? Collider else {
             return
         }
-        self.colliderShape.updateAttributes(newCollider.colliderShape)
+        //self.colliderShape.updateAttributes(newCollider.colliderShape)
         self.collidedEntities = newCollider.collidedEntities
         self.isColliding = newCollider.isColliding
         self.isOutOfBounds = newCollider.isOutOfBounds

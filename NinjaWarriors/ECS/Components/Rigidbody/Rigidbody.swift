@@ -90,7 +90,6 @@ class Rigidbody: Component {
                              mass: mass, rotation: rotation, totalForce: totalForce, inertia: inertia,
                              position: position, offset: offset, velocity: velocity)
         }
-
     }
     
     override func updateAttributes(_ newRigidbody: Component) {
@@ -124,7 +123,9 @@ class Rigidbody: Component {
                                     angularVelocity: angularVelocity, mass: mass,
                                     rotation: rotation, totalForce: totalForce.wrapper(),
                                     inertia: inertia, position: position.wrapper(),
-                                    offset: offset.wrapper(), velocity: velocity.wrapper(), attachedCollider: colliderWrap, wrapperType: NSStringFromClass(type(of: entity)))
+                                    offset: offset.wrapper(), velocity: velocity.wrapper(),
+                                    attachedCollider: colliderWrap,
+                                    wrapperType: NSStringFromClass(type(of: entity)))
         } else {
             return nil
         }

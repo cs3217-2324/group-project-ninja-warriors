@@ -90,9 +90,7 @@ class EntityComponentManager {
             queue.sync {
                 addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
             }
-            //startListening()
         }
-
     }
 
     func addEntitiesFromNewMap(_ newEntityMap: [EntityID: Entity],
@@ -214,12 +212,14 @@ class EntityComponentManager {
     }
 
     func getEntityId(from component: Component) -> EntityID? {
-        for (entityID, components) in entityComponentMap {
-            if components.contains(component) {
-                return entityID
+        self.queue.sync {
+            for (entityID, components) in entityComponentMap {
+                if components.contains(component) {
+                    return entityID
+                }
             }
+            return nil
         }
-        return nil
     }
 
     // MARK: - Component-related functions

@@ -226,7 +226,27 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 entityComponent[entityId]?.append(component)
             }
         }
+        remapAttachedCollider(with: entityId, from: &entityComponent)
         entities.append(entityInstance)
+    }
+
+    private func remapAttachedCollider(with entityId: EntityID,
+                                       from entityComponent: inout [EntityID: [Component]]) {
+        if let components = entityComponent[entityId] {
+            var rigidbodyComponent: Rigidbody?
+            var colliderComponent: Collider?
+
+            for component in components {
+                if let rigidbody = component as? Rigidbody {
+                    rigidbodyComponent = rigidbody
+                } else if let collider = component as? Collider {
+                    colliderComponent = collider
+                }
+            }
+            if let rigidbody = rigidbodyComponent, let collider = colliderComponent {
+                rigidbody.attachedCollider = collider
+            }
+        }
     }
 
     // MARK: Encode / Upload
