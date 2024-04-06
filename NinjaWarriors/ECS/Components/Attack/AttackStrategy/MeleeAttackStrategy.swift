@@ -21,13 +21,17 @@ class MeleeAttackStrategy: AttackStrategy {
             return false
         }
 
-        guard let attackerCollider = manager.getComponent(ofType: Collider.self, for: attacker),
-              let attackeeCollider = manager.getComponent(ofType: Collider.self, for: attackee) else {
+        if let attackeeDodge = manager.getComponent(ofType: Dodge.self, for: attackee), attackeeDodge.isEnabled {
             return false
         }
 
-        let attackerPosition = attackerCollider.getPosition()
-        let attackeePosition = attackeeCollider.getPosition()
+        guard let attackerRigidbody = manager.getComponent(ofType: Rigidbody.self, for: attacker),
+              let attackeeRigidbody = manager.getComponent(ofType: Rigidbody.self, for: attackee) else {
+            return false
+        }
+
+        let attackerPosition = attackerRigidbody.position
+        let attackeePosition = attackeeRigidbody.position
 
         if attackerPosition.distance(to: attackeePosition) <= radius {
             return true
