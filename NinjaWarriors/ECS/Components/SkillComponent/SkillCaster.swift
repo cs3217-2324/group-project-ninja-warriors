@@ -32,9 +32,14 @@ class SkillCaster: Component {
             skillCooldowns[skillId] = newCooldown
         }
     }
+    
+    func resetSkillCooldown(skillId: SkillID) {
+        skillCooldowns[skillId] = 0
+    }
 
-    func decrementSkillCooldown(skillId: SkillID, deltaTime: TimeInterval) {
-        skills[skillId]?.decrementCooldown(deltaTime: deltaTime)
+    // Call this method when activating a skill to start its cooldown
+    func startSkillCooldown(skillId: SkillID, cooldownDuration: TimeInterval) {
+        skillCooldowns[skillId] = cooldownDuration
     }
 
     func addSkill(_ skill: Skill) {
@@ -50,6 +55,7 @@ class SkillCaster: Component {
             return
         }
         self.skills = newSkillCaster.skills
+        self.skillCooldowns = newSkillCaster.skillCooldowns
         self.activationQueue = newSkillCaster.activationQueue
     }
 
@@ -57,7 +63,14 @@ class SkillCaster: Component {
         guard let entity = entity.wrapper() else {
             return nil
         }
-        return SkillCasterWrapper(id: id, entity: entity, skills: skills, activationQueue: activationQueue,
+
+        var wrappedSkills: [SkillID: SkillWrapper] = [:]
+        for (skillID, skill) in skills {
+            wrappedSkills[skillID] = skill.wrapper()
+        }
+
+        return SkillCasterWrapper(id: id, entity: entity, skills: wrappedSkills,
+                                  skillCooldowns: skillCooldowns, activationQueue: activationQueue,
                                   wrapperType: NSStringFromClass(type(of: entity)))
     }
 }

@@ -101,4 +101,17 @@ extension CanvasViewModel {
             return []
         }
     }
+    
+    func getSkillCooldowns(for entity: Entity) -> Dictionary<SkillID, TimeInterval> {
+        let entityId = entity.id
+        let skillCaster = gameWorld.entityComponentManager
+            .getComponentFromId(ofType: SkillCaster.self, of: entityId)
+
+        if let skillCooldowns = skillCaster?.skillCooldowns {
+            print("skillsCds", skillCooldowns)
+            return skillCooldowns
+        } else {
+            return [:]
+        }
+    }
 }

@@ -78,7 +78,6 @@ struct RigidbodyWrapper: ComponentWrapper {
         attachedCollider = try container.decode(ColliderWrapper.self, forKey: AnyCodingKey(stringValue: "attachedCollider"))
     }
 
-    // TODO: TBC on colliderEntityUnwrap.0
     func toComponent(entity: Entity) -> Component? {
         if let colliderUnwrap = attachedCollider.toComponent(entity: entity) as? Collider {
             return Rigidbody(id: id, entity: entity, angularDrag: angularDrag,

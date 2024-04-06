@@ -107,7 +107,7 @@ class Rigidbody: Component {
         self.offset.updateAttributes(newRigidbody.offset)
         self.velocity = newRigidbody.velocity
         self.collidingVelocity = newRigidbody.collidingVelocity
-        // TODO: FIX THIS
+
         guard let newAttachedCollider = newRigidbody.attachedCollider else {
             return
         }

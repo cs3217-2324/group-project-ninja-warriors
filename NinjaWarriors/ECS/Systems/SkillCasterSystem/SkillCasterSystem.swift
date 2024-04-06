@@ -23,11 +23,14 @@ class SkillCasterSystem: System {
                 
                 guard let skill = skillCaster.skills[skillId] else { continue }
                 
-                if (skill.isOnCooldown()) {
-                    print("[Skill <\(skill.id)>] On cooldown!")
-                    continue
+                if let cooldown = skillCaster.skillCooldowns[skillId], cooldown > 0 {
+                    print("Skill \(skillId) is on cooldown.")
+                    return
                 }
                 skill.activate(from: skillCaster.entity, in: manager)
+                
+                
+                skillCaster.startSkillCooldown(skillId: skillId, cooldownDuration: skill.cooldownDuration)
             }
             
             skillCaster.decrementAllCooldowns(deltaTime: time)

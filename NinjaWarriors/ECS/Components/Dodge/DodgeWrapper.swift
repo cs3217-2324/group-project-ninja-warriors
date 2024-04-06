@@ -11,7 +11,12 @@ struct DodgeWrapper: ComponentWrapper {
     var id: ComponentID
     var entity: EntityWrapper
     var isEnabled: Bool
+<<<<<<< HEAD
     var wrapperType: String
+=======
+    var invulnerabilityDuration: TimeInterval
+    var elapsedTimeSinceEnabled: CGFloat
+>>>>>>> reyaaz/host
 
     init(id: ComponentID, entity: EntityWrapper, isEnabled: Bool, wrapperType: String) {
         self.id = id
@@ -36,11 +41,15 @@ struct DodgeWrapper: ComponentWrapper {
         guard let wrapperClass = NSClassFromString(wrapperType) as? EntityWrapper.Type else {
             throw NSError(domain: "NinjaWarriors.Wrapper", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
         }
+<<<<<<< HEAD
         entity = try container.decode(wrapperClass.self, forKey: AnyCodingKey(stringValue: "entity"))
         isEnabled = try container.decode(Bool.self, forKey: AnyCodingKey(stringValue: "isEnabled"))
     }
 
     func toComponent(entity: Entity) -> Component? {
         return Dodge(id: id, entity: entity, isEnabled: isEnabled)
+=======
+        return Dodge(id: id, entity: entity, isEnabled: isEnabled, invulnerabilityDuration: invulnerabilityDuration, elapsedTimeSinceEnabled: elapsedTimeSinceEnabled)
+>>>>>>> reyaaz/host
     }
 }

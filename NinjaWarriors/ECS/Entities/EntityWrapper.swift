@@ -20,3 +20,9 @@ class EntityWrapper: FactoryWrapper {
         return nil
     }
 }
+
+/*
+protocol EntityWrapper: Codable {
+    func toEntity() -> Entity?
+}
+*/

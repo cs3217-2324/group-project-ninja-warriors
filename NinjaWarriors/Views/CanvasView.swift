@@ -51,6 +51,7 @@ struct CanvasView: View {
                             Spacer()
                             PlayerControlsView(
                                 skills: viewModel.getSkills(for: currPlayer),
+                                skillCooldowns: viewModel.getSkillCooldowns(for: currPlayer),
                                 toggleEntityOverlay: {
                                     isShowingEntityOverlay.toggle()
                                 },

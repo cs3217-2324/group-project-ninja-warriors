@@ -67,15 +67,15 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
 
             if !collider.isColliding && !collider.isOutOfBounds
                 && rigidBody.entity.id == gameControlEntity.id {
-                print("not colliding apprently")
+                //print("not colliding apprently")
                 rigidBody.velocity = gameControl.getInput()
                 rigidBody.collidingVelocity = nil
             } else if (collider.isColliding || collider.isOutOfBounds)
                         && rigidBody.entity.id == gameControlEntity.id {
-                print("is colliding")
+                //print("is colliding")
                 rigidBody.collidingVelocity = gameControl.getInput()
             } else if collider.isColliding {
-                print("is colliding 2")
+                //print("is colliding 2")
             }
 
             moveRigidBody(rigidBody, across: deltaTime)
