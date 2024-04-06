@@ -84,7 +84,6 @@ class EntityComponentManager {
     func populate() {
         Task {
             (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
-
             for entity in newEntity {
                 if isDone {
                     print("check new fetch", entity.id, entityMap, entityComponentMap, componentMap)
@@ -92,8 +91,18 @@ class EntityComponentManager {
                 guard !queue.contains(entity) else {
                     continue
                 }
+
+                if newEntityComponentMap[entity.id] != nil && queue.contains(entity) {
+                    newEntityComponentMap[entity.id] = nil
+                }
+
                 newEntityMap[entity.id] = entity
             }
+
+            newEntity = newEntity.filter { entity in
+                !queue.deletedEntities.contains(entity.id)
+            }
+
             queue.sync {
                 addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
             }
@@ -134,13 +143,15 @@ class EntityComponentManager {
                     guard !queue.contains(entity) else {
                         continue
                     }
+                    if isDone {
+                        print("before upload", entity.id)
+                    }
                     try await manager.uploadEntity(entity: entity, components: Array(entityComponents))
                 } catch {
                     // Handle errors during upload
                     print("Error uploading entity with ID \(entityId): \(error)")
                 }
             }
-        //}
     }
 
     // MARK: - Entity-related functions
@@ -385,7 +396,10 @@ class EntityComponentManager {
     }
 
     func getAllEntities() -> [Entity] {
-        Array(entityMap.values)
+        for deletedEntity in queue.deletedEntities {
+            entityMap[deletedEntity] = nil
+        }
+        return Array(entityMap.values)
     }
 
     func setEntities(to entities: [Entity]) {

@@ -20,6 +20,7 @@ final class CanvasViewModel: ObservableObject {
         self.currPlayerId = currPlayerId
         self.gameWorld = GameWorld(for: matchId)
         gameWorld.start()
+        updateEntities()
         gameWorld.updateViewModel = { [unowned self] in
             Task {
                 await self.updateViewModel()
@@ -28,17 +29,17 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() async {
-        updateEntities()
-        updateViews()
         do {
             try await gameWorld.entityComponentManager.publish()
         } catch {
             print("Error publishing updated state: \(error)")
         }
+        updateViews()
     }
 
     func updateEntities() {
         entities = gameWorld.entityComponentManager.getAllEntities()
+        print("canvas entities", entities)
     }
 
     // Only update values that changed
