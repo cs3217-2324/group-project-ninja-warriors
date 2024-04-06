@@ -39,7 +39,7 @@ final class CanvasViewModel: ObservableObject {
 
     func updateEntities() {
         entities = gameWorld.entityComponentManager.getAllEntities()
-        print("canvas entities", entities)
+//        print("canvas entities", entities)
     }
 
     // Only update values that changed
@@ -96,7 +96,7 @@ extension CanvasViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skills = skillCaster?.skills {
-            print("skills", skills)
+//            print("skills", skills)
             return Array(skills)
         } else {
             return []
@@ -109,7 +109,7 @@ extension CanvasViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skillCooldowns = skillCaster?.skillCooldowns {
-            print("skillsCds", skillCooldowns)
+//            print("skillsCds", skillCooldowns)
             return skillCooldowns
         } else {
             return [:]
