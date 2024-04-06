@@ -49,10 +49,7 @@ struct CanvasView: View {
     private var canvasView: some View {
         GeometryReader { geometry in
             ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
-                if let (sprite, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
-                    let health = viewModel.entityHealthComponent(for: entity)
-                    EntityView(sprite: sprite, position: pos, health: health)
-                }
+                EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity)))
             }
             if let currPlayer = viewModel.getCurrPlayer() {
                 JoystickView(
