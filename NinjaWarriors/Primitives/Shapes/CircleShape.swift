@@ -12,7 +12,7 @@ class CircleShape: Shape {
     // there's no need to override properties like edges and vertices for basic representation.
     // But, we'll add an initializer that emphasizes the circle's definition.
 
-    init(center: Point, radius: Double) {
+    required init(center: Point, radius: Double) {
         super.init(center: center, halfLength: radius)
         // Optionally, calculate edges and vertices if needed for collision detection or other purposes.
         self.orientation = 0 // Default orientation as circle's orientation is irrelevant
