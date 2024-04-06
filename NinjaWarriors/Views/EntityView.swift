@@ -42,12 +42,15 @@ struct EntityView: View {
     }
 
     private func image(for sprite: Sprite) -> some View {
-        Image(sprite.image)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: sprite.width, height: sprite.height)
-            .position(viewModel.position)
-            .opacity(viewModel.opacity)
+        Group {
+            Image(sprite.image)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .opacity(viewModel.opacity)
+                .rotationEffect(.degrees(viewModel.rotation))
+        }
+        .frame(width: sprite.width, height: sprite.height)
+        .position(viewModel.position)
     }
 
     private func healthBar(for health: Health, width: CGFloat) -> some View {

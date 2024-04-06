@@ -69,6 +69,8 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                 && rigidBody.entity.id == gameControlEntity.id {
                 //print("not colliding apprently")
                 rigidBody.velocity = gameControl.getInput()
+                alignEntityRotation(for: rigidBody, gameControl.getInput())
+                
                 rigidBody.collidingVelocity = nil
             } else if (collider.isColliding || collider.isOutOfBounds)
                         && rigidBody.entity.id == gameControlEntity.id {
@@ -77,13 +79,27 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
             } else if collider.isColliding {
                 //print("is colliding 2")
             }
-
+            
             moveRigidBody(rigidBody, across: deltaTime)
 
             manager.getComponent(ofType: Collider.self, for: rigidBody.entity)?
                 .colliderShape.center = rigidBody.position
         }
     }
+    
+    private func alignEntityRotation(for rigidBody: Rigidbody, _ input: Vector) {
+        let radians = atan2(input.vertical, input.horizontal)
+
+        // Subtract 90 degrees (in radians) to adjust the zero point to "up"
+        let adjustedRadians = radians - (.pi / 2)
+        
+        let degrees = adjustedRadians * 180 / .pi
+
+        let rotationDegrees = (degrees + 360).truncatingRemainder(dividingBy: 360)
+        
+        rigidBody.rotation = rotationDegrees
+    }
+    
 
     private func moveRigidBody(_ rigidBody: Rigidbody, across deltaTime: TimeInterval) {
         // Determine the velocity to use for calculations
