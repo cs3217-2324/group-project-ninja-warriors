@@ -41,10 +41,10 @@
             filePath = "ECS/Systems/EntityComponentManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
-            landmarkName = "remove(entity:isRemoved:)"
-            landmarkType = "7">
+            startingLineNumber = "206"
+            endingLineNumber = "206"
+            landmarkName = "EntityComponentManager"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "9759D438-CE0A-4503-8C01-2377C609E517 - 51f2dfcea7ba76ae"

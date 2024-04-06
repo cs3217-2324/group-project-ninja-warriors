@@ -15,6 +15,7 @@ final class LobbyViewModel: ObservableObject {
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
     @Published var matchId: String?
     @Published var playerIds: [String]?
+    @Published var hostId: String?
 
     init() {
         matchManager = MatchManagerAdapter()
@@ -50,6 +51,7 @@ final class LobbyViewModel: ObservableObject {
         } catch {
             print("Error starting match: \(error)")
         }
+        selectHost(from: playerIds)
         initEntities(ids: playerIds)
     }
 
@@ -62,6 +64,13 @@ final class LobbyViewModel: ObservableObject {
         }
 
         initPlayers(ids: playerIds)
+    }
+
+    func selectHost(from ids: [String]?) {
+        guard let ids = ids else {
+            return
+        }
+        hostId = ids.first
     }
 
     func initObstacles() {

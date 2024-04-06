@@ -1,15 +1,15 @@
 //
-//  CanvasView.swift
+//  ClientView.swift
 //  NinjaWarriors
 //
-//  Created by Muhammad Reyaaz on 15/3/24.
+//  Created by Muhammad Reyaaz on 6/4/24.
 //
 
 import Foundation
 import SwiftUI
 
-struct CanvasView: View {
-    @ObservedObject var viewModel: CanvasViewModel
+struct ClientView: View {
+    @ObservedObject var viewModel: ClientViewModel
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
@@ -17,7 +17,7 @@ struct CanvasView: View {
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
     var body: some View {
@@ -77,8 +77,8 @@ struct CanvasView: View {
     }
 }
 
-struct CanvasView_Previews: PreviewProvider {
+struct ClientView_Previews: PreviewProvider {
     static var previews: some View {
-        CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+        ClientView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
     }
 }

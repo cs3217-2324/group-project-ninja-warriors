@@ -8,21 +8,19 @@
 import Foundation
 import SwiftUI
 
-@MainActor
-final class ClientViewModel: HostClientProtocol {
-    var manager: EntitiesManager
-    internal var components: [Component] = []
-    internal var entity: Entity
-    internal var matchId: String
-    internal var currPlayerId: String
+final class ClientViewModel: ObservableObject {
+    private(set) var manager: EntitiesManager
+    // TODO: Might abstract out to another simpler entity component manager
+    private(set) var entityComponents: [EntityID: [Component]] = [:]
+    private(set) var entities: [Entity] = []
+    private(set) var matchId: String
+    private(set) var currPlayerId: String
     private var queue = EventQueue(label: "clientEventQueue")
-    private var isAssignedEntity: Bool = false
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
-        self.entity = Player(id: RandomNonce().randomNonceString())
         self.populate()
         startListening()
     }
@@ -42,58 +40,101 @@ final class ClientViewModel: HostClientProtocol {
             do {
                 let fetchEntitiesComponents = try await manager.getEntitiesWithComponents(currPlayerId)
                 let (fetchEntities, fetchEntityComponents) = fetchEntitiesComponents
-                guard let fetchEntity = fetchEntities.first else {
-                    return
+
+                if entities.isEmpty {
+                    entities = fetchEntities
                 }
-                if !isAssignedEntity {
-                    entity = fetchEntity
-                    isAssignedEntity = true
+
+                if entityComponents == [:] {
+                    entityComponents = fetchEntityComponents
                 }
-                guard let fetchComponents = fetchEntityComponents[fetchEntity.id] else {
-                    return
-                }
-                process(fetchComponents)
+
+                process(fetchEntities, fetchEntityComponents)
             } catch {
                 print("Error fetching client data \(error)")
             }
         }
     }
 
-    func process(_ fetchComponents: [Component]) {
-        fetchComponents.forEach { fetchComponent in
-            var isSameType = false
-            for component in components {
-                if ComponentType(type(of: fetchComponent)) == ComponentType(type(of: component)) {
-                    isSameType = true
-                    component.updateAttributes(fetchComponent)
+    func getEntity(from id: EntityID) -> Entity? {
+        for entity in entities {
+            if entity.id == id {
+                return entity
+            }
+        }
+        return nil
+    }
+
+    func process(_ fetchEntities: [Entity], _ fetchComponents: [EntityID: [Component]]) {
+        for (entityId, entityIdComponents) in fetchComponents {
+            if entityComponents[entityId] == nil {
+                entityComponents[entityId] = entityIdComponents
+                continue
+            } else {
+                guard var currEntityIdComponents = entityComponents[entityId] else {
+                    continue
+                }
+                entityIdComponents.forEach { entityIdComponent in
+                    var isSameType = false
+                    for currEntityIdComponent in currEntityIdComponents {
+                        if ComponentType(type(of: entityIdComponent)) == ComponentType(type(of: currEntityIdComponent)) {
+                            currEntityIdComponent.updateAttributes(entityIdComponent)
+                            isSameType = true
+                        }
+                    }
+                    if !isSameType {
+                        guard let currEntity: Entity = getEntity(from: entityId) else {
+                            return
+                        }
+                        currEntityIdComponents.append(entityIdComponent.changeEntity(to: currEntity))
+                    }
                 }
             }
-            if !isSameType {
-                components.append(fetchComponent.changeEntity(to: entity))
+        }
+
+        func publish() {
+            Task {
+                for entity in entities {
+                    do {
+                        try await manager.uploadEntity(entity: entity,
+                                                       components: entityComponents[entity.id])
+                    } catch {
+                        print("Error updating client data \(error)")
+                    }
+                }
             }
         }
-    }
 
-    func publish() {
-        Task {
-            do {
-                try await manager.uploadEntity(entity: entity, components: components)
-            } catch {
-                print("Error updating client data \(error)")
+        // Only update values that changed
+        func updateViews() {
+            objectWillChange.send()
+        }
+
+        func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {
+            guard let entityComponents = entityComponents[entity.id] else {
+                return nil
+            }
+            guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
+                  let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
+                return nil
+            }
+            return (image: Image(sprite.image), position: rigidbody.position.get())
+        }
+
+        func setInput(_ vector: CGVector, for entity: Entity) {
+            guard let entityIdComponents = entityComponents[entity.id] else {
+                return
+            }
+            for entityIdComponent in entityIdComponents {
+                if let entityIdComponent = entityIdComponent as? Rigidbody {
+                    if entityIdComponent.attachedCollider?.isColliding == true {
+                        entityIdComponent.collidingVelocity = Vector(horizontal: vector.dx,
+                                                                     vertical: vector.dy)
+                    } else {
+                        entityIdComponent.velocity = Vector(horizontal: vector.dx, vertical: vector.dy)
+                    }
+                }
             }
         }
-    }
-
-    // Only update values that changed
-    func updateViews() {
-        objectWillChange.send()
-    }
-
-    func entityHasRigidAndSprite() -> (image: Image, position: CGPoint)? {
-        guard let rigidbody = components.first(where: { $0 is Collider }) as? Collider,
-              let sprite = components.first(where: { $0 is Sprite }) as? Sprite else {
-            return nil
-        }
-        return (image: Image(sprite.image), position: rigidbody.colliderShape.center.get())
     }
 }
