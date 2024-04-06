@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+// TODO: Change to attack system
 class HealthSystem: System {
     var manager: EntityComponentManager
 

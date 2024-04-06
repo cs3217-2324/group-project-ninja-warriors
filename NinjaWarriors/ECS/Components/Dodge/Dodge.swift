@@ -27,6 +27,12 @@ class Dodge: Component {
         self.isEnabled = newDodge.isEnabled
     }
 
+    override func changeEntity(to entity: Entity) -> Component {
+        Dodge(id: self.id, entity: entity, isEnabled: self.isEnabled,
+              invulnerabilityDuration: self.invulnerabilityDuration,
+              elapsedTimeSinceEnabled: self.elapsedTimeSinceEnabled)
+    }
+
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
             return nil

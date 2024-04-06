@@ -5,15 +5,16 @@
 //  Created by Muhammad Reyaaz on 15/3/24.
 //
 
+// TODO: Rename to HostViewModel once merge. Leave it for now so that merge will not be too messy
 import Foundation
 import SwiftUI
 
 @MainActor
-final class CanvasViewModel: ObservableObject {
+final class CanvasViewModel: HostClientProtocol {
     var gameWorld: GameWorld
-    private(set) var entities: [Entity] = []
-    private(set) var matchId: String
-    private(set) var currPlayerId: String
+    internal var entities: [Entity] = []
+    internal var matchId: String
+    internal var currPlayerId: String
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -39,7 +40,6 @@ final class CanvasViewModel: ObservableObject {
 
     func updateEntities() {
         entities = gameWorld.entityComponentManager.getAllEntities()
-        print("canvas entities", entities)
     }
 
     // Only update values that changed

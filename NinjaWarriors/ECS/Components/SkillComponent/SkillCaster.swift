@@ -20,6 +20,15 @@ class SkillCaster: Component {
         }
     }
 
+    init(id: ComponentID, entity: Entity, skills: [SkillID: Skill],
+         skillCooldowns: [SkillID: TimeInterval],
+         activationQueue: [SkillID]) {
+        self.skills = skills
+        self.skillCooldowns = skillCooldowns
+        self.activationQueue = activationQueue
+        super.init(id: id, entity: entity)
+    }
+
     func queueSkillActivation(_ skillId: SkillID) {
         if let cooldown = skillCooldowns[skillId], cooldown <= 0 {
             activationQueue.append(skillId)
@@ -57,6 +66,12 @@ class SkillCaster: Component {
         self.skills = newSkillCaster.skills
         self.skillCooldowns = newSkillCaster.skillCooldowns
         self.activationQueue = newSkillCaster.activationQueue
+    }
+
+    override func changeEntity(to entity: Entity) -> Component {
+        SkillCaster(id: self.id, entity: entity, skills: self.skills,
+                    skillCooldowns: self.skillCooldowns,
+                    activationQueue: self.activationQueue)
     }
 
     override func wrapper() -> ComponentWrapper? {

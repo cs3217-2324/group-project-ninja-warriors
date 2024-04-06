@@ -113,6 +113,13 @@ class Rigidbody: Component {
         self.attachedCollider?.updateAttributes(newAttachedCollider)
     }
 
+    override func changeEntity(to entity: Entity) -> Component {
+        Rigidbody(id: self.id, entity: entity, angularDrag: self.angularDrag,
+                  angularVelocity: self.angularVelocity, mass: self.mass, rotation: self.rotation,
+                  totalForce: self.totalForce, inertia: self.inertia, position: self.position,
+                  offset: self.offset, velocity: self.velocity)
+    }
+
     override func wrapper() -> ComponentWrapper? {
         guard let entity = entity.wrapper() else {
             return nil

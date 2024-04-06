@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+// TODO: Fix unready crash
 final class MatchManagerAdapter: MatchManager {
     private let collection = "matches"
     private let countLabel = "count"

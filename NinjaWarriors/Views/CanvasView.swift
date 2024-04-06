@@ -13,11 +13,19 @@ struct CanvasView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
+    @State private var isHost: Bool
 
-    init(matchId: String, currPlayerId: String) {
+    init(matchId: String, currPlayerId: String, isHost: Bool) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
+
+        if isHost {
+            viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        } else {
+            viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        }
+
+        self.isHost = isHost
     }
 
     var body: some View {
@@ -79,6 +87,7 @@ struct CanvasView: View {
 
 struct CanvasView_Previews: PreviewProvider {
     static var previews: some View {
-        CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+        CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
+                   isHost: true)
     }
 }

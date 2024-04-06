@@ -30,5 +30,9 @@ class Component: Hashable {
         self.id = newComponent.id
     }
 
+    func changeEntity(to entity: Entity) -> Component {
+        Component(id: self.id, entity: entity)
+    }
+
     func wrapper() -> ComponentWrapper? { return nil }
 }

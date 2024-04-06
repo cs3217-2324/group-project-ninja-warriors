@@ -25,6 +25,10 @@ class Score: Component {
         self.entityGainScoreMap = newScore.entityGainScoreMap
     }
 
+    override func changeEntity(to entity: Entity) -> Component {
+        Score(id: self.id, entity: entity, score: self.score, entityGainScoreMap: self.entityGainScoreMap)
+    }
+
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
             return nil

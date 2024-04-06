@@ -40,6 +40,10 @@ class Sprite: Component {
         self.health = newSprite.health
         self.maxHealth = newSprite.maxHealth
     }
+
+    override func changeEntity(to entity: Entity) -> Component {
+        Sprite(id: self.id, entity: entity, image: self.image, width: self.width, height: self.height, health: self.health, maxHealth: self.maxHealth)
+    }
     
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {

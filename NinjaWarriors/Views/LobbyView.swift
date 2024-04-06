@@ -52,7 +52,7 @@ struct LobbyView: View {
                             NavigationLink(destination:
                                             CanvasView(matchId: matchId,
                                                        currPlayerId: signInViewModel.getUserId() ??
-                                                       "none").navigationBarBackButtonHidden(true)) {
+                                                       "none", isHost: true).navigationBarBackButtonHidden(true)) {
                                 Text("START GAME")
                                     .font(.system(size: 30))
                                     .padding()

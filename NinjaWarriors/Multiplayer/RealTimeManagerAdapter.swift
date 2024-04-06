@@ -166,6 +166,19 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
     }
 
+    func getEntitiesWithComponents(_ entityId: EntityID) async throws -> ([Entity], [EntityID: [Component]]) {
+        var entities: [Entity] = []
+        var entityComponent: [EntityID: [Component]] = [:]
+        let entitiesDict = try await getEntititesDict()
+        let entityTypes = getEntityTypes(from: entitiesDict)
+
+        for entityType in entityTypes {
+            try processEntities(for: entityType, withEntities: entitiesDict, into: &entityComponent,
+                                for: &entities, id: entityId)
+        }
+        return (entities, entityComponent)
+    }
+
     func getEntitiesWithComponents() async throws -> ([Entity], [EntityID: [Component]]) {
         var entities: [Entity] = []
         var entityComponent: [EntityID: [Component]] = [:]
@@ -174,7 +187,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
         for entityType in entityTypes {
             try processEntities(for: entityType, withEntities: entitiesDict, into: &entityComponent,
-                                for: &entities)
+                                for: &entities, id: nil)
         }
         return (entities, entityComponent)
     }
@@ -182,10 +195,13 @@ final class RealTimeManagerAdapter: EntitiesManager {
     private func processEntities(for entityType: String,
                                  withEntities entitiesDict: [String: [String: Any]],
                                  into entityComponent: inout [EntityID: [Component]],
-                                 for entities: inout [Entity]) throws {
+                                 for entities: inout [Entity], id: EntityID?) throws {
         let entityIds = getIds(of: entityType, from: entitiesDict)
 
         for entityId in entityIds {
+            if id != nil && entityId != id {
+                continue
+            }
             guard let data = entitiesDict[entityType]?[entityId] as? [String: Any] else {
                 return
             }
