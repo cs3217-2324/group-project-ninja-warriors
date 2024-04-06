@@ -20,6 +20,7 @@ class EntityComponentManager {
     var newComponentMap: [ComponentType: Set<Component>] = [:]
 
     private var isListening = false
+    private var isDone: Bool = false
     private var queue = EventQueue(label: "entityComponentMapQueue")
 
     var manager: EntitiesManager
@@ -85,6 +86,12 @@ class EntityComponentManager {
             (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
 
             for entity in newEntity {
+                if isDone {
+                    print("check new fetch", entity.id, entityMap, entityComponentMap, componentMap)
+                }
+                guard !queue.contains(entity) else {
+                    continue
+                }
                 newEntityMap[entity.id] = entity
             }
             queue.sync {
@@ -107,6 +114,14 @@ class EntityComponentManager {
     func publish() async throws {
         //queue.async {
             for (entityId, entity) in entityMap {
+                print("check queue", queue.deletedEntities)
+                guard !queue.contains(entity) else {
+                    continue
+                }
+                if isDone {
+                    print("publish check mistake", entityMap, entityComponentMap, componentMap)
+                    print("check whether check is correct", entityId, queue.deletedEntities, queue.contains(entity))
+                }
                 var entityComponents: Set<Component> = []
                 queue.sync {
                     guard let components = entityComponentMap[entityId] else {
@@ -116,6 +131,9 @@ class EntityComponentManager {
                 }
                 do {
                     // Upload the entity with its components
+                    guard !queue.contains(entity) else {
+                        continue
+                    }
                     try await manager.uploadEntity(entity: entity, components: Array(entityComponents))
                 } catch {
                     // Handle errors during upload
@@ -208,6 +226,9 @@ class EntityComponentManager {
         if !isRemoved {
             manager.delete(entity: entity)
         }
+        isDone = true
+        queue.process(entity)
+        print("removed", entityMap, entityComponentMap)
         assertRepresentation()
     }
 
@@ -274,7 +295,7 @@ class EntityComponentManager {
     private func updateExistingComponent(_ existingComponent: Component, with newComponent: Component) {
         let existingComponentType: ComponentType = ComponentType(type(of: existingComponent))
         guard existingComponentType == ComponentType(Rigidbody.self)
-                || existingComponentType == ComponentType(Collider.self)
+                || existingComponentType == ComponentType(Health.self)
         else { return }
         existingComponent.updateAttributes(newComponent)
     }

@@ -8,7 +8,9 @@
 import Foundation
 
 class EventQueue {
-    private let queue: DispatchQueue
+    private var queue: DispatchQueue
+    // TODO: Change to private
+    var deletedEntities: [EntityID] = []
 
     init(label: String) {
         self.queue = DispatchQueue(label: label)
@@ -24,6 +26,14 @@ class EventQueue {
         return try queue.sync {
             try work()
         }
+    }
+
+    func contains(_ entity: Entity) -> Bool {
+        deletedEntities.contains(entity.id)
+    }
+
+    func process(_ entity: Entity) {
+        deletedEntities.append(entity.id)
     }
 
     func suspend() {
