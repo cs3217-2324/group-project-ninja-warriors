@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 
 final class ClientViewModel: ObservableObject {
-    private(set) var manager: EntitiesManager
+    var manager: EntitiesManager
     // TODO: Might abstract out to another simpler entity component manager
-    private(set) var entityComponents: [EntityID: [Component]] = [:]
-    private(set) var entities: [Entity] = []
-    private(set) var matchId: String
-    private(set) var currPlayerId: String
-    private var queue = EventQueue(label: "clientEventQueue")
+    var entityComponents: [EntityID: [Component]] = [:]
+    var entities: [Entity] = []
+    var matchId: String
+    var currPlayerId: String
+    var queue = EventQueue(label: "clientEventQueue")
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -146,7 +146,6 @@ final class ClientViewModel: ObservableObject {
     }
 }
 
-
 extension ClientViewModel {
     func activateSkill(forEntity entity: Entity, skillId: String) {
         let entityId = entity.id
@@ -154,48 +153,51 @@ extension ClientViewModel {
             return
         }
         for component in components {
-            if let component = component as? SkillCaster {
-                component.queueSkillActivation(skillId)
+            if let skillCaster = component as? SkillCaster {
+                skillCaster.queueSkillActivation(skillId)
             }
         }
     }
 
     func getSkillIds(for entity: Entity) -> [String] {
         let entityId = entity.id
-        let skillCaster = gameWorld.entityComponentManager
-            .getComponentFromId(ofType: SkillCaster.self, of: entityId)
-
-        if let skillCasterIds = skillCaster?.skills.keys {
-//            print("skill caster ids: ", Array(skillCasterIds))
-            return Array(skillCasterIds)
-        } else {
+        guard let components = entityComponents[entityId] else {
             return []
         }
+        for component in components {
+            if let skillCaster = component as? SkillCaster {
+                let skillCasterIds = skillCaster.skills.keys
+                return Array(skillCasterIds)
+            }
+        }
+        return []
     }
 
     func getSkills(for entity: Entity) -> [Dictionary<SkillID, any Skill>.Element] {
         let entityId = entity.id
-        let skillCaster = gameWorld.entityComponentManager
-            .getComponentFromId(ofType: SkillCaster.self, of: entityId)
-
-        if let skills = skillCaster?.skills {
-            print("skills", skills)
-            return Array(skills)
-        } else {
+        guard let components = entityComponents[entityId] else {
             return []
         }
+        for component in components {
+            if let skillCaster = component as? SkillCaster {
+                let skills = skillCaster.skills
+                return Array(skills)
+            }
+        }
+        return []
     }
 
     func getSkillCooldowns(for entity: Entity) -> Dictionary<SkillID, TimeInterval> {
         let entityId = entity.id
-        let skillCaster = gameWorld.entityComponentManager
-            .getComponentFromId(ofType: SkillCaster.self, of: entityId)
-
-        if let skillCooldowns = skillCaster?.skillCooldowns {
-            print("skillsCds", skillCooldowns)
-            return skillCooldowns
-        } else {
+        guard let components = entityComponents[entityId] else {
             return [:]
         }
+        for component in components {
+            if let skillCaster = component as? SkillCaster {
+                let skillsCooldown = skillCaster.skillCooldowns
+                return skillsCooldown
+            }
+        }
+        return [:]
     }
 }

@@ -17,6 +17,8 @@ struct ClientView: View {
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
+        //self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId)
+
         self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
@@ -26,9 +28,31 @@ struct ClientView: View {
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
                 .statusBar(hidden: true)
+            ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
+                if let (render, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
+
+                }
+            }
+
+            
+        }
+    }
+}
+
+/*
+ render
+     .resizable()
+     .aspectRatio(contentMode: .fill)
+     .frame(width: 50, height: 50)
+     .position(pos)
+     .animation(.easeOut(duration: 0.2))
+ */
+
+    /*
 
             ZStack {
                 GeometryReader { geometry in
+                    ///*
                     ZStack {
                         ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
                             if let (render, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
@@ -41,11 +65,12 @@ struct ClientView: View {
                             }
                         }
                     }
+                    //*/
 
                     if let currPlayer = viewModel.getCurrPlayer() {
                         JoystickView(
                             setInputVector: { vector in
-                                viewModel.setInput(vector, for: currPlayer)
+                                //viewModel.setInput(vector, for: currPlayer)
                             }, location: CGPoint(x: 150, y: geometry.size.height - 300))
                         .frame(width: 200, height: 200)
                         VStack {
@@ -66,8 +91,8 @@ struct ClientView: View {
                     EntityOverlayView(entities: viewModel.entities,
                                       componentManager: viewModel.gameWorld.entityComponentManager)
                     */
-                    .zIndex(-1)
-                    .opacity(isShowingEntityOverlay ? 1 : 0)
+                    //.zIndex(-1)
+                    //.opacity(isShowingEntityOverlay ? 1 : 0)
 
                 }
             }
@@ -80,3 +105,4 @@ struct ClientView_Previews: PreviewProvider {
         ClientView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
     }
 }
+*/
