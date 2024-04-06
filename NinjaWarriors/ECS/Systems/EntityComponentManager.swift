@@ -83,6 +83,7 @@ class EntityComponentManager {
     func intialPopulateWithCompletion(completion: @escaping () -> Void) {
         Task {
             do {
+                // newEntity is needed due to unowned reference although a warning is shown
                 let (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
 
                 for (entityId, components) in newEntityComponentMap {

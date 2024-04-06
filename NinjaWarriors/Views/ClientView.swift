@@ -13,7 +13,6 @@ struct ClientView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    @State private var isInitialized = false
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -28,22 +27,14 @@ struct ClientView: View {
                 .edgesIgnoringSafeArea(.all)
                 .statusBar(hidden: true)
 
-            if isInitialized {
-                Text("\(viewModel.entities.count)")
-                    .font(.title) // Increase the size
-                    .foregroundColor(.blue) // Make it red
-            } else {
-                ProgressView("Loading...")
-                    .onAppear {
-                        // Call initialPopulate() here
-                        viewModel.entityComponentManager.intialPopulateWithCompletion {
-                            // This closure is called when initialPopulate completes
-                            // Update the state to show the main view
-                            viewModel.test()
-                            isInitialized = true
+            ProgressView("Loading...")
+                .onAppear {
+                    viewModel.entityComponentManager.intialPopulateWithCompletion {
+                        DispatchQueue.main.async {
+                            viewModel.updateEntities()
                         }
                     }
-            }
+                }
 
 
             ZStack {
@@ -112,10 +103,6 @@ struct ClientView: View {
                     */
                 }
             }
-        }
-        .onAppear {
-            viewModel.entityComponentManager.initialPopulate()
-            viewModel.updateEntities()
         }
         /*
         .onAppear {

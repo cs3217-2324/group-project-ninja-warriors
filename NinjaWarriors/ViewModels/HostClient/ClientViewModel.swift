@@ -24,7 +24,7 @@ final class ClientViewModel: ObservableObject {
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
         self.entityComponentManager = EntityComponentManager(for: matchId)
-        initialPopulate()
+        //initialPopulate()
 
         //self.updateEntities()
         //self.updateViews()
@@ -35,12 +35,6 @@ final class ClientViewModel: ObservableObject {
             //self.loop()
         }
         //*/
-    }
-
-
-    func test() {
-        entityComponentManager.initialPopulate()
-        entities = entityComponentManager.getAllEntities()
     }
 
     func loop() {
@@ -176,18 +170,7 @@ final class ClientViewModel: ObservableObject {
             }
         }
         Task {
-            await publish()
-        }
-    }
-
-    @Sendable func publish() async {
-        for entity in entities {
-            do {
-                let componentsToUpload = entityComponents[entity.id]
-                try await manager.uploadEntity(entity: entity, components: componentsToUpload)
-            } catch {
-                print("Error updating client data \(error)")
-            }
+            try await entityComponentManager.publish()
         }
     }
 
