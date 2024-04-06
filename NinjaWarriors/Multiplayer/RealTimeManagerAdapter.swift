@@ -291,7 +291,12 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 self.updateExistingEntity(snapshot, entityRef, entity, components)
 
             } else {
-                self.createEntity(snapshot, entityRef, entity)
+                
+                if let components = components {
+                    self.createEntity(snapshot, entityRef, entity, components)
+                } else {
+                    self.createEntity(snapshot, entityRef, entity)
+                }
             }
         }
     }
@@ -329,16 +334,17 @@ final class RealTimeManagerAdapter: EntitiesManager {
         entityDict[componentKey] = newComponentDict
     }
 
-    private func createEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference, _ entity: Entity) {
+    private func createEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference, _ entity: Entity, _ components: [Component]? = nil) {
         var newEntityDict: [String: Any] = [:]
 
         if let entityDict = try? formEntityDict(from: entity) {
             newEntityDict.merge(entityDict) { (_, new) in new }
         }
 
-        let initializingComponents = entity.getInitializingComponents()
-        let initialComponentDict = formComponentDict(from: initializingComponents)
-        newEntityDict[componentKey] = initialComponentDict
+        let finalComponents = components ?? entity.getInitializingComponents()
+            
+        let componentDict = formComponentDict(from: finalComponents)
+        newEntityDict[componentKey] = componentDict
 
         entityRef.setValue(newEntityDict)
     }
