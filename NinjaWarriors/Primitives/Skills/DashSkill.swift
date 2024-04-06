@@ -48,10 +48,10 @@ class DashSkill: MovementSkill {
     func performMovement(on target: Entity, in manager: EntityComponentManager) {
         // TODO: Add movement vector to GameWorld similar to how joystick so that can check for collision
         /*
-        print("[DashSkill] Activated on \(target)")
-        let currCenter = target.shape.getCenter()
+         print("[DashSkill] Activated on \(target)")
+         let currCenter = target.shape.getCenter()
 
-        target.shape.center.setCartesian(xCoord: currCenter.x, yCoord: currCenter.y + 100)
-        */
+         target.shape.center.setCartesian(xCoord: currCenter.x, yCoord: currCenter.y + 100)
+         */
     }
 }

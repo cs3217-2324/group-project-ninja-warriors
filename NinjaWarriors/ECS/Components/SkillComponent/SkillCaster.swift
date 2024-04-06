@@ -9,22 +9,27 @@ import Foundation
 
 class SkillCaster: Component {
     var skills: [SkillID: Skill] = [:]
+    var skillCooldowns: [SkillID: TimeInterval] = [:]
     var activationQueue: [SkillID] = []
 
     init(id: ComponentID, entity: Entity, skills: [Skill] = []) {
         super.init(id: id, entity: entity) // Player in most cases
         for skill in skills {
             self.skills[skill.id] = skill
+            self.skillCooldowns[skill.id] = 0.0
         }
     }
 
     func queueSkillActivation(_ skillId: SkillID) {
-        activationQueue.append(skillId)
+        if let cooldown = skillCooldowns[skillId], cooldown <= 0 {
+            activationQueue.append(skillId)
+        }
     }
 
     func decrementAllCooldowns(deltaTime: TimeInterval) {
-        for (_, skill) in skills {
-            skill.decrementCooldown(deltaTime: deltaTime)
+        for (skillId, cooldown) in skillCooldowns {
+            let newCooldown = max(0, cooldown - deltaTime)
+            skillCooldowns[skillId] = newCooldown
         }
     }
 
