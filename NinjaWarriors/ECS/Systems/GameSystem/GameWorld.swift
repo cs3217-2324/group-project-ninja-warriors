@@ -20,7 +20,7 @@ class GameWorld {
         self.entityComponentManager = EntityComponentManager(for: match)
 
         setupGameLoop()
-        
+
         let transformHandler = TransformHandler(for: entityComponentManager)
         let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager, with: gameControl)
         let collisionManager = CollisionManager(for: entityComponentManager)
@@ -29,6 +29,7 @@ class GameWorld {
         let scoreManager = ScoreSystem(for: entityComponentManager)
         let dodgeManager = DodgeSystem(for: entityComponentManager)
         let destroyManager = DestroySystem(for: entityComponentManager)
+        let lifespanManager = LifespanSystem(for: entityComponentManager)
 
         systemManager.add(system: transformHandler)
         systemManager.add(system: rigidbodyHandler)
@@ -38,6 +39,7 @@ class GameWorld {
         systemManager.add(system: scoreManager)
         systemManager.add(system: dodgeManager)
         systemManager.add(system: destroyManager)
+        systemManager.add(system: lifespanManager)
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {

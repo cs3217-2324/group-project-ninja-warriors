@@ -52,7 +52,9 @@ class SlashAOESkill: EntitySpawnerSkill {
         let meleeAttackStrategy = MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius)
         let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: slashAOE, attackStrategy: meleeAttackStrategy, damage: Constants.slashDamage)
 
-        manager.add(entity: slashAOE, components: [rigidbody, spriteComponent, attackComponent], isAdded: false)
+        let lifespanComponent = Lifespan(id: RandomNonce().randomNonceString(), entity: slashAOE, lifespan: 1)
+
+        manager.add(entity: slashAOE, components: [rigidbody, spriteComponent, attackComponent, lifespanComponent], isAdded: false)
 
         return slashAOE
     }

@@ -153,6 +153,8 @@
 		E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */; };
 		E6ECF6382BADE99700DDDE9C /* SlashAOESkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6372BADE99700DDDE9C /* SlashAOESkill.swift */; };
 		E6ECF63A2BADE9D900DDDE9C /* CircleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6ECF6392BADE9D800DDDE9C /* CircleShape.swift */; };
+		E6FD345B2BC1525300477B1F /* Lifespan.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FD345A2BC1525300477B1F /* Lifespan.swift */; };
+		E6FD345F2BC1545600477B1F /* LifespanSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FD345E2BC1545600477B1F /* LifespanSystem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -301,6 +303,8 @@
 		E6ECF6332BADE86100DDDE9C /* SlashAOE.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOE.swift; sourceTree = "<group>"; };
 		E6ECF6372BADE99700DDDE9C /* SlashAOESkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOESkill.swift; sourceTree = "<group>"; };
 		E6ECF6392BADE9D800DDDE9C /* CircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleShape.swift; sourceTree = "<group>"; };
+		E6FD345A2BC1525300477B1F /* Lifespan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lifespan.swift; sourceTree = "<group>"; };
+		E6FD345E2BC1545600477B1F /* LifespanSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifespanSystem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -410,6 +414,7 @@
 		9136A5B52BA9943100197971 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				E6FD345C2BC1544600477B1F /* LifespanSystem */,
 				E67F53382BBFEF930051A900 /* DestroySystem */,
 				91CC283A2BBA86DB009318C7 /* ScoreSystem */,
 				E6DB870A2BB9F745003AC063 /* DodgeSystem */,
@@ -562,6 +567,7 @@
 			children = (
 				7113A4952BA60E8400805340 /* Component.swift */,
 				91DDE6512BB3806100851603 /* ComponentType.swift */,
+				E6FD34592BC1523900477B1F /* Lifespan */,
 				E6B503E12BC105F300B9565E /* Attack */,
 				E63FFBFD2BBADA2F006C2C4C /* Transform */,
 				91CC28392BBA8330009318C7 /* Score */,
@@ -884,6 +890,22 @@
 			path = SkillCasterSystem;
 			sourceTree = "<group>";
 		};
+		E6FD34592BC1523900477B1F /* Lifespan */ = {
+			isa = PBXGroup;
+			children = (
+				E6FD345A2BC1525300477B1F /* Lifespan.swift */,
+			);
+			path = Lifespan;
+			sourceTree = "<group>";
+		};
+		E6FD345C2BC1544600477B1F /* LifespanSystem */ = {
+			isa = PBXGroup;
+			children = (
+				E6FD345E2BC1545600477B1F /* LifespanSystem.swift */,
+			);
+			path = LifespanSystem;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1119,6 +1141,7 @@
 				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
 				91DDE6652BB7A07100851603 /* ObstacleWrapper.swift in Sources */,
 				916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */,
+				E6FD345F2BC1545600477B1F /* LifespanSystem.swift in Sources */,
 				915301C42BAE9337007F2A12 /* JoystickControl.swift in Sources */,
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
 				916A7DA52BA3F89500319C26 /* ShapeWrapper.swift in Sources */,
@@ -1158,6 +1181,7 @@
 				91DDE6682BB7BFE100851603 /* Health.swift in Sources */,
 				9132AF6C2BA57130000F2AC4 /* EntitiesManager.swift in Sources */,
 				E6DB87112BB9F7BA003AC063 /* DodgeWrapper.swift in Sources */,
+				E6FD345B2BC1525300477B1F /* Lifespan.swift in Sources */,
 				E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */,
 				9132AF782BA59B0F000F2AC4 /* FactoryPublisher.swift in Sources */,
 				E6ECF63A2BADE9D900DDDE9C /* CircleShape.swift in Sources */,
