@@ -27,11 +27,8 @@ class GameWorld {
         let skillsManager = SkillCasterSystem(for: entityComponentManager)
         let healthManager = HealthSystem(for: entityComponentManager)
         let scoreManager = ScoreSystem(for: entityComponentManager)
-<<<<<<< HEAD
-        let destroyManager = DestroySystem(for: entityComponentManager)
-=======
         let dodgeManager = DodgeSystem(for: entityComponentManager)
->>>>>>> reyaaz/host
+        let destroyManager = DestroySystem(for: entityComponentManager)
 
         systemManager.add(system: transformHandler)
         systemManager.add(system: rigidbodyHandler)
@@ -39,11 +36,8 @@ class GameWorld {
         systemManager.add(system: skillsManager)
         systemManager.add(system: healthManager)
         systemManager.add(system: scoreManager)
-<<<<<<< HEAD
-        systemManager.add(system: destroyManager)
-=======
         systemManager.add(system: dodgeManager)
->>>>>>> reyaaz/host
+        systemManager.add(system: destroyManager)
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {

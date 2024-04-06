@@ -31,11 +31,9 @@ class Dodge: Component {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
-<<<<<<< HEAD
         return DodgeWrapper(id: id, entity: entityWrapper, isEnabled: isEnabled,
-                            wrapperType: NSStringFromClass(type(of: entityWrapper)))
-=======
-        return DodgeWrapper(id: id, entity: entityWrapper, isEnabled: isEnabled, invulnerabilityDuration: invulnerabilityDuration, elapsedTimeSinceEnabled: elapsedTimeSinceEnabled)
->>>>>>> reyaaz/host
+                            wrapperType: NSStringFromClass(type(of: entityWrapper)),
+                            invulnerabilityDuration: invulnerabilityDuration,
+                            elapsedTimeSinceEnabled: elapsedTimeSinceEnabled)
     }
 }
