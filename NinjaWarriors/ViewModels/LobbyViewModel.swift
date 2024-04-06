@@ -60,6 +60,8 @@ final class LobbyViewModel: ObservableObject {
             addObstacleToDatabase(at: Constants.obstaclePositions[index])
         }
 
+        addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
+
         guard let playerIds = playerIds else {
             return
         }
@@ -110,7 +112,7 @@ final class LobbyViewModel: ObservableObject {
             return
         }
         Task {
-            try? await realTimeManager.uploadEntity(entity: closingZone)
+            try? await realTimeManager.uploadEntity(entity: closingZone, components: closingZone.getInitializingComponents())
         }
     }
 

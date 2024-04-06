@@ -24,12 +24,12 @@ class EnvironmentEffectSystem: System {
     }
 
     func applyEffect(_ effect: EnvironmentEffect) {
-        let entityTransforms = manager.getAllComponents(ofType: Transform.self)
-        let entityTransformsWithEffect = entityTransforms.filter { entityTransform in
-            effect.effectShouldApplyOn(point: entityTransform.position)
+        let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
+        let rigidBodiesWithEffect = rigidBodies.filter { rigidBody in
+            effect.effectShouldApplyOn(point: rigidBody.position)
         }
-        let affectedEntities = entityTransformsWithEffect.map { entityTransform in
-            entityTransform.entity
+        let affectedEntities = rigidBodies.map { rigidBody in
+            rigidBody.entity
         }
         let affectedHealthComponents = affectedEntities.compactMap { entity in
             manager.getComponent(ofType: Health.self, for: entity)

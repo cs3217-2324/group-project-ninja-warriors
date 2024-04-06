@@ -64,7 +64,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
             "HealthWrapper": HealthWrapper.self,
             "ColliderWrapper": ColliderWrapper.self,
             "ScoreWrapper": ScoreWrapper.self,
-            "RigidbodyWrapper": RigidbodyWrapper.self
+            "RigidbodyWrapper": RigidbodyWrapper.self,
+            "EnvironmentEffectWrapper": EnvironmentEffectWrapper.self
         ]
         return wrapperTypes[wrapperType]
     }

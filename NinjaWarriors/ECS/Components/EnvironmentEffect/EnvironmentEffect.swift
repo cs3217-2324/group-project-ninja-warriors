@@ -8,7 +8,6 @@
 import Foundation
 
 class EnvironmentEffect: Component {
-    //TODO: maybe this should be a shape?? but then shape needs to have 'contains'
     var environmentShape: Shape
     var effectIsActiveInsideShape: Bool
 

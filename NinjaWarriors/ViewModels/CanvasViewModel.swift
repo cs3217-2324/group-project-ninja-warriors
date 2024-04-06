@@ -66,7 +66,6 @@ final class CanvasViewModel: ObservableObject {
     func closingZone() -> (center: CGPoint, radius: CGFloat)? {
         let environmentalEffects = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
         guard let closingZoneShape = environmentalEffects.first?.environmentShape else {
-            assertionFailure("Missing closing zone!!")
             return nil
         }
 

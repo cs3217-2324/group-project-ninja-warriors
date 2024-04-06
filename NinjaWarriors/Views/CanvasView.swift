@@ -14,6 +14,13 @@ struct CanvasView: View {
     @State private var matchId: String
     @State private var playerId: String
 
+    var closingZoneCenter: CGPoint {
+        viewModel.closingZone()?.center ?? .zero
+    }
+    var closingZoneRadius: CGFloat {
+        viewModel.closingZone()?.radius ?? 0
+    }
+
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
@@ -26,6 +33,8 @@ struct CanvasView: View {
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
                 .statusBar(hidden: true)
+
+            ClosingZoneView(circleCenter: closingZoneCenter, circleRadius: closingZoneRadius)
 
             ZStack {
                 GeometryReader { geometry in
