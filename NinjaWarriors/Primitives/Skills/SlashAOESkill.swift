@@ -44,7 +44,7 @@ class SlashAOESkill: EntitySpawnerSkill {
         let collider = Collider(id: RandomNonce().randomNonceString(), entity: slashAOE, colliderShape: shape, isColliding: false, isOutOfBounds: false)
         let rigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: slashAOE,
                                   angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
-                                  rotation: 0.0, totalForce: Vector.zero, inertia: 0.0,
+                                  rotation: playerRigidbody.rotation, totalForce: Vector.zero, inertia: 0.0,
                                   position: shape.center, velocity: Vector.zero, attachedCollider: collider)
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(),
                                      entity: slashAOE, image: "slash-effect", width: Constants.slashRadius * 2,

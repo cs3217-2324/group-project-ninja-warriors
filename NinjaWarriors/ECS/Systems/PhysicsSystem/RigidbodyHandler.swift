@@ -64,18 +64,22 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                   let collider = collider else {
                 continue
             }
+            
+            let playerInput = gameControl.getInput()
 
             if !collider.isColliding && !collider.isOutOfBounds
                 && rigidBody.entity.id == gameControlEntity.id {
                 //print("not colliding apprently")
-                rigidBody.velocity = gameControl.getInput()
-                alignEntityRotation(for: rigidBody, gameControl.getInput())
+                rigidBody.velocity = playerInput
+                if (playerInput.horizontal > 0 || playerInput.vertical > 0) {
+                    alignEntityRotation(for: rigidBody, gameControl.getInput())
+                }
                 
                 rigidBody.collidingVelocity = nil
             } else if (collider.isColliding || collider.isOutOfBounds)
                         && rigidBody.entity.id == gameControlEntity.id {
                 //print("is colliding")
-                rigidBody.collidingVelocity = gameControl.getInput()
+                rigidBody.collidingVelocity = playerInput
             } else if collider.isColliding {
                 //print("is colliding 2")
             }
