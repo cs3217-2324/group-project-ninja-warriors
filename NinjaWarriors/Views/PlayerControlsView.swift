@@ -63,7 +63,7 @@ struct PlayerControlsView: View {
                 }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: 100)
+        .frame(maxWidth: .infinity)
         .background(Image("player-controls")
             .resizable()
             .aspectRatio(contentMode: .fill)
@@ -78,7 +78,7 @@ struct PlayerControlsView_Previews: PreviewProvider {
                                       entity: Player(id: "1"), skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
                                                              DashSkill(id: "dash", cooldownDuration: 8.0),
                                                              DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                                            RefreshCooldownsSkill(id: "refresh")])
+                                                                        RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
         return Array(skillCaster.skills)
     }
     
@@ -87,7 +87,7 @@ struct PlayerControlsView_Previews: PreviewProvider {
                                       entity: Player(id: "1"), skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
                                                              DashSkill(id: "dash", cooldownDuration: 8.0),
                                                              DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                                            RefreshCooldownsSkill(id: "refresh")])
+                                                            RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
         return skillCaster.skillCooldowns
     }
     
