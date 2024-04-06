@@ -21,7 +21,7 @@ final class ClientViewModel: ObservableObject {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
-        self.populate()
+        self.initialPopulate()
         startListening()
     }
 
@@ -31,27 +31,6 @@ final class ClientViewModel: ObservableObject {
             //print("snap shot received")
             self.queue.async {
                 self.populate()
-            }
-        }
-    }
-
-    func populate() {
-        Task {
-            do {
-                let fetchEntitiesComponents = try await manager.getEntitiesWithComponents(currPlayerId)
-                let (fetchEntities, fetchEntityComponents) = fetchEntitiesComponents
-
-                if entities.isEmpty {
-                    entities = fetchEntities
-                }
-
-                if entityComponents == [:] {
-                    entityComponents = fetchEntityComponents
-                }
-
-                process(fetchEntities, fetchEntityComponents)
-            } catch {
-                print("Error fetching client data \(error)")
             }
         }
     }
@@ -72,45 +51,30 @@ final class ClientViewModel: ObservableObject {
         return nil
     }
 
-    func move(_ vector: CGVector) {
-        print("test", vector)
-        guard let entityIdComponents = entityComponents[currPlayerId] else {
-            return
-        }
-        for entityIdComponent in entityIdComponents {
-            if let entityIdComponent = entityIdComponent as? Rigidbody {
-                if entityIdComponent.attachedCollider?.isColliding == true {
-                    entityIdComponent.collidingVelocity = Vector(horizontal: vector.dx,
-                                                                 vertical: vector.dy)
-                } else {
-                    entityIdComponent.velocity = Vector(horizontal: vector.dx, vertical: vector.dy)
-                }
-            }
-        }
-
+    func initialPopulate() {
         Task {
-            for entity in entities {
-                do {
-                    let componentsToUpload = entityComponents[entity.id]
-                    try await manager.uploadEntity(entity: entity,
-                                                   components: componentsToUpload)
-                } catch {
-                    print("Error updating client data \(error)")
+            do {
+                let (fetchEntities, fetchEntitiesComponents) = try await manager.getEntitiesWithComponents()
+
+                if entities.isEmpty {
+                    entities = fetchEntities
+                }
+                if entityComponents == [:] {
+                    entityComponents = fetchEntitiesComponents
                 }
             }
         }
-
     }
 
-    func render(for entity: Entity) -> (image: Image, position: CGPoint)? {
-        guard let entityComponents = entityComponents[entity.id] else {
-            return nil
+    func populate() {
+        Task {
+            do {
+                let (fetchEntities, fetchEntitiesComponents) = try await manager.getEntitiesWithComponents()
+                process(fetchEntities, fetchEntitiesComponents)
+            } catch {
+                print("Error fetching client data \(error)")
+            }
         }
-        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
-              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
-            return nil
-        }
-        return (image: Image(sprite.image), position: rigidbody.position.get())
     }
 
     func process(_ fetchEntities: [Entity], _ fetchComponents: [EntityID: [Component]]) {
@@ -139,43 +103,52 @@ final class ClientViewModel: ObservableObject {
                 }
             }
         }
+    }
 
-        func publish() async {
-            //Task {
-                for entity in entities {
-                    do {
-                        let componentsToUpload = entityComponents[entity.id]
-                        try await manager.uploadEntity(entity: entity,
-                                                       components: componentsToUpload)
-                    } catch {
-                        print("Error updating client data \(error)")
-                    }
+    func move(_ vector: CGVector) {
+        guard let entityIdComponents = entityComponents[currPlayerId] else {
+            return
+        }
+        for entityIdComponent in entityIdComponents {
+            if let entityIdComponent = entityIdComponent as? Rigidbody {
+                if entityIdComponent.attachedCollider?.isColliding == true {
+                    entityIdComponent.collidingVelocity = Vector(horizontal: vector.dx,
+                                                                 vertical: vector.dy)
+                } else {
+                    entityIdComponent.velocity = Vector(horizontal: vector.dx, vertical: vector.dy)
                 }
-            //}
-        }
-
-        // Only update values that changed
-        func updateViews() {
-            objectWillChange.send()
-        }
-
-        func newTest() {
-            
-        }
-
-        func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {
-            /*
-            guard let entityComponents = entityComponents[entity.id] else {
-                return nil
             }
-            guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
-                  let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
-                return nil
-            }
-            return (image: Image(sprite.image), position: rigidbody.position.get())
-            */
-            return (image: Image("player-icon"), position: CGPoint(x: 150.0, y: 150.0))
         }
+        Task {
+            await publish()
+        }
+    }
+
+    @Sendable func publish() async {
+        for entity in entities {
+            do {
+                let componentsToUpload = entityComponents[entity.id]
+                try await manager.uploadEntity(entity: entity, components: componentsToUpload)
+            } catch {
+                print("Error updating client data \(error)")
+            }
+        }
+    }
+
+    func render(for entity: Entity) -> (image: Image, position: CGPoint)? {
+        guard let entityComponents = entityComponents[entity.id] else {
+            return nil
+        }
+        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
+              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
+            return nil
+        }
+        return (image: Image(sprite.image), position: rigidbody.position.get())
+    }
+
+    // Only update values that changed
+    func updateViews() {
+        objectWillChange.send()
     }
 }
 
