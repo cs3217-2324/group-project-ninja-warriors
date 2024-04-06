@@ -20,7 +20,6 @@ final class CanvasViewModel: ObservableObject {
         self.currPlayerId = currPlayerId
         self.gameWorld = GameWorld(for: matchId)
         gameWorld.start()
-        updateEntities()
         gameWorld.updateViewModel = { [unowned self] in
             Task {
                 await self.updateViewModel()
@@ -34,6 +33,7 @@ final class CanvasViewModel: ObservableObject {
         } catch {
             print("Error publishing updated state: \(error)")
         }
+        updateEntities()
         updateViews()
     }
 

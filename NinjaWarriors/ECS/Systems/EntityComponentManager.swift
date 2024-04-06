@@ -85,24 +85,11 @@ class EntityComponentManager {
         Task {
             (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
             for entity in newEntity {
-                if isDone {
-                    print("check new fetch", entity.id, entityMap, entityComponentMap, componentMap)
-                }
                 guard !queue.contains(entity) else {
                     continue
                 }
-
-                if newEntityComponentMap[entity.id] != nil && queue.contains(entity) {
-                    newEntityComponentMap[entity.id] = nil
-                }
-
                 newEntityMap[entity.id] = entity
             }
-
-            newEntity = newEntity.filter { entity in
-                !queue.deletedEntities.contains(entity.id)
-            }
-
             queue.sync {
                 addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
             }
@@ -121,37 +108,25 @@ class EntityComponentManager {
     }
 
     func publish() async throws {
-        //queue.async {
-            for (entityId, entity) in entityMap {
-                print("check queue", queue.deletedEntities)
-                guard !queue.contains(entity) else {
-                    continue
-                }
-                if isDone {
-                    print("publish check mistake", entityMap, entityComponentMap, componentMap)
-                    print("check whether check is correct", entityId, queue.deletedEntities, queue.contains(entity))
-                }
-                var entityComponents: Set<Component> = []
-                queue.sync {
-                    guard let components = entityComponentMap[entityId] else {
-                        return
-                    }
-                    entityComponents = components
-                }
-                do {
-                    // Upload the entity with its components
-                    guard !queue.contains(entity) else {
-                        continue
-                    }
-                    if isDone {
-                        print("before upload", entity.id)
-                    }
-                    try await manager.uploadEntity(entity: entity, components: Array(entityComponents))
-                } catch {
-                    // Handle errors during upload
-                    print("Error uploading entity with ID \(entityId): \(error)")
-                }
+        for (entityId, entity) in entityMap {
+            guard !queue.contains(entity) else {
+                continue
             }
+            var entityComponents: Set<Component> = []
+            queue.sync {
+                guard let components = entityComponentMap[entityId] else {
+                    return
+                }
+                entityComponents = components
+            }
+            do {
+                // Upload the entity with its components
+                try await manager.uploadEntity(entity: entity, components: Array(entityComponents))
+            } catch {
+                // Handle errors during upload
+                print("Error uploading entity with ID \(entityId): \(error)")
+            }
+        }
     }
 
     // MARK: - Entity-related functions

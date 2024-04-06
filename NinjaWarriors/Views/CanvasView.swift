@@ -37,7 +37,7 @@ struct CanvasView: View {
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 50, height: 50)
                                     .position(pos)
-                                    .animation(.easeOut(duration: 0.5))
+                                    .animation(.easeOut(duration: 0.2))
                             }
                         }
                     }

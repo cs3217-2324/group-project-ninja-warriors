@@ -44,7 +44,7 @@ class Player: Equatable, Entity {
                                      maxHealth: 100)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: self,
-                                entityInflictDamageMap: [:], health: 10, maxHealth: 10)
+                                entityInflictDamageMap: [:], health: 100, maxHealth: 100)
 
         let score = Score(id: RandomNonce().randomNonceString(), entity: self,
                           score: 0, entityGainScoreMap: [:])
