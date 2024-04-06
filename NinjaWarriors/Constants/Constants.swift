@@ -31,6 +31,12 @@ struct Constants {
     static let slashDamage = 10
     static let slashRadius = 50.0
     
+    struct DodgeImage {
+        static let image = "dodge"
+        static let width: CGFloat = 100
+        static let height: CGFloat = 100
+    }
+    
     struct HealthBar {
         static let height: CGFloat = 10
         static let offsetY: CGFloat = 15

@@ -26,6 +26,10 @@ class EntityViewModel: ObservableObject {
     var rigidbody: Rigidbody? {
         components.first(where: { $0 is Rigidbody }) as? Rigidbody
     }
+    
+    var dodge: Dodge? {
+        components.first(where: { $0 is Dodge }) as? Dodge
+    }
 
     var lifespan: Lifespan? {
         components.first(where: { $0 is Lifespan }) as? Lifespan

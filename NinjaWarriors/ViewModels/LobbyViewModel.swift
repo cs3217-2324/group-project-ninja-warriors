@@ -109,7 +109,9 @@ final class LobbyViewModel: ObservableObject {
         let score = Score(id: RandomNonce().randomNonceString(), entity: player,
                           score: 0, entityGainScoreMap: [:])
         
-        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score]
+        let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: player, isEnabled: false, invulnerabilityDuration: 2.0)
+        
+        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge]
         guard let realTimeManager = realTimeManager else {
             return
         }

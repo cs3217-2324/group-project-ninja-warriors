@@ -10,7 +10,7 @@ import Foundation
 class DodgeSkill: SelfModifyingSkill {
     var id: SkillID
     var cooldownDuration: TimeInterval
-    private var invulnerabilityDuration: TimeInterval = 1
+    private var invulnerabilityDuration: TimeInterval = 2
 
     required init(id: SkillID) {
         self.id = id
