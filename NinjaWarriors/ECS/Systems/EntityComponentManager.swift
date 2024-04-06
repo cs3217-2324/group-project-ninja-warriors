@@ -19,6 +19,7 @@ class EntityComponentManager {
     var newEntityMap: [EntityID: Entity] = [:]
     var newComponentMap: [ComponentType: Set<Component>] = [:]
 
+    private var isListening = false
     private var queue = EventQueue(label: "entityComponentMapQueue")
 
     var manager: EntitiesManager
@@ -54,6 +55,7 @@ class EntityComponentManager {
 
     func stopListening() {
         manager.removeEntitiesListener()
+        isListening = false
     }
 
     // No queue needed for intial population
@@ -68,7 +70,12 @@ class EntityComponentManager {
             }
 
             addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
-            startListening()
+            if !isListening {
+                print("not listening")
+                startListening()
+                isListening = true
+            }
+
         }
     }
 
@@ -83,7 +90,7 @@ class EntityComponentManager {
             queue.sync {
                 addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
             }
-            startListening()
+            //startListening()
         }
 
     }
@@ -183,6 +190,7 @@ class EntityComponentManager {
         assertRepresentation()
     }
 
+    // Since component have unowned reference to entity, must always use existing entity
     private func getDestinationEntity(for entity: Entity) -> Entity {
         if let originalEntity = entityMap[entity.id] {
             return originalEntity
@@ -264,7 +272,10 @@ class EntityComponentManager {
     }
 
     private func updateExistingComponent(_ existingComponent: Component, with newComponent: Component) {
-        guard ComponentType(type(of: existingComponent)) == ComponentType(Rigidbody.self) else { return }
+        let existingComponentType: ComponentType = ComponentType(type(of: existingComponent))
+        guard existingComponentType == ComponentType(Rigidbody.self)
+                || existingComponentType == ComponentType(Collider.self)
+        else { return }
         existingComponent.updateAttributes(newComponent)
     }
 

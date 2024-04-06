@@ -610,13 +610,13 @@
 			children = (
 				9132AF6B2BA57130000F2AC4 /* EntitiesManager.swift */,
 				9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */,
+				915BFD112BC04A9000AB5815 /* EventQueue.swift */,
 				9132AF842BA5A890000F2AC4 /* Matches */,
 				9132AF812BA5A79C000F2AC4 /* Factory */,
 				9132AF592BA50C1E000F2AC4 /* Publisher.swift */,
 				9132AF7B2BA59C6C000F2AC4 /* Listener.swift */,
 				916A7D9E2BA3F43B00319C26 /* Query+EXT.swift */,
 				9132AF5B2BA50C5C000F2AC4 /* CustomSubject.swift */,
-				915BFD112BC04A9000AB5815 /* EventQueue.swift */,
 			);
 			path = Multiplayer;
 			sourceTree = "<group>";
