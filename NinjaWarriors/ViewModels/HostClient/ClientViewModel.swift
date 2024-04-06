@@ -89,11 +89,18 @@ final class ClientViewModel: HostClientProtocol {
         objectWillChange.send()
     }
 
-    func entityHasRigidAndSprite() -> (image: Image, position: CGPoint)? {
+    func entityHasRigidAndSprite() -> (sprite: Sprite, position: CGPoint)? {
         guard let rigidbody = components.first(where: { $0 is Collider }) as? Collider,
               let sprite = components.first(where: { $0 is Sprite }) as? Sprite else {
             return nil
         }
-        return (image: Image(sprite.image), position: rigidbody.colliderShape.center.get())
+        return (sprite: sprite, position: rigidbody.colliderShape.center.get()) // TODO: maybe use rigidbody.position?
+    }
+    
+    func entityHealthComponent() -> Health? {
+        guard let health = components.first(where: { $0 is Health }) as? Health else {
+            return nil
+        }
+        return health
     }
 }

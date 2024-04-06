@@ -54,14 +54,23 @@ final class CanvasViewModel: HostClientProtocol {
         return nil
     }
 
-    func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {
+    func entityHasRigidAndSprite(for entity: Entity) -> (sprite: Sprite, position: CGPoint)? {
         let entityComponents = gameWorld.entityComponentManager.getAllComponents(for: entity)
 
         guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
               let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
             return nil
         }
-        return (image: Image(sprite.image), position: rigidbody.position.get())
+        return (sprite: sprite, position: rigidbody.position.get())
+    }
+    
+    func entityHealthComponent(for entity: Entity) -> Health? {
+        let entityComponents = gameWorld.entityComponentManager.getAllComponents(for: entity)
+
+        guard let health = entityComponents.first(where: { $0 is Health }) as? Health else {
+            return nil
+        }
+        return health
     }
 }
 

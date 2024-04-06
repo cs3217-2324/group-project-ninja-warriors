@@ -30,57 +30,54 @@ struct CanvasView: View {
 
     var body: some View {
         ZStack {
-            Image("gray-wall")
-                .resizable()
-                .edgesIgnoringSafeArea(.all)
-                .statusBar(hidden: true)
-
-            ZStack {
-                GeometryReader { geometry in
-                    ZStack {
-                        ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
-                            if let (render, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
-                                render
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 50, height: 50)
-                                    .position(pos)
-                                    .animation(.easeOut(duration: 0.2))
-                            }
-                        }
-                    }
-
-                    if let currPlayer = viewModel.getCurrPlayer() {
-                        JoystickView(
-                            setInputVector: { vector in
-                                viewModel.gameWorld.setInput(vector, for: currPlayer)
-                            }, location: CGPoint(x: 150, y: geometry.size.height - 300))
-                        .frame(width: 200, height: 200)
-                        VStack {
-                            Spacer()
-                            PlayerControlsView(
-                                skills: viewModel.getSkills(for: currPlayer),
-                                skillCooldowns: viewModel.getSkillCooldowns(for: currPlayer),
-                                toggleEntityOverlay: {
-                                    isShowingEntityOverlay.toggle()
-                                },
-                                activateSkill: { skillId in
-                                    viewModel.activateSkill(forEntity: currPlayer, skillId: skillId)
-                                }
-                            )
-                        }
-                    }
-                    EntityOverlayView(entities: viewModel.entities,
-                                      componentManager: viewModel.gameWorld.entityComponentManager)
-                    .zIndex(-1)
-                    .opacity(isShowingEntityOverlay ? 1 : 0)
-
-                }
-                .onAppear {
-                    viewModel.gameWorld.entityComponentManager.initialPopulate()
-                    viewModel.updateEntities()
+            backgroundImage
+            canvasView
+        }
+        .onAppear {
+            viewModel.gameWorld.entityComponentManager.initialPopulate()
+            viewModel.updateEntities()
+        }
+    }
+    
+    private var backgroundImage: some View {
+        Image("gray-wall")
+            .resizable()
+            .edgesIgnoringSafeArea(.all)
+            .statusBar(hidden: true)
+    }
+        
+    private var canvasView: some View {
+        GeometryReader { geometry in
+            ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
+                if let (sprite, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
+                    let health = viewModel.entityHealthComponent(for: entity)
+                    EntityView(sprite: sprite, position: pos, health: health)
                 }
             }
+            if let currPlayer = viewModel.getCurrPlayer() {
+                JoystickView(
+                    setInputVector: { vector in
+                        viewModel.gameWorld.setInput(vector, for: currPlayer)
+                    }, location: CGPoint(x: 150, y: geometry.size.height - 300))
+                .frame(width: 200, height: 200)
+                VStack {
+                    Spacer()
+                    PlayerControlsView(
+                        skills: viewModel.getSkills(for: currPlayer),
+                        skillCooldowns: viewModel.getSkillCooldowns(for: currPlayer),
+                        toggleEntityOverlay: {
+                            isShowingEntityOverlay.toggle()
+                        },
+                        activateSkill: { skillId in
+                            viewModel.activateSkill(forEntity: currPlayer, skillId: skillId)
+                        }
+                    )
+                }
+            }
+            EntityOverlayView(entities: viewModel.entities,
+                              componentManager: viewModel.gameWorld.entityComponentManager)
+            .zIndex(-1)
+            .opacity(isShowingEntityOverlay ? 1 : 0)
         }
     }
 }

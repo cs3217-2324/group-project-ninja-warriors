@@ -30,4 +30,9 @@ struct Constants {
 
     static let slashDamage = 10
     static let slashRadius = 50.0
+    
+    struct HealthBar {
+        static let height: CGFloat = 10
+        static let offsetY: CGFloat = 15
+    }
 }
