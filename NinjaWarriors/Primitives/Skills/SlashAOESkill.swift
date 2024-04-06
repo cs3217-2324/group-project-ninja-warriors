@@ -46,8 +46,8 @@ class SlashAOESkill: EntitySpawnerSkill {
                                   position: shape.center, velocity: Vector.zero)
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(),
-                                     entity: slashAOE, image: "slash-effect", width: 100,
-                                     height: 100, health: 10, maxHealth: 100)
+                                     entity: slashAOE, image: "slash-effect", width: Constants.slashRadius * 2,
+                                     height: Constants.slashRadius * 2, health: 10, maxHealth: 100)
 
         let meleeAttackStrategy = MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius)
         let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: slashAOE, attackStrategy: meleeAttackStrategy, damage: Constants.slashDamage)

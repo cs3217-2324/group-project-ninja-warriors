@@ -40,8 +40,11 @@ class Obstacle: Equatable, Entity {
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(),
                                      entity: self, image: image, width: width,
                                      height: height, health: 10, maxHealth: 100)
+        
+        let health = Health(id: RandomNonce().randomNonceString(), entity: self,
+                                entityInflictDamageMap: [:], health: 100, maxHealth: 100)
 
-        return [collider, rigidbody, spriteComponent]
+        return [collider, rigidbody, spriteComponent, health]
     }
 
     func deepCopy() -> Entity {
