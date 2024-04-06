@@ -29,7 +29,7 @@ class SlashAOE: Entity {
 
         // TODO: Add different images
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(),
-                                     entity: self, image: "rock", width: 100,
+                                     entity: self, image: "slash-effect", width: 100,
                                      height: 100, health: 10, maxHealth: 100)
 
         return [collider, rigidbody, spriteComponent]
