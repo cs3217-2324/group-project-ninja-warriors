@@ -22,7 +22,7 @@ class EntityComponentManager {
     private var isListening = false
     private var mapQueue = EventQueue(label: "entityComponentMapQueue")
     private var newMapQueue = EventQueue(label: "newEntityComponentMapQueue")
-    private var observers = [EntityComponentManagerObserver]()
+    private var observers = [HostClientObserver]()
 
     var manager: EntitiesManager
 
@@ -61,11 +61,11 @@ class EntityComponentManager {
         isListening = false
     }
 
-    func addObserver(_ observer: EntityComponentManagerObserver) {
+    func addObserver(_ observer: HostClientObserver) {
             observers.append(observer)
         }
 
-        func removeObserver(_ observer: EntityComponentManagerObserver) {
+        func removeObserver(_ observer: HostClientObserver) {
             if let index = observers.firstIndex(where: { $0 === observer }) {
                 observers.remove(at: index)
             }

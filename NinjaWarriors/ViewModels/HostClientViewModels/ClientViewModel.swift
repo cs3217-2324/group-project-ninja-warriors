@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class ClientViewModel: ObservableObject, EntityComponentManagerObserver  {
+final class ClientViewModel: ObservableObject, HostClientObserver  {
     var manager: EntitiesManager
     var entityComponentManager: EntityComponentManager
     var entities: [Entity] = []
