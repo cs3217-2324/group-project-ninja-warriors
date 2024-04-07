@@ -13,19 +13,11 @@ struct CanvasView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    @State private var isHost: Bool
 
-    init(matchId: String, currPlayerId: String, isHost: Bool) {
+    init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
-
-        if isHost {
-            viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
-        } else {
-            viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
-        }
-
-        self.isHost = isHost
+        self.viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
     var body: some View {
@@ -38,14 +30,14 @@ struct CanvasView: View {
             viewModel.updateEntities()
         }
     }
-    
+
     private var backgroundImage: some View {
         Image("gray-wall")
             .resizable()
             .edgesIgnoringSafeArea(.all)
             .statusBar(hidden: true)
     }
-        
+
     private var canvasView: some View {
         GeometryReader { geometry in
             ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
@@ -81,7 +73,6 @@ struct CanvasView: View {
 
 struct CanvasView_Previews: PreviewProvider {
     static var previews: some View {
-        CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
-                   isHost: true)
+        CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
     }
 }

@@ -9,102 +9,134 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class ClientViewModel: HostClientProtocol {
+final class ClientViewModel: ObservableObject, EntityComponentManagerObserver  {
     var manager: EntitiesManager
-    internal var components: [Component] = []
-    internal var entity: Entity
-    internal var matchId: String
-    internal var currPlayerId: String
-    private var queue = EventQueue(label: "clientEventQueue")
-    private var isAssignedEntity: Bool = false
+    var entityComponentManager: EntityComponentManager
+    var entities: [Entity] = []
+    var queue = EventQueue(label: "clientEventQueue")
+    var matchId: String
+    var currPlayerId: String
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
-        self.entity = Player(id: RandomNonce().randomNonceString())
-        self.populate()
-        startListening()
+        self.entityComponentManager = EntityComponentManager(for: matchId)
+        self.entityComponentManager.addObserver(self)
+        entityComponentManager.startListening()
     }
 
-    func startListening() {
-        print("start listening")
-        manager.addEntitiesListener { snapshot in
-            //print("snap shot received")
-            self.queue.async {
-                self.populate()
-            }
+    nonisolated func entityComponentManagerDidUpdate() {
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
         }
     }
 
-    func populate() {
+    func getEntity(from id: EntityID) -> Entity? {
+        for entity in entities {
+            if entity.id == id {
+                return entity
+            }
+        }
+        return nil
+    }
+
+    func getCurrPlayer() -> Entity? {
+        for entity in entities where entity.id == currPlayerId {
+            return entity
+        }
+        return nil
+    }
+
+    func updateEntities() {
+        entities = entityComponentManager.getAllEntities()
+    }
+
+    func move(_ vector: CGVector) {
+        guard let entityIdComponents = entityComponentManager.entityComponentMap[currPlayerId] else {
+            return
+        }
+        for entityIdComponent in entityIdComponents {
+            if let entityIdComponent = entityIdComponent as? Rigidbody {
+                if entityIdComponent.attachedCollider?.isColliding == true {
+                    entityIdComponent.collidingVelocity = Vector(horizontal: vector.dx,
+                                                                 vertical: vector.dy)
+                } else {
+                    entityIdComponent.velocity = Vector(horizontal: vector.dx, vertical: vector.dy)
+                }
+            }
+        }
         Task {
-            do {
-                let fetchEntitiesComponents = try await manager.getEntitiesWithComponents(currPlayerId)
-                let (fetchEntities, fetchEntityComponents) = fetchEntitiesComponents
-                guard let fetchEntity = fetchEntities.first else {
-                    return
-                }
-                if !isAssignedEntity {
-                    entity = fetchEntity
-                    isAssignedEntity = true
-                }
-                guard let fetchComponents = fetchEntityComponents[fetchEntity.id] else {
-                    return
-                }
-                process(fetchComponents)
-            } catch {
-                print("Error fetching client data \(error)")
-            }
+            try await entityComponentManager.publish()
         }
     }
 
-    func process(_ fetchComponents: [Component]) {
-        fetchComponents.forEach { fetchComponent in
-            var isSameType = false
-            for component in components {
-                if ComponentType(type(of: fetchComponent)) == ComponentType(type(of: component)) {
-                    isSameType = true
-                    component.updateAttributes(fetchComponent)
-                }
-            }
-            if !isSameType {
-                components.append(fetchComponent.changeEntity(to: entity))
-            }
-        }
-    }
+    func render(for entity: Entity) -> (image: Image, position: CGPoint)? {
+        let entityComponents = entityComponentManager.getAllComponents(for: entity)
 
-    func publish() {
-        Task {
-            do {
-                try await manager.uploadEntity(entity: entity, components: components)
-            } catch {
-                print("Error updating client data \(error)")
-            }
-        }
-    }
-
-    // Only update values that changed
-    func updateViews() {
-        objectWillChange.send()
-    }
-
-//    func entityHasRigidAndSprite() -> (sprite: Sprite, position: CGPoint)? {
-//        guard let rigidbody = components.first(where: { $0 is Collider }) as? Collider,
-//              let sprite = components.first(where: { $0 is Sprite }) as? Sprite else {
-//            return nil
-//        }
-//        return (sprite: sprite, position: rigidbody.colliderShape.center.get())
-//    }
-    
-    func getComponents() -> [Component] {
-        return components
-    }
-    
-    func entityHealthComponent() -> Health? {
-        guard let health = components.first(where: { $0 is Health }) as? Health else {
+        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
+              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
             return nil
         }
-        return health
+        return (image: Image(sprite.image), position: rigidbody.position.get())
+    }
+}
+
+extension ClientViewModel {
+    func activateSkill(forEntity entity: Entity, skillId: String) {
+        let entityId = entity.id
+        guard let components = entityComponentManager.entityComponentMap[entityId] else {
+            return
+        }
+        for component in components {
+            if let skillCaster = component as? SkillCaster {
+                skillCaster.queueSkillActivation(skillId)
+            }
+        }
+        Task {
+            try await entityComponentManager.publish()
+        }
+    }
+
+    func getSkillIds(for entity: Entity) -> [String] {
+        let entityId = entity.id
+        guard let components = entityComponentManager.entityComponentMap[entityId] else {
+            return []
+        }
+        for component in components {
+            if let skillCaster = component as? SkillCaster {
+                let skillCasterIds = skillCaster.skills.keys
+                return Array(skillCasterIds)
+            }
+        }
+        return []
+    }
+
+    func getSkills(for entity: Entity) -> [Dictionary<SkillID, any Skill>.Element] {
+        let entityId = entity.id
+        guard let components = entityComponentManager.entityComponentMap[entityId] else {
+            return []
+        }
+        for component in components {
+            if let skillCaster = component as? SkillCaster {
+                let skills = skillCaster.skills
+                return Array(skills)
+            }
+        }
+        return []
+    }
+
+    func getSkillCooldowns(for entity: Entity) -> Dictionary<SkillID, TimeInterval> {
+        let entityId = entity.id
+        guard let components = entityComponentManager.entityComponentMap[entityId] else {
+            return [:]
+        }
+        for component in components {
+            if let skillCaster = component as? SkillCaster {
+                let skillsCooldown = skillCaster.skillCooldowns
+                return skillsCooldown
+            }
+        }
+        return [:]
     }
 }

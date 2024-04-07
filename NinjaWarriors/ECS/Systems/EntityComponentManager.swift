@@ -20,8 +20,9 @@ class EntityComponentManager {
     var newComponentMap: [ComponentType: Set<Component>] = [:]
 
     private var isListening = false
-    private var isDone: Bool = false
-    private var queue = EventQueue(label: "entityComponentMapQueue")
+    private var mapQueue = EventQueue(label: "entityComponentMapQueue")
+    private var newMapQueue = EventQueue(label: "newEntityComponentMapQueue")
+    private var observers = [EntityComponentManagerObserver]()
 
     var manager: EntitiesManager
 
@@ -48,8 +49,9 @@ class EntityComponentManager {
         print("start listening")
         manager.addEntitiesListener { snapshot in
             //print("snap shot received")
-            self.queue.async {
+            self.mapQueue.async {
                 self.populate()
+                self.notifyObservers()
             }
         }
     }
@@ -59,7 +61,23 @@ class EntityComponentManager {
         isListening = false
     }
 
-    // No queue needed for intial population
+    func addObserver(_ observer: EntityComponentManagerObserver) {
+            observers.append(observer)
+        }
+
+        func removeObserver(_ observer: EntityComponentManagerObserver) {
+            if let index = observers.firstIndex(where: { $0 === observer }) {
+                observers.remove(at: index)
+            }
+        }
+
+        private func notifyObservers() {
+            for observer in observers {
+                observer.entityComponentManagerDidUpdate()
+            }
+        }
+
+    // No mapQueue needed for intial population
     func initialPopulate() {
         Task {
             (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
@@ -76,7 +94,27 @@ class EntityComponentManager {
                 startListening()
                 isListening = true
             }
+        }
+    }
 
+
+    func intialPopulateWithCompletion(completion: @escaping () -> Void) {
+        Task {
+            do {
+                // newEntity is needed due to unowned reference although a warning is shown
+                let (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
+
+                for (entityId, components) in newEntityComponentMap {
+                    for component in components {
+                        newEntityMap[entityId] = component.entity
+                    }
+                }
+                addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
+                startListening()
+                completion()
+            } catch {
+                print("Error: \(error)")
+            }
         }
     }
 
@@ -85,12 +123,14 @@ class EntityComponentManager {
         Task {
             (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
             for entity in newEntity {
-                guard !queue.contains(entity) else {
+                guard !mapQueue.contains(entity) else {
                     continue
                 }
-                newEntityMap[entity.id] = entity
+                newMapQueue.sync {
+                    newEntityMap[entity.id] = entity
+                }
             }
-            queue.sync {
+            mapQueue.sync {
                 addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
             }
         }
@@ -99,21 +139,21 @@ class EntityComponentManager {
     func addEntitiesFromNewMap(_ newEntityMap: [EntityID: Entity],
                                _ newEntityComponentMap: [EntityID: [Component]]) {
         for (newEntityId, newEntity) in newEntityMap {
-            if let newComponents = newEntityComponentMap[newEntityId] {
-                add(entity: newEntity, components: newComponents)
-            } else {
-                add(entity: newEntity)
-            }
+                if let newComponents = newEntityComponentMap[newEntityId] {
+                    add(entity: newEntity, components: newComponents)
+                } else {
+                    add(entity: newEntity)
+                }
         }
     }
 
     func publish() async throws {
         for (entityId, entity) in entityMap {
-            guard !queue.contains(entity) else {
+            guard !mapQueue.contains(entity) else {
                 continue
             }
             var entityComponents: Set<Component> = []
-            queue.sync {
+            mapQueue.sync {
                 guard let components = entityComponentMap[entityId] else {
                     return
                 }
@@ -212,14 +252,13 @@ class EntityComponentManager {
         if !isRemoved {
             manager.delete(entity: entity)
         }
-        isDone = true
-        queue.process(entity)
+        mapQueue.process(entity)
         print("removed", entityMap, entityComponentMap)
         assertRepresentation()
     }
 
     func getEntityId(from component: Component) -> EntityID? {
-        self.queue.sync {
+        self.mapQueue.sync {
             for (entityID, components) in entityComponentMap {
                 if components.contains(component) {
                     return entityID
@@ -299,7 +338,7 @@ class EntityComponentManager {
 
     func getComponent<T: Component>(ofType type: T.Type, for entity: Entity) -> T? {
         var result: T?
-        queue.sync {
+        mapQueue.sync {
             guard let entityComponents = entityComponentMap[entity.id] else {
                 return
             }
@@ -315,7 +354,7 @@ class EntityComponentManager {
 
     func getAllComponents(for entity: Entity) -> [Component] {
         var result: [Component] = []
-        queue.sync {
+        mapQueue.sync {
             if let components = entityComponentMap[entity.id] {
                 result = Array(components)
             }
@@ -371,7 +410,7 @@ class EntityComponentManager {
     }
 
     func getAllEntities() -> [Entity] {
-        for deletedEntity in queue.deletedEntities {
+        for deletedEntity in mapQueue.deletedEntities {
             entityMap[deletedEntity] = nil
         }
         return Array(entityMap.values)

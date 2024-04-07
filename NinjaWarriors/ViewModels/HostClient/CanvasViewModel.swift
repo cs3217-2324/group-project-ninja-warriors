@@ -5,12 +5,11 @@
 //  Created by Muhammad Reyaaz on 15/3/24.
 //
 
-// TODO: Rename to HostViewModel once merge. Leave it for now so that merge will not be too messy
 import Foundation
 import SwiftUI
 
 @MainActor
-final class CanvasViewModel: HostClientProtocol {
+final class CanvasViewModel: ObservableObject {
     var gameWorld: GameWorld
     internal var entities: [Entity] = []
     internal var matchId: String
