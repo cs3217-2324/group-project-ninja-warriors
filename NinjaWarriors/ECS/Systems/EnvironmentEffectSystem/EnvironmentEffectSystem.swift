@@ -19,7 +19,7 @@ class EnvironmentEffectSystem: System {
 
         for effect in effects {
             applyEffect(effect, after: time)
-//            changeEffectShape(effect)
+            changeEffectShape(effect, after: time)
         }
     }
 
@@ -42,11 +42,20 @@ class EnvironmentEffectSystem: System {
         }
     }
 
-    func changeEffectShape(_ effect: EnvironmentEffect) {
-        //TODO: don't hardcode this, also direct mutation is abit icky
+    func changeEffectShape(_ effect: EnvironmentEffect, after time: TimeInterval) {
         guard let effectShape = effect.environmentShape as? CircleShape else {
             return
         }
-        effectShape.halfLength -= 1
+
+        let oldRadius = effectShape.halfLength
+        guard oldRadius > Constants.closingZoneMinimumSize else {
+            return
+        }
+
+        let radiusChange = time * Constants.closingZoneRadiusShrinkagePerSecond
+        let newRadius = oldRadius - radiusChange
+        print("Shrinking from \(oldRadius) to \(newRadius)")
+        let newShape = CircleShape(center: effectShape.center, radius: newRadius)
+        effect.updateShape(newShape)
     }
 }
