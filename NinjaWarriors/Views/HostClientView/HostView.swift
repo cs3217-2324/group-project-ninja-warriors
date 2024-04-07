@@ -1,5 +1,5 @@
 //
-//  CanvasView.swift
+//  HostView.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 15/3/24.
@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct CanvasView: View {
-    @ObservedObject var viewModel: CanvasViewModel
+struct HostView: View {
+    @ObservedObject var viewModel: HostViewModel
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
@@ -17,7 +17,7 @@ struct CanvasView: View {
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        self.viewModel = HostViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
     var body: some View {
@@ -71,8 +71,8 @@ struct CanvasView: View {
     }
 }
 
-struct CanvasView_Previews: PreviewProvider {
+struct HostView_Previews: PreviewProvider {
     static var previews: some View {
-        CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+        HostView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
     }
 }

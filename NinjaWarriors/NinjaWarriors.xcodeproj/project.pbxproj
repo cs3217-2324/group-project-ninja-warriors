@@ -89,8 +89,8 @@
 		916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAB2BA3FD4800319C26 /* LineWrapper.swift */; };
 		916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */; };
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
-		916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB12BA42F7F00319C26 /* CanvasView.swift */; };
-		916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */; };
+		916A7DB22BA42F7F00319C26 /* HostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB12BA42F7F00319C26 /* HostView.swift */; };
+		916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* HostViewModel.swift */; };
 		9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* TriangleShape.swift */; };
 		9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* RectangleShape.swift */; };
 		9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */; };
@@ -257,8 +257,8 @@
 		916A7DAB2BA3FD4800319C26 /* LineWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineWrapper.swift; sourceTree = "<group>"; };
 		916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorWrapper.swift; sourceTree = "<group>"; };
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
-		916A7DB12BA42F7F00319C26 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
-		916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
+		916A7DB12BA42F7F00319C26 /* HostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostView.swift; sourceTree = "<group>"; };
+		916A7DB32BA42F8B00319C26 /* HostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostViewModel.swift; sourceTree = "<group>"; };
 		9180F9C52BAAE53F000CC390 /* TriangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleShape.swift; sourceTree = "<group>"; };
 		9180F9C72BAAE54A000CC390 /* RectangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleShape.swift; sourceTree = "<group>"; };
 		9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNonce.swift; sourceTree = "<group>"; };
@@ -372,6 +372,15 @@
 				7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */,
 			);
 			path = ECSTests;
+			sourceTree = "<group>";
+		};
+		91038D142BC237D200F08D4A /* HostClientView */ = {
+			isa = PBXGroup;
+			children = (
+				916A7DB12BA42F7F00319C26 /* HostView.swift */,
+				915BFD1A2BC149A000AB5815 /* ClientView.swift */,
+			);
+			path = HostClientView;
 			sourceTree = "<group>";
 		};
 		9132AF602BA50E46000F2AC4 /* PhysicsSystem */ = {
@@ -489,15 +498,15 @@
 			path = GameControl;
 			sourceTree = "<group>";
 		};
-		915BFD152BC1200F00AB5815 /* HostClient */ = {
+		915BFD152BC1200F00AB5815 /* HostClientViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */,
+				916A7DB32BA42F8B00319C26 /* HostViewModel.swift */,
 				915BFD132BC1200600AB5815 /* ClientViewModel.swift */,
 				915BFD162BC122D000AB5815 /* HostClientViewModel.swift */,
 				915BFD1C2BC2303800AB5815 /* EntityComponentManagerObserver.swift */,
 			);
-			path = HostClient;
+			path = HostClientViewModels;
 			sourceTree = "<group>";
 		};
 		916A7D2D2BA1541700319C26 = {
@@ -602,12 +611,11 @@
 		916A7D872BA19F4200319C26 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				91038D142BC237D200F08D4A /* HostClientView */,
 				E6D6BD062BC1C1B3004BFD59 /* EntityView.swift */,
 				916A7D882BA19F5100319C26 /* AuthenticationView.swift */,
 				916A7D8A2BA1A0D400319C26 /* SignInView.swift */,
 				9132AF672BA53E54000F2AC4 /* LobbyView.swift */,
-				916A7DB12BA42F7F00319C26 /* CanvasView.swift */,
-				915BFD1A2BC149A000AB5815 /* ClientView.swift */,
 				9132AF902BA83E54000F2AC4 /* JoystickView.swift */,
 				E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */,
 				E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */,
@@ -619,7 +627,7 @@
 			isa = PBXGroup;
 			children = (
 				E6D6BD0C2BC1C1F4004BFD59 /* EntityViewModel.swift */,
-				915BFD152BC1200F00AB5815 /* HostClient */,
+				915BFD152BC1200F00AB5815 /* HostClientViewModels */,
 				915301C02BAE9314007F2A12 /* GameControl */,
 				916A7D8D2BA1A1C500319C26 /* SignInViewModel.swift */,
 				9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */,
@@ -1117,7 +1125,7 @@
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
 				E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
-				916A7DB22BA42F7F00319C26 /* CanvasView.swift in Sources */,
+				916A7DB22BA42F7F00319C26 /* HostView.swift in Sources */,
 				91CC28382BBA832A009318C7 /* ScoreWrapper.swift in Sources */,
 				915301B22BAD1ADA007F2A12 /* Rigidbody.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
@@ -1173,7 +1181,7 @@
 				915301B52BAD1E85007F2A12 /* Collider.swift in Sources */,
 				91DDE66D2BB7C3DA00851603 /* HealthSystem.swift in Sources */,
 				9136A5BA2BAA8B3900197971 /* TransformHandler.swift in Sources */,
-				916A7DB42BA42F8B00319C26 /* CanvasViewModel.swift in Sources */,
+				916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */,
 				916A7D952BA1AB2A00319C26 /* User.swift in Sources */,
 				916A7D892BA19F5100319C26 /* AuthenticationView.swift in Sources */,
 				714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */,

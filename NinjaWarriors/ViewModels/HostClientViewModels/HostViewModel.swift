@@ -1,5 +1,5 @@
 //
-//  CanvasViewModel.swift
+//  HostViewModel.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 15/3/24.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class CanvasViewModel: ObservableObject {
+final class HostViewModel: ObservableObject {
     var gameWorld: GameWorld
     internal var entities: [Entity] = []
     internal var matchId: String
@@ -60,7 +60,7 @@ final class CanvasViewModel: ObservableObject {
     }
 }
 
-extension CanvasViewModel {
+extension HostViewModel {
     func activateSkill(forEntity entity: Entity, skillId: String) {
         let entityId = entity.id
         guard let skillCasterComponent = gameWorld.entityComponentManager
@@ -68,7 +68,7 @@ extension CanvasViewModel {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }
-//        print("[CanvasViewModel] \(skillId) queued for activation")
+//        print("[HostViewModel] \(skillId) queued for activation")
         skillCasterComponent.queueSkillActivation(skillId)
     }
 
