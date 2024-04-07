@@ -9,11 +9,11 @@ import Foundation
 
 class Health: Component {
     var entityInflictDamageMap: [EntityID: Bool]
-    var health: Int
-    var maxHealth: Int
+    var health: Double
+    var maxHealth: Double
 
     init(id: ComponentID, entity: Entity, entityInflictDamageMap: [EntityID: Bool],
-         health: Int, maxHealth: Int) {
+         health: Double, maxHealth: Double) {
         self.entityInflictDamageMap = entityInflictDamageMap
         self.health = health
         self.maxHealth = maxHealth
