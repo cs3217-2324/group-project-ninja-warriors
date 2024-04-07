@@ -24,7 +24,8 @@ class CircleShape: Shape {
     }
 
     override func contains(point: Point) -> Bool {
-        return center.distance(to: point) <= halfLength
+        let distance = center.distance(to: point) <= halfLength
+        return distance
     }
 
     override func deepCopy() -> Shape {

@@ -23,6 +23,7 @@ struct HostView: View {
     var body: some View {
         ZStack {
             backgroundImage
+            closingZoneView
             canvasView
         }
         .onAppear {
@@ -68,6 +69,10 @@ struct HostView: View {
             .zIndex(-1)
             .opacity(isShowingEntityOverlay ? 1 : 0)
         }
+    }
+
+    private var closingZoneView: some View {
+        ClosingZoneView(circleCenter: viewModel.closingZoneCenter, circleRadius: viewModel.closingZoneRadius)
     }
 }
 

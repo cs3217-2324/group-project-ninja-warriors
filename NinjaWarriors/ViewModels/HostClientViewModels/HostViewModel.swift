@@ -58,16 +58,6 @@ final class HostViewModel: ObservableObject {
         
         return entityComponents
     }
-
-    func closingZone() -> (center: CGPoint, radius: CGFloat)? {
-        let environmentalEffects = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
-        guard let closingZoneShape = environmentalEffects.first?.environmentShape else {
-            return nil
-        }
-
-        let radius = CGFloat(closingZoneShape.halfLength)
-        return (center: closingZoneShape.center.get(), radius: radius)
-    }
 }
 
 extension HostViewModel {
@@ -119,5 +109,26 @@ extension HostViewModel {
         } else {
             return [:]
         }
+    }
+}
+
+extension HostViewModel {
+    private var closingZoneShape: Shape? {
+        let environmentalEffectComponents = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
+        return environmentalEffectComponents.first?.environmentShape
+    }
+
+    var closingZoneCenter: CGPoint {
+        guard let shape = closingZoneShape else {
+            return .zero
+        }
+        return CGPoint(x: shape.center.xCoord, y: shape.center.yCoord)
+    }
+
+    var closingZoneRadius: CGFloat {
+        guard let shape = closingZoneShape else {
+            return 100000 // So no gas cloud at all
+        }
+        return shape.halfLength
     }
 }

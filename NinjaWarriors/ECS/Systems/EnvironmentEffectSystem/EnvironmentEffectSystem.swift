@@ -18,17 +18,17 @@ class EnvironmentEffectSystem: System {
         let effects = manager.getAllComponents(ofType: EnvironmentEffect.self)
 
         for effect in effects {
-            applyEffect(effect)
-            changeEffectShape(effect)
+            applyEffect(effect, after: time)
+//            changeEffectShape(effect)
         }
     }
 
-    func applyEffect(_ effect: EnvironmentEffect) {
+    func applyEffect(_ effect: EnvironmentEffect, after time: TimeInterval) {
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
         let rigidBodiesWithEffect = rigidBodies.filter { rigidBody in
             effect.effectShouldApplyOn(point: rigidBody.position)
         }
-        let affectedEntities = rigidBodies.map { rigidBody in
+        let affectedEntities = rigidBodiesWithEffect.map { rigidBody in
             rigidBody.entity
         }
         let affectedHealthComponents = affectedEntities.compactMap { entity in
@@ -36,8 +36,8 @@ class EnvironmentEffectSystem: System {
         }
 
         for health in affectedHealthComponents {
-            health.health -= 5
-            print("reduce health by closing zone: \(health.health) / 100")
+            let healthChange = Constants.closingZoneDPS * time
+            print("reduce health by closing zone: \(healthChange) / 100")
         }
     }
 
