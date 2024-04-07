@@ -46,4 +46,5 @@ struct Constants {
     static var closingZoneRadius: Double { screenHeight / 2.5 }
     static var closingZoneDPS: Double = 1.0
     static var closingZoneRadiusShrinkagePerSecond: Double = 10.0
+    static var closingZoneMinimumSize: Double = 50.0
 }

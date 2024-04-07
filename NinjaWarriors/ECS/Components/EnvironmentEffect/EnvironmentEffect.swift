@@ -26,11 +26,15 @@ class EnvironmentEffect: Component {
         }
     }
 
+    func updateShape(_ newShape: Shape) {
+        self.environmentShape.updateAttributes(newShape)
+    }
+
     override func updateAttributes(_ newEnvironmentEffect: Component) {
         guard let newEnvironmentEffect = newEnvironmentEffect as? EnvironmentEffect else {
             return
         }
-        self.environmentShape.updateAttributes(newEnvironmentEffect.environmentShape)
+        updateShape(newEnvironmentEffect.environmentShape)
         self.effectIsActiveInsideShape = newEnvironmentEffect.effectIsActiveInsideShape
     }
 
