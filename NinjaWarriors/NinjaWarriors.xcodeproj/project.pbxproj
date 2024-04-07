@@ -12,6 +12,7 @@
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
+		714F20972BC27FF800A5B36E /* HostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714F20962BC27FF800A5B36E /* HostView.swift */; };
 		7181B1462BC03ECD009711DE /* EnvironmentEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B1452BC03ECD009711DE /* EnvironmentEffect.swift */; };
 		7181B1482BC0404A009711DE /* EnvironmentEffectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B1472BC0404A009711DE /* EnvironmentEffectWrapper.swift */; };
 		7181B14A2BC046F6009711DE /* ClosingZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B1492BC046F6009711DE /* ClosingZone.swift */; };
@@ -94,7 +95,6 @@
 		916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAB2BA3FD4800319C26 /* LineWrapper.swift */; };
 		916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */; };
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
-		916A7DB22BA42F7F00319C26 /* HostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB12BA42F7F00319C26 /* HostView.swift */; };
 		916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* HostViewModel.swift */; };
 		9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* TriangleShape.swift */; };
 		9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* RectangleShape.swift */; };
@@ -189,6 +189,7 @@
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
+		714F20962BC27FF800A5B36E /* HostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostView.swift; sourceTree = "<group>"; };
 		7181B1452BC03ECD009711DE /* EnvironmentEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentEffect.swift; sourceTree = "<group>"; };
 		7181B1472BC0404A009711DE /* EnvironmentEffectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentEffectWrapper.swift; sourceTree = "<group>"; };
 		7181B1492BC046F6009711DE /* ClosingZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingZone.swift; sourceTree = "<group>"; };
@@ -267,7 +268,6 @@
 		916A7DAB2BA3FD4800319C26 /* LineWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineWrapper.swift; sourceTree = "<group>"; };
 		916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorWrapper.swift; sourceTree = "<group>"; };
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
-		916A7DB12BA42F7F00319C26 /* HostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostView.swift; sourceTree = "<group>"; };
 		916A7DB32BA42F8B00319C26 /* HostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostViewModel.swift; sourceTree = "<group>"; };
 		9180F9C52BAAE53F000CC390 /* TriangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleShape.swift; sourceTree = "<group>"; };
 		9180F9C72BAAE54A000CC390 /* RectangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleShape.swift; sourceTree = "<group>"; };
@@ -413,7 +413,7 @@
 		91038D142BC237D200F08D4A /* HostClientView */ = {
 			isa = PBXGroup;
 			children = (
-				916A7DB12BA42F7F00319C26 /* HostView.swift */,
+				714F20962BC27FF800A5B36E /* HostView.swift */,
 				915BFD1A2BC149A000AB5815 /* ClientView.swift */,
 			);
 			path = HostClientView;
@@ -653,7 +653,6 @@
 				E6D6BD062BC1C1B3004BFD59 /* EntityView.swift */,
 				916A7D882BA19F5100319C26 /* AuthenticationView.swift */,
 				916A7D8A2BA1A0D400319C26 /* SignInView.swift */,
-				916A7DB12BA42F7F00319C26 /* CanvasView.swift */,
 				7181B1522BC07A90009711DE /* ClosingZoneView.swift */,
 				9132AF672BA53E54000F2AC4 /* LobbyView.swift */,
 				9132AF902BA83E54000F2AC4 /* JoystickView.swift */,
@@ -1165,7 +1164,6 @@
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
 				E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
-				916A7DB22BA42F7F00319C26 /* HostView.swift in Sources */,
 				91CC28382BBA832A009318C7 /* ScoreWrapper.swift in Sources */,
 				915301B22BAD1ADA007F2A12 /* Rigidbody.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
@@ -1258,6 +1256,7 @@
 				9132AF682BA53E54000F2AC4 /* LobbyView.swift in Sources */,
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
 				E6B503EB2BC112AF00B9565E /* AttackStrategy.swift in Sources */,
+				714F20972BC27FF800A5B36E /* HostView.swift in Sources */,
 				91C65BE72BACF1BF0085D96F /* SkillCaster.swift in Sources */,
 				E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */,
 				915301C22BAE9327007F2A12 /* GameControl.swift in Sources */,
