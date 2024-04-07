@@ -8,8 +8,7 @@
 import Foundation
 class SlashAOESkill: EntitySpawnerSkill {
     var id: SkillID
-    private var cooldownDuration: TimeInterval
-    var cooldownRemaining: TimeInterval = 0
+    var cooldownDuration: TimeInterval
 
     required init(id: SkillID) {
         self.id = id
@@ -18,37 +17,49 @@ class SlashAOESkill: EntitySpawnerSkill {
 
     convenience init(id: SkillID, cooldownDuration: TimeInterval) {
         self.init(id: id)
-        // self.id = id
         self.cooldownDuration = cooldownDuration
-    }
-
-    func isOnCooldown() -> Bool {
-       return cooldownRemaining > 0
-    }
-    
-    func resetCooldown() {
-        cooldownRemaining = 0
-    }
-
-    func decrementCooldown(deltaTime: TimeInterval) {
-       cooldownRemaining = max(0, cooldownRemaining - deltaTime)
     }
 
     func activate(from entity: Entity, in manager: EntityComponentManager) {
        _ = spawnEntity(from: entity, in: manager)
-       cooldownRemaining = cooldownDuration
     }
 
     func updateAttributes(_ newSlashAOESkill: SlashAOESkill) {
         self.id = newSlashAOESkill.id
         self.cooldownDuration = newSlashAOESkill.cooldownDuration
-        self.cooldownRemaining = newSlashAOESkill.cooldownRemaining
     }
 
     func spawnEntity(from casterEntity: Entity, in manager: EntityComponentManager) -> Entity {
         print("[SlashAOESkill] Activated by \(casterEntity)")
+
         let slashAOE = SlashAOE(id: RandomNonce().randomNonceString(), casterEntity: casterEntity)
-        manager.add(entity: slashAOE, isAdded: false)
+
+        guard let playerRigidbody = manager.getComponent(ofType: Rigidbody.self, for: casterEntity) else {
+            print("[SlashAOESkill] No player rigidbody found")
+            return slashAOE
+        }
+
+        let shape = Shape(center: playerRigidbody.position, halfLength: Constants.defaultSize)
+        let rigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: slashAOE,
+                                  angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
+                                  rotation: playerRigidbody.rotation, totalForce: Vector.zero, inertia: 0.0,
+                                  position: shape.center, velocity: Vector.zero)
+
+        let spriteComponent = Sprite(id: RandomNonce().randomNonceString(),
+                                     entity: slashAOE, image: "slash-effect", width: Constants.slashRadius * 2,
+                                     height: Constants.slashRadius * 2, health: 10, maxHealth: 100)
+
+        let meleeAttackStrategy = MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius)
+        let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: slashAOE, attackStrategy: meleeAttackStrategy, damage: Constants.slashDamage)
+
+        let lifespanComponent = Lifespan(id: RandomNonce().randomNonceString(), entity: slashAOE, lifespan: 1)
+
+        manager.add(entity: slashAOE, components: [rigidbody, spriteComponent, attackComponent, lifespanComponent], isAdded: false)
+
         return slashAOE
+    }
+    
+    func wrapper() -> SkillWrapper {
+        return SkillWrapper(id: id, type: "SlashAOESkill", cooldownDuration: cooldownDuration)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CanvasViewModel.swift
+//  HostViewModel.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 15/3/24.
@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class CanvasViewModel: ObservableObject {
+final class HostViewModel: ObservableObject {
     var gameWorld: GameWorld
-    private(set) var entities: [Entity] = []
-    private(set) var matchId: String
-    private(set) var currPlayerId: String
+    internal var entities: [Entity] = []
+    internal var matchId: String
+    internal var currPlayerId: String
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -28,13 +28,13 @@ final class CanvasViewModel: ObservableObject {
     }
 
     func updateViewModel() async {
-        updateEntities()
-        updateViews()
         do {
             try await gameWorld.entityComponentManager.publish()
         } catch {
             print("Error publishing updated state: \(error)")
         }
+        updateEntities()
+        updateViews()
     }
 
     func updateEntities() {
@@ -53,14 +53,10 @@ final class CanvasViewModel: ObservableObject {
         return nil
     }
 
-    func entityHasRigidAndSprite(for entity: Entity) -> (image: Image, position: CGPoint)? {
+    func getComponents(for entity: Entity) -> [Component] {
         let entityComponents = gameWorld.entityComponentManager.getAllComponents(for: entity)
-
-        guard let rigidbody = entityComponents.first(where: { $0 is Collider }) as? Collider,
-              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
-            return nil
-        }
-        return (image: Image(sprite.image), position: rigidbody.colliderShape.center.get())
+        
+        return entityComponents
     }
 
     func closingZone() -> (center: CGPoint, radius: CGFloat)? {
@@ -74,7 +70,7 @@ final class CanvasViewModel: ObservableObject {
     }
 }
 
-extension CanvasViewModel {
+extension HostViewModel {
     func activateSkill(forEntity entity: Entity, skillId: String) {
         let entityId = entity.id
         guard let skillCasterComponent = gameWorld.entityComponentManager
@@ -82,7 +78,7 @@ extension CanvasViewModel {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }
-//        print("[CanvasViewModel] \(skillId) queued for activation")
+//        print("[HostViewModel] \(skillId) queued for activation")
         skillCasterComponent.queueSkillActivation(skillId)
     }
 
@@ -105,10 +101,23 @@ extension CanvasViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skills = skillCaster?.skills {
-            print("skills", skills)
+//            print("skills", skills)
             return Array(skills)
         } else {
             return []
+        }
+    }
+    
+    func getSkillCooldowns(for entity: Entity) -> Dictionary<SkillID, TimeInterval> {
+        let entityId = entity.id
+        let skillCaster = gameWorld.entityComponentManager
+            .getComponentFromId(ofType: SkillCaster.self, of: entityId)
+
+        if let skillCooldowns = skillCaster?.skillCooldowns {
+//            print("skillsCds", skillCooldowns)
+            return skillCooldowns
+        } else {
+            return [:]
         }
     }
 }

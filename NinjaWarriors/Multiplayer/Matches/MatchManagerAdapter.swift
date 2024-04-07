@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+// TODO: Fix unready crash
 final class MatchManagerAdapter: MatchManager {
     private let collection = "matches"
     private let countLabel = "count"
@@ -117,10 +118,10 @@ final class MatchManagerAdapter: MatchManager {
     func removePlayerFromMatch(playerId: String, matchId: String) async {
         let matchRef = matches.document(matchId)
         do {
-            //_ = try await Firestore.firestore().runTransaction({ [unowned self] (transaction, errorPointer) -> Any? in
+            _ = try await Firestore.firestore().runTransaction({ [unowned self] (transaction, errorPointer) -> Any? in
 
-            _ = try await Firestore.firestore().runTransaction({ [weak self] (transaction, errorPointer) -> Any? in
-                guard let self = self else { return }
+            //_ = try await Firestore.firestore().runTransaction({ [weak self] (transaction, errorPointer) -> Any? in
+                //guard let self = self else { return }
                 do {
                     let matchDocument = try transaction.getDocument(matchRef)
                     guard var matchData = matchDocument.data(),

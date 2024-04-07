@@ -15,19 +15,11 @@ struct NinjaWarriorsApp: App {
     var body: some Scene {
         WindowGroup {
             // TODO: Remove after testing
-            //CanvasView(matchId: "2d1NvyaH3GKGtGOLUwHV", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
-            //CanvasView(matchId: "tzuR0EhuCp2jg4X0LRK9", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //HostView(matchId: "5NjVOKbhQrXDnlcmeVpE", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
+            //ClientView(matchId: "5NjVOKbhQrXDnlcmeVpE", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
-            //CanvasView(matchId: "QVpQ1w5keumvmbPu5u5s", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-
-            
-            //CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            //CanvasView(matchId: "5YDCcayYXncRuYP6ngYB", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-
-            //CanvasView(matchId: "PkRyBoW0zgNTF9ktPb3d", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            //CanvasView(matchId: "9GhnqE6FqN1tn4C27Wh4, currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
             AuthenticationView()
         }
     }

@@ -14,10 +14,8 @@
             filePath = "ECS/Components/Rigidbody/Rigidbody.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "wrapper()"
-            landmarkType = "7">
+            startingLineNumber = "141"
+            endingLineNumber = "141">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -31,6 +29,54 @@
             breakpointStackSelectionBehavior = "1"
             scope = "0"
             stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9759D438-CE0A-4503-8C01-2377C609E517"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ECS/Systems/EntityComponentManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
+            landmarkName = "remove(entity:isRemoved:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9759D438-CE0A-4503-8C01-2377C609E517 - 51f2dfcea7ba76ae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "default argument 1 of NinjaWarriors.EntityComponentManager.remove(entity: NinjaWarriors.Entity, isRemoved: Swift.Bool) -&gt; ()"
+                  moduleName = "NinjaWarriors"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muhammadreyaaz/Desktop/CS3217/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/EntityComponentManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  uuid = "9759D438-CE0A-4503-8C01-2377C609E517 - 82bf0692414a1c27"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NinjaWarriors.EntityComponentManager.remove(entity: NinjaWarriors.Entity, isRemoved: Swift.Bool) -&gt; ()"
+                  moduleName = "NinjaWarriors"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/muhammadreyaaz/Desktop/CS3217/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/EntityComponentManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "202"
+                  endingLineNumber = "202"
+                  offsetFromSymbolStart = "76">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

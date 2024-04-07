@@ -48,10 +48,14 @@ class Collider: Component {
         guard let newCollider = newCollider as? Collider else {
             return
         }
-        self.colliderShape.updateAttributes(newCollider.colliderShape)
+        //self.colliderShape.updateAttributes(newCollider.colliderShape)
         self.collidedEntities = newCollider.collidedEntities
         self.isColliding = newCollider.isColliding
         self.isOutOfBounds = newCollider.isOutOfBounds
+    }
+
+    override func changeEntity(to entity: Entity) -> Component {
+        Collider(id: self.id, entity: entity, colliderShape: self.colliderShape, collidedEntities: self.collidedEntities, isColliding: self.isColliding, isOutOfBounds: self.isOutOfBounds)
     }
 
     override func wrapper() -> ComponentWrapper? {
@@ -62,6 +66,7 @@ class Collider: Component {
         return ColliderWrapper(id: id, entity: entityWrapper,
                                colliderShape: colliderShape.wrapper(),
                                collidedEntities: collidedEntities,
-                               isColliding: isColliding, isOutOfBounds: isOutOfBounds)
+                               isColliding: isColliding, isOutOfBounds: isOutOfBounds,
+                               wrapperType: NSStringFromClass(type(of: entityWrapper)))
     }
 }

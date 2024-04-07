@@ -9,45 +9,41 @@ import Foundation
 
 class DodgeSkill: SelfModifyingSkill {
     var id: SkillID
-    private var cooldownDuration: TimeInterval
-    var cooldownRemaining: TimeInterval = 0
-    private var invulnerabilityDuration: TimeInterval = 1
+    var cooldownDuration: TimeInterval
+    private var invulnerabilityDuration: TimeInterval = 2
 
     required init(id: SkillID) {
         self.id = id
         self.cooldownDuration = 0
     }
-    
+
     convenience init(id: SkillID, cooldownDuration: TimeInterval) {
         self.init(id: id)
         self.cooldownDuration = cooldownDuration
     }
-
-    func isOnCooldown() -> Bool {
-        return cooldownRemaining > 0
-    }
-
-    func decrementCooldown(deltaTime: TimeInterval) {
-        cooldownRemaining = max(0, cooldownRemaining - deltaTime)
-    }
-
-    func resetCooldown() {
-        cooldownRemaining = 0
-    }
     
     func activate(from entity: Entity, in manager: EntityComponentManager) {
         modifySelf(entity, in: manager)
-        cooldownRemaining = cooldownDuration
     }
 
     func updateAttributes(_ newDodgeSkill: DodgeSkill) {
         self.id = newDodgeSkill.id
         self.cooldownDuration = newDodgeSkill.cooldownDuration
-        self.cooldownRemaining = newDodgeSkill.cooldownRemaining
         self.invulnerabilityDuration = newDodgeSkill.invulnerabilityDuration
     }
     
     func modifySelf(_ entity: Entity, in manager: EntityComponentManager) {
-        print("[DodgeSkill] Activated on \(entity), invulnerable for \(invulnerabilityDuration) seconds")
+        if let dodgeComponent = manager.getComponent(ofType: Dodge.self, for: entity) {
+            dodgeComponent.isEnabled = true
+            dodgeComponent.invulnerabilityDuration = self.invulnerabilityDuration
+            dodgeComponent.elapsedTimeSinceEnabled = 0
+        } else {
+            let dodgeComponent = Dodge(id: RandomNonce().randomNonceString(), entity: entity, isEnabled: true, invulnerabilityDuration: self.invulnerabilityDuration)
+            manager.add(entity: entity, components: [dodgeComponent])
+        }
+    }
+
+    func wrapper() -> SkillWrapper {
+        return SkillWrapper(id: id, type: "DodgeSkill", cooldownDuration: cooldownDuration)
     }
 }

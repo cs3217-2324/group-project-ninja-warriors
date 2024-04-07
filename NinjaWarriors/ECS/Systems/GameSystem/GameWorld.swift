@@ -20,15 +20,17 @@ class GameWorld {
         self.entityComponentManager = EntityComponentManager(for: match)
 
         setupGameLoop()
-        
+
         let transformHandler = TransformHandler(for: entityComponentManager)
         let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager, with: gameControl)
         let collisionManager = CollisionManager(for: entityComponentManager)
         let skillsManager = SkillCasterSystem(for: entityComponentManager)
         let healthManager = HealthSystem(for: entityComponentManager)
         let scoreManager = ScoreSystem(for: entityComponentManager)
+        let dodgeManager = DodgeSystem(for: entityComponentManager)
         let destroyManager = DestroySystem(for: entityComponentManager)
         let environmentEffectSystem = EnvironmentEffectSystem(for: entityComponentManager)
+        let lifespanManager = LifespanSystem(for: entityComponentManager)
 
         systemManager.add(system: transformHandler)
         systemManager.add(system: rigidbodyHandler)
@@ -36,8 +38,10 @@ class GameWorld {
         systemManager.add(system: skillsManager)
         systemManager.add(system: healthManager)
         systemManager.add(system: scoreManager)
+        systemManager.add(system: dodgeManager)
         systemManager.add(system: destroyManager)
         systemManager.add(system: environmentEffectSystem)
+        systemManager.add(system: lifespanManager)
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {
@@ -45,9 +49,7 @@ class GameWorld {
     }
 
     private func setupGameLoop() {
-        //gameLoopManager.onUpdate = { [unowned self] deltaTime in
-        gameLoopManager.onUpdate = { [weak self] deltaTime in
-            guard let self = self else { return }
+        gameLoopManager.onUpdate = { [unowned self] deltaTime in
             self.update(deltaTime: deltaTime)
             self.updateViewModel()
         }

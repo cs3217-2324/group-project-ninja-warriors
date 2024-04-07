@@ -29,12 +29,16 @@ class Health: Component {
         self.maxHealth = newHealth.maxHealth
     }
 
+    override func changeEntity(to entity: Entity) -> Component {
+        Health(id: self.id, entity: entity, entityInflictDamageMap: self.entityInflictDamageMap, health: self.health, maxHealth: self.maxHealth)
+    }
+
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
 
         return HealthWrapper(id: id, entity: entityWrapper, entityInflictDamageMap: entityInflictDamageMap,
-                             health: health, maxHealth: maxHealth)
+                             health: health, maxHealth: maxHealth, wrapperType: NSStringFromClass(type(of: entityWrapper)))
     }
 }

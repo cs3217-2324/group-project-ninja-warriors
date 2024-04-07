@@ -16,7 +16,7 @@ struct LobbyView: View {
     var body: some View {
         NavigationView {
             VStack {
-                    Image("player-copy")
+                    Image("player-icon")
                         .resizable()
                         .aspectRatio(contentMode: .fill)
                         .frame(width: 100, height: 100)
@@ -41,7 +41,7 @@ struct LobbyView: View {
                             .hidden()
                             .onAppear {
                                 Task {
-                                    try await viewModel.start()
+                                    await viewModel.start()
                                 }
                             }
                         if let matchId = viewModel.matchId,
@@ -49,19 +49,34 @@ struct LobbyView: View {
                             Text("\(matchId)")
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
-                            NavigationLink(destination:
-                                            CanvasView(matchId: matchId,
-                                                       currPlayerId: signInViewModel.getUserId() ??
-                                                       "none").navigationBarBackButtonHidden(true)) {
-                                Text("START GAME")
-                                    .font(.system(size: 30))
-                                    .padding()
-                                    .background(Color.purple)
-                                    .foregroundColor(.white)
-                                    .fontWeight(.bold)
-                                    .cornerRadius(10)
+
+                            //if signInViewModel.getUserId() != "kn2Ap0BtgChusWyyHZtpV42RxmZ2" {
+                            if signInViewModel.getUserId() == viewModel.hostId {
+                                NavigationLink(
+                                    destination: HostView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
+                                ) {
+                                    Text("START GAME")
+                                        .font(.system(size: 30))
+                                        .padding()
+                                        .background(Color.purple)
+                                        .foregroundColor(.white)
+                                        .fontWeight(.bold)
+                                        .cornerRadius(10)
+                                }
+                            } else {
+                                NavigationLink(
+                                    destination: ClientView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
+                                ) {
+                                    Text("START GAME")
+                                        .font(.system(size: 30))
+                                        .padding()
+                                        .background(Color.purple)
+                                        .foregroundColor(.white)
+                                        .fontWeight(.bold)
+                                        .cornerRadius(10)
+                                }
                             }
-                            .padding()
+                            //.padding()
                         }
                     }
                 }

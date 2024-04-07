@@ -1,30 +1,23 @@
 //
-//  CanvasView.swift
+//  ClientView.swift
 //  NinjaWarriors
 //
-//  Created by Muhammad Reyaaz on 15/3/24.
+//  Created by Muhammad Reyaaz on 6/4/24.
 //
 
 import Foundation
 import SwiftUI
 
-struct CanvasView: View {
-    @ObservedObject var viewModel: CanvasViewModel
+struct ClientView: View {
+    @ObservedObject var viewModel: ClientViewModel
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
 
-    var closingZoneCenter: CGPoint {
-        viewModel.closingZone()?.center ?? .zero
-    }
-    var closingZoneRadius: CGFloat {
-        viewModel.closingZone()?.radius ?? 0
-    }
-
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
     var body: some View {
@@ -34,18 +27,28 @@ struct CanvasView: View {
                 .edgesIgnoringSafeArea(.all)
                 .statusBar(hidden: true)
 
-            ClosingZoneView(circleCenter: closingZoneCenter, circleRadius: closingZoneRadius)
+            ClosingZoneView(circleCenter: viewModel.closingZoneCenter, circleRadius: viewModel.closingZoneRadius)
+
+            ProgressView("Loading...")
+                .onAppear {
+                    viewModel.entityComponentManager.intialPopulateWithCompletion {
+                        DispatchQueue.main.async {
+                            viewModel.updateEntities()
+                        }
+                    }
+                }
 
             ZStack {
                 GeometryReader { geometry in
                     ZStack {
                         ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
-                            if let (render, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
+                            if let (render, pos) = viewModel.render(for: entity) {
                                 render
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 50, height: 50)
                                     .position(pos)
+                                    .animation(.easeOut(duration: 0.2))
                             }
                         }
                     }
@@ -53,13 +56,14 @@ struct CanvasView: View {
                     if let currPlayer = viewModel.getCurrPlayer() {
                         JoystickView(
                             setInputVector: { vector in
-                                viewModel.gameWorld.setInput(vector, for: currPlayer)
+                                viewModel.move(vector)
                             }, location: CGPoint(x: 150, y: geometry.size.height - 300))
                         .frame(width: 200, height: 200)
                         VStack {
                             Spacer()
                             PlayerControlsView(
                                 skills: viewModel.getSkills(for: currPlayer),
+                                skillCooldowns: viewModel.getSkillCooldowns(for: currPlayer),
                                 toggleEntityOverlay: {
                                     isShowingEntityOverlay.toggle()
                                 },
@@ -70,22 +74,17 @@ struct CanvasView: View {
                         }
                     }
                     EntityOverlayView(entities: viewModel.entities,
-                                      componentManager: viewModel.gameWorld.entityComponentManager)
+                                      componentManager: viewModel.entityComponentManager)
                     .zIndex(-1)
                     .opacity(isShowingEntityOverlay ? 1 : 0)
-
-                }
-                .onAppear {
-                    viewModel.gameWorld.entityComponentManager.initialPopulate()
-                    viewModel.updateEntities()
                 }
             }
         }
     }
 }
 
-struct CanvasView_Previews: PreviewProvider {
+struct ClientView_Previews: PreviewProvider {
     static var previews: some View {
-        CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+        ClientView(matchId: "5NjVOKbhQrXDnlcmeVpE", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
     }
 }

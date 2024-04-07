@@ -17,7 +17,12 @@ class EntityWrapper: FactoryWrapper {
     }
 
     open func toEntity() -> Entity? {
-        //return nil
-        Obstacle(id: "1")
+        return nil
     }
 }
+
+/*
+protocol EntityWrapper: Codable {
+    func toEntity() -> Entity?
+}
+*/

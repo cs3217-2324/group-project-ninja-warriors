@@ -90,7 +90,6 @@ class Rigidbody: Component {
                              mass: mass, rotation: rotation, totalForce: totalForce, inertia: inertia,
                              position: position, offset: offset, velocity: velocity)
         }
-
     }
     
     override func updateAttributes(_ newRigidbody: Component) {
@@ -107,7 +106,18 @@ class Rigidbody: Component {
         self.offset.updateAttributes(newRigidbody.offset)
         self.velocity = newRigidbody.velocity
         self.collidingVelocity = newRigidbody.collidingVelocity
-        self.attachedCollider = newRigidbody.attachedCollider
+
+        guard let newAttachedCollider = newRigidbody.attachedCollider else {
+            return
+        }
+        self.attachedCollider?.updateAttributes(newAttachedCollider)
+    }
+
+    override func changeEntity(to entity: Entity) -> Component {
+        Rigidbody(id: self.id, entity: entity, angularDrag: self.angularDrag,
+                  angularVelocity: self.angularVelocity, mass: self.mass, rotation: self.rotation,
+                  totalForce: self.totalForce, inertia: self.inertia, position: self.position,
+                  offset: self.offset, velocity: self.velocity)
     }
 
     override func wrapper() -> ComponentWrapper? {
@@ -120,7 +130,9 @@ class Rigidbody: Component {
                                     angularVelocity: angularVelocity, mass: mass,
                                     rotation: rotation, totalForce: totalForce.wrapper(),
                                     inertia: inertia, position: position.wrapper(),
-                                    offset: offset.wrapper(), velocity: velocity.wrapper(), attachedCollider: colliderWrap)
+                                    offset: offset.wrapper(), velocity: velocity.wrapper(),
+                                    attachedCollider: colliderWrap,
+                                    wrapperType: NSStringFromClass(type(of: entity)))
         } else {
             return nil
         }

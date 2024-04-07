@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PlayerControlsView: View {
     let skills: [Dictionary<SkillID, any Skill>.Element]
+    let skillCooldowns: Dictionary<SkillID, TimeInterval>
     var toggleEntityOverlay: () -> Void
     var activateSkill: (String) -> Void
 
@@ -41,14 +42,14 @@ struct PlayerControlsView: View {
                                     Image("skill-\(key)")
                                         .resizable()
                                         .frame(width: 100, height: 100)
-                                    if value.cooldownRemaining > 0 {
+                                    if skillCooldowns[key] ?? 0.0 > 0 {
                                         Rectangle()
                                             .fill(Color.black.opacity(0.8))
                                             .frame(width: 100, height: 100)
                                     }
                                     
-                                    if value.cooldownRemaining > 0 {
-                                        Text("\(String(format: "%.1f", value.cooldownRemaining))")
+                                    if skillCooldowns[key] ?? 0.0 > 0 {
+                                        Text("\(String(format: "%.1f", skillCooldowns[key] ?? 0.0))")
                                             .font(.system(size: 32, weight: .bold, design: .monospaced))
                                             .foregroundColor(.white)
                                             .textCase(.uppercase)
@@ -62,7 +63,7 @@ struct PlayerControlsView: View {
                 }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: 100)
+        .frame(maxWidth: .infinity)
         .background(Image("player-controls")
             .resizable()
             .aspectRatio(contentMode: .fill)
@@ -77,13 +78,22 @@ struct PlayerControlsView_Previews: PreviewProvider {
                                       entity: Player(id: "1"), skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
                                                              DashSkill(id: "dash", cooldownDuration: 8.0),
                                                              DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                                            RefreshCooldownsSkill(id: "refresh")])
+                                                                        RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
         return Array(skillCaster.skills)
+    }
+    
+    static func mockSkillCooldowns() -> Dictionary<SkillID, TimeInterval> {
+        let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
+                                      entity: Player(id: "1"), skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                                             DashSkill(id: "dash", cooldownDuration: 8.0),
+                                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                                            RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
+        return skillCaster.skillCooldowns
     }
     
     static var previews: some View {
         PlayerControlsView(
-            skills: PlayerControlsView_Previews.mockSkills(),
+            skills: PlayerControlsView_Previews.mockSkills(), skillCooldowns: PlayerControlsView_Previews.mockSkillCooldowns(),
             toggleEntityOverlay: {
                 print("Toggle Entity Overlay")
             },
