@@ -40,10 +40,7 @@ struct EnvironmentEffectWrapper: ComponentWrapper {
         effectIsActiveInsideShape = try container.decode(Bool.self, forKey: AnyCodingKey(stringValue: "effectIsActiveInsideShape"))
     }
 
-    func toComponent() -> Component? {
-        guard let entity = entity.toEntity() else {
-            return nil
-        }
+    func toComponent(entity: Entity) -> Component? {
         let shape = environmentShape.toShape()
         guard let shapeType = NSClassFromString(Constants.directory + environmentShapeType) as? CircleShape.Type else {
             return EnvironmentEffect(id: id, entity: entity, environmentShape: environmentShape.toShape(), effectIsActiveInsideShape: effectIsActiveInsideShape)
