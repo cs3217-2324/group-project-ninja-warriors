@@ -11,11 +11,11 @@ struct HealthWrapper: ComponentWrapper {
     var id: ComponentID
     var entity: EntityWrapper
     var entityInflictDamageMap: [EntityID: Bool] = [:]
-    var health: Int
-    var maxHealth: Int
+    var health: Double
+    var maxHealth: Double
     var wrapperType: String
 
-    init(id: ComponentID, entity: EntityWrapper, entityInflictDamageMap: [EntityID: Bool], health: Int, maxHealth: Int, wrapperType: String) {
+    init(id: ComponentID, entity: EntityWrapper, entityInflictDamageMap: [EntityID: Bool], health: Double, maxHealth: Double, wrapperType: String) {
         self.id = id
         self.entity = entity
         self.entityInflictDamageMap = entityInflictDamageMap
@@ -50,8 +50,8 @@ struct HealthWrapper: ComponentWrapper {
         }
         entity = try container.decode(wrapperClass.self, forKey: AnyCodingKey(stringValue: "entity"))
 
-        health = try container.decode(Int.self, forKey: AnyCodingKey(stringValue: "health"))
-        maxHealth = try container.decode(Int.self, forKey: AnyCodingKey(stringValue: "maxHealth"))
+        health = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "health"))
+        maxHealth = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "maxHealth"))
         do {
             let entityContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
                                                                 forKey: AnyCodingKey(stringValue: "entityInflictDamageMap"))

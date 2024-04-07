@@ -9,11 +9,11 @@ import Foundation
 
 protocol AttackStrategy {
     func canAttack(attacker: Entity, attackee: Entity, manager: EntityComponentManager) -> Bool
-    func attack(health: Health, damage: Int)
+    func attack(health: Health, damage: Double)
 }
 
 extension AttackStrategy {
-    func attack(health: Health, damage: Int) {
+    func attack(health: Health, damage: Double) {
         health.health -= damage
     }
 }

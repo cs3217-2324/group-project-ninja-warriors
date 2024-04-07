@@ -28,7 +28,7 @@ struct Constants {
 
     static let obstacleCount = 1
 
-    static let slashDamage = 10
+    static let slashDamage = 10.0
     static let slashRadius = 50.0
     
     struct DodgeImage {
@@ -41,4 +41,9 @@ struct Constants {
         static let height: CGFloat = 10
         static let offsetY: CGFloat = 15
     }
+
+    static var closingZonePosition: Point { Point(xCoord: screenWidth / 2.0, yCoord: screenHeight / 2.0 - 100) }
+    static var closingZoneRadius: Double { screenHeight / 2.5 }
+    static var closingZoneDPS: Double = 1.0
+    static var closingZoneRadiusShrinkagePerSecond: Double = 10.0
 }

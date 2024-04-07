@@ -12,7 +12,7 @@ class CircleShape: Shape {
     // there's no need to override properties like edges and vertices for basic representation.
     // But, we'll add an initializer that emphasizes the circle's definition.
 
-    init(center: Point, radius: Double) {
+    required init(center: Point, radius: Double) {
         super.init(center: center, halfLength: radius)
         // Optionally, calculate edges and vertices if needed for collision detection or other purposes.
         self.orientation = 0 // Default orientation as circle's orientation is irrelevant
@@ -23,8 +23,9 @@ class CircleShape: Shape {
         return Double.pi * halfLength * halfLength
     }
 
-    func contains(point: Point) -> Bool {
-        return center.distance(to: point) <= halfLength
+    override func contains(point: Point) -> Bool {
+        let distance = center.distance(to: point) <= halfLength
+        return distance
     }
 
     override func deepCopy() -> Shape {

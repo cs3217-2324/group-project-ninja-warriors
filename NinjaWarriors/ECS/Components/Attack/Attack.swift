@@ -9,10 +9,10 @@ import Foundation
 
 class Attack: Component {
     var attackStrategy: AttackStrategy
-    var damage: Int
+    var damage: Double
     var activated: Bool
 
-    init(id: ComponentID, entity: Entity, attackStrategy: AttackStrategy, damage: Int, activated: Bool = false) {
+    init(id: ComponentID, entity: Entity, attackStrategy: AttackStrategy, damage: Double, activated: Bool = false) {
         self.attackStrategy = attackStrategy
         self.damage = damage
         self.activated = activated

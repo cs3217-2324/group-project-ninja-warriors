@@ -111,3 +111,24 @@ extension HostViewModel {
         }
     }
 }
+
+extension HostViewModel {
+    private var closingZoneShape: Shape? {
+        let environmentalEffectComponents = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
+        return environmentalEffectComponents.first?.environmentShape
+    }
+
+    var closingZoneCenter: CGPoint {
+        guard let shape = closingZoneShape else {
+            return .zero
+        }
+        return CGPoint(x: shape.center.xCoord, y: shape.center.yCoord)
+    }
+
+    var closingZoneRadius: CGFloat {
+        guard let shape = closingZoneShape else {
+            return 100000 // So no gas cloud at all
+        }
+        return shape.halfLength
+    }
+}

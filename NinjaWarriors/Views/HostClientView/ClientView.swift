@@ -27,6 +27,8 @@ struct ClientView: View {
                 .edgesIgnoringSafeArea(.all)
                 .statusBar(hidden: true)
 
+            ClosingZoneView(circleCenter: viewModel.closingZoneCenter, circleRadius: viewModel.closingZoneRadius)
+
             ProgressView("Loading...")
                 .onAppear {
                     viewModel.entityComponentManager.intialPopulateWithCompletion {

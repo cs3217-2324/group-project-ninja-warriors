@@ -59,6 +59,8 @@ final class LobbyViewModel: ObservableObject {
     func initEntities(ids playerIds: [String]?) {
         initObstacles()
 
+        addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
+
         guard let playerIds = playerIds else {
             return
         }
@@ -152,6 +154,20 @@ final class LobbyViewModel: ObservableObject {
 
     private func makeObstacle(at position: Point) -> Obstacle {
         Obstacle(id: RandomNonce().randomNonceString(), position: position)
+    }
+
+    private func addClosingZone(center: Point, radius: Double) {
+        let closingZone = makeClosingZone(center: center, radius: radius)
+        guard let realTimeManager = realTimeManager else {
+            return
+        }
+        Task {
+            try? await realTimeManager.uploadEntity(entity: closingZone, components: closingZone.getInitializingComponents())
+        }
+    }
+
+    private func makeClosingZone(center: Point, radius: Double) -> ClosingZone {
+        ClosingZone(id: RandomNonce().randomNonceString(), center: center, initialRadius: radius)
     }
 
     func addListenerForMatches() {
