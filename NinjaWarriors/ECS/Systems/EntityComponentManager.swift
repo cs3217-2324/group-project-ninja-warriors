@@ -121,29 +121,39 @@ class EntityComponentManager {
     // Queue needed for subsequent population as it runs concurrently with publish
     func populate() {
         Task {
-            (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
-            for entity in newEntity {
-                guard !mapQueue.contains(entity) else {
-                    continue
+            do {
+                let (remoteEntity, remoteEntityComponentMap) = try await manager.getEntitiesWithComponents()
+
+                DispatchQueue.main.async { [self] in
+                    for entity in remoteEntity {
+                        if !mapQueue.contains(entity) {
+                            newMapQueue.sync {
+                                newEntityMap[entity.id] = entity
+                            }
+                        }
+                    }
+
+                    //mapQueue.sync {
+                    addEntitiesFromNewMap(newEntityMap, remoteEntityComponentMap)
+                    //}
                 }
-                newMapQueue.sync {
-                    newEntityMap[entity.id] = entity
-                }
-            }
-            mapQueue.sync {
-                addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
+            } catch {
+                print("Error fetching entities with components: \(error)")
             }
         }
     }
 
-    func addEntitiesFromNewMap(_ newEntityMap: [EntityID: Entity],
-                               _ newEntityComponentMap: [EntityID: [Component]]) {
-        for (newEntityId, newEntity) in newEntityMap {
-                if let newComponents = newEntityComponentMap[newEntityId] {
-                    add(entity: newEntity, components: newComponents)
+
+    func addEntitiesFromNewMap(_ remoteEntityMap: [EntityID: Entity],
+                                _ remoteEntityComponentMap: [EntityID: [Component]]) {
+        DispatchQueue.main.async {
+            for (remoteEntityId, remoteEntity) in remoteEntityMap {
+                if let newComponents = remoteEntityComponentMap[remoteEntityId] {
+                    self.add(entity: remoteEntity, components: newComponents)
                 } else {
-                    add(entity: newEntity)
+                    self.add(entity: remoteEntity)
                 }
+            }
         }
     }
 
