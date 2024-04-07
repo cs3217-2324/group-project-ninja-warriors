@@ -69,6 +69,6 @@ extension Player {
         
         let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: self, isEnabled: true, invulnerabilityDuration: 20, elapsedTimeSinceEnabled: 0.0)
         
-        return [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score]
+        return [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge]
     }
 }

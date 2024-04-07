@@ -31,11 +31,24 @@ class DashSkill: MovementSkill {
     }
 
     func performMovement(on target: Entity, in manager: EntityComponentManager) {
-        // TODO: Add movement vector to GameWorld similar to how joystick so that can check for collision
         print("[DashSkill] Activated on \(target)")
-        //        let currCenter = target.shape.getCenter()
-        //
-        //        target.shape.center.setCartesian(xCoord: currCenter.x, yCoord: currCenter.y + 100)
+        guard let playerRigidbody = manager.getComponent(ofType: Rigidbody.self, for: target) else {
+            print("[DashSkill] No player rigidbody found")
+            return
+        }
+        
+        let dashDistance = 200.0
+        let rotationRadians = playerRigidbody.rotation * .pi / 180
+
+        // Calculate movement vector components based on the rotation
+        let dx = cos(rotationRadians) * dashDistance
+        let dy = sin(rotationRadians) * dashDistance
+
+        // Create the movement vector
+        let movementVector = Vector(horizontal: dx, vertical: dy)
+
+        // Apply the movement
+        playerRigidbody.movePosition(by: movementVector)
     }
     
     func wrapper() -> SkillWrapper {

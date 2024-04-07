@@ -71,7 +71,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                 && rigidBody.entity.id == gameControlEntity.id {
                 //print("not colliding apprently")
                 rigidBody.velocity = playerInput
-                if (playerInput.horizontal > 0 || playerInput.vertical > 0) {
+                if (playerInput.horizontal != 0 || playerInput.vertical != 0) {
                     alignEntityRotation(for: rigidBody, gameControl.getInput())
                 }
                 
@@ -94,15 +94,10 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     
     private func alignEntityRotation(for rigidBody: Rigidbody, _ input: Vector) {
         let radians = atan2(input.vertical, input.horizontal)
-
-        // Subtract 90 degrees (in radians) to adjust the zero point to "up"
-        let adjustedRadians = radians - (.pi / 2)
         
-        let degrees = adjustedRadians * 180 / .pi
-
-        let rotationDegrees = (degrees + 360).truncatingRemainder(dividingBy: 360)
+        let degrees = radians * 180 / .pi
         
-        rigidBody.rotation = rotationDegrees
+        rigidBody.rotation = degrees
     }
     
 

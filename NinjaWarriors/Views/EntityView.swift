@@ -47,7 +47,7 @@ struct EntityView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .opacity(viewModel.opacity)
-                .rotationEffect(.degrees(viewModel.rotation))
+                .rotationEffect(Angle(degrees: viewModel.rotation))
         }
         .frame(width: sprite.width, height: sprite.height)
         .position(viewModel.position)

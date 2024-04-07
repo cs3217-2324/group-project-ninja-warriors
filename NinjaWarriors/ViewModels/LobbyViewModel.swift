@@ -111,7 +111,7 @@ final class LobbyViewModel: ObservableObject {
                                                             RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
-                                     image: "player-icon", width: 50.0, height: 50.0, health: 10,
+                                     image: "player-icon", width: 100.0, height: 100.0, health: 100,
                                      maxHealth: 100)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: player,

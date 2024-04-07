@@ -29,7 +29,7 @@ struct Constants {
     static let obstacleCount = 1
 
     static let slashDamage = 10.0
-    static let slashRadius = 50.0
+    static let slashRadius = 75.0
     
     struct DodgeImage {
         static let image = "dodge"

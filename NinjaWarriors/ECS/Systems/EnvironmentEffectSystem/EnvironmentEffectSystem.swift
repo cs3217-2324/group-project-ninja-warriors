@@ -38,7 +38,7 @@ class EnvironmentEffectSystem: System {
         for health in affectedHealthComponents {
             let healthChange = Constants.closingZoneDPS * time
             health.health -= healthChange
-            print("reduce health by closing zone: \(healthChange) / 100")
+            // print("reduce health by closing zone: \(healthChange) / 100")
         }
     }
 
@@ -54,7 +54,7 @@ class EnvironmentEffectSystem: System {
 
         let radiusChange = time * Constants.closingZoneRadiusShrinkagePerSecond
         let newRadius = oldRadius - radiusChange
-        print("Shrinking from \(oldRadius) to \(newRadius)")
+        // print("Shrinking from \(oldRadius) to \(newRadius)")
         let newShape = CircleShape(center: effectShape.center, radius: newRadius)
         effect.updateShape(newShape)
     }
