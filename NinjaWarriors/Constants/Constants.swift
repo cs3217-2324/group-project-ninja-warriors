@@ -42,7 +42,8 @@ struct Constants {
         static let offsetY: CGFloat = 15
     }
 
-    static var closingZonePosition: Point { Point(xCoord: screenWidth / 2.0, yCoord: screenHeight / 2.0) }
-    static var closingZoneRadius: Double { screenHeight / 2.0 }
+    static var closingZonePosition: Point { Point(xCoord: screenWidth / 2.0, yCoord: screenHeight / 2.0 - 100) }
+    static var closingZoneRadius: Double { screenHeight / 2.5 }
     static var closingZoneDPS: Double = 1.0
+    static var closingZoneRadiusShrinkagePerSecond: Double = 10.0
 }
