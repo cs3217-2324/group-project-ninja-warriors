@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+@MainActor
 final class ClientViewModel: ObservableObject {
     var manager: EntitiesManager
     var entityComponentManager: EntityComponentManager
@@ -15,6 +16,7 @@ final class ClientViewModel: ObservableObject {
     var matchId: String
     var currPlayerId: String
     var queue = EventQueue(label: "clientEventQueue")
+    private var timer: Timer?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -22,6 +24,18 @@ final class ClientViewModel: ObservableObject {
         self.manager = RealTimeManagerAdapter(matchId: matchId)
         self.entityComponentManager = EntityComponentManager(for: matchId)
         entityComponentManager.startListening()
+        startTimer()
+    }
+
+    private func startTimer() {
+        // Schedule a timer to fire every 0.1 seconds
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+            for entity in self.entities where self.currPlayerId == "kn2Ap0BtgChusWyyHZtpV42RxmZ2" {
+                //self.entityComponentManager.populate()
+                print("refresh", self.entityComponentManager.getComponent(ofType: Rigidbody.self, for: entity)?.position.xCoord)
+                self.objectWillChange.send()
+            }
+        }
     }
 
     func getEntity(from id: EntityID) -> Entity? {

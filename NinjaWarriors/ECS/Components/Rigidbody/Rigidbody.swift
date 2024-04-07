@@ -96,7 +96,6 @@ class Rigidbody: Component {
         guard let newRigidbody = newRigidbody as? Rigidbody else {
             return
         }
-        print("updating!!", self.position.xCoord, newRigidbody.position.xCoord)
         self.angularDrag = newRigidbody.angularDrag
         self.angularVelocity = newRigidbody.angularVelocity
         self.mass = newRigidbody.mass

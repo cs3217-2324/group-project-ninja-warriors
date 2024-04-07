@@ -74,6 +74,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                         && rigidBody.entity.id == gameControlEntity.id {
                 //print("is colliding")
                 rigidBody.collidingVelocity = gameControl.getInput()
+                rigidBody.velocity = Vector.zero
             } else if collider.isColliding {
                 //print("is colliding 2")
             }
