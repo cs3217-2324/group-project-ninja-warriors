@@ -44,5 +44,5 @@ struct Constants {
 
     static var closingZonePosition: Point { Point(xCoord: screenWidth / 2.0, yCoord: screenHeight / 2.0) }
     static var closingZoneRadius: Double { screenHeight / 2.0 }
-    static var closingZoneDPS: Double = 0.5
+    static var closingZoneDPS: Double = 1.0
 }

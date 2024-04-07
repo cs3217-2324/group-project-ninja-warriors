@@ -37,6 +37,7 @@ class EnvironmentEffectSystem: System {
 
         for health in affectedHealthComponents {
             let healthChange = Constants.closingZoneDPS * time
+            health.health -= healthChange
             print("reduce health by closing zone: \(healthChange) / 100")
         }
     }
