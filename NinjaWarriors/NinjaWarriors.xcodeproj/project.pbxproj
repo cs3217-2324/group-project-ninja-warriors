@@ -667,7 +667,6 @@
 			children = (
 				E6D6BD0C2BC1C1F4004BFD59 /* EntityViewModel.swift */,
 				915BFD152BC1200F00AB5815 /* HostClientViewModels */,
-				915301C02BAE9314007F2A12 /* GameControl */,
 				916A7D8D2BA1A1C500319C26 /* SignInViewModel.swift */,
 				9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */,
 			);
@@ -781,6 +780,7 @@
 		91C65BE82BACF2350085D96F /* GameSystem */ = {
 			isa = PBXGroup;
 			children = (
+				915301C02BAE9314007F2A12 /* GameControl */,
 				E6CCAEDA2BAB3C1F0041053B /* GameLoopHandler.swift */,
 				E6CCAEDC2BAB3CC00041053B /* GameWorld.swift */,
 			);

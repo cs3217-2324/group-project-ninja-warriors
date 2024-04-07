@@ -13,11 +13,12 @@ class GameWorld {
     var entityComponentManager: EntityComponentManager
     let systemManager = SystemManager()
     var gameLoopManager = GameLoopManager()
-    var gameControl: GameControl = JoystickControl()
+    var gameControl: GameControl
     var updateViewModel: () -> Void = {}
 
-    init(for match: String) {
+    init(for match: String, gameControl: GameControl = JoystickControl()) {
         self.entityComponentManager = EntityComponentManager(for: match)
+        self.gameControl = gameControl
 
         setupGameLoop()
 
