@@ -50,12 +50,12 @@ struct LobbyView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
 
-                            if signInViewModel.getUserId() != "kn2Ap0BtgChusWyyHZtpV42RxmZ2" {
-                            //if signInViewModel.getUserId() == viewModel.hostId {
+                            //if signInViewModel.getUserId() != "kn2Ap0BtgChusWyyHZtpV42RxmZ2" {
+                            if signInViewModel.getUserId() == viewModel.hostId {
                                 NavigationLink(
                                     destination: CanvasView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
                                 ) {
-                                    Text("START GAME") // Label for the NavigationLink
+                                    Text("START GAME")
                                         .font(.system(size: 30))
                                         .padding()
                                         .background(Color.purple)
@@ -67,7 +67,7 @@ struct LobbyView: View {
                                 NavigationLink(
                                     destination: ClientView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
                                 ) {
-                                    Text("START GAME") // Label for the NavigationLink
+                                    Text("START GAME")
                                         .font(.system(size: 30))
                                         .padding()
                                         .background(Color.purple)

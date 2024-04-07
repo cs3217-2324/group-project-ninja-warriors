@@ -9,32 +9,26 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class ClientViewModel: ObservableObject {
-    var manager: EntitiesManager
-    var entityComponentManager: EntityComponentManager
+final class ClientViewModel: ObservableObject, EntityComponentManagerObserver  {
+    @Published var manager: EntitiesManager
+    @Published var entityComponentManager: EntityComponentManager
     @Published var entities: [Entity] = []
     var matchId: String
     var currPlayerId: String
-    var queue = EventQueue(label: "clientEventQueue")
-    private var timer: Timer?
+    @Published var queue = EventQueue(label: "clientEventQueue")
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
         self.entityComponentManager = EntityComponentManager(for: matchId)
+        self.entityComponentManager.addObserver(self)
         entityComponentManager.startListening()
-        startTimer()
     }
 
-    private func startTimer() {
-        // Schedule a timer to fire every 0.1 seconds
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            for entity in self.entities where self.currPlayerId == "kn2Ap0BtgChusWyyHZtpV42RxmZ2" {
-                //self.entityComponentManager.populate()
-                print("refresh", self.entityComponentManager.getComponent(ofType: Rigidbody.self, for: entity)?.position.xCoord)
-                self.objectWillChange.send()
-            }
+    nonisolated func entityComponentManagerDidUpdate() {
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
         }
     }
 
@@ -98,6 +92,9 @@ extension ClientViewModel {
             if let skillCaster = component as? SkillCaster {
                 skillCaster.queueSkillActivation(skillId)
             }
+        }
+        Task {
+            try await entityComponentManager.publish()
         }
     }
 

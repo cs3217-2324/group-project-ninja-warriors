@@ -53,6 +53,7 @@
 		915BFD142BC1200600AB5815 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD132BC1200600AB5815 /* ClientViewModel.swift */; };
 		915BFD172BC122D000AB5815 /* HostClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD162BC122D000AB5815 /* HostClientViewModel.swift */; };
 		915BFD1B2BC149A000AB5815 /* ClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD1A2BC149A000AB5815 /* ClientView.swift */; };
+		915BFD1D2BC2303800AB5815 /* EntityComponentManagerObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD1C2BC2303800AB5815 /* EntityComponentManagerObserver.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -217,6 +218,7 @@
 		915BFD132BC1200600AB5815 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
 		915BFD162BC122D000AB5815 /* HostClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostClientViewModel.swift; sourceTree = "<group>"; };
 		915BFD1A2BC149A000AB5815 /* ClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientView.swift; sourceTree = "<group>"; };
+		915BFD1C2BC2303800AB5815 /* EntityComponentManagerObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManagerObserver.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 				916A7DB32BA42F8B00319C26 /* CanvasViewModel.swift */,
 				915BFD132BC1200600AB5815 /* ClientViewModel.swift */,
 				915BFD162BC122D000AB5815 /* HostClientViewModel.swift */,
+				915BFD1C2BC2303800AB5815 /* EntityComponentManagerObserver.swift */,
 			);
 			path = HostClient;
 			sourceTree = "<group>";
@@ -1085,6 +1088,7 @@
 				916A7D8B2BA1A0D400319C26 /* SignInView.swift in Sources */,
 				916A7D8E2BA1A1C500319C26 /* SignInViewModel.swift in Sources */,
 				7113A4962BA60E8400805340 /* Component.swift in Sources */,
+				915BFD1D2BC2303800AB5815 /* EntityComponentManagerObserver.swift in Sources */,
 				E699DDBF2BBDDC5800E8CA80 /* PlayerControlsView.swift in Sources */,
 				9132AF702BA58C61000F2AC4 /* MatchManager.swift in Sources */,
 				E6CDFFBD2BAEDA58007BB867 /* Sprite.swift in Sources */,

@@ -22,6 +22,7 @@ class EntityComponentManager {
     private var isListening = false
     private var mapQueue = EventQueue(label: "entityComponentMapQueue")
     private var newMapQueue = EventQueue(label: "newEntityComponentMapQueue")
+    private var observers = [EntityComponentManagerObserver]()
 
     var manager: EntitiesManager
 
@@ -50,6 +51,7 @@ class EntityComponentManager {
             //print("snap shot received")
             self.mapQueue.async {
                 self.populate()
+                self.notifyObservers()
             }
         }
     }
@@ -58,6 +60,22 @@ class EntityComponentManager {
         manager.removeEntitiesListener()
         isListening = false
     }
+
+    func addObserver(_ observer: EntityComponentManagerObserver) {
+            observers.append(observer)
+        }
+
+        func removeObserver(_ observer: EntityComponentManagerObserver) {
+            if let index = observers.firstIndex(where: { $0 === observer }) {
+                observers.remove(at: index)
+            }
+        }
+
+        private func notifyObservers() {
+            for observer in observers {
+                observer.entityComponentManagerDidUpdate()
+            }
+        }
 
     // No mapQueue needed for intial population
     func initialPopulate() {
@@ -99,7 +117,6 @@ class EntityComponentManager {
             }
         }
     }
-
 
     // Queue needed for subsequent population as it runs concurrently with publish
     func populate() {
