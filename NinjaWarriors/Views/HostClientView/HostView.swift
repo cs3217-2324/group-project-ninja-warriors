@@ -35,18 +35,6 @@ struct HostView: View {
                     }
                 }
         }
-
-        /*
-        ZStack {
-            backgroundImage
-            closingZoneView
-            canvasView
-        }
-        .onAppear {
-            viewModel.gameWorld.entityComponentManager.initialPopulate()
-            viewModel.updateEntities()
-        }
-        */
     }
 
     private var backgroundImage: some View {

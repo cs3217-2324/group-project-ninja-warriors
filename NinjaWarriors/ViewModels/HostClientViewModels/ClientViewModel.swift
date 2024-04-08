@@ -71,14 +71,10 @@ final class ClientViewModel: ObservableObject, HostClientObserver  {
         }
     }
 
-    func render(for entity: Entity) -> (image: Image, position: CGPoint)? {
+    func getComponents(for entity: Entity) -> [Component] {
         let entityComponents = entityComponentManager.getAllComponents(for: entity)
 
-        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
-              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
-            return nil
-        }
-        return (image: Image(sprite.image), position: rigidbody.position.get())
+        return entityComponents
     }
 }
 
