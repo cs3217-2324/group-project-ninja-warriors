@@ -50,23 +50,20 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         for rigidBody in rigidBodies {
             let collider = rigidBody.attachedCollider
 
-            guard let gameControl = gameControl,
-                  let gameControlEntity = gameControl.entity,
-                  let collider = collider else {
+            guard let collider = collider else {
                 continue
             }
 
-            let playerInput = gameControl.getInput()
+            let playerInput = rigidBody.angularVelocity
 
-            if !collider.isColliding && !collider.isOutOfBounds
-                && rigidBody.entity.id == gameControlEntity.id {
+            if !collider.isColliding && !collider.isOutOfBounds {
                 rigidBody.velocity = playerInput
                 if (playerInput.horizontal != 0 || playerInput.vertical != 0) {
-                    alignEntityRotation(for: rigidBody, gameControl.getInput())
+                    alignEntityRotation(for: rigidBody, playerInput)
                 }
                 rigidBody.collidingVelocity = nil
-            } else if (collider.isColliding || collider.isOutOfBounds)
-                        && rigidBody.entity.id == gameControlEntity.id {
+
+            } else if (collider.isColliding || collider.isOutOfBounds) {
                 rigidBody.collidingVelocity = playerInput
                 rigidBody.velocity = Vector.zero
             }

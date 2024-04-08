@@ -11,7 +11,7 @@ struct RigidbodyWrapper: ComponentWrapper {
     var id: ComponentID
     var entity: EntityWrapper
     var angularDrag: Double
-    var angularVelocity: Double
+    var angularVelocity: VectorWrapper
     var mass: Double
     var rotation: Double
     var totalForce: VectorWrapper
@@ -22,7 +22,7 @@ struct RigidbodyWrapper: ComponentWrapper {
     var attachedCollider: ColliderWrapper
     var wrapperType: String
 
-    init(id: ComponentID, entity: EntityWrapper, angularDrag: Double, angularVelocity: Double, mass: Double, rotation: Double, totalForce: VectorWrapper, inertia: Double, position: PointWrapper, offset: PointWrapper, velocity: VectorWrapper, attachedCollider: ColliderWrapper, wrapperType: String) {
+    init(id: ComponentID, entity: EntityWrapper, angularDrag: Double, angularVelocity: VectorWrapper, mass: Double, rotation: Double, totalForce: VectorWrapper, inertia: Double, position: PointWrapper, offset: PointWrapper, velocity: VectorWrapper, attachedCollider: ColliderWrapper, wrapperType: String) {
         self.id = id
         self.entity = entity
         self.angularDrag = angularDrag
@@ -67,7 +67,7 @@ struct RigidbodyWrapper: ComponentWrapper {
         
         entity = try container.decode(wrapperClass.self, forKey: AnyCodingKey(stringValue: "entity"))
         angularDrag = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "angularDrag"))
-        angularVelocity = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "angularVelocity"))
+        angularVelocity = try container.decode(VectorWrapper.self, forKey: AnyCodingKey(stringValue: "angularVelocity"))
         mass = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "mass"))
         rotation = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "rotation"))
         totalForce = try container.decode(VectorWrapper.self, forKey: AnyCodingKey(stringValue: "totalForce"))
@@ -81,7 +81,7 @@ struct RigidbodyWrapper: ComponentWrapper {
     func toComponent(entity: Entity) -> Component? {
         if let colliderUnwrap = attachedCollider.toComponent(entity: entity) as? Collider {
             return Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
-                             angularVelocity: angularVelocity, mass: mass, rotation: rotation,
+                             angularVelocity: angularVelocity.toVector(), mass: mass, rotation: rotation,
                              totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
                              offset: offset.toPoint(), velocity: velocity.toVector(),
                               attachedCollider: colliderUnwrap)

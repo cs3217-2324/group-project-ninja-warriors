@@ -104,7 +104,7 @@ final class LobbyViewModel: ObservableObject {
                                       isColliding: false, isOutOfBounds: false)
 
         let playerRigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: player,
-                                        angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
+                                        angularDrag: 0.0, angularVelocity: Vector.zero, mass: 8.0,
                                         rotation: 0.0, totalForce: Vector.zero, inertia: 0.0,
                                         position: shape.center, velocity: Vector.zero,
                                         attachedCollider: playerCollider)

@@ -9,7 +9,7 @@ import Foundation
 
 class Rigidbody: Component {
     var angularDrag: Double
-    var angularVelocity: Double
+    var angularVelocity: Vector
     var mass: Double
     var rotation: Double
     var totalForce: Vector
@@ -23,7 +23,7 @@ class Rigidbody: Component {
     var collidingVelocity: Vector?
     var attachedCollider: Collider?
 
-    init(id: ComponentID, entity: Entity, angularDrag: Double, angularVelocity: Double, mass: Double,
+    init(id: ComponentID, entity: Entity, angularDrag: Double, angularVelocity: Vector, mass: Double,
          rotation: Double, totalForce: Vector, inertia: Double, position: Point, velocity: Vector, attachedCollider: Collider? = nil) {
         self.angularDrag = angularDrag
         self.angularVelocity = angularVelocity
@@ -39,7 +39,7 @@ class Rigidbody: Component {
         super.init(id: id, entity: entity)
     }
 
-    init(id: ComponentID, entity: Entity, angularDrag: Double, angularVelocity: Double, mass: Double,
+    init(id: ComponentID, entity: Entity, angularDrag: Double, angularVelocity: Vector, mass: Double,
          rotation: Double, totalForce: Vector, inertia: Double, position: Point, offset: Point,
          velocity: Vector, attachedCollider: Collider? = nil) {
         self.angularDrag = angularDrag
@@ -130,7 +130,7 @@ class Rigidbody: Component {
 
         if let colliderWrap = attachedCollider?.wrapper() as? ColliderWrapper {
             return RigidbodyWrapper(id: id, entity: entity, angularDrag: angularDrag,
-                                    angularVelocity: angularVelocity, mass: mass,
+                                    angularVelocity: angularVelocity.wrapper(), mass: mass,
                                     rotation: rotation, totalForce: totalForce.wrapper(),
                                     inertia: inertia, position: position.wrapper(),
                                     offset: offset.wrapper(), velocity: velocity.wrapper(),

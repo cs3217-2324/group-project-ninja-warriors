@@ -58,6 +58,28 @@ final class HostViewModel: ObservableObject {
 
         return entityComponents
     }
+
+    func move(_ vector: CGVector) {
+        guard let entityIdComponents = gameWorld.entityComponentManager.entityComponentMap[currPlayerId] else {
+            return
+        }
+        for entityIdComponent in entityIdComponents {
+            if let entityIdComponent = entityIdComponent as? Rigidbody {
+                /*
+                if entityIdComponent.attachedCollider?.isColliding == true {
+                    entityIdComponent.collidingVelocity = Vector(horizontal: vector.dx,
+                                                                 vertical: vector.dy)
+                } else {
+                    entityIdComponent.velocity = Vector(horizontal: vector.dx, vertical: vector.dy)
+                }
+                */
+                entityIdComponent.angularVelocity = Vector(horizontal: vector.dx, vertical: vector.dy)
+            }
+        }
+        Task {
+            try await gameWorld.entityComponentManager.publish()
+        }
+    }
 }
 
 extension HostViewModel {

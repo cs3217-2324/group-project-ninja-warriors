@@ -41,7 +41,7 @@ class SlashAOESkill: EntitySpawnerSkill {
 
         let shape = Shape(center: playerRigidbody.position, halfLength: Constants.defaultSize)
         let rigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: slashAOE,
-                                  angularDrag: 0.0, angularVelocity: 0.0, mass: 8.0,
+                                  angularDrag: 0.0, angularVelocity: Vector.zero, mass: 8.0,
                                   rotation: playerRigidbody.rotation, totalForce: Vector.zero, inertia: 0.0,
                                   position: shape.center, velocity: Vector.zero)
 

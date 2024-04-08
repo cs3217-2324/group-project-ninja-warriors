@@ -94,7 +94,7 @@ struct EntityView_Previews: PreviewProvider {
                             entity: slashaoe,
                             image: "slash-effect", width: 100, height: 100, health: 10, maxHealth: 100)
         let rigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: slashaoe,
-                                  angularDrag: 0, angularVelocity: 0, mass: 8,
+                                  angularDrag: 0, angularVelocity: Vector.zero, mass: 8,
                                   rotation: 0, totalForce: Vector.zero, inertia: 0,
                                   position: Point(xCoord: 400, yCoord: 400), velocity: Vector.zero)
         let lifespan = Lifespan(id: RandomNonce().randomNonceString(), entity: slashaoe, lifespan: 1, elapsedTime: 0.8)
