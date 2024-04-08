@@ -65,14 +65,6 @@ final class HostViewModel: ObservableObject {
         }
         for entityIdComponent in entityIdComponents {
             if let entityIdComponent = entityIdComponent as? Rigidbody {
-                /*
-                if entityIdComponent.attachedCollider?.isColliding == true {
-                    entityIdComponent.collidingVelocity = Vector(horizontal: vector.dx,
-                                                                 vertical: vector.dy)
-                } else {
-                    entityIdComponent.velocity = Vector(horizontal: vector.dx, vertical: vector.dy)
-                }
-                */
                 entityIdComponent.angularVelocity = Vector(horizontal: vector.dx, vertical: vector.dy)
             }
         }

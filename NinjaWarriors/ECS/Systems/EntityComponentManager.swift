@@ -196,21 +196,15 @@ class EntityComponentManager {
 
     func add(entity: Entity, isAdded: Bool = true) {
         assertRepresentation()
-        //print("[EntityComponentManager] add", entity)
 
         let dstEntity = getDestinationEntity(for: entity)
 
-        // Insert intializing components of entity
         let newComponents = entity.getInitializingComponents()
-        //print("[EntityComponentManager] new", newComponents)
-        newComponents.forEach({add(component: $0, to: dstEntity, srcEntity: entity)})
 
-        //print("[EntityComponentManager] entityMap", entityMap)
-        //print("[EntityComponentManager] entityComponentMap", entityComponentMap)
+        newComponents.forEach({add(component: $0, to: dstEntity, srcEntity: entity)})
 
         if !isAdded {
             Task {
-                // TODO: TBC on adding entity instead of dstEntity
                 try await manager.uploadEntity(entity: entity, components: newComponents)
             }
         }
@@ -219,7 +213,6 @@ class EntityComponentManager {
 
     func add(entity: Entity, components: [Component], isAdded: Bool = true) {
         assertRepresentation()
-        //print("[EntityComponentManager] add", entity)
 
         let dstEntity = getDestinationEntity(for: entity)
 
@@ -229,15 +222,11 @@ class EntityComponentManager {
 
         // Insert intializing components of entity
         let newComponents = components
-        //print("[EntityComponentManager] new", newComponents)
-        newComponents.forEach({add(component: $0, to: dstEntity, srcEntity: entity)})
 
-        //print("[EntityComponentManager] entityMap", entityMap)
-        //print("[EntityComponentManager] entityComponentMap", entityComponentMap)
+        newComponents.forEach({add(component: $0, to: dstEntity, srcEntity: entity)})
 
         if !isAdded {
             Task {
-                // TODO: TBC on adding entity instead of dstEntity
                 try await manager.uploadEntity(entity: entity, components: newComponents)
             }
         }

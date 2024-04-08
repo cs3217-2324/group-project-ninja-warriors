@@ -440,30 +440,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
     }
 
-    /*
-    func addEntitiesListener(completion: @escaping (DataSnapshot) -> Void) {
-
-        // Iterate over each entity
-        entitiesRef.observeSingleEvent(of: .value) { [self] matchSnapshot in
-            guard let entitySnapshots = matchSnapshot.children.allObjects as? [DataSnapshot] else {
-                return
-            }
-            for entitySnapshot in entitySnapshots {
-                let entityId = entitySnapshot.key
-
-                let rigidbodySnapshot = entitySnapshot.childSnapshot(forPath: "components/rigidbody")
-                let positionSnapshot = rigidbodySnapshot.childSnapshot(forPath: "position")
-
-                // Set up a listener for the position field
-                let positionRef = self.entitiesRef.child("\(entityId)/components/rigidbody/position")
-                positionRef.observe(.value) { positionSnapshot in
-                    completion(positionSnapshot)
-                }
-            }
-        }
-    }
-    */
-
     func removeEntitiesListener() {
         if let handle = listenerHandle {
             entitiesRef.removeObserver(withHandle: handle)

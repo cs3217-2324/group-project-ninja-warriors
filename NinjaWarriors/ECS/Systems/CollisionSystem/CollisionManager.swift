@@ -7,7 +7,6 @@
 
 import Foundation
 
-// TODO: Fix sticking issue
 class CollisionManager: System {
     var manager: EntityComponentManager
 
@@ -65,7 +64,7 @@ class CollisionManager: System {
                            isColliding: Bool, isOutOfBounds: Bool) -> Bool {
         var shapeCenter: CGPoint
         var objectCenter: CGPoint
-        // TODO: TBC
+
         if isColliding {
             shapeCenter = shape.getCenter()
             objectCenter = object.getCenter()

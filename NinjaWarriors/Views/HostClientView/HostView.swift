@@ -50,12 +50,6 @@ struct HostView: View {
                 EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity)))
             }
             if let currPlayer = viewModel.getCurrPlayer() {
-                /*
-                JoystickView(
-                    setInputVector: { vector in
-                        viewModel.gameWorld.setInput(vector, for: currPlayer)
-                    }, location: CGPoint(x: 150, y: geometry.size.height - 300))
-                */
                 JoystickView(
                     setInputVector: { vector in
                         viewModel.move(vector)

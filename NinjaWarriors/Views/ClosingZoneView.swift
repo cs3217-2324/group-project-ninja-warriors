@@ -25,14 +25,3 @@ struct ClosingZoneView: View {
         }.compositingGroup()
     }
 }
-
-/*
-#Preview {
-    ZStack {
-        Image("grass-stone")
-            .resizable()
-            .edgesIgnoringSafeArea(.all)
-        ClosingZoneView(circleCenter: CGPoint(x: 1000, y: 1500), circleRadius: 1000)
-    }
-}
-*/
