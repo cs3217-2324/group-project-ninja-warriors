@@ -79,7 +79,7 @@ struct SignInView: View {
             )
             .background(
                 NavigationLink(
-                    destination: LobbyView().navigationBarBackButtonHidden(true),
+                    destination: LobbyView(viewModel: LobbyViewModel(signInViewModel: viewModel)),
                     isActive: $loggedIn,
                     label: { EmptyView() }
                 )
