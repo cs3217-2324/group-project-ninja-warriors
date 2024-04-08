@@ -22,6 +22,7 @@
 		7183D07B2BB03C400078C960 /* EntityComponentManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07A2BB03C400078C960 /* EntityComponentManagerTests.swift */; };
 		7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */; };
 		7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07E2BB06E790078C960 /* SystemManagerTests.swift */; };
+		910CF65F2BC4AE2200C04CF2 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910CF65E2BC4AE2200C04CF2 /* AudioManager.swift */; };
 		9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */; };
 		9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF572BA5087F000F2AC4 /* PlayersListener.swift */; };
 		9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF592BA50C1E000F2AC4 /* Publisher.swift */; };
@@ -199,6 +200,7 @@
 		7183D07A2BB03C400078C960 /* EntityComponentManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManagerTests.swift; sourceTree = "<group>"; };
 		7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECSTestUtils.swift; sourceTree = "<group>"; };
 		7183D07E2BB06E790078C960 /* SystemManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManagerTests.swift; sourceTree = "<group>"; };
+		910CF65E2BC4AE2200C04CF2 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPublisher.swift; sourceTree = "<group>"; };
 		9132AF572BA5087F000F2AC4 /* PlayersListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListener.swift; sourceTree = "<group>"; };
 		9132AF592BA50C1E000F2AC4 /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
@@ -419,6 +421,14 @@
 			path = HostClientView;
 			sourceTree = "<group>";
 		};
+		910CF65D2BC4AE1200C04CF2 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				910CF65E2BC4AE2200C04CF2 /* AudioManager.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		9132AF602BA50E46000F2AC4 /* PhysicsSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -549,6 +559,7 @@
 		916A7D2D2BA1541700319C26 = {
 			isa = PBXGroup;
 			children = (
+				910CF65D2BC4AE1200C04CF2 /* Audio */,
 				E6CDFFBE2BAF1D9D007BB867 /* Assets */,
 				9180F9CD2BAB19A4000CC390 /* Nonce */,
 				9180F9CA2BAAF845000CC390 /* Primitives */,
@@ -1214,6 +1225,7 @@
 				9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
 				9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */,
+				910CF65F2BC4AE2200C04CF2 /* AudioManager.swift in Sources */,
 				E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */,
 				9132AF7A2BA59B1C000F2AC4 /* FactoryWrapper.swift in Sources */,
 				9132AF5C2BA50C5C000F2AC4 /* CustomSubject.swift in Sources */,
