@@ -62,14 +62,15 @@ final class LobbyViewModel: ObservableObject {
         guard hostId == signInViewModel.getUserId() else {
             return
         }
-        //initObstacles()
+
+        initObstacles()
 
         guard let playerIds = playerIds else {
             return
         }
         initPlayers(ids: playerIds)
 
-        //addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
+        addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
     }
 
     func selectHost(from ids: [String]?) {
@@ -123,9 +124,9 @@ final class LobbyViewModel: ObservableObject {
 
         let score = Score(id: RandomNonce().randomNonceString(), entity: player,
                           score: 0, entityGainScoreMap: [:])
-        
+
         let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: player, isEnabled: false, invulnerabilityDuration: 2.0)
-        
+
         let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge]
         guard let realTimeManager = realTimeManager else {
             return

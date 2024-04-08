@@ -30,7 +30,7 @@ class GameWorld {
         let scoreManager = ScoreSystem(for: entityComponentManager)
         let dodgeManager = DodgeSystem(for: entityComponentManager)
         let destroyManager = DestroySystem(for: entityComponentManager)
-        //let environmentEffectSystem = EnvironmentEffectSystem(for: entityComponentManager)
+        let environmentEffectSystem = EnvironmentEffectSystem(for: entityComponentManager)
         let lifespanManager = LifespanSystem(for: entityComponentManager)
 
         systemManager.add(system: transformHandler)
@@ -41,7 +41,7 @@ class GameWorld {
         systemManager.add(system: scoreManager)
         systemManager.add(system: dodgeManager)
         systemManager.add(system: destroyManager)
-        //systemManager.add(system: environmentEffectSystem)
+        systemManager.add(system: environmentEffectSystem)
         systemManager.add(system: lifespanManager)
     }
 

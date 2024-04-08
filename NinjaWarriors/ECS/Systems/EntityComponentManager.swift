@@ -334,12 +334,10 @@ class EntityComponentManager {
 
     private func updateExistingComponent(_ existingComponent: Component, with newComponent: Component) {
         let existingComponentType: ComponentType = ComponentType(type(of: existingComponent))
-        /*
         guard existingComponentType == ComponentType(Rigidbody.self)
                 || existingComponentType == ComponentType(Health.self)
                 || existingComponentType == ComponentType(Collider.self)
         else { return }
-        */
         existingComponent.updateAttributes(newComponent)
     }
 

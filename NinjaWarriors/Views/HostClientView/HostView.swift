@@ -23,7 +23,7 @@ struct HostView: View {
     var body: some View {
         ZStack {
             backgroundImage
-            //closingZoneView
+            closingZoneView
             canvasView
 
             ProgressView("Loading...")
@@ -35,7 +35,13 @@ struct HostView: View {
                     }
                 }
         }
+
         /*
+        ZStack {
+            backgroundImage
+            closingZoneView
+            canvasView
+        }
         .onAppear {
             viewModel.gameWorld.entityComponentManager.initialPopulate()
             viewModel.updateEntities()
@@ -56,16 +62,9 @@ struct HostView: View {
                 EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity)))
             }
             if let currPlayer = viewModel.getCurrPlayer() {
-
-                /*
                 JoystickView(
                     setInputVector: { vector in
                         viewModel.gameWorld.setInput(vector, for: currPlayer)
-                    }, location: CGPoint(x: 150, y: geometry.size.height - 300))
-                */
-                JoystickView(
-                    setInputVector: { vector in
-                        viewModel.move(vector)
                     }, location: CGPoint(x: 150, y: geometry.size.height - 300))
                 .frame(width: 200, height: 200)
                 VStack {
