@@ -63,10 +63,13 @@ final class ClientViewModel: ObservableObject, HostClientObserver  {
         for entityIdComponent in entityIdComponents {
             if let entityIdComponent = entityIdComponent as? Rigidbody {
                 if entityIdComponent.attachedCollider?.isColliding == true {
+                    print("colliding!!!!!")
                     entityIdComponent.collidingVelocity = Vector(horizontal: vector.dx,
                                                                  vertical: vector.dy)
+                    entityIdComponent.velocity = Vector(horizontal: 0.0, vertical: 0.0)
                 } else {
-                    entityIdComponent.velocity = Vector(horizontal: vector.dx, vertical: vector.dy)
+                    entityIdComponent.collidingVelocity = Vector(horizontal: 0.0, vertical: 0.0)
+                    entityIdComponent.velocity = Vector(horizontal: vector.dx / 4, vertical: vector.dy / 4)
                 }
             }
         }
@@ -74,18 +77,6 @@ final class ClientViewModel: ObservableObject, HostClientObserver  {
             try await entityComponentManager.publish()
         }
     }
-
-    /*
-    func render(for entity: Entity) -> (image: Image, position: CGPoint)? {
-        let entityComponents = entityComponentManager.getAllComponents(for: entity)
-
-        guard let rigidbody = entityComponents.first(where: { $0 is Rigidbody }) as? Rigidbody,
-              let sprite = entityComponents.first(where: { $0 is Sprite }) as? Sprite else {
-            return nil
-        }
-        return (image: Image(sprite.image), position: rigidbody.position.get())
-    }
-    */
 }
 
 extension ClientViewModel {

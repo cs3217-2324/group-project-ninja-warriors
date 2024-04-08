@@ -116,7 +116,7 @@ struct ClientView: View {
     var body: some View {
         ZStack {
             backgroundImage
-            closingZoneView
+            //closingZoneView
             clientView
             
             ProgressView("Loading...")

@@ -317,6 +317,9 @@ class EntityComponentManager {
         var entityComponents = entityComponentMap[entity.id] ?? Set<Component>()
 
         if let existingComponent = findExistingComponent(ofType: componentType, in: entityComponents) {
+            if let test = existingComponent as? Rigidbody {
+                print("test", test.position.xCoord, test.position.yCoord)
+            }
             updateExistingComponent(existingComponent, with: component)
         } else {
             insertNewComponent(component, ofType: componentType, into: &entityComponents)
@@ -331,9 +334,12 @@ class EntityComponentManager {
 
     private func updateExistingComponent(_ existingComponent: Component, with newComponent: Component) {
         let existingComponentType: ComponentType = ComponentType(type(of: existingComponent))
+        /*
         guard existingComponentType == ComponentType(Rigidbody.self)
                 || existingComponentType == ComponentType(Health.self)
+                || existingComponentType == ComponentType(Collider.self)
         else { return }
+        */
         existingComponent.updateAttributes(newComponent)
     }
 

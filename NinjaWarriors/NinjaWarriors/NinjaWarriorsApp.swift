@@ -16,9 +16,9 @@ struct NinjaWarriorsApp: App {
         WindowGroup {
             // TODO: Remove after testing
 
-            //HostView(matchId: "5NjVOKbhQrXDnlcmeVpE", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //HostView(matchId: "xJqd5m90w2NOJZoSQXUS", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
-            //ClientView(matchId: "5NjVOKbhQrXDnlcmeVpE", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //ClientView(matchId: "xJqd5m90w2NOJZoSQXUS", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
             AuthenticationView()
         }

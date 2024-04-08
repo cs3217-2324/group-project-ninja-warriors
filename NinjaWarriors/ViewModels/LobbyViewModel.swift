@@ -62,14 +62,14 @@ final class LobbyViewModel: ObservableObject {
         guard hostId == signInViewModel.getUserId() else {
             return
         }
-        initObstacles()
+        //initObstacles()
 
         guard let playerIds = playerIds else {
             return
         }
         initPlayers(ids: playerIds)
 
-        addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
+        //addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
     }
 
     func selectHost(from ids: [String]?) {
