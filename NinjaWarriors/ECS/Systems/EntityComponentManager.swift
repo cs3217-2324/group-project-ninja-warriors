@@ -81,10 +81,11 @@ class EntityComponentManager {
     func initialPopulate() {
         Task {
             (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
-
-            for (entityId, components) in newEntityComponentMap {
-                for component in components {
-                    newEntityMap[entityId] = component.entity
+            DispatchQueue.main.sync { [self] in
+                for (entityId, components) in newEntityComponentMap {
+                    for component in components {
+                        newEntityMap[entityId] = component.entity
+                    }
                 }
             }
 
@@ -124,7 +125,7 @@ class EntityComponentManager {
             do {
                 let (remoteEntity, remoteEntityComponentMap) = try await manager.getEntitiesWithComponents()
 
-                DispatchQueue.main.async { [self] in
+                DispatchQueue.main.sync { [self] in
                     for entity in remoteEntity {
                         if !mapQueue.contains(entity) {
                             newMapQueue.sync {
@@ -163,8 +164,9 @@ class EntityComponentManager {
                 continue
             }
             var entityComponents: Set<Component> = []
-            mapQueue.sync {
-                guard let components = entityComponentMap[entityId] else {
+            DispatchQueue.main.sync {
+            //mapQueue.sync {
+                guard let components = self.entityComponentMap[entityId] else {
                     return
                 }
                 entityComponents = components

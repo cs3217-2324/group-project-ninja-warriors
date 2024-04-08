@@ -7,6 +7,7 @@
 
 import Foundation
 
+// TODO: Fix sticking issue
 class CollisionManager: System {
     var manager: EntityComponentManager
 

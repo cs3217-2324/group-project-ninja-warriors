@@ -16,9 +16,11 @@ final class LobbyViewModel: ObservableObject {
     @Published var matchId: String?
     @Published var playerIds: [String]?
     @Published var hostId: String?
+    let signInViewModel: SignInViewModel
 
-    init() {
+    init(signInViewModel: SignInViewModel) {
         matchManager = MatchManagerAdapter()
+        self.signInViewModel = signInViewModel
     }
 
     func ready(userId: String) {
@@ -57,15 +59,17 @@ final class LobbyViewModel: ObservableObject {
 
     // Add all relevant initial entities here
     func initEntities(ids playerIds: [String]?) {
+        guard hostId == signInViewModel.getUserId() else {
+            return
+        }
         initObstacles()
-
-        addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
 
         guard let playerIds = playerIds else {
             return
         }
-
         initPlayers(ids: playerIds)
+
+        addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
     }
 
     func selectHost(from ids: [String]?) {

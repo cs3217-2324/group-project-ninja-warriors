@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignInView: View {
-    @StateObject private var viewModel = SignInViewModel(authentication: AuthenticationAdapter())
+    @ObservedObject private var viewModel = SignInViewModel(authentication: AuthenticationAdapter())
     @State private var loggedIn = false
 
     var body: some View {
@@ -79,13 +79,14 @@ struct SignInView: View {
             )
             .background(
                 NavigationLink(
-                    destination: LobbyView().navigationBarBackButtonHidden(true),
+                    destination: LobbyView(viewModel: LobbyViewModel(signInViewModel: viewModel)),
+                    //destination: LobbyView().navigationBarBackButtonHidden(true),
                     isActive: $loggedIn,
                     label: { EmptyView() }
                 )
             )
         }.navigationViewStyle(.stack)
-            .environmentObject(viewModel)
+        .environmentObject(viewModel)
     }
 }
 

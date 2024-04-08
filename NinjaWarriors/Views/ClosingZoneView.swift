@@ -26,6 +26,7 @@ struct ClosingZoneView: View {
     }
 }
 
+/*
 #Preview {
     ZStack {
         Image("grass-stone")
@@ -34,3 +35,4 @@ struct ClosingZoneView: View {
         ClosingZoneView(circleCenter: CGPoint(x: 1000, y: 1500), circleRadius: 1000)
     }
 }
+*/

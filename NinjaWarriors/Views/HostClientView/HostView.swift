@@ -25,11 +25,22 @@ struct HostView: View {
             backgroundImage
             closingZoneView
             canvasView
+
+            ProgressView("Loading...")
+                .onAppear {
+                    viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {
+                        DispatchQueue.main.async {
+                            viewModel.updateEntities()
+                        }
+                    }
+                }
         }
+        /*
         .onAppear {
             viewModel.gameWorld.entityComponentManager.initialPopulate()
             viewModel.updateEntities()
         }
+        */
     }
 
     private var backgroundImage: some View {

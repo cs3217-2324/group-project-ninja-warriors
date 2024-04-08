@@ -22,7 +22,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             uuid = "10A1B13B-600B-4409-9928-BCCE24BFCA33"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             nameForDebugger = "Thread"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -41,14 +41,14 @@
             filePath = "ECS/Systems/EntityComponentManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
-            landmarkName = "remove(entity:isRemoved:)"
-            landmarkType = "7">
+            startingLineNumber = "247"
+            endingLineNumber = "247"
+            landmarkName = "EntityComponentManager"
+            landmarkType = "3">
             <Locations>
                <Location
                   uuid = "9759D438-CE0A-4503-8C01-2377C609E517 - 51f2dfcea7ba76ae"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "default argument 1 of NinjaWarriors.EntityComponentManager.remove(entity: NinjaWarriors.Entity, isRemoved: Swift.Bool) -&gt; ()"
@@ -63,7 +63,7 @@
                </Location>
                <Location
                   uuid = "9759D438-CE0A-4503-8C01-2377C609E517 - 82bf0692414a1c27"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "NinjaWarriors.EntityComponentManager.remove(entity: NinjaWarriors.Entity, isRemoved: Swift.Bool) -&gt; ()"
@@ -77,6 +77,28 @@
                   offsetFromSymbolStart = "76">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            uuid = "5E298D18-815C-47D4-B85C-08D081AB24D6"
+            shouldBeEnabled = "No"
+            nameForDebugger = "test"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            breakpointStackSelectionBehavior = "1"
+            scope = "0"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SwiftErrorBreakpoint">
+         <BreakpointContent
+            uuid = "16128ACF-62F4-4801-ACAF-9B379DAF4F66"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

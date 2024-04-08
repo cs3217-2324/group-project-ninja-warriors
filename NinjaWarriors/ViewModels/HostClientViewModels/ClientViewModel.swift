@@ -52,6 +52,10 @@ final class ClientViewModel: ObservableObject, HostClientObserver  {
         entities = entityComponentManager.getAllEntities()
     }
 
+    func getComponents(for entity: Entity) -> [Component] {
+        entityComponentManager.getAllComponents(for: entity)
+    }
+
     func move(_ vector: CGVector) {
         guard let entityIdComponents = entityComponentManager.entityComponentMap[currPlayerId] else {
             return
@@ -71,6 +75,7 @@ final class ClientViewModel: ObservableObject, HostClientObserver  {
         }
     }
 
+    /*
     func render(for entity: Entity) -> (image: Image, position: CGPoint)? {
         let entityComponents = entityComponentManager.getAllComponents(for: entity)
 
@@ -80,6 +85,7 @@ final class ClientViewModel: ObservableObject, HostClientObserver  {
         }
         return (image: Image(sprite.image), position: rigidbody.position.get())
     }
+    */
 }
 
 extension ClientViewModel {

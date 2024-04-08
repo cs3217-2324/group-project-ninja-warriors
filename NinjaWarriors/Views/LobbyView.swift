@@ -11,7 +11,12 @@ import SwiftUI
 struct LobbyView: View {
     @EnvironmentObject var signInViewModel: SignInViewModel
     @State private var isReady: Bool = false
-    @ObservedObject var viewModel = LobbyViewModel()
+    //@ObservedObject var viewModel = LobbyViewModel()
+    @ObservedObject var viewModel: LobbyViewModel
+
+    init(viewModel: LobbyViewModel) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         NavigationView {
