@@ -210,15 +210,16 @@ final class RealTimeManagerAdapter: EntitiesManager {
                   let componentTypes = getComponentTypes(from: idData) else {
                 return
             }
-
+            // Add any new entities to decode
             var entityInstance: Entity
             if entityType == "Player" {
                 entityInstance = Player(id: entityId)
             } else if entityType == "Obstacle" {
                 entityInstance = Obstacle(id: entityId)
-            // TODO: TBC
-            } else {
+            } else if entityType == "SlashAOE" {
                 entityInstance = SlashAOE(id: entityId, casterEntity: Player(id: entityId))
+            } else {
+                entityInstance = ClosingZone(id: entityId)
             }
 
             try processComponents(for: entityId, withComponentTypes: componentTypes, from: idData,

@@ -62,20 +62,20 @@ class EntityComponentManager {
     }
 
     func addObserver(_ observer: HostClientObserver) {
-            observers.append(observer)
-        }
+        observers.append(observer)
+    }
 
-        func removeObserver(_ observer: HostClientObserver) {
-            if let index = observers.firstIndex(where: { $0 === observer }) {
-                observers.remove(at: index)
-            }
+    func removeObserver(_ observer: HostClientObserver) {
+        if let index = observers.firstIndex(where: { $0 === observer }) {
+            observers.remove(at: index)
         }
+    }
 
-        private func notifyObservers() {
-            for observer in observers {
-                observer.entityComponentManagerDidUpdate()
-            }
+    private func notifyObservers() {
+        for observer in observers {
+            observer.entityComponentManagerDidUpdate()
         }
+    }
 
     // No mapQueue needed for intial population
     func initialPopulate() {
@@ -265,7 +265,7 @@ class EntityComponentManager {
             manager.delete(entity: entity)
         }
         mapQueue.process(entity)
-        print("removed", entityMap, entityComponentMap)
+
         assertRepresentation()
     }
 
@@ -317,9 +317,6 @@ class EntityComponentManager {
         var entityComponents = entityComponentMap[entity.id] ?? Set<Component>()
 
         if let existingComponent = findExistingComponent(ofType: componentType, in: entityComponents) {
-            if let test = existingComponent as? Rigidbody {
-                print("test", test.position.xCoord, test.position.yCoord)
-            }
             updateExistingComponent(existingComponent, with: component)
         } else {
             insertNewComponent(component, ofType: componentType, into: &entityComponents)
@@ -337,6 +334,7 @@ class EntityComponentManager {
         guard existingComponentType == ComponentType(Rigidbody.self)
                 || existingComponentType == ComponentType(Health.self)
                 || existingComponentType == ComponentType(Collider.self)
+                || existingComponentType == ComponentType(EnvironmentEffect.self)
         else { return }
         existingComponent.updateAttributes(newComponent)
     }
