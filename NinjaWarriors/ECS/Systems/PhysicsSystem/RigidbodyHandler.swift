@@ -69,7 +69,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
             }
 
             moveRigidBody(rigidBody, across: deltaTime)
-
             manager.getComponent(ofType: Collider.self, for: rigidBody.entity)?
                 .colliderShape.center = rigidBody.position
         }

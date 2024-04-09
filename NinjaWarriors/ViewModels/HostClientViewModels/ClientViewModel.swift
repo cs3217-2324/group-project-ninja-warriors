@@ -22,8 +22,6 @@ final class ClientViewModel: ObservableObject, HostClientObserver  {
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
         self.entityComponentManager = EntityComponentManager(for: matchId)
-        self.entityComponentManager.addObserver(self)
-        entityComponentManager.startListening()
     }
 
     nonisolated func entityComponentManagerDidUpdate() {

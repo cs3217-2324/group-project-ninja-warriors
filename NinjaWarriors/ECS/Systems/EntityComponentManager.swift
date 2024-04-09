@@ -22,7 +22,6 @@ class EntityComponentManager {
     private var isListening = false
     private var mapQueue = EventQueue(label: "entityComponentMapQueue")
     private var newMapQueue = EventQueue(label: "newEntityComponentMapQueue")
-    private var observers = [HostClientObserver]()
 
     var manager: EntitiesManager
 
@@ -39,43 +38,6 @@ class EntityComponentManager {
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
-        stopListening()
-    }
-
-    deinit {
-        stopListening()
-    }
-
-    func startListening() {
-        print("start listening")
-        manager.addEntitiesListener { snapshot in
-            //print("snap shot received")
-            self.mapQueue.async {
-                self.populate()
-                self.notifyObservers()
-            }
-        }
-    }
-
-    func stopListening() {
-        manager.removeEntitiesListener()
-        isListening = false
-    }
-
-    func addObserver(_ observer: HostClientObserver) {
-        observers.append(observer)
-    }
-
-    func removeObserver(_ observer: HostClientObserver) {
-        if let index = observers.firstIndex(where: { $0 === observer }) {
-            observers.remove(at: index)
-        }
-    }
-
-    private func notifyObservers() {
-        for observer in observers {
-            observer.entityComponentManagerDidUpdate()
-        }
     }
 
     // No mapQueue needed for intial population
@@ -89,13 +51,7 @@ class EntityComponentManager {
                     }
                 }
             }
-
             addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
-            if !isListening {
-                print("not listening")
-                startListening()
-                isListening = true
-            }
         }
     }
 
@@ -112,7 +68,6 @@ class EntityComponentManager {
                     }
                 }
                 addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
-                startListening()
                 completion()
             } catch {
                 print("Error: \(error)")
@@ -126,13 +81,11 @@ class EntityComponentManager {
             do {
                 let (remoteEntity, remoteEntityComponentMap) = try await manager.getEntitiesWithComponents()
 
-                DispatchQueue.main.sync { [self] in
+                DispatchQueue.main.async { [self] in
                     for entity in remoteEntity {
-                        if !mapQueue.contains(entity) {
                             newMapQueue.sync {
-                                newEntityMap[entity.id] = entity
+                                self.newEntityMap[entity.id] = entity
                             }
-                        }
                     }
 
                     //mapQueue.sync {

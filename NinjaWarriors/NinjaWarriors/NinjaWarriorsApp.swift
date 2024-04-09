@@ -18,9 +18,9 @@ struct NinjaWarriorsApp: App {
 
             //ClientView(matchId: "xJqd5m90w2NOJZoSQXUS", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
-            //AuthenticationView()
+            AuthenticationView()
 
-            LobbyView()
+            //LobbyView()
         }
     }
 }

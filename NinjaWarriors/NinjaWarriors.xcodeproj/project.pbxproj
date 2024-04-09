@@ -61,6 +61,8 @@
 		915BFD142BC1200600AB5815 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD132BC1200600AB5815 /* ClientViewModel.swift */; };
 		915BFD1B2BC149A000AB5815 /* ClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD1A2BC149A000AB5815 /* ClientView.swift */; };
 		915BFD1D2BC2303800AB5815 /* HostClientObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD1C2BC2303800AB5815 /* HostClientObserver.swift */; };
+		916991082BC5490600ED1FBD /* SinglePlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991072BC5490600ED1FBD /* SinglePlayerViewModel.swift */; };
+		9169910A2BC5499700ED1FBD /* SinglePlayerLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991092BC5499700ED1FBD /* SinglePlayerLobbyView.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -239,6 +241,8 @@
 		915BFD132BC1200600AB5815 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
 		915BFD1A2BC149A000AB5815 /* ClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientView.swift; sourceTree = "<group>"; };
 		915BFD1C2BC2303800AB5815 /* HostClientObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostClientObserver.swift; sourceTree = "<group>"; };
+		916991072BC5490600ED1FBD /* SinglePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerViewModel.swift; sourceTree = "<group>"; };
+		916991092BC5499700ED1FBD /* SinglePlayerLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerLobbyView.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -669,6 +673,7 @@
 				9132AF902BA83E54000F2AC4 /* JoystickView.swift */,
 				E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */,
 				E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */,
+				916991092BC5499700ED1FBD /* SinglePlayerLobbyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -680,6 +685,7 @@
 				915BFD152BC1200F00AB5815 /* HostClientViewModels */,
 				916A7D8D2BA1A1C500319C26 /* SignInViewModel.swift */,
 				9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */,
+				916991072BC5490600ED1FBD /* SinglePlayerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1168,6 +1174,7 @@
 				E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */,
 				E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */,
 				915BFD122BC04A9000AB5815 /* EventQueue.swift in Sources */,
+				916991082BC5490600ED1FBD /* SinglePlayerViewModel.swift in Sources */,
 				9132AF662BA50E9A000F2AC4 /* RigidbodyHandler.swift in Sources */,
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
 				E6ECF6382BADE99700DDDE9C /* SlashAOESkill.swift in Sources */,
@@ -1237,6 +1244,7 @@
 				9136A5BA2BAA8B3900197971 /* TransformHandler.swift in Sources */,
 				916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */,
 				916A7D952BA1AB2A00319C26 /* User.swift in Sources */,
+				9169910A2BC5499700ED1FBD /* SinglePlayerLobbyView.swift in Sources */,
 				916A7D892BA19F5100319C26 /* AuthenticationView.swift in Sources */,
 				714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */,
 				91C65BE32BACF1920085D96F /* DashSkill.swift in Sources */,
