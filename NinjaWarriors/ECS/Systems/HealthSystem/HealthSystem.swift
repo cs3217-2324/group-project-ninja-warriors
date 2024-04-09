@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-// TODO: Change to attack system
 class HealthSystem: System {
     var manager: EntityComponentManager
 
@@ -22,72 +20,8 @@ class HealthSystem: System {
         for attackComponent in attackComponents where !attackComponent.activated {
             for healthComponent in healthComponents {
                 attackComponent.attackIfPossible(health: healthComponent, manager: manager)
-                print(healthComponent.health)
             }
             attackComponent.setToActivated()
         }
     }
-
-//    func update(after time: TimeInterval) {
-//        let colliderHealthMap = createColliderHealthMap()
-//
-//        updateHealth(for: colliderHealthMap)
-//    }
-//
-//    func createColliderHealthMap() -> [Collider: Health] {
-//        var colliderHealthMap: [Collider: Health] = [:]
-//
-//        let colliders = manager.getAllComponents(ofType: Collider.self)
-//        let healthComponents = manager.getAllComponents(ofType: Health.self)
-//
-//        for collider in colliders {
-//            for healthComponent in healthComponents {
-//                if collider.entity.id == healthComponent.entity.id {
-//                    colliderHealthMap[collider] = healthComponent
-//                }
-//            }
-//        }
-//        return colliderHealthMap
-//    }
-//
-//    func updateHealth(for colliderHealthMap: [Collider: Health]) {
-//        for (collider, health) in colliderHealthMap {
-//            // Assuming 1-1 mapping for now, as it will be refactored accordingly
-//            // TODO: TBC
-//            guard let collidedEntityID = collider.collidedEntities.first/*,
-//                  collider.isColliding,
-//                  !collider.isOutOfBounds*/ else {
-//                removeNonCollidingEntities(from: health, with: collider)
-//                continue
-//            }
-//
-//            updateHealthForCollision(collider: collider, health: health, collidedEntityID: collidedEntityID)
-//            //removeNonCollidingEntities(from: health, collidedEntityID: collidedEntityID)
-//
-//        }
-//    }
-//
-//    // TODO: Remove hardcoded health deduction and take from skills
-//    // TODO: Only reduce health when collide with skills entity
-//    func updateHealthForCollision(collider: Collider, health: Health, collidedEntityID: EntityID) {
-//        // Entity previously collided but then moved away, so reduce health
-//        if let damagedStatus = health.entityInflictDamageMap[collidedEntityID], !damagedStatus {
-//            health.entityInflictDamageMap[collidedEntityID] = true
-//            health.health -= 10
-//            print("reduce health: \(health.health) / 100")
-//
-//        // This is the first collision with this entity, so reduce health
-//        } else if health.entityInflictDamageMap[collidedEntityID] == nil {
-//            health.entityInflictDamageMap[collidedEntityID] = true
-//            health.health -= 10
-//            print("reduce health: \(health.health) / 100")
-//        }
-//    }
-//
-//    // Remove non-colliding entities from the health map
-//    func removeNonCollidingEntities(from health: Health, with collider: Collider) {
-//        if !collider.isColliding {
-//            health.entityInflictDamageMap = [:]
-//        }
-//    }
 }

@@ -14,13 +14,13 @@ struct NinjaWarriorsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            // TODO: Remove after testing
-
-            //HostView(matchId: "xJqd5m90w2NOJZoSQXUS", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //HostView(matchId: "kDSNQZKqoRDI4vmAlGk2", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
             //ClientView(matchId: "xJqd5m90w2NOJZoSQXUS", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
 
             AuthenticationView()
+
+            //LobbyView()
         }
     }
 }

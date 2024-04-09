@@ -9,7 +9,6 @@ import Foundation
 
 class EventQueue {
     private var queue: DispatchQueue
-    // TODO: Change to private
     var deletedEntities: [EntityID] = []
 
     init(label: String) {

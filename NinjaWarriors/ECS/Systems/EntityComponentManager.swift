@@ -22,7 +22,6 @@ class EntityComponentManager {
     private var isListening = false
     private var mapQueue = EventQueue(label: "entityComponentMapQueue")
     private var newMapQueue = EventQueue(label: "newEntityComponentMapQueue")
-    private var observers = [HostClientObserver]()
 
     var manager: EntitiesManager
 
@@ -41,42 +40,6 @@ class EntityComponentManager {
         manager = RealTimeManagerAdapter(matchId: match)
     }
 
-    deinit {
-        stopListening()
-    }
-
-    func startListening() {
-        print("start listening")
-        manager.addEntitiesListener { snapshot in
-            //print("snap shot received")
-            self.mapQueue.async {
-                self.populate()
-                self.notifyObservers()
-            }
-        }
-    }
-
-    func stopListening() {
-        manager.removeEntitiesListener()
-        isListening = false
-    }
-
-    func addObserver(_ observer: HostClientObserver) {
-        observers.append(observer)
-    }
-
-    func removeObserver(_ observer: HostClientObserver) {
-        if let index = observers.firstIndex(where: { $0 === observer }) {
-            observers.remove(at: index)
-        }
-    }
-
-    private func notifyObservers() {
-        for observer in observers {
-            observer.entityComponentManagerDidUpdate()
-        }
-    }
-
     // No mapQueue needed for intial population
     func initialPopulate() {
         Task {
@@ -88,13 +51,7 @@ class EntityComponentManager {
                     }
                 }
             }
-
             addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
-            if !isListening {
-                print("not listening")
-                startListening()
-                isListening = true
-            }
         }
     }
 
@@ -111,7 +68,6 @@ class EntityComponentManager {
                     }
                 }
                 addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
-                startListening()
                 completion()
             } catch {
                 print("Error: \(error)")
@@ -125,13 +81,11 @@ class EntityComponentManager {
             do {
                 let (remoteEntity, remoteEntityComponentMap) = try await manager.getEntitiesWithComponents()
 
-                DispatchQueue.main.sync { [self] in
+                DispatchQueue.main.async { [self] in
                     for entity in remoteEntity {
-                        if !mapQueue.contains(entity) {
                             newMapQueue.sync {
-                                newEntityMap[entity.id] = entity
+                                self.newEntityMap[entity.id] = entity
                             }
-                        }
                     }
 
                     //mapQueue.sync {
@@ -196,21 +150,15 @@ class EntityComponentManager {
 
     func add(entity: Entity, isAdded: Bool = true) {
         assertRepresentation()
-        //print("[EntityComponentManager] add", entity)
 
         let dstEntity = getDestinationEntity(for: entity)
 
-        // Insert intializing components of entity
         let newComponents = entity.getInitializingComponents()
-        //print("[EntityComponentManager] new", newComponents)
-        newComponents.forEach({add(component: $0, to: dstEntity, srcEntity: entity)})
 
-        //print("[EntityComponentManager] entityMap", entityMap)
-        //print("[EntityComponentManager] entityComponentMap", entityComponentMap)
+        newComponents.forEach({add(component: $0, to: dstEntity, srcEntity: entity)})
 
         if !isAdded {
             Task {
-                // TODO: TBC on adding entity instead of dstEntity
                 try await manager.uploadEntity(entity: entity, components: newComponents)
             }
         }
@@ -219,7 +167,6 @@ class EntityComponentManager {
 
     func add(entity: Entity, components: [Component], isAdded: Bool = true) {
         assertRepresentation()
-        //print("[EntityComponentManager] add", entity)
 
         let dstEntity = getDestinationEntity(for: entity)
 
@@ -229,15 +176,11 @@ class EntityComponentManager {
 
         // Insert intializing components of entity
         let newComponents = components
-        //print("[EntityComponentManager] new", newComponents)
-        newComponents.forEach({add(component: $0, to: dstEntity, srcEntity: entity)})
 
-        //print("[EntityComponentManager] entityMap", entityMap)
-        //print("[EntityComponentManager] entityComponentMap", entityComponentMap)
+        newComponents.forEach({add(component: $0, to: dstEntity, srcEntity: entity)})
 
         if !isAdded {
             Task {
-                // TODO: TBC on adding entity instead of dstEntity
                 try await manager.uploadEntity(entity: entity, components: newComponents)
             }
         }

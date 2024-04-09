@@ -68,9 +68,6 @@ class Rigidbody: Component {
     func movePosition(by vector: Vector) {
         if collidingVelocity == nil {
             self.position = position.add(vector: vector)
-            print("move position vector", vector, "position", self.position)
-        } else {
-            print("not moving")
         }
         guard let attachedCollider = attachedCollider else {
             return

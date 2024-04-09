@@ -51,5 +51,4 @@ class ScoreSystem: System {
             }
         }
     }
-    // TODO: Remove entities not colliding in entityGainScoreMap
 }

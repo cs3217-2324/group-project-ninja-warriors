@@ -22,8 +22,6 @@ final class ClientViewModel: ObservableObject, HostClientObserver  {
         self.currPlayerId = currPlayerId
         self.manager = RealTimeManagerAdapter(matchId: matchId)
         self.entityComponentManager = EntityComponentManager(for: matchId)
-        self.entityComponentManager.addObserver(self)
-        entityComponentManager.startListening()
     }
 
     nonisolated func entityComponentManagerDidUpdate() {
@@ -58,14 +56,6 @@ final class ClientViewModel: ObservableObject, HostClientObserver  {
         }
         for entityIdComponent in entityIdComponents {
             if let entityIdComponent = entityIdComponent as? Rigidbody {
-                /*
-                if entityIdComponent.attachedCollider?.isColliding == true {
-                    entityIdComponent.collidingVelocity = Vector(horizontal: vector.dx,
-                                                                 vertical: vector.dy)
-                } else {
-                    entityIdComponent.velocity = Vector(horizontal: vector.dx, vertical: vector.dy)
-                }
-                */
                 entityIdComponent.angularVelocity = Vector(horizontal: vector.dx, vertical: vector.dy)
             }
         }

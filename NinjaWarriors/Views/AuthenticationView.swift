@@ -12,8 +12,16 @@ struct AuthenticationView: View {
         NavigationView {
             VStack(spacing: 20) {
                 Spacer(minLength: 0)
+                NavigationLink(destination: SinglePlayerLobbyView().navigationBarBackButtonHidden(true)) {
+                    Text("Single player")
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity)
+                        .frame(width: 300, height: 55)
+                        .background(Color.white)
+                        .cornerRadius(10)
+                }.padding()
                 NavigationLink(destination: SignInView().navigationBarBackButtonHidden(true)) {
-                    Text("Sign In With Email")
+                    Text("Multiplayer")
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity)
                         .frame(width: 300, height: 55)
