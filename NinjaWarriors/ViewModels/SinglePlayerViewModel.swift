@@ -146,7 +146,7 @@ extension SinglePlayerViewModel {
 
         let center = Point(xCoord: screenWidth / 2, yCoord: screenHeight / 2)
         let radius: Double = 200
-        let gapAngle: Double = 2.5 * .pi / Double(obstacleCount)
+        let gapAngle: Double = 2 * .pi / Double(obstacleCount)
         var positions: [Point] = []
 
         for i in 0..<obstacleCount {
