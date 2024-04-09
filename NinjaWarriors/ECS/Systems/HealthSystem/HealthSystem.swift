@@ -20,7 +20,6 @@ class HealthSystem: System {
         for attackComponent in attackComponents where !attackComponent.activated {
             for healthComponent in healthComponents {
                 attackComponent.attackIfPossible(health: healthComponent, manager: manager)
-                print(healthComponent.health)
             }
             attackComponent.setToActivated()
         }

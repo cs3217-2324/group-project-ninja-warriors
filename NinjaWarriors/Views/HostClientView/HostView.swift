@@ -53,7 +53,7 @@ struct HostView: View {
                 JoystickView(
                     setInputVector: { vector in
                         viewModel.move(vector)
-                    }, location: CGPoint(x: 150, y: geometry.size.height - 300))
+                    }, location: CGPoint(x: 120, y: geometry.size.height - 320))
                 .frame(width: 200, height: 200)
                 VStack {
                     Spacer()

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct Constants {
-    static let screenHeight = UIScreen.main.bounds.size.height
+    static let screenHeight = UIScreen.main.bounds.size.height - 250
     static let screenWidth = UIScreen.main.bounds.size.width
     static let defaultSize: CGFloat = 25.0
     static let directory = "NinjaWarriors."
