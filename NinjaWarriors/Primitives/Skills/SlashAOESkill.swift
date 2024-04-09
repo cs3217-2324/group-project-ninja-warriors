@@ -39,10 +39,10 @@ class SlashAOESkill: EntitySpawnerSkill {
        cooldownRemaining = cooldownDuration
     }
 
+    // TODO: Remove hardcode and get shape from rigid body, rather than from entity
     func spawnEntity(from casterEntity: Entity, in manager: EntityComponentManager) -> Entity {
         print("[SlashAOESkill] Activated by \(casterEntity)")
-        let slashAOE = SlashAOE(id: RandomNonce().randomNonceString(),
-                                shape: CircleShape(center: casterEntity.shape.center, radius: 20.0), casterEntity: casterEntity)
+        let slashAOE = SlashAOE(id: RandomNonce().randomNonceString(), casterEntity: casterEntity)
         manager.add(entity: slashAOE)
         return slashAOE
     }

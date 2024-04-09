@@ -8,40 +8,62 @@
 import Foundation
 
 class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
-    var manager: EntityComponentManager?
+    var manager: EntityComponentManager
+    var gameControl: GameControl?
 
     required init(for manager: EntityComponentManager) {
         self.manager = manager
     }
 
-    func update(after time: TimeInterval) {
-        guard let manager else { return }
+    convenience init(for manager: EntityComponentManager, with gameControl: GameControl) {
+        self.init(for: manager)
+        self.gameControl = gameControl
+    }
 
-        let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
-        for rigidBody in rigidBodies {
-            rigidBody.update(dt: time)
+    func update(after time: TimeInterval) {
+        //handleElasticCollisions()
+        moveRigidBodies(with: time)
+    }
+
+    private func handleElasticCollisions() {
+        let colliders = manager.getAllComponents(ofType: Collider.self)
+        for collider in colliders where collider.isColliding {
+            guard var rigidBody = manager.getComponent(ofType: Rigidbody.self, for: collider.entity) else {
+                return
+            }
+            for collidedEntityID in collider.collidedEntities {
+                guard let otherEntity = manager.entity(with: collidedEntityID),
+                      var otherRigidBody = manager.getComponent(ofType: Rigidbody.self, for: otherEntity) else {
+                    return
+                }
+                // Not fully implemented yet
+                doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
+            }
         }
     }
 
-    // TODO: Refactor
-    private func getRigidBodies() -> [Rigidbody] {
-        /*
-        var rigidbody: [Rigidbody] = []
-        guard let entityMap = manager?.entityMap else {
-            return []
-        }
-        for (entityId, _) in entityMap {
-            guard let componentIdSet = manager?.entityComponentMap[entityId] else { return [] }
+    // Move all rigid bodies according to their current velocities
+    private func moveRigidBodies(with deltaTime: TimeInterval) {
+        let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
 
-            for componentId in componentIdSet {
-                if let component = manager?.componentMap[componentId] as? Rigidbody {
-                    rigidbody.append(component)
-                }
+        for rigidBody in rigidBodies {
+            let collider = rigidBody.attachedCollider
+
+            guard let gameControl = gameControl,
+                  let gameControlEntity = gameControl.entity,
+                  let collider = collider else {
+                continue
             }
+
+            if !collider.isColliding && rigidBody.entity.id == gameControlEntity.id  {
+                rigidBody.velocity = gameControl.getInput()
+                rigidBody.collidingVelocity = nil
+            } else if collider.isColliding && rigidBody.entity.id == gameControlEntity.id {
+                rigidBody.collidingVelocity = gameControl.getInput()
+            }
+
+            rigidBody.update(dt: deltaTime)
         }
-        return rigidbody
-        */
-        return []
     }
 
     private func getUnitNormVector(from: Vector, to: Vector) -> Vector? {
@@ -77,8 +99,19 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         let resultantTanVel = resultantTanVector(tanVec: tanVel, src: collider)
         collider.velocity = resultantNormVel.add(vector: resultantTanVel)
         collidee.velocity = collider.velocity.getComplement()
-        // TODO: Check if damp velocity is needed
-        // collider.velocity = collider.velocity.add(vector: dampVelocity)
+        collider.velocity = collider.velocity.scale(1)
+    }
+
+    internal func calculateReflectedVelocity(velocity: Vector, collisionNormal: Vector) -> Vector {
+        let velocityMagnitude = velocity.getLength()
+        let normal = collisionNormal.normalize()
+
+        let velocityProjection = velocity.dotProduct(with: normal)
+        let velocityProjectionVector = normal.scale(velocityProjection)
+
+        let reflectedVelocity = velocity.subtract(vector: velocityProjectionVector.scale(2))
+
+        return reflectedVelocity.scale(velocityMagnitude)
     }
 
     func doElasticCollision(collider: inout Rigidbody, collidee: inout Rigidbody) {

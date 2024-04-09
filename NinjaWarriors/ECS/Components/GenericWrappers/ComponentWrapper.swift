@@ -7,22 +7,6 @@
 
 import Foundation
 
-protocol ComponentWrapper: /*MainCodable*/ Codable {
+protocol ComponentWrapper: Codable {
     func toComponent() -> Component?
 }
-
-/*
-class ComponentWrapper: FactoryWrapper {
-    typealias Item = ComponentWrapper
-
-    var id: ComponentID
-    unowned var entity: EntityWrapper?
-
-    init(id: ComponentID, entity: EntityWrapper?) {
-        self.id = id
-        self.entity = entity
-    }
-
-    func toComponent() -> Component? {return nil }
-}
-*/

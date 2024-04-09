@@ -8,7 +8,7 @@
 import Foundation
 
 protocol System: AnyObject {
-    var manager: EntityComponentManager? { get set }
+    var manager: EntityComponentManager { get set }
 
     init(for manager: EntityComponentManager)
     func update(after time: TimeInterval)

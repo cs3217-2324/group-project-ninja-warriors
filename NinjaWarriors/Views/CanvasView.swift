@@ -13,11 +13,13 @@ struct CanvasView: View {
     @State private var isShowingEntityOverlay = false
 
     @State private var matchId: String
+    @State private var playerId: String
     @State private var joystickPosition: CGPoint = .zero
-    @State private var playerPosition = CGPoint(x: 300.0, y: 300.0)
+    @State private var renderedImage: Image?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
+        self.playerId = currPlayerId
         self.viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
@@ -30,65 +32,75 @@ struct CanvasView: View {
             ZStack {
                 GeometryReader { geometry in
                     ZStack {
-                        ForEach(viewModel.entities.compactMap { $0 }, id: \.id) { entity in
-                            VStack {
-                                Image("player-copy")
+                        //Text("\(viewModel.entities.count)")
+                        Text("\(viewModel.entityImages.count)")
+                        ForEach(viewModel.entityImages.indices, id: \.self) { index in
+                            Image(viewModel.entityImages[index])
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 50, height: 50)
+                                .position(viewModel.entityPositions[index])
+                        }
+
+                        /*
+                        ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
+                            if let (render, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
+                                render
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: 50, height: 50)
-                                    .position(entity.shape.getCenter())
-                                    .position(x: playerPosition.x,
-                                              y: playerPosition.y)
-                                Text("\(entity.id)")
+                                    .position(pos)
                             }
                         }
+                        */
                     }
-                    if viewModel.gameControl is JoystickControl {
+
+                    if let currPlayer = viewModel.getCurrPlayer() {
                         JoystickView(
-                            playerPosition: $playerPosition,
                             setInputVector: { vector in
-                                viewModel.changePosition(newPosition: playerPosition)
-                            //viewModel.gameControl.setInputVector(vector)
-                            }, location: CGPoint(x: 200, y: geometry.size.height - 300))
+                                viewModel.gameWorld.setInput(vector, for: currPlayer)
+                            }, location: CGPoint(x: 150, y: geometry.size.height - 250))
                         .frame(width: 200, height: 200)
-                    }
-                    VStack {
-                        Spacer()
-                        HStack {
-                            ZStack {
-                                Button(action: {
-                                    isShowingEntityOverlay.toggle()
-                                }, label: {
-                                    Image(systemName: "eye")
-                                    .accessibilityLabel("Toggle Entity Overlay")})
-                                .padding()
-                                .background(Color.blue.opacity(0.7))
-                                .foregroundColor(.white)
-                                .clipShape(Circle())
-                            }
+                        VStack {
+                            Spacer()
                             HStack {
-                                ForEach(viewModel.getSkills(for: viewModel.currPlayerId), id: \.key) { key, value in
+                                ZStack {
                                     Button(action: {
-                                        viewModel.activateSkill(forEntityWithId: viewModel.currPlayerId, skillId: key)
+                                        isShowingEntityOverlay.toggle()
                                     }, label: {
-                                        Text("\(key) \(String(format: "%.1f", value.cooldownRemaining))")
-                                    })
+                                        Image(systemName: "eye")
+                                        .accessibilityLabel("Toggle Entity Overlay")})
                                     .padding()
-                                    .background(Color.white.opacity(0.7))
+                                    .background(Color.blue.opacity(0.7))
+                                    .foregroundColor(.white)
+                                    .clipShape(Circle())
                                 }
-                            }
-                        }.frame(maxWidth: .infinity, maxHeight: 100)
-                            .background(Color.red.opacity(0.5))
+                                HStack {
+                                    ForEach(viewModel.getSkills(for: currPlayer), id: \.key) { key, value in
+                                        Button(action: {
+                                            viewModel.activateSkill(forEntity: currPlayer, skillId: key)
+                                        }, label: {
+                                            Text("\(key) \(String(format: "%.1f", value.cooldownRemaining))")
+                                        })
+                                        .padding()
+                                        .background(Color.white.opacity(0.7))
+                                    }
+                                }
+                            }.frame(maxWidth: .infinity, maxHeight: 100)
+                                .background(Color.red.opacity(0.5))
+                        }
                     }
-                }
-                EntityOverlayView(entities: viewModel.entities,
+                    EntityOverlayView(entities: viewModel.entities,
                                       componentManager: viewModel.gameWorld.entityComponentManager)
                     .zIndex(-1)
                     .opacity(isShowingEntityOverlay ? 1 : 0)
-                
-            }
-            .onAppear {
-                viewModel.addListeners()
+
+                }
+                .onAppear {
+                    //viewModel.gameWorld.entityComponentManager.populate()
+                    //viewModel.updateEntities()
+                    viewModel.entityHasRigidAndSprite()
+                }
             }
         }
     }

@@ -9,6 +9,9 @@ import Foundation
 
 protocol GameControl {
     var inputVector: CGVector { get }
-    func getInputVector() -> CGVector
-    func setInputVector(_ vector: CGVector)
+    var entity: Entity? { get }
+    
+    func getInput() -> Vector
+    func setInput(_ vector: Vector, for: Entity)
+    func setInput(_ vector: CGVector, for: Entity)
 }

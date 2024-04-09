@@ -8,21 +8,15 @@
 import Foundation
 
 struct ColliderWrapper: ComponentWrapper {
-    var id: EntityID
+    var id: ComponentID
     var entity: EntityWrapper
     var colliderShape: ShapeWrapper
-    var bounciness: Double
-    var density: Double
-    var restitution: Double
-    var isColliding: Bool
-    var offset: VectorWrapper
+    var collidedEntities: Set<EntityID>
 
     func toComponent() -> Component? {
         guard let entity = entity.toEntity() else {
             return nil
         }
-        return Collider(id: id, entity: entity, colliderShape: colliderShape.toShape(),
-                 bounciness: bounciness, density: density, restitution: restitution,
-                 isColliding: isColliding, offset: offset.toVector())
+        return Collider(id: id, entity: entity, colliderShape: colliderShape.toShape(), collidedEntities: collidedEntities)
     }
 }

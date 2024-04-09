@@ -15,28 +15,25 @@ struct RigidbodyWrapper: ComponentWrapper {
     var mass: Double
     var rotation: Double
     var totalForce: VectorWrapper
-    var gravityScale: Double
     var inertia: Double
-    var collisionDetectionMode: Bool
     var position: PointWrapper
+    var offset: PointWrapper
     var velocity: VectorWrapper
-    var attachedColliders: [ColliderWrapper]
+    var attachedCollider: ColliderWrapper
 
     func toComponent() -> Component? {
-        var collidersUnwrap: [Collider] = []
-        for colliderWrap in attachedColliders {
-            if let colliderUnwrap = colliderWrap.toComponent() as? Collider {
-                collidersUnwrap.append(colliderUnwrap)
-            }
-        }
         guard let entity = entity.toEntity() else {
             return nil
         }
-        return Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
-                         angularVelocity: angularVelocity, mass: mass, rotation: rotation,
-                         totalForce: totalForce.toVector(), gravityScale: gravityScale,
-                         inertia: inertia, collisionDetectionMode: collisionDetectionMode,
-                         position: position.toPoint(), velocity: velocity.toVector(),
-                         attachedColliders: collidersUnwrap)
+
+        if let colliderUnwrap = attachedCollider.toComponent() as? Collider {
+            return Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
+                             angularVelocity: angularVelocity, mass: mass, rotation: rotation,
+                             totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
+                             offset: offset.toPoint(), velocity: velocity.toVector(),
+                             attachedCollider: colliderUnwrap)
+        } else {
+            return nil
+        }
     }
 }

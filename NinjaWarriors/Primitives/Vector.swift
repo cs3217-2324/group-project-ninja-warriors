@@ -13,6 +13,16 @@ struct Vector {
     private(set) var horizontal: Double
     private(set) var vertical: Double
 
+    init(horizontal: Double, vertical: Double) {
+        self.horizontal = horizontal
+        self.vertical = vertical
+    }
+
+    init(_ vector: CGVector) {
+        horizontal = vector.dx
+        vertical = vector.dy
+    }
+
     mutating func setVectorCoord(horizontal: Double, vertical: Double) {
         self.horizontal = horizontal
         self.vertical = vertical
@@ -94,7 +104,7 @@ struct Vector {
         return atan2(crossProduct, dotProduct)
     }
 
-    func toVectorWrapper() -> VectorWrapper {
+    func wrapper() -> VectorWrapper {
         VectorWrapper(horizontal: horizontal, vertical: vertical)
     }
 }

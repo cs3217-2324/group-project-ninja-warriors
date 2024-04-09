@@ -15,11 +15,18 @@ struct NinjaWarriorsApp: App {
     var body: some Scene {
         WindowGroup {
             // TODO: Remove after testing
-            //CanvasView(matchId: "iUEZL99TQ1gVAB9MwyA3", currPlayerId: "kn2Ap0BtgChusWyyHZtpV42RxmZ2")
-            CanvasView(matchId: "0QkhbxGv8ZdrZxNMukr6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
-            //CanvasView(matchId: "2qfTVRvygyxIgY0TMAIW", currPlayerId: "qIcQpEfDVOQ1cOtvbv2LQMfvPIz2")
-            //CanvasView(matchId: "s8Mr8jHfE4TAjBOuA5tQ", currPlayerId: "Zzq85zzGsrVwumIIlEf0hexyEKv2")
-            //AuthenticationView()
+            //CanvasView(matchId: "2d1NvyaH3GKGtGOLUwHV", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+
+            //CanvasView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "5YDCcayYXncRuYP6ngYB", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+
+
+
+            //CanvasView(matchId: "PkRyBoW0zgNTF9ktPb3d", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            //CanvasView(matchId: "9GhnqE6FqN1tn4C27Wh4, currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+            AuthenticationView()
+
+            //A4nHFb0EdwYAJxPoDwDQ
         }
     }
 }

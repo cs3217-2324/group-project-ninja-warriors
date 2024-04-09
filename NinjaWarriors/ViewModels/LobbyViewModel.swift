@@ -13,13 +13,11 @@ final class LobbyViewModel: ObservableObject {
     @Published private(set) var matches: [Match] = []
     @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
-    // @Published private(set) var systemManager: SystemManager
     @Published var matchId: String?
     @Published var playerIds: [String]?
 
     init() {
         matchManager = MatchManagerAdapter()
-        // systemManager = SystemManager()
     }
 
     func ready(userId: String) {
@@ -45,33 +43,38 @@ final class LobbyViewModel: ObservableObject {
         }
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
         playerIds = try await matchManager.startMatch(matchId: matchId)
-        initPlayers(ids: playerIds)
+        initEntities(ids: playerIds)
     }
 
-    // Add all relevant entities here
-    func initPlayers(ids playerIds: [String]?) {
+    // Add all relevant initial entities here
+    func initEntities(ids playerIds: [String]?) {
+        /*
+        for _ in 0...1 {
+            addObstacleToDatabase()
+        }
+        */
+
         guard let playerIds = playerIds else {
             return
         }
-        for (index, playerId) in playerIds.enumerated() {
-            addPlayerToDatabase(id: playerId, position: Constants.playerPositions[index])
+        //playerIds.append("opponent")
+        for playerId in playerIds {
+            addPlayerToDatabase(id: playerId)
         }
     }
 
-    private func addPlayerToDatabase(id playerId: String, position: Point) {
-        let player = makePlayer(id: playerId, position: position)
+    private func addPlayerToDatabase(id playerId: String) {
+        let player = makePlayer(id: playerId)
         guard let realTimeManager = realTimeManager else {
             return
         }
         Task {
-            try? await realTimeManager.uploadEntity(entity: player, entityName: "Player")
+            try? await realTimeManager.uploadEntity(entity: player)
         }
     }
 
-    private func makePlayer(id playerId: String, position: Point) -> Player {
-        // TODO: Remove mock components
-        let shape = Shape(center: position, halfLength: Constants.defaultSize)
-        let player = Player(id: playerId, shape: shape)
+    private func makePlayer(id playerId: String) -> Player {
+        let player = Player(id: playerId)
 
         return player
     }
@@ -81,6 +84,20 @@ final class LobbyViewModel: ObservableObject {
             return match.count
         }
         return nil
+    }
+
+    private func addObstacleToDatabase() {
+        let obstacle = makeObstacle()
+        guard let realTimeManager = realTimeManager else {
+            return
+        }
+        Task {
+            try? await realTimeManager.uploadEntity(entity: obstacle)
+        }
+    }
+
+    private func makeObstacle() -> Obstacle {
+        Obstacle(id: RandomNonce().randomNonceString())
     }
 
     func addListenerForMatches() {

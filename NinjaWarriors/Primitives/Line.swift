@@ -184,10 +184,10 @@ struct Line {
         return firstCrossProduct * secondCrossProduct >= 0
     }
 
-    func toLineWrapper() -> LineWrapper {
-        LineWrapper(start: start.toPointWrapper(),
-                    end: end.toPointWrapper(),
-                    vector: vector.toVectorWrapper())
+    func wrapper() -> LineWrapper {
+        LineWrapper(start: start.wrapper(),
+                    end: end.wrapper(),
+                    vector: vector.wrapper())
     }
 }
 

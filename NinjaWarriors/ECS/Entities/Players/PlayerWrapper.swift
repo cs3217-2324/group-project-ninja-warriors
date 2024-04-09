@@ -8,9 +8,9 @@
 import Foundation
 
 class PlayerWrapper: EntityWrapper {
-
-    override init(id: EntityID, shape: ShapeWrapper) {
-        super.init(id: id, shape: shape)
+    
+    override init(id: EntityID) {
+        super.init(id: id)
     }
 
     required init(from decoder: Decoder) throws {
@@ -18,6 +18,6 @@ class PlayerWrapper: EntityWrapper {
     }
 
     override func toEntity() -> Entity? {
-        return Player(id: id, shape: shape.toShape())
+        return Player(id: id)
     }
 }

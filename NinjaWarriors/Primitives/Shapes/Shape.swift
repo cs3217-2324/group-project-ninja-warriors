@@ -9,6 +9,7 @@ import Foundation
 
 class Shape {
     var center: Point
+    var offset: Point
     var halfLength: Double
     var orientation: Double?
     var edges: [Line]?
@@ -16,12 +17,24 @@ class Shape {
 
     init (center: Point, halfLength: Double) {
         self.center = center
+        self.offset = center
         self.halfLength = halfLength
     }
 
     init (center: Point, halfLength: Double,
           orientation: Double, edges: [Line], vertices: [Point]) {
         self.center = center
+        self.offset = center
+        self.halfLength = halfLength
+        self.orientation = orientation
+        self.edges = edges
+        self.vertices = vertices
+    }
+
+    init (center: Point, offset: Point, halfLength: Double,
+          orientation: Double, edges: [Line], vertices: [Point]) {
+        self.center = center
+        self.offset = center
         self.halfLength = halfLength
         self.orientation = orientation
         self.edges = edges
@@ -32,6 +45,14 @@ class Shape {
         CGPoint(x: center.xCoord, y: center.yCoord)
     }
 
+    func getOffset() -> CGPoint {
+        CGPoint(x: offset.xCoord, y: offset.yCoord)
+    }
+
+    func resetOffset() {
+        offset = center
+    }
+
     func countVetices() -> Int {
         guard let vertices = vertices else {
             return 0
@@ -39,12 +60,14 @@ class Shape {
         return vertices.count
     }
 
-    func makeDeepCopy() -> Shape? {
-        guard let edges = edges, let orientation = orientation, let vertices = vertices else {
-            return nil
+    func deepCopy() -> Shape {
+        if let edges = edges, let orientation = orientation, let vertices = vertices {
+            return Shape(center: center, offset: offset, halfLength: halfLength,
+                         orientation: orientation, edges: edges, vertices: vertices)
+        } else {
+            return Shape(center: center, halfLength: halfLength)
         }
-        return Shape(center: center, halfLength: halfLength,
-                     orientation: orientation, edges: edges, vertices: vertices)
+
     }
 }
 
@@ -61,7 +84,7 @@ extension Shape {
 
     private func createEdgesWrapper(_ defaultLine: LineWrapper) -> [LineWrapper] {
         if let edges = edges {
-            return edges.map { $0.toLineWrapper() }
+            return edges.map { $0.wrapper() }
         } else {
             return [defaultLine]
         }
@@ -69,18 +92,19 @@ extension Shape {
 
     private func createVerticesWrapper() -> [PointWrapper] {
         if let vertices = vertices {
-            return vertices.map { $0.toPointWrapper() }
+            return vertices.map { $0.wrapper() }
         } else {
             return [createDefaultPoint()]
         }
     }
 
-    func toShapeWrapper() -> ShapeWrapper {
+    func wrapper() -> ShapeWrapper {
         let defaultLine = createDefaultLine()
         let edgesWrapper = createEdgesWrapper(defaultLine)
         let verticesWrapper = createVerticesWrapper()
 
-        return ShapeWrapper(center: center.toPointWrapper(),
+        return ShapeWrapper(center: center.wrapper(),
+                            offset: offset.wrapper(),
                             orientation: orientation ?? 0.0,
                             halfLength: halfLength,
                             edges: edgesWrapper,

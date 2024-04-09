@@ -9,15 +9,13 @@ import Foundation
 
 // The system responsible for handling skill casting logic
 class SkillCasterSystem: System {
-    var manager: EntityComponentManager?
+    var manager: EntityComponentManager
 
     required init(for manager: EntityComponentManager) {
         self.manager = manager
     }
 
     func update(after time: TimeInterval) {
-        guard let manager = manager else { return }
-
         let skillCasters = manager.getAllComponents(ofType: SkillCaster.self)
         for skillCaster in skillCasters {
             while !skillCaster.activationQueue.isEmpty {
@@ -29,9 +27,7 @@ class SkillCasterSystem: System {
                     print("[Skill <\(skill.id)>] On cooldown!")
                     continue
                 }
-
                 skill.activate(from: skillCaster.entity, in: manager)
-
             }
             
             skillCaster.decrementAllCooldowns(deltaTime: time)

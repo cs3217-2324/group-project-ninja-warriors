@@ -27,7 +27,7 @@ class CircleShape: Shape {
         return center.distance(to: point) <= halfLength
     }
 
-    override func makeDeepCopy() -> Shape? {
+    override func deepCopy() -> Shape {
         return CircleShape(center: self.center, radius: self.halfLength)
     }
 }
