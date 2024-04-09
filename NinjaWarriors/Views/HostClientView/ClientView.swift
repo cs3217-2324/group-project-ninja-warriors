@@ -5,6 +5,9 @@
 //  Created by Muhammad Reyaaz on 6/4/24.
 //
 
+import Foundation
+import SwiftUI
+
 struct ClientView: View {
     @ObservedObject var viewModel: ClientViewModel
     @State private var isShowingEntityOverlay = false

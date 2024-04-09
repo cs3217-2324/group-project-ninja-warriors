@@ -76,11 +76,6 @@ final class HostSinglePlayerViewModel: ObservableObject {
                 print(entityIdComponent.angularVelocity)
             }
         }
-        /*
-        Task {
-            try await gameWorld.entityComponentManager.publish()
-        }
-        */
     }
 }
 

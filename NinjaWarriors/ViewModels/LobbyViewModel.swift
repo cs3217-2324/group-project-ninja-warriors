@@ -63,7 +63,7 @@ final class LobbyViewModel: ObservableObject {
             return
         }
 
-        //initObstacles()
+        initObstacles()
 
         guard let playerIds = playerIds else {
             return

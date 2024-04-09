@@ -15,7 +15,7 @@ final class ClientViewModel: ObservableObject {
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
-    let timeLag: Int = 5
+    let timeLag: Int = 7
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -34,16 +34,14 @@ final class ClientViewModel: ObservableObject {
             try await gameWorld.entityComponentManager.publish()
             if time == timeLag {
                 await gameWorld.entityComponentManager.populate()
+                updateEntities()
+                time = 0
             }
+            time += 1
         } catch {
             print("Error publishing updated state: \(error)")
         }
-        if time == timeLag {
-            updateEntities()
-            updateViews()
-            time = 0
-        }
-        time += 1
+        updateViews()
     }
 
     func updateEntities() {
@@ -75,14 +73,8 @@ final class ClientViewModel: ObservableObject {
         for entityIdComponent in entityIdComponents {
             if let entityIdComponent = entityIdComponent as? Rigidbody {
                 entityIdComponent.angularVelocity = Vector(horizontal: vector.dx, vertical: vector.dy)
-                print(entityIdComponent.angularVelocity)
             }
         }
-        /*
-        Task {
-            try await gameWorld.entityComponentManager.publish()
-        }
-        */
     }
 }
 

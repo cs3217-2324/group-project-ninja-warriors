@@ -27,7 +27,6 @@ class CollisionManager: System {
 
         for otherRigidBody in rigidBodies where otherRigidBody != rigidBody {
             if !checkSafeToInsert(source: rigidBody, with: otherRigidBody) {
-                print("not safe to insert")
                 handleCollisionBetween(rigidBody, and: otherRigidBody)
                 isSafeToInsert = false
                 break
