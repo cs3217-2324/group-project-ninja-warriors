@@ -76,28 +76,22 @@ class EntityComponentManager {
     }
 
     // Queue needed for subsequent population as it runs concurrently with publish
-    func populate() {
-        Task {
-            do {
-                let (remoteEntity, remoteEntityComponentMap) = try await manager.getEntitiesWithComponents()
+    func populate() async {
+        do {
+            let (remoteEntity, remoteEntityComponentMap) = try await manager.getEntitiesWithComponents()
 
-                DispatchQueue.main.async { [self] in
-                    for entity in remoteEntity {
-                            newMapQueue.sync {
-                                self.newEntityMap[entity.id] = entity
-                            }
-                    }
-
-                    //mapQueue.sync {
-                    addEntitiesFromNewMap(newEntityMap, remoteEntityComponentMap)
-                    //}
+            newMapQueue.sync {
+                for entity in remoteEntity {
+                    self.newEntityMap[entity.id] = entity
                 }
-            } catch {
-                print("Error fetching entities with components: \(error)")
             }
+            Task {
+                addEntitiesFromNewMap(newEntityMap, remoteEntityComponentMap)
+            }
+        } catch {
+            print("Error fetching entities with components: \(error)")
         }
     }
-
 
     func addEntitiesFromNewMap(_ remoteEntityMap: [EntityID: Entity],
                                 _ remoteEntityComponentMap: [EntityID: [Component]]) {

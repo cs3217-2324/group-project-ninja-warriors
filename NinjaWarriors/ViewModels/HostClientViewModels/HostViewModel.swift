@@ -15,7 +15,7 @@ final class HostViewModel: ObservableObject {
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
-    let timeLag: Int = 5
+    let timeLag: Int = 7
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -32,11 +32,13 @@ final class HostViewModel: ObservableObject {
     func updateViewModel() async {
         do {
             try await gameWorld.entityComponentManager.publish()
+            if time == timeLag {
+                await gameWorld.entityComponentManager.populate()
+            }
         } catch {
             print("Error publishing updated state: \(error)")
         }
         if time == timeLag {
-            gameWorld.entityComponentManager.populate()
             updateEntities()
             updateViews()
             time = 0

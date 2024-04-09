@@ -69,7 +69,7 @@ struct LobbyView: View {
                                 }
                             } else {
                                 NavigationLink(
-                                    destination: HostView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
+                                    destination: ClientView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
                                 ) {
                                     Text("START GAME")
                                         .font(.system(size: 30))
