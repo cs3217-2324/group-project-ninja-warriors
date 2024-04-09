@@ -54,7 +54,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                 continue
             }
 
-            let playerInput = rigidBody.angularVelocity
+            var playerInput: Vector = getPlayerInput(for: rigidBody)
 
             if !collider.isColliding && !collider.isOutOfBounds {
                 rigidBody.velocity = playerInput
@@ -72,6 +72,19 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
 
             manager.getComponent(ofType: Collider.self, for: rigidBody.entity)?
                 .colliderShape.center = rigidBody.position
+        }
+    }
+
+    private func getPlayerInput(for rigidBody: Rigidbody) -> Vector {
+        if rigidBody.angularVelocity == Vector.zero {
+            guard let gameControl = gameControl,
+                  let gameControlEntity = gameControl.entity,
+                  rigidBody.entity.id == gameControlEntity.id else {
+                return Vector.zero
+            }
+            return gameControl.getInput()
+        } else {
+            return rigidBody.angularVelocity
         }
     }
 

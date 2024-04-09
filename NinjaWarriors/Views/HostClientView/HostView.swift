@@ -53,12 +53,12 @@ struct HostView: View {
                 /*
                 JoystickView(
                     setInputVector: { vector in
-                        viewModel.gameWorld.setInput(vector, for: currPlayer)
+                        viewModel.move(vector)
                     }, location: CGPoint(x: 150, y: geometry.size.height - 300))
                 */
                 JoystickView(
                     setInputVector: { vector in
-                        viewModel.move(vector)
+                        viewModel.gameWorld.setInput(vector, for: currPlayer)
                     }, location: CGPoint(x: 150, y: geometry.size.height - 300))
                 .frame(width: 200, height: 200)
                 VStack {
