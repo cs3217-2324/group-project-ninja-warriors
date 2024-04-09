@@ -14,7 +14,7 @@ final class SinglePlayerViewModel: ObservableObject {
     @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
     @Published var matchId: String = RandomNonce().randomNonceString()
-    @Published var playerIds: [String] = ["singlePlayer"]
+    @Published var playerIds: [String] = ["singlePlayer", "dummyPlyaer"]
     @Published var hostId: String = "singlePlayer"
     let signInViewModel: SignInViewModel?
 

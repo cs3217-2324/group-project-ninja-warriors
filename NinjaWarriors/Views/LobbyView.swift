@@ -55,7 +55,6 @@ struct LobbyView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
 
-                            //if signInViewModel.getUserId() != "kn2Ap0BtgChusWyyHZtpV42RxmZ2" {
                             if signInViewModel.getUserId() == viewModel.hostId {
                                 NavigationLink(
                                     destination: HostView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
@@ -81,7 +80,6 @@ struct LobbyView: View {
                                         .cornerRadius(10)
                                 }
                             }
-                            //.padding()
                         }
                     }
                 }
