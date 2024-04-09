@@ -25,7 +25,9 @@ struct SinglePlayerLobbyView: View {
         NavigationView {
             VStack {
                 NavigationLink(
-                    destination: HostView(matchId: viewModel.matchId, currPlayerId: viewModel.hostId).navigationBarBackButtonHidden(true)
+                    destination: HostSinglePlayerView(matchId: viewModel.matchId,
+                                          currPlayerId: viewModel.hostId)
+                    .navigationBarBackButtonHidden(true)
                 ) {
                     Text("START GAME")
                         .font(.system(size: 30))
@@ -35,7 +37,6 @@ struct SinglePlayerLobbyView: View {
                         .fontWeight(.bold)
                         .cornerRadius(10)
                 }
-
             }
         }.navigationViewStyle(.stack)
     }

@@ -14,8 +14,8 @@ final class SinglePlayerViewModel: ObservableObject {
     @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
     @Published var matchId: String = RandomNonce().randomNonceString()
-    @Published var playerIds: [String] = ["singlePlayer", "dummyPlyaer"]
-    @Published var hostId: String = "singlePlayer"
+    @Published var playerIds: [String] = ["singlePlayer", "dummyPlayer"]
+    @Published var hostId: String = "dummyPlayer"
     let signInViewModel: SignInViewModel?
 
     init() {
@@ -23,7 +23,6 @@ final class SinglePlayerViewModel: ObservableObject {
         matchManager = MatchManagerAdapter()
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
         initEntities(ids: playerIds)
-        print("matchId: ", matchId)
     }
 
     init(signInViewModel: SignInViewModel) {

@@ -111,5 +111,6 @@ struct LobbyView: View {
                     .frame(width: Constants.screenWidth, height: Constants.screenHeight)
             )
         }.navigationViewStyle(.stack)
+        .navigationBarBackButtonHidden(true)
     }
 }

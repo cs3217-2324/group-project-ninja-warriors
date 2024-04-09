@@ -1,15 +1,15 @@
 //
-//  HostViewModel.swift
+//  HostSinglePlayerViewModel.swift
 //  NinjaWarriors
 //
-//  Created by Muhammad Reyaaz on 15/3/24.
+//  Created by Muhammad Reyaaz on 9/4/24.
 //
 
 import Foundation
 import SwiftUI
 
 @MainActor
-final class HostViewModel: ObservableObject {
+final class HostSinglePlayerViewModel: ObservableObject {
     var gameWorld: GameWorld
     internal var entities: [Entity] = []
     internal var matchId: String
@@ -31,16 +31,16 @@ final class HostViewModel: ObservableObject {
 
     func updateViewModel() async {
         do {
-            try await gameWorld.entityComponentManager.publish()
+            //try await gameWorld.entityComponentManager.publish()
         } catch {
             print("Error publishing updated state: \(error)")
         }
-        if time == timeLag {
-            gameWorld.entityComponentManager.populate()
+        //if time == timeLag {
+            //gameWorld.entityComponentManager.populate()
             updateEntities()
             updateViews()
             time = 0
-        }
+        //}
         time += 1
     }
 
@@ -84,7 +84,7 @@ final class HostViewModel: ObservableObject {
     }
 }
 
-extension HostViewModel {
+extension HostSinglePlayerViewModel {
     func activateSkill(forEntity entity: Entity, skillId: String) {
         let entityId = entity.id
         guard let skillCasterComponent = gameWorld.entityComponentManager
@@ -92,7 +92,7 @@ extension HostViewModel {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }
-//        print("[HostViewModel] \(skillId) queued for activation")
+//        print("[HostSinglePlayerViewModel] \(skillId) queued for activation")
         skillCasterComponent.queueSkillActivation(skillId)
     }
 
@@ -136,7 +136,7 @@ extension HostViewModel {
     }
 }
 
-extension HostViewModel {
+extension HostSinglePlayerViewModel {
     private var closingZoneShape: Shape? {
         let environmentalEffectComponents = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
         return environmentalEffectComponents.first?.environmentShape

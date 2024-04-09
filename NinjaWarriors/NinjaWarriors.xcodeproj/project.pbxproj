@@ -63,6 +63,8 @@
 		915BFD1D2BC2303800AB5815 /* HostClientObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD1C2BC2303800AB5815 /* HostClientObserver.swift */; };
 		916991082BC5490600ED1FBD /* SinglePlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991072BC5490600ED1FBD /* SinglePlayerViewModel.swift */; };
 		9169910A2BC5499700ED1FBD /* SinglePlayerLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991092BC5499700ED1FBD /* SinglePlayerLobbyView.swift */; };
+		9169910C2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169910B2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift */; };
+		9169910E2BC5977C00ED1FBD /* HostSinglePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169910D2BC5977C00ED1FBD /* HostSinglePlayerView.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -243,6 +245,8 @@
 		915BFD1C2BC2303800AB5815 /* HostClientObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostClientObserver.swift; sourceTree = "<group>"; };
 		916991072BC5490600ED1FBD /* SinglePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerViewModel.swift; sourceTree = "<group>"; };
 		916991092BC5499700ED1FBD /* SinglePlayerLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerLobbyView.swift; sourceTree = "<group>"; };
+		9169910B2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSinglePlayerViewModel.swift; sourceTree = "<group>"; };
+		9169910D2BC5977C00ED1FBD /* HostSinglePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSinglePlayerView.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -421,6 +425,7 @@
 			children = (
 				714F20962BC27FF800A5B36E /* HostView.swift */,
 				915BFD1A2BC149A000AB5815 /* ClientView.swift */,
+				9169910D2BC5977C00ED1FBD /* HostSinglePlayerView.swift */,
 			);
 			path = HostClientView;
 			sourceTree = "<group>";
@@ -556,6 +561,7 @@
 				916A7DB32BA42F8B00319C26 /* HostViewModel.swift */,
 				915BFD132BC1200600AB5815 /* ClientViewModel.swift */,
 				915BFD1C2BC2303800AB5815 /* HostClientObserver.swift */,
+				9169910B2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift */,
 			);
 			path = HostClientViewModels;
 			sourceTree = "<group>";
@@ -1168,8 +1174,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */,
+				9169910E2BC5977C00ED1FBD /* HostSinglePlayerView.swift in Sources */,
 				915BFD142BC1200600AB5815 /* ClientViewModel.swift in Sources */,
 				916A7D6A2BA154F000319C26 /* CollisionManager.swift in Sources */,
+				9169910C2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift in Sources */,
 				E6E5B47F2BBEEA0C0089D14D /* SkillWrapper.swift in Sources */,
 				E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */,
 				E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */,

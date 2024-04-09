@@ -84,7 +84,9 @@ struct SignInView: View {
                     label: { EmptyView() }
                 )
             )
-        }.navigationViewStyle(.stack)
+        }
+        .navigationViewStyle(.stack)
+        .navigationBarBackButtonHidden(true)
         .environmentObject(viewModel)
     }
 }
