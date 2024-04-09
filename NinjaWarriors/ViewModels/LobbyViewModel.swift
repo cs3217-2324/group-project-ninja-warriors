@@ -13,71 +13,28 @@ final class LobbyViewModel: ObservableObject {
     @Published private(set) var matches: [Match] = []
     @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
-    @Published var matchId: String?
-    @Published var playerIds: [String]?
-    @Published var hostId: String?
-    let signInViewModel: SignInViewModel
+    @Published var matchId: String = RandomNonce().randomNonceString()
+    @Published var playerIds: [String] = ["a", "b"]
+    @Published var hostId: String = "a"
+    let signInViewModel: SignInViewModel?
+
+    init() {
+        self.signInViewModel = SignInViewModel()
+        matchManager = MatchManagerAdapter()
+        realTimeManager = RealTimeManagerAdapter(matchId: matchId)
+        initEntities(ids: playerIds)
+    }
 
     init(signInViewModel: SignInViewModel) {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
     }
 
-    func ready(userId: String) {
-        Task { [unowned self] in
-            //guard let self = self else { return }
-            let newMatchId = try await matchManager.enterQueue(playerId: userId)
-            self.matchId = newMatchId
-            addListenerForMatches()
-        }
-    }
-
-    func unready(userId: String) {
-        guard let match = matchId else {
-            return
-        }
-        Task { [unowned self] in
-            //guard let self = self else { return }
-            //Task { [unowned self] in
-            await self.matchManager.removePlayerFromMatch(playerId: userId, matchId: match)
-        }
-    }
-
-    func start() async {
-        guard let matchId = matchId else {
-            return
-        }
-        realTimeManager = RealTimeManagerAdapter(matchId: matchId)
-        do {
-            playerIds = try await matchManager.startMatch(matchId: matchId)
-        } catch {
-            print("Error starting match: \(error)")
-        }
-        selectHost(from: playerIds)
-        initEntities(ids: playerIds)
-    }
-
     // Add all relevant initial entities here
-    func initEntities(ids playerIds: [String]?) {
-        guard hostId == signInViewModel.getUserId() else {
-            return
-        }
-
+    func initEntities(ids playerIds: [String]) {
         initObstacles()
-
-        guard let playerIds = playerIds else {
-            return
-        }
         initPlayers(ids: playerIds)
-
         addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
-    }
-
-    func selectHost(from ids: [String]?) {
-        guard let ids = ids else {
-            return
-        }
-        hostId = ids.first
     }
 
     func initObstacles() {

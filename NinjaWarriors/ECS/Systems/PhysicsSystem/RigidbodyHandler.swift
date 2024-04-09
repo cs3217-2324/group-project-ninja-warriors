@@ -88,12 +88,16 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         // Determine the velocity to use for calculations
         var currentVelocity = rigidBody.collidingVelocity ?? rigidBody.velocity
 
+        //var currentVelocity = rigidBody.velocity
+
         // Update position
         let deltaPosition = currentVelocity.scale(deltaTime).add(vector: rigidBody.acceleration.scale(0.5 * pow(deltaTime, 2)))
         rigidBody.movePosition(by: deltaPosition)
 
         // Update velocity
         currentVelocity = currentVelocity.add(vector: rigidBody.acceleration.scale(deltaTime))
+        //rigidBody.velocity = currentVelocity
+
         if rigidBody.collidingVelocity != nil {
             rigidBody.collidingVelocity = currentVelocity
         } else {

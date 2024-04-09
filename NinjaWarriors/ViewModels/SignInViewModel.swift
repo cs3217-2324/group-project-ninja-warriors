@@ -15,6 +15,10 @@ final class SignInViewModel: ObservableObject {
     @Published var user: User?
     private let authentication: Authentication
 
+    init() {
+        self.authentication = AuthenticationAdapter()
+    }
+
     init(authentication: Authentication) {
         self.authentication = authentication
     }

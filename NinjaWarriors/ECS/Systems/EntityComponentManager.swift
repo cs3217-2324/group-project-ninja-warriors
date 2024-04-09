@@ -39,6 +39,7 @@ class EntityComponentManager {
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
+        stopListening()
     }
 
     deinit {
