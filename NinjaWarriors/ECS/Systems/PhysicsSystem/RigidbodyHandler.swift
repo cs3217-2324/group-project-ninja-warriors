@@ -65,6 +65,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
 
             } else if (collider.isColliding || collider.isOutOfBounds) {
                 rigidBody.collidingVelocity = playerInput
+                print("colliding", rigidBody.collidingVelocity)
                 rigidBody.velocity = Vector.zero
             }
 

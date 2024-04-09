@@ -15,40 +15,45 @@ class CollisionManager: System {
     }
 
     func update(after time: TimeInterval) {
-        let colliders = manager.getAllComponents(ofType: Collider.self)
+        let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
 
-        for collider in colliders {
-            handleCollisions(for: collider, colliders: colliders)
+        for rigidBody in rigidBodies {
+            handleCollisions(for: rigidBody, rigidBodies: rigidBodies)
+            print("rigid body after update", rigidBody.attachedCollider?.isColliding)
         }
     }
 
-    private func handleCollisions(for collider: Collider, colliders: [Collider]) {
+    private func handleCollisions(for rigidBody: Rigidbody, rigidBodies: [Rigidbody]) {
         var isSafeToInsert = true
-        
-        for otherCollider in colliders where otherCollider != collider {
-            if !checkSafeToInsert(source: collider.colliderShape, with: otherCollider.colliderShape, isColliding: collider.isColliding, isOutOfBounds: collider.isOutOfBounds) {
-                handleCollisionBetween(collider, and: otherCollider)
+
+        for otherRigidBody in rigidBodies where otherRigidBody != rigidBody {
+            if !checkSafeToInsert(source: rigidBody, with: otherRigidBody) {
+                print("not safe to insert")
+                handleCollisionBetween(rigidBody, and: otherRigidBody)
                 isSafeToInsert = false
                 break
             }
         }
 
         if isSafeToInsert {
-            handleBoundaries(for: collider)
+            handleBoundaries(for: rigidBody)
         }
     }
 
-    private func handleCollisionBetween(_ collider: Collider, and otherCollider: Collider) {
-        collider.isColliding = true
+    private func handleCollisionBetween(_ rigidBody: Rigidbody, and otherRigidBody: Rigidbody) {
+        rigidBody.attachedCollider?.isColliding = true
 
-        if let otherCollidedEntityID = manager.getEntityId(from: otherCollider),
-           let collidedEntityID = manager.getEntityId(from: collider) {
-            collider.collidedEntities.insert(otherCollidedEntityID)
-            otherCollider.collidedEntities.insert(collidedEntityID)
+        if let otherCollidedEntityID = manager.getEntityId(from: otherRigidBody),
+           let collidedEntityID = manager.getEntityId(from: rigidBody) {
+            rigidBody.attachedCollider?.collidedEntities.insert(otherCollidedEntityID)
+            otherRigidBody.attachedCollider?.collidedEntities.insert(collidedEntityID)
         }
     }
 
-    private func handleBoundaries(for collider: Collider) {
+    private func handleBoundaries(for rigidBody: Rigidbody) {
+        guard var collider = rigidBody.attachedCollider else {
+            return
+        }
         if !intersectingBoundaries(source: collider.colliderShape, isColliding: collider.isColliding) {
             collider.isOutOfBounds = false
             collider.isColliding = false
@@ -57,28 +62,42 @@ class CollisionManager: System {
         } else {
             collider.isOutOfBounds = true
             collider.isColliding = true
+            print("intersecting boundaries")
         }
     }
 
-    func checkSafeToInsert(source object: Shape, with shape: Shape,
-                           isColliding: Bool, isOutOfBounds: Bool) -> Bool {
+    func checkSafeToInsert(source object: Rigidbody, with otherObject: Rigidbody) -> Bool {
+
+        /*
         var shapeCenter: CGPoint
         var objectCenter: CGPoint
-
-        if isColliding {
-            shapeCenter = shape.getCenter()
-            objectCenter = object.getCenter()
-        } else {
-            shapeCenter = shape.getOffset()
-            objectCenter = object.getOffset()
+        guard let objectShape = object.attachedCollider?.colliderShape,
+              let otherShape = otherObject.attachedCollider?.colliderShape else {
+            return true
         }
 
+        if let isColliding = object.attachedCollider?.isColliding, isColliding == true {
+            shapeCenter = objectShape.getCenter()
+            objectCenter = otherShape.getCenter()
+        } else {
+            shapeCenter = objectShape.getOffset()
+            objectCenter = otherShape.getOffset()
+        }
+        */
+
+        guard let isColliding = object.attachedCollider?.isColliding else {
+            return true
+        }
+
+        return !isOverlap(source: object, with: otherObject, isColliding: isColliding)
+        /*
         return isNotIntersecting(source: object, with: shape, isColliding: isColliding)
         && !isIntersecting(source: object, with: shape, isColliding: isColliding)
         && !isOverlap(source: object, with: shape, isColliding: isColliding)
         && !pointInside(object: object, point: shapeCenter)
         && !pointInside(object: shape, point: objectCenter)
         && !moveReduces(object: object, with: shape, isColliding: isColliding, isOutOfBounds: isOutOfBounds)
+        */
     }
 
     func intersectingBoundaries(source object: Shape, isColliding: Bool) -> Bool {
@@ -98,9 +117,26 @@ class CollisionManager: System {
     }
 
     // Non-Polygon - Non-Polygon Intersection (both do not contain edges)
-    private func isOverlap(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
+    private func isOverlap(source object: Rigidbody, with otherObject: Rigidbody, isColliding: Bool) -> Bool {
+        //var objectCenter: Point
+        //let shapeCenter: Point
+
         var objectCenter: Point
-        let shapeCenter: Point
+        var otherObjectCenter: Point
+        guard let objectShape = object.attachedCollider?.colliderShape,
+              let otherObjectShape = otherObject.attachedCollider?.colliderShape else {
+            return true
+        }
+
+        if let isColliding = object.attachedCollider?.isColliding, isColliding == false {
+            objectCenter = objectShape.center
+            otherObjectCenter = otherObjectShape.center
+        } else {
+            objectCenter = objectShape.offset
+            otherObjectCenter = otherObjectShape.offset
+        }
+
+        /*
         if isColliding {
             objectCenter = object.offset
             shapeCenter = shape.offset
@@ -108,9 +144,47 @@ class CollisionManager: System {
             objectCenter = object.center
             shapeCenter = shape.center
         }
-        let distanceObjectSquared: Double = objectCenter.squareDistance(to: shapeCenter)
-        let sumHalfLengthSquared: Double = (object.halfLength + shape.halfLength)
-        * (object.halfLength + shape.halfLength)
+        */
+
+        //print("is overlapping")
+        var distanceObjectSquared: Double = objectCenter.squareDistance(to: otherObjectCenter)
+        var sumHalfLengthSquared: Double = (objectShape.halfLength + otherObjectShape.halfLength)
+        * (objectShape.halfLength + otherObjectShape.halfLength)
+        var isOverlapping: Bool = (distanceObjectSquared < sumHalfLengthSquared)
+
+        if otherObject.angularVelocity != Vector.zero {
+            while isOverlapping {
+                print("while")
+                print("object", object.angularVelocity.horizontal, object.angularVelocity.vertical)
+                print("other object", otherObject.angularVelocity.horizontal, otherObject.angularVelocity.vertical)
+                otherObjectCenter = otherObjectCenter.subtract(vector: otherObject.angularVelocity)
+                distanceObjectSquared = objectCenter.squareDistance(to: otherObjectCenter)
+                sumHalfLengthSquared = (objectShape.halfLength + otherObjectShape.halfLength)
+                * (objectShape.halfLength + otherObjectShape.halfLength)
+                isOverlapping = (distanceObjectSquared < sumHalfLengthSquared)
+                print(objectCenter.xCoord, distanceObjectSquared, sumHalfLengthSquared, isOverlapping)
+            }
+        }
+
+        if otherObject.angularVelocity != Vector.zero {
+            while isOverlapping {
+                print("while")
+                print("object", object.angularVelocity.horizontal, object.angularVelocity.vertical)
+                print("other object", otherObject.angularVelocity.horizontal, otherObject.angularVelocity.vertical)
+                objectCenter = objectCenter.subtract(vector: object.angularVelocity)
+                distanceObjectSquared = objectCenter.squareDistance(to: otherObjectCenter)
+                sumHalfLengthSquared = (objectShape.halfLength + otherObjectShape.halfLength)
+                * (objectShape.halfLength + otherObjectShape.halfLength)
+                isOverlapping = (distanceObjectSquared < sumHalfLengthSquared)
+                print(objectCenter.xCoord, distanceObjectSquared, sumHalfLengthSquared, isOverlapping)
+            }
+        }
+
+        print("outside while")
+
+        //object.attachedCollider?.isColliding = false
+        //otherObject.attachedCollider?.isColliding = false
+
         return (distanceObjectSquared < sumHalfLengthSquared)
     }
 
@@ -274,3 +348,4 @@ class CollisionManager: System {
         return isPointInside
     }
 }
+

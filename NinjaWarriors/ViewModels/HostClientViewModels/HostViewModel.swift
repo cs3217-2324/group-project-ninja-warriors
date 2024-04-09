@@ -74,11 +74,14 @@ final class HostViewModel: ObservableObject {
         for entityIdComponent in entityIdComponents {
             if let entityIdComponent = entityIdComponent as? Rigidbody {
                 entityIdComponent.angularVelocity = Vector(horizontal: vector.dx, vertical: vector.dy)
+                print(entityIdComponent.angularVelocity)
             }
         }
+        /*
         Task {
             try await gameWorld.entityComponentManager.publish()
         }
+        */
     }
 }
 
