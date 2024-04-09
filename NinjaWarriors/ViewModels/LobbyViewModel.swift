@@ -23,6 +23,7 @@ final class LobbyViewModel: ObservableObject {
         matchManager = MatchManagerAdapter()
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
         initEntities(ids: playerIds)
+        print("matchId: ", matchId)
     }
 
     init(signInViewModel: SignInViewModel) {
