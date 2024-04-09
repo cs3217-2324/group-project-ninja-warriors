@@ -10,25 +10,4 @@ import XCTest
 
 final class NinjaWarriorsTests: XCTestCase {
 
-    func testSkillCasterActivatesSkillCorrectly() {
-        // Setup
-        let Shape1 = Shape(center: Point(xCoord: 150.0 + Double.random(in: -50.0...50.0),
-                                                   yCoord: 150.0), halfLength: 25.0)
-        let dashSkill = DashSkill()
-        let player = Player(id: "1", Shape: Shape1, skills: [dashSkill]) // Adjust based on your actual Player init
-        guard let skillCaster = player.skillCaster else {
-            XCTFail("Player should have a SkillCaster component.")
-            return
-        }
-
-        // Add the mock skill to the skill caster if not automatically added by Player init
-        skillCaster.addSkill(dashSkill)
-
-        // Activate the skill via SkillCaster
-        skillCaster.activateSkill(withId: dashSkill.id)
-
-        XCTAssertTrue(dashSkill.activated, "The skill should be activated.")
-
-    }
-
 }

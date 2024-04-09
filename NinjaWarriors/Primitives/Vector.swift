@@ -8,9 +8,20 @@
 import Foundation
 
 struct Vector {
+    static let zero = Vector(horizontal: 0, vertical: 0)
 
     private(set) var horizontal: Double
     private(set) var vertical: Double
+
+    init(horizontal: Double, vertical: Double) {
+        self.horizontal = horizontal
+        self.vertical = vertical
+    }
+
+    init(_ vector: CGVector) {
+        horizontal = vector.dx
+        vertical = vector.dy
+    }
 
     mutating func setVectorCoord(horizontal: Double, vertical: Double) {
         self.horizontal = horizontal
@@ -27,6 +38,10 @@ struct Vector {
 
     func add(vector: Vector) -> Vector {
         Vector(horizontal: self.horizontal + vector.horizontal, vertical: self.vertical + vector.vertical)
+    }
+
+    func add(_ magnitude: Double) -> Vector {
+        Vector(horizontal: self.horizontal + magnitude, vertical: self.vertical + magnitude)
     }
 
     func subtract(vector: Vector) -> Vector {
@@ -89,7 +104,7 @@ struct Vector {
         return atan2(crossProduct, dotProduct)
     }
 
-    func toVectorWrapper() -> VectorWrapper {
+    func wrapper() -> VectorWrapper {
         VectorWrapper(horizontal: horizontal, vertical: vertical)
     }
 }

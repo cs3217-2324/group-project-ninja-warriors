@@ -8,22 +8,23 @@
 import Foundation
 
 class SystemManager {
-    private var systems: [System]
+    private var systems: [SystemType: System]
 
     init() {
-        systems = []
+        systems = [:]
     }
 
     func update(after time: TimeInterval) {
-        systems.forEach { $0.update(after: time) }
+        systems.values.forEach { system in
+            system.update(after: time)
+        }
     }
 
     func system<T: System>(ofType: T.Type) -> T? {
-        // TODO: if guaranteed that there is only one system of a given type, then can index by type name
-        return systems.first(where: {$0 is T}) as? T
+        return systems[SystemType(ofType)] as? T
     }
 
     func add(system: System) {
-        systems.append(system)
+        systems[SystemType(type(of: system))] = system
     }
 }

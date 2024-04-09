@@ -8,12 +8,15 @@
 import Foundation
 
 class TransformHandler: System {
-    var manager: EntityComponentManager?
+    var manager: EntityComponentManager
 
     required init(for manager: EntityComponentManager) {
         self.manager = manager
     }
 
+    func update(after time: TimeInterval) { }
+
+    /*
     func transformPosition(for id: EntityID, to position: Point) {
         guard let shape = manager?.entity(with: id)?.shape else {
             return
@@ -70,4 +73,5 @@ class TransformHandler: System {
             shapeVertices.remove(at: index)
         }
     }
+    */
 }

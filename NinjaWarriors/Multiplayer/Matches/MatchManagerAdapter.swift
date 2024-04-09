@@ -114,27 +114,26 @@ final class MatchManagerAdapter: MatchManager {
         return updatedMatchData
     }
 
-    // TODO: Reduce bloat
     func removePlayerFromMatch(playerId: String, matchId: String) async {
         let matchRef = matches.document(matchId)
         do {
-            _ = try await Firestore.firestore().runTransaction({ [weak self] (transaction, errorPointer) -> Any? in
+            _ = try await Firestore.firestore().runTransaction({ [unowned self] (transaction, errorPointer) -> Any? in
                 do {
-                    guard let self = self else {
-                        return nil
-                    }
                     let matchDocument = try transaction.getDocument(matchRef)
                     guard var matchData = matchDocument.data(),
                           var readyPlayers = matchData[self.playersLabel] as? [String] else {
-                        return nil
+                        return
                     }
-                    if let index = readyPlayers.firstIndex(of: playerId) {
-                        readyPlayers.remove(at: index)
-                        let currentCount = matchData[self.countLabel] as? Int ?? 0
-                        matchData[self.countLabel] = currentCount - 1
+                    guard let index = readyPlayers.firstIndex(of: playerId) else {
+                        return
                     }
+
+                    readyPlayers.remove(at: index)
+                    let currentCount = matchData[self.countLabel] as? Int ?? 0
+                    matchData[self.countLabel] = currentCount - 1
                     matchData[self.playersLabel] = readyPlayers
                     transaction.setData(matchData, forDocument: matchRef)
+
                 } catch let error as NSError {
                     errorPointer?.pointee = error
                 }

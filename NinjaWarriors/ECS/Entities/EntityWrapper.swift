@@ -11,12 +11,51 @@ class EntityWrapper: FactoryWrapper {
     typealias Item = EntityWrapper
 
     var id: EntityID
-    var shape: ShapeWrapper
 
-    init(id: EntityID, shape: ShapeWrapper) {
+    init(id: EntityID) {
         self.id = id
-        self.shape = shape
     }
 
-    func toEntity() -> Entity? { return nil }
+    // TODO: FIX THIS
+    func toEntity() -> Entity? { return FactoryEntity(id: id) }
+}
+
+
+class FactoryEntity: Equatable, Entity {
+    let id: EntityID
+
+    init(id: EntityID) {
+        self.id = id
+    }
+
+    func getInitializingComponents() -> [Component] {
+        return []
+    }
+
+    func deepCopy() -> Entity {
+        FactoryEntity(id: id)
+    }
+
+    func wrapper() -> EntityWrapper? {
+        FactoryTestWrapper(id: id)
+    }
+
+    static func == (lhs: FactoryEntity, rhs: FactoryEntity) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
+class FactoryTestWrapper: EntityWrapper {
+
+    override init(id: EntityID) {
+        super.init(id: id)
+    }
+
+    required init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+    }
+
+    override func toEntity() -> Entity? {
+        return FactoryEntity(id: id)
+    }
 }

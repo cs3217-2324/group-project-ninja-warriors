@@ -7,36 +7,63 @@
 
 import Foundation
 
-// TODO: Restructure to ECS
-class RigidbodyHandler: PhysicsElasticCollision, PhysicsRigidBody {
-    private(set) var position: Vector
-    private(set) var mass = 8.0
+class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
+    var manager: EntityComponentManager
+    var gameControl: GameControl?
 
-    var velocity = Vector(horizontal: 0.0, vertical: 0.0)
-    var dampVelocity = Vector(horizontal: 0.0, vertical: -5)
-
-    init(position: Vector) {
-        self.position = position
+    required init(for manager: EntityComponentManager) {
+        self.manager = manager
     }
 
-    init(position: Point) {
-        self.position = position.convertToVector()
+    convenience init(for manager: EntityComponentManager, with gameControl: GameControl) {
+        self.init(for: manager)
+        self.gameControl = gameControl
     }
 
-    init(position: Vector, mass: Double) {
-        self.position = position
-        self.mass = mass
+    func update(after time: TimeInterval) {
+        //handleElasticCollisions()
+        moveRigidBodies(with: time)
     }
 
-    init(position: Point, mass: Double) {
-        self.position = position.convertToVector()
-        self.mass = mass
+    private func handleElasticCollisions() {
+        let colliders = manager.getAllComponents(ofType: Collider.self)
+        for collider in colliders where collider.isColliding {
+            guard var rigidBody = manager.getComponent(ofType: Rigidbody.self, for: collider.entity) else {
+                return
+            }
+            for collidedEntityID in collider.collidedEntities {
+                guard let otherEntity = manager.entity(with: collidedEntityID),
+                      var otherRigidBody = manager.getComponent(ofType: Rigidbody.self, for: otherEntity) else {
+                    return
+                }
+                // Not fully implemented yet
+                doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
+            }
+        }
     }
 
-    init(position: Vector, mass: Double, velocity: Vector) {
-        self.position = position
-        self.mass = mass
-        self.velocity = velocity
+    // Move all rigid bodies according to their current velocities
+    private func moveRigidBodies(with deltaTime: TimeInterval) {
+        let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
+
+        for rigidBody in rigidBodies {
+            let collider = rigidBody.attachedCollider
+
+            guard let gameControl = gameControl,
+                  let gameControlEntity = gameControl.entity,
+                  let collider = collider else {
+                continue
+            }
+
+            if !collider.isColliding && rigidBody.entity.id == gameControlEntity.id  {
+                rigidBody.velocity = gameControl.getInput()
+                rigidBody.collidingVelocity = nil
+            } else if collider.isColliding && rigidBody.entity.id == gameControlEntity.id {
+                rigidBody.collidingVelocity = gameControl.getInput()
+            }
+
+            rigidBody.update(dt: deltaTime)
+        }
     }
 
     private func getUnitNormVector(from: Vector, to: Vector) -> Vector? {
@@ -52,7 +79,7 @@ class RigidbodyHandler: PhysicsElasticCollision, PhysicsRigidBody {
         vector.dotProduct(with: velocity)
     }
 
-    internal func resultantNormVec(normVec: Vector, src: RigidbodyHandler, dst: RigidbodyHandler) -> Vector {
+    internal func resultantNormVec(normVec: Vector, src: Rigidbody, dst: Rigidbody) -> Vector {
         let srcVelProj = getProjection(vector: normVec, velocity: src.velocity)
         let dstVelProj = getProjection(vector: normVec, velocity: dst.velocity)
 
@@ -61,25 +88,38 @@ class RigidbodyHandler: PhysicsElasticCollision, PhysicsRigidBody {
         return normVec.scale(kineticConservation / momentumConservation)
     }
 
-    internal func resultantTanVector(tanVec: Vector, src: RigidbodyHandler) -> Vector {
+    internal func resultantTanVector(tanVec: Vector, src: Rigidbody) -> Vector {
         let srcVelProj = getProjection(vector: tanVec, velocity: src.velocity)
         return tanVec.scale(srcVelProj)
     }
 
     internal func assignResultantVel(normVel: Vector, tanVel: Vector,
-                                     collider: inout RigidbodyHandler, collidee: inout RigidbodyHandler) {
+                                     collider: inout Rigidbody, collidee: inout Rigidbody) {
         let resultantNormVel = resultantNormVec(normVec: normVel, src: collider, dst: collidee)
         let resultantTanVel = resultantTanVector(tanVec: tanVel, src: collider)
         collider.velocity = resultantNormVel.add(vector: resultantTanVel)
         collidee.velocity = collider.velocity.getComplement()
-        collider.velocity = collider.velocity.add(vector: dampVelocity)
+        collider.velocity = collider.velocity.scale(1)
     }
 
-    func doElasticCollision(collider: inout RigidbodyHandler, collidee: inout RigidbodyHandler) {
+    internal func calculateReflectedVelocity(velocity: Vector, collisionNormal: Vector) -> Vector {
+        let velocityMagnitude = velocity.getLength()
+        let normal = collisionNormal.normalize()
+
+        let velocityProjection = velocity.dotProduct(with: normal)
+        let velocityProjectionVector = normal.scale(velocityProjection)
+
+        let reflectedVelocity = velocity.subtract(vector: velocityProjectionVector.scale(2))
+
+        return reflectedVelocity.scale(velocityMagnitude)
+    }
+
+    func doElasticCollision(collider: inout Rigidbody, collidee: inout Rigidbody) {
         guard !collider.mass.isZero && !collidee.mass.isZero else {
             return
         }
-        guard let unitNormVec = getUnitNormVector(from: collider.position, to: collidee.position) else {
+        guard let unitNormVec = getUnitNormVector(from: collider.position.convertToVector(),
+                                                  to: collidee.position.convertToVector()) else {
             return
         }
         let unitTanVec = getTangentVector(from: unitNormVec)

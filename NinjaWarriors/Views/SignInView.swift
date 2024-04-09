@@ -68,7 +68,7 @@ struct SignInView: View {
             .navigationTitle("Sign In With Email")
             .background(
                 NavigationLink(
-                    destination: LobbyView(),
+                    destination: LobbyView().navigationBarBackButtonHidden(true),
                     isActive: $loggedIn,
                     label: { EmptyView() }
                 )

@@ -10,55 +10,104 @@ import SwiftUI
 
 struct CanvasView: View {
     @ObservedObject var viewModel: CanvasViewModel
+    @State private var isShowingEntityOverlay = false
+
     @State private var matchId: String
+    @State private var playerId: String
     @State private var joystickPosition: CGPoint = .zero
-    // Add state to hold the joystick's output
-    @State private var joystickOutput: CGPoint = .zero
+    @State private var renderedImage: Image?
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
+        self.playerId = currPlayerId
         self.viewModel = CanvasViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
     var body: some View {
-        VStack {
-            Text("currPlayerId: \(viewModel.currPlayerId) \(viewModel.entities.count)")
-                .padding()
-            Text("Both the database as well as the view will update in real time, simulating multiplayer mode")
-            GeometryReader { geometry in
-                ZStack {
-                    // Position the JoystickView
-                    JoystickView(location: CGPoint(x: 400, y: 400),
-                                innerCircleLocation: joystickOutput)
-                        .onChange(of: joystickOutput) { newPosition in
-                            viewModel.changePosition(entityId: viewModel.currPlayerId, newPosition: newPosition)
-                        }
-                    // Player Circles
-                    ForEach(viewModel.entities, id: \.id) { entity in
-                        Text("\(entity.id)")
-                        if let entity = entity {
-                            Circle()
-                                .fill(Color.blue)
+        ZStack {
+            Image("grass-stone")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+            
+            ZStack {
+                GeometryReader { geometry in
+                    ZStack {
+                        //Text("\(viewModel.entities.count)")
+                        Text("\(viewModel.entityImages.count)")
+                        ForEach(viewModel.entityImages.indices, id: \.self) { index in
+                            Image(viewModel.entityImages[index])
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
                                 .frame(width: 50, height: 50)
-                                .position(entity.shape.getCenter())
-                                .gesture(
-                                    DragGesture()
-                                        .onChanged { gesture in
-                                            let newX = max(0, min(gesture.location.x, geometry.size.width))
-                                            let newY = max(0, min(gesture.location.y, geometry.size.height))
-                                            joystickPosition = CGPoint(x: newX, y: newY)
-                                            let entityId = entity.id
-                                            viewModel.changePosition(entityId: entityId, newPosition: joystickPosition)
-                                        }
-                                )
+                                .position(viewModel.entityPositions[index])
+                        }
 
+                        /*
+                        ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
+                            if let (render, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
+                                render
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 50, height: 50)
+                                    .position(pos)
+                            }
+                        }
+                        */
+                    }
+
+                    if let currPlayer = viewModel.getCurrPlayer() {
+                        JoystickView(
+                            setInputVector: { vector in
+                                viewModel.gameWorld.setInput(vector, for: currPlayer)
+                            }, location: CGPoint(x: 150, y: geometry.size.height - 250))
+                        .frame(width: 200, height: 200)
+                        VStack {
+                            Spacer()
+                            HStack {
+                                ZStack {
+                                    Button(action: {
+                                        isShowingEntityOverlay.toggle()
+                                    }, label: {
+                                        Image(systemName: "eye")
+                                        .accessibilityLabel("Toggle Entity Overlay")})
+                                    .padding()
+                                    .background(Color.blue.opacity(0.7))
+                                    .foregroundColor(.white)
+                                    .clipShape(Circle())
+                                }
+                                HStack {
+                                    ForEach(viewModel.getSkills(for: currPlayer), id: \.key) { key, value in
+                                        Button(action: {
+                                            viewModel.activateSkill(forEntity: currPlayer, skillId: key)
+                                        }, label: {
+                                            Text("\(key) \(String(format: "%.1f", value.cooldownRemaining))")
+                                        })
+                                        .padding()
+                                        .background(Color.white.opacity(0.7))
+                                    }
+                                }
+                            }.frame(maxWidth: .infinity, maxHeight: 100)
+                                .background(Color.red.opacity(0.5))
                         }
                     }
+                    EntityOverlayView(entities: viewModel.entities,
+                                      componentManager: viewModel.gameWorld.entityComponentManager)
+                    .zIndex(-1)
+                    .opacity(isShowingEntityOverlay ? 1 : 0)
+
+                }
+                .onAppear {
+                    //viewModel.gameWorld.entityComponentManager.populate()
+                    //viewModel.updateEntities()
+                    viewModel.entityHasRigidAndSprite()
                 }
             }
         }
-        .onAppear {
-            viewModel.addListenerForPlayers()
-        }
+    }
+}
+
+struct CanvasView_Previews: PreviewProvider {
+    static var previews: some View {
+        CanvasView(matchId: "SampleMatchID", currPlayerId: "SamplePlayerID")
     }
 }

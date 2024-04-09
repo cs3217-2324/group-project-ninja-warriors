@@ -8,11 +8,8 @@
 import Foundation
 
 protocol System: AnyObject {
-    var manager: EntityComponentManager? { get set }
+    var manager: EntityComponentManager { get set }
 
     init(for manager: EntityComponentManager)
-}
-
-extension System {
-    func update(after time: TimeInterval) { }
+    func update(after time: TimeInterval)
 }

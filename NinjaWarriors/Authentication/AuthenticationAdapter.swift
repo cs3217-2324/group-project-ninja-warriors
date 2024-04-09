@@ -10,6 +10,8 @@ import FirebaseAuth
 
 final class AuthenticationAdapter: Authentication {
 
+    private let authenticator: Auth? = nil
+
     @discardableResult
     func signUp(email: String, password: String) async throws -> User {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)

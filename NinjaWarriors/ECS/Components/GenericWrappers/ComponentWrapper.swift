@@ -7,6 +7,6 @@
 
 import Foundation
 
-class ComponentWrapper: Codable {
-    func toComponent() -> Component? {return nil }
+protocol ComponentWrapper: Codable {
+    func toComponent() -> Component?
 }

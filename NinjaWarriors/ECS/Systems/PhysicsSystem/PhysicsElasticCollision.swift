@@ -8,5 +8,5 @@
 import Foundation
 
 protocol PhysicsElasticCollision {
-    func doElasticCollision(collider: inout RigidbodyHandler, collidee: inout RigidbodyHandler)
+    func doElasticCollision(collider: inout Rigidbody, collidee: inout Rigidbody)
 }
