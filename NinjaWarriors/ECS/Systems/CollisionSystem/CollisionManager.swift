@@ -24,14 +24,15 @@ class CollisionManager: System {
 
     private func handleCollisions(for collider: Collider, colliders: [Collider]) {
         var isSafeToInsert = true
-
+        
         for otherCollider in colliders where otherCollider != collider {
-            if !checkSafeToInsert(source: collider.colliderShape, with: otherCollider.colliderShape, isColliding: collider.isColliding) {
+            if !checkSafeToInsert(source: collider.colliderShape, with: otherCollider.colliderShape, isColliding: collider.isColliding, isOutOfBounds: collider.isOutOfBounds) {
                 handleCollisionBetween(collider, and: otherCollider)
                 isSafeToInsert = false
                 break
             }
         }
+
         if isSafeToInsert {
             handleBoundaries(for: collider)
         }
@@ -39,7 +40,6 @@ class CollisionManager: System {
 
     private func handleCollisionBetween(_ collider: Collider, and otherCollider: Collider) {
         collider.isColliding = true
-        otherCollider.isColliding = true
 
         if let otherCollidedEntityID = manager.getEntityId(from: otherCollider),
            let collidedEntityID = manager.getEntityId(from: collider) {
@@ -50,16 +50,18 @@ class CollisionManager: System {
 
     private func handleBoundaries(for collider: Collider) {
         if !intersectingBoundaries(source: collider.colliderShape, isColliding: collider.isColliding) {
+            collider.isOutOfBounds = false
             collider.isColliding = false
             collider.colliderShape.resetOffset()
             collider.collidedEntities.removeAll()
-            // TODO: Clear rigid body collider as well once 1-1 mapping has been implemented
         } else {
+            collider.isOutOfBounds = true
             collider.isColliding = true
         }
     }
 
-    func checkSafeToInsert(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
+    func checkSafeToInsert(source object: Shape, with shape: Shape,
+                           isColliding: Bool, isOutOfBounds: Bool) -> Bool {
         var shapeCenter: CGPoint
         var objectCenter: CGPoint
         // TODO: TBC
@@ -76,6 +78,7 @@ class CollisionManager: System {
         && !isOverlap(source: object, with: shape, isColliding: isColliding)
         && !pointInside(object: object, point: shapeCenter)
         && !pointInside(object: shape, point: objectCenter)
+        && !moveReduces(object: object, with: shape, isColliding: isColliding, isOutOfBounds: isOutOfBounds)
     }
 
     func intersectingBoundaries(source object: Shape, isColliding: Bool) -> Bool {
@@ -85,6 +88,7 @@ class CollisionManager: System {
         } else {
             center = object.center
         }
+
         if (center.xCoord - object.halfLength <= 0)
             || (center.xCoord + object.halfLength >= Constants.screenWidth)
             || (center.yCoord - object.halfLength <= 0)
@@ -97,17 +101,59 @@ class CollisionManager: System {
     // Non-Polygon - Non-Polygon Intersection (both do not contain edges)
     private func isOverlap(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {
         var objectCenter: Point
-        let shapeCenter: Point = shape.center
+        let shapeCenter: Point
         if isColliding {
             objectCenter = object.offset
+            shapeCenter = shape.offset
         } else {
             objectCenter = object.center
+            shapeCenter = shape.center
         }
         let distanceObjectSquared: Double = objectCenter.squareDistance(to: shapeCenter)
         let sumHalfLengthSquared: Double = (object.halfLength + shape.halfLength)
         * (object.halfLength + shape.halfLength)
-        return distanceObjectSquared < sumHalfLengthSquared
+        return (distanceObjectSquared < sumHalfLengthSquared)
     }
+
+    private func moveReduces(object: Shape, with shape: Shape,
+                             isColliding: Bool, isOutOfBounds: Bool) -> Bool {
+        guard !isOutOfBounds else {
+            return false
+        }
+
+        if isColliding && object.center != object.offset {
+            if shape.center == shape.offset {
+                return moveReducesForSingleOffset(object: object, shape: shape)
+            } else {
+                return moveReducesForDoubleOffset(object: object, shape: shape)
+            }
+        }
+
+        return false
+    }
+
+    private func moveReducesForSingleOffset(object: Shape, shape: Shape) -> Bool {
+        let unitVector = calculateUnitVector(from: object.center, to: object.offset)
+        let endPoint = object.center.add(vector: unitVector)
+        return calculateNewSquaredDistance(from: endPoint, to: shape.center) < object.center.squareDistance(to: shape.center)
+    }
+
+    private func moveReducesForDoubleOffset(object: Shape, shape: Shape) -> Bool {
+        let unitVector = calculateUnitVector(from: object.center, to: object.offset)
+        let endPoint = object.center.add(vector: unitVector)
+        return calculateNewSquaredDistance(from: endPoint, to: shape.offset) < object.center.squareDistance(to: shape.center)
+    }
+
+    private func calculateUnitVector(from startPoint: Point, to endPoint: Point) -> Vector {
+        var unitVector = (endPoint.subtract(point: startPoint))
+        unitVector.scaleToSize(1)
+        return unitVector
+    }
+
+    private func calculateNewSquaredDistance(from startPoint: Point, to endPoint: Point) -> Double {
+        return startPoint.squareDistance(to: endPoint)
+    }
+
 
     // Polygon - Non-Polygon Intersection (one contains edges)
     private func isIntersecting(source object: Shape, with shape: Shape, isColliding: Bool) -> Bool {

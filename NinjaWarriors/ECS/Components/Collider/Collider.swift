@@ -11,8 +11,9 @@ class Collider: Component {
     var colliderShape: Shape
     var collidedEntities: Set<EntityID>
     var isColliding: Bool = false
+    var isOutOfBounds: Bool = false
 
-    init(id: EntityID, entity: Entity, colliderShape: Shape, collidedEntities: Set<EntityID> = []) {
+    init(id: ComponentID, entity: Entity, colliderShape: Shape, collidedEntities: Set<EntityID> = []) {
         self.colliderShape = colliderShape
         self.collidedEntities = collidedEntities
 
@@ -20,7 +21,7 @@ class Collider: Component {
     }
 
     func movePosition(by vector: Vector) {
-        if isColliding {
+        if isColliding || isOutOfBounds {
             colliderShape.offset = colliderShape.offset.add(vector: vector)
         } else {
             colliderShape.center = colliderShape.center.add(vector: vector)
@@ -44,7 +45,7 @@ class Collider: Component {
             return nil
         }
         return ColliderWrapper(id: id, entity: entityWrapper,
-                               colliderShape: colliderShape.toShapeWrapper(),
+                               colliderShape: colliderShape.wrapper(),
                                collidedEntities: collidedEntities)
     }
 }

@@ -43,12 +43,18 @@ final class LobbyViewModel: ObservableObject {
         }
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
         playerIds = try await matchManager.startMatch(matchId: matchId)
-        initPlayers(ids: playerIds)
+        initEntities(ids: playerIds)
     }
 
     // Add all relevant initial entities here
-    func initPlayers(ids playerIds: [String]?) {
-        guard var playerIds = playerIds else {
+    func initEntities(ids playerIds: [String]?) {
+        /*
+        for _ in 0...1 {
+            addObstacleToDatabase()
+        }
+        */
+
+        guard let playerIds = playerIds else {
             return
         }
         //playerIds.append("opponent")
@@ -63,7 +69,7 @@ final class LobbyViewModel: ObservableObject {
             return
         }
         Task {
-            try? await realTimeManager.uploadEntity(entity: player, entityName: "Player")
+            try? await realTimeManager.uploadEntity(entity: player)
         }
     }
 
@@ -78,6 +84,20 @@ final class LobbyViewModel: ObservableObject {
             return match.count
         }
         return nil
+    }
+
+    private func addObstacleToDatabase() {
+        let obstacle = makeObstacle()
+        guard let realTimeManager = realTimeManager else {
+            return
+        }
+        Task {
+            try? await realTimeManager.uploadEntity(entity: obstacle)
+        }
+    }
+
+    private func makeObstacle() -> Obstacle {
+        Obstacle(id: RandomNonce().randomNonceString())
     }
 
     func addListenerForMatches() {

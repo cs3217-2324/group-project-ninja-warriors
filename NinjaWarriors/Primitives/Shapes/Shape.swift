@@ -84,7 +84,7 @@ extension Shape {
 
     private func createEdgesWrapper(_ defaultLine: LineWrapper) -> [LineWrapper] {
         if let edges = edges {
-            return edges.map { $0.toLineWrapper() }
+            return edges.map { $0.wrapper() }
         } else {
             return [defaultLine]
         }
@@ -92,19 +92,19 @@ extension Shape {
 
     private func createVerticesWrapper() -> [PointWrapper] {
         if let vertices = vertices {
-            return vertices.map { $0.toPointWrapper() }
+            return vertices.map { $0.wrapper() }
         } else {
             return [createDefaultPoint()]
         }
     }
 
-    func toShapeWrapper() -> ShapeWrapper {
+    func wrapper() -> ShapeWrapper {
         let defaultLine = createDefaultLine()
         let edgesWrapper = createEdgesWrapper(defaultLine)
         let verticesWrapper = createVerticesWrapper()
 
-        return ShapeWrapper(center: center.toPointWrapper(),
-                            offset: offset.toPointWrapper(),
+        return ShapeWrapper(center: center.wrapper(),
+                            offset: offset.wrapper(),
                             orientation: orientation ?? 0.0,
                             halfLength: halfLength,
                             edges: edgesWrapper,

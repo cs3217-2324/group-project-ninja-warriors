@@ -32,33 +32,34 @@ struct CanvasView: View {
             ZStack {
                 GeometryReader { geometry in
                     ZStack {
-                        Text("\(viewModel.entities.count)")
-                        if let positions = viewModel.positions, positions.count > 0 {
-                            ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
-                                VStack {
-                                    Group {
-                                        if let renderedImage = renderedImage {
-                                            renderedImage
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fill)
-                                                .frame(width: 50, height: 50)
-                                                .position(positions[index])
-                                        } else {
-                                            Text("Loading...")
-                                        }
-                                    }
-                                    .onAppear {
-                                        renderImage(for: entity)
-                                    }
-                                }
+                        //Text("\(viewModel.entities.count)")
+                        Text("\(viewModel.entityImages.count)")
+                        ForEach(viewModel.entityImages.indices, id: \.self) { index in
+                            Image(viewModel.entityImages[index])
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 50, height: 50)
+                                .position(viewModel.entityPositions[index])
+                        }
+
+                        /*
+                        ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
+                            if let (render, pos) = viewModel.entityHasRigidAndSprite(for: entity) {
+                                render
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 50, height: 50)
+                                    .position(pos)
                             }
                         }
+                        */
                     }
+
                     if let currPlayer = viewModel.getCurrPlayer() {
                         JoystickView(
                             setInputVector: { vector in
                                 viewModel.gameWorld.setInput(vector, for: currPlayer)
-                            }, location: CGPoint(x: 200, y: geometry.size.height - 300))
+                            }, location: CGPoint(x: 150, y: geometry.size.height - 250))
                         .frame(width: 200, height: 200)
                         VStack {
                             Spacer()
@@ -96,15 +97,11 @@ struct CanvasView: View {
 
                 }
                 .onAppear {
-                    viewModel.addListeners()
+                    //viewModel.gameWorld.entityComponentManager.populate()
+                    //viewModel.updateEntities()
+                    viewModel.entityHasRigidAndSprite()
                 }
             }
-        }
-    }
-
-    private func renderImage(for entity: Entity) {
-        if let spriteComponent = viewModel.gameWorld.entityComponentManager.getComponent(ofType: Sprite.self, for: entity) {
-            renderedImage = Image(spriteComponent.image)
         }
     }
 }

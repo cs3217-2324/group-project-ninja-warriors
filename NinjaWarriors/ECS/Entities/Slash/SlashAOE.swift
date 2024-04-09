@@ -10,25 +10,26 @@ import Foundation
 class SlashAOE: Entity {
     let id: EntityID
     var casterEntity: Entity
-    var shape: Shape
 
-    init(id: EntityID, shape: Shape, casterEntity: Entity) {
+    init(id: EntityID, casterEntity: Entity) {
         self.id = id
-        self.shape = shape
         self.casterEntity = casterEntity
     }
 
     func getInitializingComponents() -> [Component] {
-        let collider = Collider(id: RandomNonce().randomNonceString(), entity: self,
-                                colliderShape: shape)
+        let shape = Shape(center: Constants.playerTwoPosition, halfLength: Constants.defaultSize)
+        let collider = Collider(id: RandomNonce().randomNonceString(), entity: self, colliderShape: shape)
         return [collider]
     }
 
     func deepCopy() -> Entity {
-        SlashAOE(id: id, shape: shape.deepCopy(), casterEntity: casterEntity.deepCopy())
+        SlashAOE(id: id, casterEntity: casterEntity.deepCopy())
     }
 
     func wrapper() -> EntityWrapper? {
-        return EntityWrapper(id: id)
+        guard let casterEntityWrapper = casterEntity.wrapper() else {
+            return nil
+        }
+        return SlashaoeWrapper(id: id, casterEntity: casterEntityWrapper)
     }
 }

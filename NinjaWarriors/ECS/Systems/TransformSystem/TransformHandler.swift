@@ -7,7 +7,6 @@
 
 import Foundation
 
-// TODO: Possibly deprecate
 class TransformHandler: System {
     var manager: EntityComponentManager
 
