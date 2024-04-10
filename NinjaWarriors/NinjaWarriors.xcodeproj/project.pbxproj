@@ -116,8 +116,6 @@
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
 		916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* HostViewModel.swift */; };
 		9180485D2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */; };
-		9180485E2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */; };
-		9180485F2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */; };
 		9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* TriangleShape.swift */; };
 		9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* RectangleShape.swift */; };
 		9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */; };
@@ -711,7 +709,7 @@
 		916A7D872BA19F4200319C26 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				918048442BC6E3B400026965 /* CharacterSelectionView */,
+				9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */,
 				91038D142BC237D200F08D4A /* HostClientView */,
 				E6D6BD062BC1C1B3004BFD59 /* EntityView.swift */,
 				916A7D882BA19F5100319C26 /* AuthenticationView.swift */,
@@ -779,14 +777,6 @@
 				916A7DA92BA3FBBF00319C26 /* AnyCodingKey.swift */,
 			);
 			path = GenericWrappers;
-			sourceTree = "<group>";
-		};
-		918048442BC6E3B400026965 /* CharacterSelectionView */ = {
-			isa = PBXGroup;
-			children = (
-				9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */,
-			);
-			path = CharacterSelectionView;
 			sourceTree = "<group>";
 		};
 		9180F9C92BAAF81A000CC390 /* Shapes */ = {
@@ -1369,7 +1359,6 @@
 				916991342BC6782F00ED1FBD /* Gem.swift in Sources */,
 				916991382BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */,
-				9180485E2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */,
 				916991412BC69EBE00ED1FBD /* Rules.swift in Sources */,
 				9169913C2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
 				7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */,
@@ -1384,7 +1373,6 @@
 				916991392BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */,
 				9169913D2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
-				9180485F2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */,
 				916991352BC6782F00ED1FBD /* Gem.swift in Sources */,
 				916991422BC69EBE00ED1FBD /* Rules.swift in Sources */,
 			);

@@ -49,4 +49,18 @@ struct Constants {
     static var closingZoneDPS: Double = 1.0
     static var closingZoneRadiusShrinkagePerSecond: Double = 10.0
     static var closingZoneMinimumSize: Double = 50.0
+
+    // MARK: Characters
+    static var characterNames: [String] = ["Shadowstrike", "Nightblade", "Swiftshadow", "SilentStorm",
+                                    "Crimsonshadow", "Shadowblade", "Venomstrike", "Darkwind"]
+
+    static var skills: [String: [String]] = ["Shadowstrike": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Nightblade": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Swiftshadow": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "SilentStorm": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Crimsonshadow": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Shadowblade": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Venomstrike": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Darkwind": ["Dash", "Slash", "Dodge", "Refresh"]]
+    
 }
