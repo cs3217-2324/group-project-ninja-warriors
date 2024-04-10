@@ -80,6 +80,7 @@ class EntityComponentManager {
             let (remoteEntity, remoteEntityComponentMap) = try await manager.getEntitiesWithComponents()
 
             newMapQueue.sync {
+                self.newEntityMap.removeAll()
                 for entity in remoteEntity {
                     guard (entity as? ClosingZone) == nil,
                           (entity as? Obstacle) == nil else {
