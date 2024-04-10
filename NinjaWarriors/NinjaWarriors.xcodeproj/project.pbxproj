@@ -76,6 +76,9 @@
 		9169913B2BC67BC900ED1FBD /* CollisionRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913A2BC67BC900ED1FBD /* CollisionRules.swift */; };
 		9169913C2BC67BC900ED1FBD /* CollisionRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913A2BC67BC900ED1FBD /* CollisionRules.swift */; };
 		9169913D2BC67BC900ED1FBD /* CollisionRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913A2BC67BC900ED1FBD /* CollisionRules.swift */; };
+		916991402BC69EBE00ED1FBD /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913F2BC69EBE00ED1FBD /* Rules.swift */; };
+		916991412BC69EBE00ED1FBD /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913F2BC69EBE00ED1FBD /* Rules.swift */; };
+		916991422BC69EBE00ED1FBD /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913F2BC69EBE00ED1FBD /* Rules.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -260,6 +263,7 @@
 		916991322BC6782F00ED1FBD /* Gem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gem.swift; sourceTree = "<group>"; };
 		916991362BC6783500ED1FBD /* GemWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemWrapper.swift; sourceTree = "<group>"; };
 		9169913A2BC67BC900ED1FBD /* CollisionRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionRules.swift; sourceTree = "<group>"; };
+		9169913F2BC69EBE00ED1FBD /* Rules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -499,6 +503,7 @@
 		9136A5B52BA9943100197971 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				9169913E2BC69E7D00ED1FBD /* Rules */,
 				7181B14E2BC05372009711DE /* EnvironmentEffectSystem */,
 				E6FD345C2BC1544600477B1F /* LifespanSystem */,
 				E67F53382BBFEF930051A900 /* DestroySystem */,
@@ -538,7 +543,6 @@
 			isa = PBXGroup;
 			children = (
 				916A7D692BA154F000319C26 /* CollisionManager.swift */,
-				9169913A2BC67BC900ED1FBD /* CollisionRules.swift */,
 			);
 			path = CollisionSystem;
 			sourceTree = "<group>";
@@ -588,6 +592,15 @@
 				916991362BC6783500ED1FBD /* GemWrapper.swift */,
 			);
 			path = Gems;
+			sourceTree = "<group>";
+		};
+		9169913E2BC69E7D00ED1FBD /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				9169913F2BC69EBE00ED1FBD /* Rules.swift */,
+				9169913A2BC67BC900ED1FBD /* CollisionRules.swift */,
+			);
+			path = Rules;
 			sourceTree = "<group>";
 		};
 		916A7D2D2BA1541700319C26 = {
@@ -1287,6 +1300,7 @@
 				916A7D9F2BA3F43B00319C26 /* Query+EXT.swift in Sources */,
 				916A7D932BA1AA6600319C26 /* Authentication.swift in Sources */,
 				9132AF742BA597FD000F2AC4 /* MatchWrapper.swift in Sources */,
+				916991402BC69EBE00ED1FBD /* Rules.swift in Sources */,
 				916A7DAA2BA3FBBF00319C26 /* AnyCodingKey.swift in Sources */,
 				916A7D6C2BA1550700319C26 /* Shape.swift in Sources */,
 				915301B92BAD8411007F2A12 /* ColliderWrapper.swift in Sources */,
@@ -1341,6 +1355,7 @@
 				916991342BC6782F00ED1FBD /* Gem.swift in Sources */,
 				916991382BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */,
+				916991412BC69EBE00ED1FBD /* Rules.swift in Sources */,
 				9169913C2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
 				7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */,
 			);
@@ -1355,6 +1370,7 @@
 				916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */,
 				9169913D2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
 				916991352BC6782F00ED1FBD /* Gem.swift in Sources */,
+				916991422BC69EBE00ED1FBD /* Rules.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

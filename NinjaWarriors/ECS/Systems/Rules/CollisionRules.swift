@@ -7,11 +7,11 @@
 
 import Foundation
 
-class CollisionRules {
+class CollisionRules: Rules {
     private var object: Rigidbody
     private var input: Vector
-    private var deltaTime: TimeInterval
-    private var manager: EntityComponentManager
+    internal var manager: EntityComponentManager
+    internal var deltaTime: TimeInterval
 
     init(object: Rigidbody, input: Vector, deltaTime: TimeInterval, manager: EntityComponentManager) {
         self.object = object
