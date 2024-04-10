@@ -101,6 +101,7 @@ class EntityComponentManager {
             let startTime = DispatchTime.now()
 
             let (remoteEntity, remoteEntityComponentMap) = try await manager.getEntitiesWithComponents()
+            print("at ecm", remoteEntity, remoteEntityComponentMap)
 
             // Record the end time after fetching entities
             let entitiesFetchTime = DispatchTime.now()

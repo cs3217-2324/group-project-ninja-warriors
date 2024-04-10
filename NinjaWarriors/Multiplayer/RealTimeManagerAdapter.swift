@@ -14,6 +14,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
     private let matchId: String
     private let componentKey = "component"
     private var listenerHandle: DatabaseHandle?
+    private var test: [String: [String: Any]]?
 
     init(matchId: String) {
         self.matchId = matchId
@@ -40,7 +41,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return Array(idDict.keys)
     }
 
-    /*
     private func getDict(from ref: DatabaseReference) async throws -> [String: [String: Any]] {
         let dataSnapshot = try await ref.getData()
         guard let dict = dataSnapshot.value as? [String: [String: Any]] else {
@@ -48,23 +48,41 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
         return dict
     }
-    */
 
+    /*
     private func getEntititesDict() async throws -> [String: [String: Any]] {
-        var dict: [String: [String: Any]] = [:]
-
-        // Fetch data once
-        entitiesRef.observeSingleEvent(of: .value) { snapshot in
-            guard let value = snapshot.value as? [String: [String: Any]] else {
-                print("Invalid data format")
-                return
-            }
-
-            dict = value
+        let dataSnapshot = try await entitiesRef.getData()
+        guard let dict = dataSnapshot.value as? [String: [String: Any]] else {
+            throw NSError(domain: "Invalid data format", code: -1, userInfo: nil)
         }
         return dict
     }
+    */
 
+    ///*
+    private func testing() {
+        // Fetch data once
+        entitiesRef.observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? [String: [String: Any]] else {
+                return
+            }
+            self.test = value
+        }
+    }
+
+    //*/
+
+    /*
+    private func getEntitiesDict(completion: @escaping (Result<[String: [String: Any]], Error>) -> Void) {
+        entitiesRef.observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value as? [String: [String: Any]] else {
+                completion(.failure(NSError(domain: "Invalid data format", code: -1, userInfo: nil)))
+                return
+            }
+            completion(.success(value))
+        }
+    }
+    */
 
     /*
     private func getEntititesDict() async throws -> [String: [String: Any]] {
@@ -79,17 +97,72 @@ final class RealTimeManagerAdapter: EntitiesManager {
     /*
     private func getEntititesDict() async throws -> [String: [String: Any]] {
         // Record the start time
-        let startTime = DispatchTime.now()
+        var startTime = DispatchTime.now()
 
         // Fetch data asynchronously
-        let dataSnapshot = try await entitiesRef.getData()
+        var dataSnapshot = try await entitiesRef.getData()
 
         // Record the end time after getting dataSnapshot
-        let dataSnapshotTime = DispatchTime.now()
+        var dataSnapshotTime = DispatchTime.now()
 
         // Calculate the time taken for getting dataSnapshot
-        let timeToGetDataSnapshot = Double(dataSnapshotTime.uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
-        print("Time taken to get dataSnapshot: \(timeToGetDataSnapshot) seconds")
+        var timeToGetDataSnapshot = Double(dataSnapshotTime.uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
+        print("Time taken to get dataSnapshot AAAA: \(timeToGetDataSnapshot) seconds")
+
+
+
+        // Record the start time
+        startTime = DispatchTime.now()
+
+            testing { result in
+                // Record the end time after fetching data
+                let endTime = DispatchTime.now()
+
+                switch result {
+                case .success:
+                    // Data fetched successfully
+                    if let testData = self.getTestData() {
+                        // Use the fetched data
+                        print(testData)
+                    } else {
+                        print("No data available")
+                    }
+                case .failure(let error):
+                    // Handle the error
+                    print("Error fetching data: \(error)")
+                }
+
+                // Calculate the time difference
+                let elapsedTime = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
+                let elapsedTimeInSeconds = Double(elapsedTime) / 1_000_000_000
+                print("Time taken for testing!!!: \(elapsedTimeInSeconds) seconds")
+            }
+
+
+
+
+
+
+
+
+        // Record the start time
+        startTime = DispatchTime.now()
+
+        // Fetch data asynchronously
+        dataSnapshot = try await Database.database().reference().child("test").getData()
+
+        // Record the end time after getting dataSnapshot
+        dataSnapshotTime = DispatchTime.now()
+
+        // Calculate the time taken for getting dataSnapshot
+        timeToGetDataSnapshot = Double(dataSnapshotTime.uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
+        print("Time taken to get dataSnapshot BBBB: \(timeToGetDataSnapshot) seconds")
+
+
+
+
+
+
 
         // Record the start time for extracting value from dataSnapshot
         let extractValueStartTime = DispatchTime.now()
@@ -108,7 +181,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entitiesDict
     }
     */
-
 
     private func getComponentTypeRegistry(for wrapperType: String) -> Codable.Type? {
         let wrapperTypes: [String: Codable.Type] = [
@@ -158,6 +230,14 @@ final class RealTimeManagerAdapter: EntitiesManager {
             print("Error while getting entity:", error)
             return nil
         }
+    }
+
+    private func getEntititesDict() async throws -> [String: [String: Any]] {
+        let dataSnapshot = try await entitiesRef.getData()
+        guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
+            throw NSError(domain: "Invalid entity data format", code: -1, userInfo: nil)
+        }
+        return entitiesDict
     }
 
     private func decodeEntities(id: EntityID? = nil) async throws -> ([Entity]?, String?) {
