@@ -49,7 +49,6 @@ class CollisionRules: Rules {
         }
 
         if canMove() {
-            print("if", object.entity, object.attachedCollider?.entity)
             object.velocity = input
             object.collidingVelocity = nil
             object.attachedCollider?.isColliding = false
@@ -58,7 +57,6 @@ class CollisionRules: Rules {
                 alignEntityRotation(for: object)
             }
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
-            print("else if", object.entity, object.attachedCollider?.entity)
             object.collidingVelocity = input
             object.velocity = Vector.zero
         }

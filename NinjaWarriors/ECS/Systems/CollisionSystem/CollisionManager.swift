@@ -70,8 +70,6 @@ class CollisionManager: System {
 
         let collisionRule = CollisionRules(object: object)
 
-        print("can move:", collisionRule.canMove())
-
         return !isOverlap(source: object, with: otherObject, isColliding: isColliding)
         /*
         return isNotIntersecting(source: object, with: shape, isColliding: isColliding)
@@ -130,7 +128,6 @@ class CollisionManager: System {
             }
         }
         */
-        print("is overlapping status", isOverlapping)
         return isOverlapping
     }
 
