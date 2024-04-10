@@ -12,7 +12,7 @@ struct AuthenticationView: View {
         NavigationView {
             VStack(spacing: 20) {
                 Spacer(minLength: 0)
-                NavigationLink(destination: SinglePlayerLobbyView().navigationBarBackButtonHidden(true)) {
+                NavigationLink(destination: SinglePlayerLobbyView()) {
                     Text("Single player")
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity)
@@ -20,7 +20,7 @@ struct AuthenticationView: View {
                         .background(Color.white)
                         .cornerRadius(10)
                 }.padding()
-                NavigationLink(destination: SignInView().navigationBarBackButtonHidden(true)) {
+                NavigationLink(destination: SignInView()) {
                     Text("Multiplayer Account")
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity)
@@ -28,7 +28,7 @@ struct AuthenticationView: View {
                         .background(Color.white)
                         .cornerRadius(10)
                 }.padding()
-                NavigationLink(destination: LobbyView().navigationBarBackButtonHidden(true)) {
+                NavigationLink(destination: LobbyView()) {
                     Text("Multiplayer Guest")
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity)
@@ -39,7 +39,6 @@ struct AuthenticationView: View {
                 Spacer(minLength: 0)
             }
             .navigationBarTitle("Sign In")
-            .navigationBarHidden(true)
             .background(
                 Image("lobby-bg")
                     .resizable()

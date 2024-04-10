@@ -27,12 +27,12 @@ struct LobbyView: View {
                 if !viewModel.isGuest, let user = signInViewModel.user {
                         Text("UID: \(user.uid)")
                             .padding()
-                            .fontWeight(.medium)
-                            .foregroundColor(.white)
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
                         Text("Email: \(user.email ?? "N/A")")
                             .padding()
-                            .fontWeight(.medium)
-                            .foregroundColor(.white)
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
                     }
                 if let playerCount = viewModel.getPlayerCount() {
                     Text("Player Count: \(playerCount) / \(Constants.playerCount)")
@@ -49,9 +49,9 @@ struct LobbyView: View {
                             }
                         if let matchId = viewModel.matchId,
                            viewModel.playerIds != nil {
-                            Text("\(matchId)")
-                                .fontWeight(.medium)
-                                .foregroundColor(.white)
+                            Text("Match id: \(matchId)")
+                                .fontWeight(.bold)
+                                .foregroundColor(.black)
 
                             if viewModel.getUserId() == viewModel.hostId {
                                 NavigationLink(
@@ -83,6 +83,7 @@ struct LobbyView: View {
                 }
                 Button(action: {
                     viewModel.ready(userId: (viewModel.isGuest ? viewModel.guestId : signInViewModel.getUserId()) ?? "none")
+                    isReady = true
                 }) {
                     Text("Ready")
                         .padding()
@@ -91,15 +92,7 @@ struct LobbyView: View {
                         .cornerRadius(10)
                 }
                 .padding()
-                .opacity({
-                    if isReady && viewModel.getPlayerCount() == Constants.playerCount {
-                        return 0
-                    } else if isReady {
-                        return 0.2
-                    } else {
-                        return 1.0
-                    }
-                }())
+                .opacity(isReady ? 0 : 1)
                 .disabled(isReady)
                 .buttonStyle(ConditionalButtonStyle(isReady: isReady))
             }
