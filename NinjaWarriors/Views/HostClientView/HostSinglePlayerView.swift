@@ -54,7 +54,7 @@ struct HostSinglePlayerView: View {
                     setInputVector: { vector in
                         //viewModel.move(vector)
                         viewModel.gameWorld.setInput(vector, for: currPlayer)
-                    }, location: CGPoint(x: 150, y: geometry.size.height - 300))
+                    }, location: CGPoint(x: 150, y: geometry.size.height - 450))
                 .frame(width: 200, height: 200)
                 VStack {
                     Spacer()

@@ -32,23 +32,12 @@ final class HostSinglePlayerViewModel: ObservableObject {
     func updateViewModel() async {
         do {
             try await gameWorld.entityComponentManager.publish()
-            if time == timeLag {
-                await gameWorld.entityComponentManager.populate()
-                updateEntities()
-                time = 0
-            }
-            time += 1
-
+            await gameWorld.entityComponentManager.populate()
         } catch {
             print("Error publishing updated state: \(error)")
         }
-        //if time == timeLag {
-
-            //updateEntities()
-            updateViews()
-            //time = 0
-        //}
-        //time += 1
+        updateEntities()
+        updateViews()
     }
 
     func updateEntities() {

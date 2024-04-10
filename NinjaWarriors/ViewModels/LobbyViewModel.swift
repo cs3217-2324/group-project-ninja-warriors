@@ -16,11 +16,21 @@ final class LobbyViewModel: ObservableObject {
     @Published var matchId: String?
     @Published var playerIds: [String]?
     @Published var hostId: String?
+    @Published var userId: String?
     let signInViewModel: SignInViewModel
+    let isGuest: Bool
+    let guestId: String = RandomNonce().randomNonceString()
+
+    init() {
+        matchManager = MatchManagerAdapter()
+        self.signInViewModel = SignInViewModel()
+        isGuest = true
+    }
 
     init(signInViewModel: SignInViewModel) {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
+        isGuest = false
     }
 
     func ready(userId: String) {
@@ -59,10 +69,6 @@ final class LobbyViewModel: ObservableObject {
 
     // Add all relevant initial entities here
     func initEntities(ids playerIds: [String]?) {
-        guard hostId == signInViewModel.getUserId() else {
-            return
-        }
-
         initObstacles()
 
         guard let playerIds = playerIds else {
@@ -71,6 +77,13 @@ final class LobbyViewModel: ObservableObject {
         initPlayers(ids: playerIds)
 
         addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
+    }
+
+    func getUserId() -> String {
+        guard let signInUserId = signInViewModel.getUserId() else {
+            return guestId
+        }
+        return signInUserId
     }
 
     func selectHost(from ids: [String]?) {

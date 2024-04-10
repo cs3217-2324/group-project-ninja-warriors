@@ -14,7 +14,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
     private let matchId: String
     private let componentKey = "component"
     private var listenerHandle: DatabaseHandle?
-    private var test: [String: [String: Any]]?
 
     init(matchId: String) {
         self.matchId = matchId
@@ -48,139 +47,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
         return dict
     }
-
-    /*
-    private func getEntititesDict() async throws -> [String: [String: Any]] {
-        let dataSnapshot = try await entitiesRef.getData()
-        guard let dict = dataSnapshot.value as? [String: [String: Any]] else {
-            throw NSError(domain: "Invalid data format", code: -1, userInfo: nil)
-        }
-        return dict
-    }
-    */
-
-    ///*
-    private func testing() {
-        // Fetch data once
-        entitiesRef.observeSingleEvent(of: .value) { snapshot in
-            guard let value = snapshot.value as? [String: [String: Any]] else {
-                return
-            }
-            self.test = value
-        }
-    }
-
-    //*/
-
-    /*
-    private func getEntitiesDict(completion: @escaping (Result<[String: [String: Any]], Error>) -> Void) {
-        entitiesRef.observeSingleEvent(of: .value) { snapshot in
-            guard let value = snapshot.value as? [String: [String: Any]] else {
-                completion(.failure(NSError(domain: "Invalid data format", code: -1, userInfo: nil)))
-                return
-            }
-            completion(.success(value))
-        }
-    }
-    */
-
-    /*
-    private func getEntititesDict() async throws -> [String: [String: Any]] {
-        let dataSnapshot = try await entitiesRef.getData()
-        guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
-            throw NSError(domain: "Invalid entity data format", code: -1, userInfo: nil)
-        }
-        return entitiesDict
-    }
-    */
-
-    /*
-    private func getEntititesDict() async throws -> [String: [String: Any]] {
-        // Record the start time
-        var startTime = DispatchTime.now()
-
-        // Fetch data asynchronously
-        var dataSnapshot = try await entitiesRef.getData()
-
-        // Record the end time after getting dataSnapshot
-        var dataSnapshotTime = DispatchTime.now()
-
-        // Calculate the time taken for getting dataSnapshot
-        var timeToGetDataSnapshot = Double(dataSnapshotTime.uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
-        print("Time taken to get dataSnapshot AAAA: \(timeToGetDataSnapshot) seconds")
-
-
-
-        // Record the start time
-        startTime = DispatchTime.now()
-
-            testing { result in
-                // Record the end time after fetching data
-                let endTime = DispatchTime.now()
-
-                switch result {
-                case .success:
-                    // Data fetched successfully
-                    if let testData = self.getTestData() {
-                        // Use the fetched data
-                        print(testData)
-                    } else {
-                        print("No data available")
-                    }
-                case .failure(let error):
-                    // Handle the error
-                    print("Error fetching data: \(error)")
-                }
-
-                // Calculate the time difference
-                let elapsedTime = endTime.uptimeNanoseconds - startTime.uptimeNanoseconds
-                let elapsedTimeInSeconds = Double(elapsedTime) / 1_000_000_000
-                print("Time taken for testing!!!: \(elapsedTimeInSeconds) seconds")
-            }
-
-
-
-
-
-
-
-
-        // Record the start time
-        startTime = DispatchTime.now()
-
-        // Fetch data asynchronously
-        dataSnapshot = try await Database.database().reference().child("test").getData()
-
-        // Record the end time after getting dataSnapshot
-        dataSnapshotTime = DispatchTime.now()
-
-        // Calculate the time taken for getting dataSnapshot
-        timeToGetDataSnapshot = Double(dataSnapshotTime.uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
-        print("Time taken to get dataSnapshot BBBB: \(timeToGetDataSnapshot) seconds")
-
-
-
-
-
-
-
-        // Record the start time for extracting value from dataSnapshot
-        let extractValueStartTime = DispatchTime.now()
-
-        guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
-            throw NSError(domain: "Invalid entity data format", code: -1, userInfo: nil)
-        }
-
-        // Record the end time after extracting value from dataSnapshot
-        let extractValueEndTime = DispatchTime.now()
-
-        // Calculate the time taken for extracting value from dataSnapshot
-        let timeToExtractValue = Double(extractValueEndTime.uptimeNanoseconds - extractValueStartTime.uptimeNanoseconds) / 1_000_000_000
-        print("Time taken to extract value from dataSnapshot: \(timeToExtractValue) seconds")
-
-        return entitiesDict
-    }
-    */
 
     private func getComponentTypeRegistry(for wrapperType: String) -> Codable.Type? {
         let wrapperTypes: [String: Codable.Type] = [
@@ -314,7 +180,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return (entities, entityComponent)
     }
 
-    /*
     func getEntitiesWithComponents() async throws -> ([Entity], [EntityID: [Component]]) {
         var entities: [Entity] = []
         var entityComponent: [EntityID: [Component]] = [:]
@@ -327,64 +192,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
         return (entities, entityComponent)
     }
-    */
-
-    func getEntitiesWithComponents() async throws -> ([Entity], [EntityID: [Component]]) {
-        // Record the start time
-        let startTime = DispatchTime.now()
-
-        var entities: [Entity] = []
-        var entityComponent: [EntityID: [Component]] = [:]
-
-        // Record the start time for fetching entities dictionary
-        let entitiesDictStartTime = DispatchTime.now()
-
-        let entitiesDict = try await getEntititesDict()
-
-        // Record the end time after fetching entities dictionary
-        let entitiesDictEndTime = DispatchTime.now()
-
-        // Calculate the time taken for fetching entities dictionary
-        let entitiesDictTime = Double(entitiesDictEndTime.uptimeNanoseconds - entitiesDictStartTime.uptimeNanoseconds) / 1_000_000_000
-        print("Time taken to get entities dictionary: \(entitiesDictTime) seconds")
-
-        // Record the start time for getting entity types
-        let entityTypesStartTime = DispatchTime.now()
-
-        let entityTypes = getEntityTypes(from: entitiesDict)
-
-        // Record the end time after getting entity types
-        let entityTypesEndTime = DispatchTime.now()
-
-        // Calculate the time taken for getting entity types
-        let entityTypesTime = Double(entityTypesEndTime.uptimeNanoseconds - entityTypesStartTime.uptimeNanoseconds) / 1_000_000_000
-        print("Time taken to get entity types: \(entityTypesTime) seconds")
-
-        // Record the start time for processing entities
-        let processEntitiesStartTime = DispatchTime.now()
-
-        for entityType in entityTypes {
-            try processEntities(for: entityType, withEntities: entitiesDict, into: &entityComponent,
-                                for: &entities, id: nil)
-        }
-
-        // Record the end time after processing entities
-        let processEntitiesEndTime = DispatchTime.now()
-
-        // Calculate the time taken for processing entities
-        let processEntitiesTime = Double(processEntitiesEndTime.uptimeNanoseconds - processEntitiesStartTime.uptimeNanoseconds) / 1_000_000_000
-        print("Time taken to process entities: \(processEntitiesTime) seconds")
-
-        // Record the end time
-        let endTime = DispatchTime.now()
-
-        // Calculate the total time taken for the entire function
-        let totalTime = Double(endTime.uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
-        print("Total time taken for getEntitiesWithComponents: \(totalTime) seconds")
-
-        return (entities, entityComponent)
-    }
-
 
     private func processEntities(for entityType: String,
                                  withEntities entitiesDict: [String: [String: Any]],

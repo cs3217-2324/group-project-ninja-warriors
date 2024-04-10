@@ -64,9 +64,9 @@
 		9169910A2BC5499700ED1FBD /* SinglePlayerLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991092BC5499700ED1FBD /* SinglePlayerLobbyView.swift */; };
 		9169910C2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169910B2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift */; };
 		9169910E2BC5977C00ED1FBD /* HostSinglePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169910D2BC5977C00ED1FBD /* HostSinglePlayerView.swift */; };
-		916991122BC5FDE600ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 916991112BC5FDE600ED1FBD /* GoogleService-Info.plist */; };
-		916991132BC5FDE600ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 916991112BC5FDE600ED1FBD /* GoogleService-Info.plist */; };
-		916991142BC5FDE600ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 916991112BC5FDE600ED1FBD /* GoogleService-Info.plist */; };
+		9169912E2BC6739200ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */; };
+		9169912F2BC6739200ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */; };
+		916991302BC6739200ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -247,7 +247,7 @@
 		916991092BC5499700ED1FBD /* SinglePlayerLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerLobbyView.swift; sourceTree = "<group>"; };
 		9169910B2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSinglePlayerViewModel.swift; sourceTree = "<group>"; };
 		9169910D2BC5977C00ED1FBD /* HostSinglePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSinglePlayerView.swift; sourceTree = "<group>"; };
-		916991112BC5FDE600ED1FBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -601,7 +601,7 @@
 		916A7D382BA1541700319C26 /* NinjaWarriors */ = {
 			isa = PBXGroup;
 			children = (
-				916991112BC5FDE600ED1FBD /* GoogleService-Info.plist */,
+				9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */,
 				916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */,
 				916A7D3B2BA1541700319C26 /* ContentView.swift */,
 				916A7D3D2BA1541800319C26 /* Assets.xcassets */,
@@ -1115,13 +1115,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				916991122BC5FDE600ED1FBD /* GoogleService-Info.plist in Resources */,
 				916A7D412BA1541800319C26 /* Preview Assets.xcassets in Resources */,
 				916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */,
 				E6CDFFC62BAF2689007BB867 /* grass-stone.jpeg in Resources */,
 				E6CDFFC22BAF22A1007BB867 /* grass.png in Resources */,
 				E6CDFFC42BAF2306007BB867 /* player-copy.png in Resources */,
 				E6CDFFC02BAF1DB0007BB867 /* player.png in Resources */,
+				9169912E2BC6739200ED1FBD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1129,13 +1129,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				916991132BC5FDE600ED1FBD /* GoogleService-Info.plist in Resources */,
 				91D496F82BB059110027C657 /* grass.png in Resources */,
 				91D496F92BB059110027C657 /* grass-stone.jpeg in Resources */,
 				91D496FA2BB059120027C657 /* player.png in Resources */,
 				91D496FB2BB059120027C657 /* player-copy.png in Resources */,
 				91D496F62BB059090027C657 /* Assets.xcassets in Resources */,
 				91D496F72BB059090027C657 /* Preview Assets.xcassets in Resources */,
+				9169912F2BC6739200ED1FBD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1143,7 +1143,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				916991142BC5FDE600ED1FBD /* GoogleService-Info.plist in Resources */,
+				916991302BC6739200ED1FBD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -46,6 +46,7 @@ struct SignInView: View {
                         .background(Color.white)
                         .cornerRadius(10)
                 }
+                .disabled(viewModel.email.isEmpty || viewModel.password.isEmpty)
 
                 Button {
                     Task {
@@ -65,6 +66,7 @@ struct SignInView: View {
                         .background(Color.purple)
                         .cornerRadius(10)
                 }
+                .disabled(viewModel.email.isEmpty || viewModel.password.isEmpty)
 
                 Spacer()
             }
@@ -79,14 +81,14 @@ struct SignInView: View {
             )
             .background(
                 NavigationLink(
-                    destination: LobbyView(viewModel: LobbyViewModel(signInViewModel: viewModel)),
+                    destination: LobbyView(viewModel: LobbyViewModel(signInViewModel: viewModel))
+                        .navigationBarBackButtonHidden(true),
                     isActive: $loggedIn,
                     label: { EmptyView() }
                 )
             )
         }
         .navigationViewStyle(.stack)
-        .navigationBarBackButtonHidden(true)
         .environmentObject(viewModel)
     }
 }

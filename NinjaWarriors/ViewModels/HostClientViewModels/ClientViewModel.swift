@@ -29,7 +29,6 @@ final class ClientViewModel: ObservableObject {
         }
     }
 
-    /*
     func updateViewModel() async {
         do {
             try await gameWorld.entityComponentManager.publish()
@@ -43,23 +42,6 @@ final class ClientViewModel: ObservableObject {
             print("Error publishing updated state: \(error)")
         }
         updateViews()
-    }
-    */
-
-    func updateViewModel() async {
-        do {
-            try await gameWorld.entityComponentManager.publish()
-            await gameWorld.entityComponentManager.populate()
-        } catch {
-            print("Error publishing updated state: \(error)")
-        }
-        //if time == timeLag {
-
-            updateEntities()
-            updateViews()
-            time = 0
-        //}
-        time += 1
     }
 
     func updateEntities() {

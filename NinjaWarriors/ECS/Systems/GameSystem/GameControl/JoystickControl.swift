@@ -12,7 +12,7 @@ class JoystickControl: GameControl {
     internal var entity: Entity?
 
     func getInput() -> Vector {
-        return Vector(horizontal: inputVector.dx * 5, vertical: inputVector.dy * 5)
+        return Vector(horizontal: inputVector.dx, vertical: inputVector.dy)
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {
