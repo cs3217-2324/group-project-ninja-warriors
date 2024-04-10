@@ -186,7 +186,7 @@ extension SinglePlayerViewModel {
     func getGemPositions() -> [Point] {
         let screenWidth = Constants.screenWidth
         let screenHeight = Constants.screenHeight
-        let obstacleCount = Constants.obstacleCount
+        let obstacleCount = Constants.gemCount
 
         let center = Point(xCoord: screenWidth / 2, yCoord: screenHeight / 2)
         let radius: Double = 100

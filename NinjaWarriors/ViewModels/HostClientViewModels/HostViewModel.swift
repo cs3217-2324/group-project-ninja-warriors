@@ -17,10 +17,13 @@ final class HostViewModel: ObservableObject {
     var time: Int = 0
     let timeLag: Int = 5
 
-    init(matchId: String, currPlayerId: String) {
+    init(matchId: String, currPlayerId: String, fixedEntities: [Entity]) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.gameWorld = GameWorld(for: matchId)
+
+        entities += fixedEntities
+
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
             Task {

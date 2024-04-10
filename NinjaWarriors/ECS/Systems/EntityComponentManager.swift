@@ -61,7 +61,6 @@ class EntityComponentManager {
             do {
                 // newEntity is needed due to unowned reference although a warning is shown
                 let (newEntity, newEntityComponentMap) = try await manager.getEntitiesWithComponents()
-
                 for (entityId, components) in newEntityComponentMap {
                     for component in components {
                         newEntityMap[entityId] = component.entity
@@ -82,6 +81,10 @@ class EntityComponentManager {
 
             newMapQueue.sync {
                 for entity in remoteEntity {
+                    guard (entity as? ClosingZone) == nil,
+                          (entity as? Obstacle) == nil else {
+                        continue
+                    }
                     self.newEntityMap[entity.id] = entity
                 }
             }
@@ -108,7 +111,8 @@ class EntityComponentManager {
 
     func publish() async throws {
         for (entityId, entity) in entityMap {
-            guard !mapQueue.contains(entity) else {
+            guard (entity as? ClosingZone) == nil,
+                  (entity as? Obstacle) == nil else {
                 continue
             }
             var entityComponents: Set<Component> = []

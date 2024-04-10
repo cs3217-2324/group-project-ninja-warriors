@@ -17,6 +17,7 @@ final class LobbyViewModel: ObservableObject {
     @Published var playerIds: [String]?
     @Published var hostId: String?
     @Published var userId: String?
+    @Published var fixedEntities: [Entity] = []
     let signInViewModel: SignInViewModel
     let isGuest: Bool
     let guestId: String = RandomNonce().randomNonceString()
@@ -66,13 +67,11 @@ final class LobbyViewModel: ObservableObject {
 
     // Add all relevant initial entities here
     func initEntities(ids playerIds: [String]?) {
-        initObstacles()
-
         guard let playerIds = playerIds else {
             return
         }
         initPlayers(ids: playerIds)
-
+        initObstacles()
         addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
     }
 
@@ -94,6 +93,7 @@ final class LobbyViewModel: ObservableObject {
         let obstaclePositions: [Point] = getObstaclePositions()
         for index in 0..<Constants.obstacleCount {
             addObstacleToDatabase(at: obstaclePositions[index])
+            //fixedEntities.append(makeObstacle(at: obstaclePositions[index]))
         }
     }
 
@@ -173,12 +173,15 @@ final class LobbyViewModel: ObservableObject {
 
     private func addClosingZone(center: Point, radius: Double) {
         let closingZone = makeClosingZone(center: center, radius: radius)
+        fixedEntities.append(closingZone)
+        ///*
         guard let realTimeManager = realTimeManager else {
             return
         }
         Task {
             try? await realTimeManager.uploadEntity(entity: closingZone, components: closingZone.getInitializingComponents())
         }
+        //*/
     }
 
     private func makeClosingZone(center: Point, radius: Double) -> ClosingZone {

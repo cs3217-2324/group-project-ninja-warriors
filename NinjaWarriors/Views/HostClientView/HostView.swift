@@ -13,11 +13,14 @@ struct HostView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
+    @State private var fixedEntities: [Entity]
 
-    init(matchId: String, currPlayerId: String) {
+    init(matchId: String, currPlayerId: String, fixedEntities: [Entity]) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.viewModel = HostViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        self.fixedEntities = fixedEntities
+        self.viewModel = HostViewModel(matchId: matchId, currPlayerId: currPlayerId,
+                                       fixedEntities: fixedEntities)
     }
 
     var body: some View {
@@ -84,6 +87,6 @@ struct HostView: View {
 
 struct HostView_Previews: PreviewProvider {
     static var previews: some View {
-        HostView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+        HostView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2", fixedEntities: [])
     }
 }
