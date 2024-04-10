@@ -23,78 +23,38 @@ struct LobbyView: View {
 
     var body: some View {
         NavigationView {
-            VStack {
-                if !viewModel.isGuest, let user = signInViewModel.user {
-                        Text("UID: \(user.uid)")
-                            .padding()
-                            .fontWeight(.bold)
-                            .foregroundColor(.black)
-                        Text("Email: \(user.email ?? "N/A")")
-                            .padding()
-                            .fontWeight(.bold)
-                            .foregroundColor(.black)
-                    }
+            VStack() {
+                Spacer()
+                userLoginInfo
                 if let playerCount = viewModel.getPlayerCount() {
-                    Text("Player Count: \(playerCount) / \(Constants.playerCount)")
-                        .padding()
-                        .fontWeight(.medium)
-                        .foregroundColor(.white)
+
+                    customText("Player Count: \(playerCount) / \(Constants.playerCount)")
+
                     if playerCount == Constants.playerCount {
-                        Text("")
-                            .hidden()
-                            .onAppear {
-                                Task {
-                                    await viewModel.start()
-                                }
-                            }
-                        if let matchId = viewModel.matchId,
-                           viewModel.playerIds != nil {
-                            Text("Match id: \(matchId)")
-                                .fontWeight(.bold)
-                                .foregroundColor(.black)
+
+                        startRender
+
+                        if let matchId = viewModel.matchId, viewModel.playerIds != nil {
+
+                            customText("Match id: \(matchId)")
 
                             if viewModel.getUserId() == viewModel.hostId {
                                 NavigationLink(
                                     destination: HostView(matchId: matchId, currPlayerId: viewModel.getUserId()).navigationBarBackButtonHidden(true)
                                 ) {
-                                    Text("START GAME")
-                                        .font(.system(size: 30))
-                                        .padding()
-                                        .background(Color.purple)
-                                        .foregroundColor(.white)
-                                        .fontWeight(.bold)
-                                        .cornerRadius(10)
+                                    startGameText
                                 }
                             } else {
                                 NavigationLink(
                                     destination: ClientView(matchId: matchId, currPlayerId: viewModel.getUserId()).navigationBarBackButtonHidden(true)
                                 ) {
-                                    Text("START GAME")
-                                        .font(.system(size: 30))
-                                        .padding()
-                                        .background(Color.purple)
-                                        .foregroundColor(.white)
-                                        .fontWeight(.bold)
-                                        .cornerRadius(10)
+                                    startGameText
                                 }
                             }
                         }
                     }
                 }
-                Button(action: {
-                    viewModel.ready(userId: (viewModel.isGuest ? viewModel.guestId : signInViewModel.getUserId()) ?? "none")
-                    isReady = true
-                }) {
-                    Text("Ready")
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                }
-                .padding()
-                .opacity(isReady ? 0 : 1)
-                .disabled(isReady)
-                .buttonStyle(ConditionalButtonStyle(isReady: isReady))
+                readyButton
             }
             .background(
                 Image("lobby-bg")
@@ -104,20 +64,59 @@ struct LobbyView: View {
                     .frame(width: Constants.screenWidth, height: Constants.screenHeight)
             )
         }.navigationViewStyle(.stack)
-        .navigationBarBackButtonHidden(true)
+            .navigationBarBackButtonHidden(true)
     }
-}
 
-
-struct ConditionalButtonStyle: ButtonStyle {
-    var isReady: Bool
-
-    func makeBody(configuration: Configuration) -> some View {
-        if isReady {
-            configuration.label
-                .buttonStyle(PlainButtonStyle())
-        } else {
-            configuration.label
+    private var userLoginInfo: some View {
+        Group {
+            if !viewModel.isGuest, let user = signInViewModel.user {
+                customText("UID: \(user.uid)")
+                customText("Email: \(user.email ?? "N/A")")
+            }
         }
     }
+
+    private var readyButton: some View {
+        Button(action: {
+            viewModel.ready(userId: (viewModel.isGuest ? viewModel.guestId : signInViewModel.getUserId()) ?? "none")
+            isReady = true
+        }) {
+            Text("Ready")
+                .padding()
+                .foregroundColor(.white)
+                .background(Color.blue)
+                .cornerRadius(10)
+        }
+        .padding()
+        .opacity(isReady ? 0 : 1)
+        .disabled(isReady)
+    }
+
+    private var startRender: some View {
+        Text("")
+            .hidden()
+            .onAppear {
+                Task {
+                    await viewModel.start()
+                }
+            }
+    }
+
+    private var startGameText: some View {
+        Text("START GAME")
+            .font(.system(size: 30))
+            .padding()
+            .background(Color.purple)
+            .foregroundColor(.white)
+            .fontWeight(.bold)
+            .cornerRadius(10)
+    }
+
+    private func customText(_ data: String) -> some View {
+        Text(data)
+            .font(.system(size: 20))
+            .fontWeight(.bold)
+            .foregroundColor(Color(red: 0.8, green: 0.8, blue: 0.8))
+    }
 }
+
