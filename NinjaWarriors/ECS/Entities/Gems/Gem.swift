@@ -1,13 +1,13 @@
 //
-//  Obstacle.swift
+//  Gem.swift
 //  NinjaWarriors
 //
-//  Created by Muhammad Reyaaz on 30/3/24.
+//  Created by Muhammad Reyaaz on 10/4/24.
 //
 
 import Foundation
 
-class Obstacle: Equatable, Entity {
+class Gem: Equatable, Entity {
     let id: EntityID
     var initializePosition: Point = Point(xCoord: 400, yCoord: 400)
 
@@ -27,7 +27,7 @@ class Obstacle: Equatable, Entity {
         let mass = 8.0
         let width = 50.0
         let height = 50.0
-        let image = "rock"
+        let image = "gem"
 
         let collider = Collider(id: RandomNonce().randomNonceString(), entity: self,
                                 colliderShape: shape, isColliding: false, isOutOfBounds: false)
@@ -45,14 +45,14 @@ class Obstacle: Equatable, Entity {
     }
 
     func deepCopy() -> Entity {
-        Obstacle(id: id)
+        Gem(id: id)
     }
 
     func wrapper() -> EntityWrapper? {
-        ObstacleWrapper(id: id)
+        GemWrapper(id: id)
     }
 
-    static func == (lhs: Obstacle, rhs: Obstacle) -> Bool {
+    static func == (lhs: Gem, rhs: Gem) -> Bool {
         lhs.id == rhs.id
     }
 }

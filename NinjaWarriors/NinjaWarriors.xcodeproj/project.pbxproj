@@ -67,6 +67,15 @@
 		9169912E2BC6739200ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */; };
 		9169912F2BC6739200ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */; };
 		916991302BC6739200ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */; };
+		916991332BC6782F00ED1FBD /* Gem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991322BC6782F00ED1FBD /* Gem.swift */; };
+		916991342BC6782F00ED1FBD /* Gem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991322BC6782F00ED1FBD /* Gem.swift */; };
+		916991352BC6782F00ED1FBD /* Gem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991322BC6782F00ED1FBD /* Gem.swift */; };
+		916991372BC6783500ED1FBD /* GemWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991362BC6783500ED1FBD /* GemWrapper.swift */; };
+		916991382BC6783500ED1FBD /* GemWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991362BC6783500ED1FBD /* GemWrapper.swift */; };
+		916991392BC6783500ED1FBD /* GemWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991362BC6783500ED1FBD /* GemWrapper.swift */; };
+		9169913B2BC67BC900ED1FBD /* CollisionRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913A2BC67BC900ED1FBD /* CollisionRules.swift */; };
+		9169913C2BC67BC900ED1FBD /* CollisionRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913A2BC67BC900ED1FBD /* CollisionRules.swift */; };
+		9169913D2BC67BC900ED1FBD /* CollisionRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913A2BC67BC900ED1FBD /* CollisionRules.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -248,6 +257,9 @@
 		9169910B2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSinglePlayerViewModel.swift; sourceTree = "<group>"; };
 		9169910D2BC5977C00ED1FBD /* HostSinglePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSinglePlayerView.swift; sourceTree = "<group>"; };
 		9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		916991322BC6782F00ED1FBD /* Gem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gem.swift; sourceTree = "<group>"; };
+		916991362BC6783500ED1FBD /* GemWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemWrapper.swift; sourceTree = "<group>"; };
+		9169913A2BC67BC900ED1FBD /* CollisionRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionRules.swift; sourceTree = "<group>"; };
 		916A7D362BA1541700319C26 /* NinjaWarriors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NinjaWarriors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NinjaWarriorsApp.swift; sourceTree = "<group>"; };
 		916A7D3B2BA1541700319C26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -509,6 +521,7 @@
 		9136A5B62BA9943900197971 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				916991312BC6780E00ED1FBD /* Gems */,
 				7113A4932BA60E2E00805340 /* Entity.swift */,
 				9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */,
 				91DDE6572BB5118400851603 /* EntityType.swift */,
@@ -525,6 +538,7 @@
 			isa = PBXGroup;
 			children = (
 				916A7D692BA154F000319C26 /* CollisionManager.swift */,
+				9169913A2BC67BC900ED1FBD /* CollisionRules.swift */,
 			);
 			path = CollisionSystem;
 			sourceTree = "<group>";
@@ -565,6 +579,15 @@
 				9169910B2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift */,
 			);
 			path = HostClientViewModels;
+			sourceTree = "<group>";
+		};
+		916991312BC6780E00ED1FBD /* Gems */ = {
+			isa = PBXGroup;
+			children = (
+				916991322BC6782F00ED1FBD /* Gem.swift */,
+				916991362BC6783500ED1FBD /* GemWrapper.swift */,
+			);
+			path = Gems;
 			sourceTree = "<group>";
 		};
 		916A7D2D2BA1541700319C26 = {
@@ -1192,6 +1215,7 @@
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
 				E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
+				916991332BC6782F00ED1FBD /* Gem.swift in Sources */,
 				91CC28382BBA832A009318C7 /* ScoreWrapper.swift in Sources */,
 				915301B22BAD1ADA007F2A12 /* Rigidbody.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
@@ -1212,6 +1236,7 @@
 				E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
 				7181B14A2BC046F6009711DE /* ClosingZone.swift in Sources */,
+				9169913B2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
 				916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */,
 				E6A0564F2BB0691B00398D67 /* RefreshCooldownsSkill.swift in Sources */,
 				91DDE65B2BB51D8800851603 /* AnyEntity.swift in Sources */,
@@ -1299,6 +1324,7 @@
 				9136A5BC2BAAA80200197971 /* RealTimeManagerAdapter.swift in Sources */,
 				9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */,
 				9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */,
+				916991372BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				916A7D752BA1554200319C26 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1312,7 +1338,10 @@
 				7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */,
 				916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */,
 				915301C62BAEC670007F2A12 /* AuthenticationTests.swift in Sources */,
+				916991342BC6782F00ED1FBD /* Gem.swift in Sources */,
+				916991382BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */,
+				9169913C2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
 				7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1322,7 +1351,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				916A7D5C2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift in Sources */,
+				916991392BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */,
+				9169913D2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
+				916991352BC6782F00ED1FBD /* Gem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
