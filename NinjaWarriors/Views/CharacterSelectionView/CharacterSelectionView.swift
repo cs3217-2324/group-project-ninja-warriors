@@ -1,5 +1,5 @@
 //
-//  InstructionView.swift
+//  CharacterSelectionView.swift
 //  Peggle
 //
 //  Created by Muhammad Reyaaz on 29/2/24.
@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct InstructionView: View {
+struct CharacterSelectionView: View {
     @State private var selectedBox: Int? = nil
+    @State private let characterNames: [String] = ["Shadowstrike", "Nightblade", "Swiftshadow", "SilentStorm", "Crimsonshadow", "Shadowblade", "Venomstrike", "Darkwind"]
 
     var body: some View {
         NavigationStack {
@@ -23,35 +24,33 @@ struct InstructionView: View {
                                                         .aspectRatio(contentMode: .fit)
                                                         .frame(width: 50, height: 50)
                                                         .padding(5)
-                                                        .foregroundColor(.blue) // You can change color as needed
+                                                        .foregroundColor(.blue)
                                                         .overlay(
                                                             RoundedRectangle(cornerRadius: 10)
                                                                 .stroke(Color.black, lineWidth: 1)
                                                         ).onTapGesture {
                                                             selectedBox = index
                                                         }
-
-
-
-                           
-
                         }
                     }
                     .padding()
-                    .background(Color.gray.opacity(0.2)) // Background color
+                    .background(Color.gray.opacity(0.2))
                     .cornerRadius(15)
-                    .padding() // Adjust padding as needed
                 }
-
-                // Display text centered above the grid
                 if let selectedBox = selectedBox {
-                    Text("Box \(selectedBox + 1)")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.black.opacity(0.7))
-                        .clipShape(Capsule())
-                        .transition(.scale)
+                    VStack {
+                        Text("Character Selection \(selectedBox)")
+                            .font(.custom("YourFontName", size: 40))
+                            .foregroundColor(.black)
+                            .padding(.top, 20)
+
+                        Spacer()
+
+                        Text("Skills: Strength, Agility, Intelligence")
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                            .padding(.bottom, 20)
+                    }
                 }
             }
         }
@@ -59,8 +58,8 @@ struct InstructionView: View {
 }
 
 
-struct InstructionView_Previews: PreviewProvider {
+struct CharacterSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        InstructionView()
+        CharacterSelectionView()
     }
 }

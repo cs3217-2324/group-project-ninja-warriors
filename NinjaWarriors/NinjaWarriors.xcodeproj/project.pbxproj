@@ -115,33 +115,9 @@
 		916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */; };
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
 		916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* HostViewModel.swift */; };
-		9180484E2BC6E3C200026965 /* ObjectDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048452BC6E3C200026965 /* ObjectDisplayView.swift */; };
-		9180484F2BC6E3C200026965 /* ObjectDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048452BC6E3C200026965 /* ObjectDisplayView.swift */; };
-		918048502BC6E3C200026965 /* ObjectDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048452BC6E3C200026965 /* ObjectDisplayView.swift */; };
-		918048512BC6E3C200026965 /* ObstacleDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048462BC6E3C200026965 /* ObstacleDisplayView.swift */; };
-		918048522BC6E3C200026965 /* ObstacleDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048462BC6E3C200026965 /* ObstacleDisplayView.swift */; };
-		918048532BC6E3C200026965 /* ObstacleDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048462BC6E3C200026965 /* ObstacleDisplayView.swift */; };
-		918048542BC6E3C200026965 /* DecalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048472BC6E3C200026965 /* DecalView.swift */; };
-		918048552BC6E3C200026965 /* DecalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048472BC6E3C200026965 /* DecalView.swift */; };
-		918048562BC6E3C200026965 /* DecalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048472BC6E3C200026965 /* DecalView.swift */; };
-		918048572BC6E3C200026965 /* IconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048482BC6E3C200026965 /* IconsView.swift */; };
-		918048582BC6E3C200026965 /* IconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048482BC6E3C200026965 /* IconsView.swift */; };
-		918048592BC6E3C200026965 /* IconsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048482BC6E3C200026965 /* IconsView.swift */; };
-		9180485A2BC6E3C200026965 /* ThemeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048492BC6E3C200026965 /* ThemeDisplayView.swift */; };
-		9180485B2BC6E3C200026965 /* ThemeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048492BC6E3C200026965 /* ThemeDisplayView.swift */; };
-		9180485C2BC6E3C200026965 /* ThemeDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048492BC6E3C200026965 /* ThemeDisplayView.swift */; };
-		9180485D2BC6E3C200026965 /* InstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484A2BC6E3C200026965 /* InstructionView.swift */; };
-		9180485E2BC6E3C200026965 /* InstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484A2BC6E3C200026965 /* InstructionView.swift */; };
-		9180485F2BC6E3C200026965 /* InstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484A2BC6E3C200026965 /* InstructionView.swift */; };
-		918048602BC6E3C200026965 /* InfoDisplayBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484B2BC6E3C200026965 /* InfoDisplayBoxView.swift */; };
-		918048612BC6E3C200026965 /* InfoDisplayBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484B2BC6E3C200026965 /* InfoDisplayBoxView.swift */; };
-		918048622BC6E3C200026965 /* InfoDisplayBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484B2BC6E3C200026965 /* InfoDisplayBoxView.swift */; };
-		918048632BC6E3C200026965 /* IntroDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484C2BC6E3C200026965 /* IntroDisplayView.swift */; };
-		918048642BC6E3C200026965 /* IntroDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484C2BC6E3C200026965 /* IntroDisplayView.swift */; };
-		918048652BC6E3C200026965 /* IntroDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484C2BC6E3C200026965 /* IntroDisplayView.swift */; };
-		918048662BC6E3C200026965 /* SharpDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484D2BC6E3C200026965 /* SharpDisplayView.swift */; };
-		918048672BC6E3C200026965 /* SharpDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484D2BC6E3C200026965 /* SharpDisplayView.swift */; };
-		918048682BC6E3C200026965 /* SharpDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484D2BC6E3C200026965 /* SharpDisplayView.swift */; };
+		9180485D2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */; };
+		9180485E2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */; };
+		9180485F2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */; };
 		9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* TriangleShape.swift */; };
 		9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* RectangleShape.swift */; };
 		9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */; };
@@ -323,15 +299,7 @@
 		916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorWrapper.swift; sourceTree = "<group>"; };
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
 		916A7DB32BA42F8B00319C26 /* HostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostViewModel.swift; sourceTree = "<group>"; };
-		918048452BC6E3C200026965 /* ObjectDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectDisplayView.swift; sourceTree = "<group>"; };
-		918048462BC6E3C200026965 /* ObstacleDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObstacleDisplayView.swift; sourceTree = "<group>"; };
-		918048472BC6E3C200026965 /* DecalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecalView.swift; sourceTree = "<group>"; };
-		918048482BC6E3C200026965 /* IconsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconsView.swift; sourceTree = "<group>"; };
-		918048492BC6E3C200026965 /* ThemeDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeDisplayView.swift; sourceTree = "<group>"; };
-		9180484A2BC6E3C200026965 /* InstructionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructionView.swift; sourceTree = "<group>"; };
-		9180484B2BC6E3C200026965 /* InfoDisplayBoxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoDisplayBoxView.swift; sourceTree = "<group>"; };
-		9180484C2BC6E3C200026965 /* IntroDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroDisplayView.swift; sourceTree = "<group>"; };
-		9180484D2BC6E3C200026965 /* SharpDisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharpDisplayView.swift; sourceTree = "<group>"; };
+		9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterSelectionView.swift; sourceTree = "<group>"; };
 		9180F9C52BAAE53F000CC390 /* TriangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleShape.swift; sourceTree = "<group>"; };
 		9180F9C72BAAE54A000CC390 /* RectangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleShape.swift; sourceTree = "<group>"; };
 		9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNonce.swift; sourceTree = "<group>"; };
@@ -816,15 +784,7 @@
 		918048442BC6E3B400026965 /* CharacterSelectionView */ = {
 			isa = PBXGroup;
 			children = (
-				918048472BC6E3C200026965 /* DecalView.swift */,
-				918048482BC6E3C200026965 /* IconsView.swift */,
-				9180484B2BC6E3C200026965 /* InfoDisplayBoxView.swift */,
-				9180484A2BC6E3C200026965 /* InstructionView.swift */,
-				9180484C2BC6E3C200026965 /* IntroDisplayView.swift */,
-				918048452BC6E3C200026965 /* ObjectDisplayView.swift */,
-				918048462BC6E3C200026965 /* ObstacleDisplayView.swift */,
-				9180484D2BC6E3C200026965 /* SharpDisplayView.swift */,
-				918048492BC6E3C200026965 /* ThemeDisplayView.swift */,
+				9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */,
 			);
 			path = CharacterSelectionView;
 			sourceTree = "<group>";
@@ -1282,30 +1242,24 @@
 				E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
 				916991332BC6782F00ED1FBD /* Gem.swift in Sources */,
-				9180484E2BC6E3C200026965 /* ObjectDisplayView.swift in Sources */,
 				91CC28382BBA832A009318C7 /* ScoreWrapper.swift in Sources */,
 				915301B22BAD1ADA007F2A12 /* Rigidbody.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
 				9132AF762BA59A30000F2AC4 /* FactoryListener.swift in Sources */,
-				918048512BC6E3C200026965 /* ObstacleDisplayView.swift in Sources */,
 				9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */,
 				E6A0564D2BB0687500398D67 /* DodgeSkill.swift in Sources */,
 				E6B503ED2BC112C100B9565E /* MeleeAttackStrategy.swift in Sources */,
 				91DDE6632BB79DF300851603 /* Obstacle.swift in Sources */,
 				7113A4942BA60E2E00805340 /* Entity.swift in Sources */,
-				9180485A2BC6E3C200026965 /* ThemeDisplayView.swift in Sources */,
-				918048662BC6E3C200026965 /* SharpDisplayView.swift in Sources */,
 				E6D6BD0D2BC1C1F4004BFD59 /* EntityViewModel.swift in Sources */,
 				E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */,
 				915301BF2BAE4C25007F2A12 /* SkillCasterWrapper.swift in Sources */,
-				918048602BC6E3C200026965 /* InfoDisplayBoxView.swift in Sources */,
 				9180F9D52BAB9C89000CC390 /* EntityWrapper.swift in Sources */,
 				714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
 				9132AF872BA6AEAB000F2AC4 /* Shape+EXT.swift in Sources */,
 				91CC283C2BBA86E7009318C7 /* ScoreSystem.swift in Sources */,
 				E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */,
-				918048542BC6E3C200026965 /* DecalView.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
 				7181B14A2BC046F6009711DE /* ClosingZone.swift in Sources */,
 				9169913B2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
@@ -1325,7 +1279,7 @@
 				9180F9D12BAB96C7000CC390 /* CodableWrapper.swift in Sources */,
 				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
 				E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */,
-				9180485D2BC6E3C200026965 /* InstructionView.swift in Sources */,
+				9180485D2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */,
 				91DDE66A2BB7C19C00851603 /* HealthWrapper.swift in Sources */,
 				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
 				91DDE6652BB7A07100851603 /* ObstacleWrapper.swift in Sources */,
@@ -1336,7 +1290,6 @@
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
 				916A7DA52BA3F89500319C26 /* ShapeWrapper.swift in Sources */,
 				E6D6BD0A2BC1C1B3004BFD59 /* EntityView.swift in Sources */,
-				918048632BC6E3C200026965 /* IntroDisplayView.swift in Sources */,
 				91C65BE52BACF1AA0085D96F /* Skill.swift in Sources */,
 				9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
@@ -1379,7 +1332,6 @@
 				9132AF6C2BA57130000F2AC4 /* EntitiesManager.swift in Sources */,
 				E6DB87112BB9F7BA003AC063 /* DodgeWrapper.swift in Sources */,
 				E6FD345B2BC1525300477B1F /* Lifespan.swift in Sources */,
-				918048572BC6E3C200026965 /* IconsView.swift in Sources */,
 				E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */,
 				9132AF782BA59B0F000F2AC4 /* FactoryPublisher.swift in Sources */,
 				E6ECF63A2BADE9D900DDDE9C /* CircleShape.swift in Sources */,
@@ -1409,25 +1361,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				918048642BC6E3C200026965 /* IntroDisplayView.swift in Sources */,
 				7183D07B2BB03C400078C960 /* EntityComponentManagerTests.swift in Sources */,
 				91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */,
-				9180484F2BC6E3C200026965 /* ObjectDisplayView.swift in Sources */,
 				7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */,
 				916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */,
-				918048612BC6E3C200026965 /* InfoDisplayBoxView.swift in Sources */,
-				9180485B2BC6E3C200026965 /* ThemeDisplayView.swift in Sources */,
-				918048672BC6E3C200026965 /* SharpDisplayView.swift in Sources */,
 				915301C62BAEC670007F2A12 /* AuthenticationTests.swift in Sources */,
 				916991342BC6782F00ED1FBD /* Gem.swift in Sources */,
 				916991382BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */,
-				9180485E2BC6E3C200026965 /* InstructionView.swift in Sources */,
+				9180485E2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */,
 				916991412BC69EBE00ED1FBD /* Rules.swift in Sources */,
-				918048552BC6E3C200026965 /* DecalView.swift in Sources */,
 				9169913C2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
-				918048582BC6E3C200026965 /* IconsView.swift in Sources */,
-				918048522BC6E3C200026965 /* ObstacleDisplayView.swift in Sources */,
 				7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1437,19 +1381,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				916A7D5C2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift in Sources */,
-				918048622BC6E3C200026965 /* InfoDisplayBoxView.swift in Sources */,
-				918048652BC6E3C200026965 /* IntroDisplayView.swift in Sources */,
-				918048682BC6E3C200026965 /* SharpDisplayView.swift in Sources */,
 				916991392BC6783500ED1FBD /* GemWrapper.swift in Sources */,
-				918048532BC6E3C200026965 /* ObstacleDisplayView.swift in Sources */,
 				916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */,
 				9169913D2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
-				9180485F2BC6E3C200026965 /* InstructionView.swift in Sources */,
-				918048562BC6E3C200026965 /* DecalView.swift in Sources */,
+				9180485F2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */,
 				916991352BC6782F00ED1FBD /* Gem.swift in Sources */,
-				918048592BC6E3C200026965 /* IconsView.swift in Sources */,
-				9180485C2BC6E3C200026965 /* ThemeDisplayView.swift in Sources */,
-				918048502BC6E3C200026965 /* ObjectDisplayView.swift in Sources */,
 				916991422BC69EBE00ED1FBD /* Rules.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
