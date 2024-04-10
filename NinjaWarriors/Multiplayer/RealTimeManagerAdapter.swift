@@ -232,12 +232,12 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
     }
 
-    private func getEntititesDict() async throws -> [String: [String: Any]] {
-        let dataSnapshot = try await entitiesRef.getData()
-        guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
-            throw NSError(domain: "Invalid entity data format", code: -1, userInfo: nil)
+    private func getEntititesDict() -> [String: [String: Any]] {
+        testing()
+        guard let dict = self.test else {
+            return [:]
         }
-        return entitiesDict
+        return dict
     }
 
     private func decodeEntities(id: EntityID? = nil) async throws -> ([Entity]?, String?) {
