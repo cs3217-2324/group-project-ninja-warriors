@@ -15,7 +15,7 @@ final class HostSinglePlayerViewModel: ObservableObject {
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
-    let timeLag: Int = 5
+    //let timeLag: Int = 60
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -29,6 +29,7 @@ final class HostSinglePlayerViewModel: ObservableObject {
         }
     }
 
+    /*
     func updateViewModel() async {
         do {
             //try await gameWorld.entityComponentManager.publish()
@@ -42,6 +43,22 @@ final class HostSinglePlayerViewModel: ObservableObject {
             time = 0
         //}
         time += 1
+    }
+    */
+
+    func updateViewModel() async {
+        do {
+            //try await gameWorld.entityComponentManager.publish()
+            //if time == timeLag {
+                await gameWorld.entityComponentManager.populate()
+                updateEntities()
+                updateViews()
+                //time = 0
+            //}
+            //time += 1
+        } catch {
+            print("Error publishing updated state: \(error)")
+        }
     }
 
     func updateEntities() {
@@ -73,7 +90,6 @@ final class HostSinglePlayerViewModel: ObservableObject {
         for entityIdComponent in entityIdComponents {
             if let entityIdComponent = entityIdComponent as? Rigidbody {
                 entityIdComponent.angularVelocity = Vector(horizontal: vector.dx, vertical: vector.dy)
-                print(entityIdComponent.angularVelocity)
             }
         }
     }

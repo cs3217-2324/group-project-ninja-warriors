@@ -75,6 +75,7 @@ class EntityComponentManager {
         }
     }
 
+    /*
     // Queue needed for subsequent population as it runs concurrently with publish
     func populate() async {
         do {
@@ -87,6 +88,55 @@ class EntityComponentManager {
             }
             Task {
                 addEntitiesFromNewMap(newEntityMap, remoteEntityComponentMap)
+            }
+        } catch {
+            print("Error fetching entities with components: \(error)")
+        }
+    }
+    */
+
+    func populate() async {
+        do {
+            // Record the start time
+            let startTime = DispatchTime.now()
+
+            let (remoteEntity, remoteEntityComponentMap) = try await manager.getEntitiesWithComponents()
+
+            // Record the end time after fetching entities
+            let entitiesFetchTime = DispatchTime.now()
+
+            // Calculate the time taken to fetch entities
+            let fetchTime = Double(entitiesFetchTime.uptimeNanoseconds - startTime.uptimeNanoseconds) / 1_000_000_000
+            print("Time taken to fetch entities: \(fetchTime) seconds")
+
+            // Record the start time for updating newEntityMap
+            let newMapStartTime = DispatchTime.now()
+
+            newMapQueue.sync {
+                for entity in remoteEntity {
+                    self.newEntityMap[entity.id] = entity
+                }
+            }
+
+            // Record the end time after updating newEntityMap
+            let newMapEndTime = DispatchTime.now()
+
+            // Calculate the time taken to update newEntityMap
+            let newMapTime = Double(newMapEndTime.uptimeNanoseconds - newMapStartTime.uptimeNanoseconds) / 1_000_000_000
+            print("Time taken to update newEntityMap: \(newMapTime) seconds")
+
+            // Start the task for adding entities from newEntityMap
+            Task {
+                let taskStartTime = DispatchTime.now()
+
+                await addEntitiesFromNewMap(self.newEntityMap, remoteEntityComponentMap)
+
+                // Record the end time after adding entities
+                let taskEndTime = DispatchTime.now()
+
+                // Calculate the time taken for the task
+                let taskTime = Double(taskEndTime.uptimeNanoseconds - taskStartTime.uptimeNanoseconds) / 1_000_000_000
+                print("Time taken for task: \(taskTime) seconds")
             }
         } catch {
             print("Error fetching entities with components: \(error)")
