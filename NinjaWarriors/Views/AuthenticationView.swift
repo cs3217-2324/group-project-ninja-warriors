@@ -21,7 +21,15 @@ struct AuthenticationView: View {
                         .cornerRadius(10)
                 }.padding()
                 NavigationLink(destination: SignInView().navigationBarBackButtonHidden(true)) {
-                    Text("Multiplayer")
+                    Text("Multiplayer Account")
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity)
+                        .frame(width: 300, height: 55)
+                        .background(Color.white)
+                        .cornerRadius(10)
+                }.padding()
+                NavigationLink(destination: LobbyView().navigationBarBackButtonHidden(true)) {
+                    Text("Multiplayer Guest")
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity)
                         .frame(width: 300, height: 55)

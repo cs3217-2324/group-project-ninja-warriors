@@ -11,8 +11,11 @@ import SwiftUI
 struct LobbyView: View {
     @EnvironmentObject var signInViewModel: SignInViewModel
     @State private var isReady: Bool = false
-    //@ObservedObject var viewModel = LobbyViewModel()
     @ObservedObject var viewModel: LobbyViewModel
+
+    init() {
+        self.viewModel = LobbyViewModel()
+    }
 
     init(viewModel: LobbyViewModel) {
         self.viewModel = viewModel
@@ -21,21 +24,16 @@ struct LobbyView: View {
     var body: some View {
         NavigationView {
             VStack {
-                    Image("player-icon")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 100, height: 100)
-                        .position(x: Constants.screenWidth / 2, y: Constants.screenHeight / 2)
-                if let user = signInViewModel.user {
-                    Text("UID: \(user.uid)")
-                        .padding()
-                        .fontWeight(.medium)
-                        .foregroundColor(.white)
-                    Text("Email: \(user.email ?? "N/A")")
-                        .padding()
-                        .fontWeight(.medium)
-                        .foregroundColor(.white)
-                }
+                if !viewModel.isGuest, let user = signInViewModel.user {
+                        Text("UID: \(user.uid)")
+                            .padding()
+                            .fontWeight(.medium)
+                            .foregroundColor(.white)
+                        Text("Email: \(user.email ?? "N/A")")
+                            .padding()
+                            .fontWeight(.medium)
+                            .foregroundColor(.white)
+                    }
                 if let playerCount = viewModel.getPlayerCount() {
                     Text("Player Count: \(playerCount) / \(Constants.playerCount)")
                         .padding()
@@ -55,9 +53,9 @@ struct LobbyView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.white)
 
-                            if signInViewModel.getUserId() == viewModel.hostId {
+                            if viewModel.getUserId() == viewModel.hostId {
                                 NavigationLink(
-                                    destination: HostView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
+                                    destination: HostView(matchId: matchId, currPlayerId: viewModel.getUserId()).navigationBarBackButtonHidden(true)
                                 ) {
                                     Text("START GAME")
                                         .font(.system(size: 30))
@@ -69,7 +67,7 @@ struct LobbyView: View {
                                 }
                             } else {
                                 NavigationLink(
-                                    destination: ClientView(matchId: matchId, currPlayerId: signInViewModel.getUserId() ?? "none").navigationBarBackButtonHidden(true)
+                                    destination: ClientView(matchId: matchId, currPlayerId: viewModel.getUserId()).navigationBarBackButtonHidden(true)
                                 ) {
                                     Text("START GAME")
                                         .font(.system(size: 30))
@@ -84,24 +82,26 @@ struct LobbyView: View {
                     }
                 }
                 Button(action: {
-                    if let userId = signInViewModel.getUserId() {
-                        if isReady {
-                            viewModel.unready(userId: userId)
-                            isReady = false
-                        } else {
-                            viewModel.ready(userId: userId)
-                            isReady = true
-                        }
-                    }
-                }, label: {
-                    Text(isReady ? "Unready" : "Ready")
+                    viewModel.ready(userId: (viewModel.isGuest ? viewModel.guestId : signInViewModel.getUserId()) ?? "none")
+                }) {
+                    Text("Ready")
                         .padding()
                         .foregroundColor(.white)
                         .background(Color.blue)
                         .cornerRadius(10)
-                })
+                }
                 .padding()
-                .opacity(isReady ? 0.7 : 1.0)
+                .opacity({
+                    if isReady && viewModel.getPlayerCount() == Constants.playerCount {
+                        return 0
+                    } else if isReady {
+                        return 0.2
+                    } else {
+                        return 1.0
+                    }
+                }())
+                .disabled(isReady)
+                .buttonStyle(ConditionalButtonStyle(isReady: isReady))
             }
             .background(
                 Image("lobby-bg")
@@ -112,5 +112,19 @@ struct LobbyView: View {
             )
         }.navigationViewStyle(.stack)
         .navigationBarBackButtonHidden(true)
+    }
+}
+
+
+struct ConditionalButtonStyle: ButtonStyle {
+    var isReady: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        if isReady {
+            configuration.label
+                .buttonStyle(PlainButtonStyle())
+        } else {
+            configuration.label
+        }
     }
 }
