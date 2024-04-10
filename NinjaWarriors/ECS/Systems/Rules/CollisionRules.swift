@@ -9,11 +9,12 @@ import Foundation
 
 class CollisionRules: Rules {
     private var object: Rigidbody
-    private var input: Vector
-    internal var manager: EntityComponentManager
-    internal var deltaTime: TimeInterval
+    private var input: Vector?
+    internal var manager: EntityComponentManager?
+    internal var deltaTime: TimeInterval?
 
-    init(object: Rigidbody, input: Vector, deltaTime: TimeInterval, manager: EntityComponentManager) {
+    init(object: Rigidbody, input: Vector? = nil, deltaTime: TimeInterval? = nil,
+         manager: EntityComponentManager? = nil) {
         self.object = object
         self.input = input
         self.deltaTime = deltaTime
@@ -25,7 +26,7 @@ class CollisionRules: Rules {
             return true
         }
 
-        guard let collidingEntity = object.attachedCollider?.collidedEntities.first,
+        guard let manager = manager, let collidingEntity = object.attachedCollider?.collidedEntities.first,
               let otherObject = manager.getComponentFromId(ofType: Rigidbody.self, of: collidingEntity) else {
             return true
         }
@@ -43,15 +44,21 @@ class CollisionRules: Rules {
     }
 
     func performRule() {
+        guard let input = input, let deltaTime = deltaTime else {
+            return
+        }
+
         if canMove() {
+            print("if", object.entity, object.attachedCollider?.entity)
             object.velocity = input
             object.collidingVelocity = nil
+            object.attachedCollider?.isColliding = false
 
             if input.horizontal != 0 || input.vertical != 0 {
                 alignEntityRotation(for: object)
             }
-
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
+            print("else if", object.entity, object.attachedCollider?.entity)
             object.collidingVelocity = input
             object.velocity = Vector.zero
         }
@@ -61,6 +68,9 @@ class CollisionRules: Rules {
     }
 
     private func alignEntityRotation(for rigidBody: Rigidbody) {
+        guard let input = input else {
+            return
+        }
         let radians = atan2(input.vertical, input.horizontal)
         let degrees = radians * 180 / .pi
         rigidBody.rotation = degrees

@@ -39,5 +39,6 @@ struct SinglePlayerLobbyView: View {
                 }
             }
         }.navigationViewStyle(.stack)
+        .navigationBarBackButtonHidden(true)
     }
 }

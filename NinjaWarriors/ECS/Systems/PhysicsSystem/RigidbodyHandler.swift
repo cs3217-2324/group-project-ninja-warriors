@@ -21,7 +21,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     }
 
     func update(after time: TimeInterval) {
-        //handleElasticCollisions()
         moveRigidBodies(with: time)
         syncTransform()
     }
@@ -37,7 +36,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                       var otherRigidBody = manager.getComponent(ofType: Rigidbody.self, for: otherEntity) else {
                     return
                 }
-                // Not fully implemented yet
                 doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
             }
         }

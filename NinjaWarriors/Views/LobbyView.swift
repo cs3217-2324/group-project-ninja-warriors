@@ -64,7 +64,7 @@ struct LobbyView: View {
                     .frame(width: Constants.screenWidth, height: Constants.screenHeight)
             )
         }.navigationViewStyle(.stack)
-            .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 
     private var userLoginInfo: some View {

@@ -8,8 +8,8 @@
 import Foundation
 
 protocol Rules {
-    var manager: EntityComponentManager { get set }
-    var deltaTime: TimeInterval { get }
+    var manager: EntityComponentManager? { get set }
+    var deltaTime: TimeInterval? { get }
 
     func performRule()
 }

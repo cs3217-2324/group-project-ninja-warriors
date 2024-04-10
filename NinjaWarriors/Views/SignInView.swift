@@ -90,6 +90,7 @@ struct SignInView: View {
         }
         .navigationViewStyle(.stack)
         .environmentObject(viewModel)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

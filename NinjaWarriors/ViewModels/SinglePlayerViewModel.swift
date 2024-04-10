@@ -14,7 +14,7 @@ final class SinglePlayerViewModel: ObservableObject {
     @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
     @Published var matchId: String = RandomNonce().randomNonceString()
-    @Published var playerIds: [String] = ["singlePlayer", "dummyPlayer"]
+    @Published var playerIds: [String] = ["singlePlayer", "dummyPlayer1", "dummyPlayer2", "dummyPlayer3"]
     @Published var hostId: String = "singlePlayer"
     let signInViewModel: SignInViewModel?
 
@@ -33,17 +33,12 @@ final class SinglePlayerViewModel: ObservableObject {
     // Add all relevant initial entities here
     func initEntities(ids playerIds: [String]) {
         initObstacles()
+        initGems()
         initPlayers(ids: playerIds)
         addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
     }
 
-    func initObstacles() {
-        let obstaclePositions: [Point] = getObstaclePositions()
-        for index in 0..<Constants.obstacleCount {
-            addObstacleToDatabase(at: obstaclePositions[index])
-        }
-    }
-
+    // MARK: Player
     func initPlayers(ids playerIds: [String]) {
         let playerPositions: [Point] = getPlayerPositions()
 
@@ -104,6 +99,14 @@ final class SinglePlayerViewModel: ObservableObject {
         return nil
     }
 
+    // MARK: Obstacle
+    func initObstacles() {
+        let obstaclePositions: [Point] = getObstaclePositions()
+        for index in 0..<Constants.obstacleCount {
+            addObstacleToDatabase(at: obstaclePositions[index])
+        }
+    }
+
     private func addObstacleToDatabase(at position: Point) {
         let obstacle = makeObstacle(at: position)
         guard let realTimeManager = realTimeManager else {
@@ -118,6 +121,29 @@ final class SinglePlayerViewModel: ObservableObject {
         Obstacle(id: RandomNonce().randomNonceString(), position: position)
     }
 
+    // MARK: Gem
+    func initGems() {
+        let gemPositions: [Point] = getGemPositions()
+        for index in 0..<Constants.gemCount {
+            addGemToDatabase(at: gemPositions[index])
+        }
+    }
+
+    private func addGemToDatabase(at position: Point) {
+        let gem = makeGem(at: position)
+        guard let realTimeManager = realTimeManager else {
+            return
+        }
+        Task {
+            try? await realTimeManager.uploadEntity(entity: gem)
+        }
+    }
+
+    private func makeGem(at position: Point) -> Gem {
+        Gem(id: RandomNonce().randomNonceString(), position: position)
+    }
+
+    // MARK: Closing Zone
     private func addClosingZone(center: Point, radius: Double) {
         let closingZone = makeClosingZone(center: center, radius: radius)
         guard let realTimeManager = realTimeManager else {
@@ -144,7 +170,7 @@ extension SinglePlayerViewModel {
         let obstacleCount = Constants.obstacleCount
 
         let center = Point(xCoord: screenWidth / 2, yCoord: screenHeight / 2)
-        let radius: Double = 200
+        let radius: Double = 250
         let gapAngle: Double = 2 * .pi / Double(obstacleCount)
         var positions: [Point] = []
 
@@ -156,4 +182,24 @@ extension SinglePlayerViewModel {
         }
         return positions
     }
+
+    func getGemPositions() -> [Point] {
+        let screenWidth = Constants.screenWidth
+        let screenHeight = Constants.screenHeight
+        let obstacleCount = Constants.obstacleCount
+
+        let center = Point(xCoord: screenWidth / 2, yCoord: screenHeight / 2)
+        let radius: Double = 100
+        let gapAngle: Double = 2 * .pi / Double(obstacleCount)
+        var positions: [Point] = []
+
+        for i in 0..<obstacleCount {
+            let angle = Double(i) * gapAngle
+            let x = center.xCoord + radius * cos(angle)
+            let y = center.yCoord + radius * sin(angle)
+            positions.append(Point(xCoord: x, yCoord: y))
+        }
+        return positions
+    }
+
 }

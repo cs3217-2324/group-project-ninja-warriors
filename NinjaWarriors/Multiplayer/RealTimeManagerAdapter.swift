@@ -218,8 +218,10 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 entityInstance = Obstacle(id: entityId)
             } else if entityType == "SlashAOE" {
                 entityInstance = SlashAOE(id: entityId, casterEntity: Player(id: entityId))
-            } else {
+            } else if entityType == "ClosingZone" {
                 entityInstance = ClosingZone(id: entityId)
+            } else {
+                entityInstance = Gem(id: entityId)
             }
 
             try processComponents(for: entityId, withComponentTypes: componentTypes, from: idData,
