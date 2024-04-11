@@ -56,6 +56,9 @@ class CollisionRules: Rules {
             if input.horizontal != 0 || input.vertical != 0 {
                 alignEntityRotation(for: object)
             }
+
+            killCollidee(ofType: Gem.self)
+
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input
             object.velocity = Vector.zero
@@ -63,6 +66,15 @@ class CollisionRules: Rules {
 
         moveRigidBody(object, across: deltaTime)
         object.attachedCollider?.colliderShape.center = object.position
+    }
+
+    private func killCollidee<T: Entity>(ofType entityType: T.Type) {
+        if let manager = manager,
+           let collidingEntityID = object.attachedCollider?.collidedEntities.first,
+           let collidingEntity = manager.entity(with: collidingEntityID) as? T,
+           let health = manager.getComponent(ofType: Health.self, for: collidingEntity) {
+            health.kill()
+        }
     }
 
     private func alignEntityRotation(for rigidBody: Rigidbody) {

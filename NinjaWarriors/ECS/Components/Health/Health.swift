@@ -20,6 +20,10 @@ class Health: Component {
         super.init(id: id, entity: entity)
     }
 
+    func kill() {
+        health = 0.0
+    }
+
     override func updateAttributes(_ newHealth: Component) {
         guard let newHealth = newHealth as? Health else {
             return
