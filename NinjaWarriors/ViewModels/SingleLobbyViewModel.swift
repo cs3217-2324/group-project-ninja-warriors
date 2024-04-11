@@ -60,8 +60,10 @@ final class SingleLobbyViewModel: ObservableObject {
                                       entity: player, skills: getCharacterSkills())
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
-                                     image: "player-icon", width: 100.0, height: 100.0, health: 100,
+                                     image: character + "-top", width: 100.0, height: 100.0, health: 100,
                                      maxHealth: 100)
+
+        print("character name:", character + "-top")
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: player,
                             entityInflictDamageMap: [:], health: 100, maxHealth: 100)

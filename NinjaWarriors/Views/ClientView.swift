@@ -13,14 +13,11 @@ struct ClientView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    @State private var fixedEntities: [Entity]
 
-    init(matchId: String, currPlayerId: String, fixedEntities: [Entity]) {
+    init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.fixedEntities = fixedEntities
-        self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId,
-                                         fixedEntities: fixedEntities)
+        self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
     var body: some View {
@@ -87,6 +84,6 @@ struct ClientView: View {
 
 struct ClientView_Previews: PreviewProvider {
     static var previews: some View {
-        ClientView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2", fixedEntities: [])
+        ClientView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
     }
 }

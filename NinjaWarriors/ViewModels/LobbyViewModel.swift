@@ -68,6 +68,7 @@ final class LobbyViewModel: ObservableObject {
             print("Error starting match: \(error)")
         }
         selectHost(from: playerIds)
+        initPlayer(ids: playerIds)
         startMap()
     }
 
@@ -77,7 +78,6 @@ final class LobbyViewModel: ObservableObject {
             return
         }
         map = GemMap(manager: RealTimeManagerAdapter(matchId: matchId))
-        initPlayers(ids: playerIds)
         map?.startMap()
     }
 
@@ -99,10 +99,13 @@ final class LobbyViewModel: ObservableObject {
         Constants.playerPositions
     }
 
-    func initPlayers(ids playerIds: [String]) {
+    func initPlayer(ids playerIds: [String]?) {
+        guard let playerIds = playerIds else {
+            return
+        }
         let playerPositions: [Point] = getPlayerPositions()
-
-        for (index, playerId) in playerIds.enumerated() {
+        var playerId = userId ?? guestId
+        for (index, currPlayerId) in playerIds.enumerated() where currPlayerId == playerId {
             addPlayerToDatabase(id: playerId, at: playerPositions[index])
         }
     }
@@ -125,7 +128,7 @@ final class LobbyViewModel: ObservableObject {
                                       entity: player, skills: getCharacterSkills())
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
-                                     image: "player-icon", width: 100.0, height: 100.0, health: 100,
+                                     image: character + "-top", width: 100.0, height: 100.0, health: 100,
                                      maxHealth: 100)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: player,
