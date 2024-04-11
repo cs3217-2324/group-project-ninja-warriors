@@ -12,20 +12,24 @@ import SwiftUI
 final class SinglePlayerViewModel: ObservableObject {
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
     @Published var matchId: String = RandomNonce().randomNonceString()
-    @Published var playerIds: [String] = ["singlePlayer", "dummyPlayer1", "dummyPlayer2", "dummyPlayer3"]
-    @Published var hostId: String = "singlePlayer"
-    // TODO: Accept map from map selection view
+    @Published var playerIds = ["singlePlayer", "dummyPlayer1", "dummyPlayer2", "dummyPlayer3"]
+    @Published var hostId = "singlePlayer"
+    var character = "Shadowstrike"
+    // TODO: Accept map from map selection nav view
     @Published var map: Map?
 
     init() {
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
         map = GemMap(manager: RealTimeManagerAdapter(matchId: matchId))
-        startMap(ids: playerIds)
     }
 
-    func startMap(ids playerIds: [String]) {
+    func start() {
         initPlayers(ids: playerIds)
         map?.startMap()
+    }
+
+    func getCharacterSkills() -> [Skill] {
+        Constants.characterSkills[character] ?? Constants.defaultSkills
     }
 
     // MARK: Player
@@ -56,11 +60,9 @@ final class SinglePlayerViewModel: ObservableObject {
                                         attachedCollider: playerCollider)
 
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
-                                      entity: player, skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                                               DashSkill(id: "dash", cooldownDuration: 8.0),
-                                                               DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                                               RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
+                                      entity: player, skills: getCharacterSkills())
 
+        // TODO: Map image to top-down images after finding top down images
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
                                      image: "player-icon", width: 100.0, height: 100.0, health: 100,
                                      maxHealth: 100)

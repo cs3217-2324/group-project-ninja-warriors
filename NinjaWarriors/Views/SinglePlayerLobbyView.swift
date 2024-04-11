@@ -17,23 +17,46 @@ struct SinglePlayerLobbyView: View {
     }
 
     var body: some View {
-        NavigationView {
-            VStack {
-                NavigationLink(
-                    destination: HostSinglePlayerView(matchId: viewModel.matchId,
-                                          currPlayerId: viewModel.hostId)
-                    .navigationBarBackButtonHidden(true)
-                ) {
-                    Text("START GAME")
-                        .font(.system(size: 30))
-                        .padding()
-                        .background(Color.purple)
-                        .foregroundColor(.white)
-                        .fontWeight(.bold)
-                        .cornerRadius(10)
+        VStack {
+            NavigationView {
+                VStack(spacing: 10) {
+                    NavigationLink(destination: SingleCharacterSelectionView(viewModel: viewModel)) {
+                        Text("SELECT CHARACTER")
+                            .font(.system(size: 30))
+                            .padding()
+                            .background(Color.purple)
+                            .foregroundColor(.white)
+                            .fontWeight(.bold)
+                            .cornerRadius(10)
+                    }
+                    NavigationLink(
+                        destination: HostSinglePlayerView(matchId: viewModel.matchId,
+                                                          currPlayerId: viewModel.hostId)
+                        .navigationBarBackButtonHidden(true),
+                        isActive: $isReady) { EmptyView() }
+                    Button(action: {
+                        viewModel.start()
+                        isReady = true
+                    }) {
+                        Text("START GAME")
+                            .font(.system(size: 30))
+                            .padding()
+                            .background(Color.purple)
+                            .foregroundColor(.white)
+                            .fontWeight(.bold)
+                            .cornerRadius(10)
+                    }
                 }
+                .background(
+                    Image("lobby-bg")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
+                        .frame(width: Constants.screenWidth, height: Constants.screenHeight)
+                )
             }
-        }.navigationViewStyle(.stack)
-        .navigationBarBackButtonHidden(true)
+            .navigationViewStyle(.stack)
+            .navigationBarBackButtonHidden(true)
+        }
     }
 }
