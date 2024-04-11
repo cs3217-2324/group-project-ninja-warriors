@@ -12,7 +12,7 @@ struct AuthenticationView: View {
         NavigationView {
             VStack(spacing: 20) {
                 Spacer(minLength: 0)
-                NavigationLink(destination: SinglePlayerLobbyView()) {
+                NavigationLink(destination: SingleLobbyView()) {
                     Text("Single player")
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity)

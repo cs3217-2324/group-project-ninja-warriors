@@ -1,5 +1,5 @@
 //
-//  SinglePlayerViewModel.swift
+//  SingleLobbyViewModel.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 9/4/24.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class SinglePlayerViewModel: ObservableObject {
+final class SingleLobbyViewModel: ObservableObject {
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
     @Published var matchId: String = RandomNonce().randomNonceString()
     @Published var playerIds = ["singlePlayer", "dummyPlayer1", "dummyPlayer2", "dummyPlayer3"]
@@ -21,9 +21,6 @@ final class SinglePlayerViewModel: ObservableObject {
     init() {
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
         map = GemMap(manager: RealTimeManagerAdapter(matchId: matchId))
-    }
-
-    func start() {
         initPlayers(ids: playerIds)
         map?.startMap()
     }

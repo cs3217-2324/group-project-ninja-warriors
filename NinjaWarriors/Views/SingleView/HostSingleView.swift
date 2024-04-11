@@ -1,5 +1,5 @@
 //
-//  HostSinglePlayerView.swift
+//  HostSingleView.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 9/4/24.
@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-struct HostSinglePlayerView: View {
-    @ObservedObject var viewModel: HostSinglePlayerViewModel
+struct HostSingleView: View {
+    @ObservedObject var viewModel: HostSingleViewModel
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
@@ -17,7 +17,7 @@ struct HostSinglePlayerView: View {
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.viewModel = HostSinglePlayerViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
     var body: some View {
@@ -52,7 +52,6 @@ struct HostSinglePlayerView: View {
             if let currPlayer = viewModel.getCurrPlayer() {
                 JoystickView(
                     setInputVector: { vector in
-                        //viewModel.move(vector)
                         viewModel.gameWorld.setInput(vector, for: currPlayer)
                     }, location: CGPoint(x: 150, y: geometry.size.height - 350))
                 .frame(width: 200, height: 200)
@@ -82,8 +81,8 @@ struct HostSinglePlayerView: View {
     }
 }
 
-struct HostSinglePlayerView_Previews: PreviewProvider {
+struct HostSingleView_Previews: PreviewProvider {
     static var previews: some View {
-        HostSinglePlayerView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+        HostSingleView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
     }
 }

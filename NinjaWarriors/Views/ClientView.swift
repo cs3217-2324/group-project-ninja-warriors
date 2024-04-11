@@ -25,7 +25,6 @@ struct ClientView: View {
 
     var body: some View {
         ZStack {
-            Text("CLIENT")
             backgroundImage
             closingZoneView
             canvasView

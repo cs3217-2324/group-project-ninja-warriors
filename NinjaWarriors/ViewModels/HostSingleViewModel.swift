@@ -1,5 +1,5 @@
 //
-//  HostSinglePlayerViewModel.swift
+//  HostSingleViewModel.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 9/4/24.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class HostSinglePlayerViewModel: ObservableObject {
+final class HostSingleViewModel: ObservableObject {
     var gameWorld: GameWorld
     internal var entities: [Entity] = []
     internal var matchId: String
@@ -66,7 +66,7 @@ final class HostSinglePlayerViewModel: ObservableObject {
     }
 }
 
-extension HostSinglePlayerViewModel {
+extension HostSingleViewModel {
     func activateSkill(forEntity entity: Entity, skillId: String) {
         let entityId = entity.id
         guard let skillCasterComponent = gameWorld.entityComponentManager
@@ -74,7 +74,7 @@ extension HostSinglePlayerViewModel {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }
-//        print("[HostSinglePlayerViewModel] \(skillId) queued for activation")
+//        print("[HostSingleViewModel] \(skillId) queued for activation")
         skillCasterComponent.queueSkillActivation(skillId)
     }
 
@@ -118,7 +118,7 @@ extension HostSinglePlayerViewModel {
     }
 }
 
-extension HostSinglePlayerViewModel {
+extension HostSingleViewModel {
     private var closingZoneShape: Shape? {
         let environmentalEffectComponents = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
         return environmentalEffectComponents.first?.environmentShape

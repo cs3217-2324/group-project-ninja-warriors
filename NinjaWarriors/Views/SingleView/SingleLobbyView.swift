@@ -1,5 +1,5 @@
 //
-//  SinglePlayerLobbyView.swift
+//  SingleLobbyView.swift
 //  NinjaWarriors
 //
 //  Created by Muhammad Reyaaz on 9/4/24.
@@ -8,12 +8,12 @@
 import Foundation
 import SwiftUI
 
-struct SinglePlayerLobbyView: View {
+struct SingleLobbyView: View {
     @State private var isReady: Bool = false
-    @ObservedObject var viewModel: SinglePlayerViewModel
+    @ObservedObject var viewModel: SingleLobbyViewModel
 
     init() {
-        self.viewModel = SinglePlayerViewModel()
+        self.viewModel = SingleLobbyViewModel()
     }
 
     var body: some View {
@@ -21,12 +21,11 @@ struct SinglePlayerLobbyView: View {
             NavigationView {
                 VStack(spacing: 10) {
                     NavigationLink(
-                        destination: HostSinglePlayerView(matchId: viewModel.matchId,
+                        destination: HostSingleView(matchId: viewModel.matchId,
                                                           currPlayerId: viewModel.hostId)
                         .navigationBarBackButtonHidden(true),
                         isActive: $isReady) { EmptyView() }
                     Button(action: {
-                        viewModel.start()
                         isReady = true
                     }) {
                         Text("Start")

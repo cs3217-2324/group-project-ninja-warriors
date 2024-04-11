@@ -11,9 +11,9 @@ struct SingleCharacterSelectionView: View {
     @State private var selectedBox: Int? = nil
     @State private var characterNames: [String] = Constants.characterNames
     @State private var skills = Constants.skills
-    @ObservedObject var viewModel: SinglePlayerViewModel
+    @ObservedObject var viewModel: SingleLobbyViewModel
 
-    init(viewModel: SinglePlayerViewModel) {
+    init(viewModel: SingleLobbyViewModel) {
         self.viewModel = viewModel
     }
 

@@ -59,10 +59,10 @@
 		915BFD122BC04A9000AB5815 /* EventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD112BC04A9000AB5815 /* EventQueue.swift */; };
 		915BFD142BC1200600AB5815 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD132BC1200600AB5815 /* ClientViewModel.swift */; };
 		915BFD1B2BC149A000AB5815 /* ClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD1A2BC149A000AB5815 /* ClientView.swift */; };
-		916991082BC5490600ED1FBD /* SinglePlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991072BC5490600ED1FBD /* SinglePlayerViewModel.swift */; };
-		9169910A2BC5499700ED1FBD /* SinglePlayerLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991092BC5499700ED1FBD /* SinglePlayerLobbyView.swift */; };
-		9169910C2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169910B2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift */; };
-		9169910E2BC5977C00ED1FBD /* HostSinglePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169910D2BC5977C00ED1FBD /* HostSinglePlayerView.swift */; };
+		916991082BC5490600ED1FBD /* SingleLobbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991072BC5490600ED1FBD /* SingleLobbyViewModel.swift */; };
+		9169910A2BC5499700ED1FBD /* SingleLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991092BC5499700ED1FBD /* SingleLobbyView.swift */; };
+		9169910C2BC596F100ED1FBD /* HostSingleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169910B2BC596F100ED1FBD /* HostSingleViewModel.swift */; };
+		9169910E2BC5977C00ED1FBD /* HostSingleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169910D2BC5977C00ED1FBD /* HostSingleView.swift */; };
 		9169912E2BC6739200ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */; };
 		9169912F2BC6739200ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */; };
 		916991302BC6739200ED1FBD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */; };
@@ -266,10 +266,10 @@
 		915BFD112BC04A9000AB5815 /* EventQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventQueue.swift; sourceTree = "<group>"; };
 		915BFD132BC1200600AB5815 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
 		915BFD1A2BC149A000AB5815 /* ClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientView.swift; sourceTree = "<group>"; };
-		916991072BC5490600ED1FBD /* SinglePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerViewModel.swift; sourceTree = "<group>"; };
-		916991092BC5499700ED1FBD /* SinglePlayerLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePlayerLobbyView.swift; sourceTree = "<group>"; };
-		9169910B2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSinglePlayerViewModel.swift; sourceTree = "<group>"; };
-		9169910D2BC5977C00ED1FBD /* HostSinglePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSinglePlayerView.swift; sourceTree = "<group>"; };
+		916991072BC5490600ED1FBD /* SingleLobbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLobbyViewModel.swift; sourceTree = "<group>"; };
+		916991092BC5499700ED1FBD /* SingleLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLobbyView.swift; sourceTree = "<group>"; };
+		9169910B2BC596F100ED1FBD /* HostSingleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSingleViewModel.swift; sourceTree = "<group>"; };
+		9169910D2BC5977C00ED1FBD /* HostSingleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSingleView.swift; sourceTree = "<group>"; };
 		9169912D2BC6739200ED1FBD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		916991322BC6782F00ED1FBD /* Gem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gem.swift; sourceTree = "<group>"; };
 		916991362BC6783500ED1FBD /* GemWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemWrapper.swift; sourceTree = "<group>"; };
@@ -721,13 +721,13 @@
 		916A7D8C2BA1A0EB00319C26 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				9169910B2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift */,
-				915BFD132BC1200600AB5815 /* ClientViewModel.swift */,
+				9169910B2BC596F100ED1FBD /* HostSingleViewModel.swift */,
 				916A7DB32BA42F8B00319C26 /* HostViewModel.swift */,
+				915BFD132BC1200600AB5815 /* ClientViewModel.swift */,
 				E6D6BD0C2BC1C1F4004BFD59 /* EntityViewModel.swift */,
 				916A7D8D2BA1A1C500319C26 /* SignInViewModel.swift */,
 				9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */,
-				916991072BC5490600ED1FBD /* SinglePlayerViewModel.swift */,
+				916991072BC5490600ED1FBD /* SingleLobbyViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -788,9 +788,9 @@
 		9180487E2BC7C96F00026965 /* SingleView */ = {
 			isa = PBXGroup;
 			children = (
-				9169910D2BC5977C00ED1FBD /* HostSinglePlayerView.swift */,
+				9169910D2BC5977C00ED1FBD /* HostSingleView.swift */,
 				9180484A2BC6E3C200026965 /* SingleCharacterSelectionView.swift */,
-				916991092BC5499700ED1FBD /* SinglePlayerLobbyView.swift */,
+				916991092BC5499700ED1FBD /* SingleLobbyView.swift */,
 			);
 			path = SingleView;
 			sourceTree = "<group>";
@@ -1232,15 +1232,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */,
-				9169910E2BC5977C00ED1FBD /* HostSinglePlayerView.swift in Sources */,
+				9169910E2BC5977C00ED1FBD /* HostSingleView.swift in Sources */,
 				915BFD142BC1200600AB5815 /* ClientViewModel.swift in Sources */,
 				916A7D6A2BA154F000319C26 /* CollisionManager.swift in Sources */,
-				9169910C2BC596F100ED1FBD /* HostSinglePlayerViewModel.swift in Sources */,
+				9169910C2BC596F100ED1FBD /* HostSingleViewModel.swift in Sources */,
 				E6E5B47F2BBEEA0C0089D14D /* SkillWrapper.swift in Sources */,
 				E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */,
 				E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */,
 				915BFD122BC04A9000AB5815 /* EventQueue.swift in Sources */,
-				916991082BC5490600ED1FBD /* SinglePlayerViewModel.swift in Sources */,
+				916991082BC5490600ED1FBD /* SingleLobbyViewModel.swift in Sources */,
 				9132AF662BA50E9A000F2AC4 /* RigidbodyHandler.swift in Sources */,
 				916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */,
 				E6ECF6382BADE99700DDDE9C /* SlashAOESkill.swift in Sources */,
@@ -1314,7 +1314,7 @@
 				9136A5BA2BAA8B3900197971 /* TransformHandler.swift in Sources */,
 				916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */,
 				916A7D952BA1AB2A00319C26 /* User.swift in Sources */,
-				9169910A2BC5499700ED1FBD /* SinglePlayerLobbyView.swift in Sources */,
+				9169910A2BC5499700ED1FBD /* SingleLobbyView.swift in Sources */,
 				916A7D892BA19F5100319C26 /* AuthenticationView.swift in Sources */,
 				714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */,
 				9180486F2BC7A86400026965 /* GemMap.swift in Sources */,
