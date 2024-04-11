@@ -1,9 +1,13 @@
 {
   "images" : [
     {
-      "filename" : "bg.jpeg",
+      "filename" : "Screenshot 2024-04-11 at 3.20.09 PM.png",
       "idiom" : "universal",
       "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",

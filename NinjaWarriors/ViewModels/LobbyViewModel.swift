@@ -18,6 +18,8 @@ final class LobbyViewModel: ObservableObject {
     @Published var hostId: String?
     @Published var userId: String?
     @Published var fixedEntities: [Entity] = []
+    @Published var map: Map?
+    var character = "Shadowstrike"
     let signInViewModel: SignInViewModel
     let isGuest: Bool
     let guestId: String = RandomNonce().randomNonceString()
@@ -32,6 +34,10 @@ final class LobbyViewModel: ObservableObject {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
         isGuest = false
+    }
+
+    func getCharacterSkills() -> [Skill] {
+        Constants.characterSkills[character] ?? Constants.defaultSkills
     }
 
     func ready(userId: String) {
@@ -62,17 +68,17 @@ final class LobbyViewModel: ObservableObject {
             print("Error starting match: \(error)")
         }
         selectHost(from: playerIds)
-        initEntities(ids: playerIds)
+        startMap()
     }
 
-    // Add all relevant initial entities here
-    func initEntities(ids playerIds: [String]?) {
-        guard let playerIds = playerIds, hostId == getUserId() else {
+    // TODO: Get from map selection nav link
+    func startMap() {
+        guard let playerIds = playerIds, hostId == getUserId(), let matchId = matchId else {
             return
         }
+        map = GemMap(manager: RealTimeManagerAdapter(matchId: matchId))
         initPlayers(ids: playerIds)
-        initObstacles()
-        addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
+        map?.startMap()
     }
 
     func getUserId() -> String {
@@ -89,12 +95,8 @@ final class LobbyViewModel: ObservableObject {
         hostId = ids.first
     }
 
-    func initObstacles() {
-        let obstaclePositions: [Point] = getObstaclePositions()
-        for index in 0..<Constants.obstacleCount {
-            addObstacleToDatabase(at: obstaclePositions[index])
-            //fixedEntities.append(makeObstacle(at: obstaclePositions[index]))
-        }
+    func getPlayerPositions() -> [Point] {
+        Constants.playerPositions
     }
 
     func initPlayers(ids playerIds: [String]) {
@@ -120,17 +122,14 @@ final class LobbyViewModel: ObservableObject {
                                         attachedCollider: playerCollider)
 
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
-                                      entity: player, skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                                             DashSkill(id: "dash", cooldownDuration: 8.0),
-                                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                                            RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
+                                      entity: player, skills: getCharacterSkills())
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
                                      image: "player-icon", width: 100.0, height: 100.0, health: 100,
                                      maxHealth: 100)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: player,
-                                entityInflictDamageMap: [:], health: 100, maxHealth: 100)
+                            entityInflictDamageMap: [:], health: 100, maxHealth: 100)
 
         let score = Score(id: RandomNonce().randomNonceString(), entity: player,
                           score: 0, entityGainScoreMap: [:])
@@ -157,37 +156,6 @@ final class LobbyViewModel: ObservableObject {
         return nil
     }
 
-    private func addObstacleToDatabase(at position: Point) {
-        let obstacle = makeObstacle(at: position)
-        guard let realTimeManager = realTimeManager else {
-            return
-        }
-        Task {
-            try? await realTimeManager.uploadEntity(entity: obstacle)
-        }
-    }
-
-    private func makeObstacle(at position: Point) -> Obstacle {
-        Obstacle(id: RandomNonce().randomNonceString(), position: position)
-    }
-
-    private func addClosingZone(center: Point, radius: Double) {
-        let closingZone = makeClosingZone(center: center, radius: radius)
-        fixedEntities.append(closingZone)
-        ///*
-        guard let realTimeManager = realTimeManager else {
-            return
-        }
-        Task {
-            try? await realTimeManager.uploadEntity(entity: closingZone, components: closingZone.getInitializingComponents())
-        }
-        //*/
-    }
-
-    private func makeClosingZone(center: Point, radius: Double) -> ClosingZone {
-        ClosingZone(id: RandomNonce().randomNonceString(), center: center, initialRadius: radius)
-    }
-
     func addListenerForMatches() {
         let publisher = matchManager.addListenerForAllMatches()
         publisher.subscribe(update: { [unowned self] matches in
@@ -195,30 +163,5 @@ final class LobbyViewModel: ObservableObject {
         }, error: { error in
             print(error)
         })
-    }
-}
-
-extension LobbyViewModel {
-    func getPlayerPositions() -> [Point] {
-        Constants.playerPositions
-    }
-
-    func getObstaclePositions() -> [Point] {
-        let screenWidth = Constants.screenWidth
-        let screenHeight = Constants.screenHeight
-        let obstacleCount = Constants.obstacleCount
-
-        let center = Point(xCoord: screenWidth / 2, yCoord: screenHeight / 2)
-        let radius: Double = 200
-        let gapAngle: Double = 2.5 * .pi / Double(obstacleCount)
-        var positions: [Point] = []
-
-        for i in 0..<obstacleCount {
-            let angle = Double(i) * gapAngle
-            let x = center.xCoord + radius * cos(angle)
-            let y = center.yCoord + radius * sin(angle)
-            positions.append(Point(xCoord: x, yCoord: y))
-        }
-        return positions
     }
 }

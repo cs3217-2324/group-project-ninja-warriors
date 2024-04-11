@@ -23,8 +23,7 @@ struct LobbyView: View {
 
     var body: some View {
         NavigationView {
-            VStack() {
-                Spacer()
+            VStack(spacing: 10) {
                 userLoginInfo
                 if let playerCount = viewModel.getPlayerCount() {
 
@@ -55,6 +54,17 @@ struct LobbyView: View {
                     }
                 }
                 readyButton
+                NavigationLink(destination: CharacterSelectionView(viewModel: viewModel)) {
+                    Text("Select Character")
+                        .font(.system(size: 30))
+                        .padding()
+                        .background(Color.purple)
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                        .cornerRadius(10)
+                }
+                .opacity(isReady ? 0.5 : 1.0)
+                .disabled(isReady)
             }
             .background(
                 Image("lobby-bg")
@@ -82,9 +92,11 @@ struct LobbyView: View {
             isReady = true
         }) {
             Text("Ready")
+                .font(.system(size: 30))
                 .padding()
+                .background(Color.purple)
                 .foregroundColor(.white)
-                .background(Color.blue)
+                .fontWeight(.bold)
                 .cornerRadius(10)
         }
         .padding()
@@ -103,7 +115,7 @@ struct LobbyView: View {
     }
 
     private var startGameText: some View {
-        Text("START GAME")
+        Text("Start")
             .font(.system(size: 30))
             .padding()
             .background(Color.purple)

@@ -25,6 +25,7 @@ struct HostView: View {
 
     var body: some View {
         ZStack {
+            Text("HOST")
             backgroundImage
             closingZoneView
             canvasView

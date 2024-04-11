@@ -101,6 +101,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
     private func getEntititesDict() async throws -> [String: [String: Any]] {
         let dataSnapshot = try await entitiesRef.getData()
         guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
+            print("data snapshot", dataSnapshot.value)
             throw NSError(domain: "Invalid entity data format", code: -1, userInfo: nil)
         }
         return entitiesDict
@@ -311,7 +312,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 self.updateExistingEntity(snapshot, entityRef, entity, components)
 
             } else {
-                
+
                 if let components = components {
                     self.createEntity(snapshot, entityRef, entity, components)
                 } else {

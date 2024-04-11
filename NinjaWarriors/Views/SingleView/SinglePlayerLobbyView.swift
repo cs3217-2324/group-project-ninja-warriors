@@ -20,15 +20,6 @@ struct SinglePlayerLobbyView: View {
         VStack {
             NavigationView {
                 VStack(spacing: 10) {
-                    NavigationLink(destination: SingleCharacterSelectionView(viewModel: viewModel)) {
-                        Text("SELECT CHARACTER")
-                            .font(.system(size: 30))
-                            .padding()
-                            .background(Color.purple)
-                            .foregroundColor(.white)
-                            .fontWeight(.bold)
-                            .cornerRadius(10)
-                    }
                     NavigationLink(
                         destination: HostSinglePlayerView(matchId: viewModel.matchId,
                                                           currPlayerId: viewModel.hostId)
@@ -38,7 +29,16 @@ struct SinglePlayerLobbyView: View {
                         viewModel.start()
                         isReady = true
                     }) {
-                        Text("START GAME")
+                        Text("Start")
+                            .font(.system(size: 30))
+                            .padding()
+                            .background(Color.purple)
+                            .foregroundColor(.white)
+                            .fontWeight(.bold)
+                            .cornerRadius(10)
+                    }
+                    NavigationLink(destination: SingleCharacterSelectionView(viewModel: viewModel)) {
+                        Text("Select Character")
                             .font(.system(size: 30))
                             .padding()
                             .background(Color.purple)

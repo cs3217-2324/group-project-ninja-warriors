@@ -1,19 +1,21 @@
 //
-//  SingleCharacterSelectionView.swift
-//  Peggle
+//  CharacterSelectionView.swift
+//  NinjaWarriors
 //
-//  Created by Muhammad Reyaaz on 29/2/24.
+//  Created by Muhammad Reyaaz on 11/4/24.
 //
+
+import Foundation
 
 import SwiftUI
 
-struct SingleCharacterSelectionView: View {
+struct CharacterSelectionView: View {
     @State private var selectedBox: Int? = nil
     @State private var characterNames: [String] = Constants.characterNames
     @State private var skills = Constants.skills
-    @ObservedObject var viewModel: SinglePlayerViewModel
+    @ObservedObject var viewModel: LobbyViewModel
 
-    init(viewModel: SinglePlayerViewModel) {
+    init(viewModel: LobbyViewModel) {
         self.viewModel = viewModel
     }
 
@@ -38,7 +40,7 @@ struct SingleCharacterSelectionView: View {
                                 .foregroundColor(.blue)
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.black, lineWidth: 1)
+                                        .stroke(Color.gray, lineWidth: 1)
                                 ).onTapGesture {
                                     selectedBox = index
                                     viewModel.character = characterNames[index]
@@ -46,14 +48,14 @@ struct SingleCharacterSelectionView: View {
                         }
                     }
                     .padding()
-                    .background(Color.gray.opacity(0.2))
+                    .background(Color.gray.opacity(0.8))
                     .cornerRadius(15)
                 }
                 if let selectedBox = selectedBox {
                     VStack {
                         Text("\(characterNames[selectedBox])")
                             .font(.custom("CustomFont", size: 40))
-                            .foregroundColor(.black)
+                            .foregroundColor(.gray)
                             .padding(.top, 20)
                         Text(skills[characterNames[selectedBox]]?.joined(separator: ", ") ?? "")
                             .font(.headline)
@@ -65,7 +67,7 @@ struct SingleCharacterSelectionView: View {
                     VStack {
                         Text(viewModel.character)
                             .font(.custom("CustomFont", size: 40))
-                            .foregroundColor(.black)
+                            .foregroundColor(.gray)
                             .padding(.top, 20)
                         Text(skills[viewModel.character]?.joined(separator: ", ") ?? "")
                             .font(.headline)
@@ -74,7 +76,12 @@ struct SingleCharacterSelectionView: View {
                         Spacer()
                     }
                 }
-            }
+            }.background(
+                Image("bg")
+                    .resizable()
+                    .edgesIgnoringSafeArea(.all)
+                    .scaledToFill()
+            )
         }
     }
 }

@@ -62,7 +62,6 @@ final class SinglePlayerViewModel: ObservableObject {
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
                                       entity: player, skills: getCharacterSkills())
 
-        // TODO: Map image to top-down images after finding top down images
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
                                      image: "player-icon", width: 100.0, height: 100.0, health: 100,
                                      maxHealth: 100)

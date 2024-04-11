@@ -24,11 +24,11 @@ struct Constants {
                                   playerThreePosition, playerFourPosition]
 
     // TODO: Reset to 4 after testing
-    static let playerCount = 2
+    static let playerCount = 1
 
     static let obstacleCount = 2
 
-    static let gemCount = 10
+    static let gemCount = 4
 
     static let slashDamage = 10.0
     static let slashRadius = 75.0
