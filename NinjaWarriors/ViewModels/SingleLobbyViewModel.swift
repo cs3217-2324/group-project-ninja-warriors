@@ -21,6 +21,9 @@ final class SingleLobbyViewModel: ObservableObject {
     init() {
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
         map = GemMap(manager: RealTimeManagerAdapter(matchId: matchId))
+    }
+
+    func start() {
         initPlayers(ids: playerIds)
         map?.startMap()
     }
@@ -62,8 +65,6 @@ final class SingleLobbyViewModel: ObservableObject {
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
                                      image: character + "-top", width: 100.0, height: 100.0, health: 100,
                                      maxHealth: 100)
-
-        print("character name:", character + "-top")
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: player,
                             entityInflictDamageMap: [:], health: 100, maxHealth: 100)

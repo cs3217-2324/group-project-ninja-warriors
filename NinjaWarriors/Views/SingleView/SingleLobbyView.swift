@@ -20,21 +20,20 @@ struct SingleLobbyView: View {
         VStack {
             NavigationView {
                 VStack(spacing: 10) {
-                    NavigationLink(
-                        destination: HostSingleView(matchId: viewModel.matchId,
-                                                          currPlayerId: viewModel.hostId)
-                        .navigationBarBackButtonHidden(true),
-                        isActive: $isReady) { EmptyView() }
-                    Button(action: {
-                        isReady = true
-                    }) {
-                        Text("Start")
-                            .font(.system(size: 30))
-                            .padding()
-                            .background(Color.purple)
-                            .foregroundColor(.white)
-                            .fontWeight(.bold)
-                            .cornerRadius(10)
+                    readyButton
+                    if isReady {
+                        NavigationLink(
+                            destination: HostSingleView(matchId: viewModel.matchId,
+                                                        currPlayerId: viewModel.hostId)
+                            .navigationBarBackButtonHidden(true)) {
+                                Text("Start")
+                                    .font(.system(size: 30))
+                                    .padding()
+                                    .background(Color.purple)
+                                    .foregroundColor(.white)
+                                    .fontWeight(.bold)
+                                    .cornerRadius(10)
+                            }
                     }
                     NavigationLink(destination: SingleCharacterSelectionView(viewModel: viewModel)) {
                         Text("Select Character")
@@ -45,6 +44,8 @@ struct SingleLobbyView: View {
                             .fontWeight(.bold)
                             .cornerRadius(10)
                     }
+                    .opacity(isReady ? 0.5 : 1.0)
+                    .disabled(isReady)
                 }
                 .background(
                     Image("lobby-bg")
@@ -57,5 +58,23 @@ struct SingleLobbyView: View {
             .navigationViewStyle(.stack)
             .navigationBarBackButtonHidden(true)
         }
+    }
+
+    private var readyButton: some View {
+        Button(action: {
+            isReady = true
+            viewModel.start()
+        }) {
+            Text("Ready")
+                .font(.system(size: 30))
+                .padding()
+                .background(Color.purple)
+                .foregroundColor(.white)
+                .fontWeight(.bold)
+                .cornerRadius(10)
+        }
+        .padding()
+        .opacity(isReady ? 0 : 1)
+        .disabled(isReady)
     }
 }
