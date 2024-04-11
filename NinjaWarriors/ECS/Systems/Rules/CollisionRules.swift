@@ -32,14 +32,13 @@ class CollisionRules: Rules {
         }
 
         if let _ = object.entity as? Player, let _ = otherObject.entity as? Gem {
-            otherObject.velocity = Vector(horizontal: 0.0, vertical: -3.0)
             return true
         }
 
         if let _ = object.entity as? Gem, let _ = otherObject.entity as? Player {
-            object.velocity = Vector(horizontal: 0.0, vertical: -3.0)
             return true
         }
+        
         return false
     }
 
@@ -57,7 +56,9 @@ class CollisionRules: Rules {
                 alignEntityRotation(for: object)
             }
 
-            killCollidee(ofType: Gem.self)
+            performActionOnCollidee(ofType: Gem.self)
+            // TODO: Implement Hadouken
+            //performActionOnCollider(ofType: Hadouken.self)
 
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input
@@ -68,11 +69,19 @@ class CollisionRules: Rules {
         object.attachedCollider?.colliderShape.center = object.position
     }
 
-    private func killCollidee<T: Entity>(ofType entityType: T.Type) {
+    private func performActionOnCollidee<T: Entity>(ofType entityType: T.Type) {
         if let manager = manager,
            let collidingEntityID = object.attachedCollider?.collidedEntities.first,
            let collidingEntity = manager.entity(with: collidingEntityID) as? T,
            let health = manager.getComponent(ofType: Health.self, for: collidingEntity) {
+            health.kill()
+        }
+    }
+
+    private func performActionOnCollider<T: Entity>(ofType entityType: T.Type) {
+        if let manager = manager,
+           let entity = object.entity as? T,
+           let health = manager.getComponent(ofType: Health.self, for: entity) {
             health.kill()
         }
     }
