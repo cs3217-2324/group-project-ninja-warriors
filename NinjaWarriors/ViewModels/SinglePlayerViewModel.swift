@@ -10,35 +10,29 @@ import SwiftUI
 
 @MainActor
 final class SinglePlayerViewModel: ObservableObject {
-    @Published private(set) var matches: [Match] = []
-    @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
     @Published var matchId: String = RandomNonce().randomNonceString()
     @Published var playerIds: [String] = ["singlePlayer", "dummyPlayer1", "dummyPlayer2", "dummyPlayer3"]
     @Published var hostId: String = "singlePlayer"
-    let signInViewModel: SignInViewModel?
+    // TODO: Accept map from map selection view
+    @Published var map: Map?
 
     init() {
-        self.signInViewModel = SignInViewModel()
-        matchManager = MatchManagerAdapter()
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
-        initEntities(ids: playerIds)
+        map = GemMap(manager: RealTimeManagerAdapter(matchId: matchId))
+        startMap(ids: playerIds)
     }
 
-    init(signInViewModel: SignInViewModel) {
-        matchManager = MatchManagerAdapter()
-        self.signInViewModel = signInViewModel
-    }
-
-    // Add all relevant initial entities here
-    func initEntities(ids playerIds: [String]) {
-        initObstacles()
-        initGems()
+    func startMap(ids playerIds: [String]) {
         initPlayers(ids: playerIds)
-        addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
+        map?.startMap()
     }
 
     // MARK: Player
+    func getPlayerPositions() -> [Point] {
+        Constants.playerPositions
+    }
+
     func initPlayers(ids playerIds: [String]) {
         let playerPositions: [Point] = getPlayerPositions()
 
@@ -63,16 +57,16 @@ final class SinglePlayerViewModel: ObservableObject {
 
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
                                       entity: player, skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                                             DashSkill(id: "dash", cooldownDuration: 8.0),
-                                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                                            RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
+                                                               DashSkill(id: "dash", cooldownDuration: 8.0),
+                                                               DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                                               RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
                                      image: "player-icon", width: 100.0, height: 100.0, health: 100,
                                      maxHealth: 100)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: player,
-                                entityInflictDamageMap: [:], health: 100, maxHealth: 100)
+                            entityInflictDamageMap: [:], health: 100, maxHealth: 100)
 
         let score = Score(id: RandomNonce().randomNonceString(), entity: player,
                           score: 0, entityGainScoreMap: [:])
@@ -91,115 +85,4 @@ final class SinglePlayerViewModel: ObservableObject {
     private func makePlayer(id playerId: String, at position: Point) -> Player {
         Player(id: playerId, position: position)
     }
-
-    func getPlayerCount() -> Int? {
-        if let match = matches.first(where: { $0.id == matchId }) {
-            return match.count
-        }
-        return nil
-    }
-
-    // MARK: Obstacle
-    func initObstacles() {
-        let obstaclePositions: [Point] = getObstaclePositions()
-        for index in 0..<Constants.obstacleCount {
-            addObstacleToDatabase(at: obstaclePositions[index])
-        }
-    }
-
-    private func addObstacleToDatabase(at position: Point) {
-        let obstacle = makeObstacle(at: position)
-        guard let realTimeManager = realTimeManager else {
-            return
-        }
-        Task {
-            try? await realTimeManager.uploadEntity(entity: obstacle)
-        }
-    }
-
-    private func makeObstacle(at position: Point) -> Obstacle {
-        Obstacle(id: RandomNonce().randomNonceString(), position: position)
-    }
-
-    // MARK: Gem
-    func initGems() {
-        let gemPositions: [Point] = getGemPositions()
-        for index in 0..<Constants.gemCount {
-            addGemToDatabase(at: gemPositions[index])
-        }
-    }
-
-    private func addGemToDatabase(at position: Point) {
-        let gem = makeGem(at: position)
-        guard let realTimeManager = realTimeManager else {
-            return
-        }
-        Task {
-            try? await realTimeManager.uploadEntity(entity: gem)
-        }
-    }
-
-    private func makeGem(at position: Point) -> Gem {
-        Gem(id: RandomNonce().randomNonceString(), position: position)
-    }
-
-    // MARK: Closing Zone
-    private func addClosingZone(center: Point, radius: Double) {
-        let closingZone = makeClosingZone(center: center, radius: radius)
-        guard let realTimeManager = realTimeManager else {
-            return
-        }
-        Task {
-            try? await realTimeManager.uploadEntity(entity: closingZone, components: closingZone.getInitializingComponents())
-        }
-    }
-
-    private func makeClosingZone(center: Point, radius: Double) -> ClosingZone {
-        ClosingZone(id: RandomNonce().randomNonceString(), center: center, initialRadius: radius)
-    }
-}
-
-extension SinglePlayerViewModel {
-    func getPlayerPositions() -> [Point] {
-        Constants.playerPositions
-    }
-
-    func getObstaclePositions() -> [Point] {
-        let screenWidth = Constants.screenWidth
-        let screenHeight = Constants.screenHeight
-        let obstacleCount = Constants.obstacleCount
-
-        let center = Point(xCoord: screenWidth / 2, yCoord: screenHeight / 2)
-        let radius: Double = 250
-        let gapAngle: Double = 2 * .pi / Double(obstacleCount)
-        var positions: [Point] = []
-
-        for i in 0..<obstacleCount {
-            let angle = Double(i) * gapAngle
-            let x = center.xCoord + radius * cos(angle)
-            let y = center.yCoord + radius * sin(angle)
-            positions.append(Point(xCoord: x, yCoord: y))
-        }
-        return positions
-    }
-
-    func getGemPositions() -> [Point] {
-        let screenWidth = Constants.screenWidth
-        let screenHeight = Constants.screenHeight
-        let obstacleCount = Constants.gemCount
-
-        let center = Point(xCoord: screenWidth / 2, yCoord: screenHeight / 2)
-        let radius: Double = 100
-        let gapAngle: Double = 2 * .pi / Double(obstacleCount)
-        var positions: [Point] = []
-
-        for i in 0..<obstacleCount {
-            let angle = Double(i) * gapAngle
-            let x = center.xCoord + radius * cos(angle)
-            let y = center.yCoord + radius * sin(angle)
-            positions.append(Point(xCoord: x, yCoord: y))
-        }
-        return positions
-    }
-
 }

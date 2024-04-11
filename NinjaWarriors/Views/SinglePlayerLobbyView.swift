@@ -9,16 +9,11 @@ import Foundation
 import SwiftUI
 
 struct SinglePlayerLobbyView: View {
-    @EnvironmentObject var signInViewModel: SignInViewModel
     @State private var isReady: Bool = false
     @ObservedObject var viewModel: SinglePlayerViewModel
 
     init() {
         self.viewModel = SinglePlayerViewModel()
-    }
-
-    init(viewModel: SinglePlayerViewModel) {
-        self.viewModel = viewModel
     }
 
     var body: some View {

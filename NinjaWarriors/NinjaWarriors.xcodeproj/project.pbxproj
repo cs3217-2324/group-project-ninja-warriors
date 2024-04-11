@@ -116,6 +116,15 @@
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
 		916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* HostViewModel.swift */; };
 		9180485D2BC6E3C200026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */; };
+		9180486B2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
+		9180486C2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
+		9180486D2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
+		9180486F2BC7A86400026965 /* GemMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486E2BC7A86400026965 /* GemMap.swift */; };
+		918048702BC7A86400026965 /* GemMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486E2BC7A86400026965 /* GemMap.swift */; };
+		918048712BC7A86400026965 /* GemMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486E2BC7A86400026965 /* GemMap.swift */; };
+		918048732BC7AA9500026965 /* ClosingZoneMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048722BC7AA9500026965 /* ClosingZoneMap.swift */; };
+		918048742BC7AA9500026965 /* ClosingZoneMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048722BC7AA9500026965 /* ClosingZoneMap.swift */; };
+		918048752BC7AA9500026965 /* ClosingZoneMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048722BC7AA9500026965 /* ClosingZoneMap.swift */; };
 		9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* TriangleShape.swift */; };
 		9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* RectangleShape.swift */; };
 		9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */; };
@@ -298,6 +307,9 @@
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
 		916A7DB32BA42F8B00319C26 /* HostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostViewModel.swift; sourceTree = "<group>"; };
 		9180484A2BC6E3C200026965 /* CharacterSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterSelectionView.swift; sourceTree = "<group>"; };
+		9180486A2BC7A75700026965 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		9180486E2BC7A86400026965 /* GemMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemMap.swift; sourceTree = "<group>"; };
+		918048722BC7AA9500026965 /* ClosingZoneMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingZoneMap.swift; sourceTree = "<group>"; };
 		9180F9C52BAAE53F000CC390 /* TriangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleShape.swift; sourceTree = "<group>"; };
 		9180F9C72BAAE54A000CC390 /* RectangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleShape.swift; sourceTree = "<group>"; };
 		9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNonce.swift; sourceTree = "<group>"; };
@@ -779,6 +791,16 @@
 			path = GenericWrappers;
 			sourceTree = "<group>";
 		};
+		918048692BC7A74900026965 /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				9180486A2BC7A75700026965 /* Map.swift */,
+				9180486E2BC7A86400026965 /* GemMap.swift */,
+				918048722BC7AA9500026965 /* ClosingZoneMap.swift */,
+			);
+			path = Maps;
+			sourceTree = "<group>";
+		};
 		9180F9C92BAAF81A000CC390 /* Shapes */ = {
 			isa = PBXGroup;
 			children = (
@@ -795,6 +817,7 @@
 		9180F9CA2BAAF845000CC390 /* Primitives */ = {
 			isa = PBXGroup;
 			children = (
+				918048692BC7A74900026965 /* Maps */,
 				E63243B62BB035DB00CC0899 /* Skills */,
 				9180F9C92BAAF81A000CC390 /* Shapes */,
 				9180F9CB2BAAF85C000CC390 /* PrimitiveWrappers */,
@@ -1280,6 +1303,7 @@
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
 				916A7DA52BA3F89500319C26 /* ShapeWrapper.swift in Sources */,
 				E6D6BD0A2BC1C1B3004BFD59 /* EntityView.swift in Sources */,
+				9180486B2BC7A75700026965 /* Map.swift in Sources */,
 				91C65BE52BACF1AA0085D96F /* Skill.swift in Sources */,
 				9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
@@ -1299,6 +1323,7 @@
 				9169910A2BC5499700ED1FBD /* SinglePlayerLobbyView.swift in Sources */,
 				916A7D892BA19F5100319C26 /* AuthenticationView.swift in Sources */,
 				714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */,
+				9180486F2BC7A86400026965 /* GemMap.swift in Sources */,
 				91C65BE32BACF1920085D96F /* DashSkill.swift in Sources */,
 				916A7D462BA1541800319C26 /* NinjaWarriors.xcdatamodeld in Sources */,
 				916A7D9F2BA3F43B00319C26 /* Query+EXT.swift in Sources */,
@@ -1316,6 +1341,7 @@
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,
 				7181B1462BC03ECD009711DE /* EnvironmentEffect.swift in Sources */,
+				918048732BC7AA9500026965 /* ClosingZoneMap.swift in Sources */,
 				E6DB870C2BB9F756003AC063 /* DodgeSystem.swift in Sources */,
 				9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */,
 				91DDE6682BB7BFE100851603 /* Health.swift in Sources */,
@@ -1355,12 +1381,15 @@
 				91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */,
 				7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */,
 				916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */,
+				918048702BC7A86400026965 /* GemMap.swift in Sources */,
 				915301C62BAEC670007F2A12 /* AuthenticationTests.swift in Sources */,
+				918048742BC7AA9500026965 /* ClosingZoneMap.swift in Sources */,
 				916991342BC6782F00ED1FBD /* Gem.swift in Sources */,
 				916991382BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */,
 				916991412BC69EBE00ED1FBD /* Rules.swift in Sources */,
 				9169913C2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
+				9180486C2BC7A75700026965 /* Map.swift in Sources */,
 				7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1372,8 +1401,11 @@
 				916A7D5C2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift in Sources */,
 				916991392BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */,
+				9180486D2BC7A75700026965 /* Map.swift in Sources */,
 				9169913D2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
 				916991352BC6782F00ED1FBD /* Gem.swift in Sources */,
+				918048712BC7A86400026965 /* GemMap.swift in Sources */,
+				918048752BC7AA9500026965 /* ClosingZoneMap.swift in Sources */,
 				916991422BC69EBE00ED1FBD /* Rules.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
