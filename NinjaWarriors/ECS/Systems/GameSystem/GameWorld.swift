@@ -34,29 +34,13 @@ class GameWorld {
         let scoreManager = ScoreSystem(for: entityComponentManager)
 
         systemManager.add(system: transformHandler)
-        systemManager.add(system: destroyManager)
-
         systemManager.add(system: rigidbodyHandler)
-        systemManager.add(system: destroyManager)
-
         systemManager.add(system: collisionManager)
-        systemManager.add(system: destroyManager)
-
         systemManager.add(system: skillsManager)
-        systemManager.add(system: destroyManager)
-
         systemManager.add(system: healthManager)
-        systemManager.add(system: destroyManager)
-
         systemManager.add(system: scoreManager)
-        systemManager.add(system: destroyManager)
-
         systemManager.add(system: dodgeManager)
-        systemManager.add(system: destroyManager)
-
         systemManager.add(system: environmentEffectSystem)
-        systemManager.add(system: destroyManager)
-
         systemManager.add(system: lifespanManager)
         systemManager.add(system: destroyManager)
     }
