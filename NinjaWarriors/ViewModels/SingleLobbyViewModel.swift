@@ -9,35 +9,38 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class SingleLobbyViewModel: ObservableObject {
+final class SingleLobbyViewModel: MapSelectionProtocol {
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
     @Published var matchId: String = RandomNonce().randomNonceString()
     @Published var playerIds = ["singlePlayer", "dummyPlayer1", "dummyPlayer2", "dummyPlayer3"]
     @Published var hostId = "singlePlayer"
     var character = "Shadowstrike"
-    // TODO: Accept map from map selection nav view
     @Published var map: Map?
+    @Published var mapName: String?
 
     init() {
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
-        map = GemMap(manager: RealTimeManagerAdapter(matchId: matchId))
     }
 
     func start() {
         initPlayers(ids: playerIds)
-        map?.startMap()
-    }
-
-    func getCharacterSkills() -> [Skill] {
-        Constants.characterSkills[character] ?? Constants.defaultSkills
+        initMapEntities()
     }
 
     // MARK: Player
-    func getPlayerPositions() -> [Point] {
+    private func getCharacterSkills() -> [Skill] {
+        Constants.characterSkills[character] ?? Constants.defaultSkills
+    }
+
+    private func getPlayerPositions() -> [Point] {
         Constants.playerPositions
     }
 
-    func initPlayers(ids playerIds: [String]) {
+    private func makePlayer(id playerId: String, at position: Point) -> Player {
+        Player(id: playerId, position: position)
+    }
+
+    private func initPlayers(ids playerIds: [String]) {
         let playerPositions: [Point] = getPlayerPositions()
 
         for (index, playerId) in playerIds.enumerated() {
@@ -83,7 +86,19 @@ final class SingleLobbyViewModel: ObservableObject {
         }
     }
 
-    private func makePlayer(id playerId: String, at position: Point) -> Player {
-        Player(id: playerId, position: position)
+    // MARK: Map
+    private func initMapEntities() {
+        guard let map = map, let realTimeManager = realTimeManager else {
+            return
+        }
+
+        let mapEntities: [Entity] = map.getMapEntities()
+
+        for mapEntity in mapEntities {
+            Task {
+                try? await realTimeManager.uploadEntity(entity: mapEntity,
+                                                        components: mapEntity.getInitializingComponents())
+            }
+        }
     }
 }

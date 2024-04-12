@@ -8,10 +8,7 @@
 import Foundation
 
 protocol Map {
-    var manager: RealTimeManagerAdapter { get set }
-    var fixedEntities: [Entity] { get set }
+    var mapEntities: [Entity] { get set }
     func getPositions() -> [Point]
-    func populateFixedEntities()
-    func addEntities()
-    func startMap()
+    func getMapEntities() -> [Entity]
 }

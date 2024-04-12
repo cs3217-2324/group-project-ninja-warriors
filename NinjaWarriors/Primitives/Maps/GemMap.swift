@@ -8,17 +8,7 @@
 import Foundation
 
 class GemMap: Map {
-    internal var manager: RealTimeManagerAdapter
-    internal var fixedEntities: [Entity] = []
-
-    init(manager: RealTimeManagerAdapter) {
-        self.manager = manager
-    }
-
-    func startMap() {
-        populateFixedEntities()
-        addEntities()
-    }
+    internal var mapEntities: [Entity] = []
 
     func getPositions() -> [Point] {
         let screenWidth = Constants.screenWidth
@@ -39,21 +29,13 @@ class GemMap: Map {
         return positions
     }
 
-    func populateFixedEntities() {
+    func getMapEntities() -> [Entity] {
         let positions: [Point] = getPositions()
         for index in 0..<Constants.gemCount {
             let position = positions[index]
             let gem = Gem(id: RandomNonce().randomNonceString(), position: position)
-            fixedEntities.append(gem)
+            mapEntities.append(gem)
         }
-    }
-
-    func addEntities() {
-        for fixedEntity in fixedEntities {
-            Task {
-                try? await manager.uploadEntity(entity: fixedEntity,
-                                                components: fixedEntity.getInitializingComponents())
-            }
-        }
+        return mapEntities
     }
 }

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class LobbyViewModel: ObservableObject {
+final class LobbyViewModel: MapSelectionProtocol {
     @Published private(set) var matches: [Match] = []
     @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
@@ -17,27 +17,31 @@ final class LobbyViewModel: ObservableObject {
     @Published var playerIds: [String]?
     @Published var hostId: String?
     @Published var userId: String?
-    @Published var fixedEntities: [Entity] = []
     @Published var map: Map?
     var character = "Shadowstrike"
     let signInViewModel: SignInViewModel
     let isGuest: Bool
     let guestId: String = RandomNonce().randomNonceString()
 
+    // Guest mode
     init() {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = SignInViewModel()
         isGuest = true
     }
 
+    // Login mode
     init(signInViewModel: SignInViewModel) {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
         isGuest = false
     }
 
-    func getCharacterSkills() -> [Skill] {
-        Constants.characterSkills[character] ?? Constants.defaultSkills
+    func getUserId() -> String {
+        guard let signInUserId = signInViewModel.getUserId() else {
+            return guestId
+        }
+        return signInUserId
     }
 
     func ready(userId: String) {
@@ -69,23 +73,7 @@ final class LobbyViewModel: ObservableObject {
         }
         selectHost(from: playerIds)
         initPlayer(ids: playerIds)
-        startMap()
-    }
-
-    // TODO: Get from map selection nav link
-    func startMap() {
-        guard let playerIds = playerIds, hostId == getUserId(), let matchId = matchId else {
-            return
-        }
-        map = GemMap(manager: RealTimeManagerAdapter(matchId: matchId))
-        map?.startMap()
-    }
-
-    func getUserId() -> String {
-        guard let signInUserId = signInViewModel.getUserId() else {
-            return guestId
-        }
-        return signInUserId
+        initMapEntities()
     }
 
     func selectHost(from ids: [String]?) {
@@ -95,8 +83,24 @@ final class LobbyViewModel: ObservableObject {
         hostId = ids.first
     }
 
+    // MARK: Player
     func getPlayerPositions() -> [Point] {
         Constants.playerPositions
+    }
+
+    func getCharacterSkills() -> [Skill] {
+        Constants.characterSkills[character] ?? Constants.defaultSkills
+    }
+
+    private func makePlayer(id playerId: String, at position: Point) -> Player {
+        Player(id: playerId, position: position)
+    }
+
+    func getPlayerCount() -> Int? {
+        if let match = matches.first(where: { $0.id == matchId }) {
+            return match.count
+        }
+        return nil
     }
 
     func initPlayer(ids playerIds: [String]?) {
@@ -104,7 +108,7 @@ final class LobbyViewModel: ObservableObject {
             return
         }
         let playerPositions: [Point] = getPlayerPositions()
-        var playerId = userId ?? guestId
+        let playerId = userId ?? guestId
         for (index, currPlayerId) in playerIds.enumerated() where currPlayerId == playerId {
             addPlayerToDatabase(id: playerId, at: playerPositions[index])
         }
@@ -148,15 +152,20 @@ final class LobbyViewModel: ObservableObject {
         }
     }
 
-    private func makePlayer(id playerId: String, at position: Point) -> Player {
-        Player(id: playerId, position: position)
-    }
-
-    func getPlayerCount() -> Int? {
-        if let match = matches.first(where: { $0.id == matchId }) {
-            return match.count
+    // MARK: Map
+    func initMapEntities() {
+        guard let map = map, let realTimeManager = realTimeManager, hostId == getUserId() else {
+            return
         }
-        return nil
+
+        let mapEntities: [Entity] = map.getMapEntities()
+
+        for mapEntity in mapEntities {
+            Task {
+                try? await realTimeManager.uploadEntity(entity: mapEntity,
+                                                        components: mapEntity.getInitializingComponents())
+            }
+        }
     }
 
     func addListenerForMatches() {

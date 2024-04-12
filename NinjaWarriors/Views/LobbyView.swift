@@ -65,6 +65,18 @@ struct LobbyView: View {
                 }
                 .opacity(isReady ? 0.5 : 1.0)
                 .disabled(isReady)
+
+                NavigationLink(destination: MapSelectionView(viewModel: viewModel)) {
+                    Text("Select Map")
+                        .font(.system(size: 30))
+                        .padding()
+                        .background(Color.purple)
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                        .cornerRadius(10)
+                }
+                .opacity(isReady ? 0.5 : 1.0)
+                .disabled(isReady)
             }
             .background(
                 Image("lobby-bg")

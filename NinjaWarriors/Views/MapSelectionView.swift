@@ -8,8 +8,14 @@
 import Foundation
 import SwiftUI
 
-struct MapSelectionView: View {
+struct MapSelectionView<Model>: View where Model: MapSelectionProtocol {
     @State private var selectedImageIndex: Int?
+    @ObservedObject var viewModel: Model
+    var maps: [Map] = [GemMap(), ClosingZoneMap()]
+
+    init(viewModel: Model) {
+        self.viewModel = viewModel
+    }
 
     var body: some View {
         VStack {
@@ -25,18 +31,18 @@ struct MapSelectionView: View {
                 ForEach(0..<2) { index in
                     MapSelectionItemView(imageName: index == 0 ? "grass-stone" : "gray-wall",
                                          mapName: index == 0 ? "Closing Zone Mode" : "Gem Mode")
-                        .onTapGesture {
-                            selectedImageIndex = index
-                        }
-                        .background(
-                            ZStack {
-                                Color.clear
+                    .onTapGesture {
+                        selectedImageIndex = index
+                        viewModel.map = maps[index]
+                    }
+                    .background(
+                        ZStack {
+                            Color.clear
                                 .border(selectedImageIndex == index ? Color.white : Color.clear, width: 4)
-                            }
-                        )
+                        }
+                    )
                 }
             }
-
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -74,13 +80,5 @@ struct MapSelectionItemView: View {
                 .padding(.horizontal)
 
         }
-    }
-}
-
-
-
-struct MapSelectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapSelectionView()
     }
 }

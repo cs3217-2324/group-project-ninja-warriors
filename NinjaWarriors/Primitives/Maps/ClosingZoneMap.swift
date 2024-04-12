@@ -8,17 +8,7 @@
 import Foundation
 
 class ClosingZoneMap: Map {
-    internal var manager: RealTimeManagerAdapter
-    internal var fixedEntities: [Entity] = []
-
-    init(manager: RealTimeManagerAdapter) {
-        self.manager = manager
-    }
-
-    func startMap() {
-        populateFixedEntities()
-        addEntities()
-    }
+    internal var mapEntities: [Entity] = []
 
     func getPositions() -> [Point] {
         let screenWidth = Constants.screenWidth
@@ -39,27 +29,20 @@ class ClosingZoneMap: Map {
         return positions
     }
 
-    func populateFixedEntities() {
+    func getMapEntities() -> [Entity] {
         let positions: [Point] = getPositions()
         
         for index in 0..<Constants.obstacleCount {
             let position = positions[index]
             let obstacle = Obstacle(id: RandomNonce().randomNonceString(), position: position)
-            fixedEntities.append(obstacle)
+            mapEntities.append(obstacle)
         }
 
         let closingZone = ClosingZone(id: RandomNonce().randomNonceString(),
                                       center: Constants.closingZonePosition,
                                       initialRadius: Constants.closingZoneRadius)
-        fixedEntities.append(closingZone)
-    }
+        mapEntities.append(closingZone)
 
-    func addEntities() {
-        for fixedEntity in fixedEntities {
-            Task {
-                try? await manager.uploadEntity(entity: fixedEntity,
-                                                components: fixedEntity.getInitializingComponents())
-            }
-        }
+        return mapEntities
     }
 }
