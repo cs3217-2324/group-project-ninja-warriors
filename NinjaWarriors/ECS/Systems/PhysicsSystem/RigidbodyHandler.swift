@@ -56,7 +56,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         }
     }
 
-    // TODO: Fixed unowned entity reference
     private func getPlayerInput(for rigidBody: Rigidbody) -> Vector {
         if rigidBody.angularVelocity == Vector.zero {
             guard let gameControl = gameControl,
