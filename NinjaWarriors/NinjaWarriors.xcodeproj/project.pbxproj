@@ -114,7 +114,6 @@
 		916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */; };
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
 		916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* HostViewModel.swift */; };
-		9180485D2BC6E3C200026965 /* SingleCharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180484A2BC6E3C200026965 /* SingleCharacterSelectionView.swift */; };
 		9180486B2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
 		9180486C2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
 		9180486D2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
@@ -310,7 +309,6 @@
 		916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorWrapper.swift; sourceTree = "<group>"; };
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
 		916A7DB32BA42F8B00319C26 /* HostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostViewModel.swift; sourceTree = "<group>"; };
-		9180484A2BC6E3C200026965 /* SingleCharacterSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleCharacterSelectionView.swift; sourceTree = "<group>"; };
 		9180486A2BC7A75700026965 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		9180486E2BC7A86400026965 /* GemMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemMap.swift; sourceTree = "<group>"; };
 		918048722BC7AA9500026965 /* ClosingZoneMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingZoneMap.swift; sourceTree = "<group>"; };
@@ -798,7 +796,6 @@
 			isa = PBXGroup;
 			children = (
 				9169910D2BC5977C00ED1FBD /* HostSingleView.swift */,
-				9180484A2BC6E3C200026965 /* SingleCharacterSelectionView.swift */,
 				916991092BC5499700ED1FBD /* SingleLobbyView.swift */,
 			);
 			path = SingleView;
@@ -1295,7 +1292,6 @@
 				9180F9D12BAB96C7000CC390 /* CodableWrapper.swift in Sources */,
 				916A7D6E2BA1551300319C26 /* Line.swift in Sources */,
 				E6ECF62F2BADAB7E00DDDE9C /* SkillCasterSystem.swift in Sources */,
-				9180485D2BC6E3C200026965 /* SingleCharacterSelectionView.swift in Sources */,
 				91DDE66A2BB7C19C00851603 /* HealthWrapper.swift in Sources */,
 				9132AF642BA50E82000F2AC4 /* PhysicsElasticCollision.swift in Sources */,
 				91DDE6652BB7A07100851603 /* ObstacleWrapper.swift in Sources */,

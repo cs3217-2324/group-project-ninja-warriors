@@ -17,7 +17,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     @Published var playerIds: [String]?
     @Published var hostId: String?
     @Published var userId: String?
-    @Published var map: Map?
+    @Published var map: Map = ClosingZoneMap()
     var character = "Shadowstrike"
     let signInViewModel: SignInViewModel
     let isGuest: Bool
@@ -154,7 +154,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
 
     // MARK: Map
     func initMapEntities() {
-        guard let map = map, let realTimeManager = realTimeManager, hostId == getUserId() else {
+        guard let realTimeManager = realTimeManager, hostId == getUserId() else {
             return
         }
 

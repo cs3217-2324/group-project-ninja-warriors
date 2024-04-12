@@ -200,7 +200,7 @@ class EntityComponentManager {
     func remove(entity: Entity, isRemoved: Bool = true) {
         assertRepresentation()
 
-        removeComponents(from: entity)
+        removeComponents(from: entity, isRemoved: isRemoved)
         entityMap[entity.id] = nil
         entityComponentMap[entity.id] = nil
 

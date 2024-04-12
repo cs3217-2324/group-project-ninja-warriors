@@ -14,7 +14,7 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
     @Published var matchId: String = RandomNonce().randomNonceString()
     @Published var playerIds = ["singlePlayer", "dummyPlayer1", "dummyPlayer2", "dummyPlayer3"]
     @Published var hostId = "singlePlayer"
-    @Published var map: Map?
+    @Published var map: Map = ClosingZoneMap()
     @Published var mapName: String?
     var character = "Shadowstrike"
 
@@ -88,7 +88,7 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
 
     // MARK: Map
     private func initMapEntities() {
-        guard let map = map, let realTimeManager = realTimeManager else {
+        guard let realTimeManager = realTimeManager else {
             return
         }
 

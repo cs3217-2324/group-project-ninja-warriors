@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MapSelection: ObservableObject {
-    @MainActor var map: Map? { get set }
+    @MainActor var map: Map { get set }
 }
