@@ -128,7 +128,8 @@
 		9180487C2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180487A2BC7C7B600026965 /* CharacterSelectionView.swift */; };
 		9180487D2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180487A2BC7C7B600026965 /* CharacterSelectionView.swift */; };
 		918048802BC9094B00026965 /* MapSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180487F2BC9094B00026965 /* MapSelectionView.swift */; };
-		918048842BC912EE00026965 /* MapSelectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048832BC912EE00026965 /* MapSelectionProtocol.swift */; };
+		918048842BC912EE00026965 /* MapSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048832BC912EE00026965 /* MapSelection.swift */; };
+		918048862BC91C2200026965 /* CharacterSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048852BC91C2200026965 /* CharacterSelection.swift */; };
 		9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* TriangleShape.swift */; };
 		9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* RectangleShape.swift */; };
 		9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */; };
@@ -315,7 +316,8 @@
 		918048722BC7AA9500026965 /* ClosingZoneMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingZoneMap.swift; sourceTree = "<group>"; };
 		9180487A2BC7C7B600026965 /* CharacterSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSelectionView.swift; sourceTree = "<group>"; };
 		9180487F2BC9094B00026965 /* MapSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectionView.swift; sourceTree = "<group>"; };
-		918048832BC912EE00026965 /* MapSelectionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectionProtocol.swift; sourceTree = "<group>"; };
+		918048832BC912EE00026965 /* MapSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelection.swift; sourceTree = "<group>"; };
+		918048852BC91C2200026965 /* CharacterSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSelection.swift; sourceTree = "<group>"; };
 		9180F9C52BAAE53F000CC390 /* TriangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleShape.swift; sourceTree = "<group>"; };
 		9180F9C72BAAE54A000CC390 /* RectangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleShape.swift; sourceTree = "<group>"; };
 		9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNonce.swift; sourceTree = "<group>"; };
@@ -733,7 +735,8 @@
 				916A7D8D2BA1A1C500319C26 /* SignInViewModel.swift */,
 				9132AF692BA53E5F000F2AC4 /* LobbyViewModel.swift */,
 				916991072BC5490600ED1FBD /* SingleLobbyViewModel.swift */,
-				918048832BC912EE00026965 /* MapSelectionProtocol.swift */,
+				918048832BC912EE00026965 /* MapSelection.swift */,
+				918048852BC91C2200026965 /* CharacterSelection.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1317,6 +1320,7 @@
 				916A7D702BA1552100319C26 /* Point.swift in Sources */,
 				9132AF7C2BA59C6C000F2AC4 /* Listener.swift in Sources */,
 				915301B52BAD1E85007F2A12 /* Collider.swift in Sources */,
+				918048862BC91C2200026965 /* CharacterSelection.swift in Sources */,
 				91DDE66D2BB7C3DA00851603 /* HealthSystem.swift in Sources */,
 				9136A5BA2BAA8B3900197971 /* TransformHandler.swift in Sources */,
 				916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */,
@@ -1354,7 +1358,7 @@
 				E6ECF63A2BADE9D900DDDE9C /* CircleShape.swift in Sources */,
 				91DDE6522BB3806100851603 /* ComponentType.swift in Sources */,
 				9132AF682BA53E54000F2AC4 /* LobbyView.swift in Sources */,
-				918048842BC912EE00026965 /* MapSelectionProtocol.swift in Sources */,
+				918048842BC912EE00026965 /* MapSelection.swift in Sources */,
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
 				E6B503EB2BC112AF00B9565E /* AttackStrategy.swift in Sources */,
 				714F20972BC27FF800A5B36E /* HostView.swift in Sources */,

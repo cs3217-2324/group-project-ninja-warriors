@@ -9,13 +9,13 @@ import Foundation
 
 import SwiftUI
 
-struct CharacterSelectionView: View {
+struct CharacterSelectionView<Model>: View where Model: CharacterSelection {
     @State private var selectedBox: Int? = nil
     @State private var characterNames: [String] = Constants.characterNames
     @State private var skills = Constants.skills
-    @ObservedObject var viewModel: LobbyViewModel
+    @ObservedObject var viewModel: Model
 
-    init(viewModel: LobbyViewModel) {
+    init(viewModel: Model) {
         self.viewModel = viewModel
     }
 

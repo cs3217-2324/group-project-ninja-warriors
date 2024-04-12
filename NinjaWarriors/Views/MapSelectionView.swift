@@ -8,10 +8,10 @@
 import Foundation
 import SwiftUI
 
-struct MapSelectionView<Model>: View where Model: MapSelectionProtocol {
+struct MapSelectionView<Model>: View where Model: MapSelection {
     @State private var selectedImageIndex: Int?
     @ObservedObject var viewModel: Model
-    var maps: [Map] = [GemMap(), ClosingZoneMap()]
+    var maps: [Map] = [ClosingZoneMap(), GemMap()]
 
     init(viewModel: Model) {
         self.viewModel = viewModel

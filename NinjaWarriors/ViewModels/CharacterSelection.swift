@@ -2,9 +2,11 @@
 //  CharacterSelection.swift
 //  NinjaWarriors
 //
-//  Created by Muhammad Reyaaz on 11/4/24.
+//  Created by Muhammad Reyaaz on 12/4/24.
 //
 
 import Foundation
 
-class CharacterSelection: ObservableObject {}
+protocol CharacterSelection: ObservableObject {
+    @MainActor var character: String { get set }
+}

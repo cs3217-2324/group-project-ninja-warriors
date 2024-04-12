@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class LobbyViewModel: MapSelectionProtocol {
+final class LobbyViewModel: MapSelection, CharacterSelection {
     @Published private(set) var matches: [Match] = []
     @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?

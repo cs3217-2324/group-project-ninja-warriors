@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class SingleLobbyViewModel: MapSelectionProtocol {
+final class SingleLobbyViewModel: MapSelection, CharacterSelection {
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
     @Published var matchId: String = RandomNonce().randomNonceString()
     @Published var playerIds = ["singlePlayer", "dummyPlayer1", "dummyPlayer2", "dummyPlayer3"]
     @Published var hostId = "singlePlayer"
-    var character = "Shadowstrike"
     @Published var map: Map?
     @Published var mapName: String?
+    var character = "Shadowstrike"
 
     init() {
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)

@@ -5,6 +5,7 @@
 //  Created by Muhammad Reyaaz on 29/2/24.
 //
 
+/*
 import SwiftUI
 
 struct SingleCharacterSelectionView: View {
@@ -83,3 +84,4 @@ struct SingleCharacterSelectionView: View {
         }
     }
 }
+*/

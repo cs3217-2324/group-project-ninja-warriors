@@ -35,7 +35,7 @@ struct SingleLobbyView: View {
                                     .cornerRadius(10)
                             }
                     }
-                    NavigationLink(destination: SingleCharacterSelectionView(viewModel: viewModel)) {
+                    NavigationLink(destination: CharacterSelectionView(viewModel: viewModel)) {
                         Text("Select Character")
                             .font(.system(size: 30))
                             .padding()
