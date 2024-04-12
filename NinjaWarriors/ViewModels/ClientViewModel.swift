@@ -15,7 +15,7 @@ final class ClientViewModel: ObservableObject {
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
-    let timeLag: Int = 4
+    let timeLag: Int = 7
 
     init(matchId: String, currPlayerId: String) {
         self.matchId = matchId
@@ -68,7 +68,7 @@ final class ClientViewModel: ObservableObject {
     }
 
     func move(_ vector: CGVector) {
-        print(currPlayerId, timeLag)
+        print(timeLag)
         guard let entityIdComponents = gameWorld.entityComponentManager.entityComponentMap[currPlayerId] else {
             return
         }

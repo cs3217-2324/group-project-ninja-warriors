@@ -26,6 +26,10 @@ class CollisionRules: Rules {
             return true
         }
 
+        if let collider = object.attachedCollider, collider.isOutOfBounds {
+            return false
+        }
+
         guard let manager = manager, let collidingEntity = object.attachedCollider?.collidedEntities.first,
               let otherObject = manager.getComponentFromId(ofType: Rigidbody.self, of: collidingEntity) else {
             return true

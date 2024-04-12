@@ -16,7 +16,7 @@ class GemMap: Map {
         let gemCount = Constants.gemCount
 
         let center = Point(xCoord: screenWidth / 2, yCoord: screenHeight / 2)
-        let radius: Double = 100
+        let radius: Double = 250
         let gapAngle: Double = 2 * .pi / Double(gemCount)
         var positions: [Point] = []
 

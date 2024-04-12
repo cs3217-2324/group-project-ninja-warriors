@@ -101,11 +101,25 @@ final class RealTimeManagerAdapter: EntitiesManager {
     private func getEntititesDict() async throws -> [String: [String: Any]] {
         let dataSnapshot = try await entitiesRef.getData()
         guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
-            print("data snapshot", dataSnapshot.value)
             throw NSError(domain: "Invalid entity data format", code: -1, userInfo: nil)
         }
         return entitiesDict
     }
+
+    /*
+    private func getEntititesDict() async throws -> [String: [String: Any]] {
+        let startTime = DispatchTime.now().uptimeNanoseconds
+        let dataSnapshot = try await entitiesRef.getData()
+        let endTime = DispatchTime.now().uptimeNanoseconds
+        let elapsedTime = Double(endTime - startTime) / 1_000_000_000 // Convert nanoseconds to seconds
+        print("Time taken: \(elapsedTime) seconds")
+
+        guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
+            throw NSError(domain: "Invalid entity data format", code: -1, userInfo: nil)
+        }
+        return entitiesDict
+    }
+    */
 
     private func decodeEntities(id: EntityID? = nil) async throws -> ([Entity]?, String?) {
         var entities: [Entity] = []
@@ -292,6 +306,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
                   let componentData = try? JSONEncoder().encode(data),
                   let dataDict = try? JSONSerialization.jsonObject(with: componentData,
                                                                    options: []) as? [String: Any] else {
+                print("continue", component.wrapper())
                 continue
             }
             componentDict[key] = dataDict
@@ -303,6 +318,10 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityName = NSStringFromClass(type(of: entity))
             .components(separatedBy: ".").last ?? "entity"
 
+        if let _ = entity as? SlashAOE {
+            print("upload components", components, components?[0].wrapper())
+        }
+
         let entityRef = entitiesRef.child(entityName).child(entity.id)
 
         entityRef.observeSingleEvent(of: .value) { [unowned self] snapshot in
@@ -312,7 +331,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 self.updateExistingEntity(snapshot, entityRef, entity, components)
 
             } else {
-
                 if let components = components {
                     self.createEntity(snapshot, entityRef, entity, components)
                 } else {
@@ -366,6 +384,10 @@ final class RealTimeManagerAdapter: EntitiesManager {
             
         let componentDict = formComponentDict(from: finalComponents)
         newEntityDict[componentKey] = componentDict
+
+        if let _ = entity as? SlashAOE {
+            print("slashAOE component dict", componentDict, "final components:", finalComponents)
+        }
 
         entityRef.setValue(newEntityDict)
     }

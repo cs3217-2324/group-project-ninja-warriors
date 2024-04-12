@@ -84,7 +84,8 @@ class EntityComponentManager {
                 self.newEntityMap.removeAll()
                 for entity in remoteEntity {
                     guard (entity as? ClosingZone) == nil,
-                          (entity as? Obstacle) == nil else {
+                          (entity as? Obstacle) == nil
+                    else {
                         continue
                     }
                     self.newEntityMap[entity.id] = entity
@@ -114,7 +115,8 @@ class EntityComponentManager {
     func publish() async throws {
         for (entityId, entity) in entityMap {
             guard (entity as? ClosingZone) == nil,
-                  (entity as? Obstacle) == nil else {
+                  (entity as? Obstacle) == nil
+            else {
                 continue
             }
             var entityComponents: Set<Component> = []
@@ -181,6 +183,7 @@ class EntityComponentManager {
 
         if !isAdded {
             Task {
+                print("new components", newComponents)
                 try await manager.uploadEntity(entity: entity, components: newComponents)
             }
         }

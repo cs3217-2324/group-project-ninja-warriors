@@ -37,9 +37,10 @@ class DodgeSkill: SelfModifyingSkill {
             dodgeComponent.isEnabled = true
             dodgeComponent.invulnerabilityDuration = self.invulnerabilityDuration
             dodgeComponent.elapsedTimeSinceEnabled = 0
+            manager.add(entity: entity, components: [dodgeComponent], isAdded: false)
         } else {
             let dodgeComponent = Dodge(id: RandomNonce().randomNonceString(), entity: entity, isEnabled: true, invulnerabilityDuration: self.invulnerabilityDuration)
-            manager.add(entity: entity, components: [dodgeComponent])
+            manager.add(entity: entity, components: [dodgeComponent], isAdded: false)
         }
     }
 

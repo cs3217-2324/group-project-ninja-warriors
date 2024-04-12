@@ -73,8 +73,6 @@
 		916991382BC6783500ED1FBD /* GemWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991362BC6783500ED1FBD /* GemWrapper.swift */; };
 		916991392BC6783500ED1FBD /* GemWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991362BC6783500ED1FBD /* GemWrapper.swift */; };
 		9169913B2BC67BC900ED1FBD /* CollisionRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913A2BC67BC900ED1FBD /* CollisionRules.swift */; };
-		9169913C2BC67BC900ED1FBD /* CollisionRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913A2BC67BC900ED1FBD /* CollisionRules.swift */; };
-		9169913D2BC67BC900ED1FBD /* CollisionRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913A2BC67BC900ED1FBD /* CollisionRules.swift */; };
 		916991402BC69EBE00ED1FBD /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913F2BC69EBE00ED1FBD /* Rules.swift */; };
 		916991412BC69EBE00ED1FBD /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913F2BC69EBE00ED1FBD /* Rules.swift */; };
 		916991422BC69EBE00ED1FBD /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913F2BC69EBE00ED1FBD /* Rules.swift */; };
@@ -552,6 +550,7 @@
 		9136A5B82BA9955400197971 /* CollisionSystem */ = {
 			isa = PBXGroup;
 			children = (
+				9169913A2BC67BC900ED1FBD /* CollisionRules.swift */,
 				916A7D692BA154F000319C26 /* CollisionManager.swift */,
 			);
 			path = CollisionSystem;
@@ -597,7 +596,6 @@
 			isa = PBXGroup;
 			children = (
 				9169913F2BC69EBE00ED1FBD /* Rules.swift */,
-				9169913A2BC67BC900ED1FBD /* CollisionRules.swift */,
 			);
 			path = Rules;
 			sourceTree = "<group>";
@@ -1390,7 +1388,6 @@
 				916991382BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */,
 				916991412BC69EBE00ED1FBD /* Rules.swift in Sources */,
-				9169913C2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
 				9180487C2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */,
 				9180486C2BC7A75700026965 /* Map.swift in Sources */,
 				7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */,
@@ -1405,7 +1402,6 @@
 				916991392BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */,
 				9180486D2BC7A75700026965 /* Map.swift in Sources */,
-				9169913D2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
 				916991352BC6782F00ED1FBD /* Gem.swift in Sources */,
 				918048712BC7A86400026965 /* GemMap.swift in Sources */,
 				9180487D2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */,
