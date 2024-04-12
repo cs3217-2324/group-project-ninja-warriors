@@ -207,7 +207,8 @@ class EntityComponentManager {
         if !isRemoved {
             manager.delete(entity: entity)
         }
-        mapQueue.process(entity)
+
+        //mapQueue.process(entity)
 
         assertRepresentation()
     }
@@ -277,7 +278,6 @@ class EntityComponentManager {
         guard existingComponentType == ComponentType(Rigidbody.self)
                 || existingComponentType == ComponentType(Health.self)
                 || existingComponentType == ComponentType(Collider.self)
-                || existingComponentType == ComponentType(EnvironmentEffect.self)
         else { return }
         existingComponent.updateAttributes(newComponent)
     }

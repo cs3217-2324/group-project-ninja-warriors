@@ -35,8 +35,8 @@ struct SingleLobbyView: View {
                                     .cornerRadius(10)
                             }
                     }
-                    NavigationLink(destination: CharacterSelectionView(viewModel: viewModel)) {
-                        Text("Select Character")
+                    NavigationLink(destination: MapSelectionView(viewModel: viewModel)) {
+                        Text("Select Map")
                             .font(.system(size: 30))
                             .padding()
                             .background(Color.purple)
@@ -47,8 +47,8 @@ struct SingleLobbyView: View {
                     .opacity(isReady ? 0.5 : 1.0)
                     .disabled(isReady)
 
-                    NavigationLink(destination: MapSelectionView(viewModel: viewModel)) {
-                        Text("Select Map")
+                    NavigationLink(destination: CharacterSelectionView(viewModel: viewModel)) {
+                        Text("Select Character")
                             .font(.system(size: 30))
                             .padding()
                             .background(Color.purple)
