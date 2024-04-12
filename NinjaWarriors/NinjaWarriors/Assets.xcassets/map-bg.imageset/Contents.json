@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Screenshot 2024-04-11 at 3.20.09 PM.png",
+      "filename" : "map-bg.jpeg",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,11 +12,6 @@
     {
       "idiom" : "universal",
       "scale" : "3x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "2x",
-      "unassigned" : true
     }
   ],
   "info" : {

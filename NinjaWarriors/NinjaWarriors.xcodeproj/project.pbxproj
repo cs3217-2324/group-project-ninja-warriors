@@ -127,6 +127,7 @@
 		9180487B2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180487A2BC7C7B600026965 /* CharacterSelectionView.swift */; };
 		9180487C2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180487A2BC7C7B600026965 /* CharacterSelectionView.swift */; };
 		9180487D2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180487A2BC7C7B600026965 /* CharacterSelectionView.swift */; };
+		918048802BC9094B00026965 /* MapSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180487F2BC9094B00026965 /* MapSelectionView.swift */; };
 		9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* TriangleShape.swift */; };
 		9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* RectangleShape.swift */; };
 		9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */; };
@@ -312,6 +313,7 @@
 		9180486E2BC7A86400026965 /* GemMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemMap.swift; sourceTree = "<group>"; };
 		918048722BC7AA9500026965 /* ClosingZoneMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingZoneMap.swift; sourceTree = "<group>"; };
 		9180487A2BC7C7B600026965 /* CharacterSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSelectionView.swift; sourceTree = "<group>"; };
+		9180487F2BC9094B00026965 /* MapSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelectionView.swift; sourceTree = "<group>"; };
 		9180F9C52BAAE53F000CC390 /* TriangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleShape.swift; sourceTree = "<group>"; };
 		9180F9C72BAAE54A000CC390 /* RectangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleShape.swift; sourceTree = "<group>"; };
 		9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNonce.swift; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 				E6ECF6312BADB28200DDDE9C /* EntityOverlayView.swift */,
 				E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */,
 				9180487A2BC7C7B600026965 /* CharacterSelectionView.swift */,
+				9180487F2BC9094B00026965 /* MapSelectionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1257,6 +1260,7 @@
 				E6A0564D2BB0687500398D67 /* DodgeSkill.swift in Sources */,
 				E6B503ED2BC112C100B9565E /* MeleeAttackStrategy.swift in Sources */,
 				91DDE6632BB79DF300851603 /* Obstacle.swift in Sources */,
+				918048802BC9094B00026965 /* MapSelectionView.swift in Sources */,
 				7113A4942BA60E2E00805340 /* Entity.swift in Sources */,
 				E6D6BD0D2BC1C1F4004BFD59 /* EntityViewModel.swift in Sources */,
 				E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */,
