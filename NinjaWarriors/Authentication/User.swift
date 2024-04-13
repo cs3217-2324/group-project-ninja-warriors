@@ -7,7 +7,8 @@
 
 import Foundation
 
+typealias UserID = String
 struct User {
-    let uid: String
+    let uid: UserID
     let email: String?
 }
