@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-final class LobbyViewModel: ObservableObject {
+final class LobbyViewModel: MapSelection, CharacterSelection {
     @Published private(set) var matches: [Match] = []
     @Published private(set) var matchManager: MatchManager
     @Published private(set) var realTimeManager: RealTimeManagerAdapter?
@@ -17,25 +17,36 @@ final class LobbyViewModel: ObservableObject {
     @Published var playerIds: [String]?
     @Published var hostId: String?
     @Published var userId: String?
+    @Published var map: Map = ObstacleMap()
+    @Published var ownEntities: [Entity] = []
+    var character = "Shadowstrike"
     let signInViewModel: SignInViewModel
     let isGuest: Bool
     let guestId: String = RandomNonce().randomNonceString()
 
+    // Guest mode
     init() {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = SignInViewModel()
         isGuest = true
     }
 
+    // Login mode
     init(signInViewModel: SignInViewModel) {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
         isGuest = false
     }
 
+    func getUserId() -> String {
+        guard let signInUserId = signInViewModel.getUserId() else {
+            return guestId
+        }
+        return signInUserId
+    }
+
     func ready(userId: String) {
         Task { [unowned self] in
-            //guard let self = self else { return }
             let newMatchId = try await matchManager.enterQueue(playerId: userId)
             self.matchId = newMatchId
             addListenerForMatches()
@@ -47,8 +58,6 @@ final class LobbyViewModel: ObservableObject {
             return
         }
         Task { [unowned self] in
-            //guard let self = self else { return }
-            //Task { [unowned self] in
             await self.matchManager.removePlayerFromMatch(playerId: userId, matchId: match)
         }
     }
@@ -64,26 +73,8 @@ final class LobbyViewModel: ObservableObject {
             print("Error starting match: \(error)")
         }
         selectHost(from: playerIds)
-        initEntities(ids: playerIds)
-    }
-
-    // Add all relevant initial entities here
-    func initEntities(ids playerIds: [String]?) {
-        initObstacles()
-
-        guard let playerIds = playerIds else {
-            return
-        }
-        initPlayers(ids: playerIds)
-
-        addClosingZone(center: Constants.closingZonePosition, radius: Constants.closingZoneRadius)
-    }
-
-    func getUserId() -> String {
-        guard let signInUserId = signInViewModel.getUserId() else {
-            return guestId
-        }
-        return signInUserId
+        initPlayer(ids: playerIds)
+        initMapEntities()
     }
 
     func selectHost(from ids: [String]?) {
@@ -93,17 +84,33 @@ final class LobbyViewModel: ObservableObject {
         hostId = ids.first
     }
 
-    func initObstacles() {
-        let obstaclePositions: [Point] = getObstaclePositions()
-        for index in 0..<Constants.obstacleCount {
-            addObstacleToDatabase(at: obstaclePositions[index])
-        }
+    // MARK: Player
+    func getPlayerPositions() -> [Point] {
+        Constants.playerPositions
     }
 
-    func initPlayers(ids playerIds: [String]) {
-        let playerPositions: [Point] = getPlayerPositions()
+    func getCharacterSkills() -> [Skill] {
+        Constants.characterSkills[character] ?? Constants.defaultSkills
+    }
 
-        for (index, playerId) in playerIds.enumerated() {
+    private func makePlayer(id playerId: String, at position: Point) -> Player {
+        Player(id: playerId, position: position)
+    }
+
+    func getPlayerCount() -> Int? {
+        if let match = matches.first(where: { $0.id == matchId }) {
+            return match.count
+        }
+        return nil
+    }
+
+    func initPlayer(ids playerIds: [String]?) {
+        guard let playerIds = playerIds else {
+            return
+        }
+        let playerPositions: [Point] = getPlayerPositions()
+        let playerId = userId ?? guestId
+        for (index, currPlayerId) in playerIds.enumerated() where currPlayerId == playerId {
             addPlayerToDatabase(id: playerId, at: playerPositions[index])
         }
     }
@@ -123,17 +130,14 @@ final class LobbyViewModel: ObservableObject {
                                         attachedCollider: playerCollider)
 
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
-                                      entity: player, skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                                             DashSkill(id: "dash", cooldownDuration: 8.0),
-                                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                                            RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
+                                      entity: player, skills: getCharacterSkills())
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
-                                     image: "player-icon", width: 100.0, height: 100.0, health: 100,
+                                     image: character + "-top", width: 100.0, height: 100.0, health: 100,
                                      maxHealth: 100)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: player,
-                                entityInflictDamageMap: [:], health: 100, maxHealth: 100)
+                            entityInflictDamageMap: [:], health: 100, maxHealth: 100)
 
         let score = Score(id: RandomNonce().randomNonceString(), entity: player,
                           score: 0, entityGainScoreMap: [:])
@@ -147,80 +151,32 @@ final class LobbyViewModel: ObservableObject {
         Task {
             try? await realTimeManager.uploadEntity(entity: player, components: components)
         }
+
+        ownEntities.append(player)
     }
 
-    private func makePlayer(id playerId: String, at position: Point) -> Player {
-        Player(id: playerId, position: position)
-    }
-
-    func getPlayerCount() -> Int? {
-        if let match = matches.first(where: { $0.id == matchId }) {
-            return match.count
-        }
-        return nil
-    }
-
-    private func addObstacleToDatabase(at position: Point) {
-        let obstacle = makeObstacle(at: position)
-        guard let realTimeManager = realTimeManager else {
+    // MARK: Map
+    func initMapEntities() {
+        guard let realTimeManager = realTimeManager, hostId == getUserId() else {
             return
         }
-        Task {
-            try? await realTimeManager.uploadEntity(entity: obstacle)
-        }
-    }
 
-    private func makeObstacle(at position: Point) -> Obstacle {
-        Obstacle(id: RandomNonce().randomNonceString(), position: position)
-    }
+        let mapEntities: [Entity] = map.getMapEntities()
 
-    private func addClosingZone(center: Point, radius: Double) {
-        let closingZone = makeClosingZone(center: center, radius: radius)
-        guard let realTimeManager = realTimeManager else {
-            return
+        for mapEntity in mapEntities {
+            Task {
+                try? await realTimeManager.uploadEntity(entity: mapEntity,
+                                                        components: mapEntity.getInitializingComponents())
+            }
         }
-        Task {
-            try? await realTimeManager.uploadEntity(entity: closingZone, components: closingZone.getInitializingComponents())
-        }
-    }
-
-    private func makeClosingZone(center: Point, radius: Double) -> ClosingZone {
-        ClosingZone(id: RandomNonce().randomNonceString(), center: center, initialRadius: radius)
     }
 
     func addListenerForMatches() {
         let publisher = matchManager.addListenerForAllMatches()
         publisher.subscribe(update: { [unowned self] matches in
-            //publisher.subscribe(update: { [weak self] matches in
-            //guard let self = self else { return }
             self.matches = matches.map { $0.toMatch() }
         }, error: { error in
             print(error)
         })
-    }
-}
-
-extension LobbyViewModel {
-    func getPlayerPositions() -> [Point] {
-        Constants.playerPositions
-    }
-
-    func getObstaclePositions() -> [Point] {
-        let screenWidth = Constants.screenWidth
-        let screenHeight = Constants.screenHeight
-        let obstacleCount = Constants.obstacleCount
-
-        let center = Point(xCoord: screenWidth / 2, yCoord: screenHeight / 2)
-        let radius: Double = 200
-        let gapAngle: Double = 2.5 * .pi / Double(obstacleCount)
-        var positions: [Point] = []
-
-        for i in 0..<obstacleCount {
-            let angle = Double(i) * gapAngle
-            let x = center.xCoord + radius * cos(angle)
-            let y = center.yCoord + radius * sin(angle)
-            positions.append(Point(xCoord: x, yCoord: y))
-        }
-        return positions
     }
 }

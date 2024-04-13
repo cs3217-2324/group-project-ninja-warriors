@@ -49,7 +49,7 @@ class CollisionManager: System {
     }
 
     private func handleBoundaries(for rigidBody: Rigidbody) {
-        guard var collider = rigidBody.attachedCollider else {
+        guard let collider = rigidBody.attachedCollider else {
             return
         }
         if !intersectingBoundaries(source: collider.colliderShape, isColliding: collider.isColliding) {
@@ -67,6 +67,8 @@ class CollisionManager: System {
         guard let isColliding = object.attachedCollider?.isColliding else {
             return true
         }
+
+        // let collisionRule = CollisionRules(object: object)
 
         return !isOverlap(source: object, with: otherObject, isColliding: isColliding)
         /*
@@ -96,37 +98,28 @@ class CollisionManager: System {
     }
 
     private func isOverlap(source object: Rigidbody, with otherObject: Rigidbody, isColliding: Bool) -> Bool {
-            var objectCenter: Point
-            var otherObjectCenter: Point
-            guard let objectShape = object.attachedCollider?.colliderShape,
-                  let otherObjectShape = otherObject.attachedCollider?.colliderShape else {
-                return true
-            }
-
-            if let isColliding = object.attachedCollider?.isColliding, isColliding == false {
-                objectCenter = objectShape.center
-                otherObjectCenter = otherObjectShape.center
-            } else {
-                objectCenter = objectShape.offset
-                otherObjectCenter = otherObjectShape.offset
-            }
-
-            var distanceObjectSquared: Double = objectCenter.squareDistance(to: otherObjectCenter)
-            var sumHalfLengthSquared: Double = (objectShape.halfLength + otherObjectShape.halfLength)
-            * (objectShape.halfLength + otherObjectShape.halfLength)
-            var isOverlapping: Bool = (distanceObjectSquared < sumHalfLengthSquared)
-
-            if otherObject.angularVelocity != Vector.zero {
-                while isOverlapping {
-                    otherObjectCenter = otherObjectCenter.subtract(vector: otherObject.angularVelocity)
-                    distanceObjectSquared = objectCenter.squareDistance(to: otherObjectCenter)
-                    sumHalfLengthSquared = (objectShape.halfLength + otherObjectShape.halfLength)
-                    * (objectShape.halfLength + otherObjectShape.halfLength)
-                    isOverlapping = (distanceObjectSquared < sumHalfLengthSquared)
-                }
-            }
-            return (distanceObjectSquared < sumHalfLengthSquared)
+        var objectCenter: Point
+        var otherObjectCenter: Point
+        guard let objectShape = object.attachedCollider?.colliderShape,
+              let otherObjectShape = otherObject.attachedCollider?.colliderShape else {
+            return true
         }
+
+        if let isColliding = object.attachedCollider?.isColliding, isColliding == false {
+            objectCenter = objectShape.center
+            otherObjectCenter = otherObjectShape.center
+        } else {
+            objectCenter = objectShape.offset
+            otherObjectCenter = otherObjectShape.offset
+        }
+
+        let distanceObjectSquared: Double = objectCenter.squareDistance(to: otherObjectCenter)
+        let sumHalfLengthSquared: Double = (objectShape.halfLength + otherObjectShape.halfLength)
+        * (objectShape.halfLength + otherObjectShape.halfLength)
+        let isOverlapping: Bool = (distanceObjectSquared < sumHalfLengthSquared)
+
+        return isOverlapping
+    }
 
     private func moveReduces(object: Shape, with shape: Shape,
                              isColliding: Bool, isOutOfBounds: Bool) -> Bool {
@@ -288,4 +281,3 @@ class CollisionManager: System {
         return isPointInside
     }
 }
-

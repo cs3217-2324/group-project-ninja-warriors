@@ -1,0 +1,21 @@
+{
+  "images" : [
+    {
+      "filename" : "Simulator Screen Shot - iPad Air (3rd generation) - 2024-04-13 at 11.31.42.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -10,7 +10,7 @@ import Foundation
 class DodgeSkill: SelfModifyingSkill {
     var id: SkillID
     var cooldownDuration: TimeInterval
-    private var invulnerabilityDuration: TimeInterval = 2
+    private var invulnerabilityDuration: TimeInterval = 2.0
 
     required init(id: SkillID) {
         self.id = id
@@ -21,7 +21,7 @@ class DodgeSkill: SelfModifyingSkill {
         self.init(id: id)
         self.cooldownDuration = cooldownDuration
     }
-    
+
     func activate(from entity: Entity, in manager: EntityComponentManager) {
         modifySelf(entity, in: manager)
     }
@@ -31,15 +31,16 @@ class DodgeSkill: SelfModifyingSkill {
         self.cooldownDuration = newDodgeSkill.cooldownDuration
         self.invulnerabilityDuration = newDodgeSkill.invulnerabilityDuration
     }
-    
+
     func modifySelf(_ entity: Entity, in manager: EntityComponentManager) {
         if let dodgeComponent = manager.getComponent(ofType: Dodge.self, for: entity) {
             dodgeComponent.isEnabled = true
             dodgeComponent.invulnerabilityDuration = self.invulnerabilityDuration
             dodgeComponent.elapsedTimeSinceEnabled = 0
+            manager.add(entity: entity, components: [dodgeComponent], isAdded: false)
         } else {
             let dodgeComponent = Dodge(id: RandomNonce().randomNonceString(), entity: entity, isEnabled: true, invulnerabilityDuration: self.invulnerabilityDuration)
-            manager.add(entity: entity, components: [dodgeComponent])
+            manager.add(entity: entity, components: [dodgeComponent], isAdded: false)
         }
     }
 

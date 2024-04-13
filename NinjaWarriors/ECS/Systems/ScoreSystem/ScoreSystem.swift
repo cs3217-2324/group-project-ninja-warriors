@@ -20,6 +20,7 @@ class ScoreSystem: System {
         updateScore(for: healthScoreMap)
     }
 
+    // TODO: Fix unowned reference error
     func createHealthScoreMap() -> [Health: Score] {
         var healthScoreMap: [Health: Score] = [:]
 

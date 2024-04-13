@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct SpriteWrapper: ComponentWrapper {
     var id: ComponentID
     var entity: EntityWrapper

@@ -26,7 +26,6 @@ struct SkillCasterWrapper: ComponentWrapper {
         self.wrapperType = wrapperType
     }
 
-
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: AnyCodingKey.self)
         try container.encode(id, forKey: AnyCodingKey(stringValue: "id"))
@@ -79,7 +78,6 @@ struct SkillCasterWrapper: ComponentWrapper {
             skills = [:] // Assign an empty dictionary if field is missing
         }
 
-
         do {
             let skillCooldownsContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
                                                                 forKey: AnyCodingKey(stringValue: "skillCooldowns"))
@@ -91,7 +89,6 @@ struct SkillCasterWrapper: ComponentWrapper {
         } catch {
             skillCooldowns = [:] // Assign an empty dictionary if field is missing
         }
-
 
     }
 

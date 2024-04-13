@@ -9,11 +9,12 @@ import Foundation
 
 class DestroySystem: System {
     var manager: EntityComponentManager
-    
+
     required init(for manager: EntityComponentManager) {
         self.manager = manager
     }
-    
+
+    // TODO: Fixed unowned error
     func update(after time: TimeInterval) {
         let healthComponents = manager.getAllComponents(ofType: Health.self)
         for healthComponent in healthComponents where healthComponent.health <= 0 {

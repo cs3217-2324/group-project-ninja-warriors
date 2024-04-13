@@ -40,10 +40,15 @@ class SlashAOESkill: EntitySpawnerSkill {
         }
 
         let shape = Shape(center: playerRigidbody.position, halfLength: Constants.defaultSize)
+
+        let collider = Collider(id: RandomNonce().randomNonceString(), entity: slashAOE,
+                                      colliderShape: shape, collidedEntities: [],
+                                      isColliding: false, isOutOfBounds: false)
+
         let rigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: slashAOE,
                                   angularDrag: 0.0, angularVelocity: Vector.zero, mass: 8.0,
                                   rotation: playerRigidbody.rotation, totalForce: Vector.zero, inertia: 0.0,
-                                  position: shape.center, velocity: Vector.zero)
+                                  position: shape.center, velocity: Vector.zero, attachedCollider: collider)
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(),
                                      entity: slashAOE, image: "slash-effect", width: Constants.slashRadius * 2,
@@ -56,9 +61,11 @@ class SlashAOESkill: EntitySpawnerSkill {
 
         manager.add(entity: slashAOE, components: [rigidbody, spriteComponent, attackComponent, lifespanComponent], isAdded: false)
 
+        manager.addOwnEntity(slashAOE)
+
         return slashAOE
     }
-    
+
     func wrapper() -> SkillWrapper {
         return SkillWrapper(id: id, type: "SlashAOESkill", cooldownDuration: cooldownDuration)
     }

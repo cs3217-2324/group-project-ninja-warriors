@@ -56,7 +56,10 @@ final class RealTimeManagerAdapter: EntitiesManager {
             "ColliderWrapper": ColliderWrapper.self,
             "ScoreWrapper": ScoreWrapper.self,
             "RigidbodyWrapper": RigidbodyWrapper.self,
-            "EnvironmentEffectWrapper": EnvironmentEffectWrapper.self
+            "EnvironmentEffectWrapper": EnvironmentEffectWrapper.self,
+            "LifespanWrapper": LifespanWrapper.self,
+            "DodgeWrapper": DodgeWrapper.self,
+            "TransformWrapper": TransformWrapper.self
         ]
         return wrapperTypes[wrapperType]
     }
@@ -218,8 +221,10 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 entityInstance = Obstacle(id: entityId)
             } else if entityType == "SlashAOE" {
                 entityInstance = SlashAOE(id: entityId, casterEntity: Player(id: entityId))
-            } else {
+            } else if entityType == "ClosingZone" {
                 entityInstance = ClosingZone(id: entityId)
+            } else {
+                entityInstance = Gem(id: entityId)
             }
 
             try processComponents(for: entityId, withComponentTypes: componentTypes, from: idData,
@@ -291,6 +296,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
                                                                    options: []) as? [String: Any] else {
                 continue
             }
+
             componentDict[key] = dataDict
         }
         return componentDict
@@ -303,13 +309,12 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityRef = entitiesRef.child(entityName).child(entity.id)
 
         entityRef.observeSingleEvent(of: .value) { [unowned self] snapshot in
-            //guard let self = self else { return print("return")}
+            // guard let self = self else { return print("return")}
 
             if snapshot.exists() {
                 self.updateExistingEntity(snapshot, entityRef, entity, components)
 
             } else {
-                
                 if let components = components {
                     self.createEntity(snapshot, entityRef, entity, components)
                 } else {
@@ -360,7 +365,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
 
         let finalComponents = components ?? entity.getInitializingComponents()
-            
+
         let componentDict = formComponentDict(from: finalComponents)
         newEntityDict[componentKey] = componentDict
 

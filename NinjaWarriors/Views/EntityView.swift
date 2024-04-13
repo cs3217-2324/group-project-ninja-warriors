@@ -17,12 +17,12 @@ struct EntityView: View {
                 image(for: sprite)
             }
             dodgeImage
-            if let health = viewModel.health, let sprite = viewModel.sprite {
+            if let health = viewModel.health, let sprite = viewModel.sprite, !(health.entity is Gem) {
                 healthBar(for: health, width: sprite.width)
             }
         }
     }
-    
+
     private var dodgeImage: some View {
         Group {
             if let dodge = viewModel.dodge {
@@ -58,17 +58,17 @@ struct EntityView: View {
         let healthPercentage = CGFloat(health.health) / CGFloat(health.maxHealth)
         let healthBarFillWidth = healthBarWidth * healthPercentage
         var healthBarOffsetY = Constants.HealthBar.offsetY
-        
+
         if let sprite = viewModel.sprite {
             healthBarOffsetY += sprite.height / 2
         }
-        
+
         var healthColor = Color.green
-        
+
         if let dodge = viewModel.dodge, dodge.isEnabled {
             healthColor = Color.yellow
         }
-        
+
         return ZStack(alignment: .leading) {
             Rectangle()
                 .fill(Color.red)
@@ -85,7 +85,7 @@ struct EntityView: View {
 struct EntityView_Previews: PreviewProvider {
     static var previews: some View {
         let player = Player(id: "player1", position: Point(xCoord: 400, yCoord: 400))
-        
+
         let components = player.getMockComponents()
 
         // mock SlashAOE
@@ -98,16 +98,15 @@ struct EntityView_Previews: PreviewProvider {
                                   rotation: 0, totalForce: Vector.zero, inertia: 0,
                                   position: Point(xCoord: 400, yCoord: 400), velocity: Vector.zero)
         let lifespan = Lifespan(id: RandomNonce().randomNonceString(), entity: slashaoe, lifespan: 1, elapsedTime: 0.8)
-        
+
         EntityView(viewModel: EntityViewModel(components: [sprite, rigidbody, lifespan]))
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color.black)
-        
+
         EntityView(viewModel: EntityViewModel(components: components))
             .previewLayout(.sizeThatFits)
             .padding()
-        
+
     }
 }
-

@@ -18,7 +18,7 @@ class EntityViewModel: ObservableObject {
     var transform: Transform? {
         components.first(where: { $0 is Transform }) as? Transform
     }
-    
+
     var sprite: Sprite? {
         components.first(where: { $0 is Sprite }) as? Sprite
     }
@@ -30,7 +30,7 @@ class EntityViewModel: ObservableObject {
     var rigidbody: Rigidbody? {
         components.first(where: { $0 is Rigidbody }) as? Rigidbody
     }
-    
+
     var dodge: Dodge? {
         components.first(where: { $0 is Dodge }) as? Dodge
     }
@@ -42,7 +42,7 @@ class EntityViewModel: ObservableObject {
     var position: CGPoint {
         rigidbody?.position.get() ?? CGPoint(x: 0, y: 0)
     }
-    
+
     var rotation: Double {
         rigidbody?.rotation ?? 0.0
     }

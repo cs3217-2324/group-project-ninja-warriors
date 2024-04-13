@@ -19,10 +19,10 @@ struct RigidbodyWrapper: ComponentWrapper {
     var position: PointWrapper
     var offset: PointWrapper
     var velocity: VectorWrapper
-    var attachedCollider: ColliderWrapper
+    var attachedCollider: ColliderWrapper?
     var wrapperType: String
 
-    init(id: ComponentID, entity: EntityWrapper, angularDrag: Double, angularVelocity: VectorWrapper, mass: Double, rotation: Double, totalForce: VectorWrapper, inertia: Double, position: PointWrapper, offset: PointWrapper, velocity: VectorWrapper, attachedCollider: ColliderWrapper, wrapperType: String) {
+    init(id: ComponentID, entity: EntityWrapper, angularDrag: Double, angularVelocity: VectorWrapper, mass: Double, rotation: Double, totalForce: VectorWrapper, inertia: Double, position: PointWrapper, offset: PointWrapper, velocity: VectorWrapper, attachedCollider: ColliderWrapper? = nil, wrapperType: String) {
         self.id = id
         self.entity = entity
         self.angularDrag = angularDrag
@@ -51,7 +51,13 @@ struct RigidbodyWrapper: ComponentWrapper {
         try container.encode(position, forKey: AnyCodingKey(stringValue: "position"))
         try container.encode(offset, forKey: AnyCodingKey(stringValue: "offset"))
         try container.encode(velocity, forKey: AnyCodingKey(stringValue: "velocity"))
-        try container.encode(attachedCollider, forKey: AnyCodingKey(stringValue: "attachedCollider"))
+
+        if let attachedCollider = attachedCollider {
+            try container.encode(attachedCollider, forKey: AnyCodingKey(stringValue: "attachedCollider"))
+        } else {
+            try container.encode("nil", forKey: AnyCodingKey(stringValue: "attachedCollider"))
+        }
+
         try container.encode(wrapperType, forKey: AnyCodingKey(stringValue: "wrapperType"))
     }
 
@@ -64,7 +70,7 @@ struct RigidbodyWrapper: ComponentWrapper {
         guard let wrapperClass = NSClassFromString(wrapperType) as? EntityWrapper.Type else {
             throw NSError(domain: "NinjaWarriors.Wrapper", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
         }
-        
+
         entity = try container.decode(wrapperClass.self, forKey: AnyCodingKey(stringValue: "entity"))
         angularDrag = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "angularDrag"))
         angularVelocity = try container.decode(VectorWrapper.self, forKey: AnyCodingKey(stringValue: "angularVelocity"))
@@ -75,18 +81,29 @@ struct RigidbodyWrapper: ComponentWrapper {
         position = try container.decode(PointWrapper.self, forKey: AnyCodingKey(stringValue: "position"))
         offset = try container.decode(PointWrapper.self, forKey: AnyCodingKey(stringValue: "offset"))
         velocity = try container.decode(VectorWrapper.self, forKey: AnyCodingKey(stringValue: "velocity"))
-        attachedCollider = try container.decode(ColliderWrapper.self, forKey: AnyCodingKey(stringValue: "attachedCollider"))
+        // attachedCollider = try container.decode(ColliderWrapper.self, forKey: AnyCodingKey(stringValue: "attachedCollider"))
+
+        do {
+            attachedCollider = try container.decodeIfPresent(ColliderWrapper.self,
+                                                             forKey: AnyCodingKey(stringValue: "attachedCollider")) ?? nil
+        } catch {
+            attachedCollider = nil
+        }
     }
 
     func toComponent(entity: Entity) -> Component? {
-        if let colliderUnwrap = attachedCollider.toComponent(entity: entity) as? Collider {
+        if let colliderUnwrap = attachedCollider?.toComponent(entity: entity) as? Collider {
             return Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
                              angularVelocity: angularVelocity.toVector(), mass: mass, rotation: rotation,
                              totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
                              offset: offset.toPoint(), velocity: velocity.toVector(),
                               attachedCollider: colliderUnwrap)
         } else {
-            return nil
+            return Rigidbody(id: id, entity: entity, angularDrag: angularDrag,
+                             angularVelocity: angularVelocity.toVector(), mass: mass, rotation: rotation,
+                             totalForce: totalForce.toVector(), inertia: inertia, position: position.toPoint(),
+                             offset: offset.toPoint(), velocity: velocity.toVector(),
+                              attachedCollider: nil)
         }
     }
 }

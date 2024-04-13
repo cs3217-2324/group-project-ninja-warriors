@@ -23,12 +23,11 @@ struct LobbyView: View {
 
     var body: some View {
         NavigationView {
-            VStack() {
-                Spacer()
+            VStack(spacing: 10) {
                 userLoginInfo
                 if let playerCount = viewModel.getPlayerCount() {
 
-                    customText("Player Count: \(playerCount) / \(Constants.playerCount)")
+                    customText("Players in queue: \(playerCount) / \(Constants.playerCount)")
 
                     if playerCount == Constants.playerCount {
 
@@ -40,13 +39,13 @@ struct LobbyView: View {
 
                             if viewModel.getUserId() == viewModel.hostId {
                                 NavigationLink(
-                                    destination: HostView(matchId: matchId, currPlayerId: viewModel.getUserId()).navigationBarBackButtonHidden(true)
+                                    destination: HostView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground).navigationBarBackButtonHidden(true)
                                 ) {
                                     startGameText
                                 }
                             } else {
                                 NavigationLink(
-                                    destination: ClientView(matchId: matchId, currPlayerId: viewModel.getUserId()).navigationBarBackButtonHidden(true)
+                                    destination: ClientView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground).navigationBarBackButtonHidden(true)
                                 ) {
                                     startGameText
                                 }
@@ -55,6 +54,30 @@ struct LobbyView: View {
                     }
                 }
                 readyButton
+
+                NavigationLink(destination: MapSelectionView(viewModel: viewModel)) {
+                    Text("Select Map")
+                        .font(.system(size: 30))
+                        .padding()
+                        .background(Color.purple)
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                        .cornerRadius(10)
+                }
+                .opacity(isReady ? 0.5 : 1.0)
+                .disabled(isReady)
+
+                NavigationLink(destination: CharacterSelectionView(viewModel: viewModel)) {
+                    Text("Select Character")
+                        .font(.system(size: 30))
+                        .padding()
+                        .background(Color.purple)
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                        .cornerRadius(10)
+                }
+                .opacity(isReady ? 0.5 : 1.0)
+                .disabled(isReady)
             }
             .background(
                 Image("lobby-bg")
@@ -64,7 +87,7 @@ struct LobbyView: View {
                     .frame(width: Constants.screenWidth, height: Constants.screenHeight)
             )
         }.navigationViewStyle(.stack)
-            .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 
     private var userLoginInfo: some View {
@@ -82,9 +105,11 @@ struct LobbyView: View {
             isReady = true
         }) {
             Text("Ready")
+                .font(.system(size: 30))
                 .padding()
+                .background(Color.purple)
                 .foregroundColor(.white)
-                .background(Color.blue)
+                .fontWeight(.bold)
                 .cornerRadius(10)
         }
         .padding()
@@ -103,7 +128,7 @@ struct LobbyView: View {
     }
 
     private var startGameText: some View {
-        Text("START GAME")
+        Text("Start")
             .font(.system(size: 30))
             .padding()
             .background(Color.purple)
@@ -119,4 +144,3 @@ struct LobbyView: View {
             .foregroundColor(Color(red: 0.8, green: 0.8, blue: 0.8))
     }
 }
-

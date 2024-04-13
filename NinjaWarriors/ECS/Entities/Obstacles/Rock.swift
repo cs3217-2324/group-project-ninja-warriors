@@ -31,7 +31,7 @@ class Obstacle: Equatable, Entity {
         let obstaclePosition = position
         let shape = shape
 
-        //var shape: Shape = CircleShape(center: obstaclePosition, radius: Constants.defaultSize)
+        // var shape: Shape = CircleShape(center: obstaclePosition, radius: Constants.defaultSize)
 
         let collider = Collider(id: RandomNonce().randomNonceString(), entity: self, colliderShape: shape)
 

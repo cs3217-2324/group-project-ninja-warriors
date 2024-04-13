@@ -41,7 +41,7 @@ class SkillCaster: Component {
             skillCooldowns[skillId] = newCooldown
         }
     }
-    
+
     func resetSkillCooldown(skillId: SkillID) {
         skillCooldowns[skillId] = 0
     }

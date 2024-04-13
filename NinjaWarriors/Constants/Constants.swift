@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct Constants {
-    static let screenHeight = UIScreen.main.bounds.size.height - 350
+    static let screenHeight = UIScreen.main.bounds.size.height - 250
     static let screenWidth = UIScreen.main.bounds.size.width
     static let defaultSize: CGFloat = 25.0
     static let directory = "NinjaWarriors."
@@ -26,17 +26,19 @@ struct Constants {
     // TODO: Reset to 4 after testing
     static let playerCount = 1
 
-    static let obstacleCount = 0
+    static let obstacleCount = 2
+
+    static let gemCount = 4
 
     static let slashDamage = 10.0
     static let slashRadius = 75.0
-    
+
     struct DodgeImage {
         static let image = "dodge"
         static let width: CGFloat = 100
         static let height: CGFloat = 100
     }
-    
+
     struct HealthBar {
         static let height: CGFloat = 10
         static let offsetY: CGFloat = 15
@@ -47,4 +49,71 @@ struct Constants {
     static var closingZoneDPS: Double = 1.0
     static var closingZoneRadiusShrinkagePerSecond: Double = 10.0
     static var closingZoneMinimumSize: Double = 50.0
+
+    // MARK: Characters
+    static var characterNames: [String] = ["Shadowstrike", "Nightblade", "Swiftshadow", "SilentStorm",
+                                    "Crimsonshadow", "Shadowblade", "Venomstrike", "Darkwind"]
+
+    static var skills: [String: [String]] = ["Shadowstrike": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Nightblade": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Swiftshadow": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "SilentStorm": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Crimsonshadow": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Shadowblade": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Venomstrike": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Darkwind": ["Dash", "Slash", "Dodge", "Refresh"]]
+
+    static var shadowstrikeSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                              DashSkill(id: "dash", cooldownDuration: 8.0),
+                                              DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                              RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
+
+    static var shadowbladeSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                             DashSkill(id: "dash", cooldownDuration: 8.0),
+                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                             RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
+
+    static var silentStormkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                            DashSkill(id: "dash", cooldownDuration: 8.0),
+                                            DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                            RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
+
+    static var swiftShadowSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                             DashSkill(id: "dash", cooldownDuration: 8.0),
+                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                             RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
+
+    static var venomStrikeSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                             DashSkill(id: "dash", cooldownDuration: 8.0),
+                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                             RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
+
+    static var nightbladeSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                            DashSkill(id: "dash", cooldownDuration: 8.0),
+                                            DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                            RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
+
+    static var crimsonShadowSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                               DashSkill(id: "dash", cooldownDuration: 8.0),
+                                               DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                               RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
+
+    static var darkwindSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                          DashSkill(id: "dash", cooldownDuration: 8.0),
+                                          DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                          RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
+
+    static var defaultSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                         DashSkill(id: "dash", cooldownDuration: 8.0),
+                                         DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                         RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
+
+    static var characterSkills: [String: [Skill]] = ["Shadowstrike": shadowstrikeSkills,
+                                                     "Nightblade": nightbladeSkills,
+                                                     "Swiftshadow": swiftShadowSkills,
+                                                     "SilentStorm": silentStormkills,
+                                                     "Crimsonshadow": crimsonShadowSkills,
+                                                     "Shadowblade": shadowbladeSkills,
+                                                     "Venomstrike": venomStrikeSkills,
+                                                     "Darkwind": darkwindSkills]
 }

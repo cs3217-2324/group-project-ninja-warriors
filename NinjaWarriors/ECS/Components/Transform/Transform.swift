@@ -24,7 +24,7 @@ class Transform: Component {
         return TransformWrapper(id: id, entity: entityWrapper, position: position.wrapper(),
                                 rotation: rotation)
     }
-    
+
     func setRotation(to degrees: Double) {
         self.rotation = degrees
     }

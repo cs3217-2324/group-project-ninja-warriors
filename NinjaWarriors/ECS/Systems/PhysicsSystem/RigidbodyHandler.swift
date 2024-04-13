@@ -21,7 +21,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     }
 
     func update(after time: TimeInterval) {
-        //handleElasticCollisions()
         moveRigidBodies(with: time)
         syncTransform()
     }
@@ -37,7 +36,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
                       var otherRigidBody = manager.getComponent(ofType: Rigidbody.self, for: otherEntity) else {
                     return
                 }
-                // Not fully implemented yet
                 doElasticCollision(collider: &rigidBody, collidee: &otherRigidBody)
             }
         }
@@ -48,29 +46,12 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
 
         for rigidBody in rigidBodies {
-            let collider = rigidBody.attachedCollider
+            let playerInput: Vector = getPlayerInput(for: rigidBody)
 
-            guard let collider = collider else {
-                continue
-            }
+            let collisionRule = CollisionRules(object: rigidBody, input: playerInput,
+                                               deltaTime: deltaTime, manager: manager)
 
-            var playerInput: Vector = getPlayerInput(for: rigidBody)
-
-            if !collider.isColliding && !collider.isOutOfBounds {
-                rigidBody.velocity = playerInput
-                if (playerInput.horizontal != 0 || playerInput.vertical != 0) {
-                    alignEntityRotation(for: rigidBody, playerInput)
-                }
-                rigidBody.collidingVelocity = nil
-
-            } else if (collider.isColliding || collider.isOutOfBounds) {
-                rigidBody.collidingVelocity = playerInput
-                rigidBody.velocity = Vector.zero
-            }
-
-            moveRigidBody(rigidBody, across: deltaTime)
-            manager.getComponent(ofType: Collider.self, for: rigidBody.entity)?
-                .colliderShape.center = rigidBody.position
+            collisionRule.performRule()
         }
     }
 
@@ -87,39 +68,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         }
     }
 
-    private func alignEntityRotation(for rigidBody: Rigidbody, _ input: Vector) {
-        let radians = atan2(input.vertical, input.horizontal)
-
-        let degrees = radians * 180 / .pi
-
-        rigidBody.rotation = degrees
-    }
-
-
-    private func moveRigidBody(_ rigidBody: Rigidbody, across deltaTime: TimeInterval) {
-        // Determine the velocity to use for calculations
-        var currentVelocity = rigidBody.collidingVelocity ?? rigidBody.velocity
-
-        //var currentVelocity = rigidBody.velocity
-
-        // Update position
-        let deltaPosition = currentVelocity.scale(deltaTime).add(vector: rigidBody.acceleration.scale(0.5 * pow(deltaTime, 2)))
-        rigidBody.movePosition(by: deltaPosition)
-
-        // Update velocity
-        currentVelocity = currentVelocity.add(vector: rigidBody.acceleration.scale(deltaTime))
-        //rigidBody.velocity = currentVelocity
-
-        if rigidBody.collidingVelocity != nil {
-            rigidBody.collidingVelocity = currentVelocity
-        } else {
-            rigidBody.velocity = currentVelocity
-        }
-
-        // Reset force
-        rigidBody.totalForce = Vector.zero
-    }
-
+    // TODO: Fix unowned due to lag
     private func syncTransform() {
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
         for rigidBody in rigidBodies {

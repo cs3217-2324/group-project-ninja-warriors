@@ -12,7 +12,6 @@ struct SkillWrapper: Codable {
     var type: String
     var cooldownDuration: TimeInterval
 
-
     init(id: SkillID, type: String, cooldownDuration: TimeInterval) {
         self.id = id
         self.type = type
@@ -25,9 +24,9 @@ struct SkillWrapper: Codable {
         try container.encode(type, forKey: AnyCodingKey(stringValue: "type"))
         try container.encode(cooldownDuration, forKey: AnyCodingKey(stringValue: "cooldownDuration"))
     }
-    
+
     init(from decoder: Decoder) throws {
-        var container = try decoder.container(keyedBy: AnyCodingKey.self)
+        let container = try decoder.container(keyedBy: AnyCodingKey.self)
         id = try container.decode(SkillID.self, forKey: AnyCodingKey(stringValue: "id"))
         type = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "type"))
         cooldownDuration = try container.decode(TimeInterval.self,
@@ -48,4 +47,3 @@ struct SkillWrapper: Codable {
         }
     }
 }
-

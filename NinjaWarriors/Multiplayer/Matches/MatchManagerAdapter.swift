@@ -119,8 +119,8 @@ final class MatchManagerAdapter: MatchManager {
         do {
             _ = try await Firestore.firestore().runTransaction({ [unowned self] (transaction, errorPointer) -> Any? in
 
-            //_ = try await Firestore.firestore().runTransaction({ [weak self] (transaction, errorPointer) -> Any? in
-                //guard let self = self else { return }
+            // _ = try await Firestore.firestore().runTransaction({ [weak self] (transaction, errorPointer) -> Any? in
+                // guard let self = self else { return }
                 do {
                     let matchDocument = try transaction.getDocument(matchRef)
                     guard var matchData = matchDocument.data(),

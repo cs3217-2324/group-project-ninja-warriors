@@ -29,6 +29,7 @@ class DodgeSystem: System {
 
     private func disableIfExpired(_ dodgeComponent: Dodge) {
         if dodgeComponent.elapsedTimeSinceEnabled > dodgeComponent.invulnerabilityDuration {
+            print(dodgeComponent.elapsedTimeSinceEnabled, dodgeComponent.invulnerabilityDuration)
             dodgeComponent.isEnabled = false
             dodgeComponent.elapsedTimeSinceEnabled = 0
         }

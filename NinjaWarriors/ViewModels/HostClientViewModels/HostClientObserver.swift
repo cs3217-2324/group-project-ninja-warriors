@@ -6,7 +6,3 @@
 //
 
 import Foundation
-
-protocol HostClientObserver: AnyObject {
-    func entityComponentManagerDidUpdate()
-}

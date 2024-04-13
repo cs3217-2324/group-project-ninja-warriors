@@ -30,7 +30,7 @@ class RefreshCooldownsSkill: CooldownModifierSkill {
         self.id = newRefreshCooldownsSkill.id
         self.cooldownDuration = newRefreshCooldownsSkill.cooldownDuration
     }
-    
+
     func modifyCooldowns(_ entity: Entity, in manager: EntityComponentManager) {
         // Reset the cooldowns of all skills except itself
         if let skillCaster = manager.getComponent(ofType: SkillCaster.self, for: entity) {
@@ -39,7 +39,7 @@ class RefreshCooldownsSkill: CooldownModifierSkill {
             }
         }
     }
-    
+
     func wrapper() -> SkillWrapper {
         return SkillWrapper(id: id, type: "RefreshCooldownsSkill", cooldownDuration: cooldownDuration)
     }

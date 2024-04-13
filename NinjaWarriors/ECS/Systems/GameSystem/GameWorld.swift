@@ -22,16 +22,16 @@ class GameWorld {
 
         setupGameLoop()
 
+        let destroyManager = DestroySystem(for: entityComponentManager)
         let transformHandler = TransformHandler(for: entityComponentManager)
         let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager, with: gameControl)
         let collisionManager = CollisionManager(for: entityComponentManager)
         let skillsManager = SkillCasterSystem(for: entityComponentManager)
         let healthManager = HealthSystem(for: entityComponentManager)
-        let scoreManager = ScoreSystem(for: entityComponentManager)
         let dodgeManager = DodgeSystem(for: entityComponentManager)
-        let destroyManager = DestroySystem(for: entityComponentManager)
         let environmentEffectSystem = EnvironmentEffectSystem(for: entityComponentManager)
         let lifespanManager = LifespanSystem(for: entityComponentManager)
+        let scoreManager = ScoreSystem(for: entityComponentManager)
 
         systemManager.add(system: transformHandler)
         systemManager.add(system: rigidbodyHandler)
@@ -40,9 +40,9 @@ class GameWorld {
         systemManager.add(system: healthManager)
         systemManager.add(system: scoreManager)
         systemManager.add(system: dodgeManager)
-        systemManager.add(system: destroyManager)
         systemManager.add(system: environmentEffectSystem)
         systemManager.add(system: lifespanManager)
+        systemManager.add(system: destroyManager)
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {

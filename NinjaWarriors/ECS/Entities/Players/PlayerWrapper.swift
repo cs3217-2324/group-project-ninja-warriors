@@ -8,7 +8,7 @@
 import Foundation
 
 class PlayerWrapper: EntityWrapper {
-    
+
     override init(id: EntityID) {
         super.init(id: id)
     }
