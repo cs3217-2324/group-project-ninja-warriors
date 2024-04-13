@@ -122,7 +122,6 @@ class EntityComponentManager {
             }
             var entityComponents: Set<Component> = []
             DispatchQueue.main.sync {
-            // mapQueue.sync {
                 guard let components = self.entityComponentMap[entityId] else {
                     return
                 }
@@ -130,21 +129,10 @@ class EntityComponentManager {
             }
             do {
                 // Upload the entity with its components
-                let filteredComponents = filterComponentsToPublish(Array(entityComponents))
-                try await manager.uploadEntity(entity: entity, components: filteredComponents)
+                try await manager.uploadEntity(entity: entity, components: Array(entityComponents))
             } catch {
                 // Handle errors during upload
                 print("Error uploading entity with ID \(entityId): \(error)")
-            }
-        }
-    }
-
-    func filterComponentsToPublish(_ componentsToFilter: [Component]) -> [Component] {
-        return componentsToFilter.filter { component in
-            if let _ = component as? Health {
-                return true
-            } else {
-                return ownEntities.contains { $0 == component.entity.id }
             }
         }
     }

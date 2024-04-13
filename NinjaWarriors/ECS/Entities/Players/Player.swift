@@ -52,7 +52,7 @@ extension Player {
                                         attachedCollider: playerCollider)
 
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
-                                      entity: self, skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                      entity: self, skills: [SlashAOESkill(id: "slash", cooldownDuration: 0.0),
                                                              DashSkill(id: "dash", cooldownDuration: 8.0),
                                                              DodgeSkill(id: "dodge", cooldownDuration: 8.0),
                                                             RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])

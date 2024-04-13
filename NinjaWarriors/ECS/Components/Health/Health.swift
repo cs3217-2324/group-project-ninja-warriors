@@ -29,7 +29,9 @@ class Health: Component {
             return
         }
         self.entityInflictDamageMap = newHealth.entityInflictDamageMap
-        self.health = newHealth.health
+        if newHealth.health <= self.health {
+            self.health = newHealth.health
+        }
         self.maxHealth = newHealth.maxHealth
     }
 
