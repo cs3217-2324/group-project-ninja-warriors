@@ -33,8 +33,8 @@
 		7191C82D2BCA7DBB005BBE62 /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7191C82C2BCA7DBB005BBE62 /* AchievementManager.swift */; };
 		7191C82F2BCA7FC7005BBE62 /* KilledTenPeopleAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7191C82E2BCA7FC7005BBE62 /* KilledTenPeopleAchievement.swift */; };
 		7191C8312BCA831B005BBE62 /* HighDamageButNoKillAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7191C8302BCA831B005BBE62 /* HighDamageButNoKillAchievement.swift */; };
-		7191C8332BCA8AC7005BBE62 /* PlayedTenGamesAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7191C8322BCA8AC7005BBE62 /* PlayedTenGamesAchievement.swift */; };
 		7191C8362BCA92A6005BBE62 /* AchievementIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7191C8352BCA92A6005BBE62 /* AchievementIntegrationTest.swift */; };
+		7191C83B2BCA9695005BBE62 /* PlayedTenGamesAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7191C8392BCA9668005BBE62 /* PlayedTenGamesAchievement.swift */; };
 		910CF65F2BC4AE2200C04CF2 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910CF65E2BC4AE2200C04CF2 /* AudioManager.swift */; };
 		9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */; };
 		9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF572BA5087F000F2AC4 /* PlayersListener.swift */; };
@@ -229,8 +229,8 @@
 		7191C82C2BCA7DBB005BBE62 /* AchievementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementManager.swift; sourceTree = "<group>"; };
 		7191C82E2BCA7FC7005BBE62 /* KilledTenPeopleAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KilledTenPeopleAchievement.swift; sourceTree = "<group>"; };
 		7191C8302BCA831B005BBE62 /* HighDamageButNoKillAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighDamageButNoKillAchievement.swift; sourceTree = "<group>"; };
-		7191C8322BCA8AC7005BBE62 /* PlayedTenGamesAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayedTenGamesAchievement.swift; sourceTree = "<group>"; };
 		7191C8352BCA92A6005BBE62 /* AchievementIntegrationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementIntegrationTest.swift; sourceTree = "<group>"; };
+		7191C8392BCA9668005BBE62 /* PlayedTenGamesAchievement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayedTenGamesAchievement.swift; sourceTree = "<group>"; };
 		910CF65E2BC4AE2200C04CF2 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPublisher.swift; sourceTree = "<group>"; };
 		9132AF572BA5087F000F2AC4 /* PlayersListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListener.swift; sourceTree = "<group>"; };
@@ -491,8 +491,8 @@
 			isa = PBXGroup;
 			children = (
 				7191C82E2BCA7FC7005BBE62 /* KilledTenPeopleAchievement.swift */,
+				7191C8392BCA9668005BBE62 /* PlayedTenGamesAchievement.swift */,
 				7191C8302BCA831B005BBE62 /* HighDamageButNoKillAchievement.swift */,
-				7191C8322BCA8AC7005BBE62 /* PlayedTenGamesAchievement.swift */,
 			);
 			path = Achievements;
 			sourceTree = "<group>";
@@ -1285,6 +1285,7 @@
 				915301BF2BAE4C25007F2A12 /* SkillCasterWrapper.swift in Sources */,
 				9180F9D52BAB9C89000CC390 /* EntityWrapper.swift in Sources */,
 				714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */,
+				7191C83B2BCA9695005BBE62 /* PlayedTenGamesAchievement.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
 				9132AF872BA6AEAB000F2AC4 /* Shape+EXT.swift in Sources */,
 				91CC283C2BBA86E7009318C7 /* ScoreSystem.swift in Sources */,
@@ -1329,7 +1330,6 @@
 				910CF65F2BC4AE2200C04CF2 /* AudioManager.swift in Sources */,
 				E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */,
 				7191C82B2BC9AA0A005BBE62 /* MetricObserver.swift in Sources */,
-				7191C8332BCA8AC7005BBE62 /* PlayedTenGamesAchievement.swift in Sources */,
 				9132AF7A2BA59B1C000F2AC4 /* FactoryWrapper.swift in Sources */,
 				9132AF5C2BA50C5C000F2AC4 /* CustomSubject.swift in Sources */,
 				916A7D902BA1A2AE00319C26 /* AuthenticationAdapter.swift in Sources */,
