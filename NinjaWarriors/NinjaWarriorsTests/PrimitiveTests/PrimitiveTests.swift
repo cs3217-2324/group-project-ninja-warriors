@@ -9,13 +9,6 @@ import XCTest
 @testable import NinjaWarriors
 
 final class PrimitiveTests: XCTestCase {
-    override func setUpWithError() throws {
-        try super.setUpWithError()
-    }
-
-    override func tearDownWithError() throws {
-        try super.tearDownWithError()
-    }
 
     // MARK: Point
     func test_addVectorToPoint_equalNewPoint() {

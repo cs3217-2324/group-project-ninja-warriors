@@ -21,7 +21,7 @@ class DodgeSkill: SelfModifyingSkill {
         self.init(id: id)
         self.cooldownDuration = cooldownDuration
     }
-    
+
     func activate(from entity: Entity, in manager: EntityComponentManager) {
         modifySelf(entity, in: manager)
     }
@@ -31,7 +31,7 @@ class DodgeSkill: SelfModifyingSkill {
         self.cooldownDuration = newDodgeSkill.cooldownDuration
         self.invulnerabilityDuration = newDodgeSkill.invulnerabilityDuration
     }
-    
+
     func modifySelf(_ entity: Entity, in manager: EntityComponentManager) {
         if let dodgeComponent = manager.getComponent(ofType: Dodge.self, for: entity) {
             dodgeComponent.isEnabled = true

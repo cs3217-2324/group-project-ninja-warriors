@@ -112,6 +112,9 @@
 		916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */; };
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
 		916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* HostViewModel.swift */; };
+		917BEBAA2BCA29F7001D0F7C /* ObstacleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */; };
+		917BEBAB2BCA29F7001D0F7C /* ObstacleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */; };
+		917BEBAC2BCA29F8001D0F7C /* ObstacleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */; };
 		9180486B2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
 		9180486C2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
 		9180486D2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
@@ -308,6 +311,7 @@
 		916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorWrapper.swift; sourceTree = "<group>"; };
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
 		916A7DB32BA42F8B00319C26 /* HostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostViewModel.swift; sourceTree = "<group>"; };
+		917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstacleMap.swift; sourceTree = "<group>"; };
 		9180486A2BC7A75700026965 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		9180486E2BC7A86400026965 /* GemMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemMap.swift; sourceTree = "<group>"; };
 		918048722BC7AA9500026965 /* ClosingZoneMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingZoneMap.swift; sourceTree = "<group>"; };
@@ -788,6 +792,7 @@
 				9180486A2BC7A75700026965 /* Map.swift */,
 				9180486E2BC7A86400026965 /* GemMap.swift */,
 				918048722BC7AA9500026965 /* ClosingZoneMap.swift */,
+				917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -1229,7 +1234,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = ": '\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint --fix\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n'\n";
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint --fix\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1276,6 +1281,7 @@
 				91CC283C2BBA86E7009318C7 /* ScoreSystem.swift in Sources */,
 				E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
+				917BEBAA2BCA29F7001D0F7C /* ObstacleMap.swift in Sources */,
 				7181B14A2BC046F6009711DE /* ClosingZone.swift in Sources */,
 				9169913B2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
 				916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */,
@@ -1385,6 +1391,7 @@
 				91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */,
 				7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */,
 				916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */,
+				917BEBAB2BCA29F7001D0F7C /* ObstacleMap.swift in Sources */,
 				918048702BC7A86400026965 /* GemMap.swift in Sources */,
 				915301C62BAEC670007F2A12 /* AuthenticationTests.swift in Sources */,
 				918048742BC7AA9500026965 /* ClosingZoneMap.swift in Sources */,
@@ -1411,6 +1418,7 @@
 				9180487D2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */,
 				918048752BC7AA9500026965 /* ClosingZoneMap.swift in Sources */,
 				916991422BC69EBE00ED1FBD /* Rules.swift in Sources */,
+				917BEBAC2BCA29F8001D0F7C /* ObstacleMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

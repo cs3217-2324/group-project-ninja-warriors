@@ -11,7 +11,12 @@ import SwiftUI
 struct MapSelectionView<Model>: View where Model: MapSelection {
     @State private var selectedImageIndex: Int?
     @ObservedObject var viewModel: Model
-    var maps: [Map] = [ClosingZoneMap(), GemMap()]
+    var maps: [Map] = [ClosingZoneMap(), GemMap(), ObstacleMap()]
+    let mapDataSet = [
+        MapData(imageName: "closing-zone-mode", mapName: "Closing Zone Mode"),
+        MapData(imageName: "gem-mode", mapName: "Gem Mode"),
+        MapData(imageName: "obstacle-mode", mapName: "Obstacle Mode")
+    ]
 
     init(viewModel: Model) {
         self.viewModel = viewModel
@@ -27,10 +32,10 @@ struct MapSelectionView<Model>: View where Model: MapSelection {
                 .foregroundColor(.white)
                 .padding(.top, 20)
 
-            HStack(spacing: 30) {
-                ForEach(0..<2) { index in
-                    MapSelectionItemView(imageName: index == 0 ? "grass-stone" : "gray-wall",
-                                         mapName: index == 0 ? "Closing Zone Mode" : "Gem Mode")
+            HStack(spacing: 5) {
+                ForEach(mapDataSet.indices, id: \.self) { index in
+                    let mapData = mapDataSet[index]
+                    MapSelectionItemView(imageName: mapData.imageName, mapName: mapData.mapName)
                     .onTapGesture {
                         selectedImageIndex = index
                         viewModel.map = maps[index]
@@ -65,7 +70,7 @@ struct MapSelectionItemView: View {
         ZStack(alignment: .bottom) {
             Image(imageName)
                 .resizable()
-                .frame(width: 350, height: 350)
+                .frame(width: 200, height: 200)
                 .padding(10)
 
             Text(mapName)
@@ -76,9 +81,14 @@ struct MapSelectionItemView: View {
                 .padding(.top, 20)
                 .frame(maxWidth: .infinity, alignment: .bottom)
                 .background(Color.black.opacity(0.5))
-                .frame(width: 350)
+                .frame(width: 200)
                 .padding(.horizontal)
 
         }
     }
+}
+
+struct MapData {
+    let imageName: String
+    let mapName: String
 }

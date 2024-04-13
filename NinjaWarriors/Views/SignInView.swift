@@ -26,7 +26,7 @@ struct SignInView: View {
                     .foregroundColor(.black)
                     .background(Color.white.opacity(0.7))
                     .cornerRadius(10)
-                
+
                 Divider()
                 Button {
                     Task {

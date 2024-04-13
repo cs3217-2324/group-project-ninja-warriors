@@ -13,10 +13,12 @@ struct ClientView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
+    @State private var mapBackground: String
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity]) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
+        self.mapBackground = mapBackground
         self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId,
                                          ownEntities: ownEntities)
     }
@@ -39,7 +41,7 @@ struct ClientView: View {
     }
 
     private var backgroundImage: some View {
-        Image("gray-wall")
+        Image(mapBackground)
             .resizable()
             .edgesIgnoringSafeArea(.all)
             .statusBar(hidden: true)
@@ -47,7 +49,7 @@ struct ClientView: View {
 
     private var canvasView: some View {
         GeometryReader { geometry in
-            ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { index, entity in
+            ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { _, entity in
                 EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity)))
             }
             if let currPlayer = viewModel.getCurrPlayer() {
@@ -86,6 +88,6 @@ struct ClientView: View {
 struct ClientView_Previews: PreviewProvider {
     static var previews: some View {
         ClientView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
-                   ownEntities: [])
+                   ownEntities: [], mapBackground: "blue-wall")
     }
 }

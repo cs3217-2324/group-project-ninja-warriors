@@ -24,7 +24,7 @@ class ClosingZone: Entity {
 
     func getInitializingComponents() -> [Component] {
         let shape = CircleShape(center: center, radius: initialRadius)
-        
+
         let environmentEffect = EnvironmentEffect(id: RandomNonce().randomNonceString(), entity: self, environmentShape: shape, effectIsActiveInsideShape: false)
 
         return [environmentEffect]

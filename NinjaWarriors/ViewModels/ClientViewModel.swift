@@ -120,7 +120,7 @@ extension ClientViewModel {
         }
     }
 
-    func getSkillCooldowns(for entity: Entity) -> Dictionary<SkillID, TimeInterval> {
+    func getSkillCooldowns(for entity: Entity) -> [SkillID: TimeInterval] {
         let entityId = entity.id
         let skillCaster = gameWorld.entityComponentManager
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)

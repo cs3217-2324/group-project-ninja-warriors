@@ -9,7 +9,7 @@ import Foundation
 
 class DestroySystem: System {
     var manager: EntityComponentManager
-    
+
     required init(for manager: EntityComponentManager) {
         self.manager = manager
     }

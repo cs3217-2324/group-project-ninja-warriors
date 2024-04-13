@@ -65,7 +65,7 @@ class SlashAOESkill: EntitySpawnerSkill {
 
         return slashAOE
     }
-    
+
     func wrapper() -> SkillWrapper {
         return SkillWrapper(id: id, type: "SlashAOESkill", cooldownDuration: cooldownDuration)
     }

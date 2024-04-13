@@ -42,7 +42,7 @@ class CollisionRules: Rules {
         if let _ = object.entity as? Gem, let _ = otherObject.entity as? Player {
             return true
         }
-        
+
         return false
     }
 
@@ -62,7 +62,7 @@ class CollisionRules: Rules {
 
             performActionOnCollidee(ofType: Gem.self)
             // TODO: Implement Hadouken
-            //performActionOnCollider(ofType: Hadouken.self)
+            // performActionOnCollider(ofType: Hadouken.self)
 
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input

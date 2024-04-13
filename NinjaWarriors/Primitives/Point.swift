@@ -36,7 +36,6 @@ struct Point {
         assert(checkRepresentation())
     }
 
-
     init(radial: Double, theta: Double) {
         self.radial = radial
         self.theta = theta

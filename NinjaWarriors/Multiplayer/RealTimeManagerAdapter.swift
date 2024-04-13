@@ -109,21 +109,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
         return entitiesDict
     }
 
-    /*
-    private func getEntititesDict() async throws -> [String: [String: Any]] {
-        let startTime = DispatchTime.now().uptimeNanoseconds
-        let dataSnapshot = try await entitiesRef.getData()
-        let endTime = DispatchTime.now().uptimeNanoseconds
-        let elapsedTime = Double(endTime - startTime) / 1_000_000_000 // Convert nanoseconds to seconds
-        print("Time taken: \(elapsedTime) seconds")
-
-        guard let entitiesDict = dataSnapshot.value as? [String: [String: Any]] else {
-            throw NSError(domain: "Invalid entity data format", code: -1, userInfo: nil)
-        }
-        return entitiesDict
-    }
-    */
-
     private func decodeEntities(id: EntityID? = nil) async throws -> ([Entity]?, String?) {
         var entities: [Entity] = []
         let entitiesDict = try await getEntititesDict()
@@ -309,12 +294,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
                   let componentData = try? JSONEncoder().encode(data),
                   let dataDict = try? JSONSerialization.jsonObject(with: componentData,
                                                                    options: []) as? [String: Any] else {
-                print("continue", component.wrapper())
                 continue
-            }
-
-            if let _ = component as? Dodge {
-                print("dodge", dataDict)
             }
 
             componentDict[key] = dataDict
@@ -329,7 +309,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         let entityRef = entitiesRef.child(entityName).child(entity.id)
 
         entityRef.observeSingleEvent(of: .value) { [unowned self] snapshot in
-            //guard let self = self else { return print("return")}
+            // guard let self = self else { return print("return")}
 
             if snapshot.exists() {
                 self.updateExistingEntity(snapshot, entityRef, entity, components)
@@ -385,7 +365,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         }
 
         let finalComponents = components ?? entity.getInitializingComponents()
-            
+
         let componentDict = formComponentDict(from: finalComponents)
         newEntityDict[componentKey] = componentDict
 

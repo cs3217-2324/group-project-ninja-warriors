@@ -24,7 +24,7 @@ struct Constants {
                                   playerThreePosition, playerFourPosition]
 
     // TODO: Reset to 4 after testing
-    static let playerCount = 2
+    static let playerCount = 1
 
     static let obstacleCount = 2
 
@@ -32,13 +32,13 @@ struct Constants {
 
     static let slashDamage = 10.0
     static let slashRadius = 75.0
-    
+
     struct DodgeImage {
         static let image = "dodge"
         static let width: CGFloat = 100
         static let height: CGFloat = 100
     }
-    
+
     struct HealthBar {
         static let height: CGFloat = 10
         static let offsetY: CGFloat = 15

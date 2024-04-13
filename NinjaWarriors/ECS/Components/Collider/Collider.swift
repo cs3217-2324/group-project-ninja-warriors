@@ -48,7 +48,7 @@ class Collider: Component {
         guard let newCollider = newCollider as? Collider else {
             return
         }
-        //self.colliderShape.updateAttributes(newCollider.colliderShape)
+        // self.colliderShape.updateAttributes(newCollider.colliderShape)
         self.collidedEntities = newCollider.collidedEntities
         self.isColliding = newCollider.isColliding
         self.isOutOfBounds = newCollider.isOutOfBounds

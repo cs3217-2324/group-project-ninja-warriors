@@ -49,7 +49,7 @@ class CollisionManager: System {
     }
 
     private func handleBoundaries(for rigidBody: Rigidbody) {
-        guard var collider = rigidBody.attachedCollider else {
+        guard let collider = rigidBody.attachedCollider else {
             return
         }
         if !intersectingBoundaries(source: collider.colliderShape, isColliding: collider.isColliding) {
@@ -68,7 +68,7 @@ class CollisionManager: System {
             return true
         }
 
-        let collisionRule = CollisionRules(object: object)
+        // let collisionRule = CollisionRules(object: object)
 
         return !isOverlap(source: object, with: otherObject, isColliding: isColliding)
         /*
@@ -113,21 +113,11 @@ class CollisionManager: System {
             otherObjectCenter = otherObjectShape.offset
         }
 
-        var distanceObjectSquared: Double = objectCenter.squareDistance(to: otherObjectCenter)
-        var sumHalfLengthSquared: Double = (objectShape.halfLength + otherObjectShape.halfLength)
+        let distanceObjectSquared: Double = objectCenter.squareDistance(to: otherObjectCenter)
+        let sumHalfLengthSquared: Double = (objectShape.halfLength + otherObjectShape.halfLength)
         * (objectShape.halfLength + otherObjectShape.halfLength)
-        var isOverlapping: Bool = (distanceObjectSquared < sumHalfLengthSquared)
-        /*
-        if otherObject.angularVelocity != Vector.zero {
-            while isOverlapping {
-                otherObjectCenter = otherObjectCenter.subtract(vector: otherObject.angularVelocity)
-                distanceObjectSquared = objectCenter.squareDistance(to: otherObjectCenter)
-                sumHalfLengthSquared = (objectShape.halfLength + otherObjectShape.halfLength)
-                * (objectShape.halfLength + otherObjectShape.halfLength)
-                isOverlapping = (distanceObjectSquared < sumHalfLengthSquared)
-            }
-        }
-        */
+        let isOverlapping: Bool = (distanceObjectSquared < sumHalfLengthSquared)
+
         return isOverlapping
     }
 
@@ -291,4 +281,3 @@ class CollisionManager: System {
         return isPointInside
     }
 }
-

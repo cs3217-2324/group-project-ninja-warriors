@@ -91,7 +91,7 @@ class Rigidbody: Component {
                              position: position, offset: offset, velocity: velocity)
         }
     }
-    
+
     override func updateAttributes(_ newRigidbody: Component) {
         guard let newRigidbody = newRigidbody as? Rigidbody else {
             return

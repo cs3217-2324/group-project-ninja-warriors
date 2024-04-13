@@ -25,7 +25,6 @@ class Dodge: Component {
             return
         }
         self.isEnabled = newDodge.isEnabled
-        print("updated dodge attribute", self.isEnabled)
     }
 
     override func changeEntity(to entity: Entity) -> Component {

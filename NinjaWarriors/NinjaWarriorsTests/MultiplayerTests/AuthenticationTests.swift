@@ -118,7 +118,7 @@ final class AuthenticationTests: XCTestCase {
             XCTFail("Error occurred while signing up: \(error)")
         }
         try await authenticationAdapter.delete()
-        
+
         do {
             _ = try await authenticationAdapter.signUp(email: "test@example.com", password: "")
             XCTFail("Expected sign up with empty password to throw an error")

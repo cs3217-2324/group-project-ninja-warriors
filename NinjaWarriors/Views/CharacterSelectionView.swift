@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct CharacterSelectionView<Model>: View where Model: CharacterSelection {
-    @State private var selectedBox: Int? = nil
+    @State private var selectedBox: Int?
     @State private var characterNames: [String] = Constants.characterNames
     @State private var skills = Constants.skills
     @ObservedObject var viewModel: Model

@@ -17,7 +17,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     @Published var playerIds: [String]?
     @Published var hostId: String?
     @Published var userId: String?
-    @Published var map: Map = GemMap()
+    @Published var map: Map = ObstacleMap()
     @Published var ownEntities: [Entity] = []
     var character = "Shadowstrike"
     let signInViewModel: SignInViewModel

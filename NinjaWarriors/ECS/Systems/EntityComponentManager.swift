@@ -40,7 +40,7 @@ class EntityComponentManager {
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
-        //manager.deleteAllKeysExcept(matchId: "a")
+        // manager.deleteAllKeysExcept(matchId: "a")
     }
 
     // No mapQueue needed for intial population
@@ -57,7 +57,6 @@ class EntityComponentManager {
             addEntitiesFromNewMap(newEntityMap, newEntityComponentMap)
         }
     }
-
 
     func intialPopulateWithCompletion(completion: @escaping () -> Void) {
         Task {
@@ -123,7 +122,7 @@ class EntityComponentManager {
             }
             var entityComponents: Set<Component> = []
             DispatchQueue.main.sync {
-            //mapQueue.sync {
+            // mapQueue.sync {
                 guard let components = self.entityComponentMap[entityId] else {
                     return
                 }
@@ -246,7 +245,7 @@ class EntityComponentManager {
             manager.delete(entity: entity)
         }
 
-        //mapQueue.process(entity)
+        // mapQueue.process(entity)
 
         assertRepresentation()
     }
@@ -358,7 +357,6 @@ class EntityComponentManager {
 
         return result
     }
-
 
     func getAllComponents<T: Component>(ofType: T.Type) -> [T] {
         guard let componentsWithType = componentMap[ComponentType(ofType)] else {

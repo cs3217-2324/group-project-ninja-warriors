@@ -16,7 +16,7 @@ protocol Skill {
     init(id: SkillID)
 
     func activate(from entity: Entity, in manager: EntityComponentManager)
-    
+
     func wrapper() -> SkillWrapper
 }
 

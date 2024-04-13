@@ -27,7 +27,7 @@ struct LobbyView: View {
                 userLoginInfo
                 if let playerCount = viewModel.getPlayerCount() {
 
-                    customText("Player Count: \(playerCount) / \(Constants.playerCount)")
+                    customText("Players in queue: \(playerCount) / \(Constants.playerCount)")
 
                     if playerCount == Constants.playerCount {
 
@@ -39,13 +39,13 @@ struct LobbyView: View {
 
                             if viewModel.getUserId() == viewModel.hostId {
                                 NavigationLink(
-                                    destination: HostView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities).navigationBarBackButtonHidden(true)
+                                    destination: HostView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground).navigationBarBackButtonHidden(true)
                                 ) {
                                     startGameText
                                 }
                             } else {
                                 NavigationLink(
-                                    destination: ClientView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities).navigationBarBackButtonHidden(true)
+                                    destination: ClientView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground).navigationBarBackButtonHidden(true)
                                 ) {
                                     startGameText
                                 }
@@ -144,4 +144,3 @@ struct LobbyView: View {
             .foregroundColor(Color(red: 0.8, green: 0.8, blue: 0.8))
     }
 }
-

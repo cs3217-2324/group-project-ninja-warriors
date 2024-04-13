@@ -1,27 +1,27 @@
 //
-//  GemMap.swift
+//  ObstacleMap.swift
 //  NinjaWarriors
 //
-//  Created by Muhammad Reyaaz on 11/4/24.
+//  Created by Muhammad  Reyaaz on 13/4/24.
 //
 
 import Foundation
 
-class GemMap: Map {
-    internal let mapBackground = "gray-wall"
+class ObstacleMap: Map {
+    internal let mapBackground = "blue-wall"
     internal var mapEntities: [Entity] = []
 
     func getPositions() -> [Point] {
         let screenWidth = Constants.screenWidth
         let screenHeight = Constants.screenHeight
-        let gemCount = Constants.gemCount
+        let obstacleCount = Constants.obstacleCount
 
         let center = Point(xCoord: screenWidth / 2, yCoord: screenHeight / 2)
         let radius: Double = 250
-        let gapAngle: Double = 2 * .pi / Double(gemCount)
+        let gapAngle: Double = 2 * .pi / Double(obstacleCount)
         var positions: [Point] = []
 
-        for i in 0..<gemCount {
+        for i in 0..<obstacleCount {
             let angle = Double(i) * gapAngle
             let x = center.xCoord + radius * cos(angle)
             let y = center.yCoord + radius * sin(angle)
@@ -33,11 +33,12 @@ class GemMap: Map {
     func getMapEntities() -> [Entity] {
         let positions: [Point] = getPositions()
 
-        for index in 0..<Constants.gemCount {
+        for index in 0..<Constants.obstacleCount {
             let position = positions[index]
-            let gem = Gem(id: RandomNonce().randomNonceString(), position: position)
-            mapEntities.append(gem)
+            let obstacle = Obstacle(id: RandomNonce().randomNonceString(), position: position)
+            mapEntities.append(obstacle)
         }
         return mapEntities
     }
+
 }
