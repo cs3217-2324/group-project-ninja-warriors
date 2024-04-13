@@ -19,7 +19,9 @@ class EntityComponentManager {
     var newEntityMap: [EntityID: Entity] = [:]
     var newComponentMap: [ComponentType: Set<Component>] = [:]
 
-    private var isListening = false
+    // To only publish own entities
+    var ownEntities: [Entity] = []
+
     private var mapQueue = EventQueue(label: "entityComponentMapQueue")
     private var newMapQueue = EventQueue(label: "newEntityComponentMapQueue")
 
@@ -115,7 +117,8 @@ class EntityComponentManager {
     func publish() async throws {
         for (entityId, entity) in entityMap {
             guard (entity as? ClosingZone) == nil,
-                  (entity as? Obstacle) == nil
+                  (entity as? Obstacle) == nil,
+                  Constants.ownEntityIds.contains(entityId)
             else {
                 continue
             }
@@ -213,6 +216,9 @@ class EntityComponentManager {
 
         //mapQueue.process(entity)
 
+        newEntityMap[entity.id] = nil
+        newEntityComponentMap[entity.id] = nil
+
         assertRepresentation()
     }
 
@@ -281,6 +287,7 @@ class EntityComponentManager {
         guard existingComponentType == ComponentType(Rigidbody.self)
                 || existingComponentType == ComponentType(Health.self)
                 || existingComponentType == ComponentType(Collider.self)
+                || existingComponentType == ComponentType(Dodge.self)
         else { return }
         existingComponent.updateAttributes(newComponent)
     }
@@ -354,6 +361,8 @@ class EntityComponentManager {
                 let componentType = type(of: component)
 
                 componentMap[ComponentType(componentType)]?.remove(component)
+
+                newComponentMap[ComponentType(componentType)]?.remove(component)
 
                 if !isRemoved {
                     manager.delete(component: component, from: entity)

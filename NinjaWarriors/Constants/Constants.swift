@@ -50,6 +50,8 @@ struct Constants {
     static var closingZoneRadiusShrinkagePerSecond: Double = 10.0
     static var closingZoneMinimumSize: Double = 50.0
 
+    static var ownEntityIds: [EntityID] = []
+
     // MARK: Characters
     static var characterNames: [String] = ["Shadowstrike", "Nightblade", "Swiftshadow", "SilentStorm",
                                     "Crimsonshadow", "Shadowblade", "Venomstrike", "Darkwind"]

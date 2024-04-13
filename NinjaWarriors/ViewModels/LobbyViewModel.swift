@@ -150,6 +150,8 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
         Task {
             try? await realTimeManager.uploadEntity(entity: player, components: components)
         }
+
+        Constants.ownEntityIds.append(playerId)
     }
 
     // MARK: Map

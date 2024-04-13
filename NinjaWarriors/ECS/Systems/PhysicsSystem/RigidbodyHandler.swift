@@ -48,7 +48,6 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         for rigidBody in rigidBodies {
             let playerInput: Vector = getPlayerInput(for: rigidBody)
 
-
             let collisionRule = CollisionRules(object: rigidBody, input: playerInput,
                                                deltaTime: deltaTime, manager: manager)
 

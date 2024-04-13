@@ -17,7 +17,7 @@ struct EntityView: View {
                 image(for: sprite)
             }
             dodgeImage
-            if let health = viewModel.health, let sprite = viewModel.sprite {
+            if let health = viewModel.health, let sprite = viewModel.sprite, !(health.entity is Gem) {
                 healthBar(for: health, width: sprite.width)
             }
         }

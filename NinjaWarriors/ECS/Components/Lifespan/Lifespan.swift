@@ -16,4 +16,11 @@ class Lifespan: Component {
         self.elapsedTime = elapsedTime
         super.init(id: id, entity: entity)
     }
+
+    override func wrapper() -> ComponentWrapper? {
+        guard let entityWrapper = entity.wrapper() else {
+            return nil
+        }
+        return LifespanWrapper(id: id, entity: entityWrapper, lifespan: lifespan, elapsedTime: elapsedTime)
+    }
 }

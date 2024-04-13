@@ -68,12 +68,12 @@ final class ClientViewModel: ObservableObject {
     }
 
     func move(_ vector: CGVector) {
-        print(timeLag)
         guard let entityIdComponents = gameWorld.entityComponentManager.entityComponentMap[currPlayerId] else {
             return
         }
         for entityIdComponent in entityIdComponents {
             if let entityIdComponent = entityIdComponent as? Rigidbody {
+                print("movement vector", vector)
                 entityIdComponent.angularVelocity = Vector(horizontal: vector.dx, vertical: vector.dy)
             }
         }

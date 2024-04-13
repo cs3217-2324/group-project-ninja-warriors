@@ -56,7 +56,10 @@ final class RealTimeManagerAdapter: EntitiesManager {
             "ColliderWrapper": ColliderWrapper.self,
             "ScoreWrapper": ScoreWrapper.self,
             "RigidbodyWrapper": RigidbodyWrapper.self,
-            "EnvironmentEffectWrapper": EnvironmentEffectWrapper.self
+            "EnvironmentEffectWrapper": EnvironmentEffectWrapper.self,
+            "LifespanWrapper": LifespanWrapper.self,
+            "DodgeWrapper": DodgeWrapper.self,
+            "TransformWrapper": TransformWrapper.self
         ]
         return wrapperTypes[wrapperType]
     }
@@ -309,6 +312,11 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 print("continue", component.wrapper())
                 continue
             }
+
+            if let _ = component as? Dodge {
+                print("dodge", dataDict)
+            }
+
             componentDict[key] = dataDict
         }
         return componentDict
@@ -317,10 +325,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
     func uploadEntity(entity: Entity, components: [Component]? = nil) async throws {
         let entityName = NSStringFromClass(type(of: entity))
             .components(separatedBy: ".").last ?? "entity"
-
-        if let _ = entity as? SlashAOE {
-            print("upload components", components, components?[0].wrapper())
-        }
 
         let entityRef = entitiesRef.child(entityName).child(entity.id)
 
@@ -384,10 +388,6 @@ final class RealTimeManagerAdapter: EntitiesManager {
             
         let componentDict = formComponentDict(from: finalComponents)
         newEntityDict[componentKey] = componentDict
-
-        if let _ = entity as? SlashAOE {
-            print("slashAOE component dict", componentDict, "final components:", finalComponents)
-        }
 
         entityRef.setValue(newEntityDict)
     }

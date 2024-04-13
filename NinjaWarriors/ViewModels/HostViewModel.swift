@@ -74,6 +74,7 @@ final class HostViewModel: ObservableObject {
         }
         for entityIdComponent in entityIdComponents {
             if let entityIdComponent = entityIdComponent as? Rigidbody {
+                print("movement vector", vector)
                 entityIdComponent.angularVelocity = Vector(horizontal: vector.dx, vertical: vector.dy)
             }
         }
