@@ -9,7 +9,7 @@ import Foundation
 
 class EventQueue {
     private var queue: DispatchQueue
-    var deletedEntities: [EntityID] = []
+    var deletedEntities: Set<EntityID> = []
 
     init(label: String) {
         self.queue = DispatchQueue(label: label)
@@ -32,7 +32,11 @@ class EventQueue {
     }
 
     func process(_ entity: Entity) {
-        deletedEntities.append(entity.id)
+        deletedEntities.insert(entity.id)
+    }
+
+    func process(_ entityId: String) {
+        deletedEntities.insert(entityId)
     }
 
     func suspend() {

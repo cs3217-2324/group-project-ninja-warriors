@@ -348,8 +348,37 @@ final class RealTimeManagerAdapter: EntitiesManager {
         guard var existingComponentDict = entityDict[componentKey] as? [String: Any] else { return }
 
         let newComponentDict = formComponentDict(from: components)
-        existingComponentDict.merge(newComponentDict) { (_, new) in new }
+        // existingComponentDict.merge(newComponentDict) { (_, new) in new }
+
+        existingComponentDict.merge(newComponentDict) { (existingValue, newValue) in
+            return mergeRules(existingDict: existingValue as? [String: Any], newDict: newValue as? [String: Any])
+        }
         entityDict[componentKey] = existingComponentDict
+    }
+
+    private func mergeRules(existingDict: [String: Any]?, newDict: [String: Any]?) -> [String: Any]? {
+        guard let existingDict = existingDict, let newDict = newDict else {
+            return existingDict
+        }
+
+        // Check if both dictionaries contain the "health" key
+        if let existingHealth = existingDict["health"] as? Int,
+           let newHealth = newDict["health"] as? Int {
+            // Compare health values
+
+            // print("new health", newHealth, "old health", existingHealth)
+            if newHealth < existingHealth {
+                return existingDict.merging(newDict) { _, new in new }
+            } else if newHealth > existingHealth {
+                print("invalid data!!!")
+                return existingDict
+            } else {
+                return existingDict
+            }
+        } else {
+            // No "health" key in one or both dictionaries, merge normally
+            return existingDict.merging(newDict) { _, new in new }
+        }
     }
 
     private func appendNewComponents(_ entityDict: inout [String: Any], _ components: [Component]) {

@@ -20,7 +20,7 @@ class EntityComponentManager {
     var newComponentMap: [ComponentType: Set<Component>] = [:]
 
     // To only publish own entities
-    var ownEntities: [Entity] = []
+    var ownEntities: Set<EntityID> = []
 
     private var mapQueue = EventQueue(label: "entityComponentMapQueue")
     private var newMapQueue = EventQueue(label: "newEntityComponentMapQueue")
@@ -40,7 +40,6 @@ class EntityComponentManager {
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
-        // manager.deleteAllKeysExcept(matchId: "a")
     }
 
     // No mapQueue needed for intial population
@@ -116,7 +115,8 @@ class EntityComponentManager {
     func publish() async throws {
         for (entityId, entity) in entityMap {
             guard (entity as? ClosingZone) == nil,
-                  (entity as? Obstacle) == nil
+                  (entity as? Obstacle) == nil,
+                  ownEntities.contains(entityId)
             else {
                 continue
             }
@@ -144,21 +144,23 @@ class EntityComponentManager {
             if let _ = component as? Health {
                 return true
             } else {
-                return ownEntities.contains { $0.id == component.entity.id }
+                return ownEntities.contains { $0 == component.entity.id }
             }
         }
     }
 
     func addOwnEntity(_ entity: Entity) {
-        ownEntities.append(entity)
+        ownEntities.insert(entity.id)
     }
 
     func addOwnEntities(_ entities: [Entity]) {
-        ownEntities += entities
+        for entity in entities {
+            ownEntities.insert(entity.id)
+        }
     }
 
     func removeOwnEntity(_ entity: Entity) {
-        ownEntities = ownEntities.filter { $0.id != entity.id }
+        ownEntities = ownEntities.filter { $0 != entity.id }
     }
 
     // MARK: - Entity-related functions
@@ -175,6 +177,9 @@ class EntityComponentManager {
     }
 
     func add(entity: Entity, isAdded: Bool = true) {
+        guard !mapQueue.contains(entity) else {
+            return
+        }
         assertRepresentation()
 
         let dstEntity = getDestinationEntity(for: entity)
@@ -192,6 +197,9 @@ class EntityComponentManager {
     }
 
     func add(entity: Entity, components: [Component], isAdded: Bool = true) {
+        guard !mapQueue.contains(entity) else {
+            return
+        }
         assertRepresentation()
 
         let dstEntity = getDestinationEntity(for: entity)
@@ -227,6 +235,8 @@ class EntityComponentManager {
     func remove(entity: Entity, isRemoved: Bool = true) {
         assertRepresentation()
 
+        mapQueue.process(entity.id)
+
         // Remove components from both local ecm and fetched ecm
         removeComponents(from: entity, isRemoved: isRemoved)
 
@@ -244,8 +254,6 @@ class EntityComponentManager {
         if !isRemoved {
             manager.delete(entity: entity)
         }
-
-        // mapQueue.process(entity)
 
         assertRepresentation()
     }

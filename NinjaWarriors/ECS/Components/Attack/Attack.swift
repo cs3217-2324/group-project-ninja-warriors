@@ -24,6 +24,12 @@ class Attack: Component {
         let attackee = health.entity
         if attackStrategy.canAttack(attacker: attacker, attackee: attackee, manager: manager) {
             attackStrategy.attack(health: health, damage: self.damage)
+            /// *
+            Task {
+                print("attacking")
+                try await manager.manager.uploadEntity(entity: attackee, components: [health])
+            }
+            // */
         }
     }
 
