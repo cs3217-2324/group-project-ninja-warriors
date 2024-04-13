@@ -10,9 +10,11 @@ import Combine
 
 class EntityViewModel: ObservableObject {
     @Published var components: [Component]
+    @Published var currPlayerId: String
 
-    init(components: [Component]) {
+    init(components: [Component], currPlayerId: String) {
         self.components = components
+        self.currPlayerId = currPlayerId
     }
 
     var transform: Transform? {

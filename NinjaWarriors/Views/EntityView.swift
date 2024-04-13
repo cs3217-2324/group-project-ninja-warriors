@@ -48,9 +48,30 @@ struct EntityView: View {
                 .aspectRatio(contentMode: .fill)
                 .opacity(viewModel.opacity)
                 .rotationEffect(Angle(degrees: viewModel.rotation))
+                .frame(width: sprite.width, height: sprite.height)
+                .position(viewModel.position)
+                .overlay(
+                    overlay(for: sprite, isCurrentUser: sprite.entity.id == viewModel.currPlayerId)
+                )
         }
-        .frame(width: sprite.width, height: sprite.height)
-        .position(viewModel.position)
+    }
+
+    private func overlay(for sprite: Sprite, isCurrentUser: Bool) -> some View {
+        let text = isCurrentUser ? "You" : "Enemy"
+        let color = isCurrentUser ? Color.blue : Color.red
+
+        return GeometryReader { _ in
+            if sprite.entity is Player {
+                Text(text)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .font(.system(size: 20))
+                    .padding(4)
+                    .background(color)
+                    .cornerRadius(4)
+                    .position(x: viewModel.position.x, y: viewModel.position.y - sprite.height / 2 - 35)
+            }
+        }
     }
 
     private func healthBar(for health: Health, width: CGFloat) -> some View {
@@ -99,12 +120,13 @@ struct EntityView_Previews: PreviewProvider {
                                   position: Point(xCoord: 400, yCoord: 400), velocity: Vector.zero)
         let lifespan = Lifespan(id: RandomNonce().randomNonceString(), entity: slashaoe, lifespan: 1, elapsedTime: 0.8)
 
-        EntityView(viewModel: EntityViewModel(components: [sprite, rigidbody, lifespan]))
+        EntityView(viewModel: EntityViewModel(components: [sprite, rigidbody, lifespan],
+                                              currPlayerId: "player"))
             .previewLayout(.sizeThatFits)
             .padding()
             .background(Color.black)
 
-        EntityView(viewModel: EntityViewModel(components: components))
+        EntityView(viewModel: EntityViewModel(components: components, currPlayerId: "player"))
             .previewLayout(.sizeThatFits)
             .padding()
 
