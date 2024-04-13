@@ -57,7 +57,6 @@ class Shape {
         return vertices.count
     }
 
-    //TODO: maybe implement some version of contains using edges??
     func contains(point: Point) -> Bool {
         assertionFailure("Not implemented, should be overriden in subclass")
         return false

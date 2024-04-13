@@ -14,10 +14,11 @@ struct ClientView: View {
     @State private var matchId: String
     @State private var playerId: String
 
-    init(matchId: String, currPlayerId: String) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity]) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId,
+                                         ownEntities: ownEntities)
     }
 
     var body: some View {
@@ -84,6 +85,7 @@ struct ClientView: View {
 
 struct ClientView_Previews: PreviewProvider {
     static var previews: some View {
-        ClientView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+        ClientView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
+                   ownEntities: [])
     }
 }

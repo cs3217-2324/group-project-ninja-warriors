@@ -17,10 +17,12 @@ final class ClientViewModel: ObservableObject {
     var time: Int = 0
     let timeLag: Int = 7
 
-    init(matchId: String, currPlayerId: String) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity]) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.gameWorld = GameWorld(for: matchId)
+
+        gameWorld.entityComponentManager.addOwnEntities(ownEntities)
 
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in

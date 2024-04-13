@@ -117,8 +117,7 @@ class EntityComponentManager {
     func publish() async throws {
         for (entityId, entity) in entityMap {
             guard (entity as? ClosingZone) == nil,
-                  (entity as? Obstacle) == nil,
-                  Constants.ownEntityIds.contains(entityId)
+                  (entity as? Obstacle) == nil
             else {
                 continue
             }
@@ -132,12 +131,35 @@ class EntityComponentManager {
             }
             do {
                 // Upload the entity with its components
-                try await manager.uploadEntity(entity: entity, components: Array(entityComponents))
+                let filteredComponents = filterComponentsToPublish(Array(entityComponents))
+                try await manager.uploadEntity(entity: entity, components: filteredComponents)
             } catch {
                 // Handle errors during upload
                 print("Error uploading entity with ID \(entityId): \(error)")
             }
         }
+    }
+
+    func filterComponentsToPublish(_ componentsToFilter: [Component]) -> [Component] {
+        return componentsToFilter.filter { component in
+            if let _ = component as? Health {
+                return true
+            } else {
+                return ownEntities.contains { $0.id == component.entity.id }
+            }
+        }
+    }
+
+    func addOwnEntity(_ entity: Entity) {
+        ownEntities.append(entity)
+    }
+
+    func addOwnEntities(_ entities: [Entity]) {
+        ownEntities += entities
+    }
+
+    func removeOwnEntity(_ entity: Entity) {
+        ownEntities = ownEntities.filter { $0.id != entity.id }
     }
 
     // MARK: - Entity-related functions
@@ -206,18 +228,25 @@ class EntityComponentManager {
     func remove(entity: Entity, isRemoved: Bool = true) {
         assertRepresentation()
 
+        // Remove components from both local ecm and fetched ecm
         removeComponents(from: entity, isRemoved: isRemoved)
+
+        // Remove entity id from both local ecm and fetched ecm
         entityMap[entity.id] = nil
+        newEntityMap[entity.id] = nil
+
         entityComponentMap[entity.id] = nil
+        newEntityComponentMap[entity.id] = nil
+
+        // Remove entities
+        newEntity = newEntity.filter {$0.id != entity.id}
+        removeOwnEntity(entity)
 
         if !isRemoved {
             manager.delete(entity: entity)
         }
 
         //mapQueue.process(entity)
-
-        newEntityMap[entity.id] = nil
-        newEntityComponentMap[entity.id] = nil
 
         assertRepresentation()
     }
@@ -361,7 +390,6 @@ class EntityComponentManager {
                 let componentType = type(of: component)
 
                 componentMap[ComponentType(componentType)]?.remove(component)
-
                 newComponentMap[ComponentType(componentType)]?.remove(component)
 
                 if !isRemoved {

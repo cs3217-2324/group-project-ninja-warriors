@@ -61,6 +61,8 @@ class SlashAOESkill: EntitySpawnerSkill {
 
         manager.add(entity: slashAOE, components: [rigidbody, spriteComponent, attackComponent, lifespanComponent], isAdded: false)
 
+        manager.addOwnEntity(slashAOE)
+
         return slashAOE
     }
     

@@ -18,6 +18,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     @Published var hostId: String?
     @Published var userId: String?
     @Published var map: Map = GemMap()
+    @Published var ownEntities: [Entity] = []
     var character = "Shadowstrike"
     let signInViewModel: SignInViewModel
     let isGuest: Bool
@@ -151,7 +152,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
             try? await realTimeManager.uploadEntity(entity: player, components: components)
         }
 
-        Constants.ownEntityIds.append(playerId)
+        ownEntities.append(player)
     }
 
     // MARK: Map

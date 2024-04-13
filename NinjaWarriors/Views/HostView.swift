@@ -14,10 +14,10 @@ struct HostView: View {
     @State private var matchId: String
     @State private var playerId: String
 
-    init(matchId: String, currPlayerId: String) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity]) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.viewModel = HostViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        self.viewModel = HostViewModel(matchId: matchId, currPlayerId: currPlayerId, ownEntities: ownEntities)
     }
 
     var body: some View {
@@ -84,6 +84,7 @@ struct HostView: View {
 
 struct HostView_Previews: PreviewProvider {
     static var previews: some View {
-        HostView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2")
+        HostView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
+                 ownEntities: [])
     }
 }
