@@ -22,8 +22,8 @@ class Attack: Component {
         if attackStrategy.canAttack(attacker: self.entity, target: target, manager: manager) {
             let uniqueDamageEffect = DamageEffect(
                 id: RandomNonce().randomNonceString(),
-                entity: damageEffectTemplate.entity,
-                sourceId: damageEffectTemplate.sourceId,
+                entity: target,
+                sourceId: self.entity.id,
                 initialDamage: damageEffectTemplate.initialDamage,
                 damagePerSecond: damageEffectTemplate.damagePerSecond,
                 duration: damageEffectTemplate.duration

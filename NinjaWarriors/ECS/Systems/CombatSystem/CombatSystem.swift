@@ -41,9 +41,6 @@ class CombatSystem: System {
     private func applyDamage(_ damage: Double, to entity: Entity) {
         if let health = manager.getComponent(ofType: Health.self, for: entity) {
             health.health -= damage
-            if health.health <= 0 {
-                manager.remove(entity: entity)
-            }
         }
     }
 }

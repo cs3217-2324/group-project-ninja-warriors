@@ -375,24 +375,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FFDD6A53-56E5-4F3B-A0D0-E5279AA812D9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ECS/Components/Attack/Attack.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "attackIfPossible(target:manager:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "12700013-20AC-428E-B5E7-4CB6D4231216"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ECS/Components/Attack/AttackStrategy/MeleeAttackStrategy.swift"
@@ -402,6 +386,166 @@
             endingLineNumber = "32"
             landmarkName = "applyDamageEffect(to:from:withDamageEffect:manager:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AAF99FAA-02CF-462D-B759-28F4E3541E13"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ECS/Systems/CombatSystem/CombatSystem.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "update(after:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8E930382-B2A1-4F3E-A7BF-152E6D459DC0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ECS/Systems/CombatSystem/CombatSystem.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "update(after:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "37E6A635-0D12-4D62-8F7B-C718DCAD820F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ECS/Systems/CombatSystem/CombatSystem.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "applyDamage(_:to:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "37E6A635-0D12-4D62-8F7B-C718DCAD820F - 166e9bfef35c93d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NinjaWarriors.CombatSystem.applyDamage(_: Swift.Double, to: NinjaWarriors.Entity) -&gt; ()"
+                  moduleName = "NinjaWarriors"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/proglab/Desktop/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/CombatSystem/CombatSystem.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "232">
+               </Location>
+               <Location
+                  uuid = "37E6A635-0D12-4D62-8F7B-C718DCAD820F - 166e9bfef35c93d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NinjaWarriors.CombatSystem.applyDamage(_: Swift.Double, to: NinjaWarriors.Entity) -&gt; ()"
+                  moduleName = "NinjaWarriors"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/proglab/Desktop/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/CombatSystem/CombatSystem.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "224">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4379BEFD-054E-49E4-8A77-C3C1D88BAC79"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ECS/Systems/CombatSystem/CombatSystem.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "update(after:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A3492688-1418-4969-8ADE-E2C4331E9FD0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ECS/Systems/CombatSystem/CombatSystem.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "update(after:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7D847154-CB98-4B17-BC99-C3942B3350C2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ECS/Systems/CombatSystem/CombatSystem.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "applyDamage(_:to:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7D847154-CB98-4B17-BC99-C3942B3350C2 - 166e9bfef35c93f1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NinjaWarriors.CombatSystem.applyDamage(_: Swift.Double, to: NinjaWarriors.Entity) -&gt; ()"
+                  moduleName = "NinjaWarriors"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/proglab/Desktop/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/CombatSystem/CombatSystem.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "256">
+               </Location>
+               <Location
+                  uuid = "7D847154-CB98-4B17-BC99-C3942B3350C2 - 166e9bfef35c93f1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NinjaWarriors.CombatSystem.applyDamage(_: Swift.Double, to: NinjaWarriors.Entity) -&gt; ()"
+                  moduleName = "NinjaWarriors"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/proglab/Desktop/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/CombatSystem/CombatSystem.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "240">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
