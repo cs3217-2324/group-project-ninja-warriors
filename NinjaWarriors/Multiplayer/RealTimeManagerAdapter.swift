@@ -352,7 +352,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
         existingComponentDict.merge(newComponentDict) { (existingValue, newValue) in
             return mergeRules(existingDict: existingValue as? [String: Any],
-                              newDict: newValue as? [String: Any])
+                              newDict: newValue as? [String: Any]) ?? [:]
         }
         entityDict[componentKey] = existingComponentDict
     }

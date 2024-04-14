@@ -51,8 +51,7 @@ struct LobbyView: View {
                                     destination: ClientView(matchId: matchId,
                                                             currPlayerId: viewModel.getUserId(),
                                                             ownEntities: viewModel.ownEntities,
-                                                            mapBg:
-                                                                viewModel.map.mapBg).navigationBarBackButtonHidden(true)
+                                                            mapBg: viewModel.map.mapBg).navigationBarBackButtonHidden(true)
                                 ) {
                                     startGameText
                                 }
