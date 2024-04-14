@@ -36,7 +36,6 @@ struct HostSingleView: View {
                             viewModel.gameWorld.gameMode.start()
                         }
                     }
-                    viewModel.gameWorld.start()
                 }
         }
     }

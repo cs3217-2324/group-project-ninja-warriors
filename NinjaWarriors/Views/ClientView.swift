@@ -36,7 +36,6 @@ struct ClientView: View {
                             viewModel.gameWorld.gameMode.start()
                         }
                     }
-                    viewModel.gameWorld.start()
                 }
         }
     }

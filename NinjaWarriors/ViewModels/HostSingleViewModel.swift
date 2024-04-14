@@ -26,6 +26,8 @@ final class HostSingleViewModel: ObservableObject {
                 await self.updateViewModel()
             }
         }
+
+        gameWorld.start()
     }
 
     func updateViewModel() async {

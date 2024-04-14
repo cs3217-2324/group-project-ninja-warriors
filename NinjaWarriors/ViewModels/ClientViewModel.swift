@@ -30,6 +30,8 @@ final class ClientViewModel: ObservableObject {
                 await self.updateViewModel()
             }
         }
+
+        gameWorld.start()
     }
 
     func updateViewModel() async {
