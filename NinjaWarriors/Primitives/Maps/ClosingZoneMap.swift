@@ -8,6 +8,7 @@
 import Foundation
 
 class ClosingZoneMap: Map {
+    internal let gameMode: GameMode = LastManStandingMode()
     internal let mapBackground = "brown-wall"
     internal var mapEntities: [Entity] = []
 

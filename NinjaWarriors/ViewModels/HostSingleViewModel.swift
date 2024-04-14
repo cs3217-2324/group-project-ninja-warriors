@@ -15,10 +15,10 @@ final class HostSingleViewModel: ObservableObject {
     internal var matchId: String
     internal var currPlayerId: String
 
-    init(matchId: String, currPlayerId: String) {
+    init(matchId: String, currPlayerId: String, gameMode: GameMode) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.gameWorld = GameWorld(for: matchId)
+        self.gameWorld = GameWorld(for: matchId, gameMode: gameMode)
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
             Task {

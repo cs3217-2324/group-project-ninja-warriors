@@ -17,10 +17,10 @@ final class HostViewModel: ObservableObject {
     var time: Int = 0
     let timeLag: Int = 5
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity]) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], gameMode: GameMode) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.gameWorld = GameWorld(for: matchId)
+        self.gameWorld = GameWorld(for: matchId, gameMode: gameMode)
 
         gameWorld.entityComponentManager.addOwnEntities(ownEntities)
 

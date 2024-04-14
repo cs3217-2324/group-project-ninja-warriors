@@ -15,11 +15,11 @@ struct HostSingleView: View {
     @State private var playerId: String
     @State private var mapBackground: String
 
-    init(matchId: String, currPlayerId: String, mapBackground: String) {
+    init(matchId: String, currPlayerId: String, mapBackground: String, gameMode: GameMode) {
         self.matchId = matchId
         self.playerId = currPlayerId
         self.mapBackground = mapBackground
-        self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId, gameMode: gameMode)
     }
 
     var body: some View {
@@ -85,6 +85,6 @@ struct HostSingleView: View {
 
 struct HostSingleView_Previews: PreviewProvider {
     static var previews: some View {
-        HostSingleView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2", mapBackground: "blue-wall")
+        HostSingleView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2", mapBackground: "blue-wall", gameMode: LastManStandingMode())
     }
 }

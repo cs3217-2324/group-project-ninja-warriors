@@ -39,13 +39,13 @@ struct LobbyView: View {
 
                             if viewModel.getUserId() == viewModel.hostId {
                                 NavigationLink(
-                                    destination: HostView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground).navigationBarBackButtonHidden(true)
+                                    destination: HostView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground, gameMode: viewModel.map.gameMode).navigationBarBackButtonHidden(true)
                                 ) {
                                     startGameText
                                 }
                             } else {
                                 NavigationLink(
-                                    destination: ClientView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground).navigationBarBackButtonHidden(true)
+                                    destination: ClientView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground, gameMode: viewModel.map.gameMode).navigationBarBackButtonHidden(true)
                                 ) {
                                     startGameText
                                 }
