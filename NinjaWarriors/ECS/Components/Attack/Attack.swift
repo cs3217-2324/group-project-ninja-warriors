@@ -27,51 +27,8 @@ class Attack: Component {
 
             attackStrategy.attack(health: health, damage: self.damage)
 
-
+            // Add attack to event queue
             manager.componentsQueue.addComponent(health)
-
-
-            /*
-            let newHealth = health.deepCopy()
-            manager.remove(ofComponentType: Health.self, from: attackee)
-            let latestHealth = newHealth.changeEntity(to: attackee)
-
-            guard let latestLatestHealthComponent = latestHealth as? Health else {
-                return
-            }
-            latestLatestHealthComponent.health -= self.damage
-
-            //manager.componentsQueue.addComponent(newHealth)\
-            */
-
-            /*
-            DispatchQueue.main.sync {
-                health.health -= self.damage
-            }
-
-            let task = Task(priority: .userInitiated) {
-                do {
-                    try await manager.manager.uploadEntity(entity: health.entity,
-                                                           components: [health])
-                    // Upload successful, continue with your logic here
-                } catch {
-                    // Handle the error
-                    print("Error uploading entity: \(error)")
-                }
-            }
-            */
-
-            // Wait for the task to complete before continuing
-            //try? task.value.get()
-
-
-            /*
-            Task {  
-                try await manager.manager.uploadEntity(entity: latestLatestHealthComponent.entity,
-                                                       components: [latestLatestHealthComponent])
-            }
-            */
-
         }
     }
 

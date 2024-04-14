@@ -39,11 +39,10 @@ class EnvironmentEffectSystem: System {
             let healthChange = Constants.closingZoneDPS * time
             health.health -= healthChange
 
-            /*
             Task {
                 try await manager.manager.uploadEntity(entity: health.entity, components: [health])
             }
-            */
+            
             // print("reduce health by closing zone: \(healthChange) / 100")
         }
     }

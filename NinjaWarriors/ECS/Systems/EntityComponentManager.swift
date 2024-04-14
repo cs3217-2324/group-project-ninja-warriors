@@ -22,6 +22,7 @@ class EntityComponentManager {
     // To only publish own entities
     var ownEntities: Set<EntityID> = []
 
+    // Queue for synchronisation
     private var mapQueue = EventQueue(label: "entityComponentMapQueue")
     private var newMapQueue = EventQueue(label: "newEntityComponentMapQueue")
     var componentsQueue = EventQueue(label: "componentsQueue")
@@ -115,21 +116,13 @@ class EntityComponentManager {
     }
 
     func publish() async throws {
-        //var opponents: Set<EntityID> = []
         for (entityId, entity) in entityMap {
 
-            /*
-            if entity as? Player != nil && !ownEntities.contains(entityId) {
-                opponents.append(entityId)
-            }
-            */
-
-            guard (entity as? ClosingZone) == nil,
-                  (entity as? Obstacle) == nil,
-                  ownEntities.contains(entityId)
-            else {
+            guard (entity as? ClosingZone) == nil, (entity as? Obstacle) == nil,
+                  ownEntities.contains(entityId) else {
                 continue
             }
+
             var entityComponents: Set<Component> = []
             DispatchQueue.main.sync {
                 guard let components = self.entityComponentMap[entityId] else {
@@ -138,10 +131,11 @@ class EntityComponentManager {
                 entityComponents = components
             }
             do {
-                // Upload the entity with its components
+                // Publish event queue components first
                 try await publishComponentsFromQueue()
+                // Upload the entity with its components
                 try await manager.uploadEntity(entity: entity,
-                                               components: Array(filterOwnComponents(entityComponents)))
+                                               components: filterOwnComponents(entityComponents))
             } catch {
                 print("Error uploading entity with ID \(entityId): \(error)")
             }
@@ -153,37 +147,14 @@ class EntityComponentManager {
             return
         }
         while let nextComponent = componentsQueue.processComponent() {
-            print("processing attack")
-            var i = 0
-            while i < 50 {
+            for _ in 0..<Constants.timeLag {
                 try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
-                i += 1
             }
         }
     }
 
-    func filterOwnComponents(_ componentsToFilter: Set<Component>) -> Set<Component> {
-        let result = componentsToFilter.filter { component in
-            !(component is Health)
-        }
-        for comp in result {
-            if let _ = comp as? Health {
-                print("filtered components still contain health")
-            }
-        }
-        return result
-    }
-
-    func filterOtherComponents(_ componentsToFilter: Set<Component>) -> Set<Component> {
-        let result = componentsToFilter.filter { component in
-            !(component is Health)
-        }
-        for comp in result {
-            if let _ = comp as? Health {
-                print("filtered components still contain health")
-            }
-        }
-        return result
+    func filterOwnComponents(_ componentsToFilter: Set<Component>) -> [Component] {
+        componentsToFilter.filter { !($0 is Health) }
     }
 
     func addOwnEntity(_ entity: Entity) {

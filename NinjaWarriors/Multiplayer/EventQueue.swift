@@ -59,7 +59,6 @@ class EventQueue {
         return components.removeFirst()
     }
 
-
     func suspend() {
         queue.suspend()
     }

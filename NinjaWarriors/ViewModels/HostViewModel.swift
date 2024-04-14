@@ -70,7 +70,6 @@ final class HostViewModel: ObservableObject {
     }
 
     func move(_ vector: CGVector) {
-        print(currPlayerId, timeLag)
         guard let entityIdComponents = gameWorld.entityComponentManager.entityComponentMap[currPlayerId] else {
             return
         }
