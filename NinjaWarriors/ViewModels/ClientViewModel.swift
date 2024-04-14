@@ -15,7 +15,7 @@ final class ClientViewModel: ObservableObject {
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
-    let timeLag: Int = 7
+    let timeLag: Int = 3
 
     init(matchId: String, currPlayerId: String, ownEntities: [Entity]) {
         self.matchId = matchId

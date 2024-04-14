@@ -15,7 +15,7 @@ final class HostViewModel: ObservableObject {
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
-    let timeLag: Int = 5
+    let timeLag: Int = 4
 
     init(matchId: String, currPlayerId: String, ownEntities: [Entity]) {
         self.matchId = matchId
