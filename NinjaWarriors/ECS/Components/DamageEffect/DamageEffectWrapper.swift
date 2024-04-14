@@ -12,11 +12,11 @@ struct DamageEffectWrapper: ComponentWrapper {
     var entity: EntityWrapper
     var sourceId: EntityID
     var initialDamage: Double
-    var damagePerSecond: Double
+    var damagePerTick: Double
     var duration: TimeInterval
     var elapsedTime: TimeInterval = 0
 
     func toComponent(entity: Entity) -> Component? {
-        return DamageEffect(id: id, entity: entity, sourceId: sourceId, initialDamage: initialDamage, damagePerSecond: damagePerSecond, duration: duration)
+        return DamageEffect(id: id, entity: entity, sourceId: sourceId, initialDamage: initialDamage, damagePerTick: damagePerTick, duration: duration)
     }
 }

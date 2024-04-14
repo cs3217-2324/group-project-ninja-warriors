@@ -25,7 +25,7 @@ class Attack: Component {
                 entity: target,
                 sourceId: self.entity.id,
                 initialDamage: damageEffectTemplate.initialDamage,
-                damagePerSecond: damageEffectTemplate.damagePerSecond,
+                damagePerTick: damageEffectTemplate.damagePerTick,
                 duration: damageEffectTemplate.duration
             )
             attackStrategy.applyDamageEffect(to: target, from: self.entity, withDamageEffect: uniqueDamageEffect, manager: manager)

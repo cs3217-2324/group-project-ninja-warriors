@@ -69,7 +69,7 @@ class HadoukenSkill: EntitySpawnerSkill {
                                      height: Constants.slashRadius * 1)
 
         let meleeAttackStrategy = MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius)
-        let damageEffect = DamageEffect(id: RandomNonce().randomNonceString(), entity: hadouken, sourceId: casterEntity.id, initialDamage: 100, damagePerSecond: 0, duration: 0)  // Instantaneous damage
+        let damageEffect = DamageEffect(id: RandomNonce().randomNonceString(), entity: hadouken, sourceId: casterEntity.id, initialDamage: 100, damagePerTick: 0, duration: 0)  // Instantaneous damage
 
         let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: hadouken, attackStrategy: MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius), damageEffectTemplate: damageEffect)
 

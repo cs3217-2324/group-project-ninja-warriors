@@ -27,7 +27,7 @@ class CombatSystem: System {
             if damageEffect.elapsedTime >= damageEffect.duration {
                 toRemove.append(damageEffect)
             } else {
-                let damage = damageEffect.damagePerSecond * time
+                let damage = damageEffect.damagePerTick * time
                 applyDamage(damage, to: damageEffect.entity)
             }
         }
@@ -39,6 +39,10 @@ class CombatSystem: System {
     }
 
     private func applyDamage(_ damage: Double, to entity: Entity) {
+        guard let dodge = manager.getComponent(ofType: Dodge.self, for: entity) else {
+            return
+        }
+
         if let health = manager.getComponent(ofType: Health.self, for: entity) {
             health.health -= damage
         }

@@ -10,14 +10,14 @@ import Foundation
 class DamageEffect: Component {
     var sourceId: EntityID
     var initialDamage: Double
-    var damagePerSecond: Double
+    var damagePerTick: Double
     var duration: TimeInterval
     var elapsedTime: TimeInterval = 0
 
-    init(id: ComponentID, entity: Entity, sourceId: EntityID, initialDamage: Double, damagePerSecond: Double, duration: TimeInterval) {
+    init(id: ComponentID, entity: Entity, sourceId: EntityID, initialDamage: Double, damagePerTick: Double, duration: TimeInterval) {
         self.sourceId = sourceId
         self.initialDamage = initialDamage
-        self.damagePerSecond = damagePerSecond
+        self.damagePerTick = damagePerTick
         self.duration = duration
         super.init(id: id, entity: entity)
     }
@@ -26,6 +26,6 @@ class DamageEffect: Component {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
-        return DamageEffectWrapper(id: id, entity: entityWrapper, sourceId: sourceId, initialDamage: initialDamage, damagePerSecond: damagePerSecond, duration: duration)
+        return DamageEffectWrapper(id: id, entity: entityWrapper, sourceId: sourceId, initialDamage: initialDamage, damagePerTick: damagePerTick, duration: duration)
     }
 }
