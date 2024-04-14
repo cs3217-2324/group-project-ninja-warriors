@@ -23,8 +23,6 @@ class GameWorld {
         self.gameControl = gameControl
         self.gameMode = gameMode
 
-        self.entityComponentManager.initialPopulate()
-
         let destroyManager = DestroySystem(for: entityComponentManager)
         let transformHandler = TransformHandler(for: entityComponentManager)
         let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager, with: gameControl)
@@ -70,6 +68,7 @@ class GameWorld {
 
         if gameMode.isGameOver(for: self) {
             gameLoopManager.stop()
+            print(isGameOver)
             self.isGameOver = true
         }
     }

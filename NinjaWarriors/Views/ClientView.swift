@@ -33,6 +33,7 @@ struct ClientView: View {
                     viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {
                         DispatchQueue.main.async {
                             viewModel.updateEntities()
+                            viewModel.gameWorld.gameMode.start()
                         }
                     }
                     viewModel.gameWorld.start()

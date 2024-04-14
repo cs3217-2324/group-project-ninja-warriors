@@ -8,9 +8,19 @@
 import Foundation
 
 class LastManStandingMode: GameMode {
+    var hasStarted: Bool = false
+
     func isGameOver(for gameWorld: GameWorld) -> Bool {
+        print("has started status: ", hasStarted)
+        guard hasStarted else {
+            return false
+        }
         let playerComponents = gameWorld.entityComponentManager.getAllComponents(ofType: PlayerComponent.self)
         print(playerComponents)
         return playerComponents.count <= 1
+    }
+
+    func start() {
+        hasStarted = true
     }
 }
