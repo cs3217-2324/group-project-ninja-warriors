@@ -59,7 +59,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
             "EnvironmentEffectWrapper": EnvironmentEffectWrapper.self,
             "LifespanWrapper": LifespanWrapper.self,
             "DodgeWrapper": DodgeWrapper.self,
-            "TransformWrapper": TransformWrapper.self
+            "TransformWrapper": TransformWrapper.self,
+            "PlayerComponentWrapper": PlayerComponentWrapper.self
         ]
         return wrapperTypes[wrapperType]
     }

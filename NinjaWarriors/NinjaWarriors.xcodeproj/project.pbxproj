@@ -173,6 +173,8 @@
 		E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */; };
 		E67C23E82BCBBA97005D7304 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23E72BCBBA97005D7304 /* GameMode.swift */; };
 		E67C23EA2BCBBAEB005D7304 /* LastManStandingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23E92BCBBAEB005D7304 /* LastManStandingMode.swift */; };
+		E67C23F22BCBD144005D7304 /* PlayerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23F12BCBD144005D7304 /* PlayerComponent.swift */; };
+		E67C23F42BCBD2DE005D7304 /* PlayerComponentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23F32BCBD2DE005D7304 /* PlayerComponentWrapper.swift */; };
 		E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F53392BBFEFA10051A900 /* DestroySystem.swift */; };
 		E699DDBF2BBDDC5800E8CA80 /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */; };
 		E6A0564D2BB0687500398D67 /* DodgeSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0564C2BB0687500398D67 /* DodgeSkill.swift */; };
@@ -351,6 +353,8 @@
 		E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformWrapper.swift; sourceTree = "<group>"; };
 		E67C23E72BCBBA97005D7304 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		E67C23E92BCBBAEB005D7304 /* LastManStandingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastManStandingMode.swift; sourceTree = "<group>"; };
+		E67C23F12BCBD144005D7304 /* PlayerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponent.swift; sourceTree = "<group>"; };
+		E67C23F32BCBD2DE005D7304 /* PlayerComponentWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponentWrapper.swift; sourceTree = "<group>"; };
 		E67F53392BBFEFA10051A900 /* DestroySystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroySystem.swift; sourceTree = "<group>"; };
 		E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
 		E6A0564C2BB0687500398D67 /* DodgeSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeSkill.swift; sourceTree = "<group>"; };
@@ -687,6 +691,7 @@
 			children = (
 				7113A4952BA60E8400805340 /* Component.swift */,
 				91DDE6512BB3806100851603 /* ComponentType.swift */,
+				E67C23F02BCBD124005D7304 /* PlayerComponent */,
 				E6FD34592BC1523900477B1F /* Lifespan */,
 				E6B503E12BC105F300B9565E /* Attack */,
 				E63FFBFD2BBADA2F006C2C4C /* Transform */,
@@ -992,6 +997,15 @@
 			path = GameModes;
 			sourceTree = "<group>";
 		};
+		E67C23F02BCBD124005D7304 /* PlayerComponent */ = {
+			isa = PBXGroup;
+			children = (
+				E67C23F12BCBD144005D7304 /* PlayerComponent.swift */,
+				E67C23F32BCBD2DE005D7304 /* PlayerComponentWrapper.swift */,
+			);
+			path = PlayerComponent;
+			sourceTree = "<group>";
+		};
 		E67F53382BBFEF930051A900 /* DestroySystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -1292,6 +1306,7 @@
 				714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
 				9132AF872BA6AEAB000F2AC4 /* Shape+EXT.swift in Sources */,
+				E67C23F42BCBD2DE005D7304 /* PlayerComponentWrapper.swift in Sources */,
 				91CC283C2BBA86E7009318C7 /* ScoreSystem.swift in Sources */,
 				E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
@@ -1393,6 +1408,7 @@
 				9136A5BC2BAAA80200197971 /* RealTimeManagerAdapter.swift in Sources */,
 				E67C23EA2BCBBAEB005D7304 /* LastManStandingMode.swift in Sources */,
 				9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */,
+				E67C23F22BCBD144005D7304 /* PlayerComponent.swift in Sources */,
 				9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */,
 				916991372BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				916A7D752BA1554200319C26 /* Constants.swift in Sources */,
