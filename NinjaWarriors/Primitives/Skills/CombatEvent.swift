@@ -8,6 +8,7 @@
 import Foundation
 
 struct CombatEvent {
+    var caster: Entity
     var target: Entity
     var amount: Double
     var type: EventType

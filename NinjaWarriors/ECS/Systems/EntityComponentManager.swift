@@ -42,7 +42,7 @@ class EntityComponentManager {
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
-        //manager.deleteAllKeysExcept(matchId: "a")
+        // manager.deleteAllKeysExcept(matchId: "a")
     }
 
     // No mapQueue needed for intial population

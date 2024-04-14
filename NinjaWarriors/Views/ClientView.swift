@@ -56,7 +56,7 @@ struct ClientView: View {
             if let currPlayer = viewModel.getCurrPlayer() {
                 JoystickView(
                     setInputVector: { vector in
-                        //viewModel.move(vector)
+                        // viewModel.move(vector)
                         viewModel.gameWorld.setInput(vector, for: currPlayer)
                     }, location: CGPoint(x: 150, y: geometry.size.height - 350))
                 .frame(width: 200, height: 200)

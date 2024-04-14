@@ -169,11 +169,12 @@
 		91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */; };
 		91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */; };
 		91F3D9C42BBBF735001D7DE7 /* SlashAOEWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */; };
-		E62FA3312BCC47B4000D551A /* CombatEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA3302BCC47B4000D551A /* CombatEvent.swift */; };
 		E62FA3342BCC47DF000D551A /* CombatSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA3332BCC47DF000D551A /* CombatSystem.swift */; };
 		E62FA3362BCC4B05000D551A /* HadoukenSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA3352BCC4B05000D551A /* HadoukenSkill.swift */; };
 		E62FA3392BCC5356000D551A /* Hadouken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA3382BCC5356000D551A /* Hadouken.swift */; };
 		E62FA33B2BCC535F000D551A /* HadoukenWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA33A2BCC535F000D551A /* HadoukenWrapper.swift */; };
+		E62FA33D2BCC699C000D551A /* DamageEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA33C2BCC699C000D551A /* DamageEffect.swift */; };
+		E62FA3402BCC6A24000D551A /* DamageEffectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA33F2BCC6A24000D551A /* DamageEffectWrapper.swift */; };
 		E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC002BBADA55006C2C4C /* Transform.swift */; };
 		E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */; };
 		E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F53392BBFEFA10051A900 /* DestroySystem.swift */; };
@@ -350,11 +351,12 @@
 		91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTests.swift; sourceTree = "<group>"; };
 		91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveTests.swift; sourceTree = "<group>"; };
 		91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOEWrapper.swift; sourceTree = "<group>"; };
-		E62FA3302BCC47B4000D551A /* CombatEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombatEvent.swift; sourceTree = "<group>"; };
 		E62FA3332BCC47DF000D551A /* CombatSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombatSystem.swift; sourceTree = "<group>"; };
 		E62FA3352BCC4B05000D551A /* HadoukenSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HadoukenSkill.swift; sourceTree = "<group>"; };
 		E62FA3382BCC5356000D551A /* Hadouken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hadouken.swift; sourceTree = "<group>"; };
 		E62FA33A2BCC535F000D551A /* HadoukenWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HadoukenWrapper.swift; sourceTree = "<group>"; };
+		E62FA33C2BCC699C000D551A /* DamageEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageEffect.swift; sourceTree = "<group>"; };
+		E62FA33F2BCC6A24000D551A /* DamageEffectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageEffectWrapper.swift; sourceTree = "<group>"; };
 		E63FFC002BBADA55006C2C4C /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformWrapper.swift; sourceTree = "<group>"; };
 		E67F53392BBFEFA10051A900 /* DestroySystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroySystem.swift; sourceTree = "<group>"; };
@@ -693,6 +695,7 @@
 		916A7D682BA154E000319C26 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E62FA33E2BCC69A6000D551A /* DamageEffect */,
 				7113A4952BA60E8400805340 /* Component.swift */,
 				91DDE6512BB3806100851603 /* ComponentType.swift */,
 				E6FD34592BC1523900477B1F /* Lifespan */,
@@ -985,6 +988,15 @@
 			path = Hadouken;
 			sourceTree = "<group>";
 		};
+		E62FA33E2BCC69A6000D551A /* DamageEffect */ = {
+			isa = PBXGroup;
+			children = (
+				E62FA33C2BCC699C000D551A /* DamageEffect.swift */,
+				E62FA33F2BCC6A24000D551A /* DamageEffectWrapper.swift */,
+			);
+			path = DamageEffect;
+			sourceTree = "<group>";
+		};
 		E63243B62BB035DB00CC0899 /* Skills */ = {
 			isa = PBXGroup;
 			children = (
@@ -994,7 +1006,6 @@
 				E6A0564C2BB0687500398D67 /* DodgeSkill.swift */,
 				E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */,
 				E6E5B47E2BBEEA0C0089D14D /* SkillWrapper.swift */,
-				E62FA3302BCC47B4000D551A /* CombatEvent.swift */,
 				E62FA3352BCC4B05000D551A /* HadoukenSkill.swift */,
 			);
 			path = Skills;
@@ -1266,7 +1277,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint --fix\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1302,6 +1313,7 @@
 				E6B503ED2BC112C100B9565E /* MeleeAttackStrategy.swift in Sources */,
 				91DDE6632BB79DF300851603 /* Obstacle.swift in Sources */,
 				918048802BC9094B00026965 /* MapSelectionView.swift in Sources */,
+				E62FA33D2BCC699C000D551A /* DamageEffect.swift in Sources */,
 				7113A4942BA60E2E00805340 /* Entity.swift in Sources */,
 				E6D6BD0D2BC1C1F4004BFD59 /* EntityViewModel.swift in Sources */,
 				E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */,
@@ -1379,7 +1391,6 @@
 				915301B92BAD8411007F2A12 /* ColliderWrapper.swift in Sources */,
 				91DDE6602BB5720A00851603 /* SpriteWrapper.swift in Sources */,
 				915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */,
-				E62FA3312BCC47B4000D551A /* CombatEvent.swift in Sources */,
 				915BFD1B2BC149A000AB5815 /* ClientView.swift in Sources */,
 				9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */,
 				7181B1502BC05385009711DE /* EnvironmentEffectSystem.swift in Sources */,
@@ -1403,6 +1414,7 @@
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
 				E6B503EB2BC112AF00B9565E /* AttackStrategy.swift in Sources */,
 				714F20972BC27FF800A5B36E /* HostView.swift in Sources */,
+				E62FA3402BCC6A24000D551A /* DamageEffectWrapper.swift in Sources */,
 				91C65BE72BACF1BF0085D96F /* SkillCaster.swift in Sources */,
 				E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */,
 				915301C22BAE9327007F2A12 /* GameControl.swift in Sources */,

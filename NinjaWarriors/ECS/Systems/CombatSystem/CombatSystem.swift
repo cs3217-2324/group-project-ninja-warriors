@@ -9,41 +9,41 @@ import Foundation
 
 class CombatSystem: System {
     var manager: EntityComponentManager
-    private var eventQueue: [CombatEvent] = []
 
     required init(for manager: EntityComponentManager) {
         self.manager = manager
     }
 
-    func queueEvent(_ event: CombatEvent) {
-        eventQueue.append(event)
-    }
-
     func update(after time: TimeInterval) {
-        while !eventQueue.isEmpty {
-            let event = eventQueue.removeFirst()
-            applyEvent(event)
+        var toRemove: [DamageEffect] = []
+        let damageEffects = manager.getAllComponents(ofType: DamageEffect.self)
+
+        for damageEffect in damageEffects {
+            if damageEffect.elapsedTime == 0 {  // Apply initial damage
+                applyDamage(damageEffect.initialDamage, to: damageEffect.entity)
+            }
+
+            damageEffect.elapsedTime += time
+            if damageEffect.elapsedTime >= damageEffect.duration {
+                toRemove.append(damageEffect)
+            } else {
+                let damage = damageEffect.damagePerSecond * time
+                applyDamage(damage, to: damageEffect.entity)
+            }
+        }
+
+        // Remove expired DamageEffects
+        for effect in toRemove {
+            manager.remove(ofComponentType: DamageEffect.self, from: effect.entity)
         }
     }
 
-    private func applyEvent(_ event: CombatEvent) {
-        guard let healthComponent = manager.getComponent(ofType: Health.self, for: event.target) else {
-            print("Health component not found for entity ID \(event.target)")
-            return
+    private func applyDamage(_ damage: Double, to entity: Entity) {
+        if let health = manager.getComponent(ofType: Health.self, for: entity) {
+            health.health -= damage
+            if health.health <= 0 {
+                manager.remove(entity: entity)
+            }
         }
-
-        switch event.type {
-        case .damage:
-            healthComponent.health -= event.amount
-            if healthComponent.health <= 0 { handleDeath(for: event.target) }
-        case .heal:
-            healthComponent.health += event.amount
-            healthComponent.health = min(healthComponent.health, healthComponent.maxHealth)
-        }
-    }
-
-    private func handleDeath(for entity: Entity) {
-        print("Entity \(entity.id) died.")
-        // Additional logic for handling entity death, if necessary
     }
 }

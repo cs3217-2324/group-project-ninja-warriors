@@ -48,7 +48,7 @@ class HadoukenSkill: EntitySpawnerSkill {
         let collider = Collider(id: RandomNonce().randomNonceString(), entity: hadouken,
                                       colliderShape: shape, collidedEntities: [],
                                       isColliding: false, isOutOfBounds: false)
-        
+
         let rigidbody = Rigidbody(
             id: RandomNonce().randomNonceString(),
             entity: hadouken,
@@ -69,8 +69,9 @@ class HadoukenSkill: EntitySpawnerSkill {
                                      height: Constants.slashRadius * 1)
 
         let meleeAttackStrategy = MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius)
-        let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: hadouken,
-                                     attackStrategy: meleeAttackStrategy, damage: Constants.slashDamage)
+        let damageEffect = DamageEffect(id: RandomNonce().randomNonceString(), entity: hadouken, sourceId: casterEntity.id, initialDamage: 100, damagePerSecond: 0, duration: 0)  // Instantaneous damage
+
+        let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: hadouken, attackStrategy: MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius), damageEffectTemplate: damageEffect)
 
         let lifespanComponent = Lifespan(id: RandomNonce().randomNonceString(), entity: hadouken, lifespan: 1)
 
