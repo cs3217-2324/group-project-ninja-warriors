@@ -169,6 +169,11 @@
 		91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */; };
 		91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */; };
 		91F3D9C42BBBF735001D7DE7 /* SlashAOEWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */; };
+		E62FA3312BCC47B4000D551A /* CombatEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA3302BCC47B4000D551A /* CombatEvent.swift */; };
+		E62FA3342BCC47DF000D551A /* CombatSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA3332BCC47DF000D551A /* CombatSystem.swift */; };
+		E62FA3362BCC4B05000D551A /* HadoukenSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA3352BCC4B05000D551A /* HadoukenSkill.swift */; };
+		E62FA3392BCC5356000D551A /* Hadouken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA3382BCC5356000D551A /* Hadouken.swift */; };
+		E62FA33B2BCC535F000D551A /* HadoukenWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA33A2BCC535F000D551A /* HadoukenWrapper.swift */; };
 		E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC002BBADA55006C2C4C /* Transform.swift */; };
 		E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */; };
 		E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F53392BBFEFA10051A900 /* DestroySystem.swift */; };
@@ -345,6 +350,11 @@
 		91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTests.swift; sourceTree = "<group>"; };
 		91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveTests.swift; sourceTree = "<group>"; };
 		91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOEWrapper.swift; sourceTree = "<group>"; };
+		E62FA3302BCC47B4000D551A /* CombatEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombatEvent.swift; sourceTree = "<group>"; };
+		E62FA3332BCC47DF000D551A /* CombatSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombatSystem.swift; sourceTree = "<group>"; };
+		E62FA3352BCC4B05000D551A /* HadoukenSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HadoukenSkill.swift; sourceTree = "<group>"; };
+		E62FA3382BCC5356000D551A /* Hadouken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hadouken.swift; sourceTree = "<group>"; };
+		E62FA33A2BCC535F000D551A /* HadoukenWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HadoukenWrapper.swift; sourceTree = "<group>"; };
 		E63FFC002BBADA55006C2C4C /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformWrapper.swift; sourceTree = "<group>"; };
 		E67F53392BBFEFA10051A900 /* DestroySystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroySystem.swift; sourceTree = "<group>"; };
@@ -517,6 +527,7 @@
 		9136A5B52BA9943100197971 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				E62FA3322BCC47D4000D551A /* CombatSystem */,
 				9169913E2BC69E7D00ED1FBD /* Rules */,
 				7181B14E2BC05372009711DE /* EnvironmentEffectSystem */,
 				E6FD345C2BC1544600477B1F /* LifespanSystem */,
@@ -540,6 +551,7 @@
 		9136A5B62BA9943900197971 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				E62FA3372BCC534D000D551A /* Hadouken */,
 				916991312BC6780E00ED1FBD /* Gems */,
 				7113A4932BA60E2E00805340 /* Entity.swift */,
 				9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */,
@@ -956,6 +968,23 @@
 			path = PrimitiveTests;
 			sourceTree = "<group>";
 		};
+		E62FA3322BCC47D4000D551A /* CombatSystem */ = {
+			isa = PBXGroup;
+			children = (
+				E62FA3332BCC47DF000D551A /* CombatSystem.swift */,
+			);
+			path = CombatSystem;
+			sourceTree = "<group>";
+		};
+		E62FA3372BCC534D000D551A /* Hadouken */ = {
+			isa = PBXGroup;
+			children = (
+				E62FA3382BCC5356000D551A /* Hadouken.swift */,
+				E62FA33A2BCC535F000D551A /* HadoukenWrapper.swift */,
+			);
+			path = Hadouken;
+			sourceTree = "<group>";
+		};
 		E63243B62BB035DB00CC0899 /* Skills */ = {
 			isa = PBXGroup;
 			children = (
@@ -965,6 +994,8 @@
 				E6A0564C2BB0687500398D67 /* DodgeSkill.swift */,
 				E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */,
 				E6E5B47E2BBEEA0C0089D14D /* SkillWrapper.swift */,
+				E62FA3302BCC47B4000D551A /* CombatEvent.swift */,
+				E62FA3352BCC4B05000D551A /* HadoukenSkill.swift */,
 			);
 			path = Skills;
 			sourceTree = "<group>";
@@ -1320,10 +1351,14 @@
 				E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */,
 				9132AF7A2BA59B1C000F2AC4 /* FactoryWrapper.swift in Sources */,
 				9132AF5C2BA50C5C000F2AC4 /* CustomSubject.swift in Sources */,
+				E62FA3392BCC5356000D551A /* Hadouken.swift in Sources */,
+				E62FA3362BCC4B05000D551A /* HadoukenSkill.swift in Sources */,
 				916A7D902BA1A2AE00319C26 /* AuthenticationAdapter.swift in Sources */,
 				916A7D702BA1552100319C26 /* Point.swift in Sources */,
+				E62FA33B2BCC535F000D551A /* HadoukenWrapper.swift in Sources */,
 				9132AF7C2BA59C6C000F2AC4 /* Listener.swift in Sources */,
 				915301B52BAD1E85007F2A12 /* Collider.swift in Sources */,
+				E62FA3342BCC47DF000D551A /* CombatSystem.swift in Sources */,
 				918048862BC91C2200026965 /* CharacterSelection.swift in Sources */,
 				91DDE66D2BB7C3DA00851603 /* HealthSystem.swift in Sources */,
 				9136A5BA2BAA8B3900197971 /* TransformHandler.swift in Sources */,
@@ -1344,6 +1379,7 @@
 				915301B92BAD8411007F2A12 /* ColliderWrapper.swift in Sources */,
 				91DDE6602BB5720A00851603 /* SpriteWrapper.swift in Sources */,
 				915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */,
+				E62FA3312BCC47B4000D551A /* CombatEvent.swift in Sources */,
 				915BFD1B2BC149A000AB5815 /* ClientView.swift in Sources */,
 				9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */,
 				7181B1502BC05385009711DE /* EnvironmentEffectSystem.swift in Sources */,

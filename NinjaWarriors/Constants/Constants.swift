@@ -57,7 +57,7 @@ struct Constants {
                                     "Crimsonshadow", "Shadowblade", "Venomstrike", "Darkwind"]
 
     static var skills: [String: [String]] = ["Shadowstrike": ["Dash", "Slash", "Dodge", "Refresh"],
-                                      "Nightblade": ["Dash", "Slash", "Dodge", "Refresh"],
+                                      "Nightblade": ["Dash", "Hadouken", "Dodge", "Refresh"],
                                       "Swiftshadow": ["Dash", "Slash", "Dodge", "Refresh"],
                                       "SilentStorm": ["Dash", "Slash", "Dodge", "Refresh"],
                                       "Crimsonshadow": ["Dash", "Slash", "Dodge", "Refresh"],
@@ -90,7 +90,7 @@ struct Constants {
                                              DodgeSkill(id: "dodge", cooldownDuration: 8.0),
                                              RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
 
-    static var nightbladeSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+    static var nightbladeSkills: [Skill] = [HadoukenSkill(id: "hadouken", cooldownDuration: 8.0),
                                             DashSkill(id: "dash", cooldownDuration: 8.0),
                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
                                             RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]

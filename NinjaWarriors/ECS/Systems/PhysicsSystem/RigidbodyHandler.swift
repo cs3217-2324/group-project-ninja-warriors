@@ -71,8 +71,8 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
     private func syncTransform() {
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
         for rigidBody in rigidBodies {
-            if let transform = manager.getComponent(ofType: Transform.self, for: rigidBody.entity) {
-                transform.position = rigidBody.position
+            if let collider = manager.getComponent(ofType: Collider.self, for: rigidBody.entity) {
+                collider.colliderShape.center = rigidBody.position
             }
         }
     }

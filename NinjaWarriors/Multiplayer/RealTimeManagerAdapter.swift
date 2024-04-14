@@ -223,6 +223,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
                 entityInstance = Obstacle(id: entityId)
             } else if entityType == "SlashAOE" {
                 entityInstance = SlashAOE(id: entityId, casterEntity: Player(id: entityId))
+            } else if entityType == "Hadouken" {
+                entityInstance = Hadouken(id: entityId, casterEntity: Player(id: entityId))
             } else if entityType == "ClosingZone" {
                 entityInstance = ClosingZone(id: entityId)
             } else {
