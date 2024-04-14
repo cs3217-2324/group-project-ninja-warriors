@@ -16,13 +16,14 @@ class GameWorld {
     var gameControl: GameControl
     var gameMode: GameMode
     var updateViewModel: () -> Void = {}
+    var isGameOver: Bool = false
 
     init(for match: String, gameControl: GameControl = JoystickControl(), gameMode: GameMode) {
         self.entityComponentManager = EntityComponentManager(for: match)
         self.gameControl = gameControl
         self.gameMode = gameMode
 
-        setupGameLoop()
+        self.entityComponentManager.initialPopulate()
 
         let destroyManager = DestroySystem(for: entityComponentManager)
         let transformHandler = TransformHandler(for: entityComponentManager)
@@ -45,6 +46,8 @@ class GameWorld {
         systemManager.add(system: environmentEffectSystem)
         systemManager.add(system: lifespanManager)
         systemManager.add(system: destroyManager)
+
+        setupGameLoop()
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {
@@ -64,5 +67,10 @@ class GameWorld {
 
     func update(deltaTime: TimeInterval) {
         systemManager.update(after: deltaTime)
+
+        if gameMode.isGameOver(for: self) {
+            gameLoopManager.stop()
+            self.isGameOver = true
+        }
     }
 }

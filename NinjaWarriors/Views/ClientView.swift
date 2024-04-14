@@ -35,6 +35,7 @@ struct ClientView: View {
                             viewModel.updateEntities()
                         }
                     }
+                    viewModel.gameWorld.start()
                 }
         }
     }

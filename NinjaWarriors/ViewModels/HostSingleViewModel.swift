@@ -14,12 +14,13 @@ final class HostSingleViewModel: ObservableObject {
     internal var entities: [Entity] = []
     internal var matchId: String
     internal var currPlayerId: String
+    var isGameOver: Bool = false
 
     init(matchId: String, currPlayerId: String, gameMode: GameMode) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.gameWorld = GameWorld(for: matchId, gameMode: gameMode)
-        gameWorld.start()
+
         gameWorld.updateViewModel = { [unowned self] in
             Task {
                 await self.updateViewModel()
@@ -29,11 +30,16 @@ final class HostSingleViewModel: ObservableObject {
 
     func updateViewModel() async {
         updateEntities()
+        updateGameState()
         updateViews()
     }
 
     func updateEntities() {
         entities = gameWorld.entityComponentManager.getAllEntities()
+    }
+
+    func updateGameState() {
+        self.isGameOver = gameWorld.isGameOver
     }
 
     // Only update values that changed

@@ -35,6 +35,7 @@ struct HostSingleView: View {
                             viewModel.updateEntities()
                         }
                     }
+                    viewModel.gameWorld.start()
                 }
         }
     }

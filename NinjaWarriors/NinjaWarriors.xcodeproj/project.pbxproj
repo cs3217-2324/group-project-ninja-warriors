@@ -548,11 +548,11 @@
 		9136A5B62BA9943900197971 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				916991312BC6780E00ED1FBD /* Gems */,
 				7113A4932BA60E2E00805340 /* Entity.swift */,
 				9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */,
 				91DDE6572BB5118400851603 /* EntityType.swift */,
 				91DDE65A2BB51D8800851603 /* AnyEntity.swift */,
+				916991312BC6780E00ED1FBD /* Gems */,
 				7181B14B2BC047FE009711DE /* ClosingZone */,
 				91DDE6612BB79DE200851603 /* Obstacles */,
 				9132AF832BA5A871000F2AC4 /* Players */,

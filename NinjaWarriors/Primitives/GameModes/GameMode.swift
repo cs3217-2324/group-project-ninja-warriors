@@ -8,5 +8,5 @@
 import Foundation
 
 protocol GameMode {
-
+    func isGameOver(for gameWorld: GameWorld) -> Bool
 }

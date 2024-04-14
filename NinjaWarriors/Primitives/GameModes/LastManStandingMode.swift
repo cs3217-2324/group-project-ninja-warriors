@@ -8,5 +8,9 @@
 import Foundation
 
 class LastManStandingMode: GameMode {
-
+    func isGameOver(for gameWorld: GameWorld) -> Bool {
+        let playerComponents = gameWorld.entityComponentManager.getAllComponents(ofType: PlayerComponent.self)
+        print(playerComponents)
+        return playerComponents.count <= 1
+    }
 }

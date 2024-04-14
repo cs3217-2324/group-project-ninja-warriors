@@ -16,6 +16,7 @@ final class HostViewModel: ObservableObject {
     internal var currPlayerId: String
     var time: Int = 0
     let timeLag: Int = 5
+    var isGameOver: Bool = false
 
     init(matchId: String, currPlayerId: String, ownEntities: [Entity], gameMode: GameMode) {
         self.matchId = matchId
@@ -24,7 +25,6 @@ final class HostViewModel: ObservableObject {
 
         gameWorld.entityComponentManager.addOwnEntities(ownEntities)
 
-        gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
             Task {
                 await self.updateViewModel()
@@ -44,11 +44,16 @@ final class HostViewModel: ObservableObject {
         } catch {
             print("Error publishing updated state: \(error)")
         }
+        updateGameState()
         updateViews()
     }
 
     func updateEntities() {
         entities = gameWorld.entityComponentManager.getAllEntities()
+    }
+
+    func updateGameState() {
+        self.isGameOver = gameWorld.isGameOver
     }
 
     // Only update values that changed
