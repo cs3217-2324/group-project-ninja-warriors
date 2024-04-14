@@ -13,12 +13,12 @@ struct ClientView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    @State private var mapBackground: String
+    @State private var mapBg: String
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBg: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.mapBackground = mapBackground
+        self.mapBg = mapBg
         self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId,
                                          ownEntities: ownEntities)
     }
@@ -41,7 +41,7 @@ struct ClientView: View {
     }
 
     private var backgroundImage: some View {
-        Image(mapBackground)
+        Image(mapBg)
             .resizable()
             .edgesIgnoringSafeArea(.all)
             .statusBar(hidden: true)
@@ -89,6 +89,6 @@ struct ClientView: View {
 struct ClientView_Previews: PreviewProvider {
     static var previews: some View {
         ClientView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
-                   ownEntities: [], mapBackground: "blue-wall")
+                   ownEntities: [], mapBg: "blue-wall")
     }
 }

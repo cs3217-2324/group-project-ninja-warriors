@@ -8,7 +8,7 @@
 import Foundation
 
 class GemMap: Map {
-    internal let mapBackground = "gray-wall"
+    internal let mapBg = "gray-wall"
     internal var mapEntities: [Entity] = []
 
     func getPositions() -> [Point] {
@@ -21,11 +21,11 @@ class GemMap: Map {
         let gapAngle: Double = 2 * .pi / Double(gemCount)
         var positions: [Point] = []
 
-        for i in 0..<gemCount {
-            let angle = Double(i) * gapAngle
-            let x = center.xCoord + radius * cos(angle)
-            let y = center.yCoord + radius * sin(angle)
-            positions.append(Point(xCoord: x, yCoord: y))
+        for index in 0..<gemCount {
+            let angle = Double(index) * gapAngle
+            let newX = center.xCoord + radius * cos(angle)
+            let newY = center.yCoord + radius * sin(angle)
+            positions.append(Point(xCoord: newX, yCoord: newY))
         }
         return positions
     }

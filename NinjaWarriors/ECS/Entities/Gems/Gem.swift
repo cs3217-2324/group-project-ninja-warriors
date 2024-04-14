@@ -37,9 +37,8 @@ class Gem: Equatable, Entity {
                                   inertia: .zero, position: shape.center, velocity: Vector.zero,
                                   attachedCollider: collider)
 
-        let spriteComponent = Sprite(id: RandomNonce().randomNonceString(),
-                                     entity: self, image: image, width: width,
-                                     height: height, health: 10, maxHealth: 100)
+        let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: self,
+                                     image: image, width: width, height: height)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: self,
                             entityInflictDamageMap: [:], health: 10, maxHealth: 10)

@@ -16,7 +16,8 @@ class CircleShape: Shape {
         super.init(center: center, halfLength: radius)
         // Optionally, calculate edges and vertices if needed for collision detection or other purposes.
         self.orientation = 0 // Default orientation as circle's orientation is irrelevant
-        // For simulation or rendering where edges/vertices might be needed, consider approximating the circle with a polygon.
+        // For simulation or rendering where edges/vertices might be needed,
+        // consider approximating the circle with a polygon.
     }
 
     func area() -> Double {

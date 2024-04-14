@@ -35,11 +35,11 @@ class CollisionRules: Rules {
             return true
         }
 
-        if let _ = object.entity as? Player, let _ = otherObject.entity as? Gem {
+        if object.entity as? Player != nil, otherObject.entity as? Gem != nil {
             return true
         }
 
-        if let _ = object.entity as? Gem, let _ = otherObject.entity as? Player {
+        if object.entity as? Gem != nil, otherObject.entity as? Player != nil {
             return true
         }
 
@@ -103,7 +103,8 @@ class CollisionRules: Rules {
         var currentVelocity = rigidBody.collidingVelocity ?? rigidBody.velocity
 
         // Update position
-        let deltaPosition = currentVelocity.scale(deltaTime).add(vector: rigidBody.acceleration.scale(0.5 * pow(deltaTime, 2)))
+        let deltaPosition = currentVelocity.scale(deltaTime)
+            .add(vector: rigidBody.acceleration.scale(0.5 * pow(deltaTime, 2)))
         rigidBody.movePosition(by: deltaPosition)
 
         // Update velocity

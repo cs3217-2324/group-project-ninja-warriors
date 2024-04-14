@@ -137,7 +137,8 @@ extension HostViewModel {
 
 extension HostViewModel {
     private var closingZoneShape: Shape? {
-        let environmentalEffectComponents = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
+        let environmentalEffectComponents = gameWorld.entityComponentManager
+            .getAllComponents(ofType: EnvironmentEffect.self)
         return environmentalEffectComponents.first?.environmentShape
     }
 

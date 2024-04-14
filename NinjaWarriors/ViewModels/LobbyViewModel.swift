@@ -133,8 +133,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
                                       entity: player, skills: getCharacterSkills())
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
-                                     image: character + "-top", width: 100.0, height: 100.0, health: 100,
-                                     maxHealth: 100)
+                                     image: character + "-top", width: 100.0, height: 100.0)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: player,
                             entityInflictDamageMap: [:], health: 100, maxHealth: 100)
@@ -142,7 +141,8 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
         let score = Score(id: RandomNonce().randomNonceString(), entity: player,
                           score: 0, entityGainScoreMap: [:])
 
-        let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: player, isEnabled: false, invulnerabilityDuration: 2.0)
+        let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: player,
+                          isEnabled: false, invulnerabilityDuration: 2.0)
 
         let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge]
         guard let realTimeManager = realTimeManager else {

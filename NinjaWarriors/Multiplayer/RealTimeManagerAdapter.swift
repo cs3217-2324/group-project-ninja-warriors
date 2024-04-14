@@ -88,7 +88,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
     private func getEntity(from dict: Any, with wrapper: Codable.Type) -> Entity? {
         do {
             let entityData = try JSONSerialization.data(withJSONObject: dict, options: [])
-            guard let entityWrapper: EntityWrapper = try JSONDecoder().decode(wrapper, from: entityData) as? EntityWrapper else {
+            guard let entityWrapper: EntityWrapper = try JSONDecoder()
+                .decode(wrapper, from: entityData) as? EntityWrapper else {
                 return nil
             }
             guard let entity = entityWrapper.toEntity() else {
@@ -153,7 +154,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
     private func getComponent(from dict: Any, with wrapper: Codable.Type, ref: Entity) -> Component? {
         do {
             let componentData = try JSONSerialization.data(withJSONObject: dict, options: [])
-            guard let componentWrapper: ComponentWrapper = try JSONDecoder().decode(wrapper, from: componentData) as? ComponentWrapper else {
+            guard let componentWrapper: ComponentWrapper = try JSONDecoder()
+                .decode(wrapper, from: componentData) as? ComponentWrapper else {
                 print("Error: Failed to decode component wrapper")
                 return nil
             }
@@ -298,6 +300,15 @@ final class RealTimeManagerAdapter: EntitiesManager {
             }
 
             componentDict[key] = dataDict
+
+            for component in components {
+                if let _ = component as? Health {
+                    print("component still has health")
+                }
+            }
+
+            //print("component dict: ", componentDict)
+
         }
         return componentDict
     }
@@ -312,10 +323,16 @@ final class RealTimeManagerAdapter: EntitiesManager {
             // guard let self = self else { return print("return")}
 
             if snapshot.exists() {
+                if let _ = components?.first as? Health {
+                    print("updating")
+                }
                 self.updateExistingEntity(snapshot, entityRef, entity, components)
 
             } else {
                 if let components = components {
+                    if let _ = components.first as? Health {
+                        print("creating")
+                    }
                     self.createEntity(snapshot, entityRef, entity, components)
                 } else {
                     self.createEntity(snapshot, entityRef, entity)
@@ -325,7 +342,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
     }
 
     private func updateExistingEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference,
-                              _ entity: Entity, _ components: [Component]?) {
+                                      _ entity: Entity, _ components: [Component]?) {
         guard var entityDict = snapshot.value as? [String: Any] else {
             print("Data at \(entityRef) is not in the expected format")
             return
@@ -344,14 +361,22 @@ final class RealTimeManagerAdapter: EntitiesManager {
         entityRef.setValue(entityDict)
     }
 
-    private func updateExistingComponents(_ entityDict: inout [String: Any], _ components: [Component]) {
+    private func updateExistingComponents(_ entityDict: inout [String: Any],
+                                          _ components: [Component]) {
         guard var existingComponentDict = entityDict[componentKey] as? [String: Any] else { return }
+
+        for test in components {
+            if let _ = test as? Health {
+                print("update health")
+            }
+        }
 
         let newComponentDict = formComponentDict(from: components)
         // existingComponentDict.merge(newComponentDict) { (_, new) in new }
 
         existingComponentDict.merge(newComponentDict) { (existingValue, newValue) in
-            return mergeRules(existingDict: existingValue as? [String: Any], newDict: newValue as? [String: Any])
+            return mergeRules(existingDict: existingValue as? [String: Any],
+                              newDict: newValue as? [String: Any])
         }
         entityDict[componentKey] = existingComponentDict
     }
@@ -364,15 +389,16 @@ final class RealTimeManagerAdapter: EntitiesManager {
         // Check if both dictionaries contain the "health" key
         if let existingHealth = existingDict["health"] as? Int,
            let newHealth = newDict["health"] as? Int {
+            print("new health", newHealth)
             // Compare health values
-
-            // print("new health", newHealth, "old health", existingHealth)
             if newHealth < existingHealth {
+                print("attack", newHealth)
                 return existingDict.merging(newDict) { _, new in new }
             } else if newHealth > existingHealth {
-                print("invalid data!!!")
+                print("invalid data new health", newHealth, "existing health", existingHealth)
                 return existingDict
             } else {
+                print("equal, but not suppose to be")
                 return existingDict
             }
         } else {
@@ -382,11 +408,17 @@ final class RealTimeManagerAdapter: EntitiesManager {
     }
 
     private func appendNewComponents(_ entityDict: inout [String: Any], _ components: [Component]) {
+        for test in components {
+            if let _ = test as? Health {
+                print("append health")
+            }
+        }
         let newComponentDict = formComponentDict(from: components)
         entityDict[componentKey] = newComponentDict
     }
 
-    private func createEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference, _ entity: Entity, _ components: [Component]? = nil) {
+    private func createEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference,
+                              _ entity: Entity, _ components: [Component]? = nil) {
         var newEntityDict: [String: Any] = [:]
 
         if let entityDict = try? formEntityDict(from: entity) {
@@ -400,7 +432,9 @@ final class RealTimeManagerAdapter: EntitiesManager {
 
         entityRef.setValue(newEntityDict)
     }
+}
 
+extension RealTimeManagerAdapter {
     // MARK: Delete
     func delete(entity: Entity) {
         let entityName = NSStringFromClass(type(of: entity))
@@ -465,7 +499,9 @@ final class RealTimeManagerAdapter: EntitiesManager {
             }
         }
     }
+}
 
+extension RealTimeManagerAdapter {
     // MARK: Listeners
     func addEntitiesListener(completion: @escaping (DataSnapshot) -> Void) {
         removeEntitiesListener()

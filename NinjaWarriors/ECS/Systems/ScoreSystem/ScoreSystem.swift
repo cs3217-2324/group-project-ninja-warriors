@@ -28,10 +28,9 @@ class ScoreSystem: System {
         let scoreComponents = manager.getAllComponents(ofType: Score.self)
 
         for healthComponent in healthComponents {
-            for scoreComponent in scoreComponents {
-                if healthComponent.entity.id == scoreComponent.entity.id {
-                    healthScoreMap[healthComponent] = scoreComponent
-                }
+            for scoreComponent in scoreComponents where
+            healthComponent.entity.id == scoreComponent.entity.id {
+                healthScoreMap[healthComponent] = scoreComponent
             }
         }
         return healthScoreMap

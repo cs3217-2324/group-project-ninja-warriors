@@ -13,12 +13,12 @@ struct HostSingleView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    @State private var mapBackground: String
+    @State private var mapBg: String
 
-    init(matchId: String, currPlayerId: String, mapBackground: String) {
+    init(matchId: String, currPlayerId: String, mapBg: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.mapBackground = mapBackground
+        self.mapBg = mapBg
         self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId)
     }
 
@@ -40,7 +40,7 @@ struct HostSingleView: View {
     }
 
     private var backgroundImage: some View {
-        Image(mapBackground)
+        Image(mapBg)
             .resizable()
             .edgesIgnoringSafeArea(.all)
             .statusBar(hidden: true)
@@ -49,7 +49,8 @@ struct HostSingleView: View {
     private var canvasView: some View {
         GeometryReader { geometry in
             ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { _, entity in
-                EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity), currPlayerId: viewModel.currPlayerId))
+                EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity),
+                                                      currPlayerId: viewModel.currPlayerId))
             }
             if let currPlayer = viewModel.getCurrPlayer() {
                 JoystickView(
@@ -85,6 +86,7 @@ struct HostSingleView: View {
 
 struct HostSingleView_Previews: PreviewProvider {
     static var previews: some View {
-        HostSingleView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2", mapBackground: "blue-wall")
+        HostSingleView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
+                       mapBg: "blue-wall")
     }
 }

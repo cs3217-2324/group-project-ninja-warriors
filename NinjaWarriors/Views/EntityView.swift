@@ -34,7 +34,9 @@ struct EntityView: View {
                 }
                 .opacity(dodge.isEnabled ? 0.8 : 0)
                 .scaleEffect(dodge.isEnabled ? 1.0 : 0, anchor: .center)
-                .animation(dodge.isEnabled ? .spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0) : .easeInOut(duration: 0.1), value: dodge.isEnabled)
+                .animation(dodge.isEnabled ?
+                    .spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0) :
+                        .easeInOut(duration: 0.1), value: dodge.isEnabled)
             }
         }
         .frame(width: Constants.DodgeImage.width, height: Constants.DodgeImage.height)
@@ -95,10 +97,12 @@ struct EntityView: View {
                 .fill(Color.red)
                 .frame(width: healthBarWidth, height: Constants.HealthBar.height)
                 .position(x: viewModel.position.x, y: viewModel.position.y - healthBarOffsetY)
+
             Rectangle()
                 .fill(healthColor)
                 .frame(width: healthBarFillWidth, height: Constants.HealthBar.height)
-                .position(x: viewModel.position.x - healthBarWidth / 2 + healthBarFillWidth / 2, y: viewModel.position.y - healthBarOffsetY)
+                .position(x: viewModel.position.x - healthBarWidth / 2 + healthBarFillWidth / 2,
+                          y: viewModel.position.y - healthBarOffsetY)
         }
     }
 }
@@ -113,7 +117,7 @@ struct EntityView_Previews: PreviewProvider {
         let slashaoe = SlashAOE(id: RandomNonce().randomNonceString(), casterEntity: player)
         let sprite = Sprite(id: RandomNonce().randomNonceString(),
                             entity: slashaoe,
-                            image: "slash-effect", width: 100, height: 100, health: 10, maxHealth: 100)
+                            image: "slash-effect", width: 100, height: 100)
         let rigidbody = Rigidbody(id: RandomNonce().randomNonceString(), entity: slashaoe,
                                   angularDrag: 0, angularVelocity: Vector.zero, mass: 8,
                                   rotation: 0, totalForce: Vector.zero, inertia: 0,

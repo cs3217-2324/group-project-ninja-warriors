@@ -13,12 +13,12 @@ struct HostView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    @State private var mapBackground: String
+    @State private var mapBg: String
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBg: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.mapBackground = mapBackground
+        self.mapBg = mapBg
         self.viewModel = HostViewModel(matchId: matchId, currPlayerId: currPlayerId, ownEntities: ownEntities)
     }
 
@@ -40,7 +40,7 @@ struct HostView: View {
     }
 
     private var backgroundImage: some View {
-        Image(mapBackground)
+        Image(mapBg)
             .resizable()
             .edgesIgnoringSafeArea(.all)
             .statusBar(hidden: true)
@@ -49,7 +49,8 @@ struct HostView: View {
     private var canvasView: some View {
         GeometryReader { geometry in
             ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { _, entity in
-                    EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity), currPlayerId: viewModel.currPlayerId))
+                    EntityView(viewModel: EntityViewModel(components: viewModel
+                        .getComponents(for: entity), currPlayerId: viewModel.currPlayerId))
             }
             if let currPlayer = viewModel.getCurrPlayer() {
                 JoystickView(
@@ -87,6 +88,6 @@ struct HostView: View {
 struct HostView_Previews: PreviewProvider {
     static var previews: some View {
         HostView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
-                 ownEntities: [], mapBackground: "blue-wall")
+                 ownEntities: [], mapBg: "blue-wall")
     }
 }

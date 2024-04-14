@@ -8,7 +8,7 @@
 import Foundation
 
 class ClosingZoneMap: Map {
-    internal let mapBackground = "brown-wall"
+    internal let mapBg = "brown-wall"
     internal var mapEntities: [Entity] = []
 
     func getPositions() -> [Point] {

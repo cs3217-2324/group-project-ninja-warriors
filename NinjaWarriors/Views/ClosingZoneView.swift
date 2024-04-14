@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-/// should display a transparent blue overlay over the entire screen except for a circle with center and point which has no overlay
+/// Should display a transparent blue overlay over the entire screen
+/// except for a circle with center and point which has no overlay
 struct ClosingZoneView: View {
     var circleCenter: CGPoint
     var circleRadius: CGFloat

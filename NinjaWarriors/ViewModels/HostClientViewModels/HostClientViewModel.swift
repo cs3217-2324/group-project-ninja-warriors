@@ -7,5 +7,4 @@
 
 import Foundation
 
-// TODO: Find out if possible for observable view model to obey inheritence
 class HostClientViewModel: ObservableObject { }

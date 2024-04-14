@@ -10,6 +10,7 @@ import Foundation
 class EventQueue {
     private var queue: DispatchQueue
     var deletedEntities: Set<EntityID> = []
+    var components: Set<Component> = []
 
     init(label: String) {
         self.queue = DispatchQueue(label: label)
@@ -38,6 +39,26 @@ class EventQueue {
     func process(_ entityId: String) {
         deletedEntities.insert(entityId)
     }
+
+    func hasComponents() -> Bool {
+        !components.isEmpty
+    }
+
+    func containsComponent(_ component: Component) -> Bool {
+        components.contains(component)
+    }
+
+    func addComponent(_ component: Component) {
+        components.insert(component)
+    }
+
+    func processComponent() -> Component? {
+        guard !components.isEmpty else {
+            return nil
+        }
+        return components.removeFirst()
+    }
+
 
     func suspend() {
         queue.suspend()

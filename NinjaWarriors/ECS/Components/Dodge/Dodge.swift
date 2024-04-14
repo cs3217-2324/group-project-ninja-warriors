@@ -13,7 +13,8 @@ class Dodge: Component {
     var invulnerabilityDuration: TimeInterval
     var elapsedTimeSinceEnabled: CGFloat
 
-    init(id: ComponentID, entity: Entity, isEnabled: Bool, invulnerabilityDuration: TimeInterval, elapsedTimeSinceEnabled: CGFloat = 0) {
+    init(id: ComponentID, entity: Entity, isEnabled: Bool,
+         invulnerabilityDuration: TimeInterval, elapsedTimeSinceEnabled: CGFloat = 0) {
         self.isEnabled = isEnabled
         self.invulnerabilityDuration = invulnerabilityDuration
         self.elapsedTimeSinceEnabled = elapsedTimeSinceEnabled
