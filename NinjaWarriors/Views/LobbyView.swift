@@ -22,72 +22,69 @@ struct LobbyView: View {
     }
 
     var body: some View {
-        NavigationView {
-            VStack(spacing: 10) {
-                userLoginInfo
-                if let playerCount = viewModel.getPlayerCount() {
+        VStack(spacing: 10) {
+            userLoginInfo
+            if let playerCount = viewModel.getPlayerCount() {
 
-                    customText("Players in queue: \(playerCount) / \(Constants.playerCount)")
+                customText("Players in queue: \(playerCount) / \(Constants.playerCount)")
 
-                    if playerCount == Constants.playerCount {
+                if playerCount == Constants.playerCount {
 
-                        startRender
+                    startRender
 
-                        if let matchId = viewModel.matchId, viewModel.playerIds != nil {
+                    if let matchId = viewModel.matchId, viewModel.playerIds != nil {
 
-                            customText("Match id: \(matchId)")
+                        customText("Match id: \(matchId)")
 
-                            if viewModel.getUserId() == viewModel.hostId {
-                                NavigationLink(
-                                    destination: HostView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground, gameMode: viewModel.map.gameMode).navigationBarBackButtonHidden(true)
-                                ) {
-                                    startGameText
-                                }
-                            } else {
-                                NavigationLink(
-                                    destination: ClientView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground, gameMode: viewModel.map.gameMode).navigationBarBackButtonHidden(true)
-                                ) {
-                                    startGameText
-                                }
+                        if viewModel.getUserId() == viewModel.hostId {
+                            NavigationLink(
+                                destination: HostView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground, gameMode: viewModel.map.gameMode).navigationBarBackButtonHidden(true)
+                            ) {
+                                startGameText
+                            }
+                        } else {
+                            NavigationLink(
+                                destination: ClientView(matchId: matchId, currPlayerId: viewModel.getUserId(), ownEntities: viewModel.ownEntities, mapBackground: viewModel.map.mapBackground, gameMode: viewModel.map.gameMode).navigationBarBackButtonHidden(true)
+                            ) {
+                                startGameText
                             }
                         }
                     }
                 }
-                readyButton
-
-                NavigationLink(destination: MapSelectionView(viewModel: viewModel)) {
-                    Text("Select Map")
-                        .font(.system(size: 30))
-                        .padding()
-                        .background(Color.purple)
-                        .foregroundColor(.white)
-                        .fontWeight(.bold)
-                        .cornerRadius(10)
-                }
-                .opacity(isReady ? 0.5 : 1.0)
-                .disabled(isReady)
-
-                NavigationLink(destination: CharacterSelectionView(viewModel: viewModel)) {
-                    Text("Select Character")
-                        .font(.system(size: 30))
-                        .padding()
-                        .background(Color.purple)
-                        .foregroundColor(.white)
-                        .fontWeight(.bold)
-                        .cornerRadius(10)
-                }
-                .opacity(isReady ? 0.5 : 1.0)
-                .disabled(isReady)
             }
-            .background(
-                Image("lobby-bg")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .edgesIgnoringSafeArea(.all)
-                    .frame(width: Constants.screenWidth, height: Constants.screenHeight)
-            )
-        }.navigationViewStyle(.stack)
-        .navigationBarBackButtonHidden(true)
+            readyButton
+
+            NavigationLink(destination: MapSelectionView(viewModel: viewModel)) {
+                Text("Select Map")
+                    .font(.system(size: 30))
+                    .padding()
+                    .background(Color.purple)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .cornerRadius(10)
+            }
+            .opacity(isReady ? 0.5 : 1.0)
+            .disabled(isReady)
+
+            NavigationLink(destination: CharacterSelectionView(viewModel: viewModel)) {
+                Text("Select Character")
+                    .font(.system(size: 30))
+                    .padding()
+                    .background(Color.purple)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .cornerRadius(10)
+            }
+            .opacity(isReady ? 0.5 : 1.0)
+            .disabled(isReady)
+        }
+        .background(
+            Image("lobby-bg")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
+                .frame(width: Constants.screenWidth, height: Constants.screenHeight)
+        )
     }
 
     private var userLoginInfo: some View {

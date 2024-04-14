@@ -27,7 +27,9 @@ struct HostSingleView: View {
             backgroundImage
             closingZoneView
             canvasView
-
+            if viewModel.isGameOver {
+                gameOverView
+            }
             ProgressView()
                 .onAppear {
                     viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {
@@ -81,6 +83,24 @@ struct HostSingleView: View {
 
     private var closingZoneView: some View {
         ClosingZoneView(circleCenter: viewModel.closingZoneCenter, circleRadius: viewModel.closingZoneRadius)
+    }
+
+    private var gameOverView: some View {
+        VStack {
+            Spacer()
+            Text("Game Over")
+                .font(.largeTitle)
+                .padding()
+            Button("Exit to Menu") {
+                // Logic to exit to the main menu
+            }
+            .padding()
+            Spacer()
+        }
+        .background(Color.black.opacity(0.8))
+        .foregroundColor(.white)
+        .edgesIgnoringSafeArea(.all)
+        .transition(.opacity)
     }
 }
 

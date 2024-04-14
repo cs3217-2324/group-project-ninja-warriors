@@ -67,9 +67,11 @@ class GameWorld {
         systemManager.update(after: deltaTime)
 
         if gameMode.isGameOver(for: self) {
-            gameLoopManager.stop()
-            print(isGameOver)
-            self.isGameOver = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                self.gameLoopManager.stop()
+                self.isGameOver = true
+                self.updateViewModel()
+            }
         }
     }
 }
