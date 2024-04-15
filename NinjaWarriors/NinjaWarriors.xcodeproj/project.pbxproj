@@ -16,6 +16,10 @@
 		710EB57E2BC693B1004539D6 /* MetricType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710EB57D2BC693B1004539D6 /* MetricType.swift */; };
 		7113A4942BA60E2E00805340 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7113A4932BA60E2E00805340 /* Entity.swift */; };
 		7113A4962BA60E8400805340 /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7113A4952BA60E8400805340 /* Component.swift */; };
+		7132C9042BCD7D850088932F /* AttacksDodgedMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C9032BCD7D850088932F /* AttacksDodgedMetric.swift */; };
+		7132C9062BCD7E0A0088932F /* SlashesCountMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C9052BCD7E0A0088932F /* SlashesCountMetric.swift */; };
+		7132C90A2BCD7E380088932F /* LoginCountMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C9092BCD7E380088932F /* LoginCountMetric.swift */; };
+		7132C90C2BCD7E5D0088932F /* DashesCountMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C90B2BCD7E5D0088932F /* DashesCountMetric.swift */; };
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
@@ -263,6 +267,10 @@
 		710EB57D2BC693B1004539D6 /* MetricType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricType.swift; sourceTree = "<group>"; };
 		7113A4932BA60E2E00805340 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		7113A4952BA60E8400805340 /* Component.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
+		7132C9032BCD7D850088932F /* AttacksDodgedMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttacksDodgedMetric.swift; sourceTree = "<group>"; };
+		7132C9052BCD7E0A0088932F /* SlashesCountMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashesCountMetric.swift; sourceTree = "<group>"; };
+		7132C9092BCD7E380088932F /* LoginCountMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCountMetric.swift; sourceTree = "<group>"; };
+		7132C90B2BCD7E5D0088932F /* DashesCountMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashesCountMetric.swift; sourceTree = "<group>"; };
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
@@ -494,10 +502,14 @@
 			isa = PBXGroup;
 			children = (
 				710EB5732BC68F82004539D6 /* DamageDealtMetric.swift */,
+				7132C9052BCD7E0A0088932F /* SlashesCountMetric.swift */,
+				7132C9032BCD7D850088932F /* AttacksDodgedMetric.swift */,
 				71B716662BCBAAC100B18E48 /* DistanceDashedMetric.swift */,
 				71B716642BCBA9EA00B18E48 /* DamageTakenMetric.swift */,
 				710EB57B2BC6925C004539D6 /* KillCountMetric.swift */,
+				7132C90B2BCD7E5D0088932F /* DashesCountMetric.swift */,
 				710EB5752BC6904C004539D6 /* GamesPlayedMetric.swift */,
+				7132C9092BCD7E380088932F /* LoginCountMetric.swift */,
 			);
 			path = Metrics;
 			sourceTree = "<group>";
@@ -1427,6 +1439,7 @@
 			files = (
 				9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */,
 				9169910E2BC5977C00ED1FBD /* HostSingleView.swift in Sources */,
+				7132C9042BCD7D850088932F /* AttacksDodgedMetric.swift in Sources */,
 				915BFD142BC1200600AB5815 /* ClientViewModel.swift in Sources */,
 				916A7D6A2BA154F000319C26 /* CollisionManager.swift in Sources */,
 				9169910C2BC596F100ED1FBD /* HostSingleViewModel.swift in Sources */,
@@ -1495,6 +1508,7 @@
 				710EB5742BC68F82004539D6 /* DamageDealtMetric.swift in Sources */,
 				E6FD345F2BC1545600477B1F /* LifespanSystem.swift in Sources */,
 				915301C42BAE9337007F2A12 /* JoystickControl.swift in Sources */,
+				7132C90A2BCD7E380088932F /* LoginCountMetric.swift in Sources */,
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
 				916A7DA52BA3F89500319C26 /* ShapeWrapper.swift in Sources */,
 				E6D6BD0A2BC1C1B3004BFD59 /* EntityView.swift in Sources */,
@@ -1504,6 +1518,7 @@
 				9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
 				9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */,
+				7132C9062BCD7E0A0088932F /* SlashesCountMetric.swift in Sources */,
 				710EB57E2BC693B1004539D6 /* MetricType.swift in Sources */,
 				910CF65F2BC4AE2200C04CF2 /* AudioManager.swift in Sources */,
 				E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */,
@@ -1532,6 +1547,7 @@
 				9180486F2BC7A86400026965 /* GemMap.swift in Sources */,
 				91C65BE32BACF1920085D96F /* DashSkill.swift in Sources */,
 				916A7D462BA1541800319C26 /* NinjaWarriors.xcdatamodeld in Sources */,
+				7132C90C2BCD7E5D0088932F /* DashesCountMetric.swift in Sources */,
 				916A7D9F2BA3F43B00319C26 /* Query+EXT.swift in Sources */,
 				916A7D932BA1AA6600319C26 /* Authentication.swift in Sources */,
 				9132AF742BA597FD000F2AC4 /* MatchWrapper.swift in Sources */,

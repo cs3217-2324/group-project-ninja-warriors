@@ -42,6 +42,7 @@ class MetricsRepository {
         return typedMetric
     }
 
+    /// Updates the given metric for the user for the given game. If the metric isn't already being recorded, it is added
     func updateMetrics<T: Metric>(_ metricType: T.Type, userID: UserID, inGame gameID: GameID?, withValue value: Double) {
         guard var metricsAndObserversMap = self.userMetrics[userID] else {
             self.createMetricsMap(for: userID)
