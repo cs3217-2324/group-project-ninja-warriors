@@ -52,7 +52,6 @@ class CollisionRules: Rules {
             }
 
             performActionOnCollidee(ofType: Gem.self)
-            // performAction(colliderType: Hadouken.self, collideeType: Player.self)
 
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input
@@ -71,20 +70,6 @@ class CollisionRules: Rules {
         }
 
         if let health = manager.getComponent(ofType: Health.self, for: collidingEntity) {
-            health.kill()
-        }
-    }
-
-    private func performAction<T: Entity, V: Entity>(colliderType: T.Type, collideeType: V.Type) {
-        guard let manager = manager, let collideeEntityID = object.attachedCollider?.collidedEntities.first,
-              let collideeEntity = manager.entity(with: collideeEntityID) as? V,
-              let colliderEntity = object.entity as? T else {
-            return
-        }
-
-        if let hadokuenEntity = colliderEntity as? Hadouken,
-           collideeEntity.id != hadokuenEntity.casterEntity.id,
-           let health = manager.getComponent(ofType: Health.self, for: collideeEntity) {
             health.kill()
         }
     }
@@ -119,6 +104,7 @@ class CollisionRules: Rules {
         rigidBody.totalForce = Vector.zero
     }
 
+    // TODO: Do not allow hadouken to pick up gem
     func canPassThrough(_ colliderEntity: CustomComparator, _ collideeEntity: CustomComparator) -> Bool {
         if (colliderEntity is Player && collideeEntity is Gem) ||
            (colliderEntity is Gem && collideeEntity is Player) ||
