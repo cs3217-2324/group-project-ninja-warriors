@@ -1005,8 +1005,8 @@
 				E6ECF6372BADE99700DDDE9C /* SlashAOESkill.swift */,
 				E6A0564C2BB0687500398D67 /* DodgeSkill.swift */,
 				E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */,
-				E6E5B47E2BBEEA0C0089D14D /* SkillWrapper.swift */,
 				E62FA3352BCC4B05000D551A /* HadoukenSkill.swift */,
+				E6E5B47E2BBEEA0C0089D14D /* SkillWrapper.swift */,
 			);
 			path = Skills;
 			sourceTree = "<group>";

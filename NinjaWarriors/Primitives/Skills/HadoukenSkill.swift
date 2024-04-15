@@ -9,7 +9,7 @@ import Foundation
 class HadoukenSkill: EntitySpawnerSkill {
     var id: SkillID
     var cooldownDuration: TimeInterval
-    var projectileSpeed: Double = 300
+    var projectileSpeed: Double = 650
 
     required init(id: SkillID) {
         self.id = id
@@ -40,8 +40,8 @@ class HadoukenSkill: EntitySpawnerSkill {
             return hadouken
         }
 
-        let direction = Vector(horizontal: cos(playerRigidbody.rotation), vertical: sin(playerRigidbody.rotation))
-        let initialPosition = playerRigidbody.position.add(vector: direction.scale(Constants.defaultSize * 1.5))
+        let direction = Vector(horizontal: sin(playerRigidbody.rotation), vertical: cos(playerRigidbody.rotation))
+        let initialPosition = playerRigidbody.position.add(vector: direction.scale(Constants.defaultSize * 2.5))
 
         let shape: Shape = CircleShape(center: playerRigidbody.position, radius: Constants.defaultSize)
 
@@ -53,7 +53,7 @@ class HadoukenSkill: EntitySpawnerSkill {
             id: RandomNonce().randomNonceString(),
             entity: hadouken,
             angularDrag: 0.0,
-            angularVelocity: Vector.zero,
+            angularVelocity: direction.scale(projectileSpeed),
             mass: 1.0,
             rotation: playerRigidbody.rotation,
             totalForce: Vector.zero,
@@ -65,8 +65,8 @@ class HadoukenSkill: EntitySpawnerSkill {
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(),
                                      entity: hadouken, image: "hadouken-effect",
-                                     width: Constants.slashRadius * 3,
-                                     height: Constants.slashRadius * 1)
+                                     width: Constants.slashRadius,
+                                     height: Constants.slashRadius)
 
         let meleeAttackStrategy = MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius)
         let damageEffect = DamageEffect(id: RandomNonce().randomNonceString(), entity: hadouken, sourceId: casterEntity.id, initialDamage: 100, damagePerTick: 0, duration: 0)  // Instantaneous damage

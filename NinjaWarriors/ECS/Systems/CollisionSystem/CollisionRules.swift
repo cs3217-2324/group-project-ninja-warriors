@@ -27,30 +27,29 @@ class CollisionRules: Rules {
         }
 
         if let collider = object.attachedCollider, collider.isOutOfBounds {
-            return false
+            return object.entity as? Hadouken == nil ? false : true
         }
 
-        guard let manager = manager, let collidingEntity = object.attachedCollider?.collidedEntities.first,
-              let otherObject = manager.getComponentFromId(ofType: Rigidbody.self, of: collidingEntity) else {
+        guard let manager = manager, let collideeEntityID = object.attachedCollider?.collidedEntities.first,
+              let collideeEntity = manager.entity(with: collideeEntityID) else {
             return true
         }
 
-        if object.entity as? Player != nil, otherObject.entity as? Gem != nil {
+        if object.entity as? Player != nil, collideeEntity as? Gem != nil {
             return true
         }
 
-        if object.entity as? Gem != nil, otherObject.entity as? Player != nil {
+        if object.entity as? Gem != nil, collideeEntity as? Player != nil {
             return true
         }
 
-        if object.entity as? Hadouken != nil, otherObject.entity as? Player != nil {
+        if object.entity as? Hadouken != nil, collideeEntity as? Player != nil {
             return true
         }
 
-        if object.entity as? Player != nil, otherObject.entity as? Hadouken != nil {
+        if object.entity as? Player != nil, collideeEntity as? Hadouken != nil {
             return true
         }
-
         return false
     }
 
@@ -69,9 +68,24 @@ class CollisionRules: Rules {
             }
 
             performActionOnCollidee(ofType: Gem.self)
-            performActionOnCollider(ofType: Hadouken.self)
+            performAction(colliderType: Hadouken.self, collideeType: Player.self)
+            performAction(colliderType: Player.self, collideeType: Hadouken.self)
 
+        /*
+        } else if object.entity as? Hadouken != nil,
+                  let collider = object.attachedCollider,
+                  collider.isOutOfBounds {
+            object.velocity = input
+            object.collidingVelocity = nil
+            object.attachedCollider?.isColliding = false
+        */
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
+            /*
+            if object.entity as? Hadouken != nil {
+                manager?.remove(entity: object.entity, isRemoved: false)
+            }
+            */
+
             object.collidingVelocity = input
             object.velocity = Vector.zero
         }
@@ -81,18 +95,27 @@ class CollisionRules: Rules {
     }
 
     private func performActionOnCollidee<T: Entity>(ofType entityType: T.Type) {
-        if let manager = manager,
-           let collidingEntityID = object.attachedCollider?.collidedEntities.first,
-           let collidingEntity = manager.entity(with: collidingEntityID) as? T,
-           let health = manager.getComponent(ofType: Health.self, for: collidingEntity) {
+        guard let manager = manager,
+              let collidingEntityID = object.attachedCollider?.collidedEntities.first,
+              let collidingEntity = manager.entity(with: collidingEntityID) as? T else {
+            return
+        }
+
+        if let health = manager.getComponent(ofType: Health.self, for: collidingEntity) {
             health.kill()
         }
     }
 
-    private func performActionOnCollider<T: Entity>(ofType entityType: T.Type) {
-        if let manager = manager,
-           let entity = object.entity as? T,
-           let health = manager.getComponent(ofType: Health.self, for: entity) {
+    private func performAction<T: Entity, V: Entity>(colliderType: T.Type, collideeType: V.Type) {
+        guard let manager = manager, let collideeEntityID = object.attachedCollider?.collidedEntities.first,
+              let collideeEntity = manager.entity(with: collideeEntityID),
+              let hadoukenEntity = object.entity as? Hadouken,
+              collideeEntity as? Player != nil,
+              collideeEntity.id != hadoukenEntity.casterEntity.id else {
+            return
+        }
+
+        if let health = manager.getComponent(ofType: Health.self, for: collideeEntity) {
             health.kill()
         }
     }

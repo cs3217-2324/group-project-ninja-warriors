@@ -65,8 +65,8 @@ struct Constants {
                                       "Venomstrike": ["Dash", "Slash", "Dodge", "Refresh"],
                                       "Darkwind": ["Dash", "Slash", "Dodge", "Refresh"]]
 
-    static var shadowstrikeSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                              DashSkill(id: "dash", cooldownDuration: 8.0),
+    static var shadowstrikeSkills: [Skill] = [HadoukenSkill(id: "hadouken", cooldownDuration: 0.0),
+                                              DashSkill(id: "dash", cooldownDuration: 0.0),
                                               DodgeSkill(id: "dodge", cooldownDuration: 8.0),
                                               RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
 
