@@ -18,8 +18,6 @@ class CombatSystem: System {
         var toRemove: [DamageEffect] = []
         let damageEffects = manager.getAllComponents(ofType: DamageEffect.self)
 
-        let testing = manager.entityComponentMap
-
         for damageEffect in damageEffects {
             if damageEffect.elapsedTime == 0 {  // Apply initial damage
                 applyDamage(damageEffect.initialDamage, to: damageEffect.entity)
