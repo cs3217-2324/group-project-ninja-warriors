@@ -21,24 +21,34 @@ struct HowToPlayView: View {
 
     var body: some View {
         VStack {
+            Text("Ninja Warriors Overview")
+                .padding(.bottom, 50)
+                .font(.system(size: 50, weight: .bold))
+                .foregroundColor(.gray)
             HStack {
                 // Top Left: Joystick
                 VStack {
-
                     Circle()
                         .stroke(Color.blue.opacity(0.3), lineWidth: 5)
-                        .frame(width: 150, height: 150)
+                        .frame(width: 200, height: 200)
                         .overlay(
                             Circle()
                                 .fill(Color.blue)
                                 .frame(width: joystickSize, height: joystickSize)
                                 .offset(x: joystickOffset, y: 0)
+
                                 .onAppear {
-                                    withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
-                                        joystickOffset = 50
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(200)) {
+                                        withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
+                                            joystickOffset = 50
+                                        }
                                     }
                                 }
                         )
+                    Spacer()
+                    Text("Joystick controls the player")
+                    .padding(.bottom, -10)
+                    .font(.system(size: 18, weight: .bold))
                 }
                 .frame(width: 250, height: 250) // Move the frame modifier here
                 .padding()
@@ -50,7 +60,7 @@ struct HowToPlayView: View {
                     ZStack {
                         Circle()
                             .fill(Color.blue.opacity(0.3))
-                            .frame(width: 250, height: 250)
+                            .frame(width: 220, height: 220)
 
                         Circle()
                             .trim(from: 0, to: 1)
@@ -58,11 +68,16 @@ struct HowToPlayView: View {
                             .frame(width: ringSize, height: ringSize)
                             .rotationEffect(.degrees(ringRotation))
                             .onAppear {
-                                withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: false)) {
-                                    ringSize = 20
+                                DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(200)) {
+                                    withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: false)) {
+                                        ringSize = 20
+                                    }
                                 }
                             }
                     }
+                    Text("New closing zone map")
+                    .padding(.top, 15)
+                    .font(.system(size: 18, weight: .bold))
                 }
                 .frame(width: 250, height: 250)
                 .padding()
@@ -79,8 +94,10 @@ struct HowToPlayView: View {
                             .brightness(isBlinking ? 0.4 : 0)
                             .opacity(isBlinking ? 1.0 : 1.0)
                             .onAppear {
-                                withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
-                                    isBlinking.toggle()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(200)) {
+                                    withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
+                                        isBlinking.toggle()
+                                    }
                                 }
                             }
 
@@ -89,11 +106,6 @@ struct HowToPlayView: View {
                             .frame(width: 100, height: 100)
                             .brightness(isBlinking ? 0.4 : 0)
                             .opacity(isBlinking ? 1.0 : 1.0)
-                            .onAppear {
-                                withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
-                                    isBlinking.toggle()
-                                }
-                            }
                     }
                     .padding()
 
@@ -103,25 +115,22 @@ struct HowToPlayView: View {
                             .frame(width: 100, height: 100)
                             .brightness(isBlinking ? 0.4 : 0)
                             .opacity(isBlinking ? 1.0 : 1.0)
-                            .onAppear {
-                                withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
-                                    isBlinking.toggle()
-                                }
-                            }
 
                         Image("gem-4")
                             .resizable()
                             .frame(width: 75, height: 75)
                             .brightness(isBlinking ? 0.4 : 0)
                             .opacity(isBlinking ? 1.0 : 1.0)
-                            .onAppear {
-                                withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
-                                    isBlinking.toggle()
-                                }
-                            }
                     }
                     .padding()
-                }.offset(x: -25)
+                    Text("Collect gems to earn points")
+                        .padding(.top, -25)
+                        .font(.system(size: 18, weight: .bold))
+                }
+                    .frame(width: 250, height: 250)
+                    .padding()
+                    .background(Color.gray)
+                    .cornerRadius(10)
 
                 VStack {
                     VStack {
@@ -129,24 +138,10 @@ struct HowToPlayView: View {
                             Image("skill-refresh")
                                 .resizable()
                                 .frame(width: 100, height: 100)
-                                .brightness(isBlinking ? 0.4 : 0)
-                                .opacity(isBlinking ? 1.0 : 1.0)
-                                .onAppear {
-                                    withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
-                                        isBlinking.toggle()
-                                    }
-                                }
 
                             Image("skill-hadouken")
                                 .resizable()
                                 .frame(width: 100, height: 100)
-                                .brightness(isBlinking ? 0.4 : 0)
-                                .opacity(isBlinking ? 1.0 : 1.0)
-                                .onAppear {
-                                    withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
-                                        isBlinking.toggle()
-                                    }
-                                }
                         }
                         .padding()
 
@@ -154,32 +149,25 @@ struct HowToPlayView: View {
                             Image("skill-dodge")
                                 .resizable()
                                 .frame(width: 100, height: 100)
-                                .brightness(isBlinking ? 0.4 : 0)
-                                .opacity(isBlinking ? 1.0 : 1.0)
-                                .onAppear {
-                                    withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
-                                        isBlinking.toggle()
-                                    }
-                                }
 
                             Image("skill-dash")
                                 .resizable()
-                                .frame(width: 75, height: 75)
-                                .brightness(isBlinking ? 0.4 : 0)
-                                .opacity(isBlinking ? 1.0 : 1.0)
-                                .onAppear {
-                                    withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
-                                        isBlinking.toggle()
-                                    }
-                                }
+                                .frame(width: 100, height: 100)
                         }
                         .padding()
-                    }.offset(x: 25)
-
+                        Text("Custom skills")
+                            .padding(.top, -20)
+                            .font(.system(size: 18, weight: .bold))
+                    }
                 }
+                .frame(width: 250, height: 250)
+                .padding()
+                .background(Color.gray)
+                .cornerRadius(10)
             }
             .padding()
         }
+        .offset(y: -50)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
             Image("bg")
