@@ -21,7 +21,7 @@ struct HowToPlayView: View {
 
     var body: some View {
         VStack {
-            Text("Ninja Warriors Overview")
+            Text("How To Play")
                 .padding(.bottom, 50)
                 .font(.system(size: 50, weight: .bold))
                 .foregroundColor(.gray)
