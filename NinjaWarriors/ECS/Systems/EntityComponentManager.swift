@@ -105,11 +105,19 @@ class EntityComponentManager {
     func addEntitiesFromNewMap(_ remoteEntityMap: [EntityID: Entity],
                                _ remoteEntityComponentMap: [EntityID: [Component]]) {
         DispatchQueue.main.async {
+            // var updatedEntityId: Set<EntityID> = []
             for (remoteEntityId, remoteEntity) in remoteEntityMap {
+                // updatedEntityId.insert(remoteEntityId)
                 if let newComponents = remoteEntityComponentMap[remoteEntityId] {
                     self.add(entity: remoteEntity, components: newComponents)
                 } else {
                     self.add(entity: remoteEntity)
+                }
+            }
+
+            for (currEntityId, currEntity) in self.entityMap {
+                if remoteEntityMap[currEntityId] == nil {
+                    self.remove(entity: currEntity)
                 }
             }
         }
@@ -117,7 +125,6 @@ class EntityComponentManager {
 
     func publish() async throws {
         for (entityId, entity) in entityMap {
-
             guard (entity as? ClosingZone) == nil, (entity as? Obstacle) == nil,
                   ownEntities.contains(entityId) else {
                 continue
@@ -147,15 +154,19 @@ class EntityComponentManager {
             return
         }
         while let nextComponent = componentsQueue.processComponent() {
+            try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
+
+            /*
             for _ in 0..<Constants.timeLag {
                 print("entity component upload", nextComponent.entity)
                 try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
             }
+            */
         }
     }
 
     func filterOwnComponents(_ componentsToFilter: Set<Component>) -> [Component] {
-        componentsToFilter.filter { !($0 is Health) }
+        componentsToFilter.filter { !($0 is Health || $0 is DamageEffect) }
     }
 
     func addOwnEntity(_ entity: Entity) {
@@ -335,7 +346,7 @@ class EntityComponentManager {
                 || existingComponentType == ComponentType(Health.self)
                 || existingComponentType == ComponentType(Collider.self)
                 || existingComponentType == ComponentType(Dodge.self)
-                || existingComponentType == ComponentType(DamageEffect.self)
+                /*|| existingComponentType == ComponentType(DamageEffect.self)*/
         else { return }
         existingComponent.updateAttributes(newComponent)
     }
@@ -418,10 +429,10 @@ class EntityComponentManager {
         }
     }
 
-    func remove<T: Component>(ofComponentType: T.Type, from entity: Entity) {
+    func remove<T: Component>(ofComponentType: T.Type, from entity: Entity, isRemoved: Bool = true) {
         let component = getComponent(ofType: T.self, for: entity)
         if let component = component {
-            remove(component: component, from: entity)
+            remove(component: component, from: entity, isRemoved: isRemoved)
         }
     }
 

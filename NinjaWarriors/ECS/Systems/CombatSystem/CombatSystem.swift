@@ -30,7 +30,9 @@ class CombatSystem: System {
             }
 
             damageEffect.elapsedTime += time
+            print("damage effect elapsed time", damageEffect.elapsedTime)
             if damageEffect.elapsedTime >= damageEffect.duration {
+                print("elapsed time exceeded")
                 toRemove.append(damageEffect)
             } else {
                 let damage = damageEffect.damagePerTick * time
@@ -40,7 +42,7 @@ class CombatSystem: System {
 
         // Remove expired DamageEffects
         for effect in toRemove {
-            manager.remove(ofComponentType: DamageEffect.self, from: effect.entity)
+            manager.remove(ofComponentType: DamageEffect.self, from: effect.entity, isRemoved: false)
         }
     }
 
@@ -54,6 +56,7 @@ class CombatSystem: System {
         if let health = manager.getComponent(ofType: Health.self, for: entity) {
             print("deduct health")
             health.health -= damage
+            manager.componentsQueue.addComponent(health)
         }
     }
 }

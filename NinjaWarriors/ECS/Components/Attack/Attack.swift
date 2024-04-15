@@ -25,8 +25,8 @@ class Attack: Component {
                 entity: target,
                 sourceId: self.entity.id,
                 initialDamage: 10,
-                damagePerTick: 10,
-                duration: 1.0
+                damagePerTick: 0,
+                duration: 0.0
 
                 // initialDamage: damageEffectTemplate.initialDamage,
                 // damagePerTick: damageEffectTemplate.damagePerTick,
