@@ -14,7 +14,7 @@ class MetricsRepository {
     private var userMetrics: UserMetricsMap
 
     init() {
-        //TODO probably initialize from some online thing
+        // TODO probably initialize from some online thing
         self.userMetrics = UserMetricsMap()
     }
 
@@ -43,15 +43,17 @@ class MetricsRepository {
     }
 
     func updateMetrics<T: Metric>(_ metricType: T.Type, userID: UserID, inGame gameID: GameID?, withValue value: Double) {
-        guard let metricsAndObserversMap = self.userMetrics[userID] else {
+        guard var metricsAndObserversMap = self.userMetrics[userID] else {
             self.createMetricsMap(for: userID)
             self.updateMetrics(metricType, userID: userID, inGame: gameID, withValue: value)
             return
         }
 
-        let metricType = MetricType(metricType)
+        let metricTypeKey = MetricType(metricType)
 
-        guard let (metric, observers) = metricsAndObserversMap[metricType] else {
+        guard let (metric, observers) = metricsAndObserversMap[metricTypeKey] else {
+            metricsAndObserversMap[metricTypeKey] = (metricType.init(userID: userID), [])
+            self.updateMetrics(metricType, userID: userID, inGame: gameID, withValue: value)
             return
         }
 

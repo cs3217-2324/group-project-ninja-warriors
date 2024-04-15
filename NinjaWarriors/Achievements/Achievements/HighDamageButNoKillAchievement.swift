@@ -19,7 +19,7 @@ class HighDamageButNoKillAchievement: Achievement {
 
     var count: Int = 0
 
-    var lastGameWhenAchieved: GameID? = nil
+    var lastGameWhenAchieved: GameID?
 
     var dependentMetrics: [Metric.Type] = [KillCountMetric.self, DamageDealtMetric.self]
 

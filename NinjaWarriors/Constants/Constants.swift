@@ -30,7 +30,7 @@ struct Constants {
     }
 
     // TODO: Reset to 4 after testing
-    static let playerCount = 2
+    static let playerCount = 1
 
     static let obstacleCount = 2
     static let gemCount = 4

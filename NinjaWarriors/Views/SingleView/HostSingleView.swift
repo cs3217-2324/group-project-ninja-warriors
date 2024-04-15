@@ -19,7 +19,8 @@ struct HostSingleView: View {
         self.matchId = matchId
         self.playerId = currPlayerId
         self.mapBg = mapBg
-        self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId)
+        let metricsRepository = MetricsRepository()
+        self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId, metricsRepository: metricsRepository)
     }
 
     var body: some View {
