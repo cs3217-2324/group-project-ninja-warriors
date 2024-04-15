@@ -21,18 +21,13 @@ class CombatSystem: System {
         let testing = manager.entityComponentMap
 
         for damageEffect in damageEffects {
-            let test = manager.getAllComponents(ofType: Rigidbody.self)
-            print("damage effects", damageEffects, test)
-            print("curr damage effect entity", damageEffect.entity)
-            // print("damage effect entity unowned", damageEffect.entity)
             if damageEffect.elapsedTime == 0 {  // Apply initial damage
                 applyDamage(damageEffect.initialDamage, to: damageEffect.entity)
             }
 
             damageEffect.elapsedTime += time
-            print("damage effect elapsed time", damageEffect.elapsedTime)
+
             if damageEffect.elapsedTime >= damageEffect.duration {
-                print("elapsed time exceeded")
                 toRemove.append(damageEffect)
             } else {
                 let damage = damageEffect.damagePerTick * time
@@ -47,14 +42,12 @@ class CombatSystem: System {
     }
 
     private func applyDamage(_ damage: Double, to entity: Entity) {
-        /*
-        guard manager.getComponent(ofType: Dodge.self, for: entity) == nil else {
+        guard let dodgeComponent = manager.getComponent(ofType: Dodge.self, for: entity),
+        !dodgeComponent.isEnabled else {
             return
         }
-        */
 
         if let health = manager.getComponent(ofType: Health.self, for: entity) {
-            print("deduct health")
             health.health -= damage
             manager.componentsQueue.addComponent(health)
         }

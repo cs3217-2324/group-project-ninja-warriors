@@ -30,7 +30,6 @@ class MeleeAttackStrategy: AttackStrategy {
 
     func applyDamageEffect(to target: Entity, from source: Entity, withDamageEffect damageEffect: DamageEffect, manager: EntityComponentManager) {
 
-        print("slashing", damageEffect.entity)
         // manager.componentsQueue.addComponent(damageEffect)
 
         manager.add(entity: target, components: [damageEffect]/*, isAdded: false*/)

@@ -105,9 +105,7 @@ class EntityComponentManager {
     func addEntitiesFromNewMap(_ remoteEntityMap: [EntityID: Entity],
                                _ remoteEntityComponentMap: [EntityID: [Component]]) {
         DispatchQueue.main.async {
-            // var updatedEntityId: Set<EntityID> = []
             for (remoteEntityId, remoteEntity) in remoteEntityMap {
-                // updatedEntityId.insert(remoteEntityId)
                 if let newComponents = remoteEntityComponentMap[remoteEntityId] {
                     self.add(entity: remoteEntity, components: newComponents)
                 } else {
@@ -155,13 +153,6 @@ class EntityComponentManager {
         }
         while let nextComponent = componentsQueue.processComponent() {
             try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
-
-            /*
-            for _ in 0..<Constants.timeLag {
-                print("entity component upload", nextComponent.entity)
-                try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
-            }
-            */
         }
     }
 
@@ -326,6 +317,7 @@ class EntityComponentManager {
             updateExistingComponent(existingComponent, with: component)
         } else {
             if component as? DamageEffect != nil {
+                // Remap damage effect entity to new entity
                 let newDamageEffect = component.changeEntity(to: entity)
                 insertNewComponent(newDamageEffect, ofType: componentType, into: &entityComponents)
             } else {
@@ -346,7 +338,6 @@ class EntityComponentManager {
                 || existingComponentType == ComponentType(Health.self)
                 || existingComponentType == ComponentType(Collider.self)
                 || existingComponentType == ComponentType(Dodge.self)
-                /*|| existingComponentType == ComponentType(DamageEffect.self)*/
         else { return }
         existingComponent.updateAttributes(newComponent)
     }

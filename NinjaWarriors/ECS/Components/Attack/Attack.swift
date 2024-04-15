@@ -9,12 +9,12 @@ import Foundation
 
 class Attack: Component {
     var attackStrategy: AttackStrategy
-    // var damageEffectTemplate: DamageEffect
+    var damageEffectTemplate: DamageEffect
     var activated: Bool = false
 
-    init(id: ComponentID, entity: Entity, attackStrategy: AttackStrategy/*, damageEffectTemplate: DamageEffect*/) {
+    init(id: ComponentID, entity: Entity, attackStrategy: AttackStrategy, damageEffectTemplate: DamageEffect) {
         self.attackStrategy = attackStrategy
-        // self.damageEffectTemplate = damageEffectTemplate
+        self.damageEffectTemplate = damageEffectTemplate
         super.init(id: id, entity: entity)
     }
 
@@ -24,13 +24,12 @@ class Attack: Component {
                 id: RandomNonce().randomNonceString(),
                 entity: target,
                 sourceId: self.entity.id,
-                initialDamage: 10,
-                damagePerTick: 0,
-                duration: 0.0
-
-                // initialDamage: damageEffectTemplate.initialDamage,
-                // damagePerTick: damageEffectTemplate.damagePerTick,
-                // duration: damageEffectTemplate.duration
+                // initialDamage: 10,
+                // damagePerTick: 0,
+                // duration: 0.0
+                initialDamage: damageEffectTemplate.initialDamage,
+                damagePerTick: damageEffectTemplate.damagePerTick,
+                duration: damageEffectTemplate.duration
             )
             attackStrategy.applyDamageEffect(to: target, from: self.entity, withDamageEffect: uniqueDamageEffect, manager: manager)
             self.activated = true

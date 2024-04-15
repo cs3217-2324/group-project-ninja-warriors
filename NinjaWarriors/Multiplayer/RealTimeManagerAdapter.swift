@@ -358,6 +358,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
         entityDict[componentKey] = existingComponentDict
     }
 
+    /*
     private func mergeRules(existingDict: [String: Any]?, newDict: [String: Any]?) -> [String: Any]? {
         guard let existingDict = existingDict, let newDict = newDict else {
             return existingDict
@@ -379,8 +380,8 @@ final class RealTimeManagerAdapter: EntitiesManager {
             // print("existing dict", existingDict)
             return result
         }
-
     }
+    */
 
     private func appendNewComponents(_ entityDict: inout [String: Any], _ components: [Component]) {
         let newComponentDict = formComponentDict(from: components)
