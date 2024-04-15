@@ -113,6 +113,10 @@ class EntityComponentManager {
                 }
             }
 
+            if remoteEntityMap.count < self.entityMap.count {
+                print("stale alert!!!")
+            }
+
             for (currEntityId, currEntity) in self.entityMap {
                 if remoteEntityMap[currEntityId] == nil {
                     self.remove(entity: currEntity)
@@ -152,7 +156,9 @@ class EntityComponentManager {
             return
         }
         while let nextComponent = componentsQueue.processComponent() {
-            try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
+            for _ in 0..<Constants.timeLag {
+                try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
+            }
         }
     }
 
