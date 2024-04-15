@@ -26,6 +26,7 @@ protocol Achievement {
 extension Achievement {
     func subscribeToMetrics(withObserver observer: MetricObserver, metricsSubject: MetricsSubject) {
         for metric in dependentMetrics {
+            metricsSubject.initializeMetricForUser(metricType: metric, userID: userID)
             metricsSubject.addObserver(observer, for: metric, userID: userID)
         }
     }

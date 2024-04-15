@@ -10,14 +10,17 @@ import Foundation
 class AchievementManager {
     let userID: UserID
     let achievements: [Achievement]
+    let achievementTypes: [Achievement.Type] = [
+        HighDamageButNoKillAchievement.self,
+        KilledTenPeopleAchievement.self,
+        PlayedTenGamesAchievement.self,
+        FirstDamageInGameAchievement.self,
+        ThreeDashesInGameAchievement.self
+    ]
 
     init(userID: UserID, metricsSubject: MetricsSubject) {
         self.userID = userID
-        self.achievements = [
-            HighDamageButNoKillAchievement(userID: userID, metricsSubject: metricsSubject),
-            KilledTenPeopleAchievement(userID: userID, metricsSubject: metricsSubject),
-            PlayedTenGamesAchievement(userID: userID, metricsSubject: metricsSubject)
-        ]
+        self.achievements = achievementTypes.map { $0.init(userID: userID, metricsSubject: metricsSubject) }
     }
 
     var unlockedAchievements: [Achievement] {

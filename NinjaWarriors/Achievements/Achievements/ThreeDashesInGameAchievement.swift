@@ -13,14 +13,13 @@ class ThreeDashesInGameAchievement: Achievement {
     var imageAsset: String = "three-dashes-in-game"
     var isRepeatable: Bool = true
     var count: Int = 0
-    var lastGameWhenAchieved: GameID? = nil
+    var lastGameWhenAchieved: GameID?
     var dependentMetrics: [Metric.Type] = [DashesCountMetric.self]
     var userID: UserID
-    var metricsSubject: MetricsSubject
 
     required init(userID: UserID, metricsSubject: MetricsSubject) {
         self.userID = userID
-        self.metricsSubject = metricsSubject
+        self.subscribeToMetrics(withObserver: self, metricsSubject: metricsSubject)
     }
 }
 

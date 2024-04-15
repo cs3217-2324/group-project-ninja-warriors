@@ -25,6 +25,18 @@ class MetricsRepository {
         self.userMetrics[userID] = MetricsAndObserversMap()
     }
 
+    func addMetricForUser<T: Metric>(metricType: T.Type, for userID: UserID) {
+        guard var metricsAndObserversMap = self.userMetrics[userID] else {
+            self.createMetricsMap(for: userID)
+            self.addMetricForUser(metricType: metricType, for: userID)
+            return
+        }
+
+        let metricTypeKey = MetricType(metricType)
+        metricsAndObserversMap[metricTypeKey] = (metricType.init(userID: userID), [])
+        self.userMetrics[userID] = metricsAndObserversMap
+    }
+
     func readMetric<T: Metric>(_ metricType: T.Type, userID: UserID) -> T? {
         guard let metricsAndObserversMap = userMetrics[userID] else {
             return nil
@@ -54,6 +66,7 @@ class MetricsRepository {
 
         guard let (metric, observers) = metricsAndObserversMap[metricTypeKey] else {
             metricsAndObserversMap[metricTypeKey] = (metricType.init(userID: userID), [])
+            self.userMetrics[userID] = metricsAndObserversMap
             self.updateMetrics(metricType, userID: userID, inGame: gameID, withValue: value)
             return
         }
@@ -86,17 +99,20 @@ class MetricsRepository {
     }
 
     func registerObserverForUser<T: Metric>(_ observer: MetricObserver, for metricType: T.Type, userID: UserID) {
-        guard let metricsMap = self.userMetrics[userID] else {
+        guard var metricsMap = self.userMetrics[userID] else {
             return
         }
 
         let metricTypeKey = MetricType(metricType)
 
-        guard var (_, observers) = metricsMap[metricTypeKey] else {
+        guard var (metric, observers) = metricsMap[metricTypeKey] else {
             return
         }
 
         observers.append(observer)
+
+        metricsMap[metricTypeKey] = (metric, observers)
+        self.userMetrics[userID] = metricsMap
     }
 
     func removeObserverForUser<T: Metric>(_ observer: MetricObserver, for metricType: T.Type, userID: UserID) {
