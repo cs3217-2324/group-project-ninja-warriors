@@ -52,7 +52,7 @@ class CollisionRules: Rules {
             }
 
             performActionOnCollidee(ofType: Gem.self)
-            performAction(colliderType: Hadouken.self, collideeType: Player.self)
+            // performAction(colliderType: Hadouken.self, collideeType: Player.self)
 
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input
@@ -96,15 +96,6 @@ class CollisionRules: Rules {
         let radians = atan2(input.vertical, input.horizontal)
         let degrees = radians * 180 / .pi
         rigidBody.rotation = degrees
-        /*
-        print("rigid body rotation", rigidBody.rotation)
-
-        if rigidBody.rotation >= 0 {
-            print("positive velocity:", Vector(horizontal: cos(radians), vertical: sin(radians) >= 0 ? sin(radians) : -sin(radians)))
-        } else {
-            print("negative velocity:", Vector(horizontal: cos(radians), vertical: sin(radians) >= 0 ? -sin(radians) : sin(radians)))
-        }
-        */
     }
 
     private func moveRigidBody(_ rigidBody: Rigidbody, across deltaTime: TimeInterval) {

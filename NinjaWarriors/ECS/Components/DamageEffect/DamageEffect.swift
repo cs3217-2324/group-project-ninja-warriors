@@ -22,6 +22,10 @@ class DamageEffect: Component {
         super.init(id: id, entity: entity)
     }
 
+    override func changeEntity(to entity: Entity) -> DamageEffect {
+        DamageEffect(id: self.id, entity: entity, sourceId: self.sourceId, initialDamage: self.initialDamage, damagePerTick: self.damagePerTick, duration: self.duration)
+    }
+
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
             return nil

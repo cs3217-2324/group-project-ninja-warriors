@@ -18,7 +18,13 @@ class CombatSystem: System {
         var toRemove: [DamageEffect] = []
         let damageEffects = manager.getAllComponents(ofType: DamageEffect.self)
 
+        let testing = manager.entityComponentMap
+
         for damageEffect in damageEffects {
+            let test = manager.getAllComponents(ofType: Rigidbody.self)
+            print("damage effects", damageEffects, test)
+            print("curr damage effect entity", damageEffect.entity)
+            // print("damage effect entity unowned", damageEffect.entity)
             if damageEffect.elapsedTime == 0 {  // Apply initial damage
                 applyDamage(damageEffect.initialDamage, to: damageEffect.entity)
             }
@@ -39,11 +45,14 @@ class CombatSystem: System {
     }
 
     private func applyDamage(_ damage: Double, to entity: Entity) {
-        guard let dodge = manager.getComponent(ofType: Dodge.self, for: entity) else {
+        /*
+        guard manager.getComponent(ofType: Dodge.self, for: entity) == nil else {
             return
         }
+        */
 
         if let health = manager.getComponent(ofType: Health.self, for: entity) {
+            print("deduct health")
             health.health -= damage
         }
     }

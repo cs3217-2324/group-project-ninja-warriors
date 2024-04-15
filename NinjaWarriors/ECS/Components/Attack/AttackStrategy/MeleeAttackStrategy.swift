@@ -17,7 +17,7 @@ class MeleeAttackStrategy: AttackStrategy {
     }
 
     func canAttack(attacker: Entity, target: Entity, manager: EntityComponentManager) -> Bool {
-        guard casterEntity.id != target.id else {
+        guard casterEntity.id != target.id, target as? Player != nil else {
             return false
         }
 
@@ -29,6 +29,10 @@ class MeleeAttackStrategy: AttackStrategy {
     }
 
     func applyDamageEffect(to target: Entity, from source: Entity, withDamageEffect damageEffect: DamageEffect, manager: EntityComponentManager) {
-        manager.add(entity: target, components: [damageEffect])
+
+        print("slashing", damageEffect.entity)
+        manager.componentsQueue.addComponent(damageEffect)
+
+        // manager.add(entity: target, components: [damageEffect]/*, isAdded: false*/)
     }
 }

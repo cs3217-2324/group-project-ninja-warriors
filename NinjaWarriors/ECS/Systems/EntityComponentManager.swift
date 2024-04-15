@@ -148,6 +148,7 @@ class EntityComponentManager {
         }
         while let nextComponent = componentsQueue.processComponent() {
             for _ in 0..<Constants.timeLag {
+                print("entity component upload", nextComponent.entity)
                 try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
             }
         }
@@ -313,7 +314,12 @@ class EntityComponentManager {
         if let existingComponent = findExistingComponent(ofType: componentType, in: entityComponents) {
             updateExistingComponent(existingComponent, with: component)
         } else {
-            insertNewComponent(component, ofType: componentType, into: &entityComponents)
+            if component as? DamageEffect != nil {
+                let newDamageEffect = component.changeEntity(to: entity)
+                insertNewComponent(newDamageEffect, ofType: componentType, into: &entityComponents)
+            } else {
+                insertNewComponent(component, ofType: componentType, into: &entityComponents)
+            }
         }
 
         entityComponentMap[entity.id] = entityComponents
@@ -329,6 +335,7 @@ class EntityComponentManager {
                 || existingComponentType == ComponentType(Health.self)
                 || existingComponentType == ComponentType(Collider.self)
                 || existingComponentType == ComponentType(Dodge.self)
+                || existingComponentType == ComponentType(DamageEffect.self)
         else { return }
         existingComponent.updateAttributes(newComponent)
     }

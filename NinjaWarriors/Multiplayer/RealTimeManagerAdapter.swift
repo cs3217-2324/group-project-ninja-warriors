@@ -255,6 +255,7 @@ final class RealTimeManagerAdapter: EntitiesManager {
             }
         }
         remapAttachedCollider(with: entityId, from: &entityComponent)
+        remapDamageEffect(with: entityId, from: &entityComponent)
         entities.append(entityInstance)
     }
 
@@ -273,6 +274,26 @@ final class RealTimeManagerAdapter: EntitiesManager {
             }
             if let rigidbody = rigidbodyComponent, let collider = colliderComponent {
                 rigidbody.attachedCollider = collider
+            }
+        }
+    }
+
+    private func remapDamageEffect(with entityId: EntityID, from entityComponent: inout [EntityID: [Component]]) {
+        if let components = entityComponent[entityId] {
+            var rigidbodyComponent: Rigidbody?
+            var damageEffectComponent: DamageEffect?
+
+            for component in components {
+                if let rigidbody = component as? Rigidbody {
+                    rigidbodyComponent = rigidbody
+                } else if let damageEffect = component as? DamageEffect {
+                    damageEffectComponent = damageEffect
+                }
+            }
+            if let rigidbody = rigidbodyComponent, let damageEffect = damageEffectComponent {
+                entityComponent[entityId] = entityComponent[entityId]?.filter { $0 as? DamageEffect == nil }
+
+                entityComponent[entityId]?.append(damageEffect.changeEntity(to: rigidbody.entity))
             }
         }
     }
@@ -352,12 +373,14 @@ final class RealTimeManagerAdapter: EntitiesManager {
         guard var existingComponentDict = entityDict[componentKey] as? [String: Any] else { return }
 
         let newComponentDict = formComponentDict(from: components)
+        // print("new component Dict", newComponentDict)
 
         existingComponentDict.merge(newComponentDict) { (existingValue, newValue) in
             return mergeRules(existingDict: existingValue as? [String: Any],
                               newDict: newValue as? [String: Any]) ?? [:]
         }
         entityDict[componentKey] = existingComponentDict
+        // print("after everything", existingComponentDict)
     }
 
     private func mergeRules(existingDict: [String: Any]?, newDict: [String: Any]?) -> [String: Any]? {
@@ -377,13 +400,17 @@ final class RealTimeManagerAdapter: EntitiesManager {
             }
         } else {
             // No "health" key in one or both dictionaries, merge normally
-            return existingDict.merging(newDict) { _, new in new }
+            let result = existingDict.merging(newDict) { _, new in new }
+            // print("existing dict", existingDict)
+            return result
         }
+
     }
 
     private func appendNewComponents(_ entityDict: inout [String: Any], _ components: [Component]) {
         let newComponentDict = formComponentDict(from: components)
         entityDict[componentKey] = newComponentDict
+        // print("after appending", entityDict)
     }
 
     private func createEntity(_ snapshot: DataSnapshot, _ entityRef: DatabaseReference,
