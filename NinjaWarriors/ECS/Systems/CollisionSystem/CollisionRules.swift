@@ -27,30 +27,14 @@ class CollisionRules: Rules {
         }
 
         if let collider = object.attachedCollider, collider.isOutOfBounds {
-            return object.entity as? Hadouken == nil ? false : true
+            return false
         }
 
         guard let manager = manager, let collideeEntityID = object.attachedCollider?.collidedEntities.first,
               let collideeEntity = manager.entity(with: collideeEntityID) else {
             return true
         }
-
-        if object.entity as? Player != nil, collideeEntity as? Gem != nil {
-            return true
-        }
-
-        if object.entity as? Gem != nil, collideeEntity as? Player != nil {
-            return true
-        }
-
-        if object.entity as? Hadouken != nil, collideeEntity as? Player != nil {
-            return true
-        }
-
-        if object.entity as? Player != nil, collideeEntity as? Hadouken != nil {
-            return true
-        }
-        return false
+        return canPassThrough(object.entity, collideeEntity)
     }
 
     func performRule() {
@@ -69,23 +53,8 @@ class CollisionRules: Rules {
 
             performActionOnCollidee(ofType: Gem.self)
             performAction(colliderType: Hadouken.self, collideeType: Player.self)
-            performAction(colliderType: Player.self, collideeType: Hadouken.self)
 
-        /*
-        } else if object.entity as? Hadouken != nil,
-                  let collider = object.attachedCollider,
-                  collider.isOutOfBounds {
-            object.velocity = input
-            object.collidingVelocity = nil
-            object.attachedCollider?.isColliding = false
-        */
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
-            /*
-            if object.entity as? Hadouken != nil {
-                manager?.remove(entity: object.entity, isRemoved: false)
-            }
-            */
-
             object.collidingVelocity = input
             object.velocity = Vector.zero
         }
@@ -108,14 +77,14 @@ class CollisionRules: Rules {
 
     private func performAction<T: Entity, V: Entity>(colliderType: T.Type, collideeType: V.Type) {
         guard let manager = manager, let collideeEntityID = object.attachedCollider?.collidedEntities.first,
-              let collideeEntity = manager.entity(with: collideeEntityID),
-              let hadoukenEntity = object.entity as? Hadouken,
-              collideeEntity as? Player != nil,
-              collideeEntity.id != hadoukenEntity.casterEntity.id else {
+              let collideeEntity = manager.entity(with: collideeEntityID) as? V,
+              let colliderEntity = object.entity as? T else {
             return
         }
 
-        if let health = manager.getComponent(ofType: Health.self, for: collideeEntity) {
+        if let hadokuenEntity = colliderEntity as? Hadouken,
+           collideeEntity.id != hadokuenEntity.casterEntity.id,
+           let health = manager.getComponent(ofType: Health.self, for: collideeEntity) {
             health.kill()
         }
     }
@@ -148,5 +117,15 @@ class CollisionRules: Rules {
 
         // Reset force
         rigidBody.totalForce = Vector.zero
+    }
+
+    func canPassThrough(_ colliderEntity: CustomComparator, _ collideeEntity: CustomComparator) -> Bool {
+        if (colliderEntity is Player && collideeEntity is Gem) ||
+           (colliderEntity is Gem && collideeEntity is Player) ||
+           (colliderEntity is Hadouken && collideeEntity is Player) ||
+           (colliderEntity is Player && collideeEntity is Hadouken) {
+            return true
+        }
+        return false
     }
 }
