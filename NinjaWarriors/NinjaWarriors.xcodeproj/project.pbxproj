@@ -20,6 +20,9 @@
 		7132C9062BCD7E0A0088932F /* SlashesCountMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C9052BCD7E0A0088932F /* SlashesCountMetric.swift */; };
 		7132C90A2BCD7E380088932F /* LoginCountMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C9092BCD7E380088932F /* LoginCountMetric.swift */; };
 		7132C90C2BCD7E5D0088932F /* DashesCountMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C90B2BCD7E5D0088932F /* DashesCountMetric.swift */; };
+		7132C9182BCD852C0088932F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7132C9172BCD852B0088932F /* GoogleService-Info.plist */; };
+		7132C9142BCD82430088932F /* FirstDamageInGameAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C9132BCD82430088932F /* FirstDamageInGameAchievement.swift */; };
+		7132C9162BCD82F20088932F /* ThreeDashesInGameAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C9152BCD82F20088932F /* ThreeDashesInGameAchievement.swift */; };
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
@@ -52,9 +55,6 @@
 		71B7166C2BCBB7EA00B18E48 /* EntityMetricsRecorderAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B7166B2BCBB7EA00B18E48 /* EntityMetricsRecorderAdapter.swift */; };
 		71B7166E2BCBDCB600B18E48 /* MetricsSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B7166D2BCBDCB600B18E48 /* MetricsSubject.swift */; };
 		910CF65F2BC4AE2200C04CF2 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910CF65E2BC4AE2200C04CF2 /* AudioManager.swift */; };
-		9117F60E2BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9117F60D2BCCDC2800ED4F4E /* GoogleService-Info.plist */; };
-		9117F60F2BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9117F60D2BCCDC2800ED4F4E /* GoogleService-Info.plist */; };
-		9117F6102BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9117F60D2BCCDC2800ED4F4E /* GoogleService-Info.plist */; };
 		9117F6202BCD27A100ED4F4E /* buttonClick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6132BCD27A000ED4F4E /* buttonClick.mp3 */; };
 		9117F6212BCD27A100ED4F4E /* buttonClick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6132BCD27A000ED4F4E /* buttonClick.mp3 */; };
 		9117F6222BCD27A100ED4F4E /* buttonClick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6132BCD27A000ED4F4E /* buttonClick.mp3 */; };
@@ -271,6 +271,9 @@
 		7132C9052BCD7E0A0088932F /* SlashesCountMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashesCountMetric.swift; sourceTree = "<group>"; };
 		7132C9092BCD7E380088932F /* LoginCountMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCountMetric.swift; sourceTree = "<group>"; };
 		7132C90B2BCD7E5D0088932F /* DashesCountMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashesCountMetric.swift; sourceTree = "<group>"; };
+		7132C9172BCD852B0088932F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7132C9132BCD82430088932F /* FirstDamageInGameAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDamageInGameAchievement.swift; sourceTree = "<group>"; };
+		7132C9152BCD82F20088932F /* ThreeDashesInGameAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDashesInGameAchievement.swift; sourceTree = "<group>"; };
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
@@ -296,7 +299,6 @@
 		71B7166B2BCBB7EA00B18E48 /* EntityMetricsRecorderAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityMetricsRecorderAdapter.swift; sourceTree = "<group>"; };
 		71B7166D2BCBDCB600B18E48 /* MetricsSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsSubject.swift; sourceTree = "<group>"; };
 		910CF65E2BC4AE2200C04CF2 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
-		9117F60D2BCCDC2800ED4F4E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9117F6132BCD27A000ED4F4E /* buttonClick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = buttonClick.mp3; sourceTree = "<group>"; };
 		9117F6142BCD27A000ED4F4E /* victoryAudio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = victoryAudio.mp3; sourceTree = "<group>"; };
 		9117F6172BCD27A100ED4F4E /* gameOverAudio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameOverAudio.mp3; sourceTree = "<group>"; };
@@ -585,6 +587,8 @@
 			children = (
 				7191C82E2BCA7FC7005BBE62 /* KilledTenPeopleAchievement.swift */,
 				7191C8392BCA9668005BBE62 /* PlayedTenGamesAchievement.swift */,
+				7132C9132BCD82430088932F /* FirstDamageInGameAchievement.swift */,
+				7132C9152BCD82F20088932F /* ThreeDashesInGameAchievement.swift */,
 				7191C8302BCA831B005BBE62 /* HighDamageButNoKillAchievement.swift */,
 			);
 			path = Achievements;
@@ -793,7 +797,7 @@
 		916A7D382BA1541700319C26 /* NinjaWarriors */ = {
 			isa = PBXGroup;
 			children = (
-				9117F60D2BCCDC2800ED4F4E /* GoogleService-Info.plist */,
+				7132C9172BCD852B0088932F /* GoogleService-Info.plist */,
 				916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */,
 				916A7D3B2BA1541700319C26 /* ContentView.swift */,
 				916A7D3D2BA1541800319C26 /* Assets.xcassets */,
@@ -1375,7 +1379,7 @@
 				E6CDFFC42BAF2306007BB867 /* player-copy.png in Resources */,
 				E6CDFFC02BAF1DB0007BB867 /* player.png in Resources */,
 				9117F62C2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */,
-				9117F60E2BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */,
+				7132C9182BCD852C0088932F /* GoogleService-Info.plist in Resources */,
 				9117F6202BCD27A100ED4F4E /* buttonClick.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1392,7 +1396,6 @@
 				91D496F62BB059090027C657 /* Assets.xcassets in Resources */,
 				91D496F72BB059090027C657 /* Preview Assets.xcassets in Resources */,
 				9117F62D2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */,
-				9117F60F2BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */,
 				9117F6212BCD27A100ED4F4E /* buttonClick.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1402,7 +1405,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9117F6252BCD27A100ED4F4E /* victoryAudio.mp3 in Resources */,
-				9117F6102BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */,
 				9117F6222BCD27A100ED4F4E /* buttonClick.mp3 in Resources */,
 				9117F62E2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */,
 			);
@@ -1512,9 +1514,11 @@
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
 				916A7DA52BA3F89500319C26 /* ShapeWrapper.swift in Sources */,
 				E6D6BD0A2BC1C1B3004BFD59 /* EntityView.swift in Sources */,
+				7132C9162BCD82F20088932F /* ThreeDashesInGameAchievement.swift in Sources */,
 				9180486B2BC7A75700026965 /* Map.swift in Sources */,
 				9180487B2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */,
 				91C65BE52BACF1AA0085D96F /* Skill.swift in Sources */,
+				7132C9142BCD82430088932F /* FirstDamageInGameAchievement.swift in Sources */,
 				9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
 				9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */,

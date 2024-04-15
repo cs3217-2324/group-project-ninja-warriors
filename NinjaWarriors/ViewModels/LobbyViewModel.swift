@@ -31,6 +31,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = SignInViewModel()
         self.metricsRepository = MetricsRepository()
+        self.achievementsManager = AchievementManager(userID: guestId, metricsSubject: self.metricsRepository)
         isGuest = true
     }
 
@@ -39,6 +40,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
         self.metricsRepository = MetricsRepository()
+        self.achievementsManager = AchievementManager(userID: signInViewModel.getUserId() ?? guestId, metricsSubject: metricsRepository)
         isGuest = false
     }
 

@@ -13,7 +13,7 @@ class DashesCountMetric: Metric {
     var value: Double = 0
     var userID: UserID
     var inGameValue: Double = 0
-    var lastGame: GameID? = nil
+    var lastGame: GameID?
 
     required init(userID: UserID) {
         self.userID = userID
