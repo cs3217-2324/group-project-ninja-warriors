@@ -31,6 +31,14 @@ struct Point {
             self.yCoord = originY
         }
 
+        if xCoord > Constants.screenWidth {
+            self.xCoord = Constants.screenWidth
+        }
+
+        if yCoord > Constants.screenHeight {
+            self.yCoord = Constants.screenHeight
+        }
+
         (self.radial, self.theta) = Point.calculatePolarFromCartesian(xCoord: self.xCoord, yCoord: self.yCoord)
 
         assert(checkRepresentation())
