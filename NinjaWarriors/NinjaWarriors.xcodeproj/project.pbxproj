@@ -26,6 +26,18 @@
 		9117F60E2BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9117F60D2BCCDC2800ED4F4E /* GoogleService-Info.plist */; };
 		9117F60F2BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9117F60D2BCCDC2800ED4F4E /* GoogleService-Info.plist */; };
 		9117F6102BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9117F60D2BCCDC2800ED4F4E /* GoogleService-Info.plist */; };
+		9117F6202BCD27A100ED4F4E /* buttonClick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6132BCD27A000ED4F4E /* buttonClick.mp3 */; };
+		9117F6212BCD27A100ED4F4E /* buttonClick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6132BCD27A000ED4F4E /* buttonClick.mp3 */; };
+		9117F6222BCD27A100ED4F4E /* buttonClick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6132BCD27A000ED4F4E /* buttonClick.mp3 */; };
+		9117F6232BCD27A100ED4F4E /* victoryAudio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6142BCD27A000ED4F4E /* victoryAudio.mp3 */; };
+		9117F6242BCD27A100ED4F4E /* victoryAudio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6142BCD27A000ED4F4E /* victoryAudio.mp3 */; };
+		9117F6252BCD27A100ED4F4E /* victoryAudio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6142BCD27A000ED4F4E /* victoryAudio.mp3 */; };
+		9117F62C2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6172BCD27A100ED4F4E /* gameOverAudio.mp3 */; };
+		9117F62D2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6172BCD27A100ED4F4E /* gameOverAudio.mp3 */; };
+		9117F62E2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9117F6172BCD27A100ED4F4E /* gameOverAudio.mp3 */; };
+		9117F6362BCD280B00ED4F4E /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9117F6352BCD280B00ED4F4E /* HowToPlayView.swift */; };
+		9117F6372BCD280B00ED4F4E /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9117F6352BCD280B00ED4F4E /* HowToPlayView.swift */; };
+		9117F6382BCD280B00ED4F4E /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9117F6352BCD280B00ED4F4E /* HowToPlayView.swift */; };
 		9132AF562BA50853000F2AC4 /* PlayerPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */; };
 		9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF572BA5087F000F2AC4 /* PlayersListener.swift */; };
 		9132AF5A2BA50C1E000F2AC4 /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF592BA50C1E000F2AC4 /* Publisher.swift */; };
@@ -241,6 +253,10 @@
 		7183D07E2BB06E790078C960 /* SystemManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManagerTests.swift; sourceTree = "<group>"; };
 		910CF65E2BC4AE2200C04CF2 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		9117F60D2BCCDC2800ED4F4E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9117F6132BCD27A000ED4F4E /* buttonClick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = buttonClick.mp3; sourceTree = "<group>"; };
+		9117F6142BCD27A000ED4F4E /* victoryAudio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = victoryAudio.mp3; sourceTree = "<group>"; };
+		9117F6172BCD27A100ED4F4E /* gameOverAudio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gameOverAudio.mp3; sourceTree = "<group>"; };
+		9117F6352BCD280B00ED4F4E /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
 		9132AF552BA50853000F2AC4 /* PlayerPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPublisher.swift; sourceTree = "<group>"; };
 		9132AF572BA5087F000F2AC4 /* PlayersListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersListener.swift; sourceTree = "<group>"; };
 		9132AF592BA50C1E000F2AC4 /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
@@ -477,6 +493,9 @@
 			isa = PBXGroup;
 			children = (
 				910CF65E2BC4AE2200C04CF2 /* AudioManager.swift */,
+				9117F6132BCD27A000ED4F4E /* buttonClick.mp3 */,
+				9117F6172BCD27A100ED4F4E /* gameOverAudio.mp3 */,
+				9117F6142BCD27A000ED4F4E /* victoryAudio.mp3 */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -738,6 +757,7 @@
 				E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */,
 				9180487A2BC7C7B600026965 /* CharacterSelectionView.swift */,
 				9180487F2BC9094B00026965 /* MapSelectionView.swift */,
+				9117F6352BCD280B00ED4F4E /* HowToPlayView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1227,11 +1247,14 @@
 			files = (
 				916A7D412BA1541800319C26 /* Preview Assets.xcassets in Resources */,
 				916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */,
+				9117F6232BCD27A100ED4F4E /* victoryAudio.mp3 in Resources */,
 				E6CDFFC62BAF2689007BB867 /* grass-stone.jpeg in Resources */,
 				E6CDFFC22BAF22A1007BB867 /* grass.png in Resources */,
 				E6CDFFC42BAF2306007BB867 /* player-copy.png in Resources */,
 				E6CDFFC02BAF1DB0007BB867 /* player.png in Resources */,
+				9117F62C2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */,
 				9117F60E2BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */,
+				9117F6202BCD27A100ED4F4E /* buttonClick.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1241,11 +1264,14 @@
 			files = (
 				91D496F82BB059110027C657 /* grass.png in Resources */,
 				91D496F92BB059110027C657 /* grass-stone.jpeg in Resources */,
+				9117F6242BCD27A100ED4F4E /* victoryAudio.mp3 in Resources */,
 				91D496FA2BB059120027C657 /* player.png in Resources */,
 				91D496FB2BB059120027C657 /* player-copy.png in Resources */,
 				91D496F62BB059090027C657 /* Assets.xcassets in Resources */,
 				91D496F72BB059090027C657 /* Preview Assets.xcassets in Resources */,
+				9117F62D2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */,
 				9117F60F2BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */,
+				9117F6212BCD27A100ED4F4E /* buttonClick.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1253,7 +1279,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9117F6252BCD27A100ED4F4E /* victoryAudio.mp3 in Resources */,
 				9117F6102BCCDC2800ED4F4E /* GoogleService-Info.plist in Resources */,
+				9117F6222BCD27A100ED4F4E /* buttonClick.mp3 in Resources */,
+				9117F62E2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1334,6 +1363,7 @@
 				7181B14D2BC0480E009711DE /* ClosingZoneWrapper.swift in Sources */,
 				916A7D8B2BA1A0D400319C26 /* SignInView.swift in Sources */,
 				7181B1532BC07A90009711DE /* ClosingZoneView.swift in Sources */,
+				9117F6362BCD280B00ED4F4E /* HowToPlayView.swift in Sources */,
 				916A7D8E2BA1A1C500319C26 /* SignInViewModel.swift in Sources */,
 				7113A4962BA60E8400805340 /* Component.swift in Sources */,
 				E699DDBF2BBDDC5800E8CA80 /* PlayerControlsView.swift in Sources */,
@@ -1436,6 +1466,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9117F6372BCD280B00ED4F4E /* HowToPlayView.swift in Sources */,
 				7183D07B2BB03C400078C960 /* EntityComponentManagerTests.swift in Sources */,
 				91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */,
 				7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */,
@@ -1461,6 +1492,7 @@
 				916A7D5C2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift in Sources */,
 				916991392BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */,
+				9117F6382BCD280B00ED4F4E /* HowToPlayView.swift in Sources */,
 				9180486D2BC7A75700026965 /* Map.swift in Sources */,
 				916991352BC6782F00ED1FBD /* Gem.swift in Sources */,
 				918048712BC7A86400026965 /* GemMap.swift in Sources */,
