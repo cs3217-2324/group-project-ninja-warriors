@@ -14,6 +14,7 @@ class MetricsRepository {
     private var userMetrics: UserMetricsMap
 
     init() {
+        //TODO probably initialize from some online thing
         self.userMetrics = UserMetricsMap()
     }
 
@@ -28,7 +29,7 @@ class MetricsRepository {
         guard let metricsAndObserversMap = userMetrics[userID] else {
             return nil
         }
-        
+
         let metricTypeKey = MetricType(metricType)
         guard let (metric, _) = metricsAndObserversMap[metricTypeKey] else {
             return nil
@@ -37,7 +38,7 @@ class MetricsRepository {
         guard let typedMetric = metric as? T else {
             return nil
         }
-        
+
         return typedMetric
     }
 
@@ -85,7 +86,7 @@ class MetricsRepository {
         guard let metricsMap = self.userMetrics[userID] else {
             return
         }
-        
+
         let metricTypeKey = MetricType(metricType)
 
         guard var (_, observers) = metricsMap[metricTypeKey] else {
@@ -108,6 +109,18 @@ class MetricsRepository {
 
         if let index = observers.firstIndex(where: { $0 === observer }) {
             observers.remove(at: index)
+        }
+    }
+
+    func resetAllGameMetrics(forUsers userIDs: [UserID]) {
+        for userID in userIDs {
+            guard let metricsMap = self.userMetrics[userID] else {
+                continue
+            }
+
+            for (_, (metric, _)) in metricsMap {
+                metric.resetGame()
+            }
         }
     }
 }

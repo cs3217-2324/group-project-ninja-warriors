@@ -1,15 +1,15 @@
 //
-//  TotalDamageDealtMetric.swift
+//  DistanceDashedMetric.swift
 //  NinjaWarriors
 //
-//  Created by Jivesh Mohan on 10/4/24.
+//  Created by Jivesh Mohan on 14/4/24.
 //
 
 import Foundation
 
-class DamageDealtMetric: Metric {
-    let title: String = "Damage Dealt"
-    let description: String = "The amount of damage done by this player."
+class DistanceDashedMetric: Metric {
+    let title: String = "Distance Dashed"
+    let description: String = "The total distance dashed by this player."
     var value: Double
     var userID: UserID
     var inGameValue: Double

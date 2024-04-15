@@ -11,6 +11,22 @@ protocol Achievement {
     var title: String { get }
     var description: String { get }
     var imageAsset: String { get }
+
     var isRepeatable: Bool { get }
     var count: Int { get set }
+    var lastGameWhenAchieved: GameID? { get set }
+
+    var dependentMetrics: [Metric.Type] { get }
+
+    var userID: UserID { get }
+
+    init(userID: UserID, metricsSubject: MetricsSubject)
+}
+
+extension Achievement {
+    func subscribeToMetrics(withObserver observer: MetricObserver, metricsSubject: MetricsSubject) {
+        for metric in dependentMetrics {
+            metricsSubject.addObserver(observer, for: metric, userID: userID)
+        }
+    }
 }

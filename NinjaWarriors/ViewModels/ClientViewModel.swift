@@ -11,16 +11,19 @@ import SwiftUI
 @MainActor
 final class ClientViewModel: ObservableObject {
     var gameWorld: GameWorld
+    var metricsRepository: MetricsRepository
     internal var entities: [Entity] = []
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
     let timeLag: Int = 7
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity]) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], metricsRepository: MetricsRepository) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.gameWorld = GameWorld(for: matchId)
+        self.metricsRepository = metricsRepository
+        let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
+        self.gameWorld = GameWorld(for: matchId, metricsRecorder: metricsRecorder)
 
         gameWorld.entityComponentManager.addOwnEntities(ownEntities)
 

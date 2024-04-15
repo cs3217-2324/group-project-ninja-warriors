@@ -9,13 +9,24 @@ import Foundation
 
 class PlayedTenGamesAchievement: Achievement {
     var title: String = "Getting Started"
-    var description: String = "Play ten games"
-    var imageAsset: String = "ten-games"
-    var isRepeatable: Bool = false
-    var count: Int
 
-    init(userID: UserID, metricsRepository: MetricsRepository) {
-        count = 0
+    var description: String = "Play ten games"
+
+    var imageAsset: String = "ten-games"
+
+    var isRepeatable: Bool = false
+
+    var count: Int = 0
+
+    var lastGameWhenAchieved: GameID?
+
+    var dependentMetrics: [Metric.Type] = [GamesPlayedMetric.self]
+
+    var userID: UserID
+
+    required init(userID: UserID, metricsSubject: MetricsSubject) {
+        self.userID = userID
+        subscribeToMetrics(withObserver: self, metricsSubject: metricsSubject)
     }
 }
 

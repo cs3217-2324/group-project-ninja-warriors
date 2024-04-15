@@ -11,12 +11,12 @@ class AchievementManager {
     let userID: UserID
     let achievements: [Achievement]
 
-    init(userID: UserID, metricsRepository: MetricsRepository) {
+    init(userID: UserID, metricsSubject: MetricsSubject) {
         self.userID = userID
         self.achievements = [
-            HighDamageButNoKillAchievement(userID: userID, metricsRepository: metricsRepository),
-            KilledTenPeopleAchievement(userID: userID, metricsRepository: metricsRepository),
-            PlayedTenGamesAchievement(userID: userID, metricsRepository: metricsRepository)
+            HighDamageButNoKillAchievement(userID: userID, metricsSubject: metricsSubject),
+            KilledTenPeopleAchievement(userID: userID, metricsSubject: metricsSubject),
+            PlayedTenGamesAchievement(userID: userID, metricsSubject: metricsSubject)
         ]
     }
 

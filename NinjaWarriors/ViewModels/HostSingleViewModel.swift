@@ -11,14 +11,17 @@ import SwiftUI
 @MainActor
 final class HostSingleViewModel: ObservableObject {
     var gameWorld: GameWorld
+    var metricsRepository: MetricsRepository
     internal var entities: [Entity] = []
     internal var matchId: String
     internal var currPlayerId: String
 
-    init(matchId: String, currPlayerId: String) {
+    init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.gameWorld = GameWorld(for: matchId)
+        self.metricsRepository = metricsRepository
+        let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
+        self.gameWorld = GameWorld(for: matchId, metricsRecorder: metricsRecorder)
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
             Task {

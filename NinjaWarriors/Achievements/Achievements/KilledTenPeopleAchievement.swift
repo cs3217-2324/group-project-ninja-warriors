@@ -10,17 +10,24 @@ import Foundation
 class KilledTenPeopleAchievement: Achievement {
     var title: String = "Serial Killer"
 
-    var description: String = "Killed ten enemies over one or more games."
+    var description: String = "Killed ten people over one or more games"
 
-    var imageAsset: String = "killed-ten-achievement"
+    var imageAsset: String = "killed-ten"
 
     var isRepeatable: Bool = false
 
-    var count: Int
+    var count: Int = 0
 
-    init(userID: UserID, metricsRepository: MetricsRepository) {
-        count = 0
-        metricsRepository.registerObserverForUser(self, for: KillCountMetric.self, userID: userID)
+    var lastGameWhenAchieved: GameID?
+
+    var dependentMetrics: [Metric.Type] = [KillCountMetric.self]
+
+    var userID: UserID
+
+    required init(userID: UserID, metricsSubject: MetricsSubject) {
+        self.count = 0
+        self.userID = userID
+        self.subscribeToMetrics(withObserver: self, metricsSubject: metricsSubject)
     }
 }
 
@@ -36,7 +43,7 @@ extension KilledTenPeopleAchievement: MetricObserver {
 
         if killCountMetric.value >= 10 {
             count += 1
-            //TODO: maybe deregister observer, but a bit annoying
+            // TODO: maybe deregister observer, but a bit annoying
         }
     }
 }

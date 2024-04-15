@@ -1,15 +1,15 @@
 //
-//  TotalDamageDealtMetric.swift
+//  DamageTakenMetric.swift
 //  NinjaWarriors
 //
-//  Created by Jivesh Mohan on 10/4/24.
+//  Created by Jivesh Mohan on 14/4/24.
 //
 
 import Foundation
 
-class DamageDealtMetric: Metric {
-    let title: String = "Damage Dealt"
-    let description: String = "The amount of damage done by this player."
+class DamageTakenMetric: Metric {
+    let title: String = "Damage Taken"
+    let description: String = "The amount of damage taken by this player."
     var value: Double
     var userID: UserID
     var inGameValue: Double

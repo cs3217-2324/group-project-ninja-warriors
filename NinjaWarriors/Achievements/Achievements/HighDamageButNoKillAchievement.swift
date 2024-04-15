@@ -8,6 +8,7 @@
 import Foundation
 
 class HighDamageButNoKillAchievement: Achievement {
+
     var title: String = "Pacifist Maniac"
 
     var description: String = "Inflict 100HP of damage without killing."
@@ -16,16 +17,20 @@ class HighDamageButNoKillAchievement: Achievement {
 
     var isRepeatable: Bool = true
 
-    var count: Int
+    var count: Int = 0
 
-    var didKillSomeone: Bool = false
-    var damageExceeded100: Bool = false
-    var lastGameWhenAchieved: GameID?
+    var lastGameWhenAchieved: GameID? = nil
 
-    init(userID: UserID, metricsRepository: MetricsRepository) {
-        count = 0
-        metricsRepository.registerObserverForUser(self, for: KillCountMetric.self, userID: userID)
-        metricsRepository.registerObserverForUser(self, for: DamageDealtMetric.self, userID: userID)
+    var dependentMetrics: [Metric.Type] = [KillCountMetric.self, DamageDealtMetric.self]
+
+    var userID: UserID
+
+    private var didKillSomeone: Bool = false
+    private var damageExceeded100: Bool = false
+
+    required init(userID: UserID, metricsSubject: MetricsSubject) {
+        self.userID = userID
+        subscribeToMetrics(withObserver: self, metricsSubject: metricsSubject)
     }
 
     func updateAchievement(inGame gameID: GameID?) {

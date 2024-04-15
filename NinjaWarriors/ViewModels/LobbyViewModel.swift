@@ -23,11 +23,13 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     let signInViewModel: SignInViewModel
     let isGuest: Bool
     let guestId: String = RandomNonce().randomNonceString()
+    var metricsRepository: MetricsRepository
 
     // Guest mode
     init() {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = SignInViewModel()
+        self.metricsRepository = MetricsRepository()
         isGuest = true
     }
 
@@ -35,6 +37,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     init(signInViewModel: SignInViewModel) {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
+        self.metricsRepository = MetricsRepository()
         isGuest = false
     }
 

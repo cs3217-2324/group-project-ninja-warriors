@@ -9,13 +9,12 @@ import Foundation
 
 class KillCountMetric: Metric {
     let title: String = "Total Kill Count"
-    let description: String = "The total number of enemies killed in all games."
+    let description: String = "The total number of enemies killed by this player."
     var value: Double
     var userID: UserID
-    var inGameValues: [GameID : Double] = [:]
+    var inGameValues: [GameID: Double] = [:]
     var inGameValue: Double
     var lastGame: GameID?
-
 
     required init(userID: UserID) {
         self.value = 0
