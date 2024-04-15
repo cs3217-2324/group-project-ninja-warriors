@@ -13,12 +13,12 @@ struct ClientView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    @State private var mapBackground: String
+    @State private var mapBg: String
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBg: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.mapBackground = mapBackground
+        self.mapBg = mapBg
         self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId,
                                          ownEntities: ownEntities)
     }
@@ -29,7 +29,7 @@ struct ClientView: View {
             closingZoneView
             canvasView
 
-            ProgressView("Loading...")
+            ProgressView()
                 .onAppear {
                     viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {
                         DispatchQueue.main.async {
@@ -41,7 +41,7 @@ struct ClientView: View {
     }
 
     private var backgroundImage: some View {
-        Image(mapBackground)
+        Image(mapBg)
             .resizable()
             .edgesIgnoringSafeArea(.all)
             .statusBar(hidden: true)
@@ -50,12 +50,13 @@ struct ClientView: View {
     private var canvasView: some View {
         GeometryReader { geometry in
             ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { _, entity in
-                EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity)))
+                EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity),
+                                                      currPlayerId: viewModel.currPlayerId))
             }
             if let currPlayer = viewModel.getCurrPlayer() {
                 JoystickView(
                     setInputVector: { vector in
-                        viewModel.move(vector)
+                        // viewModel.move(vector)
                         viewModel.gameWorld.setInput(vector, for: currPlayer)
                     }, location: CGPoint(x: 150, y: geometry.size.height - 350))
                 .frame(width: 200, height: 200)
@@ -88,6 +89,6 @@ struct ClientView: View {
 struct ClientView_Previews: PreviewProvider {
     static var previews: some View {
         ClientView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
-                   ownEntities: [], mapBackground: "blue-wall")
+                   ownEntities: [], mapBg: "blue-wall")
     }
 }

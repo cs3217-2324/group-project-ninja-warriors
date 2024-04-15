@@ -30,20 +30,11 @@ class CollisionRules: Rules {
             return false
         }
 
-        guard let manager = manager, let collidingEntity = object.attachedCollider?.collidedEntities.first,
-              let otherObject = manager.getComponentFromId(ofType: Rigidbody.self, of: collidingEntity) else {
+        guard let manager = manager, let collideeEntityID = object.attachedCollider?.collidedEntities.first,
+              let collideeEntity = manager.entity(with: collideeEntityID) else {
             return true
         }
-
-        if let _ = object.entity as? Player, let _ = otherObject.entity as? Gem {
-            return true
-        }
-
-        if let _ = object.entity as? Gem, let _ = otherObject.entity as? Player {
-            return true
-        }
-
-        return false
+        return canPassThrough(object.entity, collideeEntity)
     }
 
     func performRule() {
@@ -61,8 +52,7 @@ class CollisionRules: Rules {
             }
 
             performActionOnCollidee(ofType: Gem.self)
-            // TODO: Implement Hadouken
-            // performActionOnCollider(ofType: Hadouken.self)
+            performAction(colliderType: Hadouken.self, collideeType: Player.self)
 
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input
@@ -74,18 +64,27 @@ class CollisionRules: Rules {
     }
 
     private func performActionOnCollidee<T: Entity>(ofType entityType: T.Type) {
-        if let manager = manager,
-           let collidingEntityID = object.attachedCollider?.collidedEntities.first,
-           let collidingEntity = manager.entity(with: collidingEntityID) as? T,
-           let health = manager.getComponent(ofType: Health.self, for: collidingEntity) {
+        guard let manager = manager,
+              let collidingEntityID = object.attachedCollider?.collidedEntities.first,
+              let collidingEntity = manager.entity(with: collidingEntityID) as? T else {
+            return
+        }
+
+        if let health = manager.getComponent(ofType: Health.self, for: collidingEntity) {
             health.kill()
         }
     }
 
-    private func performActionOnCollider<T: Entity>(ofType entityType: T.Type) {
-        if let manager = manager,
-           let entity = object.entity as? T,
-           let health = manager.getComponent(ofType: Health.self, for: entity) {
+    private func performAction<T: Entity, V: Entity>(colliderType: T.Type, collideeType: V.Type) {
+        guard let manager = manager, let collideeEntityID = object.attachedCollider?.collidedEntities.first,
+              let collideeEntity = manager.entity(with: collideeEntityID) as? V,
+              let colliderEntity = object.entity as? T else {
+            return
+        }
+
+        if let hadokuenEntity = colliderEntity as? Hadouken,
+           collideeEntity.id != hadokuenEntity.casterEntity.id,
+           let health = manager.getComponent(ofType: Health.self, for: collideeEntity) {
             health.kill()
         }
     }
@@ -97,13 +96,23 @@ class CollisionRules: Rules {
         let radians = atan2(input.vertical, input.horizontal)
         let degrees = radians * 180 / .pi
         rigidBody.rotation = degrees
+        /*
+        print("rigid body rotation", rigidBody.rotation)
+
+        if rigidBody.rotation >= 0 {
+            print("positive velocity:", Vector(horizontal: cos(radians), vertical: sin(radians) >= 0 ? sin(radians) : -sin(radians)))
+        } else {
+            print("negative velocity:", Vector(horizontal: cos(radians), vertical: sin(radians) >= 0 ? -sin(radians) : sin(radians)))
+        }
+        */
     }
 
     private func moveRigidBody(_ rigidBody: Rigidbody, across deltaTime: TimeInterval) {
         var currentVelocity = rigidBody.collidingVelocity ?? rigidBody.velocity
 
         // Update position
-        let deltaPosition = currentVelocity.scale(deltaTime).add(vector: rigidBody.acceleration.scale(0.5 * pow(deltaTime, 2)))
+        let deltaPosition = currentVelocity.scale(deltaTime)
+            .add(vector: rigidBody.acceleration.scale(0.5 * pow(deltaTime, 2)))
         rigidBody.movePosition(by: deltaPosition)
 
         // Update velocity
@@ -117,5 +126,15 @@ class CollisionRules: Rules {
 
         // Reset force
         rigidBody.totalForce = Vector.zero
+    }
+
+    func canPassThrough(_ colliderEntity: CustomComparator, _ collideeEntity: CustomComparator) -> Bool {
+        if (colliderEntity is Player && collideeEntity is Gem) ||
+           (colliderEntity is Gem && collideeEntity is Player) ||
+           (colliderEntity is Hadouken && collideeEntity is Player) ||
+           (colliderEntity is Player && collideeEntity is Hadouken) {
+            return true
+        }
+        return false
     }
 }

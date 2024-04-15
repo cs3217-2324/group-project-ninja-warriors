@@ -55,7 +55,9 @@ class Collider: Component {
     }
 
     override func changeEntity(to entity: Entity) -> Component {
-        Collider(id: self.id, entity: entity, colliderShape: self.colliderShape, collidedEntities: self.collidedEntities, isColliding: self.isColliding, isOutOfBounds: self.isOutOfBounds)
+        Collider(id: self.id, entity: entity, colliderShape: self.colliderShape,
+                 collidedEntities: self.collidedEntities, isColliding: self.isColliding,
+                 isOutOfBounds: self.isOutOfBounds)
     }
 
     override func wrapper() -> ComponentWrapper? {

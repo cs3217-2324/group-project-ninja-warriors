@@ -35,17 +35,23 @@ struct EnvironmentEffectWrapper: ComponentWrapper {
         let container = try decoder.container(keyedBy: AnyCodingKey.self)
         id = try container.decode(ComponentID.self, forKey: AnyCodingKey(stringValue: "id"))
         entity = try container.decode(EntityWrapper.self, forKey: AnyCodingKey(stringValue: "entity"))
-        environmentShape = try container.decode(ShapeWrapper.self, forKey: AnyCodingKey(stringValue: "environmentShape"))
-        environmentShapeType = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "environmentShapeType"))
-        effectIsActiveInsideShape = try container.decode(Bool.self, forKey: AnyCodingKey(stringValue: "effectIsActiveInsideShape"))
+        environmentShape = try container.decode(ShapeWrapper.self,
+                                                forKey: AnyCodingKey(stringValue: "environmentShape"))
+        environmentShapeType = try container.decode(String.self,
+                                                    forKey: AnyCodingKey(stringValue: "environmentShapeType"))
+        effectIsActiveInsideShape = try container.decode(Bool.self,
+                                                         forKey: AnyCodingKey(stringValue: "effectIsActiveInsideShape"))
     }
 
     func toComponent(entity: Entity) -> Component? {
         let shape = environmentShape.toShape()
         guard let shapeType = NSClassFromString(Constants.directory + environmentShapeType) as? CircleShape.Type else {
-            return EnvironmentEffect(id: id, entity: entity, environmentShape: environmentShape.toShape(), effectIsActiveInsideShape: effectIsActiveInsideShape)
+            return EnvironmentEffect(id: id, entity: entity,
+                                     environmentShape: environmentShape.toShape(),
+                                     effectIsActiveInsideShape: effectIsActiveInsideShape)
         }
         let circle = shapeType.init(center: shape.center, radius: shape.halfLength)
-        return EnvironmentEffect(id: id, entity: entity, environmentShape: circle, effectIsActiveInsideShape: effectIsActiveInsideShape)
+        return EnvironmentEffect(id: id, entity: entity, environmentShape: circle,
+                                 effectIsActiveInsideShape: effectIsActiveInsideShape)
     }
 }

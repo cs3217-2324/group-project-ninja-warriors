@@ -13,20 +13,11 @@ class Sprite: Component {
     var image: String
     var width: CGFloat
     var height: CGFloat
-    var health: Int
-    var maxHealth: Int
 
-    var opacity: Double {
-        return Double(health) / Double(maxHealth)
-    }
-
-    init(id: ComponentID, entity: Entity, image: String, width: CGFloat,
-         height: CGFloat, health: Int, maxHealth: Int) {
+    init(id: ComponentID, entity: Entity, image: String, width: CGFloat, height: CGFloat) {
         self.image = image
         self.width = width
         self.height = height
-        self.health = health
-        self.maxHealth = maxHealth
         super.init(id: id, entity: entity)
     }
 
@@ -37,18 +28,17 @@ class Sprite: Component {
         self.image = newSprite.image
         self.width = newSprite.width
         self.height = newSprite.height
-        self.health = newSprite.health
-        self.maxHealth = newSprite.maxHealth
     }
 
     override func changeEntity(to entity: Entity) -> Component {
-        Sprite(id: self.id, entity: entity, image: self.image, width: self.width, height: self.height, health: self.health, maxHealth: self.maxHealth)
+        Sprite(id: self.id, entity: entity, image: self.image, width: self.width, height: self.height)
     }
 
     override func wrapper() -> ComponentWrapper? {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
-        return SpriteWrapper(id: id, entity: entityWrapper, image: image, width: width, height: height, health: health, maxHealth: maxHealth, wrapperType: NSStringFromClass(type(of: entityWrapper)))
+        return SpriteWrapper(id: id, entity: entityWrapper, image: image, width: width,
+                             height: height, wrapperType: NSStringFromClass(type(of: entityWrapper)))
     }
 }

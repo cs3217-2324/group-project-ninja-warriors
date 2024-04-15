@@ -16,7 +16,7 @@ final class ClientViewModel: ObservableObject {
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
-    let timeLag: Int = 7
+    let timeLag: Int = 3
 
     init(matchId: String, currPlayerId: String, ownEntities: [Entity], metricsRepository: MetricsRepository) {
         self.matchId = matchId
@@ -139,7 +139,8 @@ extension ClientViewModel {
 
 extension ClientViewModel {
     private var closingZoneShape: Shape? {
-        let environmentalEffectComponents = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
+        let environmentalEffectComponents = gameWorld.entityComponentManager
+            .getAllComponents(ofType: EnvironmentEffect.self)
         return environmentalEffectComponents.first?.environmentShape
     }
 

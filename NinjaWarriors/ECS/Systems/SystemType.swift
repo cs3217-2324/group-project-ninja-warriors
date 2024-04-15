@@ -18,7 +18,7 @@ struct SystemType: Hashable {
         hasher.combine(ObjectIdentifier(type))
     }
 
-    static func ==(lhs: SystemType, rhs: SystemType) -> Bool {
+    static func == (lhs: SystemType, rhs: SystemType) -> Bool {
         return lhs.type == rhs.type
     }
 }

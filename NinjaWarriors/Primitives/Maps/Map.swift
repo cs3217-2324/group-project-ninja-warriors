@@ -8,7 +8,7 @@
 import Foundation
 
 protocol Map {
-    var mapBackground: String { get }
+    var mapBg: String { get }
     var mapEntities: [Entity] { get set }
     func getPositions() -> [Point]
     func getMapEntities() -> [Entity]

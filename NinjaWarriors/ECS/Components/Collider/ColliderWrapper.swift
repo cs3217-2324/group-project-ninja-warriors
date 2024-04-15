@@ -45,7 +45,8 @@ struct ColliderWrapper: ComponentWrapper {
         wrapperType = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "wrapperType"))
 
         guard let wrapperClass = NSClassFromString(wrapperType) as? EntityWrapper.Type else {
-            throw NSError(domain: "NinjaWarriors.Wrapper", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
+            throw NSError(domain: "NinjaWarriors.Wrapper",
+                          code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
         }
 
         entity = try container.decode(wrapperClass.self, forKey: AnyCodingKey(stringValue: "entity"))
@@ -54,7 +55,8 @@ struct ColliderWrapper: ComponentWrapper {
 
         // Check if collidedEntities field is present
         if container.contains(AnyCodingKey(stringValue: "collidedEntities")) {
-            collidedEntities = try container.decode(Set<EntityID>.self, forKey: AnyCodingKey(stringValue: "collidedEntities"))
+            collidedEntities = try container.decode(Set<EntityID>.self,
+                                                    forKey: AnyCodingKey(stringValue: "collidedEntities"))
         } else {
             collidedEntities = Set<EntityID>()
         }

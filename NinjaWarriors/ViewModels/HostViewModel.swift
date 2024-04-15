@@ -15,7 +15,7 @@ final class HostViewModel: ObservableObject {
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
-    let timeLag: Int = 5
+    let timeLag: Int = 4
 
     init(matchId: String, currPlayerId: String, ownEntities: [Entity]) {
         self.matchId = matchId
@@ -70,7 +70,6 @@ final class HostViewModel: ObservableObject {
     }
 
     func move(_ vector: CGVector) {
-        print(currPlayerId, timeLag)
         guard let entityIdComponents = gameWorld.entityComponentManager.entityComponentMap[currPlayerId] else {
             return
         }
@@ -137,7 +136,8 @@ extension HostViewModel {
 
 extension HostViewModel {
     private var closingZoneShape: Shape? {
-        let environmentalEffectComponents = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
+        let environmentalEffectComponents = gameWorld.entityComponentManager
+            .getAllComponents(ofType: EnvironmentEffect.self)
         return environmentalEffectComponents.first?.environmentShape
     }
 

@@ -58,8 +58,7 @@ extension Player {
                                                             RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: self,
-                                     image: "player-icon", width: 50.0, height: 50.0, health: 10,
-                                     maxHealth: 100)
+                                     image: "player-icon", width: 50.0, height: 50.0)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: self,
                                 entityInflictDamageMap: [:], health: 100, maxHealth: 100)
@@ -67,7 +66,8 @@ extension Player {
         let score = Score(id: RandomNonce().randomNonceString(), entity: self,
                           score: 0, entityGainScoreMap: [:])
 
-        let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: self, isEnabled: true, invulnerabilityDuration: 2.0, elapsedTimeSinceEnabled: 0.0)
+        let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: self,
+                          isEnabled: true, invulnerabilityDuration: 2.0, elapsedTimeSinceEnabled: 0.0)
 
         return [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge]
     }

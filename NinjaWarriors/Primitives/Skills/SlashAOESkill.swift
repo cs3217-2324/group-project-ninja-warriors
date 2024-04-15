@@ -51,15 +51,19 @@ class SlashAOESkill: EntitySpawnerSkill {
                                   position: shape.center, velocity: Vector.zero, attachedCollider: collider)
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(),
-                                     entity: slashAOE, image: "slash-effect", width: Constants.slashRadius * 2,
-                                     height: Constants.slashRadius * 2, health: 10, maxHealth: 100)
+                                     entity: slashAOE, image: "slash-effect",
+                                     width: Constants.slashRadius * 2,
+                                     height: Constants.slashRadius * 2)
 
         let meleeAttackStrategy = MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius)
-        let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: slashAOE, attackStrategy: meleeAttackStrategy, damage: Constants.slashDamage)
+        let damageEffect = DamageEffect(id: RandomNonce().randomNonceString(), entity: slashAOE, sourceId: casterEntity.id, initialDamage: Constants.slashDamage, damagePerTick: 0, duration: 0)  // Instantaneous damage
+
+        let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: slashAOE, attackStrategy: MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius), damageEffectTemplate: damageEffect)
 
         let lifespanComponent = Lifespan(id: RandomNonce().randomNonceString(), entity: slashAOE, lifespan: 1)
 
-        manager.add(entity: slashAOE, components: [rigidbody, spriteComponent, attackComponent, lifespanComponent], isAdded: false)
+        manager.add(entity: slashAOE, components: [rigidbody, spriteComponent,
+                                                   attackComponent, lifespanComponent], isAdded: false)
 
         manager.addOwnEntity(slashAOE)
 

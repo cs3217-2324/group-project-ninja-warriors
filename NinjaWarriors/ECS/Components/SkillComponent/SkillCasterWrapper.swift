@@ -55,13 +55,15 @@ struct SkillCasterWrapper: ComponentWrapper {
         wrapperType = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "wrapperType"))
 
         guard let wrapperClass = NSClassFromString(wrapperType) as? EntityWrapper.Type else {
-            throw NSError(domain: "NinjaWarriors.Wrapper", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
+            throw NSError(domain: "NinjaWarriors.Wrapper",
+                          code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
         }
 
         entity = try container.decode(wrapperClass.self, forKey: AnyCodingKey(stringValue: "entity"))
 
         do {
-            activationQueue = try container.decodeIfPresent([SkillID].self, forKey: AnyCodingKey(stringValue: "activationQueue")) ?? []
+            activationQueue = try container.decodeIfPresent([SkillID].self,
+                                                            forKey: AnyCodingKey(stringValue: "activationQueue")) ?? []
         } catch {
             activationQueue = []
         }
