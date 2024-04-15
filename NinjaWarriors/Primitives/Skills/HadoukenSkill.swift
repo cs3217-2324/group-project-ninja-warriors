@@ -40,7 +40,16 @@ class HadoukenSkill: EntitySpawnerSkill {
             return hadouken
         }
 
-        let direction = Vector(horizontal: sin(playerRigidbody.rotation), vertical: cos(playerRigidbody.rotation))
+        var direction: Vector
+
+        let rotationRadian = playerRigidbody.rotation  * .pi / 180
+
+        if rotationRadian >= 0 {
+            direction = Vector(horizontal: cos(rotationRadian), vertical: sin(rotationRadian) >= 0 ? sin(rotationRadian) : -sin(rotationRadian))
+        } else {
+            direction = Vector(horizontal: cos(rotationRadian), vertical: sin(rotationRadian) >= 0 ? -sin(rotationRadian) : sin(rotationRadian))
+        }
+
         let initialPosition = playerRigidbody.position.add(vector: direction.scale(Constants.defaultSize * 2.5))
 
         let shape: Shape = CircleShape(center: playerRigidbody.position, radius: Constants.defaultSize)
@@ -68,7 +77,6 @@ class HadoukenSkill: EntitySpawnerSkill {
                                      width: Constants.slashRadius,
                                      height: Constants.slashRadius)
 
-        let meleeAttackStrategy = MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius)
         let damageEffect = DamageEffect(id: RandomNonce().randomNonceString(), entity: hadouken, sourceId: casterEntity.id, initialDamage: 100, damagePerTick: 0, duration: 0)  // Instantaneous damage
 
         let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: hadouken, attackStrategy: MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius), damageEffectTemplate: damageEffect)
