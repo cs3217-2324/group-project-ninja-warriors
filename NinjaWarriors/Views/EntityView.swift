@@ -100,7 +100,7 @@ struct EntityView: View {
 
             Rectangle()
                 .fill(healthColor)
-                .frame(width: healthBarFillWidth, height: Constants.HealthBar.height)
+                .frame(width: max(healthBarFillWidth, 0), height: Constants.HealthBar.height)
                 .position(x: viewModel.position.x - healthBarWidth / 2 + healthBarFillWidth / 2,
                           y: viewModel.position.y - healthBarOffsetY)
         }

@@ -24,6 +24,7 @@ class CombatSystem: System {
             }
 
             damageEffect.elapsedTime += time
+
             if damageEffect.elapsedTime >= damageEffect.duration {
                 toRemove.append(damageEffect)
             } else {
@@ -34,18 +35,20 @@ class CombatSystem: System {
 
         // Remove expired DamageEffects
         for effect in toRemove {
-            manager.remove(ofComponentType: DamageEffect.self, from: effect.entity)
+            manager.remove(ofComponentType: DamageEffect.self, from: effect.entity, isRemoved: false)
         }
     }
 
     private func applyDamage(_ damage: Double, to entity: Entity, from sourceID: EntityID) {
-        guard let dodge = manager.getComponent(ofType: Dodge.self, for: entity) else {
+        guard let dodgeComponent = manager.getComponent(ofType: Dodge.self, for: entity),
+        !dodgeComponent.isEnabled else {
             return
         }
 
         if let health = manager.getComponent(ofType: Health.self, for: entity) {
             health.health -= damage
             recordDamage(damage, to: entity.id, by: sourceID)
+            manager.componentsQueue.addComponent(health)
         }
     }
 

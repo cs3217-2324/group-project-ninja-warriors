@@ -36,6 +36,14 @@ struct AuthenticationView: View {
                         .background(Color.white)
                         .cornerRadius(10)
                 }.padding()
+                NavigationLink(destination: HowToPlayView()) {
+                    Text("How To Play")
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity)
+                        .frame(width: 300, height: 55)
+                        .background(Color.white)
+                        .cornerRadius(10)
+                }.padding()
                 Spacer(minLength: 0)
             }
             .navigationBarTitle("Sign In")

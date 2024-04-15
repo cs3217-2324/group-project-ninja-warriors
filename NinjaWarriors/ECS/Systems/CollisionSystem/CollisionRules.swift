@@ -52,7 +52,6 @@ class CollisionRules: Rules {
             }
 
             performActionOnCollidee(ofType: Gem.self)
-            performAction(colliderType: Hadouken.self, collideeType: Player.self)
 
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input
@@ -75,20 +74,6 @@ class CollisionRules: Rules {
         }
     }
 
-    private func performAction<T: Entity, V: Entity>(colliderType: T.Type, collideeType: V.Type) {
-        guard let manager = manager, let collideeEntityID = object.attachedCollider?.collidedEntities.first,
-              let collideeEntity = manager.entity(with: collideeEntityID) as? V,
-              let colliderEntity = object.entity as? T else {
-            return
-        }
-
-        if let hadokuenEntity = colliderEntity as? Hadouken,
-           collideeEntity.id != hadokuenEntity.casterEntity.id,
-           let health = manager.getComponent(ofType: Health.self, for: collideeEntity) {
-            health.kill()
-        }
-    }
-
     private func alignEntityRotation(for rigidBody: Rigidbody) {
         guard let input = input else {
             return
@@ -96,15 +81,6 @@ class CollisionRules: Rules {
         let radians = atan2(input.vertical, input.horizontal)
         let degrees = radians * 180 / .pi
         rigidBody.rotation = degrees
-        /*
-        print("rigid body rotation", rigidBody.rotation)
-
-        if rigidBody.rotation >= 0 {
-            print("positive velocity:", Vector(horizontal: cos(radians), vertical: sin(radians) >= 0 ? sin(radians) : -sin(radians)))
-        } else {
-            print("negative velocity:", Vector(horizontal: cos(radians), vertical: sin(radians) >= 0 ? -sin(radians) : sin(radians)))
-        }
-        */
     }
 
     private func moveRigidBody(_ rigidBody: Rigidbody, across deltaTime: TimeInterval) {
@@ -128,6 +104,7 @@ class CollisionRules: Rules {
         rigidBody.totalForce = Vector.zero
     }
 
+    // TODO: Do not allow hadouken to pick up gem
     func canPassThrough(_ colliderEntity: CustomComparator, _ collideeEntity: CustomComparator) -> Bool {
         if (colliderEntity is Player && collideeEntity is Gem) ||
            (colliderEntity is Gem && collideeEntity is Player) ||

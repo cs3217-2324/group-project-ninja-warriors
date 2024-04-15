@@ -115,12 +115,21 @@ class EntityComponentManager {
                     self.add(entity: remoteEntity)
                 }
             }
+
+            if remoteEntityMap.count < self.entityMap.count {
+                print("stale alert!!!")
+            }
+
+            for (currEntityId, currEntity) in self.entityMap {
+                if remoteEntityMap[currEntityId] == nil {
+                    self.remove(entity: currEntity)
+                }
+            }
         }
     }
 
     func publish() async throws {
         for (entityId, entity) in entityMap {
-
             guard (entity as? ClosingZone) == nil, (entity as? Obstacle) == nil,
                   ownEntities.contains(entityId) else {
                 continue
@@ -157,7 +166,7 @@ class EntityComponentManager {
     }
 
     func filterOwnComponents(_ componentsToFilter: Set<Component>) -> [Component] {
-        componentsToFilter.filter { !($0 is Health) }
+        componentsToFilter.filter { !($0 is Health || $0 is DamageEffect) }
     }
 
     func addOwnEntity(_ entity: Entity) {
@@ -316,7 +325,13 @@ class EntityComponentManager {
         if let existingComponent = findExistingComponent(ofType: componentType, in: entityComponents) {
             updateExistingComponent(existingComponent, with: component)
         } else {
-            insertNewComponent(component, ofType: componentType, into: &entityComponents)
+            if component as? DamageEffect != nil {
+                // Remap damage effect entity to new entity
+                let newDamageEffect = component.changeEntity(to: entity)
+                insertNewComponent(newDamageEffect, ofType: componentType, into: &entityComponents)
+            } else {
+                insertNewComponent(component, ofType: componentType, into: &entityComponents)
+            }
         }
 
         entityComponentMap[entity.id] = entityComponents
@@ -414,10 +429,10 @@ class EntityComponentManager {
         }
     }
 
-    func remove<T: Component>(ofComponentType: T.Type, from entity: Entity) {
+    func remove<T: Component>(ofComponentType: T.Type, from entity: Entity, isRemoved: Bool = true) {
         let component = getComponent(ofType: T.self, for: entity)
         if let component = component {
-            remove(component: component, from: entity)
+            remove(component: component, from: entity, isRemoved: isRemoved)
         }
     }
 

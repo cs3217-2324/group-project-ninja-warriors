@@ -68,8 +68,6 @@ class CollisionManager: System {
             return true
         }
 
-        // let collisionRule = CollisionRules(object: object)
-
         return !isOverlap(source: object, with: otherObject, isColliding: isColliding)
         /*
         return isNotIntersecting(source: object, with: shape, isColliding: isColliding)
