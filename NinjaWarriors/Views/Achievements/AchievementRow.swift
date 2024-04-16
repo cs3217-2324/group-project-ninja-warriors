@@ -58,5 +58,5 @@ struct AchievementRow: View {
 }
 
 #Preview {
-    AchievementRow(achievement: ThreeDashesInGameAchievement(userID: "guestID", metricsSubject: MetricsRepository()))
+    AchievementRow(achievement: ThreeDashesInGameAchievement(userID: "guestID", metricsSubject: MetricsRepository()), displayingInGame: false)
 }

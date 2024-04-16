@@ -20,7 +20,7 @@ struct InGameAchievementsView: View {
             LazyVGrid(columns: columns) {
                 let inGameAchievements = achievementManager.getUnlockedAchievements(fromGame: matchID)
                 ForEach(inGameAchievements, id: \.title) { achievement in
-                    AchievementRow(achievement: achievement)
+                    AchievementRow(achievement: achievement, displayingInGame: true)
                 }
             }
         }

@@ -22,7 +22,7 @@ struct AchievementsView: View {
                         $0.isUnlocked && !$1.isUnlocked
                     }
                     ForEach(sortedAchievements, id: \.title) { achievement in
-                        AchievementRow(achievement: achievement)
+                        AchievementRow(achievement: achievement, displayingInGame: false)
                     }
                 }
             }
