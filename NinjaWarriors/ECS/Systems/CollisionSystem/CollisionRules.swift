@@ -61,11 +61,13 @@ class CollisionRules: Rules {
             object.velocity = Vector.zero
 
             // Stop any skills if the collided entity is not a player
+            /*
             if var objectLifespan = manager?.getComponent(ofType: Lifespan.self, for: object.entity),
                var collidedEntityID = collider.collidedEntities.first,
                manager?.entity(with: collidedEntityID) as? Player == nil {
                 objectLifespan.elapsedTime = objectLifespan.lifespan
             }
+            */
         }
 
         moveRigidBody(object, across: deltaTime)

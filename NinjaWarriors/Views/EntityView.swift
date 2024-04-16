@@ -50,7 +50,7 @@ struct EntityView: View {
                 .aspectRatio(contentMode: .fill)
                 .opacity(viewModel.opacity)
                 .rotationEffect(Angle(degrees: viewModel.rotation))
-                .frame(width: sprite.width * 1.2, height: sprite.height * 1.2)
+                .frame(width: sprite.width, height: sprite.height)
                 .position(viewModel.position)
                 .overlay(
                     overlay(for: sprite, isCurrentUser: sprite.entity.id == viewModel.currPlayerId)

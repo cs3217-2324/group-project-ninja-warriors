@@ -119,8 +119,14 @@ class EntityComponentManager {
 
             // Remove stale entities, except for extremely short lifespan ones
             for (currEntityId, currEntity) in self.entityMap {
-                if remoteEntityMap[currEntityId] == nil && currEntity as? Hadouken == nil {
-                    self.remove(entity: currEntity)
+                if remoteEntityMap[currEntityId] == nil {
+                    if let lifespan = self.getComponent(ofType: Lifespan.self, for: currEntity) {
+                        if lifespan.lifespan > 2 {
+                            self.remove(entity: currEntity)
+                        }
+                    } else {
+                        self.remove(entity: currEntity)
+                    }
                 }
             }
         }
