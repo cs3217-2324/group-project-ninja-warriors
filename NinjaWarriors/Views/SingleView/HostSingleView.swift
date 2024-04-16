@@ -15,15 +15,14 @@ struct HostSingleView: View {
     @State private var playerId: String
     @State private var mapBg: String
 
-    init(matchId: String, currPlayerId: String, mapBg: String, achievementManager: AchievementManager) {
+    init(matchId: String, currPlayerId: String, mapBg: String) {
         self.matchId = matchId
         self.playerId = currPlayerId
         self.mapBg = mapBg
         let metricsRepository = MetricsRepository()
         self.viewModel = HostSingleViewModel(matchId: matchId,
                                              currPlayerId: currPlayerId,
-                                             metricsRepository: metricsRepository,
-                                             achievementManager: achievementManager)
+                                             metricsRepository: metricsRepository)
     }
 
     var body: some View {

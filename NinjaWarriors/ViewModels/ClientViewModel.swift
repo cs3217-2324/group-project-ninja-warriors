@@ -51,7 +51,7 @@ final class ClientViewModel: ObservableObject {
             print("Error publishing updated state: \(error)")
         }
         updateViews()
-        getAchivements()
+        getAchievements()
     }
 
     func updateEntities() {
@@ -165,16 +165,14 @@ extension ClientViewModel {
 
 // TODO: Shift this to game over view model
 extension ClientViewModel {
-    func getAchivements() {
-        let achievements = gameWorld.achievementManager.achievements
+    func getAchievements() {
+        let achievementsFromLastGame = gameWorld.achievementManager?.getUnlockedAchievements(fromGame: matchId) ?? []
         let metricRepository = gameWorld.getRepository()
 
         metricRepository.notifyAllObservers(userID: currPlayerId)
 
-        for achievement in achievements {
-            if achievement.count >= 1 {
-                print(achievement.title, achievement.description)
-            }
+        for achievement in achievementsFromLastGame {
+            print(achievement.title, achievement.description)
         }
     }
 }

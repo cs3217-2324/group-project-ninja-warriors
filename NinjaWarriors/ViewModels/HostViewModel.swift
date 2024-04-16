@@ -50,7 +50,7 @@ final class HostViewModel: ObservableObject {
         }
         updateViews()
         // TODO: Move this to game over view model
-        getAchivements()
+        getAchievements()
     }
 
     func updateEntities() {
@@ -164,16 +164,14 @@ extension HostViewModel {
 
 // TODO: Shift this to game over view model
 extension HostViewModel {
-    func getAchivements() {
-        let achievements = gameWorld.achievementManager.achievements
+    func getAchievements() {
+        let achievementsFromLastGame = gameWorld.achievementManager?.getUnlockedAchievements(fromGame: matchId) ?? []
         let metricRepository = gameWorld.getRepository()
 
         metricRepository.notifyAllObservers(userID: currPlayerId)
 
-        for achievement in achievements {
-            if achievement.count >= 1 {
-                print(achievement.title, achievement.description)
-            }
+        for achievement in achievementsFromLastGame {
+            print(achievement.title, achievement.description)
         }
     }
 }

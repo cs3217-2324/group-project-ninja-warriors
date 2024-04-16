@@ -17,14 +17,13 @@ final class HostSingleViewModel: ObservableObject {
     internal var matchId: String
     internal var currPlayerId: String
 
-    init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository,
-         achievementManager: AchievementManager) {
+    init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.metricsRepository = metricsRepository
         let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
         self.gameWorld = GameWorld(for: matchId, metricsRecorder: metricsRecorder,
-                                   achievementManager: achievementManager)
+                                   achievementManager: nil)
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
             Task {

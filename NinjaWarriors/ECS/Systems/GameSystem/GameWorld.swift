@@ -11,14 +11,14 @@ import SwiftUI
 // Represents the game world, containing entities and systems
 class GameWorld {
     var entityComponentManager: EntityComponentManager
-    var achievementManager: AchievementManager
+    var achievementManager: AchievementManager?
     let systemManager = SystemManager()
     var gameLoopManager = GameLoopManager()
     var gameControl: GameControl
     var updateViewModel: () -> Void = {}
 
     init(for match: String, gameControl: GameControl = JoystickControl(),
-         metricsRecorder: EntityMetricsRecorder, achievementManager: AchievementManager) {
+         metricsRecorder: EntityMetricsRecorder, achievementManager: AchievementManager?) {
         self.entityComponentManager = EntityComponentManager(for: match, metricsRecorder: metricsRecorder)
         self.gameControl = gameControl
         self.achievementManager = achievementManager
