@@ -21,7 +21,7 @@ struct AchievementsView: View {
                     let sortedAchievements = achievementManager.achievements.sorted {
                         $0.isUnlocked && !$1.isUnlocked
                     }
-                    ForEach(achievementManager.achievements, id: \.title) { achievement in
+                    ForEach(sortedAchievements, id: \.title) { achievement in
                         AchievementRow(achievement: achievement)
                     }
                 }

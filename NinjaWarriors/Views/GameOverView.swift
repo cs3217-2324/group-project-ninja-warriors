@@ -16,13 +16,8 @@ struct GameAchievement {
 struct GameOverView: View {
     @State private var showingAchievements = false
     @Binding var path: NavigationPath
-
-    // Mock achievements data
-    let achievements: [GameAchievement] = [
-        GameAchievement(title: "First Victory", description: "You won your first game!"),
-        GameAchievement(title: "Master Collector", description: "You collected all the gems."),
-        GameAchievement(title: "Speed Runner", description: "You completed the game in record time!")
-    ]
+    @ObservedObject var achievementManager: AchievementManager
+    var matchID: String
 
     var body: some View {
         VStack {
@@ -56,41 +51,13 @@ struct GameOverView: View {
                 .frame(width: 400, height: 400)
         )
         .sheet(isPresented: $showingAchievements) {
-            AchievementSheet(achievements: achievements)
+            InGameAchievementsView(achievementManager: achievementManager, matchID: matchID)
         }
-    }
-}
-
-struct AchievementSheet: View {
-    let achievements: [GameAchievement]
-    @Environment(\.presentationMode) var presentationMode
-
-    var body: some View {
-        NavigationView {
-            List(achievements, id: \.title) { achievement in
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(achievement.title)
-                        .font(.headline)
-                        .fontWeight(.bold)
-                    Text(achievement.description)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                .padding(.vertical, 8)
-            }
-            .navigationBarTitle("Achievements")
-            .navigationBarItems(trailing:
-                Button("Done") {
-                    presentationMode.wrappedValue.dismiss()
-                }
-            )
-        }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
 struct GameOverView_Previews: PreviewProvider {
     static var previews: some View {
-        GameOverView(path: .constant(NavigationPath()))
+        GameOverView(path: .constant(NavigationPath()), achievementManager: AchievementManager(userID: "test", metricsSubject: MetricsRepository()), matchID: "match")
     }
 }

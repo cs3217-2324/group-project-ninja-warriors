@@ -22,6 +22,8 @@ struct SingleLobbyView: View {
                                                 currPlayerId: viewModel.hostId,
                                                 mapBackground: viewModel.map.mapBackground,
                                                 gameMode: viewModel.map.gameMode,
+                                                metricsRepository: viewModel.metricsRepository,
+                                                achievementManager: viewModel.achievementsManager,
                                                 path: $path)
                     .navigationBarBackButtonHidden(true)) {
                         Text("Start")
