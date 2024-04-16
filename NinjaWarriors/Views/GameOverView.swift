@@ -26,20 +26,18 @@ struct GameOverView: View {
 
     var body: some View {
         VStack {
-            Text("Game Over!")
-                .font(.largeTitle)
-                .fontWeight(.bold)
+            Text("Game Over")
+                .font(.custom("KARASHA", size: 50))
+                .foregroundColor(.red)
+                .shadow(radius: 10)
                 .padding()
 
             Button(action: {
                 showingAchievements.toggle()
             }) {
                 Text("View Achievements")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                    .font(.custom("KARASHA", size: 25))
+                    .foregroundColor(.black)
             }
             .padding()
 
@@ -47,10 +45,16 @@ struct GameOverView: View {
                 path = NavigationPath()
             }, label: {
                 Text("Back to Home")
+                    .font(.custom("KARASHA", size: 25))
+                    .foregroundColor(.black)
             })
-
-            Spacer()
         }
+        .background(
+            Image("scroll")
+                .resizable()
+                .scaledToFill()
+                .frame(width: 400, height: 400)
+        )
         .sheet(isPresented: $showingAchievements) {
             AchievementSheet(achievements: achievements)
         }
