@@ -26,7 +26,3 @@ struct AchievementsView: View {
         }.navigationTitle("Achievements")
     }
 }
-
-#Preview {
-    AchievementsView(achievementManager: AchievementManager(userID: "guestID", metricsSubject: MetricsRepository()))
-}
