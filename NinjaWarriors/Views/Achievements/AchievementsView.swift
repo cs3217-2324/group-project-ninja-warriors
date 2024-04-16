@@ -23,9 +23,7 @@ struct AchievementsView: View {
                     }
                 }
             }
-        }.toolbar {
-            Text("Achievements")
-        }
+        }.navigationTitle("Achievements")
     }
 }
 
