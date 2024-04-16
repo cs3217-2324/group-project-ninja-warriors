@@ -168,16 +168,6 @@ extension HostViewModel {
         let achievements = gameWorld.achievementManager.achievements
         let metricRepository = gameWorld.getRepository()
 
-        /*
-        for achievement in achievements {
-            let dependentMetricsTypes = achievement.dependentMetrics
-            for metricType in dependentMetricsTypes {
-                let metricData = metricRepository.readMetric(metricType, userID: currPlayerId)
-                achievement
-            }
-        }
-        */
-
         metricRepository.notifyAllObservers(userID: currPlayerId)
 
         for achievement in achievements {
