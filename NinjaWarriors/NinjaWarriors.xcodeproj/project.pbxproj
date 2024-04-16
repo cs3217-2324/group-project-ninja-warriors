@@ -109,12 +109,15 @@
 		916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */; };
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
 		916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* HostViewModel.swift */; };
+		917146762BCE292300CC1004 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917146752BCE292300CC1004 /* GameOverView.swift */; };
+		917146772BCE292300CC1004 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917146752BCE292300CC1004 /* GameOverView.swift */; };
+		917146782BCE292300CC1004 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917146752BCE292300CC1004 /* GameOverView.swift */; };
+		9171467A2BCE2FEB00CC1004 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 917146792BCE2FEB00CC1004 /* GoogleService-Info.plist */; };
+		9171467B2BCE2FEB00CC1004 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 917146792BCE2FEB00CC1004 /* GoogleService-Info.plist */; };
+		9171467C2BCE2FEB00CC1004 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 917146792BCE2FEB00CC1004 /* GoogleService-Info.plist */; };
 		917BEBAA2BCA29F7001D0F7C /* ObstacleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */; };
 		917BEBAB2BCA29F7001D0F7C /* ObstacleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */; };
 		917BEBAC2BCA29F8001D0F7C /* ObstacleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */; };
-		917BEBBE2BCA87C1001D0F7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 917BEBBD2BCA87C1001D0F7C /* GoogleService-Info.plist */; };
-		917BEBBF2BCA87C1001D0F7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 917BEBBD2BCA87C1001D0F7C /* GoogleService-Info.plist */; };
-		917BEBC02BCA87C1001D0F7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 917BEBBD2BCA87C1001D0F7C /* GoogleService-Info.plist */; };
 		9180486B2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
 		9180486C2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
 		9180486D2BC7A75700026965 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180486A2BC7A75700026965 /* Map.swift */; };
@@ -314,8 +317,9 @@
 		916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorWrapper.swift; sourceTree = "<group>"; };
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
 		916A7DB32BA42F8B00319C26 /* HostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostViewModel.swift; sourceTree = "<group>"; };
+		917146752BCE292300CC1004 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
+		917146792BCE2FEB00CC1004 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstacleMap.swift; sourceTree = "<group>"; };
-		917BEBBD2BCA87C1001D0F7C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9180486A2BC7A75700026965 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		9180486E2BC7A86400026965 /* GemMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemMap.swift; sourceTree = "<group>"; };
 		918048722BC7AA9500026965 /* ClosingZoneMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingZoneMap.swift; sourceTree = "<group>"; };
@@ -648,7 +652,7 @@
 		916A7D382BA1541700319C26 /* NinjaWarriors */ = {
 			isa = PBXGroup;
 			children = (
-				917BEBBD2BCA87C1001D0F7C /* GoogleService-Info.plist */,
+				917146792BCE2FEB00CC1004 /* GoogleService-Info.plist */,
 				916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */,
 				916A7D3B2BA1541700319C26 /* ContentView.swift */,
 				916A7D3D2BA1541800319C26 /* Assets.xcassets */,
@@ -732,6 +736,7 @@
 				E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */,
 				9180487A2BC7C7B600026965 /* CharacterSelectionView.swift */,
 				9180487F2BC9094B00026965 /* MapSelectionView.swift */,
+				917146752BCE292300CC1004 /* GameOverView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1217,7 +1222,7 @@
 				E6CDFFC22BAF22A1007BB867 /* grass.png in Resources */,
 				E6CDFFC42BAF2306007BB867 /* player-copy.png in Resources */,
 				E6CDFFC02BAF1DB0007BB867 /* player.png in Resources */,
-				917BEBBE2BCA87C1001D0F7C /* GoogleService-Info.plist in Resources */,
+				9171467A2BCE2FEB00CC1004 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1231,7 +1236,7 @@
 				91D496FB2BB059120027C657 /* player-copy.png in Resources */,
 				91D496F62BB059090027C657 /* Assets.xcassets in Resources */,
 				91D496F72BB059090027C657 /* Preview Assets.xcassets in Resources */,
-				917BEBBF2BCA87C1001D0F7C /* GoogleService-Info.plist in Resources */,
+				9171467B2BCE2FEB00CC1004 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1239,7 +1244,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				917BEBC02BCA87C1001D0F7C /* GoogleService-Info.plist in Resources */,
+				9171467C2BCE2FEB00CC1004 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1359,6 +1364,7 @@
 				916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */,
 				916A7D952BA1AB2A00319C26 /* User.swift in Sources */,
 				9169910A2BC5499700ED1FBD /* SingleLobbyView.swift in Sources */,
+				917146762BCE292300CC1004 /* GameOverView.swift in Sources */,
 				916A7D892BA19F5100319C26 /* AuthenticationView.swift in Sources */,
 				714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */,
 				9180486F2BC7A86400026965 /* GemMap.swift in Sources */,
@@ -1433,6 +1439,7 @@
 				916991412BC69EBE00ED1FBD /* Rules.swift in Sources */,
 				9180487C2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */,
 				9180486C2BC7A75700026965 /* Map.swift in Sources */,
+				917146772BCE292300CC1004 /* GameOverView.swift in Sources */,
 				7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1442,6 +1449,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				916A7D5C2BA1541800319C26 /* NinjaWarriorsUITestsLaunchTests.swift in Sources */,
+				917146782BCE292300CC1004 /* GameOverView.swift in Sources */,
 				916991392BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */,
 				9180486D2BC7A75700026965 /* Map.swift in Sources */,

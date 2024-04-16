@@ -11,7 +11,6 @@ class LastManStandingMode: GameMode {
     var hasStarted: Bool = false
 
     func isGameOver(for gameWorld: GameWorld) -> Bool {
-        print("has started status: ", hasStarted)
         guard hasStarted else {
             return false
         }
