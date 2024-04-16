@@ -14,16 +14,20 @@ struct ClientView: View {
     @State private var matchId: String
     @State private var playerId: String
     @State private var mapBackground: String
+    private var achievementManager: AchievementManager
+    @Binding var path: NavigationPath
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode) {
-        self.matchId = matchId
-        self.playerId = currPlayerId
-        self.mapBackground = mapBackground
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode, path: Binding<NavigationPath>) {
+        self._matchId = State(initialValue: matchId)
+        self._playerId = State(initialValue: currPlayerId)
+        self._mapBackground = State(initialValue: mapBackground)
+        self.achievementManager = achievementManager
         self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId,
                                          ownEntities: ownEntities,
                                          metricsRepository: metricsRepository,
                                          achievementManager: achievementManager,
                                          gameMode: gameMode)
+        self._path = path
     }
 
     var body: some View {
@@ -31,7 +35,9 @@ struct ClientView: View {
             backgroundImage
             closingZoneView
             canvasView
-
+            if viewModel.isGameOver {
+                GameOverView(path: $path, achievementManager: achievementManager, matchID: matchId)
+            }
             ProgressView()
                 .onAppear {
                     viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {

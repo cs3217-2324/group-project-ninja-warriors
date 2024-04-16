@@ -47,7 +47,8 @@ struct LobbyView: View {
                                                       mapBackground: viewModel.map.mapBackground,
                                                       metricsRepository: viewModel.metricsRepository,
                                                       achievementManager: viewModel.achievementsManager,
-                                                      gameMode: viewModel.map.gameMode
+                                                      gameMode: viewModel.map.gameMode,
+                                                      path: $path
                                                      ).navigationBarBackButtonHidden(true)
                             ) {
                                 startGameText
@@ -64,7 +65,8 @@ struct LobbyView: View {
                                                         mapBackground: viewModel.map.mapBackground,
                                                         metricsRepository: viewModel.metricsRepository,
                                                         achievementManager: viewModel.achievementsManager,
-                                                        gameMode: viewModel.map.gameMode
+                                                        gameMode: viewModel.map.gameMode,
+                                                        path: $path
                                                        ).navigationBarBackButtonHidden(true)
                             ) {
                                 startGameText
