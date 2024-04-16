@@ -12,7 +12,10 @@ struct AchievementsView: View {
     let columns = [GridItem(.flexible())]
 
     var body: some View {
-        NavigationStack {
+        VStack {
+            Text("Achievements")
+                .font(.largeTitle)
+                .padding()
             ScrollView {
                 LazyVGrid(columns: columns) {
                     let sortedAchievements = achievementManager.achievements.sorted {
@@ -23,7 +26,7 @@ struct AchievementsView: View {
                     }
                 }
             }
-        }.navigationTitle("Achievements")
+        }
     }
 }
 
