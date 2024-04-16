@@ -7,9 +7,9 @@
 
 import Foundation
 
-class AchievementManager {
+class AchievementManager: ObservableObject {
     let userID: UserID
-    let achievements: [Achievement]
+    @Published var achievements: [Achievement]
     let achievementTypes: [Achievement.Type] = [
         HighDamageButNoKillAchievement.self,
         KilledTenPeopleAchievement.self,

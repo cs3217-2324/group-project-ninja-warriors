@@ -104,6 +104,16 @@ struct LobbyView: View {
                 })
                 .opacity(isReady ? 0.5 : 1.0)
                 .disabled(isReady)
+
+                NavigationLink(destination: AchievementsView(achievementManager: viewModel.achievementsManager)) {
+                    Text("View Achievements")
+                        .font(.system(size: 20))
+                        .padding()
+                        .background(.pink)
+                        .foregroundColor(.white)
+                        .fontWeight(.bold)
+                        .cornerRadius(10)
+                }.padding(.top, 100)
             }
             .background(
                 Image("lobby-bg")

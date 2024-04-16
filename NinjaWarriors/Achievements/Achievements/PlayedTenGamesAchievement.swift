@@ -12,7 +12,7 @@ class PlayedTenGamesAchievement: Achievement {
 
     var description: String = "Play ten games"
 
-    var imageAsset: String = "ten-games"
+    var imageAsset: String = "achievement-ten-games"
 
     var isRepeatable: Bool = false
 
