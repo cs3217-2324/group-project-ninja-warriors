@@ -13,6 +13,8 @@ class EntityComponentManager {
     var entityMap: [EntityID: Entity]
     var componentMap: [ComponentType: Set<Component>]
 
+    var entityMetricsRecorder: EntityMetricsRecorder
+
     // To store entity component data fetched from database
     var newEntityComponentMap: [EntityID: [Component]] = [:]
     var newEntity: [Entity] = []
@@ -37,11 +39,12 @@ class EntityComponentManager {
         return allComponents
     }
 
-    init(for match: String) {
+    init(for match: String, metricsRecorder: EntityMetricsRecorder) {
         entityComponentMap = [:]
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
+        entityMetricsRecorder = metricsRecorder
         // manager.deleteAllKeysExcept(matchId: "a")
     }
 
@@ -111,10 +114,6 @@ class EntityComponentManager {
                 } else {
                     self.add(entity: remoteEntity)
                 }
-            }
-
-            if remoteEntityMap.count < self.entityMap.count {
-                print("stale alert!!!")
             }
 
             for (currEntityId, currEntity) in self.entityMap {

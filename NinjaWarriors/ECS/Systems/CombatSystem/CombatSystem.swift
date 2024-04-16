@@ -20,7 +20,7 @@ class CombatSystem: System {
 
         for damageEffect in damageEffects {
             if damageEffect.elapsedTime == 0 {  // Apply initial damage
-                applyDamage(damageEffect.initialDamage, to: damageEffect.entity)
+                applyDamage(damageEffect.initialDamage, to: damageEffect.entity, from: damageEffect.sourceId)
             }
 
             damageEffect.elapsedTime += time
@@ -29,7 +29,7 @@ class CombatSystem: System {
                 toRemove.append(damageEffect)
             } else {
                 let damage = damageEffect.damagePerTick * time
-                applyDamage(damage, to: damageEffect.entity)
+                applyDamage(damage, to: damageEffect.entity, from: damageEffect.sourceId)
             }
         }
 
@@ -39,7 +39,7 @@ class CombatSystem: System {
         }
     }
 
-    private func applyDamage(_ damage: Double, to entity: Entity) {
+    private func applyDamage(_ damage: Double, to entity: Entity, from sourceID: EntityID) {
         guard let dodgeComponent = manager.getComponent(ofType: Dodge.self, for: entity),
         !dodgeComponent.isEnabled else {
             return
@@ -47,7 +47,13 @@ class CombatSystem: System {
 
         if let health = manager.getComponent(ofType: Health.self, for: entity) {
             health.health -= damage
+            recordDamage(damage, to: entity.id, by: sourceID)
             manager.componentsQueue.addComponent(health)
         }
+    }
+
+    private func recordDamage(_ damage: Double, to targetID: EntityID, by sourceID: EntityID) {
+        manager.entityMetricsRecorder.record(DamageDealtMetric.self, forEntityID: sourceID, value: damage)
+        manager.entityMetricsRecorder.record(DamageTakenMetric.self, forEntityID: targetID, value: damage)
     }
 }

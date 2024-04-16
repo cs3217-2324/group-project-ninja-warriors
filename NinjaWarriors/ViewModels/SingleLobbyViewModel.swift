@@ -17,8 +17,12 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
     @Published var map: Map = ClosingZoneMap()
     @Published var mapName: String?
     var character = "Shadowstrike"
+    var metricsRepository: MetricsRepository
+    var achievementsManager: AchievementManager
 
     init() {
+        metricsRepository = MetricsRepository()
+        achievementsManager = AchievementManager(userID: "singlePlayer", metricsSubject: metricsRepository)
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
     }
 

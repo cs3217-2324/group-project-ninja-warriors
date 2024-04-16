@@ -17,10 +17,14 @@ final class HostViewModel: ObservableObject {
     var time: Int = 0
     let timeLag: Int = 4
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity]) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity],
+         metricsRepository: MetricsRepository, achievementManager: AchievementManager) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.gameWorld = GameWorld(for: matchId)
+        let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
+        self.gameWorld = GameWorld(for: matchId,
+                                   metricsRecorder: metricsRecorder,
+                                   achievementManager: achievementManager)
 
         gameWorld.entityComponentManager.addOwnEntities(ownEntities)
 
@@ -45,6 +49,8 @@ final class HostViewModel: ObservableObject {
             print("Error publishing updated state: \(error)")
         }
         updateViews()
+        // TODO: Move this to game over view model
+        getAchievements()
     }
 
     func updateEntities() {
@@ -153,5 +159,19 @@ extension HostViewModel {
             return 100000 // So no gas cloud at all
         }
         return shape.halfLength
+    }
+}
+
+// TODO: Shift this to game over view model
+extension HostViewModel {
+    func getAchievements() {
+        let achievementsFromLastGame = gameWorld.achievementManager?.getUnlockedAchievements(fromGame: matchId) ?? []
+        let metricRepository = gameWorld.getRepository()
+
+        metricRepository.notifyAllObservers(userID: currPlayerId)
+
+        for achievement in achievementsFromLastGame {
+            print(achievement.title, achievement.description)
+        }
     }
 }

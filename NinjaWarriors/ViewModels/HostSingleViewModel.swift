@@ -11,14 +11,19 @@ import SwiftUI
 @MainActor
 final class HostSingleViewModel: ObservableObject {
     var gameWorld: GameWorld
+    // TODO: Remove metric from here should only be in game world
+    var metricsRepository: MetricsRepository
     internal var entities: [Entity] = []
     internal var matchId: String
     internal var currPlayerId: String
 
-    init(matchId: String, currPlayerId: String) {
+    init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.gameWorld = GameWorld(for: matchId)
+        self.metricsRepository = metricsRepository
+        let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
+        self.gameWorld = GameWorld(for: matchId, metricsRecorder: metricsRecorder,
+                                   achievementManager: nil)
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
             Task {

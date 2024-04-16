@@ -11,16 +11,22 @@ import SwiftUI
 @MainActor
 final class ClientViewModel: ObservableObject {
     var gameWorld: GameWorld
+    var metricsRepository: MetricsRepository
     internal var entities: [Entity] = []
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
     let timeLag: Int = 3
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity]) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity],
+         metricsRepository: MetricsRepository, achievementManager: AchievementManager) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.gameWorld = GameWorld(for: matchId)
+        self.metricsRepository = metricsRepository
+        let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
+        self.gameWorld = GameWorld(for: matchId,
+                                   metricsRecorder: metricsRecorder,
+                                   achievementManager: achievementManager)
 
         gameWorld.entityComponentManager.addOwnEntities(ownEntities)
 
@@ -45,6 +51,7 @@ final class ClientViewModel: ObservableObject {
             print("Error publishing updated state: \(error)")
         }
         updateViews()
+        getAchievements()
     }
 
     func updateEntities() {
@@ -153,5 +160,19 @@ extension ClientViewModel {
             return 100000 // So no gas cloud at all
         }
         return shape.halfLength
+    }
+}
+
+// TODO: Shift this to game over view model
+extension ClientViewModel {
+    func getAchievements() {
+        let achievementsFromLastGame = gameWorld.achievementManager?.getUnlockedAchievements(fromGame: matchId) ?? []
+        let metricRepository = gameWorld.getRepository()
+
+        metricRepository.notifyAllObservers(userID: currPlayerId)
+
+        for achievement in achievementsFromLastGame {
+            print(achievement.title, achievement.description)
+        }
     }
 }

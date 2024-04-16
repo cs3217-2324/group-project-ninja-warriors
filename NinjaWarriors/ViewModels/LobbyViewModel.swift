@@ -23,11 +23,15 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     let signInViewModel: SignInViewModel
     let isGuest: Bool
     let guestId: String = RandomNonce().randomNonceString()
+    var metricsRepository: MetricsRepository
+    var achievementsManager: AchievementManager
 
     // Guest mode
     init() {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = SignInViewModel()
+        self.metricsRepository = MetricsRepository()
+        self.achievementsManager = AchievementManager(userID: guestId, metricsSubject: self.metricsRepository)
         isGuest = true
     }
 
@@ -35,6 +39,8 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     init(signInViewModel: SignInViewModel) {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
+        self.metricsRepository = MetricsRepository()
+        self.achievementsManager = AchievementManager(userID: signInViewModel.getUserId() ?? guestId, metricsSubject: metricsRepository)
         isGuest = false
     }
 
@@ -109,7 +115,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
             return
         }
         let playerPositions: [Point] = getPlayerPositions()
-        let playerId = userId ?? guestId
+        let playerId = getUserId()
         for (index, currPlayerId) in playerIds.enumerated() where currPlayerId == playerId {
             addPlayerToDatabase(id: playerId, at: playerPositions[index])
         }
