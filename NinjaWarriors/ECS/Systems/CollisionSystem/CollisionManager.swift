@@ -68,8 +68,6 @@ class CollisionManager: System {
             return true
         }
 
-        // let collisionRule = CollisionRules(object: object)
-
         return !isOverlap(source: object, with: otherObject, isColliding: isColliding)
         /*
         return isNotIntersecting(source: object, with: shape, isColliding: isColliding)
@@ -141,13 +139,15 @@ class CollisionManager: System {
     private func moveReducesForSingleOffset(object: Shape, shape: Shape) -> Bool {
         let unitVector = calculateUnitVector(from: object.center, to: object.offset)
         let endPoint = object.center.add(vector: unitVector)
-        return calculateNewSquaredDistance(from: endPoint, to: shape.center) < object.center.squareDistance(to: shape.center)
+        return calculateNewSquaredDistance(from: endPoint, to: shape.center) <
+            object.center.squareDistance(to: shape.center)
     }
 
     private func moveReducesForDoubleOffset(object: Shape, shape: Shape) -> Bool {
         let unitVector = calculateUnitVector(from: object.center, to: object.offset)
         let endPoint = object.center.add(vector: unitVector)
-        return calculateNewSquaredDistance(from: endPoint, to: shape.offset) < object.center.squareDistance(to: shape.center)
+        let oldSquaredDistance = object.center.squareDistance(to: shape.center)
+        return calculateNewSquaredDistance(from: endPoint, to: shape.offset) < oldSquaredDistance
     }
 
     private func calculateUnitVector(from startPoint: Point, to endPoint: Point) -> Vector {

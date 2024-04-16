@@ -22,7 +22,11 @@ struct RigidbodyWrapper: ComponentWrapper {
     var attachedCollider: ColliderWrapper?
     var wrapperType: String
 
-    init(id: ComponentID, entity: EntityWrapper, angularDrag: Double, angularVelocity: VectorWrapper, mass: Double, rotation: Double, totalForce: VectorWrapper, inertia: Double, position: PointWrapper, offset: PointWrapper, velocity: VectorWrapper, attachedCollider: ColliderWrapper? = nil, wrapperType: String) {
+    init(id: ComponentID, entity: EntityWrapper, angularDrag: Double,
+         angularVelocity: VectorWrapper, mass: Double, rotation: Double,
+         totalForce: VectorWrapper, inertia: Double, position: PointWrapper,
+         offset: PointWrapper, velocity: VectorWrapper,
+         attachedCollider: ColliderWrapper? = nil, wrapperType: String) {
         self.id = id
         self.entity = entity
         self.angularDrag = angularDrag
@@ -68,7 +72,8 @@ struct RigidbodyWrapper: ComponentWrapper {
         wrapperType = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "wrapperType"))
 
         guard let wrapperClass = NSClassFromString(wrapperType) as? EntityWrapper.Type else {
-            throw NSError(domain: "NinjaWarriors.Wrapper", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
+            throw NSError(domain: "NinjaWarriors.Wrapper",
+                          code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
         }
 
         entity = try container.decode(wrapperClass.self, forKey: AnyCodingKey(stringValue: "entity"))
@@ -85,7 +90,8 @@ struct RigidbodyWrapper: ComponentWrapper {
 
         do {
             attachedCollider = try container.decodeIfPresent(ColliderWrapper.self,
-                                                             forKey: AnyCodingKey(stringValue: "attachedCollider")) ?? nil
+                                                             forKey: AnyCodingKey(stringValue:
+                                                                                    "attachedCollider"))    ?? nil
         } catch {
             attachedCollider = nil
         }

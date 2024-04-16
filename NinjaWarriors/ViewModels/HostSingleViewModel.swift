@@ -11,15 +11,20 @@ import SwiftUI
 @MainActor
 final class HostSingleViewModel: ObservableObject {
     var gameWorld: GameWorld
+    // TODO: Remove metric from here should only be in game world
+    var metricsRepository: MetricsRepository
     internal var entities: [Entity] = []
     internal var matchId: String
     internal var currPlayerId: String
     var isGameOver: Bool = false
 
-    init(matchId: String, currPlayerId: String, gameMode: GameMode) {
+    init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository, gameMode: GameMode) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.gameWorld = GameWorld(for: matchId, gameMode: gameMode)
+        self.metricsRepository = metricsRepository
+        let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
+        self.gameWorld = GameWorld(for: matchId, metricsRecorder: metricsRecorder,
+                                   achievementManager: nil, gameMode: gameMode)
 
         gameWorld.updateViewModel = { [unowned self] in
             Task {
@@ -128,7 +133,8 @@ extension HostSingleViewModel {
 
 extension HostSingleViewModel {
     private var closingZoneShape: Shape? {
-        let environmentalEffectComponents = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
+        let environmentalEffectComponents = gameWorld.entityComponentManager
+            .getAllComponents(ofType: EnvironmentEffect.self)
         return environmentalEffectComponents.first?.environmentShape
     }
 

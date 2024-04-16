@@ -13,6 +13,8 @@ class EntityComponentManager {
     var entityMap: [EntityID: Entity]
     var componentMap: [ComponentType: Set<Component>]
 
+    var entityMetricsRecorder: EntityMetricsRecorder
+
     // To store entity component data fetched from database
     var newEntityComponentMap: [EntityID: [Component]] = [:]
     var newEntity: [Entity] = []
@@ -22,8 +24,10 @@ class EntityComponentManager {
     // To only publish own entities
     var ownEntities: Set<EntityID> = []
 
+    // Queue for synchronisation
     private var mapQueue = EventQueue(label: "entityComponentMapQueue")
     private var newMapQueue = EventQueue(label: "newEntityComponentMapQueue")
+    var componentsQueue = EventQueue(label: "componentsQueue")
 
     var manager: EntitiesManager
 
@@ -35,11 +39,13 @@ class EntityComponentManager {
         return allComponents
     }
 
-    init(for match: String) {
+    init(for match: String, metricsRecorder: EntityMetricsRecorder) {
         entityComponentMap = [:]
         entityMap = [:]
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
+        entityMetricsRecorder = metricsRecorder
+        // manager.deleteAllKeysExcept(matchId: "a")
     }
 
     // No mapQueue needed for intial population
@@ -100,7 +106,7 @@ class EntityComponentManager {
     }
 
     func addEntitiesFromNewMap(_ remoteEntityMap: [EntityID: Entity],
-                                _ remoteEntityComponentMap: [EntityID: [Component]]) {
+                               _ remoteEntityComponentMap: [EntityID: [Component]]) {
         DispatchQueue.main.async {
             for (remoteEntityId, remoteEntity) in remoteEntityMap {
                 if let newComponents = remoteEntityComponentMap[remoteEntityId] {
@@ -109,17 +115,22 @@ class EntityComponentManager {
                     self.add(entity: remoteEntity)
                 }
             }
+
+            for (currEntityId, currEntity) in self.entityMap {
+                if remoteEntityMap[currEntityId] == nil {
+                    self.remove(entity: currEntity)
+                }
+            }
         }
     }
 
     func publish() async throws {
         for (entityId, entity) in entityMap {
-            guard (entity as? ClosingZone) == nil,
-                  (entity as? Obstacle) == nil,
-                  ownEntities.contains(entityId)
-            else {
+            guard (entity as? ClosingZone) == nil, (entity as? Obstacle) == nil,
+                  ownEntities.contains(entityId) else {
                 continue
             }
+
             var entityComponents: Set<Component> = []
             DispatchQueue.main.sync {
                 guard let components = self.entityComponentMap[entityId] else {
@@ -128,13 +139,30 @@ class EntityComponentManager {
                 entityComponents = components
             }
             do {
+                // Publish event queue components first
+                try await publishComponentsFromQueue()
                 // Upload the entity with its components
-                try await manager.uploadEntity(entity: entity, components: Array(entityComponents))
+                try await manager.uploadEntity(entity: entity,
+                                               components: filterOwnComponents(entityComponents))
             } catch {
-                // Handle errors during upload
                 print("Error uploading entity with ID \(entityId): \(error)")
             }
         }
+    }
+
+    func publishComponentsFromQueue() async throws {
+        guard componentsQueue.hasComponents() else {
+            return
+        }
+        while let nextComponent = componentsQueue.processComponent() {
+            for _ in 0..<Constants.timeLag {
+                try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
+            }
+        }
+    }
+
+    func filterOwnComponents(_ componentsToFilter: Set<Component>) -> [Component] {
+        componentsToFilter.filter { !($0 is Health || $0 is DamageEffect) }
     }
 
     func addOwnEntity(_ entity: Entity) {
@@ -203,7 +231,6 @@ class EntityComponentManager {
 
         if !isAdded {
             Task {
-                print("new components", newComponents)
                 try await manager.uploadEntity(entity: entity, components: newComponents)
             }
         }
@@ -248,10 +275,8 @@ class EntityComponentManager {
 
     func getEntityId(from component: Component) -> EntityID? {
         self.mapQueue.sync {
-            for (entityID, components) in entityComponentMap {
-                if components.contains(component) {
-                    return entityID
-                }
+            for (entityID, components) in entityComponentMap where components.contains(component) {
+                return entityID
             }
             return nil
         }
@@ -296,7 +321,13 @@ class EntityComponentManager {
         if let existingComponent = findExistingComponent(ofType: componentType, in: entityComponents) {
             updateExistingComponent(existingComponent, with: component)
         } else {
-            insertNewComponent(component, ofType: componentType, into: &entityComponents)
+            if component as? DamageEffect != nil {
+                // Remap damage effect entity to new entity
+                let newDamageEffect = component.changeEntity(to: entity)
+                insertNewComponent(newDamageEffect, ofType: componentType, into: &entityComponents)
+            } else {
+                insertNewComponent(component, ofType: componentType, into: &entityComponents)
+            }
         }
 
         entityComponentMap[entity.id] = entityComponents
@@ -316,7 +347,8 @@ class EntityComponentManager {
         existingComponent.updateAttributes(newComponent)
     }
 
-    private func insertNewComponent(_ newComponent: Component, ofType type: ComponentType, into entityComponents: inout Set<Component>) {
+    private func insertNewComponent(_ newComponent: Component, ofType type: ComponentType,
+                                    into entityComponents: inout Set<Component>) {
         entityComponents.insert(newComponent)
         componentMap[type, default: Set<Component>()].insert(newComponent)
     }
@@ -393,10 +425,10 @@ class EntityComponentManager {
         }
     }
 
-    func remove<T: Component>(ofComponentType: T.Type, from entity: Entity) {
+    func remove<T: Component>(ofComponentType: T.Type, from entity: Entity, isRemoved: Bool = true) {
         let component = getComponent(ofType: T.self, for: entity)
         if let component = component {
-            remove(component: component, from: entity)
+            remove(component: component, from: entity, isRemoved: isRemoved)
         }
     }
 
@@ -423,7 +455,9 @@ class EntityComponentManager {
             manager.delete()
         }
     }
+}
 
+extension EntityComponentManager {
     private func assertRepresentation() {
         // Assert no entityId has two components of the same type
         for (entityID, components) in entityComponentMap {

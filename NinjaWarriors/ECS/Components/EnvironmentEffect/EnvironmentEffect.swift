@@ -43,6 +43,8 @@ class EnvironmentEffect: Component {
             return nil
         }
 
-        return EnvironmentEffectWrapper(id: id, entity: entityWrapper, environmentShape: environmentShape, effectIsActiveInsideShape: effectIsActiveInsideShape)
+        return EnvironmentEffectWrapper(id: id, entity: entityWrapper,
+                                        environmentShape: environmentShape,
+                                        effectIsActiveInsideShape: effectIsActiveInsideShape)
     }
 }

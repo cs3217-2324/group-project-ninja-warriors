@@ -23,6 +23,8 @@ class DashSkill: MovementSkill {
 
     func activate(from entity: Entity, in manager: EntityComponentManager) {
         performMovement(on: entity, in: manager)
+        // Record that a dash happened
+        manager.entityMetricsRecorder.record(DashesCountMetric.self, forEntityID: entity.id, value: 1)
     }
 
     func updateAttributes(_ newDashSkill: DashSkill) {
@@ -49,6 +51,9 @@ class DashSkill: MovementSkill {
 
         // Apply the movement
         playerRigidbody.movePosition(by: movementVector)
+
+        // Record distance metric
+        manager.entityMetricsRecorder.record(DistanceDashedMetric.self, forEntityID: target.id, value: dashDistance)
     }
 
     func wrapper() -> SkillWrapper {

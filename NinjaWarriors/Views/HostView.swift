@@ -15,11 +15,15 @@ struct HostView: View {
     @State private var playerId: String
     @State private var mapBackground: String
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String, gameMode: GameMode) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode) {
         self.matchId = matchId
         self.playerId = currPlayerId
         self.mapBackground = mapBackground
-        self.viewModel = HostViewModel(matchId: matchId, currPlayerId: currPlayerId, ownEntities: ownEntities, gameMode: gameMode)
+        self.viewModel = HostViewModel(matchId: matchId, currPlayerId: currPlayerId,
+                                       ownEntities: ownEntities,
+                                       metricsRepository: metricsRepository,
+                                       achievementManager: achievementManager,
+                                       gameMode: gameMode)
     }
 
     var body: some View {
@@ -50,12 +54,13 @@ struct HostView: View {
     private var canvasView: some View {
         GeometryReader { geometry in
             ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { _, entity in
-                    EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity), currPlayerId: viewModel.currPlayerId))
+                    EntityView(viewModel: EntityViewModel(components: viewModel
+                        .getComponents(for: entity), currPlayerId: viewModel.currPlayerId))
             }
             if let currPlayer = viewModel.getCurrPlayer() {
                 JoystickView(
                     setInputVector: { vector in
-                        viewModel.move(vector)
+                        // viewModel.move(vector)
                         viewModel.gameWorld.setInput(vector, for: currPlayer)
                     }, location: CGPoint(x: 150, y: geometry.size.height - 350))
                 .frame(width: 200, height: 200)
@@ -82,12 +87,5 @@ struct HostView: View {
 
     private var closingZoneView: some View {
         ClosingZoneView(circleCenter: viewModel.closingZoneCenter, circleRadius: viewModel.closingZoneRadius)
-    }
-}
-
-struct HostView_Previews: PreviewProvider {
-    static var previews: some View {
-        HostView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
-                 ownEntities: [], mapBackground: "blue-wall", gameMode: LastManStandingMode())
     }
 }

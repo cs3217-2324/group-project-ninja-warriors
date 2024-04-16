@@ -11,17 +11,24 @@ import SwiftUI
 @MainActor
 final class ClientViewModel: ObservableObject {
     var gameWorld: GameWorld
+    var metricsRepository: MetricsRepository
     internal var entities: [Entity] = []
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
-    let timeLag: Int = 7
+    let timeLag: Int = 3
     var isGameOver: Bool = false
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], gameMode: GameMode) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity],
+         metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.gameWorld = GameWorld(for: matchId, gameMode: gameMode)
+        self.metricsRepository = metricsRepository
+        let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
+        self.gameWorld = GameWorld(for: matchId,
+                                   metricsRecorder: metricsRecorder,
+                                   achievementManager: achievementManager,
+                                   gameMode: gameMode)
 
         gameWorld.entityComponentManager.addOwnEntities(ownEntities)
 
@@ -48,6 +55,7 @@ final class ClientViewModel: ObservableObject {
         }
         updateGameState()
         updateViews()
+        getAchievements()
     }
 
     func updateEntities() {
@@ -143,7 +151,8 @@ extension ClientViewModel {
 
 extension ClientViewModel {
     private var closingZoneShape: Shape? {
-        let environmentalEffectComponents = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
+        let environmentalEffectComponents = gameWorld.entityComponentManager
+            .getAllComponents(ofType: EnvironmentEffect.self)
         return environmentalEffectComponents.first?.environmentShape
     }
 
@@ -159,5 +168,19 @@ extension ClientViewModel {
             return 100000 // So no gas cloud at all
         }
         return shape.halfLength
+    }
+}
+
+// TODO: Shift this to game over view model
+extension ClientViewModel {
+    func getAchievements() {
+        let achievementsFromLastGame = gameWorld.achievementManager?.getUnlockedAchievements(fromGame: matchId) ?? []
+        let metricRepository = gameWorld.getRepository()
+
+        metricRepository.notifyAllObservers(userID: currPlayerId)
+
+        for achievement in achievementsFromLastGame {
+            print(achievement.title, achievement.description)
+        }
     }
 }

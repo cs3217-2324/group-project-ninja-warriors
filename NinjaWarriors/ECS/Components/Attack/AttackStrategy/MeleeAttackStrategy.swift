@@ -16,26 +16,22 @@ class MeleeAttackStrategy: AttackStrategy {
         self.radius = radius
     }
 
-    func canAttack(attacker: Entity, attackee: Entity, manager: EntityComponentManager) -> Bool {
-        guard casterEntity.id != attackee.id else {
+    func canAttack(attacker: Entity, target: Entity, manager: EntityComponentManager) -> Bool {
+        guard casterEntity.id != target.id, target as? Player != nil else {
             return false
         }
 
-        if let attackeeDodge = manager.getComponent(ofType: Dodge.self, for: attackee), attackeeDodge.isEnabled {
+        guard let attackerPosition = manager.getComponent(ofType: Rigidbody.self, for: attacker)?.position,
+              let targetPosition = manager.getComponent(ofType: Rigidbody.self, for: target)?.position else {
             return false
         }
+        return attackerPosition.distance(to: targetPosition) <= radius
+    }
 
-        guard let attackerRigidbody = manager.getComponent(ofType: Rigidbody.self, for: attacker),
-              let attackeeRigidbody = manager.getComponent(ofType: Rigidbody.self, for: attackee) else {
-            return false
-        }
+    func applyDamageEffect(to target: Entity, from source: Entity, withDamageEffect damageEffect: DamageEffect, manager: EntityComponentManager) {
 
-        let attackerPosition = attackerRigidbody.position
-        let attackeePosition = attackeeRigidbody.position
+        // manager.componentsQueue.addComponent(damageEffect)
 
-        if attackerPosition.distance(to: attackeePosition) <= radius {
-            return true
-        }
-        return false
+        manager.add(entity: target, components: [damageEffect]/*, isAdded: false*/)
     }
 }

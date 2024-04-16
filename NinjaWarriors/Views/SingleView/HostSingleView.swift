@@ -20,7 +20,8 @@ struct HostSingleView: View {
         self._matchId = State(initialValue: matchId)
         self._playerId = State(initialValue: currPlayerId)
         self._mapBackground = State(initialValue: mapBackground)
-        self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId, gameMode: gameMode)
+        let metricsRepository = MetricsRepository()
+        self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId, metricsRepository: metricsRepository, gameMode: gameMode)
         self._path = path
     }
 
@@ -54,7 +55,8 @@ struct HostSingleView: View {
     private var canvasView: some View {
         GeometryReader { geometry in
             ForEach(Array(viewModel.entities.enumerated()), id: \.element.id) { _, entity in
-                EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity), currPlayerId: viewModel.currPlayerId))
+                EntityView(viewModel: EntityViewModel(components: viewModel.getComponents(for: entity),
+                                                      currPlayerId: viewModel.currPlayerId))
             }
             if let currPlayer = viewModel.getCurrPlayer() {
                 JoystickView(
@@ -85,11 +87,5 @@ struct HostSingleView: View {
 
     private var closingZoneView: some View {
         ClosingZoneView(circleCenter: viewModel.closingZoneCenter, circleRadius: viewModel.closingZoneRadius)
-    }
-}
-
-struct HostSingleView_Previews: PreviewProvider {
-    static var previews: some View {
-        HostSingleView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2", mapBackground: "blue-wall", gameMode: LastManStandingMode(), path: .constant(NavigationPath()))
     }
 }

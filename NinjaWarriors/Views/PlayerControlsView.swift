@@ -75,25 +75,28 @@ struct PlayerControlsView: View {
 struct PlayerControlsView_Previews: PreviewProvider {
     static func mockSkills() -> [Dictionary<SkillID, any Skill>.Element] {
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
-                                      entity: Player(id: "1"), skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                                             DashSkill(id: "dash", cooldownDuration: 8.0),
-                                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                                                        RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
+                                      entity: Player(id: "1"),
+                                      skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                               DashSkill(id: "dash", cooldownDuration: 8.0),
+                                               DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                               RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
         return Array(skillCaster.skills)
     }
 
     static func mockSkillCooldowns() -> [SkillID: TimeInterval] {
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
-                                      entity: Player(id: "1"), skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                                             DashSkill(id: "dash", cooldownDuration: 8.0),
-                                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                                            RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
+                                      entity: Player(id: "1"),
+                                      skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                               DashSkill(id: "dash", cooldownDuration: 8.0),
+                                               DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                               RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
         return skillCaster.skillCooldowns
     }
 
     static var previews: some View {
         PlayerControlsView(
-            skills: PlayerControlsView_Previews.mockSkills(), skillCooldowns: PlayerControlsView_Previews.mockSkillCooldowns(),
+            skills: PlayerControlsView_Previews.mockSkills(),
+            skillCooldowns: PlayerControlsView_Previews.mockSkillCooldowns(),
             toggleEntityOverlay: {
                 print("Toggle Entity Overlay")
             },

@@ -9,29 +9,30 @@ import Foundation
 
 class Attack: Component {
     var attackStrategy: AttackStrategy
-    var damage: Double
-    var activated: Bool
+    var damageEffectTemplate: DamageEffect
+    var activated: Bool = false
 
-    init(id: ComponentID, entity: Entity, attackStrategy: AttackStrategy, damage: Double, activated: Bool = false) {
+    init(id: ComponentID, entity: Entity, attackStrategy: AttackStrategy, damageEffectTemplate: DamageEffect) {
         self.attackStrategy = attackStrategy
-        self.damage = damage
-        self.activated = activated
+        self.damageEffectTemplate = damageEffectTemplate
         super.init(id: id, entity: entity)
     }
 
-    func attackIfPossible(health: Health, manager: EntityComponentManager) {
-        let attacker = self.entity
-        let attackee = health.entity
-        if attackStrategy.canAttack(attacker: attacker, attackee: attackee, manager: manager) {
-            attackStrategy.attack(health: health, damage: self.damage)
-
-            Task {
-                try await manager.manager.uploadEntity(entity: attackee, components: [health])
-            }
+    func attackIfPossible(target: Entity, manager: EntityComponentManager) {
+        if attackStrategy.canAttack(attacker: self.entity, target: target, manager: manager) {
+            let uniqueDamageEffect = DamageEffect(
+                id: RandomNonce().randomNonceString(),
+                entity: target,
+                sourceId: self.entity.id,
+                // initialDamage: 10,
+                // damagePerTick: 0,
+                // duration: 0.0
+                initialDamage: damageEffectTemplate.initialDamage,
+                damagePerTick: damageEffectTemplate.damagePerTick,
+                duration: damageEffectTemplate.duration
+            )
+            attackStrategy.applyDamageEffect(to: target, from: self.entity, withDamageEffect: uniqueDamageEffect, manager: manager)
+            self.activated = true
         }
-    }
-
-    func setToActivated() {
-        self.activated = true
     }
 }

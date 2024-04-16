@@ -11,6 +11,7 @@ import SwiftUI
 // Represents the game world, containing entities and systems
 class GameWorld {
     var entityComponentManager: EntityComponentManager
+    var achievementManager: AchievementManager?
     let systemManager = SystemManager()
     var gameLoopManager = GameLoopManager()
     var gameControl: GameControl
@@ -18,9 +19,11 @@ class GameWorld {
     var updateViewModel: () -> Void = {}
     var isGameOver: Bool = false
 
-    init(for match: String, gameControl: GameControl = JoystickControl(), gameMode: GameMode) {
-        self.entityComponentManager = EntityComponentManager(for: match)
+    init(for match: String, gameControl: GameControl = JoystickControl(),
+         metricsRecorder: EntityMetricsRecorder, achievementManager: AchievementManager?, gameMode: GameMode) {
+        self.entityComponentManager = EntityComponentManager(for: match, metricsRecorder: metricsRecorder)
         self.gameControl = gameControl
+        self.achievementManager = achievementManager
         self.gameMode = gameMode
 
         let destroyManager = DestroySystem(for: entityComponentManager)
@@ -33,6 +36,7 @@ class GameWorld {
         let environmentEffectSystem = EnvironmentEffectSystem(for: entityComponentManager)
         let lifespanManager = LifespanSystem(for: entityComponentManager)
         let scoreManager = ScoreSystem(for: entityComponentManager)
+        let combatSystem = CombatSystem(for: entityComponentManager)
 
         systemManager.add(system: transformHandler)
         systemManager.add(system: rigidbodyHandler)
@@ -44,6 +48,7 @@ class GameWorld {
         systemManager.add(system: environmentEffectSystem)
         systemManager.add(system: lifespanManager)
         systemManager.add(system: destroyManager)
+        systemManager.add(system: combatSystem)
 
         setupGameLoop()
     }
@@ -73,5 +78,9 @@ class GameWorld {
                 self.updateViewModel()
             }
         }
+    }
+
+    func getRepository() -> MetricsRepository {
+        entityComponentManager.entityMetricsRecorder.getRepository()
     }
 }

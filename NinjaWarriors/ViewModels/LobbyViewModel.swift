@@ -23,11 +23,15 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     let signInViewModel: SignInViewModel
     let isGuest: Bool
     let guestId: String = RandomNonce().randomNonceString()
+    var metricsRepository: MetricsRepository
+    var achievementsManager: AchievementManager
 
     // Guest mode
     init() {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = SignInViewModel()
+        self.metricsRepository = MetricsRepository()
+        self.achievementsManager = AchievementManager(userID: guestId, metricsSubject: self.metricsRepository)
         isGuest = true
     }
 
@@ -35,6 +39,8 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     init(signInViewModel: SignInViewModel) {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
+        self.metricsRepository = MetricsRepository()
+        self.achievementsManager = AchievementManager(userID: signInViewModel.getUserId() ?? guestId, metricsSubject: metricsRepository)
         isGuest = false
     }
 
@@ -109,7 +115,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
             return
         }
         let playerPositions: [Point] = getPlayerPositions()
-        let playerId = userId ?? guestId
+        let playerId = getUserId()
         for (index, currPlayerId) in playerIds.enumerated() where currPlayerId == playerId {
             addPlayerToDatabase(id: playerId, at: playerPositions[index])
         }
@@ -133,8 +139,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
                                       entity: player, skills: getCharacterSkills())
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
-                                     image: character + "-top", width: 100.0, height: 100.0, health: 100,
-                                     maxHealth: 100)
+                                     image: character + "-top", width: 100.0, height: 100.0)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: player,
                             entityInflictDamageMap: [:], health: 100, maxHealth: 100)
@@ -142,7 +147,8 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
         let score = Score(id: RandomNonce().randomNonceString(), entity: player,
                           score: 0, entityGainScoreMap: [:])
 
-        let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: player, isEnabled: false, invulnerabilityDuration: 2.0)
+        let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: player,
+                          isEnabled: false, invulnerabilityDuration: 2.0)
 
         let playerComponent = PlayerComponent(id: RandomNonce().randomNonceString(), entity: player)
 

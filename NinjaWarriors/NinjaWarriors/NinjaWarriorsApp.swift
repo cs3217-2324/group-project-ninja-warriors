@@ -15,6 +15,7 @@ struct NinjaWarriorsApp: App {
 
     var body: some Scene {
         WindowGroup {
+            // HowToPlayView()
             AuthenticationView()
         }
     }

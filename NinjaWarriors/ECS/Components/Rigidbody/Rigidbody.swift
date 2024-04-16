@@ -23,8 +23,9 @@ class Rigidbody: Component {
     var collidingVelocity: Vector?
     var attachedCollider: Collider?
 
-    init(id: ComponentID, entity: Entity, angularDrag: Double, angularVelocity: Vector, mass: Double,
-         rotation: Double, totalForce: Vector, inertia: Double, position: Point, velocity: Vector, attachedCollider: Collider? = nil) {
+    init(id: ComponentID, entity: Entity, angularDrag: Double, angularVelocity: Vector,
+         mass: Double, rotation: Double, totalForce: Vector, inertia: Double,
+         position: Point, velocity: Vector, attachedCollider: Collider? = nil) {
         self.angularDrag = angularDrag
         self.angularVelocity = angularVelocity
         self.mass = mass

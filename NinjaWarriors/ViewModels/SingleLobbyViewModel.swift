@@ -17,8 +17,12 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
     @Published var map: Map = ClosingZoneMap()
     @Published var mapName: String?
     var character = "Shadowstrike"
+    var metricsRepository: MetricsRepository
+    var achievementsManager: AchievementManager
 
     init() {
+        metricsRepository = MetricsRepository()
+        achievementsManager = AchievementManager(userID: "singlePlayer", metricsSubject: metricsRepository)
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
     }
 
@@ -66,8 +70,7 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
                                       entity: player, skills: getCharacterSkills())
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
-                                     image: character + "-top", width: 100.0, height: 100.0, health: 100,
-                                     maxHealth: 100)
+                                     image: character + "-top", width: 100.0, height: 100.0)
 
         let health = Health(id: RandomNonce().randomNonceString(), entity: player,
                             entityInflictDamageMap: [:], health: 100, maxHealth: 100)
@@ -75,7 +78,8 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
         let score = Score(id: RandomNonce().randomNonceString(), entity: player,
                           score: 0, entityGainScoreMap: [:])
 
-        let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: player, isEnabled: false, invulnerabilityDuration: 2.0)
+        let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: player,
+                          isEnabled: false, invulnerabilityDuration: 2.0)
 
         let playerComponent = PlayerComponent(id: RandomNonce().randomNonceString(), entity: player)
 

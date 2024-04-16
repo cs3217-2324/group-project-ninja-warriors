@@ -18,7 +18,7 @@ struct EntityType: Hashable {
         hasher.combine(ObjectIdentifier(type))
     }
 
-    static func ==(lhs: EntityType, rhs: EntityType) -> Bool {
+    static func == (lhs: EntityType, rhs: EntityType) -> Bool {
         return lhs.type == rhs.type
     }
 }

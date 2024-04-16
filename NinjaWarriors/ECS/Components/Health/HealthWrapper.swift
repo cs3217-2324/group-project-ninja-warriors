@@ -15,7 +15,8 @@ struct HealthWrapper: ComponentWrapper {
     var maxHealth: Double
     var wrapperType: String
 
-    init(id: ComponentID, entity: EntityWrapper, entityInflictDamageMap: [EntityID: Bool], health: Double, maxHealth: Double, wrapperType: String) {
+    init(id: ComponentID, entity: EntityWrapper, entityInflictDamageMap: [EntityID: Bool],
+         health: Double, maxHealth: Double, wrapperType: String) {
         self.id = id
         self.entity = entity
         self.entityInflictDamageMap = entityInflictDamageMap
@@ -46,7 +47,8 @@ struct HealthWrapper: ComponentWrapper {
         wrapperType = try container.decode(String.self, forKey: AnyCodingKey(stringValue: "wrapperType"))
 
         guard let wrapperClass = NSClassFromString(wrapperType) as? EntityWrapper.Type else {
-            throw NSError(domain: "NinjaWarriors.Wrapper", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
+            throw NSError(domain: "NinjaWarriors.Wrapper",
+                          code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid wrapper type: \(wrapperType)"])
         }
         entity = try container.decode(wrapperClass.self, forKey: AnyCodingKey(stringValue: "entity"))
 
@@ -54,7 +56,9 @@ struct HealthWrapper: ComponentWrapper {
         maxHealth = try container.decode(Double.self, forKey: AnyCodingKey(stringValue: "maxHealth"))
         do {
             let entityContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
-                                                                forKey: AnyCodingKey(stringValue: "entityInflictDamageMap"))
+                                                                forKey: AnyCodingKey(
+                                                                    stringValue: "entityInflictDamageMap"
+                                                                    ))
             for key in entityContainer.allKeys {
                 let entityID = key.stringValue
                 let isDamaged = try entityContainer.decode(Bool.self, forKey: key)

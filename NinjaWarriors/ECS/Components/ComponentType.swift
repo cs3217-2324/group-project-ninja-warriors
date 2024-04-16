@@ -18,7 +18,7 @@ struct ComponentType: Hashable {
         hasher.combine(ObjectIdentifier(type))
     }
 
-    static func ==(lhs: ComponentType, rhs: ComponentType) -> Bool {
+    static func == (lhs: ComponentType, rhs: ComponentType) -> Bool {
         return lhs.type == rhs.type
     }
 }

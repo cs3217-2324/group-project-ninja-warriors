@@ -38,6 +38,8 @@ struct SkillWrapper: Codable {
             return DashSkill(id: id, cooldownDuration: cooldownDuration)
         } else if type == "SlashAOESkill" {
             return SlashAOESkill(id: id, cooldownDuration: cooldownDuration)
+        } else if type == "HadoukenSkill" {
+            return HadoukenSkill(id: id, cooldownDuration: cooldownDuration)
         } else if type == "DodgeSkill" {
             return DodgeSkill(id: id, cooldownDuration: cooldownDuration)
         } else if type == "RefreshCooldownsSkill" {

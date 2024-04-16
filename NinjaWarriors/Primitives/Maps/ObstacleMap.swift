@@ -22,11 +22,11 @@ class ObstacleMap: Map {
         let gapAngle: Double = 2 * .pi / Double(obstacleCount)
         var positions: [Point] = []
 
-        for i in 0..<obstacleCount {
-            let angle = Double(i) * gapAngle
-            let x = center.xCoord + radius * cos(angle)
-            let y = center.yCoord + radius * sin(angle)
-            positions.append(Point(xCoord: x, yCoord: y))
+        for index in 0..<obstacleCount {
+            let angle = Double(index) * gapAngle
+            let newX = center.xCoord + radius * cos(angle)
+            let newY = center.yCoord + radius * sin(angle)
+            positions.append(Point(xCoord: newX, yCoord: newY))
         }
         return positions
     }

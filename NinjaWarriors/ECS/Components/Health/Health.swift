@@ -24,6 +24,12 @@ class Health: Component {
         health = 0.0
     }
 
+    func deepCopy() -> Health {
+        Health(id: self.id, entity: entity.deepCopy(),
+               entityInflictDamageMap: self.entityInflictDamageMap,
+               health: self.health, maxHealth: self.maxHealth)
+    }
+
     override func updateAttributes(_ newHealth: Component) {
         guard let newHealth = newHealth as? Health else {
             return
@@ -36,7 +42,8 @@ class Health: Component {
     }
 
     override func changeEntity(to entity: Entity) -> Component {
-        Health(id: self.id, entity: entity, entityInflictDamageMap: self.entityInflictDamageMap, health: self.health, maxHealth: self.maxHealth)
+        Health(id: self.id, entity: entity, entityInflictDamageMap: self.entityInflictDamageMap,
+               health: self.health, maxHealth: self.maxHealth)
     }
 
     override func wrapper() -> ComponentWrapper? {
@@ -45,6 +52,7 @@ class Health: Component {
         }
 
         return HealthWrapper(id: id, entity: entityWrapper, entityInflictDamageMap: entityInflictDamageMap,
-                             health: health, maxHealth: maxHealth, wrapperType: NSStringFromClass(type(of: entityWrapper)))
+                             health: health, maxHealth: maxHealth,
+                             wrapperType: NSStringFromClass(type(of: entityWrapper)))
     }
 }

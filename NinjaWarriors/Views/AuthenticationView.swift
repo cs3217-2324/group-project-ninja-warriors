@@ -35,6 +35,13 @@ struct AuthenticationView: View {
                     .background(Color.white)
                     .cornerRadius(10)
                     .padding()
+                NavigationLink("How To Play", value: "HowToPlayView")
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(width: 300, height: 55)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .padding()
                 Spacer(minLength: 0)
             }
             .navigationDestination(for: String.self) { destination in
@@ -45,6 +52,8 @@ struct AuthenticationView: View {
                     SignInView(path: $path)
                 case "LobbyView":
                     LobbyView(path: $path)
+                case "HowToPlayView":
+                    HowToPlayView()
                 default:
                     EmptyView()
                 }

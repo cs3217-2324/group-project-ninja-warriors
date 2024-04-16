@@ -15,13 +15,18 @@ final class HostViewModel: ObservableObject {
     internal var matchId: String
     internal var currPlayerId: String
     var time: Int = 0
-    let timeLag: Int = 5
+    let timeLag: Int = 4
     var isGameOver: Bool = false
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], gameMode: GameMode) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity],
+         metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.gameWorld = GameWorld(for: matchId, gameMode: gameMode)
+        let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
+        self.gameWorld = GameWorld(for: matchId,
+                                   metricsRecorder: metricsRecorder,
+                                   achievementManager: achievementManager,
+                                   gameMode: gameMode)
 
         gameWorld.entityComponentManager.addOwnEntities(ownEntities)
 
@@ -48,6 +53,8 @@ final class HostViewModel: ObservableObject {
         }
         updateGameState()
         updateViews()
+        // TODO: Move this to game over view model
+        getAchievements()
     }
 
     func updateEntities() {
@@ -77,7 +84,6 @@ final class HostViewModel: ObservableObject {
     }
 
     func move(_ vector: CGVector) {
-        print(currPlayerId, timeLag)
         guard let entityIdComponents = gameWorld.entityComponentManager.entityComponentMap[currPlayerId] else {
             return
         }
@@ -144,7 +150,8 @@ extension HostViewModel {
 
 extension HostViewModel {
     private var closingZoneShape: Shape? {
-        let environmentalEffectComponents = gameWorld.entityComponentManager.getAllComponents(ofType: EnvironmentEffect.self)
+        let environmentalEffectComponents = gameWorld.entityComponentManager
+            .getAllComponents(ofType: EnvironmentEffect.self)
         return environmentalEffectComponents.first?.environmentShape
     }
 
@@ -160,5 +167,19 @@ extension HostViewModel {
             return 100000 // So no gas cloud at all
         }
         return shape.halfLength
+    }
+}
+
+// TODO: Shift this to game over view model
+extension HostViewModel {
+    func getAchievements() {
+        let achievementsFromLastGame = gameWorld.achievementManager?.getUnlockedAchievements(fromGame: matchId) ?? []
+        let metricRepository = gameWorld.getRepository()
+
+        metricRepository.notifyAllObservers(userID: currPlayerId)
+
+        for achievement in achievementsFromLastGame {
+            print(achievement.title, achievement.description)
+        }
     }
 }

@@ -30,20 +30,11 @@ class CollisionRules: Rules {
             return false
         }
 
-        guard let manager = manager, let collidingEntity = object.attachedCollider?.collidedEntities.first,
-              let otherObject = manager.getComponentFromId(ofType: Rigidbody.self, of: collidingEntity) else {
+        guard let manager = manager, let collideeEntityID = object.attachedCollider?.collidedEntities.first,
+              let collideeEntity = manager.entity(with: collideeEntityID) else {
             return true
         }
-
-        if let _ = object.entity as? Player, let _ = otherObject.entity as? Gem {
-            return true
-        }
-
-        if let _ = object.entity as? Gem, let _ = otherObject.entity as? Player {
-            return true
-        }
-
-        return false
+        return canPassThrough(object.entity, collideeEntity)
     }
 
     func performRule() {
@@ -61,8 +52,6 @@ class CollisionRules: Rules {
             }
 
             performActionOnCollidee(ofType: Gem.self)
-            // TODO: Implement Hadouken
-            // performActionOnCollider(ofType: Hadouken.self)
 
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input
@@ -74,18 +63,13 @@ class CollisionRules: Rules {
     }
 
     private func performActionOnCollidee<T: Entity>(ofType entityType: T.Type) {
-        if let manager = manager,
-           let collidingEntityID = object.attachedCollider?.collidedEntities.first,
-           let collidingEntity = manager.entity(with: collidingEntityID) as? T,
-           let health = manager.getComponent(ofType: Health.self, for: collidingEntity) {
-            health.kill()
+        guard let manager = manager,
+              let collidingEntityID = object.attachedCollider?.collidedEntities.first,
+              let collidingEntity = manager.entity(with: collidingEntityID) as? T else {
+            return
         }
-    }
 
-    private func performActionOnCollider<T: Entity>(ofType entityType: T.Type) {
-        if let manager = manager,
-           let entity = object.entity as? T,
-           let health = manager.getComponent(ofType: Health.self, for: entity) {
+        if let health = manager.getComponent(ofType: Health.self, for: collidingEntity) {
             health.kill()
         }
     }
@@ -103,7 +87,8 @@ class CollisionRules: Rules {
         var currentVelocity = rigidBody.collidingVelocity ?? rigidBody.velocity
 
         // Update position
-        let deltaPosition = currentVelocity.scale(deltaTime).add(vector: rigidBody.acceleration.scale(0.5 * pow(deltaTime, 2)))
+        let deltaPosition = currentVelocity.scale(deltaTime)
+            .add(vector: rigidBody.acceleration.scale(0.5 * pow(deltaTime, 2)))
         rigidBody.movePosition(by: deltaPosition)
 
         // Update velocity
@@ -117,5 +102,16 @@ class CollisionRules: Rules {
 
         // Reset force
         rigidBody.totalForce = Vector.zero
+    }
+
+    // TODO: Do not allow hadouken to pick up gem
+    func canPassThrough(_ colliderEntity: CustomComparator, _ collideeEntity: CustomComparator) -> Bool {
+        if (colliderEntity is Player && collideeEntity is Gem) ||
+           (colliderEntity is Gem && collideeEntity is Player) ||
+           (colliderEntity is Hadouken && collideeEntity is Player) ||
+           (colliderEntity is Player && collideeEntity is Hadouken) {
+            return true
+        }
+        return false
     }
 }
