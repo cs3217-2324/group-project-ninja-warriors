@@ -36,6 +36,9 @@
 		7183D07B2BB03C400078C960 /* EntityComponentManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07A2BB03C400078C960 /* EntityComponentManagerTests.swift */; };
 		7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */; };
 		7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7183D07E2BB06E790078C960 /* SystemManagerTests.swift */; };
+		7188B6F62BCE645C0059B60D /* AchievementRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7188B6F52BCE645C0059B60D /* AchievementRow.swift */; };
+		7188B6F82BCE677D0059B60D /* three-dashes-in-game.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 7188B6F72BCE677D0059B60D /* three-dashes-in-game.jpeg */; };
+		7188B6FA2BCE6C830059B60D /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7188B6F92BCE6C830059B60D /* AchievementsView.swift */; };
 		7191C82B2BC9AA0A005BBE62 /* MetricObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7191C82A2BC9AA0A005BBE62 /* MetricObserver.swift */; };
 		7191C82D2BCA7DBB005BBE62 /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7191C82C2BCA7DBB005BBE62 /* AchievementManager.swift */; };
 		7191C82F2BCA7FC7005BBE62 /* KilledTenPeopleAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7191C82E2BCA7FC7005BBE62 /* KilledTenPeopleAchievement.swift */; };
@@ -287,6 +290,9 @@
 		7183D07A2BB03C400078C960 /* EntityComponentManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManagerTests.swift; sourceTree = "<group>"; };
 		7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECSTestUtils.swift; sourceTree = "<group>"; };
 		7183D07E2BB06E790078C960 /* SystemManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManagerTests.swift; sourceTree = "<group>"; };
+		7188B6F52BCE645C0059B60D /* AchievementRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementRow.swift; sourceTree = "<group>"; };
+		7188B6F72BCE677D0059B60D /* three-dashes-in-game.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "three-dashes-in-game.jpeg"; sourceTree = "<group>"; };
+		7188B6F92BCE6C830059B60D /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
 		7191C82A2BC9AA0A005BBE62 /* MetricObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricObserver.swift; sourceTree = "<group>"; };
 		7191C82C2BCA7DBB005BBE62 /* AchievementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementManager.swift; sourceTree = "<group>"; };
 		7191C82E2BCA7FC7005BBE62 /* KilledTenPeopleAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KilledTenPeopleAchievement.swift; sourceTree = "<group>"; };
@@ -560,6 +566,15 @@
 				7183D07C2BB03D0A0078C960 /* ECSTestUtils.swift */,
 			);
 			path = ECSTests;
+			sourceTree = "<group>";
+		};
+		7188B6F22BCE64450059B60D /* Achievements */ = {
+			isa = PBXGroup;
+			children = (
+				7188B6F52BCE645C0059B60D /* AchievementRow.swift */,
+				7188B6F92BCE6C830059B60D /* AchievementsView.swift */,
+			);
+			path = Achievements;
 			sourceTree = "<group>";
 		};
 		7191C8342BCA9298005BBE62 /* AchievementTests */ = {
@@ -869,6 +884,7 @@
 		916A7D872BA19F4200319C26 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7188B6F22BCE64450059B60D /* Achievements */,
 				71B7165F2BCAA4C900B18E48 /* Toasts */,
 				9180487E2BC7C96F00026965 /* SingleView */,
 				714F20962BC27FF800A5B36E /* HostView.swift */,
@@ -1195,6 +1211,7 @@
 		E6CDFFBE2BAF1D9D007BB867 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				7188B6F72BCE677D0059B60D /* three-dashes-in-game.jpeg */,
 				E6CDFFC12BAF22A1007BB867 /* grass.png */,
 				E6CDFFC52BAF2689007BB867 /* grass-stone.jpeg */,
 				E6CDFFBF2BAF1DB0007BB867 /* player.png */,
@@ -1376,6 +1393,7 @@
 				9117F6232BCD27A100ED4F4E /* victoryAudio.mp3 in Resources */,
 				E6CDFFC62BAF2689007BB867 /* grass-stone.jpeg in Resources */,
 				E6CDFFC22BAF22A1007BB867 /* grass.png in Resources */,
+				7188B6F82BCE677D0059B60D /* three-dashes-in-game.jpeg in Resources */,
 				E6CDFFC42BAF2306007BB867 /* player-copy.png in Resources */,
 				E6CDFFC02BAF1DB0007BB867 /* player.png in Resources */,
 				9117F62C2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */,
@@ -1447,6 +1465,7 @@
 				9169910C2BC596F100ED1FBD /* HostSingleViewModel.swift in Sources */,
 				E6E5B47F2BBEEA0C0089D14D /* SkillWrapper.swift in Sources */,
 				E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */,
+				7188B6F62BCE645C0059B60D /* AchievementRow.swift in Sources */,
 				E6ECF6322BADB28200DDDE9C /* EntityOverlayView.swift in Sources */,
 				915BFD122BC04A9000AB5815 /* EventQueue.swift in Sources */,
 				916991082BC5490600ED1FBD /* SingleLobbyViewModel.swift in Sources */,
@@ -1473,6 +1492,7 @@
 				E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */,
 				915301BF2BAE4C25007F2A12 /* SkillCasterWrapper.swift in Sources */,
 				9180F9D52BAB9C89000CC390 /* EntityWrapper.swift in Sources */,
+				7188B6FA2BCE6C830059B60D /* AchievementsView.swift in Sources */,
 				714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */,
 				7191C83B2BCA9695005BBE62 /* PlayedTenGamesAchievement.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
