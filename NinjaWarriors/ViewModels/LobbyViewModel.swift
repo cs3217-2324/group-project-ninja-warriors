@@ -115,7 +115,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
             return
         }
         let playerPositions: [Point] = getPlayerPositions()
-        let playerId = userId ?? guestId
+        let playerId = getUserId()
         for (index, currPlayerId) in playerIds.enumerated() where currPlayerId == playerId {
             addPlayerToDatabase(id: playerId, at: playerPositions[index])
         }

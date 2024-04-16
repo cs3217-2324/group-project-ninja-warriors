@@ -14,7 +14,7 @@ class MetricsRepository {
     private var userMetrics: UserMetricsMap
 
     init() {
-        // TODO probably initialize from some online thing
+        // TODO: probably initialize from some online thing
         self.userMetrics = UserMetricsMap()
     }
 

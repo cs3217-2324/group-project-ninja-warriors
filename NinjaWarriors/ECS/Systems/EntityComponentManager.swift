@@ -116,10 +116,6 @@ class EntityComponentManager {
                 }
             }
 
-            if remoteEntityMap.count < self.entityMap.count {
-                print("stale alert!!!")
-            }
-
             for (currEntityId, currEntity) in self.entityMap {
                 if remoteEntityMap[currEntityId] == nil {
                     self.remove(entity: currEntity)
