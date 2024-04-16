@@ -56,7 +56,7 @@ struct Constants {
     static var characterNames: [String] = ["Shadowstrike", "Nightblade", "Swiftshadow", "SilentStorm",
                                     "Crimsonshadow", "Shadowblade", "Venomstrike", "Darkwind"]
 
-    static var skills: [String: [String]] = ["Shadowstrike": ["Dash", "Slash", "Dodge", "Refresh"],
+    static var skills: [String: [String]] = ["Shadowstrike": ["Hadouken", "Slash", "Dash", "Refresh"],
                                       "Nightblade": ["Dash", "Hadouken", "Dodge", "Refresh"],
                                       "Swiftshadow": ["Dash", "Slash", "Dodge", "Refresh"],
                                       "SilentStorm": ["Dash", "Slash", "Dodge", "Refresh"],
@@ -75,39 +75,39 @@ struct Constants {
                                              DodgeSkill(id: "dodge", cooldownDuration: 8.0),
                                              RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
 
-    static var silentStormkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                            DashSkill(id: "dash", cooldownDuration: 8.0),
-                                            DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+    static var silentStormkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 3.0),
+                                            DashSkill(id: "dash", cooldownDuration: 12.0),
+                                            DodgeSkill(id: "dodge", cooldownDuration: 12.0),
                                             RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
 
-    static var swiftShadowSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                             DashSkill(id: "dash", cooldownDuration: 8.0),
-                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+    static var swiftShadowSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 15.0),
+                                             DashSkill(id: "dash", cooldownDuration: 3.0),
+                                             DodgeSkill(id: "dodge", cooldownDuration: 3.0),
                                              RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
 
     static var venomStrikeSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                             DashSkill(id: "dash", cooldownDuration: 8.0),
-                                             DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+                                             DashSkill(id: "dash", cooldownDuration: 3.0),
+                                             DodgeSkill(id: "dodge", cooldownDuration: 12.0),
                                              RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
 
-    static var nightbladeSkills: [Skill] = [HadoukenSkill(id: "hadouken", cooldownDuration: 8.0),
-                                            DashSkill(id: "dash", cooldownDuration: 8.0),
-                                            DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+    static var nightbladeSkills: [Skill] = [HadoukenSkill(id: "hadouken", cooldownDuration: 5.0),
+                                            DashSkill(id: "dash", cooldownDuration: 10.0),
+                                            DodgeSkill(id: "dodge", cooldownDuration: 10.0),
                                             RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
 
-    static var crimsonShadowSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                               DashSkill(id: "dash", cooldownDuration: 8.0),
-                                               DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                               RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
+    static var crimsonShadowSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 10.0),
+                                               DashSkill(id: "dash", cooldownDuration: 10.0),
+                                               DodgeSkill(id: "dodge", cooldownDuration: 10.0),
+                                               RefreshCooldownsSkill(id: "refresh", cooldownDuration: 20.0)]
 
-    static var darkwindSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                          DashSkill(id: "dash", cooldownDuration: 8.0),
-                                          DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                          RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
+    static var darkwindSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 100.0),
+                                          DashSkill(id: "dash", cooldownDuration: 100.0),
+                                          DodgeSkill(id: "dodge", cooldownDuration: 100.0),
+                                          RefreshCooldownsSkill(id: "refresh", cooldownDuration: 8.0)]
 
-    static var defaultSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
-                                         DashSkill(id: "dash", cooldownDuration: 8.0),
-                                         DodgeSkill(id: "dodge", cooldownDuration: 8.0),
+    static var defaultSkills: [Skill] = [SlashAOESkill(id: "slash", cooldownDuration: 5.0),
+                                         DashSkill(id: "dash", cooldownDuration: 15.0),
+                                         DodgeSkill(id: "dodge", cooldownDuration: 15.0),
                                          RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]
 
     static var characterSkills: [String: [Skill]] = ["Shadowstrike": shadowstrikeSkills,

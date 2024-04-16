@@ -27,7 +27,7 @@ struct PlayerControlsView: View {
                 .clipShape(Circle())
             }
             HStack {
-                ForEach(skills, id: \.key) { key, value in
+                ForEach(skills, id: \.key) { key, _ in
                     VStack {
                         ZStack {
                             Image("skill-container-button")
@@ -57,9 +57,9 @@ struct PlayerControlsView: View {
                                 }
                             }
                             .padding()
-                            .simultaneousGesture(TapGesture().onEnded {
-                                AudioManager.shared.playSkillAudio(for: value.audio)
-                            })
+//                            .simultaneousGesture(TapGesture().onEnded {
+//                                AudioManager.shared.playSkillAudio(for: value.audio)
+//                            })
                         }
                         Text("\(key)").fontWeight(.bold).foregroundColor(.white).textCase(.uppercase)
                     }
