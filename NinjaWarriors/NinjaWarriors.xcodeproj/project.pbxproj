@@ -22,7 +22,6 @@
 		7132C90C2BCD7E5D0088932F /* DashesCountMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C90B2BCD7E5D0088932F /* DashesCountMetric.swift */; };
 		7132C9142BCD82430088932F /* FirstDamageInGameAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C9132BCD82430088932F /* FirstDamageInGameAchievement.swift */; };
 		7132C9162BCD82F20088932F /* ThreeDashesInGameAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C9152BCD82F20088932F /* ThreeDashesInGameAchievement.swift */; };
-		7132C9182BCD852C0088932F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7132C9172BCD852B0088932F /* GoogleService-Info.plist */; };
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
@@ -210,6 +209,9 @@
 		91DED5F02BCE36180054C2F1 /* PlayerComponentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5EF2BCE36180054C2F1 /* PlayerComponentWrapper.swift */; };
 		91DED5F12BCE36180054C2F1 /* PlayerComponentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5EF2BCE36180054C2F1 /* PlayerComponentWrapper.swift */; };
 		91DED5F22BCE36180054C2F1 /* PlayerComponentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5EF2BCE36180054C2F1 /* PlayerComponentWrapper.swift */; };
+		91DED5F42BCE3E1B0054C2F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91DED5F32BCE3E1B0054C2F1 /* GoogleService-Info.plist */; };
+		91DED5F52BCE3E1B0054C2F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91DED5F32BCE3E1B0054C2F1 /* GoogleService-Info.plist */; };
+		91DED5F62BCE3E1B0054C2F1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91DED5F32BCE3E1B0054C2F1 /* GoogleService-Info.plist */; };
 		91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */; };
 		91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */; };
 		91F3D9C42BBBF735001D7DE7 /* SlashAOEWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */; };
@@ -283,7 +285,6 @@
 		7132C90B2BCD7E5D0088932F /* DashesCountMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashesCountMetric.swift; sourceTree = "<group>"; };
 		7132C9132BCD82430088932F /* FirstDamageInGameAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDamageInGameAchievement.swift; sourceTree = "<group>"; };
 		7132C9152BCD82F20088932F /* ThreeDashesInGameAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDashesInGameAchievement.swift; sourceTree = "<group>"; };
-		7132C9172BCD852B0088932F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
@@ -424,6 +425,7 @@
 		91DED5E62BCE35CC0054C2F1 /* LastManStandingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastManStandingMode.swift; sourceTree = "<group>"; };
 		91DED5EB2BCE360A0054C2F1 /* PlayerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponent.swift; sourceTree = "<group>"; };
 		91DED5EF2BCE36180054C2F1 /* PlayerComponentWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponentWrapper.swift; sourceTree = "<group>"; };
+		91DED5F32BCE3E1B0054C2F1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTests.swift; sourceTree = "<group>"; };
 		91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveTests.swift; sourceTree = "<group>"; };
 		91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOEWrapper.swift; sourceTree = "<group>"; };
@@ -811,7 +813,7 @@
 		916A7D382BA1541700319C26 /* NinjaWarriors */ = {
 			isa = PBXGroup;
 			children = (
-				7132C9172BCD852B0088932F /* GoogleService-Info.plist */,
+				91DED5F32BCE3E1B0054C2F1 /* GoogleService-Info.plist */,
 				916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */,
 				916A7D3B2BA1541700319C26 /* ContentView.swift */,
 				916A7D3D2BA1541800319C26 /* Assets.xcassets */,
@@ -1412,8 +1414,8 @@
 				E6CDFFC22BAF22A1007BB867 /* grass.png in Resources */,
 				E6CDFFC42BAF2306007BB867 /* player-copy.png in Resources */,
 				E6CDFFC02BAF1DB0007BB867 /* player.png in Resources */,
+				91DED5F42BCE3E1B0054C2F1 /* GoogleService-Info.plist in Resources */,
 				9117F62C2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */,
-				7132C9182BCD852C0088932F /* GoogleService-Info.plist in Resources */,
 				9117F6202BCD27A100ED4F4E /* buttonClick.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1429,6 +1431,7 @@
 				91D496FB2BB059120027C657 /* player-copy.png in Resources */,
 				91D496F62BB059090027C657 /* Assets.xcassets in Resources */,
 				91D496F72BB059090027C657 /* Preview Assets.xcassets in Resources */,
+				91DED5F52BCE3E1B0054C2F1 /* GoogleService-Info.plist in Resources */,
 				9117F62D2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */,
 				9117F6212BCD27A100ED4F4E /* buttonClick.mp3 in Resources */,
 			);
@@ -1439,6 +1442,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9117F6252BCD27A100ED4F4E /* victoryAudio.mp3 in Resources */,
+				91DED5F62BCE3E1B0054C2F1 /* GoogleService-Info.plist in Resources */,
 				9117F6222BCD27A100ED4F4E /* buttonClick.mp3 in Resources */,
 				9117F62E2BCD27A100ED4F4E /* gameOverAudio.mp3 in Resources */,
 			);
