@@ -50,7 +50,7 @@ struct HowToPlayView: View {
                     .padding(.bottom, -10)
                     .font(.system(size: 18, weight: .bold))
                 }
-                .frame(width: 250, height: 250) // Move the frame modifier here
+                .frame(width: 250, height: 250)
                 .padding()
                 .background(Color.gray)
                 .cornerRadius(10)
@@ -87,6 +87,7 @@ struct HowToPlayView: View {
 
             HStack {
                 VStack {
+                    // Bottom Left: Blinking Gems
                     HStack {
                         Image("gem")
                             .resizable()
@@ -134,6 +135,7 @@ struct HowToPlayView: View {
 
                 VStack {
                     VStack {
+                        // Bottom Right: Skills
                         HStack {
                             Image("skill-refresh")
                                 .resizable()

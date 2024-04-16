@@ -10,6 +10,7 @@ import Foundation
 class DashSkill: MovementSkill {
     var id: SkillID
     var cooldownDuration: TimeInterval
+    var audio = "dash"
 
     required init(id: SkillID) {
         self.id = id

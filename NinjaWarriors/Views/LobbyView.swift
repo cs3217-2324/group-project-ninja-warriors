@@ -49,6 +49,9 @@ struct LobbyView: View {
                                 ) {
                                     startGameText
                                 }
+                                .simultaneousGesture(TapGesture().onEnded {
+                                    AudioManager.shared.playButtonClickAudio()
+                                })
                             } else {
                                 NavigationLink(
                                     destination: ClientView(matchId: matchId,
@@ -61,6 +64,9 @@ struct LobbyView: View {
                                 ) {
                                     startGameText
                                 }
+                                .simultaneousGesture(TapGesture().onEnded {
+                                    AudioManager.shared.playButtonClickAudio()
+                                })
                             }
                         }
                     }
@@ -76,6 +82,9 @@ struct LobbyView: View {
                         .fontWeight(.bold)
                         .cornerRadius(10)
                 }
+                .simultaneousGesture(TapGesture().onEnded {
+                    AudioManager.shared.playButtonClickAudio()
+                })
                 .opacity(isReady ? 0.5 : 1.0)
                 .disabled(isReady)
 
@@ -88,6 +97,9 @@ struct LobbyView: View {
                         .fontWeight(.bold)
                         .cornerRadius(10)
                 }
+                .simultaneousGesture(TapGesture().onEnded {
+                    AudioManager.shared.playButtonClickAudio()
+                })
                 .opacity(isReady ? 0.5 : 1.0)
                 .disabled(isReady)
             }

@@ -10,6 +10,7 @@ import Foundation
 class RefreshCooldownsSkill: CooldownModifierSkill {
     var id: SkillID
     var cooldownDuration: TimeInterval
+    var audio = "refresh"
 
     required init(id: SkillID) {
         self.id = id

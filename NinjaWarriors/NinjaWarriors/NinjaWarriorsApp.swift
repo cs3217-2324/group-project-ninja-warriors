@@ -15,8 +15,10 @@ struct NinjaWarriorsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            // HowToPlayView()
             AuthenticationView()
+                .onAppear {
+                    // AudioManager.shared.playMainMenuAudio()
+                }
         }
     }
 }

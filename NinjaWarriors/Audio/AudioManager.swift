@@ -16,11 +16,16 @@ class AudioManager: ObservableObject {
     var buttonClickAudioPlayer: AVAudioPlayer?
     var isPlaying = false
     var isLooping = false
-    let mainMenu = "mainMenuAudio"
-    let gameOver = "gameOverAudio"
-    let game = "gameAudio"
-    let victory = "victoryAudio"
-    let button = "buttonClick"
+
+    let mainMenu = "mainMenu"
+    let gameOver = "gameOver"
+    let victory = "victory"
+    let button = "click"
+    let slash = "slash"
+    let dash = "dash"
+    let refresh = "refresh"
+    let shield = "shield"
+    let whoosh = "whoosh"
 
     init() {}
 
@@ -28,20 +33,40 @@ class AudioManager: ObservableObject {
         play(fileName: mainMenu, isLooping: isLooping, player: &mainMenuAudioPlayer)
     }
 
-    func playButtonClickAudio(isLooping: Bool = false) {
-        play(fileName: button, isLooping: isLooping, player: &buttonClickAudioPlayer)
-    }
-
-    func playGameAudio(isLooping: Bool = false) {
-        play(fileName: game, isLooping: isLooping, player: &mainMenuAudioPlayer)
+    func playGameOverAudio(isLooping: Bool = false) {
+        play(fileName: gameOver, isLooping: isLooping, player: &mainMenuAudioPlayer)
     }
 
     func playVictoryAudio(isLooping: Bool = false) {
         play(fileName: victory, isLooping: isLooping, player: &mainMenuAudioPlayer)
     }
 
-    func playGameOverAudio(isLooping: Bool = false) {
-        play(fileName: gameOver, isLooping: isLooping, player: &mainMenuAudioPlayer)
+    func playButtonClickAudio(isLooping: Bool = false) {
+        play(fileName: button, isLooping: isLooping, player: &buttonClickAudioPlayer)
+    }
+
+    func playSkillAudio(for skill: String) {
+        play(fileName: skill, isLooping: false, player: &buttonClickAudioPlayer)
+    }
+
+    func playSlashAudio(isLooping: Bool = false) {
+        play(fileName: slash, isLooping: isLooping, player: &mainMenuAudioPlayer)
+    }
+
+    func playDashAudio(isLooping: Bool = false) {
+        play(fileName: dash, isLooping: isLooping, player: &mainMenuAudioPlayer)
+    }
+
+    func playRefreshAudio(isLooping: Bool = false) {
+        play(fileName: refresh, isLooping: isLooping, player: &mainMenuAudioPlayer)
+    }
+
+    func playShieldAudio(isLooping: Bool = false) {
+        play(fileName: shield, isLooping: isLooping, player: &mainMenuAudioPlayer)
+    }
+
+    func playWhooshAudio(isLooping: Bool = false) {
+        play(fileName: whoosh, isLooping: isLooping, player: &mainMenuAudioPlayer)
     }
 
     private func play(fileName: String, isLooping: Bool, player: inout AVAudioPlayer?) {

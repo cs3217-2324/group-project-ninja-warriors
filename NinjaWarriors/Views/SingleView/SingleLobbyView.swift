@@ -35,6 +35,10 @@ struct SingleLobbyView: View {
                                     .fontWeight(.bold)
                                     .cornerRadius(10)
                             }
+                            .simultaneousGesture(TapGesture().onEnded {
+                                AudioManager.shared.playButtonClickAudio()
+                            })
+
                     }
                     NavigationLink(destination: MapSelectionView(viewModel: viewModel)) {
                         Text("Select Map")
@@ -47,6 +51,9 @@ struct SingleLobbyView: View {
                     }
                     .opacity(isReady ? 0.5 : 1.0)
                     .disabled(isReady)
+                    .simultaneousGesture(TapGesture().onEnded {
+                        AudioManager.shared.playButtonClickAudio()
+                    })
 
                     NavigationLink(destination: CharacterSelectionView(viewModel: viewModel)) {
                         Text("Select Character")
@@ -59,6 +66,9 @@ struct SingleLobbyView: View {
                     }
                     .opacity(isReady ? 0.5 : 1.0)
                     .disabled(isReady)
+                    .simultaneousGesture(TapGesture().onEnded {
+                        AudioManager.shared.playButtonClickAudio()
+                    })
                 }
                 .background(
                     Image("lobby-bg")
@@ -89,5 +99,8 @@ struct SingleLobbyView: View {
         .padding()
         .opacity(isReady ? 0 : 1)
         .disabled(isReady)
+        .simultaneousGesture(TapGesture().onEnded {
+            AudioManager.shared.playButtonClickAudio()
+        })
     }
 }

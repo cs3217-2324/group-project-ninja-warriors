@@ -12,6 +12,7 @@ typealias SkillID = String
 protocol Skill {
     var id: SkillID { get }
     var cooldownDuration: TimeInterval { get set }
+    var audio: String { get }
 
     init(id: SkillID)
 

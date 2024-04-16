@@ -20,6 +20,9 @@ struct AuthenticationView: View {
                         .background(Color.white)
                         .cornerRadius(10)
                 }.padding()
+                    .simultaneousGesture(TapGesture().onEnded {
+                        AudioManager.shared.playButtonClickAudio()
+                    })
                 NavigationLink(destination: SignInView()) {
                     Text("Multiplayer Account")
                         .foregroundColor(.black)
@@ -28,6 +31,9 @@ struct AuthenticationView: View {
                         .background(Color.white)
                         .cornerRadius(10)
                 }.padding()
+                    .simultaneousGesture(TapGesture().onEnded {
+                        AudioManager.shared.playButtonClickAudio()
+                    })
                 NavigationLink(destination: LobbyView()) {
                     Text("Multiplayer Guest")
                         .foregroundColor(.black)
@@ -36,6 +42,9 @@ struct AuthenticationView: View {
                         .background(Color.white)
                         .cornerRadius(10)
                 }.padding()
+                    .simultaneousGesture(TapGesture().onEnded {
+                        AudioManager.shared.playButtonClickAudio()
+                    })
                 NavigationLink(destination: HowToPlayView()) {
                     Text("How To Play")
                         .foregroundColor(.black)
@@ -44,6 +53,9 @@ struct AuthenticationView: View {
                         .background(Color.white)
                         .cornerRadius(10)
                 }.padding()
+                    .simultaneousGesture(TapGesture().onEnded {
+                        AudioManager.shared.playButtonClickAudio()
+                    })
                 Spacer(minLength: 0)
             }
             .navigationBarTitle("Sign In")

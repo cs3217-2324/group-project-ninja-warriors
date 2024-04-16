@@ -10,6 +10,7 @@ class HadoukenSkill: EntitySpawnerSkill {
     var id: SkillID
     var cooldownDuration: TimeInterval
     var projectileSpeed: Double = 850
+    var audio = "whoosh"
 
     required init(id: SkillID) {
         self.id = id

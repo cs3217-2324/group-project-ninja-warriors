@@ -9,6 +9,7 @@ import Foundation
 class SlashAOESkill: EntitySpawnerSkill {
     var id: SkillID
     var cooldownDuration: TimeInterval
+    var audio = "slash"
 
     required init(id: SkillID) {
         self.id = id
