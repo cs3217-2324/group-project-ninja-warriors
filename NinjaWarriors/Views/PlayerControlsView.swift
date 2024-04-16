@@ -58,9 +58,7 @@ struct PlayerControlsView: View {
                             }
                             .padding()
                             .simultaneousGesture(TapGesture().onEnded {
-                                if skillCooldowns[key] ?? 0.0 > 0 {
-                                    AudioManager.shared.playSkillAudio(for: value.audio)
-                                }
+                                AudioManager.shared.playSkillAudio(for: value.audio)
                             })
                         }
                         Text("\(key)").fontWeight(.bold).foregroundColor(.white).textCase(.uppercase)
