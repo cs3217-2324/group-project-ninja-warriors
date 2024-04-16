@@ -30,4 +30,8 @@ extension Achievement {
             metricsSubject.addObserver(observer, for: metric, userID: userID)
         }
     }
+
+    var isUnlocked: Bool {
+        return count > 0
+    }
 }

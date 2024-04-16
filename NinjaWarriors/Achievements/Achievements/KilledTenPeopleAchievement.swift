@@ -12,7 +12,7 @@ class KilledTenPeopleAchievement: Achievement {
 
     var description: String = "Killed ten people over one or more games"
 
-    var imageAsset: String = "killed-ten"
+    var imageAsset: String = "achievement-killed-ten"
 
     var isRepeatable: Bool = false
 

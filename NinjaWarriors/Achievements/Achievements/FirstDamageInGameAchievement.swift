@@ -10,7 +10,7 @@ import Foundation
 class FirstDamageInGameAchievement: Achievement {
     var title: String = "Getting Your Hands Dirty"
     var description: String = "Dealt damage for the first time in a game"
-    var imageAsset: String = "first-damage"
+    var imageAsset: String = "achievement-first-damage-in-game"
     var isRepeatable: Bool = true
     var count: Int = 0
     var lastGameWhenAchieved: GameID?

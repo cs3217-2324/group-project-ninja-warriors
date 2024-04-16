@@ -10,7 +10,7 @@ import Foundation
 class ThreeDashesInGameAchievement: Achievement {
     var title: String = "Dashing Around"
     var description: String = "Make three dashes in a single game"
-    var imageAsset: String = "three-dashes-in-game"
+    var imageAsset: String = "achievement-three-dashes-in-game"
     var isRepeatable: Bool = true
     var count: Int = 0
     var lastGameWhenAchieved: GameID?
