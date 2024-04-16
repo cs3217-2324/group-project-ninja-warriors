@@ -8,7 +8,8 @@
 import Foundation
 
 class GemMap: Map {
-    internal let mapBg = "gray-wall"
+    internal let gameMode: GameMode = LastManStandingMode() // TODO: Add gem collection mode
+    internal let mapBackground = "gray-wall"
     internal var mapEntities: [Entity] = []
 
     func getPositions() -> [Point] {

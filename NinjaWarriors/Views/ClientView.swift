@@ -13,16 +13,17 @@ struct ClientView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    @State private var mapBg: String
+    @State private var mapBackground: String
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBg: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.mapBg = mapBg
+        self.mapBackground = mapBackground
         self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId,
                                          ownEntities: ownEntities,
                                          metricsRepository: metricsRepository,
-                                         achievementManager: achievementManager)
+                                         achievementManager: achievementManager,
+                                         gameMode: gameMode)
     }
 
     var body: some View {
@@ -36,6 +37,7 @@ struct ClientView: View {
                     viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {
                         DispatchQueue.main.async {
                             viewModel.updateEntities()
+                            viewModel.gameWorld.gameMode.start()
                         }
                     }
                 }
@@ -43,7 +45,7 @@ struct ClientView: View {
     }
 
     private var backgroundImage: some View {
-        Image(mapBg)
+        Image(mapBackground)
             .resizable()
             .edgesIgnoringSafeArea(.all)
             .statusBar(hidden: true)

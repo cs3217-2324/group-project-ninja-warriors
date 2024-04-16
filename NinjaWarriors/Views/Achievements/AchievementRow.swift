@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AchievementRow: View {
     var achievement: Achievement
+    var displayingInGame: Bool
 
     var body: some View {
         HStack(alignment: .center) {
@@ -29,7 +30,7 @@ struct AchievementRow: View {
             }
             // text inside circle describing count
             Spacer()
-            if achievement.isRepeatable && achievement.isUnlocked {
+            if achievement.isRepeatable && achievement.isUnlocked && !displayingInGame {
                 Circle()
                     .fill(Color.accentColor)
                     .frame(width: 40, height: 40)
@@ -54,4 +55,8 @@ struct AchievementRow: View {
 
         }
     }
+}
+
+#Preview {
+    AchievementRow(achievement: ThreeDashesInGameAchievement(userID: "guestID", metricsSubject: MetricsRepository()), displayingInGame: false)
 }

@@ -15,15 +15,16 @@ class GameWorld {
     let systemManager = SystemManager()
     var gameLoopManager = GameLoopManager()
     var gameControl: GameControl
+    var gameMode: GameMode
     var updateViewModel: () -> Void = {}
+    var isGameOver: Bool = false
 
     init(for match: String, gameControl: GameControl = JoystickControl(),
-         metricsRecorder: EntityMetricsRecorder, achievementManager: AchievementManager?) {
+         metricsRecorder: EntityMetricsRecorder, achievementManager: AchievementManager?, gameMode: GameMode) {
         self.entityComponentManager = EntityComponentManager(for: match, metricsRecorder: metricsRecorder)
         self.gameControl = gameControl
         self.achievementManager = achievementManager
-
-        setupGameLoop()
+        self.gameMode = gameMode
 
         let destroyManager = DestroySystem(for: entityComponentManager)
         // let transformHandler = TransformHandler(for: entityComponentManager)
@@ -48,6 +49,8 @@ class GameWorld {
         systemManager.add(system: lifespanManager)
         systemManager.add(system: destroyManager)
         systemManager.add(system: combatSystem)
+
+        setupGameLoop()
     }
 
     func setInput(_ vector: CGVector, for entity: Entity) {
@@ -67,6 +70,11 @@ class GameWorld {
 
     func update(deltaTime: TimeInterval) {
         systemManager.update(after: deltaTime)
+
+        if gameMode.isGameOver(for: self) {
+            self.gameLoopManager.stop()
+            self.isGameOver = true
+        }
     }
 
     func getRepository() -> MetricsRepository {

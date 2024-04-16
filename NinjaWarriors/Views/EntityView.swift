@@ -79,7 +79,7 @@ struct EntityView: View {
     private func healthBar(for health: Health, width: CGFloat) -> some View {
         let healthBarWidth = width
         let healthPercentage = CGFloat(health.health) / CGFloat(health.maxHealth)
-        let healthBarFillWidth = healthBarWidth * healthPercentage
+        let healthBarFillWidth = max(healthBarWidth * healthPercentage, 0)
         var healthBarOffsetY = Constants.HealthBar.offsetY
 
         if let sprite = viewModel.sprite {

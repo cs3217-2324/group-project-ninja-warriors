@@ -12,118 +12,120 @@ struct LobbyView: View {
     @EnvironmentObject var signInViewModel: SignInViewModel
     @State private var isReady: Bool = false
     @ObservedObject var viewModel: LobbyViewModel
+    @Binding var path: NavigationPath
 
-    init() {
+    init(path: Binding<NavigationPath>) {
         self.viewModel = LobbyViewModel()
+        self._path = path
     }
 
-    init(viewModel: LobbyViewModel) {
+    init(viewModel: LobbyViewModel, path: Binding<NavigationPath>) {
         self.viewModel = viewModel
+        self._path = path
     }
 
     var body: some View {
-        NavigationView {
-            VStack(spacing: 10) {
-                userLoginInfo
-                if let playerCount = viewModel.getPlayerCount() {
+        VStack(spacing: 10) {
+            userLoginInfo
+            if let playerCount = viewModel.getPlayerCount() {
 
-                    customText("Players in queue: \(playerCount) / \(Constants.playerCount)")
+                customText("Players in queue: \(playerCount) / \(Constants.playerCount)")
 
-                    if playerCount == Constants.playerCount {
+                if playerCount == Constants.playerCount {
 
-                        startRender
+                    startRender
 
-                        if let matchId = viewModel.matchId, viewModel.playerIds != nil {
+                    if let matchId = viewModel.matchId, viewModel.playerIds != nil {
 
-                            customText("Match id: \(matchId)")
+                        customText("Match id: \(matchId)")
 
-                            if viewModel.getUserId() == viewModel.hostId {
-                                NavigationLink(
-                                    destination: HostView(matchId: matchId,
-                                                          currPlayerId: viewModel.getUserId(),
-                                                          ownEntities: viewModel.ownEntities,
-                                                          mapBg: viewModel.map.mapBg,
-                                                          metricsRepository: viewModel.metricsRepository,
-                                                          achievementManager: viewModel.achievementsManager
-                                                         ).navigationBarBackButtonHidden(true)
-                                ) {
-                                    startGameText
-                                }
-                                .simultaneousGesture(TapGesture().onEnded {
-                                    AudioManager.shared.playButtonClickAudio()
-                                    AudioManager.shared.stopAll()
-                                })
-                            } else {
-                                NavigationLink(
-                                    destination: ClientView(matchId: matchId,
-                                                            currPlayerId: viewModel.getUserId(),
-                                                            ownEntities: viewModel.ownEntities,
-                                                            mapBg: viewModel.map.mapBg,
-                                                            metricsRepository: viewModel.metricsRepository,
-                                                            achievementManager: viewModel.achievementsManager
-                                                           ).navigationBarBackButtonHidden(true)
-                                ) {
-                                    startGameText
-                                }
-                                .simultaneousGesture(TapGesture().onEnded {
-                                    AudioManager.shared.playButtonClickAudio()
-                                    AudioManager.shared.stopAll()
-                                })
+                        if viewModel.getUserId() == viewModel.hostId {
+                            NavigationLink(
+                                destination: HostView(matchId: matchId,
+                                                      currPlayerId: viewModel.getUserId(),
+                                                      ownEntities: viewModel.ownEntities,
+                                                      mapBackground: viewModel.map.mapBackground,
+                                                      metricsRepository: viewModel.metricsRepository,
+                                                      achievementManager: viewModel.achievementsManager,
+                                                      gameMode: viewModel.map.gameMode
+                                                     ).navigationBarBackButtonHidden(true)
+                            ) {
+                                startGameText
                             }
+                            .simultaneousGesture(TapGesture().onEnded {
+                                AudioManager.shared.playButtonClickAudio()
+                                AudioManager.shared.stopAll()
+                            })
+                        } else {
+                            NavigationLink(
+                                destination: ClientView(matchId: matchId,
+                                                        currPlayerId: viewModel.getUserId(),
+                                                        ownEntities: viewModel.ownEntities,
+                                                        mapBackground: viewModel.map.mapBackground,
+                                                        metricsRepository: viewModel.metricsRepository,
+                                                        achievementManager: viewModel.achievementsManager,
+                                                        gameMode: viewModel.map.gameMode
+                                                       ).navigationBarBackButtonHidden(true)
+                            ) {
+                                startGameText
+                            }
+                            .simultaneousGesture(TapGesture().onEnded {
+                                AudioManager.shared.playButtonClickAudio()
+                                AudioManager.shared.stopAll()
+                            })
                         }
                     }
                 }
-                readyButton
-
-                NavigationLink(destination: MapSelectionView(viewModel: viewModel)) {
-                    Text("Select Map")
-                        .font(.system(size: 30))
-                        .padding()
-                        .background(Color.purple)
-                        .foregroundColor(.white)
-                        .fontWeight(.bold)
-                        .cornerRadius(10)
-                }
-                .simultaneousGesture(TapGesture().onEnded {
-                    AudioManager.shared.playButtonClickAudio()
-                })
-                .opacity(isReady ? 0.5 : 1.0)
-                .disabled(isReady)
-
-                NavigationLink(destination: CharacterSelectionView(viewModel: viewModel)) {
-                    Text("Select Character")
-                        .font(.system(size: 30))
-                        .padding()
-                        .background(Color.purple)
-                        .foregroundColor(.white)
-                        .fontWeight(.bold)
-                        .cornerRadius(10)
-                }
-                .simultaneousGesture(TapGesture().onEnded {
-                    AudioManager.shared.playButtonClickAudio()
-                })
-                .opacity(isReady ? 0.5 : 1.0)
-                .disabled(isReady)
-
-                NavigationLink(destination: AchievementsView(achievementManager: viewModel.achievementsManager)) {
-                    Text("View Achievements")
-                        .font(.system(size: 20))
-                        .padding()
-                        .background(.pink)
-                        .foregroundColor(.white)
-                        .fontWeight(.bold)
-                        .cornerRadius(10)
-                }.padding(.top, 100)
             }
-            .background(
-                Image("lobby-bg")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .edgesIgnoringSafeArea(.all)
-                    .frame(width: Constants.screenWidth, height: Constants.screenHeight)
-            )
-        }.navigationViewStyle(.stack)
-        .navigationBarBackButtonHidden(true)
+            readyButton
+
+            NavigationLink(destination: MapSelectionView(viewModel: viewModel)) {
+                Text("Select Map")
+                    .font(.system(size: 30))
+                    .padding()
+                    .background(Color.purple)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .cornerRadius(10)
+            }
+            .simultaneousGesture(TapGesture().onEnded {
+                AudioManager.shared.playButtonClickAudio()
+            })
+            .opacity(isReady ? 0.5 : 1.0)
+            .disabled(isReady)
+
+            NavigationLink(destination: CharacterSelectionView(viewModel: viewModel)) {
+                Text("Select Character")
+                    .font(.system(size: 30))
+                    .padding()
+                    .background(Color.purple)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .cornerRadius(10)
+            }
+            .simultaneousGesture(TapGesture().onEnded {
+                AudioManager.shared.playButtonClickAudio()
+            })
+            .opacity(isReady ? 0.5 : 1.0)
+            .disabled(isReady)
+
+            NavigationLink(destination: AchievementsView(achievementManager: viewModel.achievementsManager)) {
+                Text("View Achievements")
+                    .font(.system(size: 20))
+                    .padding()
+                    .background(.pink)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .cornerRadius(10)
+            }.padding(.top, 100)
+        }
+        .background(
+            Image("lobby-bg")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
+                .frame(width: Constants.screenWidth, height: Constants.screenHeight)
+        )
     }
 
     private var userLoginInfo: some View {

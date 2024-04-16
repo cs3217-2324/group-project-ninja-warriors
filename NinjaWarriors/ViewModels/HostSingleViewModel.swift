@@ -12,33 +12,39 @@ import SwiftUI
 final class HostSingleViewModel: ObservableObject {
     var gameWorld: GameWorld
     // TODO: Remove metric from here should only be in game world
-    var metricsRepository: MetricsRepository
     internal var entities: [Entity] = []
     internal var matchId: String
     internal var currPlayerId: String
+    var isGameOver: Bool = false
 
-    init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository) {
+    init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
-        self.metricsRepository = metricsRepository
         let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
         self.gameWorld = GameWorld(for: matchId, metricsRecorder: metricsRecorder,
-                                   achievementManager: nil)
-        gameWorld.start()
+                                   achievementManager: achievementManager, gameMode: gameMode)
+
         gameWorld.updateViewModel = { [unowned self] in
             Task {
                 await self.updateViewModel()
             }
         }
+
+        gameWorld.start()
     }
 
     func updateViewModel() async {
         updateEntities()
+        updateGameState()
         updateViews()
     }
 
     func updateEntities() {
         entities = gameWorld.entityComponentManager.getAllEntities()
+    }
+
+    func updateGameState() {
+        self.isGameOver = gameWorld.isGameOver
     }
 
     // Only update values that changed

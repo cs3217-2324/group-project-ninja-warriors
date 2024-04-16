@@ -26,6 +26,7 @@
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
 		714F20972BC27FF800A5B36E /* HostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714F20962BC27FF800A5B36E /* HostView.swift */; };
+		717759462BCE9A42007A036A /* InGameAchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717759452BCE9A42007A036A /* InGameAchievementsView.swift */; };
 		7181B1462BC03ECD009711DE /* EnvironmentEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B1452BC03ECD009711DE /* EnvironmentEffect.swift */; };
 		7181B1482BC0404A009711DE /* EnvironmentEffectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B1472BC0404A009711DE /* EnvironmentEffectWrapper.swift */; };
 		7181B14A2BC046F6009711DE /* ClosingZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181B1492BC046F6009711DE /* ClosingZone.swift */; };
@@ -155,6 +156,7 @@
 		916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */; };
 		916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */; };
 		916A7DB42BA42F8B00319C26 /* HostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7DB32BA42F8B00319C26 /* HostViewModel.swift */; };
+		917146762BCE292300CC1004 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917146752BCE292300CC1004 /* GameOverView.swift */; };
 		917BEBAA2BCA29F7001D0F7C /* ObstacleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */; };
 		917BEBAB2BCA29F7001D0F7C /* ObstacleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */; };
 		917BEBAC2BCA29F8001D0F7C /* ObstacleMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */; };
@@ -240,10 +242,16 @@
 		E62FA3402BCC6A24000D551A /* DamageEffectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA33F2BCC6A24000D551A /* DamageEffectWrapper.swift */; };
 		E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC002BBADA55006C2C4C /* Transform.swift */; };
 		E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */; };
+		E67C23E82BCBBA97005D7304 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23E72BCBBA97005D7304 /* GameMode.swift */; };
+		E67C23EA2BCBBAEB005D7304 /* LastManStandingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23E92BCBBAEB005D7304 /* LastManStandingMode.swift */; };
+		E67C23F22BCBD144005D7304 /* PlayerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23F12BCBD144005D7304 /* PlayerComponent.swift */; };
+		E67C23F42BCBD2DE005D7304 /* PlayerComponentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23F32BCBD2DE005D7304 /* PlayerComponentWrapper.swift */; };
 		E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67F53392BBFEFA10051A900 /* DestroySystem.swift */; };
 		E699DDBF2BBDDC5800E8CA80 /* PlayerControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */; };
 		E6A0564D2BB0687500398D67 /* DodgeSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0564C2BB0687500398D67 /* DodgeSkill.swift */; };
 		E6A0564F2BB0691B00398D67 /* RefreshCooldownsSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */; };
+		E6A262C92BCE71F80074B834 /* Karasha-z8mYw.otf in Resources */ = {isa = PBXBuildFile; fileRef = E6A262C82BCE71F80074B834 /* Karasha-z8mYw.otf */; };
+		E6A262CC2BCE75500074B834 /* scroll.png in Resources */ = {isa = PBXBuildFile; fileRef = E6A262CB2BCE75500074B834 /* scroll.png */; };
 		E6B503E32BC105FC00B9565E /* Attack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B503E22BC105FC00B9565E /* Attack.swift */; };
 		E6B503EB2BC112AF00B9565E /* AttackStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B503EA2BC112AF00B9565E /* AttackStrategy.swift */; };
 		E6B503ED2BC112C100B9565E /* MeleeAttackStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B503EC2BC112C100B9565E /* MeleeAttackStrategy.swift */; };
@@ -306,6 +314,7 @@
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
 		714F20962BC27FF800A5B36E /* HostView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostView.swift; sourceTree = "<group>"; };
+		717759452BCE9A42007A036A /* InGameAchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InGameAchievementsView.swift; sourceTree = "<group>"; };
 		7181B1452BC03ECD009711DE /* EnvironmentEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentEffect.swift; sourceTree = "<group>"; };
 		7181B1472BC0404A009711DE /* EnvironmentEffectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentEffectWrapper.swift; sourceTree = "<group>"; };
 		7181B1492BC046F6009711DE /* ClosingZone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosingZone.swift; sourceTree = "<group>"; };
@@ -410,6 +419,7 @@
 		916A7DAD2BA3FD6C00319C26 /* VectorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorWrapper.swift; sourceTree = "<group>"; };
 		916A7DAF2BA428A900319C26 /* PlayerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerWrapper.swift; sourceTree = "<group>"; };
 		916A7DB32BA42F8B00319C26 /* HostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostViewModel.swift; sourceTree = "<group>"; };
+		917146752BCE292300CC1004 /* GameOverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverView.swift; sourceTree = "<group>"; };
 		917BEBA92BCA29F7001D0F7C /* ObstacleMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObstacleMap.swift; sourceTree = "<group>"; };
 		9180486A2BC7A75700026965 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		9180486E2BC7A86400026965 /* GemMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemMap.swift; sourceTree = "<group>"; };
@@ -461,10 +471,17 @@
 		E62FA33F2BCC6A24000D551A /* DamageEffectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageEffectWrapper.swift; sourceTree = "<group>"; };
 		E63FFC002BBADA55006C2C4C /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformWrapper.swift; sourceTree = "<group>"; };
+		E67C23E72BCBBA97005D7304 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		E67C23E92BCBBAEB005D7304 /* LastManStandingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastManStandingMode.swift; sourceTree = "<group>"; };
+		E67C23F12BCBD144005D7304 /* PlayerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponent.swift; sourceTree = "<group>"; };
+		E67C23F32BCBD2DE005D7304 /* PlayerComponentWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponentWrapper.swift; sourceTree = "<group>"; };
 		E67F53392BBFEFA10051A900 /* DestroySystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroySystem.swift; sourceTree = "<group>"; };
 		E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlsView.swift; sourceTree = "<group>"; };
 		E6A0564C2BB0687500398D67 /* DodgeSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DodgeSkill.swift; sourceTree = "<group>"; };
 		E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCooldownsSkill.swift; sourceTree = "<group>"; };
+		E6A262C82BCE71F80074B834 /* Karasha-z8mYw.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karasha-z8mYw.otf"; sourceTree = "<group>"; };
+		E6A262CA2BCE72970074B834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		E6A262CB2BCE75500074B834 /* scroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scroll.png; sourceTree = "<group>"; };
 		E6B503E22BC105FC00B9565E /* Attack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attack.swift; sourceTree = "<group>"; };
 		E6B503EA2BC112AF00B9565E /* AttackStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackStrategy.swift; sourceTree = "<group>"; };
 		E6B503EC2BC112C100B9565E /* MeleeAttackStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeleeAttackStrategy.swift; sourceTree = "<group>"; };
@@ -607,6 +624,7 @@
 			children = (
 				7188B6F52BCE645C0059B60D /* AchievementRow.swift */,
 				7188B6F92BCE6C830059B60D /* AchievementsView.swift */,
+				717759452BCE9A42007A036A /* InGameAchievementsView.swift */,
 			);
 			path = Achievements;
 			sourceTree = "<group>";
@@ -750,11 +768,11 @@
 			isa = PBXGroup;
 			children = (
 				E62FA3372BCC534D000D551A /* Hadouken */,
-				916991312BC6780E00ED1FBD /* Gems */,
 				7113A4932BA60E2E00805340 /* Entity.swift */,
 				9180F9D42BAB9C89000CC390 /* EntityWrapper.swift */,
 				91DDE6572BB5118400851603 /* EntityType.swift */,
 				91DDE65A2BB51D8800851603 /* AnyEntity.swift */,
+				916991312BC6780E00ED1FBD /* Gems */,
 				7181B14B2BC047FE009711DE /* ClosingZone */,
 				91DDE6612BB79DE200851603 /* Obstacles */,
 				9132AF832BA5A871000F2AC4 /* Players */,
@@ -852,11 +870,13 @@
 		916A7D382BA1541700319C26 /* NinjaWarriors */ = {
 			isa = PBXGroup;
 			children = (
+				E6A262CA2BCE72970074B834 /* Info.plist */,
 				91DED5F72BCE54710054C2F1 /* GoogleService-Info.plist */,
 				916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */,
 				916A7D3B2BA1541700319C26 /* ContentView.swift */,
 				916A7D3D2BA1541800319C26 /* Assets.xcassets */,
 				916A7D442BA1541800319C26 /* NinjaWarriors.xcdatamodeld */,
+				E6A262C72BCE71EE0074B834 /* Fonts */,
 				916A7D3F2BA1541800319C26 /* Preview Content */,
 			);
 			path = NinjaWarriors;
@@ -897,6 +917,7 @@
 				E62FA33E2BCC69A6000D551A /* DamageEffect */,
 				7113A4952BA60E8400805340 /* Component.swift */,
 				91DDE6512BB3806100851603 /* ComponentType.swift */,
+				E67C23F02BCBD124005D7304 /* PlayerComponent */,
 				E6FD34592BC1523900477B1F /* Lifespan */,
 				E6B503E12BC105F300B9565E /* Attack */,
 				E63FFBFD2BBADA2F006C2C4C /* Transform */,
@@ -939,6 +960,7 @@
 				E699DDBE2BBDDC5800E8CA80 /* PlayerControlsView.swift */,
 				9180487A2BC7C7B600026965 /* CharacterSelectionView.swift */,
 				9180487F2BC9094B00026965 /* MapSelectionView.swift */,
+				917146752BCE292300CC1004 /* GameOverView.swift */,
 				9117F6352BCD280B00ED4F4E /* HowToPlayView.swift */,
 			);
 			path = Views;
@@ -1039,6 +1061,7 @@
 		9180F9CA2BAAF845000CC390 /* Primitives */ = {
 			isa = PBXGroup;
 			children = (
+				E67C23E62BCBBA89005D7304 /* GameModes */,
 				91DED6042BCE58C30054C2F1 /* Geometries */,
 				91DED5FF2BCE588B0054C2F1 /* LinkedList */,
 				918048692BC7A74900026965 /* Maps */,
@@ -1240,12 +1263,38 @@
 			path = Transform;
 			sourceTree = "<group>";
 		};
+		E67C23E62BCBBA89005D7304 /* GameModes */ = {
+			isa = PBXGroup;
+			children = (
+				E67C23E72BCBBA97005D7304 /* GameMode.swift */,
+				E67C23E92BCBBAEB005D7304 /* LastManStandingMode.swift */,
+			);
+			path = GameModes;
+			sourceTree = "<group>";
+		};
+		E67C23F02BCBD124005D7304 /* PlayerComponent */ = {
+			isa = PBXGroup;
+			children = (
+				E67C23F12BCBD144005D7304 /* PlayerComponent.swift */,
+				E67C23F32BCBD2DE005D7304 /* PlayerComponentWrapper.swift */,
+			);
+			path = PlayerComponent;
+			sourceTree = "<group>";
+		};
 		E67F53382BBFEF930051A900 /* DestroySystem */ = {
 			isa = PBXGroup;
 			children = (
 				E67F53392BBFEFA10051A900 /* DestroySystem.swift */,
 			);
 			path = DestroySystem;
+			sourceTree = "<group>";
+		};
+		E6A262C72BCE71EE0074B834 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E6A262C82BCE71F80074B834 /* Karasha-z8mYw.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		E6B503E12BC105F300B9565E /* Attack */ = {
@@ -1274,6 +1323,7 @@
 				E6CDFFC52BAF2689007BB867 /* grass-stone.jpeg */,
 				E6CDFFBF2BAF1DB0007BB867 /* player.png */,
 				E6CDFFC32BAF2306007BB867 /* player-copy.png */,
+				E6A262CB2BCE75500074B834 /* scroll.png */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1450,6 +1500,8 @@
 				916A7D412BA1541800319C26 /* Preview Assets.xcassets in Resources */,
 				916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */,
 				9117F6232BCD27A100ED4F4E /* victory.mp3 in Resources */,
+				E6A262C92BCE71F80074B834 /* Karasha-z8mYw.otf in Resources */,
+				E6A262CC2BCE75500074B834 /* scroll.png in Resources */,
 				E6CDFFC62BAF2689007BB867 /* grass-stone.jpeg in Resources */,
 				E6CDFFC22BAF22A1007BB867 /* grass.png in Resources */,
 				7188B6F82BCE677D0059B60D /* three-dashes-in-game.jpeg in Resources */,
@@ -1577,6 +1629,7 @@
 				7191C83B2BCA9695005BBE62 /* PlayedTenGamesAchievement.swift in Sources */,
 				916A7DAE2BA3FD6C00319C26 /* VectorWrapper.swift in Sources */,
 				9132AF872BA6AEAB000F2AC4 /* Shape+EXT.swift in Sources */,
+				E67C23F42BCBD2DE005D7304 /* PlayerComponentWrapper.swift in Sources */,
 				91CC283C2BBA86E7009318C7 /* ScoreSystem.swift in Sources */,
 				E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */,
 				710EB56D2BC68A65004539D6 /* Metric.swift in Sources */,
@@ -1626,7 +1679,9 @@
 				710EB57E2BC693B1004539D6 /* MetricType.swift in Sources */,
 				910CF65F2BC4AE2200C04CF2 /* AudioManager.swift in Sources */,
 				E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */,
+				E67C23E82BCBBA97005D7304 /* GameMode.swift in Sources */,
 				7191C82B2BC9AA0A005BBE62 /* MetricObserver.swift in Sources */,
+				717759462BCE9A42007A036A /* InGameAchievementsView.swift in Sources */,
 				9132AF7A2BA59B1C000F2AC4 /* FactoryWrapper.swift in Sources */,
 				9132AF5C2BA50C5C000F2AC4 /* CustomSubject.swift in Sources */,
 				E62FA3392BCC5356000D551A /* Hadouken.swift in Sources */,
@@ -1646,6 +1701,7 @@
 				710EB5632BC5B9AB004539D6 /* Achievement.swift in Sources */,
 				916A7D952BA1AB2A00319C26 /* User.swift in Sources */,
 				9169910A2BC5499700ED1FBD /* SingleLobbyView.swift in Sources */,
+				917146762BCE292300CC1004 /* GameOverView.swift in Sources */,
 				916A7D892BA19F5100319C26 /* AuthenticationView.swift in Sources */,
 				714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */,
 				9180486F2BC7A86400026965 /* GemMap.swift in Sources */,
@@ -1701,7 +1757,9 @@
 				91CC28362BBA831E009318C7 /* Score.swift in Sources */,
 				9132AF6E2BA58C1E000F2AC4 /* MatchManagerAdapter.swift in Sources */,
 				9136A5BC2BAAA80200197971 /* RealTimeManagerAdapter.swift in Sources */,
+				E67C23EA2BCBBAEB005D7304 /* LastManStandingMode.swift in Sources */,
 				9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */,
+				E67C23F22BCBD144005D7304 /* PlayerComponent.swift in Sources */,
 				710EB5672BC5BAF3004539D6 /* MetricsRepository.swift in Sources */,
 				9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */,
 				916991372BC6783500ED1FBD /* GemWrapper.swift in Sources */,
@@ -1898,6 +1956,7 @@
 				DEVELOPMENT_TEAM = W4Y84FVQ9C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NinjaWarriors/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1927,6 +1986,7 @@
 				DEVELOPMENT_TEAM = W4Y84FVQ9C;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NinjaWarriors/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

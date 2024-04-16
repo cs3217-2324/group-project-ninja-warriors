@@ -13,16 +13,17 @@ struct HostSingleView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    @State private var mapBg: String
+    @State private var mapBackground: String
+    private var achievementManager: AchievementManager
+    @Binding var path: NavigationPath
 
-    init(matchId: String, currPlayerId: String, mapBg: String) {
-        self.matchId = matchId
-        self.playerId = currPlayerId
-        self.mapBg = mapBg
-        let metricsRepository = MetricsRepository()
-        self.viewModel = HostSingleViewModel(matchId: matchId,
-                                             currPlayerId: currPlayerId,
-                                             metricsRepository: metricsRepository)
+    init(matchId: String, currPlayerId: String, mapBackground: String, gameMode: GameMode, metricsRepository: MetricsRepository, achievementManager: AchievementManager, path: Binding<NavigationPath>) {
+        self._matchId = State(initialValue: matchId)
+        self._playerId = State(initialValue: currPlayerId)
+        self._mapBackground = State(initialValue: mapBackground)
+        self.achievementManager = achievementManager
+        self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId, metricsRepository: metricsRepository, achievementManager: achievementManager, gameMode: gameMode)
+        self._path = path
     }
 
     var body: some View {
@@ -30,12 +31,15 @@ struct HostSingleView: View {
             backgroundImage
             closingZoneView
             canvasView
-
+            if viewModel.isGameOver {
+                GameOverView(path: $path, achievementManager: achievementManager, matchID: matchId)
+            }
             ProgressView()
                 .onAppear {
                     viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {
                         DispatchQueue.main.async {
                             viewModel.updateEntities()
+                            viewModel.gameWorld.gameMode.start()
                         }
                     }
                 }
@@ -43,7 +47,7 @@ struct HostSingleView: View {
     }
 
     private var backgroundImage: some View {
-        Image(mapBg)
+        Image(mapBackground)
             .resizable()
             .edgesIgnoringSafeArea(.all)
             .statusBar(hidden: true)

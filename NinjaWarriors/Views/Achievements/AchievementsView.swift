@@ -12,17 +12,20 @@ struct AchievementsView: View {
     let columns = [GridItem(.flexible())]
 
     var body: some View {
-        NavigationStack {
+        VStack {
+            Text("Achievements")
+                .font(.largeTitle)
+                .padding()
             ScrollView {
                 LazyVGrid(columns: columns) {
                     let sortedAchievements = achievementManager.achievements.sorted {
                         $0.isUnlocked && !$1.isUnlocked
                     }
-                    ForEach(achievementManager.achievements, id: \.title) { achievement in
-                        AchievementRow(achievement: achievement)
+                    ForEach(sortedAchievements, id: \.title) { achievement in
+                        AchievementRow(achievement: achievement, displayingInGame: false)
                     }
                 }
             }
-        }.navigationTitle("Achievements")
+        }
     }
 }
