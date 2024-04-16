@@ -26,4 +26,10 @@ class AchievementManager {
     var unlockedAchievements: [Achievement] {
         return achievements.filter { $0.count > 0 }
     }
+
+    func getUnlockedAchievements(fromGame matchID: String) -> [Achievement] {
+        return unlockedAchievements.filter { achievement in
+            achievement.lastGameWhenAchieved == matchID
+        }
+    }
 }
