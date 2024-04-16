@@ -49,26 +49,6 @@ class AudioManager: ObservableObject {
         play(fileName: skill, isLooping: false, player: &buttonClickAudioPlayer)
     }
 
-    func playSlashAudio(isLooping: Bool = false) {
-        play(fileName: slash, isLooping: isLooping, player: &mainMenuAudioPlayer)
-    }
-
-    func playDashAudio(isLooping: Bool = false) {
-        play(fileName: dash, isLooping: isLooping, player: &mainMenuAudioPlayer)
-    }
-
-    func playRefreshAudio(isLooping: Bool = false) {
-        play(fileName: refresh, isLooping: isLooping, player: &mainMenuAudioPlayer)
-    }
-
-    func playShieldAudio(isLooping: Bool = false) {
-        play(fileName: shield, isLooping: isLooping, player: &mainMenuAudioPlayer)
-    }
-
-    func playWhooshAudio(isLooping: Bool = false) {
-        play(fileName: whoosh, isLooping: isLooping, player: &mainMenuAudioPlayer)
-    }
-
     private func play(fileName: String, isLooping: Bool, player: inout AVAudioPlayer?) {
         guard let soundURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") else {
             return

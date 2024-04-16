@@ -51,6 +51,7 @@ struct LobbyView: View {
                                 }
                                 .simultaneousGesture(TapGesture().onEnded {
                                     AudioManager.shared.playButtonClickAudio()
+                                    AudioManager.shared.stopAll()
                                 })
                             } else {
                                 NavigationLink(
@@ -66,6 +67,7 @@ struct LobbyView: View {
                                 }
                                 .simultaneousGesture(TapGesture().onEnded {
                                     AudioManager.shared.playButtonClickAudio()
+                                    AudioManager.shared.stopAll()
                                 })
                             }
                         }

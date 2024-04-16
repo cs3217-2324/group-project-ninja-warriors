@@ -39,6 +39,7 @@ struct MapSelectionView<Model>: View where Model: MapSelection {
                     .onTapGesture {
                         selectedImageIndex = index
                         viewModel.map = maps[index]
+                        AudioManager.shared.playButtonClickAudio()
                     }
                     .background(
                         ZStack {

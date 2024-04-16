@@ -17,7 +17,7 @@ struct NinjaWarriorsApp: App {
         WindowGroup {
             AuthenticationView()
                 .onAppear {
-                    // AudioManager.shared.playMainMenuAudio()
+                    AudioManager.shared.playMainMenuAudio()
                 }
         }
     }

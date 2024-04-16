@@ -37,6 +37,7 @@ struct SingleLobbyView: View {
                             }
                             .simultaneousGesture(TapGesture().onEnded {
                                 AudioManager.shared.playButtonClickAudio()
+                                AudioManager.shared.stopAll()
                             })
 
                     }

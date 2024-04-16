@@ -44,6 +44,7 @@ struct CharacterSelectionView<Model>: View where Model: CharacterSelection {
                                 ).onTapGesture {
                                     selectedBox = index
                                     viewModel.character = characterNames[index]
+                                    AudioManager.shared.playButtonClickAudio()
                                 }
                         }
                     }
