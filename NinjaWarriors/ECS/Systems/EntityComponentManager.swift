@@ -28,6 +28,7 @@ class EntityComponentManager {
     private var mapQueue = EventQueue(label: "entityComponentMapQueue")
     private var newMapQueue = EventQueue(label: "newEntityComponentMapQueue")
     var componentsQueue = EventQueue(label: "componentsQueue")
+    var spawnQueue = EventQueue(label: "spawnQueue")
 
     var manager: EntitiesManager
 
@@ -139,9 +140,11 @@ class EntityComponentManager {
                 entityComponents = components
             }
             do {
-                // Publish event queue components first
+                // Publish event queue entities first
+                try await publishEntitiesFromQueue()
+                // Then, publish event queue components
                 try await publishComponentsFromQueue()
-                // Upload the entity with its components
+                // Lastly, upload the entity with its components
                 try await manager.uploadEntity(entity: entity,
                                                components: filterOwnComponents(entityComponents))
             } catch {
@@ -155,10 +158,22 @@ class EntityComponentManager {
             return
         }
         while let nextComponent = componentsQueue.processComponent() {
-            for _ in 0..<Constants.timeLag {
+            // for _ in 0..<Constants.timeLag {
                 try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
-            }
+            // }
         }
+    }
+
+    func publishEntitiesFromQueue() async throws {
+        guard spawnQueue.hasEntities() else {
+            return
+        }
+        for (spawnEntityId, spawnEntity) in spawnQueue.entityMap {
+            try await manager.uploadEntity(entity: spawnEntity,
+                                           components: spawnQueue.entityComponentMap[spawnEntityId])
+        }
+        spawnQueue.entityMap.removeAll()
+        spawnQueue.entityMap.removeAll()
     }
 
     func filterOwnComponents(_ componentsToFilter: Set<Component>) -> [Component] {

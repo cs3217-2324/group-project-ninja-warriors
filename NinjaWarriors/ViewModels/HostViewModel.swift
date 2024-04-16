@@ -50,7 +50,7 @@ final class HostViewModel: ObservableObject {
         }
         updateViews()
         // TODO: Move this to game over view model
-        getAchievements()
+        // getAchievements()
     }
 
     func updateEntities() {

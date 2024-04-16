@@ -9,7 +9,7 @@ import Foundation
 class HadoukenSkill: EntitySpawnerSkill {
     var id: SkillID
     var cooldownDuration: TimeInterval
-    var projectileSpeed: Double = 650
+    var projectileSpeed: Double = 850
 
     required init(id: SkillID) {
         self.id = id
@@ -83,8 +83,12 @@ class HadoukenSkill: EntitySpawnerSkill {
 
         let lifespanComponent = Lifespan(id: RandomNonce().randomNonceString(), entity: hadouken, lifespan: 1)
 
+        manager.spawnQueue.addEntity(hadouken, with: [collider, rigidbody, spriteComponent,
+                                                      attackComponent, lifespanComponent])
+        /*
         manager.add(entity: hadouken, components: [collider, rigidbody, spriteComponent,
                                                    attackComponent, lifespanComponent], isAdded: false)
+        */
 
         manager.addOwnEntity(hadouken)
 

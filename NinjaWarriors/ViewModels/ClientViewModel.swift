@@ -51,7 +51,7 @@ final class ClientViewModel: ObservableObject {
             print("Error publishing updated state: \(error)")
         }
         updateViews()
-        getAchievements()
+        // getAchievements()
     }
 
     func updateEntities() {

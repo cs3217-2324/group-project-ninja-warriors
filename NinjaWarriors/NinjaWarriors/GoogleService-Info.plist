@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCoXXVsYX6uxSEbcTshn3Ao4bUGp_qbARc</string>
+	<string>AIzaSyCLZV_9ESWeLMzTvDjpkcVI0iMEojEs04Q</string>
 	<key>GCM_SENDER_ID</key>
-	<string>512573495071</string>
+	<string>246958767826</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>NinjaWarriors.NinjaWarriors</string>
 	<key>PROJECT_ID</key>
-	<string>ninja-b57e3</string>
+	<string>ninjaninjaninja-b4c5e</string>
 	<key>STORAGE_BUCKET</key>
-	<string>ninja-b57e3.appspot.com</string>
+	<string>ninjaninjaninja-b4c5e.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,8 +25,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:512573495071:ios:604b5315bc61b84529422a</string>
+	<string>1:246958767826:ios:addaed98dfcc859f1b770b</string>
 	<key>DATABASE_URL</key>
-	<string>https://ninja-b57e3-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+	<string>https://ninjaninjaninja-b4c5e-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>
