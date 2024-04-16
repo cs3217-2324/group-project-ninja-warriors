@@ -15,6 +15,7 @@ struct GameAchievement {
 
 struct GameOverView: View {
     @State private var showingAchievements = false
+    @Binding var path: NavigationPath
 
     // Mock achievements data
     let achievements: [GameAchievement] = [
@@ -41,6 +42,12 @@ struct GameOverView: View {
                     .cornerRadius(10)
             }
             .padding()
+
+            Button(action: {
+                path = NavigationPath()
+            }, label: {
+                Text("Back to Home")
+            })
 
             Spacer()
         }
@@ -80,6 +87,6 @@ struct AchievementSheet: View {
 
 struct GameOverView_Previews: PreviewProvider {
     static var previews: some View {
-        GameOverView()
+        GameOverView(path: .constant(NavigationPath()))
     }
 }

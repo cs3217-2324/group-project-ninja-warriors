@@ -8,37 +8,48 @@
 import SwiftUI
 
 struct AuthenticationView: View {
+    @State private var path = NavigationPath()
+
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             VStack(spacing: 20) {
                 Spacer(minLength: 0)
-                NavigationLink(destination: SingleLobbyView()) {
-                    Text("Single player")
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .frame(width: 300, height: 55)
-                        .background(Color.white)
-                        .cornerRadius(10)
-                }.padding()
-                NavigationLink(destination: SignInView()) {
-                    Text("Multiplayer Account")
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .frame(width: 300, height: 55)
-                        .background(Color.white)
-                        .cornerRadius(10)
-                }.padding()
-                NavigationLink(destination: LobbyView()) {
-                    Text("Multiplayer Guest")
-                        .foregroundColor(.black)
-                        .frame(maxWidth: .infinity)
-                        .frame(width: 300, height: 55)
-                        .background(Color.white)
-                        .cornerRadius(10)
-                }.padding()
+                NavigationLink("Single Player", value: "SingleLobbyView")
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(width: 300, height: 55)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .padding()
+                NavigationLink("Multiplayer Account", value: "SignInView")
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(width: 300, height: 55)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .padding()
+                NavigationLink("Multiplayer Guest", value: "LobbyView")
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(width: 300, height: 55)
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .padding()
                 Spacer(minLength: 0)
             }
-            .navigationBarTitle("Sign In")
+            .navigationDestination(for: String.self) { destination in
+                switch destination {
+                case "SingleLobbyView":
+                    SingleLobbyView(path: $path)
+                case "SignInView":
+                    SignInView(path: $path)
+                case "LobbyView":
+                    LobbyView(path: $path)
+                default:
+                    EmptyView()
+                }
+            }
+            .navigationTitle("Home")
             .background(
                 Image("lobby-bg")
                     .resizable()
@@ -46,7 +57,7 @@ struct AuthenticationView: View {
                     .edgesIgnoringSafeArea(.all)
                     .frame(width: Constants.screenWidth, height: Constants.screenHeight)
             )
-        }.navigationViewStyle(.stack)
+        }
     }
 }
 

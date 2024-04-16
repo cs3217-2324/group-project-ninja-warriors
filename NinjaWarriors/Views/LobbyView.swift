@@ -12,13 +12,16 @@ struct LobbyView: View {
     @EnvironmentObject var signInViewModel: SignInViewModel
     @State private var isReady: Bool = false
     @ObservedObject var viewModel: LobbyViewModel
+    @Binding var path: NavigationPath
 
-    init() {
+    init(path: Binding<NavigationPath>) {
         self.viewModel = LobbyViewModel()
+        self._path = path
     }
 
-    init(viewModel: LobbyViewModel) {
+    init(viewModel: LobbyViewModel, path: Binding<NavigationPath>) {
         self.viewModel = viewModel
+        self._path = path
     }
 
     var body: some View {

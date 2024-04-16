@@ -10,6 +10,7 @@ import SwiftUI
 struct SignInView: View {
     @ObservedObject private var viewModel = SignInViewModel(authentication: AuthenticationAdapter())
     @State private var loggedIn = false
+    @Binding var path: NavigationPath
 
     var body: some View {
         VStack {
@@ -80,7 +81,7 @@ struct SignInView: View {
         )
         .background(
             NavigationLink(
-                destination: LobbyView(viewModel: LobbyViewModel(signInViewModel: viewModel))
+                destination: LobbyView(viewModel: LobbyViewModel(signInViewModel: viewModel), path: $path)
                     .navigationBarBackButtonHidden(true),
                 isActive: $loggedIn,
                 label: { EmptyView() }
@@ -92,6 +93,6 @@ struct SignInView: View {
 
 struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInView()
+        SignInView(path: .constant(NavigationPath()))
     }
 }

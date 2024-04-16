@@ -10,11 +10,8 @@ import SwiftUI
 
 struct SingleLobbyView: View {
     @State private var isReady: Bool = false
-    @ObservedObject var viewModel: SingleLobbyViewModel
-
-    init() {
-        self.viewModel = SingleLobbyViewModel()
-    }
+    @ObservedObject var viewModel = SingleLobbyViewModel()
+    @Binding var path: NavigationPath
 
     var body: some View {
         VStack(spacing: 10) {
@@ -24,7 +21,8 @@ struct SingleLobbyView: View {
                     destination: HostSingleView(matchId: viewModel.matchId,
                                                 currPlayerId: viewModel.hostId,
                                                 mapBackground: viewModel.map.mapBackground,
-                                                gameMode: viewModel.map.gameMode)
+                                                gameMode: viewModel.map.gameMode,
+                                                path: $path)
                     .navigationBarBackButtonHidden(true)) {
                         Text("Start")
                             .font(.system(size: 30))

@@ -14,12 +14,14 @@ struct HostSingleView: View {
     @State private var matchId: String
     @State private var playerId: String
     @State private var mapBackground: String
+    @Binding var path: NavigationPath
 
-    init(matchId: String, currPlayerId: String, mapBackground: String, gameMode: GameMode) {
-        self.matchId = matchId
-        self.playerId = currPlayerId
-        self.mapBackground = mapBackground
+    init(matchId: String, currPlayerId: String, mapBackground: String, gameMode: GameMode, path: Binding<NavigationPath>) {
+        self._matchId = State(initialValue: matchId)
+        self._playerId = State(initialValue: currPlayerId)
+        self._mapBackground = State(initialValue: mapBackground)
         self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId, gameMode: gameMode)
+        self._path = path
     }
 
     var body: some View {
@@ -28,7 +30,7 @@ struct HostSingleView: View {
             closingZoneView
             canvasView
             if viewModel.isGameOver {
-                gameOverView
+                GameOverView(path: $path)
             }
             ProgressView()
                 .onAppear {
@@ -84,28 +86,10 @@ struct HostSingleView: View {
     private var closingZoneView: some View {
         ClosingZoneView(circleCenter: viewModel.closingZoneCenter, circleRadius: viewModel.closingZoneRadius)
     }
-
-    private var gameOverView: some View {
-        VStack {
-            Spacer()
-            Text("Game Over")
-                .font(.largeTitle)
-                .padding()
-            Button("Exit to Menu") {
-                // Logic to exit to the main menu
-            }
-            .padding()
-            Spacer()
-        }
-        .background(Color.black.opacity(0.8))
-        .foregroundColor(.white)
-        .edgesIgnoringSafeArea(.all)
-        .transition(.opacity)
-    }
 }
 
 struct HostSingleView_Previews: PreviewProvider {
     static var previews: some View {
-        HostSingleView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2", mapBackground: "blue-wall", gameMode: LastManStandingMode())
+        HostSingleView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2", mapBackground: "blue-wall", gameMode: LastManStandingMode(), path: .constant(NavigationPath()))
     }
 }
