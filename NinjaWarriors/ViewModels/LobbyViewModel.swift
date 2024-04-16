@@ -150,7 +150,9 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
         let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: player,
                           isEnabled: false, invulnerabilityDuration: 2.0)
 
-        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge]
+        let playerComponent = PlayerComponent(id: RandomNonce().randomNonceString(), entity: player)
+
+        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge, playerComponent]
         guard let realTimeManager = realTimeManager else {
             return
         }

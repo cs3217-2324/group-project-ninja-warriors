@@ -16,15 +16,16 @@ final class HostSingleViewModel: ObservableObject {
     internal var entities: [Entity] = []
     internal var matchId: String
     internal var currPlayerId: String
+    var isGameOver: Bool = false
 
     init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository,
-         achievementManager: AchievementManager) {
+         achievementManager: AchievementManager, gameMode: GameMode) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.metricsRepository = metricsRepository
         let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
         self.gameWorld = GameWorld(for: matchId, metricsRecorder: metricsRecorder,
-                                   achievementManager: achievementManager)
+                                   achievementManager: achievementManager, gameMode: gameMode)
         gameWorld.start()
         gameWorld.updateViewModel = { [unowned self] in
             Task {
@@ -40,6 +41,10 @@ final class HostSingleViewModel: ObservableObject {
 
     func updateEntities() {
         entities = gameWorld.entityComponentManager.getAllEntities()
+    }
+
+    func updateGameState() {
+        self.isGameOver = gameWorld.isGameOver
     }
 
     // Only update values that changed

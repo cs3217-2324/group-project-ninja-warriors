@@ -13,16 +13,17 @@ struct HostView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    @State private var mapBg: String
+    @State private var mapBackground: String
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBg: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode) {
         self.matchId = matchId
         self.playerId = currPlayerId
-        self.mapBg = mapBg
+        self.mapBackground = mapBackground
         self.viewModel = HostViewModel(matchId: matchId, currPlayerId: currPlayerId,
                                        ownEntities: ownEntities,
                                        metricsRepository: metricsRepository,
-                                       achievementManager: achievementManager)
+                                       achievementManager: achievementManager,
+                                       gameMode: gameMode)
     }
 
     var body: some View {
@@ -43,7 +44,7 @@ struct HostView: View {
     }
 
     private var backgroundImage: some View {
-        Image(mapBg)
+        Image(mapBackground)
             .resizable()
             .edgesIgnoringSafeArea(.all)
             .statusBar(hidden: true)

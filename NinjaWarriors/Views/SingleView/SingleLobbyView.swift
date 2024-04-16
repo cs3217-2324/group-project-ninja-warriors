@@ -10,11 +10,8 @@ import SwiftUI
 
 struct SingleLobbyView: View {
     @State private var isReady: Bool = false
-    @ObservedObject var viewModel: SingleLobbyViewModel
-
-    init() {
-        self.viewModel = SingleLobbyViewModel()
-    }
+    @ObservedObject var viewModel: SingleLobbyViewModel = SingleLobbyViewModel()
+    @Binding var path: NavigationPath
 
     var body: some View {
         VStack {
@@ -25,8 +22,10 @@ struct SingleLobbyView: View {
                         NavigationLink(
                             destination: HostSingleView(matchId: viewModel.matchId,
                                                         currPlayerId: viewModel.hostId,
-                                                        mapBg: viewModel.map.mapBg,
-                                                        achievementManager: viewModel.achievementsManager)
+                                                        mapBackground: viewModel.map.mapBackground,
+                                                        achievementManager: viewModel.achievementsManager,
+                                                        gameMode: viewModel.map.gameMode,
+                                                        path: $path)
                             .navigationBarBackButtonHidden(true)) {
                                 Text("Start")
                                     .font(.system(size: 30))

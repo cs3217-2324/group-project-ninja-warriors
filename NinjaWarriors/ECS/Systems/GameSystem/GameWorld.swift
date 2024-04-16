@@ -15,13 +15,17 @@ class GameWorld {
     let systemManager = SystemManager()
     var gameLoopManager = GameLoopManager()
     var gameControl: GameControl
+    var gameMode: GameMode
     var updateViewModel: () -> Void = {}
+    var isGameOver: Bool = false
 
     init(for match: String, gameControl: GameControl = JoystickControl(),
-         metricsRecorder: EntityMetricsRecorder, achievementManager: AchievementManager) {
+         metricsRecorder: EntityMetricsRecorder, achievementManager: AchievementManager,
+         gameMode: GameMode) {
         self.entityComponentManager = EntityComponentManager(for: match, metricsRecorder: metricsRecorder)
         self.gameControl = gameControl
         self.achievementManager = achievementManager
+        self.gameMode = gameMode
 
         setupGameLoop()
 
@@ -67,6 +71,14 @@ class GameWorld {
 
     func update(deltaTime: TimeInterval) {
         systemManager.update(after: deltaTime)
+
+        if gameMode.isGameOver(for: self) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                self.gameLoopManager.stop()
+                self.isGameOver = true
+                self.updateViewModel()
+            }
+        }
     }
 
     func getRepository() -> MetricsRepository {

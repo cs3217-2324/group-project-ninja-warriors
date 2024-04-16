@@ -14,7 +14,7 @@ struct Constants {
     static let defaultSize: CGFloat = 25.0
     static let directory = "NinjaWarriors."
     static let wrapperName = "Wrapper"
-    static let timeLag = 20
+    static let timeLag = 10
 
     // MARK: Player
     static let playerOnePosition = Point(xCoord: 100, yCoord: 100)
@@ -30,7 +30,7 @@ struct Constants {
     }
 
     // TODO: Reset to 4 after testing
-    static let playerCount = 1
+    static let playerCount = 2
 
     static let obstacleCount = 2
     static let gemCount = 4
@@ -65,7 +65,7 @@ struct Constants {
                                       "Venomstrike": ["Dash", "Slash", "Dodge", "Refresh"],
                                       "Darkwind": ["Dash", "Slash", "Dodge", "Refresh"]]
 
-    static var shadowstrikeSkills: [Skill] = [HadoukenSkill(id: "hadouken", cooldownDuration: 30.0),
+    static var shadowstrikeSkills: [Skill] = [HadoukenSkill(id: "hadouken", cooldownDuration: 0.0),
                                               SlashAOESkill(id: "slash", cooldownDuration: 5.0),
                                               DashSkill(id: "dash", cooldownDuration: 0.0),
                                               RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)]

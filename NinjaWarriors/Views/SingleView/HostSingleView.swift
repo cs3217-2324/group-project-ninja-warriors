@@ -13,17 +13,20 @@ struct HostSingleView: View {
     @State private var isShowingEntityOverlay = false
     @State private var matchId: String
     @State private var playerId: String
-    @State private var mapBg: String
+    @State private var mapBackground: String
+    @Binding var path: NavigationPath
 
-    init(matchId: String, currPlayerId: String, mapBg: String, achievementManager: AchievementManager) {
-        self.matchId = matchId
-        self.playerId = currPlayerId
-        self.mapBg = mapBg
+    init(matchId: String, currPlayerId: String, mapBackground: String, achievementManager: AchievementManager, gameMode: GameMode, path: Binding<NavigationPath>) {
+        self._matchId = State(initialValue: matchId)
+        self._playerId = State(initialValue: currPlayerId)
+        self._mapBackground = State(initialValue: mapBackground)
         let metricsRepository = MetricsRepository()
         self.viewModel = HostSingleViewModel(matchId: matchId,
                                              currPlayerId: currPlayerId,
                                              metricsRepository: metricsRepository,
-                                             achievementManager: achievementManager)
+                                             achievementManager: achievementManager,
+                                             gameMode: gameMode)
+        self._path = path
     }
 
     var body: some View {
@@ -44,7 +47,7 @@ struct HostSingleView: View {
     }
 
     private var backgroundImage: some View {
-        Image(mapBg)
+        Image(mapBackground)
             .resizable()
             .edgesIgnoringSafeArea(.all)
             .statusBar(hidden: true)

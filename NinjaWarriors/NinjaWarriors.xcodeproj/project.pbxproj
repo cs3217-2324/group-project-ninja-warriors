@@ -200,6 +200,16 @@
 		91DDE6682BB7BFE100851603 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE6672BB7BFE100851603 /* Health.swift */; };
 		91DDE66A2BB7C19C00851603 /* HealthWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE6692BB7C19C00851603 /* HealthWrapper.swift */; };
 		91DDE66D2BB7C3DA00851603 /* HealthSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DDE66C2BB7C3DA00851603 /* HealthSystem.swift */; };
+		91DED5E52BCE35BD0054C2F1 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5E42BCE35BD0054C2F1 /* GameMode.swift */; };
+		91DED5E72BCE35CC0054C2F1 /* LastManStandingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5E62BCE35CC0054C2F1 /* LastManStandingMode.swift */; };
+		91DED5E82BCE35CC0054C2F1 /* LastManStandingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5E62BCE35CC0054C2F1 /* LastManStandingMode.swift */; };
+		91DED5E92BCE35CC0054C2F1 /* LastManStandingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5E62BCE35CC0054C2F1 /* LastManStandingMode.swift */; };
+		91DED5EC2BCE360A0054C2F1 /* PlayerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5EB2BCE360A0054C2F1 /* PlayerComponent.swift */; };
+		91DED5ED2BCE360A0054C2F1 /* PlayerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5EB2BCE360A0054C2F1 /* PlayerComponent.swift */; };
+		91DED5EE2BCE360A0054C2F1 /* PlayerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5EB2BCE360A0054C2F1 /* PlayerComponent.swift */; };
+		91DED5F02BCE36180054C2F1 /* PlayerComponentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5EF2BCE36180054C2F1 /* PlayerComponentWrapper.swift */; };
+		91DED5F12BCE36180054C2F1 /* PlayerComponentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5EF2BCE36180054C2F1 /* PlayerComponentWrapper.swift */; };
+		91DED5F22BCE36180054C2F1 /* PlayerComponentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DED5EF2BCE36180054C2F1 /* PlayerComponentWrapper.swift */; };
 		91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */; };
 		91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */; };
 		91F3D9C42BBBF735001D7DE7 /* SlashAOEWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */; };
@@ -410,6 +420,10 @@
 		91DDE6672BB7BFE100851603 /* Health.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
 		91DDE6692BB7C19C00851603 /* HealthWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthWrapper.swift; sourceTree = "<group>"; };
 		91DDE66C2BB7C3DA00851603 /* HealthSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthSystem.swift; sourceTree = "<group>"; };
+		91DED5E42BCE35BD0054C2F1 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		91DED5E62BCE35CC0054C2F1 /* LastManStandingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastManStandingMode.swift; sourceTree = "<group>"; };
+		91DED5EB2BCE360A0054C2F1 /* PlayerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponent.swift; sourceTree = "<group>"; };
+		91DED5EF2BCE36180054C2F1 /* PlayerComponentWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponentWrapper.swift; sourceTree = "<group>"; };
 		91EF1F962BAED3CA000B52A2 /* RealtimeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealtimeTests.swift; sourceTree = "<group>"; };
 		91EF1F9A2BAED54A000B52A2 /* PrimitiveTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimitiveTests.swift; sourceTree = "<group>"; };
 		91F3D9C32BBBF735001D7DE7 /* SlashAOEWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashAOEWrapper.swift; sourceTree = "<group>"; };
@@ -839,6 +853,7 @@
 		916A7D682BA154E000319C26 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				91DED5EA2BCE35F90054C2F1 /* PlayerComponent */,
 				E62FA33E2BCC69A6000D551A /* DamageEffect */,
 				7113A4952BA60E8400805340 /* Component.swift */,
 				91DDE6512BB3806100851603 /* ComponentType.swift */,
@@ -983,6 +998,7 @@
 		9180F9CA2BAAF845000CC390 /* Primitives */ = {
 			isa = PBXGroup;
 			children = (
+				91DED5E32BCE35A60054C2F1 /* GameModes */,
 				918048692BC7A74900026965 /* Maps */,
 				E63243B62BB035DB00CC0899 /* Skills */,
 				9180F9C92BAAF81A000CC390 /* Shapes */,
@@ -1098,6 +1114,24 @@
 				91DDE66C2BB7C3DA00851603 /* HealthSystem.swift */,
 			);
 			path = HealthSystem;
+			sourceTree = "<group>";
+		};
+		91DED5E32BCE35A60054C2F1 /* GameModes */ = {
+			isa = PBXGroup;
+			children = (
+				91DED5E42BCE35BD0054C2F1 /* GameMode.swift */,
+				91DED5E62BCE35CC0054C2F1 /* LastManStandingMode.swift */,
+			);
+			path = GameModes;
+			sourceTree = "<group>";
+		};
+		91DED5EA2BCE35F90054C2F1 /* PlayerComponent */ = {
+			isa = PBXGroup;
+			children = (
+				91DED5EB2BCE360A0054C2F1 /* PlayerComponent.swift */,
+				91DED5EF2BCE36180054C2F1 /* PlayerComponentWrapper.swift */,
+			);
+			path = PlayerComponent;
 			sourceTree = "<group>";
 		};
 		91EF1F982BAED4F8000B52A2 /* MultiplayerTests */ = {
@@ -1495,6 +1529,8 @@
 				7113A4962BA60E8400805340 /* Component.swift in Sources */,
 				7191C82D2BCA7DBB005BBE62 /* AchievementManager.swift in Sources */,
 				E699DDBF2BBDDC5800E8CA80 /* PlayerControlsView.swift in Sources */,
+				91DED5EC2BCE360A0054C2F1 /* PlayerComponent.swift in Sources */,
+				91DED5E52BCE35BD0054C2F1 /* GameMode.swift in Sources */,
 				E6B503E32BC105FC00B9565E /* Attack.swift in Sources */,
 				7191C8312BCA831B005BBE62 /* HighDamageButNoKillAchievement.swift in Sources */,
 				9132AF702BA58C61000F2AC4 /* MatchManager.swift in Sources */,
@@ -1577,9 +1613,11 @@
 				E6DB87112BB9F7BA003AC063 /* DodgeWrapper.swift in Sources */,
 				E6FD345B2BC1525300477B1F /* Lifespan.swift in Sources */,
 				E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */,
+				91DED5F02BCE36180054C2F1 /* PlayerComponentWrapper.swift in Sources */,
 				9132AF782BA59B0F000F2AC4 /* FactoryPublisher.swift in Sources */,
 				E6ECF63A2BADE9D900DDDE9C /* CircleShape.swift in Sources */,
 				71B716672BCBAAC100B18E48 /* DistanceDashedMetric.swift in Sources */,
+				91DED5E72BCE35CC0054C2F1 /* LastManStandingMode.swift in Sources */,
 				918048882BC987E600026965 /* LifespanWrapper.swift in Sources */,
 				91DDE6522BB3806100851603 /* ComponentType.swift in Sources */,
 				9132AF682BA53E54000F2AC4 /* LobbyView.swift in Sources */,
@@ -1613,6 +1651,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91DED5ED2BCE360A0054C2F1 /* PlayerComponent.swift in Sources */,
 				7191C8362BCA92A6005BBE62 /* AchievementIntegrationTest.swift in Sources */,
 				9117F6372BCD280B00ED4F4E /* HowToPlayView.swift in Sources */,
 				7183D07B2BB03C400078C960 /* EntityComponentManagerTests.swift in Sources */,
@@ -1620,10 +1659,12 @@
 				7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */,
 				916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */,
 				917BEBAB2BCA29F7001D0F7C /* ObstacleMap.swift in Sources */,
+				91DED5F12BCE36180054C2F1 /* PlayerComponentWrapper.swift in Sources */,
 				918048702BC7A86400026965 /* GemMap.swift in Sources */,
 				915301C62BAEC670007F2A12 /* AuthenticationTests.swift in Sources */,
 				918048742BC7AA9500026965 /* ClosingZoneMap.swift in Sources */,
 				916991342BC6782F00ED1FBD /* Gem.swift in Sources */,
+				91DED5E82BCE35CC0054C2F1 /* LastManStandingMode.swift in Sources */,
 				916991382BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */,
 				916991412BC69EBE00ED1FBD /* Rules.swift in Sources */,
@@ -1642,11 +1683,14 @@
 				916A7D5A2BA1541800319C26 /* NinjaWarriorsUITests.swift in Sources */,
 				9117F6382BCD280B00ED4F4E /* HowToPlayView.swift in Sources */,
 				9180486D2BC7A75700026965 /* Map.swift in Sources */,
+				91DED5E92BCE35CC0054C2F1 /* LastManStandingMode.swift in Sources */,
+				91DED5F22BCE36180054C2F1 /* PlayerComponentWrapper.swift in Sources */,
 				916991352BC6782F00ED1FBD /* Gem.swift in Sources */,
 				918048712BC7A86400026965 /* GemMap.swift in Sources */,
 				9180487D2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */,
 				918048752BC7AA9500026965 /* ClosingZoneMap.swift in Sources */,
 				916991422BC69EBE00ED1FBD /* Rules.swift in Sources */,
+				91DED5EE2BCE360A0054C2F1 /* PlayerComponent.swift in Sources */,
 				917BEBAC2BCA29F8001D0F7C /* ObstacleMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

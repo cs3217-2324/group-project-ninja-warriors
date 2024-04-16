@@ -17,16 +17,18 @@ final class ClientViewModel: ObservableObject {
     internal var currPlayerId: String
     var time: Int = 0
     let timeLag: Int = 3
+    var isGameOver: Bool = false
 
     init(matchId: String, currPlayerId: String, ownEntities: [Entity],
-         metricsRepository: MetricsRepository, achievementManager: AchievementManager) {
+         metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.metricsRepository = metricsRepository
         let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
         self.gameWorld = GameWorld(for: matchId,
                                    metricsRecorder: metricsRecorder,
-                                   achievementManager: achievementManager)
+                                   achievementManager: achievementManager,
+                                   gameMode: gameMode)
 
         gameWorld.entityComponentManager.addOwnEntities(ownEntities)
 
@@ -56,6 +58,10 @@ final class ClientViewModel: ObservableObject {
 
     func updateEntities() {
         entities = gameWorld.entityComponentManager.getAllEntities()
+    }
+
+    func updateGameState() {
+        self.isGameOver = gameWorld.isGameOver
     }
 
     // Only update values that changed
