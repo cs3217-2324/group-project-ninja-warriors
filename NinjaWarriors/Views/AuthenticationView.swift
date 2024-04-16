@@ -60,10 +60,13 @@ struct AuthenticationView: View {
                 switch destination {
                 case "SingleLobbyView":
                     SingleLobbyView(path: $path)
+                        .navigationBarBackButtonHidden(true)
                 case "SignInView":
                     SignInView(path: $path)
+                        .navigationBarBackButtonHidden(true)
                 case "LobbyView":
                     LobbyView(path: $path)
+                        .navigationBarBackButtonHidden(true)
                 case "HowToPlayView":
                     HowToPlayView()
                 default:
