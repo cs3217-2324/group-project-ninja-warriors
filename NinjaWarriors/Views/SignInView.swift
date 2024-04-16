@@ -82,12 +82,12 @@ struct SignInView: View {
         .background(
             NavigationLink(
                 destination: LobbyView(viewModel: LobbyViewModel(signInViewModel: viewModel), path: $path)
-                    .navigationBarBackButtonHidden(true),
+                    .navigationBarBackButtonHidden(true)
+                    .environmentObject(viewModel),
                 isActive: $loggedIn,
                 label: { EmptyView() }
             )
         )
-        .environmentObject(viewModel)
     }
 }
 
