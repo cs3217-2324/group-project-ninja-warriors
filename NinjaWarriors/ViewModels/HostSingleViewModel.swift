@@ -101,8 +101,11 @@ extension HostSingleViewModel {
         let skillCaster = gameWorld.entityComponentManager
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
-        if let skills = skillCaster?.skills {
-//            print("skills", skills)
+        if var skills = skillCaster?.skills {
+            for (skillID, var skill) in skills {
+                skill.toEventQueue = false
+                skills[skillID] = skill
+            }
             return Array(skills)
         } else {
             return []

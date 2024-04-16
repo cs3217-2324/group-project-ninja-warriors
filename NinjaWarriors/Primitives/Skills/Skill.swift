@@ -12,6 +12,7 @@ typealias SkillID = String
 protocol Skill {
     var id: SkillID { get }
     var cooldownDuration: TimeInterval { get set }
+    var toEventQueue: Bool { get set }
 
     init(id: SkillID)
 
@@ -34,4 +35,9 @@ protocol CooldownModifierSkill: Skill {
 
 protocol MovementSkill: Skill {
     func performMovement(on target: Entity, in manager: EntityComponentManager)
+}
+
+// Single player mode does not need event queue. Multiplayer mode needs one
+extension Skill {
+    var toEventQueue: Bool { return true }
 }

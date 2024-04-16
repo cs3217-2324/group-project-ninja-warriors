@@ -110,6 +110,13 @@ class EntityComponentManager {
                                _ remoteEntityComponentMap: [EntityID: [Component]]) {
         DispatchQueue.main.async {
             for (remoteEntityId, remoteEntity) in remoteEntityMap {
+
+                /*
+                if remoteEntity is Hadouken && self.ownEntities.contains(remoteEntity.id) {
+                    return
+                }
+                */
+
                 if let newComponents = remoteEntityComponentMap[remoteEntityId] {
                     self.add(entity: remoteEntity, components: newComponents)
                 } else {
@@ -118,7 +125,7 @@ class EntityComponentManager {
             }
 
             for (currEntityId, currEntity) in self.entityMap {
-                if remoteEntityMap[currEntityId] == nil {
+                if remoteEntityMap[currEntityId] == nil && currEntity as? Player != nil {
                     self.remove(entity: currEntity)
                 }
             }
@@ -140,8 +147,6 @@ class EntityComponentManager {
                 entityComponents = components
             }
             do {
-                // Publish event queue entities first
-                try await publishEntitiesFromQueue()
                 // Then, publish event queue components
                 try await publishComponentsFromQueue()
                 // Lastly, upload the entity with its components
@@ -151,6 +156,8 @@ class EntityComponentManager {
                 print("Error uploading entity with ID \(entityId): \(error)")
             }
         }
+        // Publish event queue entities first
+        try await publishEntitiesFromQueue()
     }
 
     func publishComponentsFromQueue() async throws {
@@ -158,7 +165,7 @@ class EntityComponentManager {
             return
         }
         while let nextComponent = componentsQueue.processComponent() {
-            // for _ in 0..<Constants.timeLag {
+            // for _ in 0..<1 {
                 try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
             // }
         }
@@ -168,10 +175,21 @@ class EntityComponentManager {
         guard spawnQueue.hasEntities() else {
             return
         }
+        /*
         for (spawnEntityId, spawnEntity) in spawnQueue.entityMap {
+            // for _ in 0..<Constants.timeLag {
             try await manager.uploadEntity(entity: spawnEntity,
                                            components: spawnQueue.entityComponentMap[spawnEntityId])
+            // }
         }
+        */
+
+        for (spawnEntityId, spawnEntity) in spawnQueue.entityMap {
+
+            add(entity: spawnEntity, components: spawnQueue.entityComponentMap[spawnEntityId] ?? [],
+                isAdded: false)
+        }
+
         spawnQueue.entityMap.removeAll()
         spawnQueue.entityMap.removeAll()
     }
@@ -231,6 +249,7 @@ class EntityComponentManager {
         guard !mapQueue.contains(entity) else {
             return
         }
+
         assertRepresentation()
 
         let dstEntity = getDestinationEntity(for: entity)

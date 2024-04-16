@@ -11,6 +11,7 @@ class DodgeSkill: SelfModifyingSkill {
     var id: SkillID
     var cooldownDuration: TimeInterval
     private var invulnerabilityDuration: TimeInterval = 2.0
+    var toEventQueue = true
 
     required init(id: SkillID) {
         self.id = id
