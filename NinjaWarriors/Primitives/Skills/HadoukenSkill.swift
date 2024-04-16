@@ -10,7 +10,6 @@ class HadoukenSkill: EntitySpawnerSkill {
     var id: SkillID
     var cooldownDuration: TimeInterval
     var projectileSpeed: Double = 850
-    var toEventQueue = true
 
     required init(id: SkillID) {
         self.id = id
@@ -84,30 +83,10 @@ class HadoukenSkill: EntitySpawnerSkill {
 
         let lifespanComponent = Lifespan(id: RandomNonce().randomNonceString(), entity: hadouken, lifespan: 1)
 
-        print("event queue status", toEventQueue)
-
         manager.addOwnEntity(hadouken)
 
-        manager.spawnQueue.addEntity(hadouken, with: [collider, rigidbody, spriteComponent,
-                                                      attackComponent, lifespanComponent])
-
-        // if toEventQueue {
-            // manager.spawnQueue.addEntity(hadouken, with: [collider, rigidbody, spriteComponent,
-                                                          // attackComponent, lifespanComponent])
-        // } else {
-        /*
-            manager.add(entity: hadouken, components: [collider, rigidbody, spriteComponent,
-                                                       attackComponent, lifespanComponent], isAdded: false)
-        */
-        // }
-
-        /*
         manager.add(entity: hadouken, components: [collider, rigidbody, spriteComponent,
                                                    attackComponent, lifespanComponent], isAdded: false)
-        */
-
-        //
-
         return hadouken
     }
 

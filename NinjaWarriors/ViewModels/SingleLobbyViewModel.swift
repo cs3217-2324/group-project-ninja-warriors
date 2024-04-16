@@ -66,14 +66,8 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
                                         position: shape.center, velocity: Vector.zero,
                                         attachedCollider: playerCollider)
 
-        var skills = getCharacterSkills()
-        for index in skills.indices {
-            skills[index].toEventQueue = false
-            print(skills[index].toEventQueue)
-        }
-
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
-                                      entity: player, skills: skills)
+                                      entity: player, skills: getCharacterSkills())
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: player,
                                      image: character + "-top", width: 100.0, height: 100.0)

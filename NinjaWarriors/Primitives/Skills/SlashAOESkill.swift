@@ -9,7 +9,6 @@ import Foundation
 class SlashAOESkill: EntitySpawnerSkill {
     var id: SkillID
     var cooldownDuration: TimeInterval
-    var toEventQueue = true
 
     required init(id: SkillID) {
         self.id = id

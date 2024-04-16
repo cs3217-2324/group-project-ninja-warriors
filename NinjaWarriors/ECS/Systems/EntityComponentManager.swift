@@ -110,13 +110,6 @@ class EntityComponentManager {
                                _ remoteEntityComponentMap: [EntityID: [Component]]) {
         DispatchQueue.main.async {
             for (remoteEntityId, remoteEntity) in remoteEntityMap {
-
-                /*
-                if remoteEntity is Hadouken && self.ownEntities.contains(remoteEntity.id) {
-                    return
-                }
-                */
-
                 if let newComponents = remoteEntityComponentMap[remoteEntityId] {
                     self.add(entity: remoteEntity, components: newComponents)
                 } else {
@@ -124,8 +117,9 @@ class EntityComponentManager {
                 }
             }
 
+            // Remove stale entities, except for extremely short lifespan ones
             for (currEntityId, currEntity) in self.entityMap {
-                if remoteEntityMap[currEntityId] == nil && currEntity as? Player != nil {
+                if remoteEntityMap[currEntityId] == nil && currEntity as? Hadouken == nil {
                     self.remove(entity: currEntity)
                 }
             }
@@ -147,17 +141,15 @@ class EntityComponentManager {
                 entityComponents = components
             }
             do {
-                // Then, publish event queue components
+                // Publish event queue components
                 try await publishComponentsFromQueue()
-                // Lastly, upload the entity with its components
+                // Upload the entity with its components
                 try await manager.uploadEntity(entity: entity,
                                                components: filterOwnComponents(entityComponents))
             } catch {
                 print("Error uploading entity with ID \(entityId): \(error)")
             }
         }
-        // Publish event queue entities first
-        try await publishEntitiesFromQueue()
     }
 
     func publishComponentsFromQueue() async throws {
@@ -165,33 +157,10 @@ class EntityComponentManager {
             return
         }
         while let nextComponent = componentsQueue.processComponent() {
-            // for _ in 0..<1 {
+            for _ in 0..<Constants.timeLag {
                 try await manager.uploadEntity(entity: nextComponent.entity, components: [nextComponent])
-            // }
+            }
         }
-    }
-
-    func publishEntitiesFromQueue() async throws {
-        guard spawnQueue.hasEntities() else {
-            return
-        }
-        /*
-        for (spawnEntityId, spawnEntity) in spawnQueue.entityMap {
-            // for _ in 0..<Constants.timeLag {
-            try await manager.uploadEntity(entity: spawnEntity,
-                                           components: spawnQueue.entityComponentMap[spawnEntityId])
-            // }
-        }
-        */
-
-        for (spawnEntityId, spawnEntity) in spawnQueue.entityMap {
-
-            add(entity: spawnEntity, components: spawnQueue.entityComponentMap[spawnEntityId] ?? [],
-                isAdded: false)
-        }
-
-        spawnQueue.entityMap.removeAll()
-        spawnQueue.entityMap.removeAll()
     }
 
     func filterOwnComponents(_ componentsToFilter: Set<Component>) -> [Component] {
@@ -371,6 +340,7 @@ class EntityComponentManager {
         return components.first(where: { ComponentType(type(of: $0)) == checkType })
     }
 
+    // Only update necessary components
     private func updateExistingComponent(_ existingComponent: Component, with newComponent: Component) {
         let existingComponentType: ComponentType = ComponentType(type(of: existingComponent))
         guard existingComponentType == ComponentType(Rigidbody.self)
