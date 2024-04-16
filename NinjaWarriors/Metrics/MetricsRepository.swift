@@ -86,6 +86,18 @@ class MetricsRepository {
         }
     }
 
+    func notifyAllObservers(userID: UserID) {
+        guard let metricsAndObserversMap = userMetrics[userID] else {
+            return
+        }
+
+        for (_, (metric, observers)) in metricsAndObserversMap {
+            for observer in observers {
+                observer.notify(metric)
+            }
+        }
+    }
+
     func registerMetricsForUser<T: Metric>(metricTypes: [T.Type], for userID: UserID) {
         guard userMetrics[userID] == nil else {
             return

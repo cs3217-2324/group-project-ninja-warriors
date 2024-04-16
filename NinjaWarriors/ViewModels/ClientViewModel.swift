@@ -18,12 +18,15 @@ final class ClientViewModel: ObservableObject {
     var time: Int = 0
     let timeLag: Int = 3
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], metricsRepository: MetricsRepository) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity],
+         metricsRepository: MetricsRepository, achievementManager: AchievementManager) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         self.metricsRepository = metricsRepository
         let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
-        self.gameWorld = GameWorld(for: matchId, metricsRecorder: metricsRecorder)
+        self.gameWorld = GameWorld(for: matchId,
+                                   metricsRecorder: metricsRecorder,
+                                   achievementManager: achievementManager)
 
         gameWorld.entityComponentManager.addOwnEntities(ownEntities)
 
@@ -48,6 +51,7 @@ final class ClientViewModel: ObservableObject {
             print("Error publishing updated state: \(error)")
         }
         updateViews()
+        getAchivements()
     }
 
     func updateEntities() {
@@ -156,5 +160,21 @@ extension ClientViewModel {
             return 100000 // So no gas cloud at all
         }
         return shape.halfLength
+    }
+}
+
+// TODO: Shift this to game over view model
+extension ClientViewModel {
+    func getAchivements() {
+        let achievements = gameWorld.achievementManager.achievements
+        let metricRepository = gameWorld.getRepository()
+
+        metricRepository.notifyAllObservers(userID: currPlayerId)
+
+        for achievement in achievements {
+            if achievement.count >= 1 {
+                print(achievement.title, achievement.description)
+            }
+        }
     }
 }

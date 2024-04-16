@@ -24,7 +24,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     let isGuest: Bool
     let guestId: String = RandomNonce().randomNonceString()
     var metricsRepository: MetricsRepository
-    var achievementsManager: AchievementManager?
+    var achievementsManager: AchievementManager
 
     // Guest mode
     init() {

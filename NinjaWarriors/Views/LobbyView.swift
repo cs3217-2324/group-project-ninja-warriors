@@ -43,7 +43,9 @@ struct LobbyView: View {
                                                           currPlayerId: viewModel.getUserId(),
                                                           ownEntities: viewModel.ownEntities,
                                                           mapBg: viewModel.map.mapBg,
-                                                          metricsRepository: viewModel.metricsRepository).navigationBarBackButtonHidden(true)
+                                                          metricsRepository: viewModel.metricsRepository,
+                                                          achievementManager: viewModel.achievementsManager
+                                                         ).navigationBarBackButtonHidden(true)
                                 ) {
                                     startGameText
                                 }
@@ -53,7 +55,8 @@ struct LobbyView: View {
                                                             currPlayerId: viewModel.getUserId(),
                                                             ownEntities: viewModel.ownEntities,
                                                             mapBg: viewModel.map.mapBg,
-                                                            metricsRepository: viewModel.metricsRepository
+                                                            metricsRepository: viewModel.metricsRepository,
+                                                            achievementManager: viewModel.achievementsManager
                                                            ).navigationBarBackButtonHidden(true)
                                 ) {
                                     startGameText

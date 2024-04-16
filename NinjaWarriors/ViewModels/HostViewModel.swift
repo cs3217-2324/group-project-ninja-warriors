@@ -17,11 +17,14 @@ final class HostViewModel: ObservableObject {
     var time: Int = 0
     let timeLag: Int = 4
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], metricsRepository: MetricsRepository) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity],
+         metricsRepository: MetricsRepository, achievementManager: AchievementManager) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
-        self.gameWorld = GameWorld(for: matchId, metricsRecorder: metricsRecorder)
+        self.gameWorld = GameWorld(for: matchId,
+                                   metricsRecorder: metricsRecorder,
+                                   achievementManager: achievementManager)
 
         gameWorld.entityComponentManager.addOwnEntities(ownEntities)
 
@@ -46,6 +49,8 @@ final class HostViewModel: ObservableObject {
             print("Error publishing updated state: \(error)")
         }
         updateViews()
+        // TODO: Move this to game over view model
+        getAchivements()
     }
 
     func updateEntities() {
@@ -154,5 +159,31 @@ extension HostViewModel {
             return 100000 // So no gas cloud at all
         }
         return shape.halfLength
+    }
+}
+
+// TODO: Shift this to game over view model
+extension HostViewModel {
+    func getAchivements() {
+        let achievements = gameWorld.achievementManager.achievements
+        let metricRepository = gameWorld.getRepository()
+
+        /*
+        for achievement in achievements {
+            let dependentMetricsTypes = achievement.dependentMetrics
+            for metricType in dependentMetricsTypes {
+                let metricData = metricRepository.readMetric(metricType, userID: currPlayerId)
+                achievement
+            }
+        }
+        */
+
+        metricRepository.notifyAllObservers(userID: currPlayerId)
+
+        for achievement in achievements {
+            if achievement.count >= 1 {
+                print(achievement.title, achievement.description)
+            }
+        }
     }
 }

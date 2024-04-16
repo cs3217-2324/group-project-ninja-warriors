@@ -25,7 +25,8 @@ struct SingleLobbyView: View {
                         NavigationLink(
                             destination: HostSingleView(matchId: viewModel.matchId,
                                                         currPlayerId: viewModel.hostId,
-                                                        mapBg: viewModel.map.mapBg)
+                                                        mapBg: viewModel.map.mapBg,
+                                                        achievementManager: viewModel.achievementsManager)
                             .navigationBarBackButtonHidden(true)) {
                                 Text("Start")
                                     .font(.system(size: 30))

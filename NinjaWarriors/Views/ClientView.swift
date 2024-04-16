@@ -15,12 +15,14 @@ struct ClientView: View {
     @State private var playerId: String
     @State private var mapBg: String
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBg: String, metricsRepository: MetricsRepository) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBg: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager) {
         self.matchId = matchId
         self.playerId = currPlayerId
         self.mapBg = mapBg
         self.viewModel = ClientViewModel(matchId: matchId, currPlayerId: currPlayerId,
-                                         ownEntities: ownEntities, metricsRepository: metricsRepository)
+                                         ownEntities: ownEntities,
+                                         metricsRepository: metricsRepository,
+                                         achievementManager: achievementManager)
     }
 
     var body: some View {
@@ -83,12 +85,5 @@ struct ClientView: View {
 
     private var closingZoneView: some View {
         ClosingZoneView(circleCenter: viewModel.closingZoneCenter, circleRadius: viewModel.closingZoneRadius)
-    }
-}
-
-struct ClientView_Previews: PreviewProvider {
-    static var previews: some View {
-        ClientView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
-                   ownEntities: [], mapBg: "blue-wall", metricsRepository: MetricsRepository())
     }
 }

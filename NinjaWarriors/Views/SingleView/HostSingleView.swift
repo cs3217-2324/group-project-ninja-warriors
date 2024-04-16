@@ -15,12 +15,15 @@ struct HostSingleView: View {
     @State private var playerId: String
     @State private var mapBg: String
 
-    init(matchId: String, currPlayerId: String, mapBg: String) {
+    init(matchId: String, currPlayerId: String, mapBg: String, achievementManager: AchievementManager) {
         self.matchId = matchId
         self.playerId = currPlayerId
         self.mapBg = mapBg
         let metricsRepository = MetricsRepository()
-        self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId, metricsRepository: metricsRepository)
+        self.viewModel = HostSingleViewModel(matchId: matchId,
+                                             currPlayerId: currPlayerId,
+                                             metricsRepository: metricsRepository,
+                                             achievementManager: achievementManager)
     }
 
     var body: some View {
@@ -82,12 +85,5 @@ struct HostSingleView: View {
 
     private var closingZoneView: some View {
         ClosingZoneView(circleCenter: viewModel.closingZoneCenter, circleRadius: viewModel.closingZoneRadius)
-    }
-}
-
-struct HostSingleView_Previews: PreviewProvider {
-    static var previews: some View {
-        HostSingleView(matchId: "PqsMb1SDQbqRVHoQUpp6", currPlayerId: "lWgnfO6vrAZdeWa1aVThWzBLASr2",
-                       mapBg: "blue-wall")
     }
 }
