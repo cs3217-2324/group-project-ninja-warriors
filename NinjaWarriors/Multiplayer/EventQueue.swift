@@ -11,6 +11,8 @@ class EventQueue {
     private var queue: DispatchQueue
     var deletedEntities: Set<EntityID> = []
     var components: Set<Component> = []
+    var entityComponentMap: [EntityID: [Component]] = [:]
+    var entityMap: [EntityID: Entity] = [:]
 
     init(label: String) {
         self.queue = DispatchQueue(label: label)
@@ -58,6 +60,19 @@ class EventQueue {
             return nil
         }
         return components.removeFirst()
+    }
+
+    func hasEntities() -> Bool {
+        !entityMap.isEmpty
+    }
+
+    func containsEntity(_ entity: Entity) -> Bool {
+        entityMap[entity.id] != nil
+    }
+
+    func addEntity(_ entity: Entity, with components: [Component]) {
+        entityMap[entity.id] = entity
+        entityComponentMap[entity.id] = components
     }
 
     func suspend() {

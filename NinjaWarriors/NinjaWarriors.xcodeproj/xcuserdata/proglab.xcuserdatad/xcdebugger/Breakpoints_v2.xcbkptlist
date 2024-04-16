@@ -3,8 +3,6 @@
    uuid = "293BDB2D-F3D2-4391-85F7-7A436153EB68"
    type = "1"
    version = "2.0">
-<<<<<<< HEAD
-=======
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
@@ -323,6 +321,21 @@
                   endingLineNumber = "35"
                   offsetFromSymbolStart = "3256">
                </Location>
+               <Location
+                  uuid = "2A80B3ED-F1A1-493B-9A17-493E36A75E20 - 6101e430cca125dd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NinjaWarriors.CollisionRules.canMove() -&gt; Swift.Bool"
+                  moduleName = "NinjaWarriors"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/proglab/Documents/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/CollisionSystem/CollisionRules.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "1388">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -467,6 +480,21 @@
                   endingLineNumber = "43"
                   offsetFromSymbolStart = "224">
                </Location>
+               <Location
+                  uuid = "37E6A635-0D12-4D62-8F7B-C718DCAD820F - c6e02c3423cfdb68"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NinjaWarriors.CombatSystem.applyDamage(_: Swift.Double, to: NinjaWarriors.Entity, from: Swift.String) -&gt; ()"
+                  moduleName = "NinjaWarriors"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/proglab/Documents/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/CombatSystem/CombatSystem.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "248">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -547,9 +575,23 @@
                   endingLineNumber = "44"
                   offsetFromSymbolStart = "240">
                </Location>
+               <Location
+                  uuid = "7D847154-CB98-4B17-BC99-C3942B3350C2 - c6e02c3423cfdb68"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NinjaWarriors.CombatSystem.applyDamage(_: Swift.Double, to: NinjaWarriors.Entity, from: Swift.String) -&gt; ()"
+                  moduleName = "NinjaWarriors"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/proglab/Documents/group-project-ninja-warriors/NinjaWarriors/ECS/Systems/CombatSystem/CombatSystem.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "248">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
->>>>>>> main
 </Bucket>

@@ -13,7 +13,7 @@ class HighDamageButNoKillAchievement: Achievement {
 
     var description: String = "Inflict 100HP of damage without killing."
 
-    var imageAsset: String = "pacifist-maniac-achievement"
+    var imageAsset: String = "achievement-pacifist-maniac"
 
     var isRepeatable: Bool = true
 

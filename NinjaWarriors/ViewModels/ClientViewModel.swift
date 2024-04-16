@@ -55,7 +55,7 @@ final class ClientViewModel: ObservableObject {
         }
         updateGameState()
         updateViews()
-        getAchievements()
+        // getAchievements()
     }
 
     func updateEntities() {

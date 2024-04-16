@@ -27,7 +27,7 @@ class GameWorld {
         self.gameMode = gameMode
 
         let destroyManager = DestroySystem(for: entityComponentManager)
-        let transformHandler = TransformHandler(for: entityComponentManager)
+        // let transformHandler = TransformHandler(for: entityComponentManager)
         let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager, with: gameControl)
         let collisionManager = CollisionManager(for: entityComponentManager)
         let skillsManager = SkillCasterSystem(for: entityComponentManager)
@@ -35,15 +35,15 @@ class GameWorld {
         let dodgeManager = DodgeSystem(for: entityComponentManager)
         let environmentEffectSystem = EnvironmentEffectSystem(for: entityComponentManager)
         let lifespanManager = LifespanSystem(for: entityComponentManager)
-        let scoreManager = ScoreSystem(for: entityComponentManager)
+        // let scoreManager = ScoreSystem(for: entityComponentManager)
         let combatSystem = CombatSystem(for: entityComponentManager)
 
-        systemManager.add(system: transformHandler)
+        // systemManager.add(system: transformHandler)
         systemManager.add(system: rigidbodyHandler)
         systemManager.add(system: collisionManager)
         systemManager.add(system: skillsManager)
         systemManager.add(system: healthManager)
-        systemManager.add(system: scoreManager)
+        // systemManager.add(system: scoreManager)
         systemManager.add(system: dodgeManager)
         systemManager.add(system: environmentEffectSystem)
         systemManager.add(system: lifespanManager)

@@ -28,6 +28,7 @@ class EntityComponentManager {
     private var mapQueue = EventQueue(label: "entityComponentMapQueue")
     private var newMapQueue = EventQueue(label: "newEntityComponentMapQueue")
     var componentsQueue = EventQueue(label: "componentsQueue")
+    var spawnQueue = EventQueue(label: "spawnQueue")
 
     var manager: EntitiesManager
 
@@ -116,8 +117,9 @@ class EntityComponentManager {
                 }
             }
 
+            // Remove stale entities, except for extremely short lifespan ones
             for (currEntityId, currEntity) in self.entityMap {
-                if remoteEntityMap[currEntityId] == nil {
+                if remoteEntityMap[currEntityId] == nil && currEntity as? Hadouken == nil {
                     self.remove(entity: currEntity)
                 }
             }
@@ -139,7 +141,7 @@ class EntityComponentManager {
                 entityComponents = components
             }
             do {
-                // Publish event queue components first
+                // Publish event queue components
                 try await publishComponentsFromQueue()
                 // Upload the entity with its components
                 try await manager.uploadEntity(entity: entity,
@@ -216,6 +218,7 @@ class EntityComponentManager {
         guard !mapQueue.contains(entity) else {
             return
         }
+
         assertRepresentation()
 
         let dstEntity = getDestinationEntity(for: entity)
@@ -337,6 +340,7 @@ class EntityComponentManager {
         return components.first(where: { ComponentType(type(of: $0)) == checkType })
     }
 
+    // Only update necessary components
     private func updateExistingComponent(_ existingComponent: Component, with newComponent: Component) {
         let existingComponentType: ComponentType = ComponentType(type(of: existingComponent))
         guard existingComponentType == ComponentType(Rigidbody.self)
