@@ -51,7 +51,7 @@ class HadoukenSkill: EntitySpawnerSkill {
             direction = Vector(horizontal: cos(rotationRadian), vertical: sin(rotationRadian) >= 0 ? -sin(rotationRadian) : sin(rotationRadian))
         }
 
-        let initialPosition = playerRigidbody.position.add(vector: direction.scale(Constants.defaultSize * 1.5))
+        let initialPosition = playerRigidbody.position.add(vector: direction.scale(Constants.defaultSize))
 
         let shape: Shape = CircleShape(center: playerRigidbody.position, radius: Constants.defaultSize)
 

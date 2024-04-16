@@ -64,10 +64,10 @@ class SlashAOESkill: EntitySpawnerSkill {
 
         let lifespanComponent = Lifespan(id: RandomNonce().randomNonceString(), entity: slashAOE, lifespan: 1)
 
+        manager.addOwnEntity(slashAOE)
+
         manager.add(entity: slashAOE, components: [rigidbody, spriteComponent,
                                                    attackComponent, lifespanComponent], isAdded: false)
-
-        manager.addOwnEntity(slashAOE)
 
         return slashAOE
     }

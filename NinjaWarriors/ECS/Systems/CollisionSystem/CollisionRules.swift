@@ -51,11 +51,21 @@ class CollisionRules: Rules {
                 alignEntityRotation(for: object)
             }
 
-            performActionOnCollidee(ofType: Gem.self)
+            // Only allow player to collect gem
+            if object.entity as? Player != nil {
+                performActionOnCollidee(ofType: Gem.self)
+            }
 
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input
             object.velocity = Vector.zero
+
+            // Stop any skills if the collided entity is not a player
+            if var objectLifespan = manager?.getComponent(ofType: Lifespan.self, for: object.entity),
+               var collidedEntityID = collider.collidedEntities.first,
+               manager?.entity(with: collidedEntityID) as? Player == nil {
+                objectLifespan.elapsedTime = objectLifespan.lifespan
+            }
         }
 
         moveRigidBody(object, across: deltaTime)
@@ -104,12 +114,13 @@ class CollisionRules: Rules {
         rigidBody.totalForce = Vector.zero
     }
 
-    // TODO: Do not allow hadouken to pick up gem
     func canPassThrough(_ colliderEntity: CustomComparator, _ collideeEntity: CustomComparator) -> Bool {
         if (colliderEntity is Player && collideeEntity is Gem) ||
            (colliderEntity is Gem && collideeEntity is Player) ||
            (colliderEntity is Hadouken && collideeEntity is Player) ||
-           (colliderEntity is Player && collideeEntity is Hadouken) {
+           (colliderEntity is Player && collideeEntity is Hadouken) ||
+            (colliderEntity is Hadouken && collideeEntity is Gem) ||
+            (colliderEntity is Gem && collideeEntity is Hadouken) {
             return true
         }
         return false

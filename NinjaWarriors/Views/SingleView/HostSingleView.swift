@@ -31,7 +31,7 @@ struct HostSingleView: View {
             closingZoneView
             canvasView
 
-            ProgressView("Loading...")
+            ProgressView()
                 .onAppear {
                     viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {
                         DispatchQueue.main.async {
