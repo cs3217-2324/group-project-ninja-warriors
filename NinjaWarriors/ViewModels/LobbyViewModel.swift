@@ -181,7 +181,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
 
     func addListenerForMatches() {
         let publisher = matchManager.addListenerForAllMatches()
-        publisher.subscribe(update: { [unowned self] matches in
+        publisher.subscribe(update: { matches in
             self.matches = matches.map { $0.toMatch() }
         }, error: { error in
             print(error)
