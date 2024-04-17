@@ -25,7 +25,15 @@ class Dodge: Component {
         guard let newDodge = newDodge as? Dodge else {
             return
         }
-        self.isEnabled = newDodge.isEnabled
+        if !newDodge.isEnabled && elapsedTimeSinceEnabled > invulnerabilityDuration {
+            self.isEnabled = newDodge.isEnabled
+            self.invulnerabilityDuration = newDodge.invulnerabilityDuration
+            self.elapsedTimeSinceEnabled = newDodge.elapsedTimeSinceEnabled
+        } else if newDodge.isEnabled {
+            self.invulnerabilityDuration = newDodge.invulnerabilityDuration
+            self.elapsedTimeSinceEnabled = newDodge.elapsedTimeSinceEnabled
+            self.isEnabled = newDodge.isEnabled
+        }
     }
 
     override func changeEntity(to entity: Entity) -> Component {
