@@ -53,8 +53,6 @@ final class HostViewModel: ObservableObject {
         }
         updateGameState()
         updateViews()
-        // TODO: Move this to game over view model
-        // getAchievements()
     }
 
     func updateEntities() {
@@ -167,19 +165,5 @@ extension HostViewModel {
             return 100000 // So no gas cloud at all
         }
         return shape.halfLength
-    }
-}
-
-// TODO: Shift this to game over view model
-extension HostViewModel {
-    func getAchievements() {
-        let achievementsFromLastGame = gameWorld.achievementManager?.getUnlockedAchievements(fromGame: matchId) ?? []
-        let metricRepository = gameWorld.getRepository()
-
-        metricRepository.notifyAllObservers(userID: currPlayerId)
-
-        for achievement in achievementsFromLastGame {
-            print(achievement.title, achievement.description)
-        }
     }
 }
