@@ -69,14 +69,6 @@ class CollisionManager: System {
         }
 
         return !isOverlap(source: object, with: otherObject, isColliding: isColliding)
-        /*
-        return isNotIntersecting(source: object, with: shape, isColliding: isColliding)
-        && !isIntersecting(source: object, with: shape, isColliding: isColliding)
-        && !isOverlap(source: object, with: shape, isColliding: isColliding)
-        && !pointInside(object: object, point: shapeCenter)
-        && !pointInside(object: shape, point: objectCenter)
-        && !moveReduces(object: object, with: shape, isColliding: isColliding, isOutOfBounds: isOutOfBounds)
-        */
     }
 
     func intersectingBoundaries(source object: Shape, isColliding: Bool) -> Bool {
