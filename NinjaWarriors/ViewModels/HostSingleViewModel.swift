@@ -11,7 +11,6 @@ import SwiftUI
 @MainActor
 final class HostSingleViewModel: ObservableObject {
     var gameWorld: GameWorld
-    // TODO: Remove metric from here should only be in game world
     internal var entities: [Entity] = []
     internal var matchId: String
     internal var currPlayerId: String
