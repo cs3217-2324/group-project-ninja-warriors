@@ -51,37 +51,25 @@ class CollisionRules: Rules {
                 alignEntityRotation(for: object)
             }
 
-            // Only allow player to collect gem
-            if object.entity as? Player != nil {
-                performActionOnCollidee(ofType: Gem.self)
+            // Only allow entity with collector component to collect collectable component
+            if manager?.getComponent(ofType: Collector.self, for: object.entity) != nil,
+               let collidingEntityID = object.attachedCollider?.collidedEntities.first,
+               let collidingEntity = manager?.entity(with: collidingEntityID),
+               manager?.getComponent(ofType: Collectable.self, for: collidingEntity) != nil {
+                performAction(on: collidingEntity)
             }
 
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input
             object.velocity = Vector.zero
-
-            // Stop any skills if the collided entity is not a player
-            /*
-            if var objectLifespan = manager?.getComponent(ofType: Lifespan.self, for: object.entity),
-               var collidedEntityID = collider.collidedEntities.first,
-               manager?.entity(with: collidedEntityID) as? Player == nil {
-                objectLifespan.elapsedTime = objectLifespan.lifespan
-            }
-            */
         }
 
         moveRigidBody(object, across: deltaTime)
         object.attachedCollider?.colliderShape.center = object.position
     }
 
-    private func performActionOnCollidee<T: Entity>(ofType entityType: T.Type) {
-        guard let manager = manager,
-              let collidingEntityID = object.attachedCollider?.collidedEntities.first,
-              let collidingEntity = manager.entity(with: collidingEntityID) as? T else {
-            return
-        }
-
-        if let health = manager.getComponent(ofType: Health.self, for: collidingEntity) {
+    private func performAction(on entity: Entity) {
+        if let health = manager?.getComponent(ofType: Health.self, for: entity) {
             health.kill()
         }
     }
@@ -116,13 +104,9 @@ class CollisionRules: Rules {
         rigidBody.totalForce = Vector.zero
     }
 
-    func canPassThrough(_ colliderEntity: CustomComparator, _ collideeEntity: CustomComparator) -> Bool {
-        if (colliderEntity is Player && collideeEntity is Gem) ||
-           (colliderEntity is Gem && collideeEntity is Player) ||
-           (colliderEntity is Hadouken && collideeEntity is Player) ||
-           (colliderEntity is Player && collideeEntity is Hadouken) ||
-            (colliderEntity is Hadouken && collideeEntity is Gem) ||
-            (colliderEntity is Gem && collideeEntity is Hadouken) {
+    func canPassThrough(_ colliderEntity: Entity, _ collideeEntity: Entity) -> Bool {
+        if manager?.getComponent(ofType: Invisible.self, for: colliderEntity) != nil &&
+           manager?.getComponent(ofType: Invisible.self, for: collideeEntity) != nil {
             return true
         }
         return false

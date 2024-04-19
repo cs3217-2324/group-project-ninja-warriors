@@ -191,6 +191,12 @@
 		91CC28362BBA831E009318C7 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CC28352BBA831E009318C7 /* Score.swift */; };
 		91CC28382BBA832A009318C7 /* ScoreWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CC28372BBA832A009318C7 /* ScoreWrapper.swift */; };
 		91CC283C2BBA86E7009318C7 /* ScoreSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CC283B2BBA86E7009318C7 /* ScoreSystem.swift */; };
+		91CDD1CB2BD28C2200464174 /* Invisible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CDD1CA2BD28C2200464174 /* Invisible.swift */; };
+		91CDD1CE2BD28C5A00464174 /* Collectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CDD1CC2BD28C5A00464174 /* Collectable.swift */; };
+		91CDD1CF2BD28C5A00464174 /* CollectableWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CDD1CD2BD28C5A00464174 /* CollectableWrapper.swift */; };
+		91CDD1D12BD28C8900464174 /* InvisibleWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CDD1D02BD28C8900464174 /* InvisibleWrapper.swift */; };
+		91CDD1D42BD28CB400464174 /* CollectorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CDD1D22BD28CB400464174 /* CollectorWrapper.swift */; };
+		91CDD1D52BD28CB400464174 /* Collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CDD1D32BD28CB400464174 /* Collector.swift */; };
 		91D496F62BB059090027C657 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
 		91D496F72BB059090027C657 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D402BA1541800319C26 /* Preview Assets.xcassets */; };
 		91D496F82BB059110027C657 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = E6CDFFC12BAF22A1007BB867 /* grass.png */; };
@@ -442,6 +448,12 @@
 		91CC28352BBA831E009318C7 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		91CC28372BBA832A009318C7 /* ScoreWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreWrapper.swift; sourceTree = "<group>"; };
 		91CC283B2BBA86E7009318C7 /* ScoreSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreSystem.swift; sourceTree = "<group>"; };
+		91CDD1CA2BD28C2200464174 /* Invisible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invisible.swift; sourceTree = "<group>"; };
+		91CDD1CC2BD28C5A00464174 /* Collectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collectable.swift; sourceTree = "<group>"; };
+		91CDD1CD2BD28C5A00464174 /* CollectableWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectableWrapper.swift; sourceTree = "<group>"; };
+		91CDD1D02BD28C8900464174 /* InvisibleWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvisibleWrapper.swift; sourceTree = "<group>"; };
+		91CDD1D22BD28CB400464174 /* CollectorWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectorWrapper.swift; sourceTree = "<group>"; };
+		91CDD1D32BD28CB400464174 /* Collector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collector.swift; sourceTree = "<group>"; };
 		91DDE6512BB3806100851603 /* ComponentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentType.swift; sourceTree = "<group>"; };
 		91DDE6552BB4460800851603 /* SystemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemType.swift; sourceTree = "<group>"; };
 		91DDE6572BB5118400851603 /* EntityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityType.swift; sourceTree = "<group>"; };
@@ -912,6 +924,9 @@
 		916A7D682BA154E000319C26 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				91CDD1C92BD28C1600464174 /* Invisible */,
+				91CDD1C82BD28C0F00464174 /* Collectable */,
+				91CDD1C72BD28C0900464174 /* Collector */,
 				E62FA33E2BCC69A6000D551A /* DamageEffect */,
 				7113A4952BA60E8400805340 /* Component.swift */,
 				91DDE6512BB3806100851603 /* ComponentType.swift */,
@@ -1130,6 +1145,33 @@
 				91CC283B2BBA86E7009318C7 /* ScoreSystem.swift */,
 			);
 			path = ScoreSystem;
+			sourceTree = "<group>";
+		};
+		91CDD1C72BD28C0900464174 /* Collector */ = {
+			isa = PBXGroup;
+			children = (
+				91CDD1D32BD28CB400464174 /* Collector.swift */,
+				91CDD1D22BD28CB400464174 /* CollectorWrapper.swift */,
+			);
+			path = Collector;
+			sourceTree = "<group>";
+		};
+		91CDD1C82BD28C0F00464174 /* Collectable */ = {
+			isa = PBXGroup;
+			children = (
+				91CDD1CC2BD28C5A00464174 /* Collectable.swift */,
+				91CDD1CD2BD28C5A00464174 /* CollectableWrapper.swift */,
+			);
+			path = Collectable;
+			sourceTree = "<group>";
+		};
+		91CDD1C92BD28C1600464174 /* Invisible */ = {
+			isa = PBXGroup;
+			children = (
+				91CDD1CA2BD28C2200464174 /* Invisible.swift */,
+				91CDD1D02BD28C8900464174 /* InvisibleWrapper.swift */,
+			);
+			path = Invisible;
 			sourceTree = "<group>";
 		};
 		91DDE6592BB5122600851603 /* Slash */ = {
@@ -1603,6 +1645,7 @@
 				E6ECF6382BADE99700DDDE9C /* SlashAOESkill.swift in Sources */,
 				91DDE6582BB5118400851603 /* EntityType.swift in Sources */,
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
+				91CDD1CF2BD28C5A00464174 /* CollectableWrapper.swift in Sources */,
 				E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */,
 				91DED6012BCE58980054C2F1 /* Node.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
@@ -1642,6 +1685,8 @@
 				916A7D8B2BA1A0D400319C26 /* SignInView.swift in Sources */,
 				7181B1532BC07A90009711DE /* ClosingZoneView.swift in Sources */,
 				9117F6362BCD280B00ED4F4E /* HowToPlayView.swift in Sources */,
+				91CDD1CE2BD28C5A00464174 /* Collectable.swift in Sources */,
+				91CDD1D42BD28CB400464174 /* CollectorWrapper.swift in Sources */,
 				916A7D8E2BA1A1C500319C26 /* SignInViewModel.swift in Sources */,
 				7113A4962BA60E8400805340 /* Component.swift in Sources */,
 				7191C82D2BCA7DBB005BBE62 /* AchievementManager.swift in Sources */,
@@ -1659,7 +1704,9 @@
 				7181B1482BC0404A009711DE /* EnvironmentEffectWrapper.swift in Sources */,
 				916A7DAC2BA3FD4800319C26 /* LineWrapper.swift in Sources */,
 				710EB5742BC68F82004539D6 /* DamageDealtMetric.swift in Sources */,
+				91CDD1D52BD28CB400464174 /* Collector.swift in Sources */,
 				E6FD345F2BC1545600477B1F /* LifespanSystem.swift in Sources */,
+				91CDD1CB2BD28C2200464174 /* Invisible.swift in Sources */,
 				915301C42BAE9337007F2A12 /* JoystickControl.swift in Sources */,
 				7132C90A2BCD7E380088932F /* LoginCountMetric.swift in Sources */,
 				714A4A642BA717B80067D5CB /* System.swift in Sources */,
@@ -1723,6 +1770,7 @@
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,
 				7181B1462BC03ECD009711DE /* EnvironmentEffect.swift in Sources */,
+				91CDD1D12BD28C8900464174 /* InvisibleWrapper.swift in Sources */,
 				918048732BC7AA9500026965 /* ClosingZoneMap.swift in Sources */,
 				E6DB870C2BB9F756003AC063 /* DodgeSystem.swift in Sources */,
 				9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */,

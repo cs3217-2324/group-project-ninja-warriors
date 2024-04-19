@@ -26,7 +26,3 @@ struct InGameAchievementsView: View {
         }
     }
 }
-
-#Preview {
-    InGameAchievementsView(achievementManager: AchievementManager(userID: "test", metricsSubject: MetricsRepository()), matchID: "match")
-}

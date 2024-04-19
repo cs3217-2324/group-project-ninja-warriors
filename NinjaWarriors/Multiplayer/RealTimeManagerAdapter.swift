@@ -61,7 +61,10 @@ final class RealTimeManagerAdapter: EntitiesManager {
             "DodgeWrapper": DodgeWrapper.self,
             "TransformWrapper": TransformWrapper.self,
             "PlayerComponentWrapper": PlayerComponentWrapper.self,
-            "DamageEffectWrapper": DamageEffectWrapper.self
+            "DamageEffectWrapper": DamageEffectWrapper.self,
+            "InvisibleWrapper": InvisibleWrapper.self,
+            "CollectorWrapper": CollectorWrapper.self,
+            "CollectableWrapper": CollectableWrapper.self
         ]
         return wrapperTypes[wrapperType]
     }
