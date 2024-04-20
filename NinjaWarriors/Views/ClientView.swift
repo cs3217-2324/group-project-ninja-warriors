@@ -38,15 +38,13 @@ struct ClientView: View {
             if viewModel.isGameOver {
                 GameOverView(path: $path, achievementManager: achievementManager, matchID: matchId)
             }
-            ProgressView()
-                .onAppear {
-                    viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {
-                        DispatchQueue.main.async {
-                            viewModel.updateEntities()
-                            viewModel.gameWorld.gameMode.start()
-                        }
-                    }
+        }.onAppear {
+            viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {
+                DispatchQueue.main.async {
+                    viewModel.updateEntities()
+                    viewModel.gameWorld.gameMode.start()
                 }
+            }
         }
     }
 

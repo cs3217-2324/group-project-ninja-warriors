@@ -90,9 +90,7 @@ class EntityComponentManager {
             newMapQueue.sync {
                 self.newEntityMap.removeAll()
                 for entity in remoteEntity {
-                    guard (entity as? ClosingZone) == nil,
-                          (entity as? Obstacle) == nil
-                    else {
+                    guard isValidEntity(entity) else {
                         continue
                     }
                     self.newEntityMap[entity.id] = entity
@@ -125,7 +123,7 @@ class EntityComponentManager {
                         if lifespan.lifespan > 2 {
                             self.remove(entity: currEntity)
                         }
-                    } else {
+                    } else if currEntity is Player {
                         self.remove(entity: currEntity)
                     }
                 }
@@ -135,8 +133,7 @@ class EntityComponentManager {
 
     func publish() async throws {
         for (entityId, entity) in entityMap {
-            guard (entity as? ClosingZone) == nil, (entity as? Obstacle) == nil,
-                  ownEntities.contains(entityId) else {
+            guard isValidEntity(entity), ownEntities.contains(entityId) else {
                 continue
             }
 
@@ -290,6 +287,10 @@ class EntityComponentManager {
             }
             return nil
         }
+    }
+
+    func isValidEntity(_ entity: Any) -> Bool {
+        return (entity as? ClosingZone) == nil && (entity as? Obstacle) == nil
     }
 
     // MARK: - Component-related functions
