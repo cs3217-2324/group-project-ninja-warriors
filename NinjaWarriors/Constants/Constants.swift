@@ -14,7 +14,7 @@ struct Constants {
     static let defaultSize: CGFloat = 25.0
     static let directory = "NinjaWarriors."
     static let wrapperName = "Wrapper"
-    static let timeLag = 20
+    static let timeLag = 100
 
     // MARK: Player
     static let playerOnePosition = Point(xCoord: 100, yCoord: 100)
