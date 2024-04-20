@@ -21,4 +21,28 @@ class Collector: Component {
         }
         return CollectorWrapper(id: id, entity: entityWrapper, entityTypeCounts: entityTypeCounts)
     }
+
+    func addItem(of type: String, count: Int) {
+        if let currentCount = entityTypeCounts[type] {
+            entityTypeCounts[type] = currentCount + count
+        } else {
+            entityTypeCounts[type] = count
+        }
+    }
+
+    func removeItem(of type: String, count: Int) {
+        guard let currentCount = entityTypeCounts[type] else {
+            return
+        }
+
+        entityTypeCounts[type] = currentCount - count
+
+        if let newCount = entityTypeCounts[type], newCount <= 0 {
+            entityTypeCounts.removeValue(forKey: type)
+        }
+    }
+
+    func countItem(of type: String) -> Int {
+        entityTypeCounts[type] ?? 0
+    }
 }
