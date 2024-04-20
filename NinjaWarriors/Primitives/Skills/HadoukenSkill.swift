@@ -78,11 +78,11 @@ class HadoukenSkill: EntitySpawnerSkill {
                                      width: Constants.slashRadius,
                                      height: Constants.slashRadius)
 
-        let damageEffect = DamageEffect(id: RandomNonce().randomNonceString(), entity: hadouken, sourceId: casterEntity.id, initialDamage: 20, damagePerTick: 0, duration: 0)
+        let damageEffect = DamageEffect(id: RandomNonce().randomNonceString(), entity: hadouken, sourceId: casterEntity.id, initialDamage: Constants.hadoukenDamage, damagePerTick: Constants.hadoukenDamagePerTick, duration: Constants.hadoukenDamageDuration)
 
         let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: hadouken, attackStrategy: MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius), damageEffectTemplate: damageEffect)
 
-        let lifespanComponent = Lifespan(id: RandomNonce().randomNonceString(), entity: hadouken, lifespan: 1)
+        let lifespanComponent = Lifespan(id: RandomNonce().randomNonceString(), entity: hadouken, lifespan: Constants.hadoukenLifespan)
 
         let invisible = Invisible(id: RandomNonce().randomNonceString(), entity: hadouken)
 

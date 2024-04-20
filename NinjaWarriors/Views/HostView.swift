@@ -62,24 +62,27 @@ struct HostView: View {
                         .getComponents(for: entity), currPlayerId: viewModel.currPlayerId))
             }
             if let currPlayer = viewModel.getCurrPlayer() {
-                JoystickView(
-                    setInputVector: { vector in
-                        // viewModel.move(vector)
-                        viewModel.gameWorld.setInput(vector, for: currPlayer)
-                    }, location: CGPoint(x: 150, y: geometry.size.height - 350))
-                .frame(width: 200, height: 200)
-                VStack {
-                    Spacer()
-                    PlayerControlsView(
-                        skills: viewModel.getSkills(for: currPlayer),
-                        skillCooldowns: viewModel.getSkillCooldowns(for: currPlayer),
-                        toggleEntityOverlay: {
-                            isShowingEntityOverlay.toggle()
-                        },
-                        activateSkill: { skillId in
-                            viewModel.activateSkill(forEntity: currPlayer, skillId: skillId)
-                        }
-                    )
+                ZStack {
+                    JoystickView(
+                        setInputVector: { vector in
+                            // viewModel.move(vector)
+                            viewModel.gameWorld.setInput(vector, for: currPlayer)
+                        }, location: CGPoint(x: 150, y: geometry.size.height - 350))
+                    .frame(width: 200, height: 200)
+                    VStack {
+                        Spacer()
+                        PlayerControlsView(
+                            playerHealth: viewModel.getHealth(for: currPlayer),
+                            skills: viewModel.getSkills(for: currPlayer),
+                            skillCooldowns: viewModel.getSkillCooldowns(for: currPlayer),
+                            toggleEntityOverlay: {
+                                isShowingEntityOverlay.toggle()
+                            },
+                            activateSkill: { skillId in
+                                viewModel.activateSkill(forEntity: currPlayer, skillId: skillId)
+                            }
+                        )
+                    }
                 }
             }
             EntityOverlayView(entities: viewModel.entities,

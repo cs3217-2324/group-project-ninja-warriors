@@ -17,7 +17,7 @@ struct JoystickView: View {
     var bigCircleDiameter: CGFloat {
         bigCircleRadius * 2
     }
-    let smallCircleRadius: CGFloat = 25
+    let smallCircleRadius: CGFloat = 30
     var smallCircleDiameter: CGFloat {
         smallCircleRadius * 2
     }
@@ -69,16 +69,26 @@ struct JoystickView: View {
     var body: some View {
         ZStack {
             Circle()
-                .strokeBorder(Color.blue, lineWidth: 4)
+                .strokeBorder(Color.white, lineWidth: 4)
                 .background(Circle().foregroundColor(Color.white.opacity(0.1)))
                 .frame(width: bigCircleDiameter, height: bigCircleDiameter)
                 .position(location)
 
             Circle()
-                .foregroundColor(.blue)
+                .foregroundColor(.white)
                 .frame(width: smallCircleDiameter, height: smallCircleDiameter)
                 .position(innerCircleLocation)
                 .gesture(fingerDrag)
         }
+    }
+}
+
+struct JoystickView_Previews: PreviewProvider {
+    static var previews: some View {
+        JoystickView(setInputVector: { vector in
+            print("Joystick moved to vector: \(vector)")
+        }, location: CGPoint(x: 200, y: 200))
+        .previewLayout(.fixed(width: 400, height: 400))
+        .background(Color.gray.opacity(0.3))
     }
 }

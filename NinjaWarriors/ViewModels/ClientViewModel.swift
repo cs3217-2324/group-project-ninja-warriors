@@ -121,6 +121,14 @@ extension ClientViewModel {
         }
     }
 
+    func getHealth(for entity: Entity) -> Health? {
+        let entityId = entity.id
+
+        let health = gameWorld.entityComponentManager
+            .getComponentFromId(ofType: Health.self, of: entityId)
+        return health
+    }
+
     func getSkills(for entity: Entity) -> [Dictionary<SkillID, any Skill>.Element] {
         let entityId = entity.id
         let skillCaster = gameWorld.entityComponentManager

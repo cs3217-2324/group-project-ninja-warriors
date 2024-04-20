@@ -27,9 +27,10 @@ struct SingleLobbyView: View {
                                                 path: $path)
                     .navigationBarBackButtonHidden(true)) {
                         Text("Start")
-                            .font(.system(size: 30))
+                            .font(.custom("KARASHA", size: 30))
                             .padding()
-                            .background(Color.purple)
+                            .frame(width: 322, height: 96)
+                            .background(Image("button-bg"))
                             .foregroundColor(.white)
                             .fontWeight(.bold)
                             .cornerRadius(10)
@@ -42,9 +43,10 @@ struct SingleLobbyView: View {
 
             NavigationLink(destination: MapSelectionView(viewModel: viewModel)) {
                 Text("Select Map")
-                    .font(.system(size: 30))
+                    .font(.custom("KARASHA", size: 30))
                     .padding()
-                    .background(Color.purple)
+                    .frame(width: 322, height: 96)
+                    .background(Image("button-bg"))
                     .foregroundColor(.white)
                     .fontWeight(.bold)
                     .cornerRadius(10)
@@ -57,9 +59,10 @@ struct SingleLobbyView: View {
 
             NavigationLink(destination: CharacterSelectionView(viewModel: viewModel)) {
                 Text("Select Character")
-                    .font(.system(size: 30))
+                    .font(.custom("KARASHA", size: 30))
                     .padding()
-                    .background(Color.purple)
+                    .frame(width: 322, height: 96)
+                    .background(Image("button-bg"))
                     .foregroundColor(.white)
                     .fontWeight(.bold)
                     .cornerRadius(10)
@@ -85,9 +88,10 @@ struct SingleLobbyView: View {
             viewModel.start()
         }) {
             Text("Ready")
-                .font(.system(size: 30))
+                .font(.custom("KARASHA", size: 30))
                 .padding()
-                .background(Color.purple)
+                .frame(width: 322, height: 96)
+                .background(Image("button-bg"))
                 .foregroundColor(.white)
                 .fontWeight(.bold)
                 .cornerRadius(10)

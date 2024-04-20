@@ -59,18 +59,17 @@ struct EntityView: View {
     }
 
     private func overlay(for sprite: Sprite, isCurrentUser: Bool) -> some View {
-        let text = isCurrentUser ? "You" : "Enemy"
+        let text = isCurrentUser ? "YOU" : "ENEMY"
         let color = isCurrentUser ? Color.blue : Color.red
 
         return GeometryReader { _ in
             if sprite.entity is Player {
                 Text(text)
-                    .foregroundColor(.white)
+                    .foregroundColor(color)
                     .fontWeight(.bold)
-                    .font(.system(size: 20))
+                    .font(.system(size: 12))
                     .padding(4)
-                    .background(color)
-                    .cornerRadius(4)
+                    .cornerRadius(2)
                     .position(x: viewModel.position.x, y: viewModel.position.y - sprite.height / 2 - 35)
             }
         }
@@ -95,11 +94,13 @@ struct EntityView: View {
         return ZStack(alignment: .leading) {
             Rectangle()
                 .fill(Color.red)
+                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
                 .frame(width: healthBarWidth, height: Constants.HealthBar.height)
                 .position(x: viewModel.position.x, y: viewModel.position.y - healthBarOffsetY)
 
             Rectangle()
                 .fill(healthColor)
+                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
                 .frame(width: max(healthBarFillWidth, 0), height: Constants.HealthBar.height)
                 .position(x: viewModel.position.x - healthBarWidth / 2 + healthBarFillWidth / 2,
                           y: viewModel.position.y - healthBarOffsetY)

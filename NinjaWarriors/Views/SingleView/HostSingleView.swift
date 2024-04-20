@@ -68,6 +68,7 @@ struct HostSingleView: View {
                 VStack {
                     Spacer()
                     PlayerControlsView(
+                        playerHealth: viewModel.getHealth(for: currPlayer),
                         skills: viewModel.getSkills(for: currPlayer),
                         skillCooldowns: viewModel.getSkillCooldowns(for: currPlayer),
                         toggleEntityOverlay: {

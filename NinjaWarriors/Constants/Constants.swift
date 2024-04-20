@@ -25,7 +25,7 @@ struct Constants {
                                   playerThreePosition, playerFourPosition]
 
     struct HealthBar {
-        static let height: CGFloat = 10
+        static let height: CGFloat = 15
         static let offsetY: CGFloat = 15
     }
 
@@ -36,7 +36,7 @@ struct Constants {
     static let gemCount = 4
 
     // MARK: Skills
-    static let slashDamage = 10.0
+    static let slashDamage = 30.0
     static let slashRadius = 75.0
 
     struct DodgeImage {
@@ -44,6 +44,11 @@ struct Constants {
         static let width: CGFloat = 100
         static let height: CGFloat = 100
     }
+
+    static let hadoukenDamage = 20.0
+    static let hadoukenDamagePerTick = 1.0
+    static let hadoukenDamageDuration = 1.0
+    static let hadoukenLifespan = 1.0
 
     // MARK: Closing Zone
     static var closingZonePosition: Point { Point(xCoord: screenWidth / 2.0, yCoord: screenHeight / 2.0 - 100) }
