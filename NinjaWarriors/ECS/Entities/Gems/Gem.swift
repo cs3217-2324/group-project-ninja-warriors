@@ -45,7 +45,7 @@ class Gem: Equatable, Entity {
 
         let invisible = Invisible(id: RandomNonce().randomNonceString(), entity: self)
 
-        let collectable = Collectable(id: RandomNonce().randomNonceString(), entity: self)
+        let collectable = Collectable(id: RandomNonce().randomNonceString(), entity: self, entityType: "Gem")
 
         return [collider, rigidbody, spriteComponent, health, invisible, collectable]
     }

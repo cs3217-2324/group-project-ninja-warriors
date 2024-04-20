@@ -154,7 +154,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
 
         let invisible = Invisible(id: RandomNonce().randomNonceString(), entity: player)
 
-        let collector = Collector(id: RandomNonce().randomNonceString(), entity: player)
+        let collector = Collector(id: RandomNonce().randomNonceString(), entity: player, entityTypeCounts: [:])
 
         let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge, playerComponent, invisible, collector]
 

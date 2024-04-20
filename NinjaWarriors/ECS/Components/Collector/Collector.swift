@@ -8,8 +8,10 @@
 import Foundation
 
 class Collector: Component {
+    private var entityTypeCounts: [String: Int] = [:]
 
-    override init(id: ComponentID, entity: Entity) {
+    init(id: ComponentID, entity: Entity, entityTypeCounts: [String: Int]) {
+        self.entityTypeCounts = entityTypeCounts
         super.init(id: id, entity: entity)
     }
 
@@ -17,6 +19,6 @@ class Collector: Component {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
-        return CollectorWrapper(id: id, entity: entityWrapper)
+        return CollectorWrapper(id: id, entity: entityWrapper, entityTypeCounts: entityTypeCounts)
     }
 }

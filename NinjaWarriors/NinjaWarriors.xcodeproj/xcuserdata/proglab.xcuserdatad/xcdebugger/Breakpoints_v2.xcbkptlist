@@ -16,8 +16,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "75"
             endingLineNumber = "75"
-            landmarkName = "performRule()"
-            landmarkType = "7">
+            landmarkName = "CollisionRules"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
             endingLineNumber = "96"
-            landmarkName = "alignEntityRotation(for:)"
+            landmarkName = "moveRigidBody(_:across:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -128,8 +128,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
             endingLineNumber = "76"
-            landmarkName = "CollisionRules"
-            landmarkType = "3">
+            landmarkName = "performAction(on:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -144,7 +144,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
             endingLineNumber = "93"
-            landmarkName = "alignEntityRotation(for:)"
+            landmarkName = "moveRigidBody(_:across:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -192,7 +192,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
             endingLineNumber = "95"
-            landmarkName = "alignEntityRotation(for:)"
+            landmarkName = "moveRigidBody(_:across:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -240,7 +240,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "94"
             endingLineNumber = "94"
-            landmarkName = "alignEntityRotation(for:)"
+            landmarkName = "moveRigidBody(_:across:)"
             landmarkType = "7">
             <Locations>
                <Location

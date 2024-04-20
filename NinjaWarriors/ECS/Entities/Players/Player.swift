@@ -69,6 +69,12 @@ extension Player {
         let dodge = Dodge(id: RandomNonce().randomNonceString(), entity: self,
                           isEnabled: true, invulnerabilityDuration: 2.0, elapsedTimeSinceEnabled: 0.0)
 
-        return [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge]
+        let playerComponent = PlayerComponent(id: RandomNonce().randomNonceString(), entity: self)
+
+        let invisible = Invisible(id: RandomNonce().randomNonceString(), entity: self)
+
+        let collector = Collector(id: RandomNonce().randomNonceString(), entity: self, entityTypeCounts: [:])
+
+        return [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge, playerComponent, invisible, collector]
     }
 }

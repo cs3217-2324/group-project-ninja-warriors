@@ -8,8 +8,10 @@
 import Foundation
 
 class Collectable: Component {
+    let entityType: String
 
-    override init(id: ComponentID, entity: Entity) {
+    init(id: ComponentID, entity: Entity, entityType: String) {
+        self.entityType = entityType
         super.init(id: id, entity: entity)
     }
 
@@ -17,6 +19,6 @@ class Collectable: Component {
         guard let entityWrapper = entity.wrapper() else {
             return nil
         }
-        return CollectableWrapper(id: id, entity: entityWrapper)
+        return CollectableWrapper(id: id, entity: entityWrapper, entityType: entityType)
     }
 }

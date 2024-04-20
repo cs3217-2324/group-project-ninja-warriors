@@ -10,8 +10,9 @@ import Foundation
 struct CollectorWrapper: ComponentWrapper {
     var id: ComponentID
     var entity: EntityWrapper
+    var entityTypeCounts: [String: Int]
 
     func toComponent(entity: Entity) -> Component? {
-        return Collector(id: id, entity: entity)
+        return Collector(id: id, entity: entity, entityTypeCounts: entityTypeCounts)
     }
 }
