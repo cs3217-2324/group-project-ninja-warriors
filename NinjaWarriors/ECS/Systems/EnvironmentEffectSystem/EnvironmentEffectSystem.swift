@@ -9,6 +9,7 @@ import Foundation
 
 class EnvironmentEffectSystem: System {
     var manager: EntityComponentManager
+    var timeIntervalSum: TimeInterval = 0.0
 
     required init(for manager: EntityComponentManager) {
         self.manager = manager
@@ -18,7 +19,10 @@ class EnvironmentEffectSystem: System {
         let effects = manager.getAllComponents(ofType: EnvironmentEffect.self)
 
         for effect in effects {
-            applyEffect(effect, after: time)
+            if timeIntervalSum >= 0.5 {
+                applyEffect(effect, after: time)
+                timeIntervalSum = 0.0
+            }
             changeEffectShape(effect, after: time)
         }
     }
