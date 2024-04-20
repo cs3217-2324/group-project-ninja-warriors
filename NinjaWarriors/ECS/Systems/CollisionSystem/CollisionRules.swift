@@ -105,8 +105,13 @@ class CollisionRules: Rules {
     }
 
     func canPassThrough(_ colliderEntity: Entity, _ collideeEntity: Entity) -> Bool {
+        if manager?.getComponent(ofType: PlayerComponent.self, for: colliderEntity) != nil &&
+            manager?.getComponent(ofType: PlayerComponent.self, for: collideeEntity) != nil {
+            return false
+        }
+
         if manager?.getComponent(ofType: Invisible.self, for: colliderEntity) != nil &&
-           manager?.getComponent(ofType: Invisible.self, for: collideeEntity) != nil {
+            manager?.getComponent(ofType: Invisible.self, for: collideeEntity) != nil {
             return true
         }
         return false

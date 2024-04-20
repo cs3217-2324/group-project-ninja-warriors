@@ -121,8 +121,6 @@
 		916991392BC6783500ED1FBD /* GemWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991362BC6783500ED1FBD /* GemWrapper.swift */; };
 		9169913B2BC67BC900ED1FBD /* CollisionRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913A2BC67BC900ED1FBD /* CollisionRules.swift */; };
 		916991402BC69EBE00ED1FBD /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913F2BC69EBE00ED1FBD /* Rules.swift */; };
-		916991412BC69EBE00ED1FBD /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913F2BC69EBE00ED1FBD /* Rules.swift */; };
-		916991422BC69EBE00ED1FBD /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169913F2BC69EBE00ED1FBD /* Rules.swift */; };
 		916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */; };
 		916A7D3C2BA1541700319C26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916A7D3B2BA1541700319C26 /* ContentView.swift */; };
 		916A7D3E2BA1541800319C26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 916A7D3D2BA1541800319C26 /* Assets.xcassets */; };
@@ -758,7 +756,6 @@
 				714A4A652BA721E50067D5CB /* SystemManager.swift */,
 				714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */,
 				E62FA3322BCC47D4000D551A /* CombatSystem */,
-				9169913E2BC69E7D00ED1FBD /* Rules */,
 				7181B14E2BC05372009711DE /* EnvironmentEffectSystem */,
 				E6FD345C2BC1544600477B1F /* LifespanSystem */,
 				E67F53382BBFEF930051A900 /* DestroySystem */,
@@ -795,6 +792,7 @@
 		9136A5B82BA9955400197971 /* CollisionSystem */ = {
 			isa = PBXGroup;
 			children = (
+				9169913F2BC69EBE00ED1FBD /* Rules.swift */,
 				9169913A2BC67BC900ED1FBD /* CollisionRules.swift */,
 				916A7D692BA154F000319C26 /* CollisionManager.swift */,
 			);
@@ -835,14 +833,6 @@
 				916991362BC6783500ED1FBD /* GemWrapper.swift */,
 			);
 			path = Gems;
-			sourceTree = "<group>";
-		};
-		9169913E2BC69E7D00ED1FBD /* Rules */ = {
-			isa = PBXGroup;
-			children = (
-				9169913F2BC69EBE00ED1FBD /* Rules.swift */,
-			);
-			path = Rules;
 			sourceTree = "<group>";
 		};
 		916A7D2D2BA1541700319C26 = {
@@ -1832,7 +1822,6 @@
 				916991342BC6782F00ED1FBD /* Gem.swift in Sources */,
 				916991382BC6783500ED1FBD /* GemWrapper.swift in Sources */,
 				91EF1F9B2BAED54A000B52A2 /* PrimitiveTests.swift in Sources */,
-				916991412BC69EBE00ED1FBD /* Rules.swift in Sources */,
 				9180487C2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */,
 				9180486C2BC7A75700026965 /* Map.swift in Sources */,
 				7183D07D2BB03D0A0078C960 /* ECSTestUtils.swift in Sources */,
@@ -1854,7 +1843,6 @@
 				918048712BC7A86400026965 /* GemMap.swift in Sources */,
 				9180487D2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */,
 				918048752BC7AA9500026965 /* ClosingZoneMap.swift in Sources */,
-				916991422BC69EBE00ED1FBD /* Rules.swift in Sources */,
 				917BEBAC2BCA29F8001D0F7C /* ObstacleMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2008,6 +1996,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2038,6 +2027,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

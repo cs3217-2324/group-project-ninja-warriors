@@ -97,10 +97,11 @@ class EntityComponentManager {
                     }
                     self.newEntityMap[entity.id] = entity
                 }
-            }
-            Task {
                 addEntitiesFromNewMap(newEntityMap, remoteEntityComponentMap)
             }
+            // Task {
+                // addEntitiesFromNewMap(newEntityMap, remoteEntityComponentMap)
+            // }
         } catch {
             print("Error fetching entities with components: \(error)")
         }
@@ -108,7 +109,7 @@ class EntityComponentManager {
 
     func addEntitiesFromNewMap(_ remoteEntityMap: [EntityID: Entity],
                                _ remoteEntityComponentMap: [EntityID: [Component]]) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.sync {
             for (remoteEntityId, remoteEntity) in remoteEntityMap {
                 if let newComponents = remoteEntityComponentMap[remoteEntityId] {
                     self.add(entity: remoteEntity, components: newComponents)
