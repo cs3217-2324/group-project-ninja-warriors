@@ -23,17 +23,17 @@ struct HowToPlayView: View {
         VStack {
             Text("How To Play")
                 .padding(.bottom, 50)
-                .font(.system(size: 50, weight: .bold))
-                .foregroundColor(.gray)
+                .font(.custom("KARASHA", size: 70))
+                .foregroundColor(.white)
             HStack {
                 // Top Left: Joystick
                 VStack {
                     Circle()
-                        .stroke(Color.blue.opacity(0.3), lineWidth: 5)
+                        .stroke(Color.white.opacity(0.3), lineWidth: 5)
                         .frame(width: 200, height: 200)
                         .overlay(
                             Circle()
-                                .fill(Color.blue)
+                                .fill(Color.white)
                                 .frame(width: joystickSize, height: joystickSize)
                                 .offset(x: joystickOffset, y: 0)
 
@@ -49,10 +49,11 @@ struct HowToPlayView: View {
                     Text("Joystick controls the player")
                     .padding(.bottom, -10)
                     .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
                 }
                 .frame(width: 250, height: 250)
                 .padding()
-                .background(Color.gray)
+                .background(Color.gray.opacity(0.8))
                 .cornerRadius(10)
 
                 // Top Right: Closing Ring Animation
@@ -75,9 +76,10 @@ struct HowToPlayView: View {
                                 }
                             }
                     }
-                    Text("New closing zone map")
+                    Text("Avoid the closing zone!")
                     .padding(.top, 15)
                     .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
                 }
                 .frame(width: 250, height: 250)
                 .padding()
@@ -127,10 +129,11 @@ struct HowToPlayView: View {
                     Text("Collect gems to earn points")
                         .padding(.top, -25)
                         .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.white)
                 }
                     .frame(width: 250, height: 250)
                     .padding()
-                    .background(Color.gray)
+                    .background(Color.gray.opacity(0.8))
                     .cornerRadius(10)
 
                 VStack {
@@ -157,14 +160,15 @@ struct HowToPlayView: View {
                                 .frame(width: 100, height: 100)
                         }
                         .padding()
-                        Text("Custom skills")
+                        Text("Tap to use your skills!")
                             .padding(.top, -20)
                             .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(.white)
                     }
                 }
                 .frame(width: 250, height: 250)
                 .padding()
-                .background(Color.gray)
+                .background(Color.gray.opacity(0.8))
                 .cornerRadius(10)
             }
             .padding()
