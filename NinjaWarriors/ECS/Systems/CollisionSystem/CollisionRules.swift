@@ -62,6 +62,11 @@ class CollisionRules: Rules {
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input
             object.velocity = Vector.zero
+
+            // Stop any skills moving when it collides
+            if var objectLifespan = manager?.getComponent(ofType: Lifespan.self, for: object.entity) {
+                objectLifespan.elapsedTime = objectLifespan.lifespan
+            }
         }
 
         moveRigidBody(object, across: deltaTime)
