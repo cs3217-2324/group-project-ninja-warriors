@@ -83,7 +83,12 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
 
         let playerComponent = PlayerComponent(id: RandomNonce().randomNonceString(), entity: player)
 
-        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge, playerComponent]
+        let invisible = Invisible(id: RandomNonce().randomNonceString(), entity: player)
+
+        let collector = Collector(id: RandomNonce().randomNonceString(), entity: player)
+
+        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge, playerComponent, invisible, collector]
+
         guard let realTimeManager = realTimeManager else {
             return
         }

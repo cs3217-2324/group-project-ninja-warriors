@@ -177,8 +177,6 @@
 		918048842BC912EE00026965 /* MapSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048832BC912EE00026965 /* MapSelection.swift */; };
 		918048862BC91C2200026965 /* CharacterSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048852BC91C2200026965 /* CharacterSelection.swift */; };
 		918048882BC987E600026965 /* LifespanWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918048872BC987E600026965 /* LifespanWrapper.swift */; };
-		9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C52BAAE53F000CC390 /* TriangleShape.swift */; };
-		9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9C72BAAE54A000CC390 /* RectangleShape.swift */; };
 		9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */; };
 		9180F9D12BAB96C7000CC390 /* CodableWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9D02BAB96C7000CC390 /* CodableWrapper.swift */; };
 		9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9180F9D22BAB9C26000CC390 /* ComponentWrapper.swift */; };
@@ -434,8 +432,6 @@
 		918048832BC912EE00026965 /* MapSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSelection.swift; sourceTree = "<group>"; };
 		918048852BC91C2200026965 /* CharacterSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSelection.swift; sourceTree = "<group>"; };
 		918048872BC987E600026965 /* LifespanWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifespanWrapper.swift; sourceTree = "<group>"; };
-		9180F9C52BAAE53F000CC390 /* TriangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleShape.swift; sourceTree = "<group>"; };
-		9180F9C72BAAE54A000CC390 /* RectangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleShape.swift; sourceTree = "<group>"; };
 		9180F9CE2BAB19BF000CC390 /* RandomNonce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomNonce.swift; sourceTree = "<group>"; };
 		9180F9D02BAB96C7000CC390 /* CodableWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableWrapper.swift; sourceTree = "<group>"; };
 		9180F9D22BAB9C26000CC390 /* ComponentWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentWrapper.swift; sourceTree = "<group>"; };
@@ -914,12 +910,12 @@
 		916A7D682BA154E000319C26 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				7113A4952BA60E8400805340 /* Component.swift */,
+				91DDE6512BB3806100851603 /* ComponentType.swift */,
 				91CDD1C92BD28C1600464174 /* Invisible */,
 				91CDD1C82BD28C0F00464174 /* Collectable */,
 				91CDD1C72BD28C0900464174 /* Collector */,
 				E62FA33E2BCC69A6000D551A /* DamageEffect */,
-				7113A4952BA60E8400805340 /* Component.swift */,
-				91DDE6512BB3806100851603 /* ComponentType.swift */,
 				E67C23F02BCBD124005D7304 /* PlayerComponent */,
 				E6FD34592BC1523900477B1F /* Lifespan */,
 				E6B503E12BC105F300B9565E /* Attack */,
@@ -1054,8 +1050,6 @@
 				916A7D6B2BA1550700319C26 /* Shape.swift */,
 				9132AF862BA6AEAB000F2AC4 /* Shape+EXT.swift */,
 				916A7DA42BA3F89500319C26 /* ShapeWrapper.swift */,
-				9180F9C52BAAE53F000CC390 /* TriangleShape.swift */,
-				9180F9C72BAAE54A000CC390 /* RectangleShape.swift */,
 				E6ECF6392BADE9D800DDDE9C /* CircleShape.swift */,
 			);
 			path = Shapes;
@@ -1707,7 +1701,6 @@
 				9180487B2BC7C7B600026965 /* CharacterSelectionView.swift in Sources */,
 				91C65BE52BACF1AA0085D96F /* Skill.swift in Sources */,
 				7132C9142BCD82430088932F /* FirstDamageInGameAchievement.swift in Sources */,
-				9180F9C62BAAE53F000CC390 /* TriangleShape.swift in Sources */,
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
 				9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */,
 				7132C9062BCD7E0A0088932F /* SlashesCountMetric.swift in Sources */,
@@ -1755,7 +1748,6 @@
 				91DDE6602BB5720A00851603 /* SpriteWrapper.swift in Sources */,
 				915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */,
 				915BFD1B2BC149A000AB5815 /* ClientView.swift in Sources */,
-				9180F9C82BAAE54A000CC390 /* RectangleShape.swift in Sources */,
 				7181B1502BC05385009711DE /* EnvironmentEffectSystem.swift in Sources */,
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,

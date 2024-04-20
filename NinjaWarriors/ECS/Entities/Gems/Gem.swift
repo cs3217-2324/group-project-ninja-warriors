@@ -43,7 +43,11 @@ class Gem: Equatable, Entity {
         let health = Health(id: RandomNonce().randomNonceString(), entity: self,
                             entityInflictDamageMap: [:], health: 10, maxHealth: 10)
 
-        return [collider, rigidbody, spriteComponent, health]
+        let invisible = Invisible(id: RandomNonce().randomNonceString(), entity: self)
+
+        let collectable = Collectable(id: RandomNonce().randomNonceString(), entity: self)
+
+        return [collider, rigidbody, spriteComponent, health, invisible, collectable]
     }
 
     func deepCopy() -> Entity {

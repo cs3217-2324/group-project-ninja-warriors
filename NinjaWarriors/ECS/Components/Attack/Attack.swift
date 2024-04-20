@@ -24,9 +24,6 @@ class Attack: Component {
                 id: RandomNonce().randomNonceString(),
                 entity: target,
                 sourceId: self.entity.id,
-                // initialDamage: 10,
-                // damagePerTick: 0,
-                // duration: 0.0
                 initialDamage: damageEffectTemplate.initialDamage,
                 damagePerTick: damageEffectTemplate.damagePerTick,
                 duration: damageEffectTemplate.duration
