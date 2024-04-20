@@ -17,6 +17,7 @@ class EnvironmentEffectSystem: System {
 
     func update(after time: TimeInterval) {
         let effects = manager.getAllComponents(ofType: EnvironmentEffect.self)
+        timeIntervalSum += time
 
         for effect in effects {
             if timeIntervalSum >= 0.5 {

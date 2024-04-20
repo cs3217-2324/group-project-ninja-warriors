@@ -48,7 +48,7 @@ struct Constants {
     // MARK: Closing Zone
     static var closingZonePosition: Point { Point(xCoord: screenWidth / 2.0, yCoord: screenHeight / 2.0 - 100) }
     static var closingZoneRadius: Double { screenHeight / 2.5 }
-    static var closingZoneDPS: Double = 5.0
+    static var closingZoneDPS: Double = 10.0
     static var closingZoneRadiusShrinkagePerSecond: Double = 10.0
     static var closingZoneMinimumSize: Double = 50.0
 
