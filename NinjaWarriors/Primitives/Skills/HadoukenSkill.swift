@@ -84,10 +84,14 @@ class HadoukenSkill: EntitySpawnerSkill {
 
         let lifespanComponent = Lifespan(id: RandomNonce().randomNonceString(), entity: hadouken, lifespan: 1)
 
+        let invisible = Invisible(id: RandomNonce().randomNonceString(), entity: hadouken)
+
         manager.addOwnEntity(hadouken)
 
-        manager.add(entity: hadouken, components: [collider, rigidbody, spriteComponent,
-                                                   attackComponent, lifespanComponent], isAdded: false)
+        manager.add(entity: hadouken,
+                    components: [collider, rigidbody, spriteComponent,
+                                 attackComponent, lifespanComponent, invisible],
+                    isAdded: false)
         return hadouken
     }
 
