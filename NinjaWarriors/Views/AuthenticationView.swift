@@ -10,6 +10,13 @@ import SwiftUI
 struct AuthenticationView: View {
     @State private var path = NavigationPath()
 
+    private let destinationMap: [String: (Binding<NavigationPath>) -> AnyView] = [
+        "SingleLobbyView": { path in AnyView(SingleLobbyView(path: path)) },
+        "SignInView": { path in AnyView(SignInView(path: path)) },
+        "LobbyView": { path in AnyView(LobbyView(path: path)) },
+        "HowToPlayView": { _ in AnyView(HowToPlayView()) }
+    ]
+
     var body: some View {
         NavigationStack(path: $path) {
             VStack(spacing: 20) {
@@ -57,21 +64,7 @@ struct AuthenticationView: View {
                 Spacer(minLength: 0)
             }
             .navigationDestination(for: String.self) { destination in
-                switch destination {
-                case "SingleLobbyView":
-                    SingleLobbyView(path: $path)
-                        .navigationBarBackButtonHidden(true)
-                case "SignInView":
-                    SignInView(path: $path)
-                        .navigationBarBackButtonHidden(true)
-                case "LobbyView":
-                    LobbyView(path: $path)
-                        .navigationBarBackButtonHidden(true)
-                case "HowToPlayView":
-                    HowToPlayView()
-                default:
-                    EmptyView()
-                }
+                destinationMap[destination]?($path) ?? AnyView(EmptyView())
             }
             .navigationTitle("Home")
             .background(
