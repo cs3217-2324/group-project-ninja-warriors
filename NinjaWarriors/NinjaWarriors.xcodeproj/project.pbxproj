@@ -95,6 +95,7 @@
 		9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9132AF902BA83E54000F2AC4 /* JoystickView.swift */; };
 		9136A5BA2BAA8B3900197971 /* TransformHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9136A5B92BAA8B3900197971 /* TransformHandler.swift */; };
 		9136A5BC2BAAA80200197971 /* RealTimeManagerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */; };
+		914A818D2BD3C8990053E503 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 914A818C2BD3C8990053E503 /* GoogleService-Info.plist */; };
 		915301B22BAD1ADA007F2A12 /* Rigidbody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B12BAD1ADA007F2A12 /* Rigidbody.swift */; };
 		915301B52BAD1E85007F2A12 /* Collider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B42BAD1E85007F2A12 /* Collider.swift */; };
 		915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915301B62BAD8035007F2A12 /* RigidbodyWrapper.swift */; };
@@ -106,9 +107,6 @@
 		915BFD122BC04A9000AB5815 /* EventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD112BC04A9000AB5815 /* EventQueue.swift */; };
 		915BFD142BC1200600AB5815 /* ClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD132BC1200600AB5815 /* ClientViewModel.swift */; };
 		915BFD1B2BC149A000AB5815 /* ClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915BFD1A2BC149A000AB5815 /* ClientView.swift */; };
-		915E38572BCF56A80081E1F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 915E38562BCF56A80081E1F3 /* GoogleService-Info.plist */; };
-		915E38582BCF56A80081E1F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 915E38562BCF56A80081E1F3 /* GoogleService-Info.plist */; };
-		915E38592BCF56A80081E1F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 915E38562BCF56A80081E1F3 /* GoogleService-Info.plist */; };
 		916991082BC5490600ED1FBD /* SingleLobbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991072BC5490600ED1FBD /* SingleLobbyViewModel.swift */; };
 		9169910A2BC5499700ED1FBD /* SingleLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 916991092BC5499700ED1FBD /* SingleLobbyView.swift */; };
 		9169910C2BC596F100ED1FBD /* HostSingleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9169910B2BC596F100ED1FBD /* HostSingleViewModel.swift */; };
@@ -370,6 +368,7 @@
 		9132AF902BA83E54000F2AC4 /* JoystickView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickView.swift; sourceTree = "<group>"; };
 		9136A5B92BAA8B3900197971 /* TransformHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformHandler.swift; sourceTree = "<group>"; };
 		9136A5BB2BAAA80200197971 /* RealTimeManagerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealTimeManagerAdapter.swift; sourceTree = "<group>"; };
+		914A818C2BD3C8990053E503 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		915301B12BAD1ADA007F2A12 /* Rigidbody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rigidbody.swift; sourceTree = "<group>"; };
 		915301B42BAD1E85007F2A12 /* Collider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collider.swift; sourceTree = "<group>"; };
 		915301B62BAD8035007F2A12 /* RigidbodyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RigidbodyWrapper.swift; sourceTree = "<group>"; };
@@ -381,7 +380,6 @@
 		915BFD112BC04A9000AB5815 /* EventQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventQueue.swift; sourceTree = "<group>"; };
 		915BFD132BC1200600AB5815 /* ClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientViewModel.swift; sourceTree = "<group>"; };
 		915BFD1A2BC149A000AB5815 /* ClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientView.swift; sourceTree = "<group>"; };
-		915E38562BCF56A80081E1F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		916991072BC5490600ED1FBD /* SingleLobbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLobbyViewModel.swift; sourceTree = "<group>"; };
 		916991092BC5499700ED1FBD /* SingleLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLobbyView.swift; sourceTree = "<group>"; };
 		9169910B2BC596F100ED1FBD /* HostSingleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostSingleViewModel.swift; sourceTree = "<group>"; };
@@ -867,7 +865,7 @@
 		916A7D382BA1541700319C26 /* NinjaWarriors */ = {
 			isa = PBXGroup;
 			children = (
-				915E38562BCF56A80081E1F3 /* GoogleService-Info.plist */,
+				914A818C2BD3C8990053E503 /* GoogleService-Info.plist */,
 				916A7D392BA1541700319C26 /* NinjaWarriorsApp.swift */,
 				916A7D3B2BA1541700319C26 /* ContentView.swift */,
 				916A7D3D2BA1541800319C26 /* Assets.xcassets */,
@@ -1531,7 +1529,7 @@
 				7188B6F82BCE677D0059B60D /* three-dashes-in-game.jpeg in Resources */,
 				E6CDFFC42BAF2306007BB867 /* player-copy.png in Resources */,
 				91DED61A2BCE83930054C2F1 /* mainMenu.mp3 in Resources */,
-				915E38572BCF56A80081E1F3 /* GoogleService-Info.plist in Resources */,
+				914A818D2BD3C8990053E503 /* GoogleService-Info.plist in Resources */,
 				91DED6222BCE8AAF0054C2F1 /* refresh.mp3 in Resources */,
 				E6CDFFC02BAF1DB0007BB867 /* player.png in Resources */,
 				91DED6122BCE7EEC0054C2F1 /* shield.mp3 in Resources */,
@@ -1555,7 +1553,6 @@
 				91D496F62BB059090027C657 /* Assets.xcassets in Resources */,
 				91DED61B2BCE83930054C2F1 /* mainMenu.mp3 in Resources */,
 				91DED6232BCE8AAF0054C2F1 /* refresh.mp3 in Resources */,
-				915E38582BCF56A80081E1F3 /* GoogleService-Info.plist in Resources */,
 				91D496F72BB059090027C657 /* Preview Assets.xcassets in Resources */,
 				91DED6132BCE7EEC0054C2F1 /* shield.mp3 in Resources */,
 				9117F62D2BCD27A100ED4F4E /* gameOver.mp3 in Resources */,
@@ -1576,7 +1573,6 @@
 				91DED6242BCE8AAF0054C2F1 /* refresh.mp3 in Resources */,
 				91DED6142BCE7EEC0054C2F1 /* shield.mp3 in Resources */,
 				91DED61C2BCE83930054C2F1 /* mainMenu.mp3 in Resources */,
-				915E38592BCF56A80081E1F3 /* GoogleService-Info.plist in Resources */,
 				9117F6222BCD27A100ED4F4E /* click.mp3 in Resources */,
 				9117F62E2BCD27A100ED4F4E /* gameOver.mp3 in Resources */,
 			);

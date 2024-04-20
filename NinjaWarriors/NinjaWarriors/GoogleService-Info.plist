@@ -3,34 +3,30 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyA5cQGb0oCIxN0JAWFfI-AW3jwRZbPmxfU</string>
-	<key>BUNDLE_ID</key>
-	<string>NinjaWarriors.NinjaWarriors</string>
-	<key>DATABASE_URL</key>
-	<string>https://ninjawarriors-4dbf7-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+	<string>AIzaSyAYf2Bxz9JY_EKoJo53EJCfoIy48aK4bQk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>863568498544</string>
-	<key>GOOGLE_APP_ID</key>
-	<string>1:863568498544:ios:90ba17eb831e70edaf89b5</string>
-	<key>IS_ADS_ENABLED</key>
-	<false/>
-	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
-	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
-	<key>IS_GCM_ENABLED</key>
-	<true/>
-	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<string>267668187858</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>NinjaWarriors.NinjaWarriors</string>
 	<key>PROJECT_ID</key>
-	<string>ninjawarriors-4dbf7</string>
+	<string>plist1</string>
 	<key>STORAGE_BUCKET</key>
-	<string>ninjawarriors-4dbf7.appspot.com</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Karasha-z8mYw.otf</string>
-	</array>
+	<string>plist1.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:267668187858:ios:df9f929c2cb44a2f019b0b</string>
+	<key>DATABASE_URL</key>
+	<string>https://plist1-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>
