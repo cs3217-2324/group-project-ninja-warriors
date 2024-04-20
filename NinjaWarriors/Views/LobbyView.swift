@@ -120,6 +120,8 @@ struct LobbyView: View {
                     .fontWeight(.bold)
                     .cornerRadius(10)
             }.padding(.top, 100)
+            .opacity(isReady ? 0.5 : 1.0)
+            .disabled(isReady)
         }
         .background(
             Image("lobby-bg")
