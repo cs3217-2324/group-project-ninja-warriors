@@ -64,7 +64,9 @@ final class RealTimeManagerAdapter: EntitiesManager {
             "DamageEffectWrapper": DamageEffectWrapper.self,
             "InvisibleWrapper": InvisibleWrapper.self,
             "CollectorWrapper": CollectorWrapper.self,
-            "CollectableWrapper": CollectableWrapper.self
+            "CollectableWrapper": CollectableWrapper.self,
+            "DestroyTagWrapper": DestroyTagWrapper.self,
+            "RespawnableWrapper": RespawnableWrapper.self
         ]
         return wrapperTypes[wrapperType]
     }

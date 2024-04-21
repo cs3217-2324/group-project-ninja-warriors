@@ -15,9 +15,9 @@ class DestroySystem: System {
     }
 
     func update(after time: TimeInterval) {
-        let healthComponents = manager.getAllComponents(ofType: Health.self)
-        for healthComponent in healthComponents where healthComponent.health <= 0 {
-            manager.remove(entity: healthComponent.entity, isRemoved: false)
+        let destroyTags = manager.getAllComponents(ofType: DestroyTag.self)
+        for destroyTag in destroyTags {
+            manager.remove(entity: destroyTag.entity, isRemoved: false)
         }
     }
 }
