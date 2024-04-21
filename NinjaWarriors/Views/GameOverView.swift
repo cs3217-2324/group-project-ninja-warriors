@@ -53,6 +53,9 @@ struct GameOverView: View {
         .sheet(isPresented: $showingAchievements) {
             InGameAchievementsView(achievementManager: achievementManager, matchID: matchID)
         }
+        .onAppear {
+            achievementManager.saveAchievementCounts()
+        }
     }
 }
 

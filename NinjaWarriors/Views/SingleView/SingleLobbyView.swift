@@ -72,6 +72,18 @@ struct SingleLobbyView: View {
             .simultaneousGesture(TapGesture().onEnded {
                 AudioManager.shared.playButtonClickAudio()
             })
+
+            NavigationLink(destination: AchievementsView(achievementManager: viewModel.achievementsManager)) {
+                Text("View Achievements")
+                    .font(.system(size: 20))
+                    .padding()
+                    .background(.pink)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .cornerRadius(10)
+            }.padding(.top, 100)
+            .opacity(isReady ? 0.5 : 1.0)
+            .disabled(isReady)
         }
         .background(
             Image("lobby-bg")

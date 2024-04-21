@@ -22,6 +22,9 @@
 		7132C90C2BCD7E5D0088932F /* DashesCountMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C90B2BCD7E5D0088932F /* DashesCountMetric.swift */; };
 		7132C9142BCD82430088932F /* FirstDamageInGameAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C9132BCD82430088932F /* FirstDamageInGameAchievement.swift */; };
 		7132C9162BCD82F20088932F /* ThreeDashesInGameAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7132C9152BCD82F20088932F /* ThreeDashesInGameAchievement.swift */; };
+		713534A32BD4AD7B00CA6258 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534A22BD4AD7B00CA6258 /* LocalStorageManager.swift */; };
+		713534A52BD4AD8900CA6258 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534A42BD4AD8900CA6258 /* StorageManager.swift */; };
+		713534A92BD4B15D00CA6258 /* AchievementCounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534A82BD4B15D00CA6258 /* AchievementCounts.swift */; };
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
@@ -310,6 +313,9 @@
 		7132C90B2BCD7E5D0088932F /* DashesCountMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashesCountMetric.swift; sourceTree = "<group>"; };
 		7132C9132BCD82430088932F /* FirstDamageInGameAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDamageInGameAchievement.swift; sourceTree = "<group>"; };
 		7132C9152BCD82F20088932F /* ThreeDashesInGameAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDashesInGameAchievement.swift; sourceTree = "<group>"; };
+		713534A22BD4AD7B00CA6258 /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
+		713534A42BD4AD8900CA6258 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		713534A82BD4B15D00CA6258 /* AchievementCounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementCounts.swift; sourceTree = "<group>"; };
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
@@ -556,6 +562,9 @@
 				710EB5622BC5B9AB004539D6 /* Achievement.swift */,
 				71B7166D2BCBDCB600B18E48 /* MetricsSubject.swift */,
 				7191C82C2BCA7DBB005BBE62 /* AchievementManager.swift */,
+				713534A82BD4B15D00CA6258 /* AchievementCounts.swift */,
+				713534A22BD4AD7B00CA6258 /* LocalStorageManager.swift */,
+				713534A42BD4AD8900CA6258 /* StorageManager.swift */,
 			);
 			path = Achievements;
 			sourceTree = "<group>";
@@ -1634,6 +1643,7 @@
 				915301B22BAD1ADA007F2A12 /* Rigidbody.swift in Sources */,
 				916A7D722BA1552D00319C26 /* Vector.swift in Sources */,
 				9132AF762BA59A30000F2AC4 /* FactoryListener.swift in Sources */,
+				713534A32BD4AD7B00CA6258 /* LocalStorageManager.swift in Sources */,
 				9132AF912BA83E54000F2AC4 /* JoystickView.swift in Sources */,
 				E6A0564D2BB0687500398D67 /* DodgeSkill.swift in Sources */,
 				E6B503ED2BC112C100B9565E /* MeleeAttackStrategy.swift in Sources */,
@@ -1750,12 +1760,14 @@
 				7181B1462BC03ECD009711DE /* EnvironmentEffect.swift in Sources */,
 				91CDD1D12BD28C8900464174 /* InvisibleWrapper.swift in Sources */,
 				918048732BC7AA9500026965 /* ClosingZoneMap.swift in Sources */,
+				713534A52BD4AD8900CA6258 /* StorageManager.swift in Sources */,
 				E6DB870C2BB9F756003AC063 /* DodgeSystem.swift in Sources */,
 				9132AF7E2BA59FE5000F2AC4 /* MatchPublisher.swift in Sources */,
 				91DDE6682BB7BFE100851603 /* Health.swift in Sources */,
 				9132AF6C2BA57130000F2AC4 /* EntitiesManager.swift in Sources */,
 				E6DB87112BB9F7BA003AC063 /* DodgeWrapper.swift in Sources */,
 				E6FD345B2BC1525300477B1F /* Lifespan.swift in Sources */,
+				713534A92BD4B15D00CA6258 /* AchievementCounts.swift in Sources */,
 				E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */,
 				9132AF782BA59B0F000F2AC4 /* FactoryPublisher.swift in Sources */,
 				E6ECF63A2BADE9D900DDDE9C /* CircleShape.swift in Sources */,
