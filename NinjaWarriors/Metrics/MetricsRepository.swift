@@ -51,6 +51,11 @@ class MetricsRepository {
         }
 
         let metricTypeKey = MetricType(metricType)
+
+        guard metricsAndObserversMap[metricTypeKey] == nil else {
+            return
+        }
+
         metricsAndObserversMap[metricTypeKey] = (metricType.init(userID: userID), [])
         self.userMetrics[userID] = metricsAndObserversMap
     }

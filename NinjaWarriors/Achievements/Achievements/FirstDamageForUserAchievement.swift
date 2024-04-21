@@ -1,16 +1,16 @@
 //
-//  FirstDamageInGameAchievement.swift
+//  FirstDamageForUserAchievement.swift
 //  NinjaWarriors
 //
-//  Created by Jivesh Mohan on 15/4/24.
+//  Created by Jivesh Mohan on 21/4/24.
 //
 
 import Foundation
 
-class FirstDamageInGameAchievement: Achievement {
-    var title: String = "Getting Your Hands Dirty"
-    var description: String = "Dealt damage for the first time in a game"
-    var imageAsset: String = "achievement-first-damage-in-game"
+class FirstDamageForUserAchievement: Achievement {
+    var title: String = "Baby's First Attack"
+    var description: String = "Dealt damage for the first time as a user"
+    var imageAsset: String = "achievement-first-damage-for-user"
     var isRepeatable: Bool = true
     var count: Int = 0
     var lastGameWhenAchieved: GameID?
@@ -23,12 +23,11 @@ class FirstDamageInGameAchievement: Achievement {
     }
 }
 
-extension FirstDamageInGameAchievement: MetricObserver {
+extension FirstDamageForUserAchievement: MetricObserver {
     func metricDidChange(_ metric: Metric) {
-        guard lastGameWhenAchieved != metric.lastGame else { return }
+        guard count < 1 else { return }
         guard let damageMetric = metric as? DamageDealtMetric else { return }
         guard damageMetric.value > 0 else { return }
         count += 1
-        lastGameWhenAchieved = metric.lastGame
     }
 }

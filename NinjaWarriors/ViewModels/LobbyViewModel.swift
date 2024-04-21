@@ -39,9 +39,14 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     init(signInViewModel: SignInViewModel) {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
-        self.metricsRepository = MetricsRepository(activeUser: signInViewModel.getUserId() ?? guestId, shouldStoreOnCloud: true)
-        self.achievementsManager = AchievementManager(userID: signInViewModel.getUserId() ?? guestId, metricsSubject: metricsRepository, shouldStoreOnCloud: true)
+
+        let localUserID = signInViewModel.getUserId() ?? guestId
+        self.metricsRepository = MetricsRepository(activeUser: localUserID, shouldStoreOnCloud: true)
+        self.achievementsManager = AchievementManager(userID: localUserID, metricsSubject: metricsRepository, shouldStoreOnCloud: true)
+
         isGuest = false
+
+        self.metricsRepository.updateMetrics(LoginCountMetric.self, for: localUserID, withValue: 1)
     }
 
     func getUserId() -> String {
