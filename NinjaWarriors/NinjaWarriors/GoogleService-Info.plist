@@ -7,17 +7,17 @@
 		<string>Karasha-z8mYw.otf</string>
 	</array>
 	<key>API_KEY</key>
-	<string>AIzaSyAYf2Bxz9JY_EKoJo53EJCfoIy48aK4bQk</string>
+	<string>AIzaSyBgiZVgHP4EsXGsYIfRl6ykBPi7ipFnWqI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>267668187858</string>
+	<string>186348980819</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>NinjaWarriors.NinjaWarriors</string>
 	<key>PROJECT_ID</key>
-	<string>plist1</string>
+	<string>plist2-8cc4c</string>
 	<key>STORAGE_BUCKET</key>
-	<string>plist1.appspot.com</string>
+	<string>plist2-8cc4c.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:267668187858:ios:df9f929c2cb44a2f019b0b</string>
+	<string>1:186348980819:ios:2d74c7f3ebf3bf8499d4a6</string>
 	<key>DATABASE_URL</key>
-	<string>https://plist1-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+	<string>https://plist2-8cc4c-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>
