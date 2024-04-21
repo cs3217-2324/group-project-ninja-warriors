@@ -31,7 +31,7 @@ class PlayedTenGamesAchievement: Achievement {
 }
 
 extension PlayedTenGamesAchievement: MetricObserver {
-    func notify(_ metric: Metric) {
+    func metricDidChange(_ metric: Metric) {
         guard count == 0 else {
             return
         }

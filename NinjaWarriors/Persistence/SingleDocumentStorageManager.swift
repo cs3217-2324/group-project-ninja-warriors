@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol StorageManager {
+protocol SingleDocumentStorageManager {
     func save<T: Codable>(_ object: T)
     func load<T: Decodable>(_ completion: @escaping (T?, Error?) -> Void)
 }

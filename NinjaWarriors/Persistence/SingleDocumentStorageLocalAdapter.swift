@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LocalStorageManager: StorageManager {
+class SingleDocumentStorageLocalAdapter: SingleDocumentStorageManager {
     var localFile: String
 
     init(filename: String) {

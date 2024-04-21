@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class FirestoreStorageManager: StorageManager {
+class SingleDocumentStorageFirestoreAdapter: SingleDocumentStorageManager {
     private let collectionRef: CollectionReference
     private let userID: String
 

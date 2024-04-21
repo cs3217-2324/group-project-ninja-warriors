@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AchievementCounts: Codable {
+struct StoredAchievements: Codable {
     var userID: UserID
     var achievementCounts: [String: Int]
 

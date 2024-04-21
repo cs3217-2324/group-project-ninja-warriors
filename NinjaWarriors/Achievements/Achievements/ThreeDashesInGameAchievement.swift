@@ -24,7 +24,7 @@ class ThreeDashesInGameAchievement: Achievement {
 }
 
 extension ThreeDashesInGameAchievement: MetricObserver {
-    func notify(_ metric: Metric) {
+    func metricDidChange(_ metric: Metric) {
         guard lastGameWhenAchieved != metric.lastGame else { return }
         guard let dashesCountMetric = metric as? DashesCountMetric else { return }
         guard dashesCountMetric.inGameValue >= 3 else { return }

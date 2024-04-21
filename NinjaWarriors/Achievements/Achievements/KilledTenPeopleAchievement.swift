@@ -32,7 +32,7 @@ class KilledTenPeopleAchievement: Achievement {
 }
 
 extension KilledTenPeopleAchievement: MetricObserver {
-    func notify(_ metric: Metric) {
+    func metricDidChange(_ metric: Metric) {
         guard count < 1 else {
             return
         }

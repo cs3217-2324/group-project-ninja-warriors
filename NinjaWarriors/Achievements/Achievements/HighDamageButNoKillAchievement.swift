@@ -42,7 +42,7 @@ class HighDamageButNoKillAchievement: Achievement {
 }
 
 extension HighDamageButNoKillAchievement: MetricObserver {
-    func notify(_ metric: Metric) {
+    func metricDidChange(_ metric: Metric) {
         guard metric.lastGame != self.lastGameWhenAchieved else {
             return
         }
