@@ -82,7 +82,7 @@ class MetricsRepository {
 
     func notifyObservers(observers: [MetricObserver], changedMetric: Metric) {
         for observer in observers {
-            observer.notify(changedMetric)
+            observer.metricDidChange(changedMetric)
         }
     }
 
@@ -93,7 +93,7 @@ class MetricsRepository {
 
         for (_, (metric, observers)) in metricsAndObserversMap {
             for observer in observers {
-                observer.notify(metric)
+                observer.metricDidChange(metric)
             }
         }
     }

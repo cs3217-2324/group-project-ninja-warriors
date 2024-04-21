@@ -130,4 +130,15 @@ struct Constants {
                                                      "Shadowblade": shadowbladeSkills,
                                                      "Venomstrike": venomStrikeSkills,
                                                      "Darkwind": darkwindSkills]
+
+    // Achievements
+    static let availableAchievements: [Achievement.Type] = [
+        HighDamageButNoKillAchievement.self,
+        KilledTenPeopleAchievement.self,
+        PlayedTenGamesAchievement.self,
+        FirstDamageInGameAchievement.self,
+        ThreeDashesInGameAchievement.self
+    ]
+    static let localAchievementsFileName: String = "achievements.json"
+    static let achievementsFirebaseCollectionID: String = "achievements"
 }

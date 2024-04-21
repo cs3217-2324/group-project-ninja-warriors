@@ -28,7 +28,7 @@ class FirstDamageInGameAchievement: Achievement {
 }
 
 extension FirstDamageInGameAchievement: MetricObserver {
-    func notify(_ metric: Metric) {
+    func metricDidChange(_ metric: Metric) {
         guard lastGameWhenAchieved != metric.lastGame else { return }
         guard let damageMetric = metric as? DamageDealtMetric else { return }
         guard damageMetric.value > 0 else { return }

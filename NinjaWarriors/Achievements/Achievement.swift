@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Achievement {
+protocol Achievement: MetricObserver {
     var title: String { get }
     var description: String { get }
     var imageAsset: String { get }

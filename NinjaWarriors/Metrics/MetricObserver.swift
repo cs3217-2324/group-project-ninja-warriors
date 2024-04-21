@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MetricObserver: AnyObject {
-    func notify(_ metric: Metric)
+    func metricDidChange(_ metric: Metric)
 }

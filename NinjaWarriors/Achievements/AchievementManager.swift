@@ -8,19 +8,25 @@
 import Foundation
 
 class AchievementManager: ObservableObject {
-    let userID: UserID
+    var userID: UserID
     @Published var achievements: [Achievement]
-    let achievementTypes: [Achievement.Type] = [
-        HighDamageButNoKillAchievement.self,
-        KilledTenPeopleAchievement.self,
-        PlayedTenGamesAchievement.self,
-        FirstDamageInGameAchievement.self,
-        ThreeDashesInGameAchievement.self
-    ]
+    var storageManager: SingleDocumentStorageManager
 
-    init(userID: UserID, metricsSubject: MetricsSubject) {
+    init(userID: UserID, metricsSubject: MetricsSubject, shouldStoreOnCloud: Bool) {
         self.userID = userID
-        self.achievements = achievementTypes.map { $0.init(userID: userID, metricsSubject: metricsSubject) }
+        self.achievements = Constants.availableAchievements.map { $0.init(userID: userID, metricsSubject: metricsSubject) }
+
+        if shouldStoreOnCloud {
+            self.storageManager = SingleDocumentStorageFirestoreAdapter(
+                collectionID: Constants.achievementsFirebaseCollectionID,
+                userID: userID
+            )
+        } else {
+            let filename = userID + "-" + Constants.localAchievementsFileName
+            self.storageManager = SingleDocumentStorageLocalAdapter(filename: filename)
+        }
+
+        loadAchievementCounts()
     }
 
     var unlockedAchievements: [Achievement] {
@@ -30,6 +36,29 @@ class AchievementManager: ObservableObject {
     func getUnlockedAchievements(fromGame matchID: String) -> [Achievement] {
         return unlockedAchievements.filter { achievement in
             achievement.lastGameWhenAchieved == matchID
+        }
+    }
+
+    func saveAchievementCounts() {
+        let counts = getCurrentAchievementCounts()
+        storageManager.save(counts)
+    }
+
+    private func getCurrentAchievementCounts() -> StoredAchievements {
+        return StoredAchievements(userID: userID, achievements: achievements)
+    }
+
+    func loadAchievementCounts() {
+        storageManager.load { [weak self] (counts: StoredAchievements?, _) in
+            guard let counts = counts else { return }
+            guard let self = self else { return }
+            self.updateAchievementCounts(from: counts)
+        }
+    }
+
+    private func updateAchievementCounts(from counts: StoredAchievements) {
+        for index in achievements.indices {
+            counts.updateAchievement(achievement: &achievements[index])
         }
     }
 }
