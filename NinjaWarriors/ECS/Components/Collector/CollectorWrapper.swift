@@ -26,8 +26,8 @@ struct CollectorWrapper: ComponentWrapper {
         var entityContainer = container.nestedContainer(keyedBy: AnyCodingKey.self,
                                                         forKey: AnyCodingKey(stringValue: "entityTypeCounts"))
 
-        for (entityID, count) in entityTypeCounts {
-            try entityContainer.encode(count, forKey: AnyCodingKey(stringValue: entityID))
+        for (entityType, count) in entityTypeCounts {
+            try entityContainer.encode(count, forKey: AnyCodingKey(stringValue: entityType))
         }
     }
 
@@ -41,9 +41,9 @@ struct CollectorWrapper: ComponentWrapper {
             let entityContainer = try container.nestedContainer(keyedBy: AnyCodingKey.self,
                                                                 forKey: AnyCodingKey(stringValue: "entityTypeCounts"))
             for key in entityContainer.allKeys {
-                let entityID = key.stringValue
+                let entityType = key.stringValue
                 let count = try entityContainer.decode(Int.self, forKey: key)
-                entityTypeCounts[entityID] = count
+                entityTypeCounts[entityType] = count
             }
         } catch {
             entityTypeCounts = [:] // Assign an empty dictionary if field is missing
