@@ -130,6 +130,7 @@ struct LobbyView: View {
                 .edgesIgnoringSafeArea(.all)
                 .frame(width: Constants.screenWidth, height: Constants.screenHeight)
         )
+        .navigationBarBackButtonHidden(isReady)
     }
 
     private var userLoginInfo: some View {

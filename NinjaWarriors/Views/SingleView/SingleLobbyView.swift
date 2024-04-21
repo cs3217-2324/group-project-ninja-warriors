@@ -80,6 +80,7 @@ struct SingleLobbyView: View {
                 .edgesIgnoringSafeArea(.all)
                 .frame(width: Constants.screenWidth, height: Constants.screenHeight)
         )
+        .navigationBarBackButtonHidden(isReady)
     }
 
     private var readyButton: some View {
