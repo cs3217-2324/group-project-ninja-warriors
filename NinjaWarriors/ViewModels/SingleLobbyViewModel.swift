@@ -21,8 +21,8 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
     var achievementsManager: AchievementManager
 
     init() {
-        metricsRepository = MetricsRepository()
-        achievementsManager = AchievementManager(userID: "singlePlayer", metricsSubject: metricsRepository, shouldStoreOnCloud: false)
+        metricsRepository = MetricsRepository(activeUser: Constants.singlePlayerID, shouldStoreOnCloud: false)
+        achievementsManager = AchievementManager(userID: Constants.singlePlayerID, metricsSubject: metricsRepository, shouldStoreOnCloud: false)
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
     }
 

@@ -22,7 +22,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     var character = "Shadowstrike"
     let signInViewModel: SignInViewModel
     let isGuest: Bool
-    let guestId: String = RandomNonce().randomNonceString()
+    let guestId: String = UIDevice.current.identifierForVendor?.uuidString ?? RandomNonce().randomNonceString()
     var metricsRepository: MetricsRepository
     var achievementsManager: AchievementManager
 
@@ -30,7 +30,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     init() {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = SignInViewModel()
-        self.metricsRepository = MetricsRepository()
+        self.metricsRepository = MetricsRepository(activeUser: guestId, shouldStoreOnCloud: false)
         self.achievementsManager = AchievementManager(userID: guestId, metricsSubject: self.metricsRepository, shouldStoreOnCloud: false)
         isGuest = true
     }
@@ -39,7 +39,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     init(signInViewModel: SignInViewModel) {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
-        self.metricsRepository = MetricsRepository()
+        self.metricsRepository = MetricsRepository(activeUser: signInViewModel.getUserId() ?? guestId, shouldStoreOnCloud: true)
         self.achievementsManager = AchievementManager(userID: signInViewModel.getUserId() ?? guestId, metricsSubject: metricsRepository, shouldStoreOnCloud: true)
         isGuest = false
     }
