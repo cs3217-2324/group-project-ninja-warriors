@@ -37,6 +37,7 @@ class GameWorld {
         let lifespanManager = LifespanSystem(for: entityComponentManager)
         // let scoreManager = ScoreSystem(for: entityComponentManager)
         let combatSystem = CombatSystem(for: entityComponentManager)
+        let collectionSystem = CollectionSystem(for: entityComponentManager)
 
         // systemManager.add(system: transformHandler)
         systemManager.add(system: rigidbodyHandler)
@@ -47,6 +48,7 @@ class GameWorld {
         systemManager.add(system: dodgeManager)
         systemManager.add(system: environmentEffectSystem)
         systemManager.add(system: lifespanManager)
+        systemManager.add(system: collectionSystem)
         systemManager.add(system: destroyManager)
         systemManager.add(system: combatSystem)
 

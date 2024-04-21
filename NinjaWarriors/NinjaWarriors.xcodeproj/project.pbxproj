@@ -242,6 +242,7 @@
 		E62FA3402BCC6A24000D551A /* DamageEffectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62FA33F2BCC6A24000D551A /* DamageEffectWrapper.swift */; };
 		E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC002BBADA55006C2C4C /* Transform.swift */; };
 		E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */; };
+		E659D5AB2BD4B70B00D6B7A5 /* CollectionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E659D5AA2BD4B70B00D6B7A5 /* CollectionSystem.swift */; };
 		E67C23E82BCBBA97005D7304 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23E72BCBBA97005D7304 /* GameMode.swift */; };
 		E67C23EA2BCBBAEB005D7304 /* LastManStandingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23E92BCBBAEB005D7304 /* LastManStandingMode.swift */; };
 		E67C23F22BCBD144005D7304 /* PlayerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23F12BCBD144005D7304 /* PlayerComponent.swift */; };
@@ -475,6 +476,7 @@
 		E62FA33F2BCC6A24000D551A /* DamageEffectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DamageEffectWrapper.swift; sourceTree = "<group>"; };
 		E63FFC002BBADA55006C2C4C /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformWrapper.swift; sourceTree = "<group>"; };
+		E659D5AA2BD4B70B00D6B7A5 /* CollectionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionSystem.swift; sourceTree = "<group>"; };
 		E67C23E72BCBBA97005D7304 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		E67C23E92BCBBAEB005D7304 /* LastManStandingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastManStandingMode.swift; sourceTree = "<group>"; };
 		E67C23F12BCBD144005D7304 /* PlayerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponent.swift; sourceTree = "<group>"; };
@@ -749,6 +751,7 @@
 				91DDE6552BB4460800851603 /* SystemType.swift */,
 				714A4A652BA721E50067D5CB /* SystemManager.swift */,
 				714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */,
+				E659D5A92BD4B66900D6B7A5 /* CollectionSystem */,
 				E62FA3322BCC47D4000D551A /* CombatSystem */,
 				7181B14E2BC05372009711DE /* EnvironmentEffectSystem */,
 				E6FD345C2BC1544600477B1F /* LifespanSystem */,
@@ -1285,6 +1288,14 @@
 			path = Transform;
 			sourceTree = "<group>";
 		};
+		E659D5A92BD4B66900D6B7A5 /* CollectionSystem */ = {
+			isa = PBXGroup;
+			children = (
+				E659D5AA2BD4B70B00D6B7A5 /* CollectionSystem.swift */,
+			);
+			path = CollectionSystem;
+			sourceTree = "<group>";
+		};
 		E67C23E62BCBBA89005D7304 /* GameModes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1641,6 +1652,7 @@
 				918048802BC9094B00026965 /* MapSelectionView.swift in Sources */,
 				E62FA33D2BCC699C000D551A /* DamageEffect.swift in Sources */,
 				7113A4942BA60E2E00805340 /* Entity.swift in Sources */,
+				E659D5AB2BD4B70B00D6B7A5 /* CollectionSystem.swift in Sources */,
 				E6D6BD0D2BC1C1F4004BFD59 /* EntityViewModel.swift in Sources */,
 				E6ECF6342BADE86100DDDE9C /* SlashAOE.swift in Sources */,
 				915301BF2BAE4C25007F2A12 /* SkillCasterWrapper.swift in Sources */,
