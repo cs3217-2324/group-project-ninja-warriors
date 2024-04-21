@@ -23,8 +23,4 @@ class EntityMetricsRecorderAdapter: EntityMetricsRecorder {
     func resetAllMetrics(forEntityIDs entityIDs: [EntityID]) {
         self.metricsRepository.resetAllGameMetrics(forUsers: entityIDs)
     }
-
-    func getRepository() -> MetricsRepository {
-        metricsRepository
-    }
 }

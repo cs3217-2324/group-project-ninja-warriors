@@ -78,8 +78,4 @@ class GameWorld {
             self.isGameOver = true
         }
     }
-
-    func getRepository() -> MetricsRepository {
-        entityComponentManager.entityMetricsRecorder.getRepository()
-    }
 }
