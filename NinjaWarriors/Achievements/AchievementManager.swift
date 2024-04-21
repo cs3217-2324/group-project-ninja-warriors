@@ -12,10 +12,20 @@ class AchievementManager: ObservableObject {
     @Published var achievements: [Achievement]
     var storageManager: StorageManager
 
-    init(userID: UserID, metricsSubject: MetricsSubject) {
+    init(userID: UserID, metricsSubject: MetricsSubject, shouldStoreOnCloud: Bool) {
         self.userID = userID
         self.achievements = Constants.availableAchievements.map { $0.init(userID: userID, metricsSubject: metricsSubject) }
-        self.storageManager = LocalStorageManager(filename: Constants.localAchievementsFileName)
+
+        if shouldStoreOnCloud {
+            self.storageManager = FirestoreStorageManager(
+                collectionID: Constants.achievementsFirebaseCollectionID,
+                userID: userID
+            )
+        } else {
+            let filename = userID + "-" + Constants.localAchievementsFileName
+            self.storageManager = LocalStorageManager(filename: filename)
+        }
+
         loadAchievementCounts()
     }
 
@@ -38,11 +48,12 @@ class AchievementManager: ObservableObject {
         return AchievementCounts(userID: userID, achievements: achievements)
     }
 
-    private func loadAchievementCounts() {
-        guard let counts: AchievementCounts = storageManager.load() else {
-            return
+    func loadAchievementCounts() {
+        storageManager.load { [weak self] (counts: AchievementCounts?, _) in
+            guard let counts = counts else { return }
+            guard let self = self else { return }
+            self.updateAchievementCounts(from: counts)
         }
-        updateAchievementCounts(from: counts)
     }
 
     private func updateAchievementCounts(from counts: AchievementCounts) {

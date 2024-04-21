@@ -133,4 +133,5 @@ struct Constants {
         ThreeDashesInGameAchievement.self
     ]
     static let localAchievementsFileName: String = "achievements.json"
+    static let achievementsFirebaseCollectionID: String = "achievements"
 }

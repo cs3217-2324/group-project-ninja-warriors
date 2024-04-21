@@ -61,6 +61,6 @@ struct GameOverView: View {
 
 struct GameOverView_Previews: PreviewProvider {
     static var previews: some View {
-        GameOverView(path: .constant(NavigationPath()), achievementManager: AchievementManager(userID: "test", metricsSubject: MetricsRepository()), matchID: "match")
+        GameOverView(path: .constant(NavigationPath()), achievementManager: AchievementManager(userID: "test", metricsSubject: MetricsRepository(), shouldStoreOnCloud: false), matchID: "match")
     }
 }

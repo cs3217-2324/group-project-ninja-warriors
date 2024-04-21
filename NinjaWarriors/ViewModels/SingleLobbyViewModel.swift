@@ -22,7 +22,7 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
 
     init() {
         metricsRepository = MetricsRepository()
-        achievementsManager = AchievementManager(userID: "singlePlayer", metricsSubject: metricsRepository)
+        achievementsManager = AchievementManager(userID: "singlePlayer", metricsSubject: metricsRepository, shouldStoreOnCloud: false)
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
     }
 

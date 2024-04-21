@@ -25,6 +25,7 @@
 		713534A32BD4AD7B00CA6258 /* LocalStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534A22BD4AD7B00CA6258 /* LocalStorageManager.swift */; };
 		713534A52BD4AD8900CA6258 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534A42BD4AD8900CA6258 /* StorageManager.swift */; };
 		713534A92BD4B15D00CA6258 /* AchievementCounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534A82BD4B15D00CA6258 /* AchievementCounts.swift */; };
+		713534AB2BD4DE7200CA6258 /* FirestoreStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534AA2BD4DE7200CA6258 /* FirestoreStorageManager.swift */; };
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
@@ -316,6 +317,7 @@
 		713534A22BD4AD7B00CA6258 /* LocalStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManager.swift; sourceTree = "<group>"; };
 		713534A42BD4AD8900CA6258 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		713534A82BD4B15D00CA6258 /* AchievementCounts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementCounts.swift; sourceTree = "<group>"; };
+		713534AA2BD4DE7200CA6258 /* FirestoreStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreStorageManager.swift; sourceTree = "<group>"; };
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
@@ -564,6 +566,7 @@
 				7191C82C2BCA7DBB005BBE62 /* AchievementManager.swift */,
 				713534A82BD4B15D00CA6258 /* AchievementCounts.swift */,
 				713534A22BD4AD7B00CA6258 /* LocalStorageManager.swift */,
+				713534AA2BD4DE7200CA6258 /* FirestoreStorageManager.swift */,
 				713534A42BD4AD8900CA6258 /* StorageManager.swift */,
 			);
 			path = Achievements;
@@ -1780,6 +1783,7 @@
 				916A7DA32BA3F74700319C26 /* Player.swift in Sources */,
 				E6B503EB2BC112AF00B9565E /* AttackStrategy.swift in Sources */,
 				714F20972BC27FF800A5B36E /* HostView.swift in Sources */,
+				713534AB2BD4DE7200CA6258 /* FirestoreStorageManager.swift in Sources */,
 				E62FA3402BCC6A24000D551A /* DamageEffectWrapper.swift in Sources */,
 				91C65BE72BACF1BF0085D96F /* SkillCaster.swift in Sources */,
 				E6CCAEDD2BAB3CC00041053B /* GameWorld.swift in Sources */,

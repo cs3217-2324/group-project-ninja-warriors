@@ -9,5 +9,5 @@ import Foundation
 
 protocol StorageManager {
     func save<T: Codable>(_ object: T)
-    func load<T: Decodable>() -> T?
+    func load<T: Decodable>(_ completion: @escaping (T?, Error?) -> Void)
 }
