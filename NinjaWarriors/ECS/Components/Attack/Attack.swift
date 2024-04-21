@@ -23,7 +23,7 @@ class Attack: Component {
             let uniqueDamageEffect = DamageEffect(
                 id: RandomNonce().randomNonceString(),
                 entity: target,
-                sourceId: self.entity.id,
+                sourceId: damageEffectTemplate.sourceId,
                 initialDamage: damageEffectTemplate.initialDamage,
                 damagePerTick: damageEffectTemplate.damagePerTick,
                 duration: damageEffectTemplate.duration

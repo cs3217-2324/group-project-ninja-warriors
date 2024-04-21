@@ -49,6 +49,12 @@ class EntityComponentManager {
         // manager.deleteAllKeysExcept(matchId: "a")
     }
 
+    deinit {
+        entityMap.keys.forEach { entityID in
+            entityMetricsRecorder.record(GamesPlayedMetric.self, forEntityID: entityID, value: 1)
+        }
+    }
+
     // No mapQueue needed for intial population
     func initialPopulate() {
         Task {

@@ -23,6 +23,7 @@ class SlashAOESkill: EntitySpawnerSkill {
 
     func activate(from entity: Entity, in manager: EntityComponentManager) {
        _ = spawnEntity(from: entity, in: manager)
+        manager.entityMetricsRecorder.record(SlashesCountMetric.self, forEntityID: entity.id, value: 1)
     }
 
     func updateAttributes(_ newSlashAOESkill: SlashAOESkill) {

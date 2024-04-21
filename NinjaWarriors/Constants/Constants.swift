@@ -136,11 +136,15 @@ struct Constants {
 
     // Achievements
     static let availableAchievements: [Achievement.Type] = [
+        LoginForTheFirstTimeAchievement.self,
         HighDamageButNoKillAchievement.self,
         KilledTenPeopleAchievement.self,
         PlayedTenGamesAchievement.self,
         FirstDamageInGameAchievement.self,
-        ThreeDashesInGameAchievement.self
+        FirstDamageForUserAchievement.self,
+        ThreeDashesInGameAchievement.self,
+        ThreeDodgesInGameAchievement.self,
+        ThreeDodgesThreeDashesInGameAchievement.self
     ]
     static let localAchievementsFileName: String = "achievements.json"
     static let achievementsFirebaseCollectionID: String = "achievements"
