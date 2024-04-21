@@ -27,6 +27,7 @@
 		713534AB2BD4DE7200CA6258 /* SingleDocumentStorageFirestoreAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534AA2BD4DE7200CA6258 /* SingleDocumentStorageFirestoreAdapter.swift */; };
 		713534AE2BD50E9500CA6258 /* SingleDocumentStorageLocalAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534AD2BD50E9500CA6258 /* SingleDocumentStorageLocalAdapter.swift */; };
 		713534B02BD50F6500CA6258 /* StoredMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534AF2BD50F6500CA6258 /* StoredMetrics.swift */; };
+		713534B32BD54FA000CA6258 /* SingleDocumentStorageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534B22BD54FA000CA6258 /* SingleDocumentStorageManagerTests.swift */; };
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
@@ -322,6 +323,7 @@
 		713534AA2BD4DE7200CA6258 /* SingleDocumentStorageFirestoreAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleDocumentStorageFirestoreAdapter.swift; sourceTree = "<group>"; };
 		713534AD2BD50E9500CA6258 /* SingleDocumentStorageLocalAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleDocumentStorageLocalAdapter.swift; sourceTree = "<group>"; };
 		713534AF2BD50F6500CA6258 /* StoredMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredMetrics.swift; sourceTree = "<group>"; };
+		713534B22BD54FA000CA6258 /* SingleDocumentStorageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleDocumentStorageManagerTests.swift; sourceTree = "<group>"; };
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
@@ -609,6 +611,14 @@
 				713534A42BD4AD8900CA6258 /* SingleDocumentStorageManager.swift */,
 			);
 			path = Persistence;
+			sourceTree = "<group>";
+		};
+		713534B12BD54F8B00CA6258 /* SingleDocumentStorageTests */ = {
+			isa = PBXGroup;
+			children = (
+				713534B22BD54FA000CA6258 /* SingleDocumentStorageManagerTests.swift */,
+			);
+			path = SingleDocumentStorageTests;
 			sourceTree = "<group>";
 		};
 		7181B1442BC03DFC009711DE /* EnvironmentEffect */ = {
@@ -915,6 +925,7 @@
 		916A7D4E2BA1541800319C26 /* NinjaWarriorsTests */ = {
 			isa = PBXGroup;
 			children = (
+				713534B12BD54F8B00CA6258 /* SingleDocumentStorageTests */,
 				7191C8342BCA9298005BBE62 /* AchievementTests */,
 				7183D0792BB03C2E0078C960 /* ECSTests */,
 				91EF1F992BAED512000B52A2 /* PrimitiveTests */,
@@ -1844,6 +1855,7 @@
 				9117F6372BCD280B00ED4F4E /* HowToPlayView.swift in Sources */,
 				7183D07B2BB03C400078C960 /* EntityComponentManagerTests.swift in Sources */,
 				91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */,
+				713534B32BD54FA000CA6258 /* SingleDocumentStorageManagerTests.swift in Sources */,
 				7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */,
 				916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */,
 				91DED6022BCE58980054C2F1 /* Node.swift in Sources */,
