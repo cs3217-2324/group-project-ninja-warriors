@@ -22,6 +22,7 @@ class CollectionSystem: System {
                let collidedEntity = manager.entity(with: collidedEntityID),
                let collectable = manager.getComponent(ofType: Collectable.self, for: collidedEntity) {
                 collector.addItem(of: collectable.entityType, count: 1)
+                manager.remove(entity: collidedEntity, isRemoved: false)
             }
         }
     }

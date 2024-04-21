@@ -14,9 +14,9 @@
             filePath = "ECS/Systems/CollisionSystem/CollisionRules.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
-            landmarkName = "alignEntityRotation(for:)"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "performAction(on:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -30,8 +30,8 @@
             filePath = "ECS/Systems/CollisionSystem/CollisionRules.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
             landmarkName = "moveRigidBody(_:across:)"
             landmarkType = "7">
             <Locations>
@@ -87,22 +87,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "57341863-43C9-4527-A871-0F72840E482E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ECS/Systems/CollisionSystem/CollisionRules.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
-            landmarkName = "performAction(on:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "7817EC89-9CDC-4A15-9ED6-FB9AF2F524E4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -126,9 +110,9 @@
             filePath = "ECS/Systems/CollisionSystem/CollisionRules.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "alignEntityRotation(for:)"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "performAction(on:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -142,8 +126,8 @@
             filePath = "ECS/Systems/CollisionSystem/CollisionRules.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
             landmarkName = "moveRigidBody(_:across:)"
             landmarkType = "7">
             <Locations>
@@ -190,8 +174,8 @@
             filePath = "ECS/Systems/CollisionSystem/CollisionRules.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
             landmarkName = "moveRigidBody(_:across:)"
             landmarkType = "7">
             <Locations>
@@ -238,8 +222,8 @@
             filePath = "ECS/Systems/CollisionSystem/CollisionRules.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "moveRigidBody(_:across:)"
             landmarkType = "7">
             <Locations>

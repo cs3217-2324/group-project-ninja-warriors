@@ -51,14 +51,6 @@ class CollisionRules: Rules {
                 alignEntityRotation(for: object)
             }
 
-            // Only allow entity with collector component to collect collectable component
-            if manager?.getComponent(ofType: Collector.self, for: object.entity) != nil,
-               let collidingEntityID = object.attachedCollider?.collidedEntities.first,
-               let collidingEntity = manager?.entity(with: collidingEntityID),
-               manager?.getComponent(ofType: Collectable.self, for: collidingEntity) != nil {
-                performAction(on: collidingEntity)
-            }
-
         } else if let collider = object.attachedCollider, collider.isColliding || collider.isOutOfBounds {
             object.collidingVelocity = input
             object.velocity = Vector.zero
@@ -71,12 +63,6 @@ class CollisionRules: Rules {
 
         moveRigidBody(object, across: deltaTime)
         object.attachedCollider?.colliderShape.center = object.position
-    }
-
-    private func performAction(on entity: Entity) {
-        if let health = manager?.getComponent(ofType: Health.self, for: entity) {
-            health.kill()
-        }
     }
 
     private func alignEntityRotation(for rigidBody: Rigidbody) {

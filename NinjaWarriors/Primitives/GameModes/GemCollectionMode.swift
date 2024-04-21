@@ -11,9 +11,13 @@ class GemCollectionMode: GameMode {
     var hasStarted: Bool = false
 
     func isGameOver(for gameWorld: GameWorld) -> Bool {
+        guard hasStarted else {
+            return false
+        }
+
         let collectors = gameWorld.entityComponentManager.getAllComponents(ofType: Collector.self)
         for collector in collectors {
-            if collector.countItem(of: "Gem") >= 10 {
+            if collector.countItem(of: "Gem") >= 4 {
                 return true
             }
         }

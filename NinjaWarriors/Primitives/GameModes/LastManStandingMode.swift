@@ -14,8 +14,8 @@ class LastManStandingMode: GameMode {
         guard hasStarted else {
             return false
         }
+
         let playerComponents = gameWorld.entityComponentManager.getAllComponents(ofType: PlayerComponent.self)
-        print(playerComponents)
         return playerComponents.count <= 1
     }
 
