@@ -8,7 +8,7 @@
 import Foundation
 
 class GemMap: Map {
-    internal let gameMode: GameMode = LastManStandingMode() // TODO: Add gem collection mode
+    internal let gameMode: GameMode = GemCollectionMode()
     internal let mapBackground = "gray-wall"
     internal var mapEntities: [Entity] = []
 

@@ -243,6 +243,7 @@
 		E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC002BBADA55006C2C4C /* Transform.swift */; };
 		E63FFC032BBADAD7006C2C4C /* TransformWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */; };
 		E659D5AB2BD4B70B00D6B7A5 /* CollectionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E659D5AA2BD4B70B00D6B7A5 /* CollectionSystem.swift */; };
+		E659D5AD2BD4BBC600D6B7A5 /* GemCollectionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E659D5AC2BD4BBC600D6B7A5 /* GemCollectionMode.swift */; };
 		E67C23E82BCBBA97005D7304 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23E72BCBBA97005D7304 /* GameMode.swift */; };
 		E67C23EA2BCBBAEB005D7304 /* LastManStandingMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23E92BCBBAEB005D7304 /* LastManStandingMode.swift */; };
 		E67C23F22BCBD144005D7304 /* PlayerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67C23F12BCBD144005D7304 /* PlayerComponent.swift */; };
@@ -477,6 +478,7 @@
 		E63FFC002BBADA55006C2C4C /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
 		E63FFC022BBADAD7006C2C4C /* TransformWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransformWrapper.swift; sourceTree = "<group>"; };
 		E659D5AA2BD4B70B00D6B7A5 /* CollectionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionSystem.swift; sourceTree = "<group>"; };
+		E659D5AC2BD4BBC600D6B7A5 /* GemCollectionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GemCollectionMode.swift; sourceTree = "<group>"; };
 		E67C23E72BCBBA97005D7304 /* GameMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
 		E67C23E92BCBBAEB005D7304 /* LastManStandingMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastManStandingMode.swift; sourceTree = "<group>"; };
 		E67C23F12BCBD144005D7304 /* PlayerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponent.swift; sourceTree = "<group>"; };
@@ -1300,6 +1302,7 @@
 			isa = PBXGroup;
 			children = (
 				E67C23E72BCBBA97005D7304 /* GameMode.swift */,
+				E659D5AC2BD4BBC600D6B7A5 /* GemCollectionMode.swift */,
 				E67C23E92BCBBAEB005D7304 /* LastManStandingMode.swift */,
 			);
 			path = GameModes;
@@ -1667,6 +1670,7 @@
 				E6DB870F2BB9F79F003AC063 /* Dodge.swift in Sources */,
 				710EB56D2BC68A65004539D6 /* Metric.swift in Sources */,
 				916A7D3A2BA1541700319C26 /* NinjaWarriorsApp.swift in Sources */,
+				E659D5AD2BD4BBC600D6B7A5 /* GemCollectionMode.swift in Sources */,
 				917BEBAA2BCA29F7001D0F7C /* ObstacleMap.swift in Sources */,
 				7181B14A2BC046F6009711DE /* ClosingZone.swift in Sources */,
 				9169913B2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
