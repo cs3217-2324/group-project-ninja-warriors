@@ -29,6 +29,13 @@ struct Constants {
         static let offsetY: CGFloat = 15
     }
 
+    struct GemCount {
+        static let height: CGFloat = 25
+        static let width: CGFloat = 25
+        static let offsetX: CGFloat = 20
+        static let offsetY: CGFloat = 15
+    }
+
     // TODO: Reset to 4 after testing
     static let playerCount = 2
 

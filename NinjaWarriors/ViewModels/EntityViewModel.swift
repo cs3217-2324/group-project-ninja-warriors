@@ -54,4 +54,11 @@ class EntityViewModel: ObservableObject {
         let remainingLifespan = max(lifespan.lifespan - lifespan.elapsedTime, 0)
         return Double(remainingLifespan / max(lifespan.lifespan, 1))
     }
+
+    var gemCount: Int {
+        guard let collector = components.first(where: { $0 is Collector }) as? Collector else {
+            return 0
+        }
+        return collector.countItem(of: "Gem")
+    }
 }

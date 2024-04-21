@@ -20,6 +20,9 @@ struct EntityView: View {
             if let health = viewModel.health, let sprite = viewModel.sprite, !(health.entity is Gem) {
                 healthBar(for: health, width: sprite.width)
             }
+            if viewModel.gemCount > 0 {
+                gemCount
+            }
         }
     }
 
@@ -105,6 +108,29 @@ struct EntityView: View {
                 .position(x: viewModel.position.x - healthBarWidth / 2 + healthBarFillWidth / 2,
                           y: viewModel.position.y - healthBarOffsetY)
         }
+    }
+
+    private var gemCount: some View {
+        let offsetY = viewModel.sprite.map { $0.height / 2 + Constants.GemCount.offsetY } ?? Constants.GemCount.offsetY
+        let xPos = viewModel.sprite.map { $0.width / 2 + viewModel.position.x + Constants.GemCount.offsetX } ?? viewModel.position.x + Constants.GemCount.offsetX
+        let yPos = viewModel.position.y - offsetY
+
+        return HStack(spacing: 10) {
+            Image("gem")
+                .resizable()
+                .scaledToFill()
+                .frame(width: Constants.GemCount.width, height: Constants.GemCount.height)
+
+            Text("\(viewModel.gemCount)")
+                .fontWeight(.bold)
+                .foregroundColor(.black)
+                .background(
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: Constants.GemCount.width, height: Constants.GemCount.height)
+                    )
+        }
+        .position(x: xPos, y: yPos)
     }
 }
 
