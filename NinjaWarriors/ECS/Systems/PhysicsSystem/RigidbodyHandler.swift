@@ -68,7 +68,7 @@ class RigidbodyHandler: System, PhysicsRigidBody, PhysicsElasticCollision {
         }
     }
 
-    //Ensures rigidbody and collider have the same center position
+    // Ensures rigidbody and collider have the same center position
     private func syncTransform() {
         let rigidBodies = manager.getAllComponents(ofType: Rigidbody.self)
         for rigidBody in rigidBodies {

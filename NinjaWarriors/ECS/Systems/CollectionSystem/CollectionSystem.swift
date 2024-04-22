@@ -17,7 +17,6 @@ class CollectionSystem: System {
     func update(after time: TimeInterval) {
         let collectors = manager.getAllComponents(ofType: Collector.self)
         for collector in collectors {
-            collector.updateTime(time)
             if let collider = manager.getComponent(ofType: Collider.self, for: collector.entity),
                let collidedEntityID = collider.collidedEntities.first,
                let collidedEntity = manager.entity(with: collidedEntityID),

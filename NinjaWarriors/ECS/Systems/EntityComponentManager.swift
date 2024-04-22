@@ -259,9 +259,7 @@ class EntityComponentManager {
     func remove(entity: Entity, isRemoved: Bool = true) {
         assertRepresentation()
 
-        if !(entity is Gem) {
-            mapQueue.process(entity.id)
-        }
+        mapQueue.process(entity.id)
 
         // Remove components from both local ecm and fetched ecm
         removeComponents(from: entity, isRemoved: isRemoved)
