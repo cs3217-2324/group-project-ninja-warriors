@@ -53,8 +53,8 @@ struct Constants {
     }
 
     static let hadoukenDamage = 20.0
-    static let hadoukenDamagePerTick = 1.0
-    static let hadoukenDamageDuration = 1.0
+    static let hadoukenDamagePerTick = 0.0
+    static let hadoukenDamageDuration = 0.0
     static let hadoukenLifespan = 1.0
 
     // MARK: Closing Zone
