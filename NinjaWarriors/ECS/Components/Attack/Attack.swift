@@ -28,7 +28,8 @@ class Attack: Component {
                 damagePerTick: damageEffectTemplate.damagePerTick,
                 duration: damageEffectTemplate.duration
             )
-            attackStrategy.applyDamageEffect(to: target, from: self.entity, withDamageEffect: uniqueDamageEffect, manager: manager)
+            attackStrategy.applyDamageEffect(to: target, from: self.entity,
+                                             withDamageEffect: uniqueDamageEffect, manager: manager)
             self.activated = true
         }
     }

@@ -22,7 +22,8 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
 
     init() {
         metricsRepository = MetricsRepository(activeUser: Constants.singlePlayerID, shouldStoreOnCloud: false)
-        achievementsManager = AchievementManager(userID: Constants.singlePlayerID, metricsSubject: metricsRepository, shouldStoreOnCloud: false)
+        achievementsManager = AchievementManager(userID: Constants.singlePlayerID,
+                                                 metricsSubject: metricsRepository, shouldStoreOnCloud: false)
         realTimeManager = RealTimeManagerAdapter(matchId: matchId)
     }
 
@@ -87,7 +88,8 @@ final class SingleLobbyViewModel: MapSelection, CharacterSelection {
 
         let collector = Collector(id: RandomNonce().randomNonceString(), entity: player, entityTypeCounts: [:])
 
-        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge, playerComponent, invisible, collector]
+        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent,
+                          health, score, dodge, playerComponent, invisible, collector]
 
         guard let realTimeManager = realTimeManager else {
             return

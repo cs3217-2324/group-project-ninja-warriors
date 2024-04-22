@@ -16,10 +16,8 @@ class GemCollectionMode: GameMode {
         }
 
         let collectors = gameWorld.entityComponentManager.getAllComponents(ofType: Collector.self)
-        for collector in collectors {
-            if collector.countItem(of: "Gem") >= 4 {
-                return true
-            }
+        for collector in collectors where collector.countItem(of: "Gem") >= 4 {
+            return true
         }
         return false
     }

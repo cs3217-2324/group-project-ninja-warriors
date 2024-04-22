@@ -17,12 +17,17 @@ struct HostSingleView: View {
     private var achievementManager: AchievementManager
     @Binding var path: NavigationPath
 
-    init(matchId: String, currPlayerId: String, mapBackground: String, gameMode: GameMode, metricsRepository: MetricsRepository, achievementManager: AchievementManager, path: Binding<NavigationPath>) {
+    init(matchId: String, currPlayerId: String, mapBackground: String, gameMode: GameMode,
+         metricsRepository: MetricsRepository, achievementManager: AchievementManager,
+         path: Binding<NavigationPath>) {
         self._matchId = State(initialValue: matchId)
         self._playerId = State(initialValue: currPlayerId)
         self._mapBackground = State(initialValue: mapBackground)
         self.achievementManager = achievementManager
-        self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId, metricsRepository: metricsRepository, achievementManager: achievementManager, gameMode: gameMode)
+        self.viewModel = HostSingleViewModel(matchId: matchId, currPlayerId: currPlayerId,
+                                             metricsRepository: metricsRepository,
+                                             achievementManager: achievementManager,
+                                             gameMode: gameMode)
         self._path = path
     }
 

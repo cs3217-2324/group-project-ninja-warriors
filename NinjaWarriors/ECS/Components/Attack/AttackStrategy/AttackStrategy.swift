@@ -9,5 +9,6 @@ import Foundation
 
 protocol AttackStrategy {
     func canAttack(attacker: Entity, target: Entity, manager: EntityComponentManager) -> Bool
-    func applyDamageEffect(to target: Entity, from source: Entity, withDamageEffect damageEffect: DamageEffect, manager: EntityComponentManager)
+    func applyDamageEffect(to target: Entity, from source: Entity,
+                           withDamageEffect damageEffect: DamageEffect, manager: EntityComponentManager)
 }

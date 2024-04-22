@@ -38,8 +38,10 @@ struct HowToPlayView: View {
                                 .offset(x: joystickOffset, y: 0)
 
                                 .onAppear {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(200)) {
-                                        withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
+                                    DispatchQueue.main.asyncAfter(deadline: .now()
+                                                                  + DispatchTimeInterval.milliseconds(200)) {
+                                        withAnimation(Animation.linear(duration: 2)
+                                            .repeatForever(autoreverses: true)) {
                                             joystickOffset = 50
                                         }
                                     }
@@ -69,8 +71,10 @@ struct HowToPlayView: View {
                             .frame(width: ringSize, height: ringSize)
                             .rotationEffect(.degrees(ringRotation))
                             .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(200)) {
-                                    withAnimation(Animation.linear(duration: 10).repeatForever(autoreverses: false)) {
+                                DispatchQueue.main.asyncAfter(deadline: .now()
+                                                              + DispatchTimeInterval.milliseconds(200)) {
+                                    withAnimation(Animation.linear(duration: 10)
+                                        .repeatForever(autoreverses: false)) {
                                         ringSize = 20
                                     }
                                 }
@@ -97,8 +101,10 @@ struct HowToPlayView: View {
                             .brightness(isBlinking ? 0.4 : 0)
                             .opacity(isBlinking ? 1.0 : 1.0)
                             .onAppear {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.milliseconds(200)) {
-                                    withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: true)) {
+                                DispatchQueue.main.asyncAfter(deadline: .now()
+                                                              + DispatchTimeInterval.milliseconds(200)) {
+                                    withAnimation(Animation.linear(duration: 2)
+                                        .repeatForever(autoreverses: true)) {
                                         isBlinking.toggle()
                                     }
                                 }

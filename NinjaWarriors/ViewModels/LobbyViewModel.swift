@@ -31,7 +31,9 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = SignInViewModel()
         self.metricsRepository = MetricsRepository(activeUser: guestId, shouldStoreOnCloud: false)
-        self.achievementsManager = AchievementManager(userID: guestId, metricsSubject: self.metricsRepository, shouldStoreOnCloud: false)
+        self.achievementsManager = AchievementManager(userID: guestId,
+                                                      metricsSubject: self.metricsRepository,
+                                                      shouldStoreOnCloud: false)
         isGuest = true
     }
 
@@ -42,7 +44,9 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
 
         let localUserID = signInViewModel.getUserId() ?? guestId
         self.metricsRepository = MetricsRepository(activeUser: localUserID, shouldStoreOnCloud: true)
-        self.achievementsManager = AchievementManager(userID: localUserID, metricsSubject: metricsRepository, shouldStoreOnCloud: true)
+        self.achievementsManager = AchievementManager(userID: localUserID,
+                                                      metricsSubject: metricsRepository,
+                                                      shouldStoreOnCloud: true)
 
         isGuest = false
 
@@ -161,7 +165,8 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
 
         let collector = Collector(id: RandomNonce().randomNonceString(), entity: player, entityTypeCounts: [:])
 
-        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge, playerComponent, invisible, collector]
+        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent,
+                          health, score, dodge, playerComponent, invisible, collector]
 
         guard let realTimeManager = realTimeManager else {
             return

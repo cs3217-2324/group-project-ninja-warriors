@@ -14,7 +14,8 @@ class AchievementManager: ObservableObject {
 
     init(userID: UserID, metricsSubject: MetricsSubject, shouldStoreOnCloud: Bool) {
         self.userID = userID
-        self.achievements = Constants.availableAchievements.map { $0.init(userID: userID, metricsSubject: metricsSubject) }
+        self.achievements = Constants.availableAchievements.map { $0.init(userID: userID,
+                                                                          metricsSubject: metricsSubject) }
 
         if shouldStoreOnCloud {
             self.storageManager = SingleDocumentStorageFirestoreAdapter(

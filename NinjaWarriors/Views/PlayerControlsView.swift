@@ -105,7 +105,8 @@ struct PlayerControlsView: View {
                             Rectangle()
                                 .fill(.green)
                                 .border(.gray)
-                                .frame(width: CGFloat(health.health) / CGFloat( health.maxHealth) * geometry.size.width, height: height)
+                                .frame(width: CGFloat(health.health) / CGFloat( health.maxHealth)
+                                       * geometry.size.width, height: height)
                                 .animation(.linear, value: health.health)
                         }
                     }

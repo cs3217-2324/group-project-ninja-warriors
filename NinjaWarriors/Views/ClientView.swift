@@ -17,7 +17,9 @@ struct ClientView: View {
     private var achievementManager: AchievementManager
     @Binding var path: NavigationPath
 
-    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode, path: Binding<NavigationPath>) {
+    init(matchId: String, currPlayerId: String, ownEntities: [Entity], mapBackground: String,
+         metricsRepository: MetricsRepository, achievementManager: AchievementManager,
+         gameMode: GameMode, path: Binding<NavigationPath>) {
         self._matchId = State(initialValue: matchId)
         self._playerId = State(initialValue: currPlayerId)
         self._mapBackground = State(initialValue: mapBackground)

@@ -33,7 +33,9 @@ class SingleDocumentStorageLocalAdapter: SingleDocumentStorageManager {
         let data: Data
 
         guard let file = getOrCreateFile(withName: localFile) else {
-            completion(nil, NSError(domain: "AppErrorDomain", code: -1, userInfo: [NSLocalizedDescriptionKey: "Couldn't find documents directory when loading file"]))
+            completion(nil, NSError(domain: "AppErrorDomain", code: -1,
+                                    userInfo: [NSLocalizedDescriptionKey:
+                                                "Couldn't find documents directory when loading file"]))
             return
         }
 
@@ -54,7 +56,8 @@ class SingleDocumentStorageLocalAdapter: SingleDocumentStorageManager {
     }
 
     private func getOrCreateFile(withName name: String) -> URL? {
-        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory,
+                                                                in: .userDomainMask).first else {
             return nil
         }
 

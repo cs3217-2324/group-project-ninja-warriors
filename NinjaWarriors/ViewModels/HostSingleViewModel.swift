@@ -16,7 +16,8 @@ final class HostSingleViewModel: ObservableObject {
     internal var currPlayerId: String
     var isGameOver: Bool = false
 
-    init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode) {
+    init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository,
+         achievementManager: AchievementManager, gameMode: GameMode) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
