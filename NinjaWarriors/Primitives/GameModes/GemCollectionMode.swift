@@ -21,7 +21,9 @@ class GemCollectionMode: GameMode {
                 return true
             }
         }
-        return false
+
+        let playerComponents = gameWorld.entityComponentManager.getAllComponents(ofType: PlayerComponent.self)
+        return playerComponents.count <= 1
     }
 
     func start() {
