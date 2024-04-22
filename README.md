@@ -21,12 +21,4 @@ In Ninja Warriors, players navigate their ninja characters through various chall
 
 ## Getting Started
 
-To get started with Ninja Warriors, simply download the game from the app store, create an account or play as a guest, and start your ninja adventure!
-
-## Support
-
-For any issues or inquiries, please contact our support team at support@ninjawarriors.com.
-
-## Credits
-
-Ninja Warriors was developed by [Your Company Name].
+To get started with Ninja Warriors, simply run the application in xcode, create an account or play as a guest, and start your ninja adventure!
