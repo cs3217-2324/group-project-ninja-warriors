@@ -24,6 +24,10 @@ class Hadouken: Entity {
         Hadouken(id: id, casterEntity: casterEntity.deepCopy())
     }
 
+    func deepCopyWithNewID() -> Entity {
+        Hadouken(id: RandomNonce().randomNonceString(), casterEntity: casterEntity.deepCopy())
+    }
+
     func wrapper() -> EntityWrapper? {
         guard let casterEntityWrapper = casterEntity.wrapper() else {
             return nil

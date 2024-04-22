@@ -8,23 +8,28 @@
 import Foundation
 
 class SystemManager {
-    private var systems: [SystemType: System]
+    private var systems: [System]
 
     init() {
-        systems = [:]
+        systems = []
     }
 
     func update(after time: TimeInterval) {
-        systems.values.forEach { system in
+        for system in systems {
             system.update(after: time)
         }
     }
 
     func system<T: System>(ofType: T.Type) -> T? {
-        return systems[SystemType(ofType)] as? T
+        for system in systems {
+            if let specificSystem = system as? T {
+                return specificSystem
+            }
+        }
+        return nil
     }
 
     func add(system: System) {
-        systems[SystemType(type(of: system))] = system
+        systems.append(system)
     }
 }

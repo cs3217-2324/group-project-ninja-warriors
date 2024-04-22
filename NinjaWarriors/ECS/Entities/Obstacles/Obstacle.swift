@@ -44,7 +44,11 @@ class Obstacle: Equatable, Entity {
     }
 
     func deepCopy() -> Entity {
-        Obstacle(id: id)
+        Obstacle(id: id, position: initializePosition)
+    }
+
+    func deepCopyWithNewID() -> Entity {
+        Obstacle(id: RandomNonce().randomNonceString(), position: initializePosition)
     }
 
     func wrapper() -> EntityWrapper? {

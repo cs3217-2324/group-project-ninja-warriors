@@ -26,27 +26,29 @@ class GameWorld {
         self.achievementManager = achievementManager
         self.gameMode = gameMode
 
-        let destroyManager = DestroySystem(for: entityComponentManager)
-        let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager, with: gameControl)
         let collisionManager = CollisionManager(for: entityComponentManager)
+        let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager, with: gameControl)
         let skillsManager = SkillCasterSystem(for: entityComponentManager)
-        let healthManager = HealthSystem(for: entityComponentManager)
         let dodgeManager = DodgeSystem(for: entityComponentManager)
+        let combatSystem = CombatSystem(for: entityComponentManager)
+        let healthManager = HealthSystem(for: entityComponentManager)
         let environmentEffectSystem = EnvironmentEffectSystem(for: entityComponentManager)
         let lifespanManager = LifespanSystem(for: entityComponentManager)
-        let combatSystem = CombatSystem(for: entityComponentManager)
         let collectionSystem = CollectionSystem(for: entityComponentManager)
+        let respawnSystem = RespawnSystem(for: entityComponentManager)
+        let destroyManager = DestroySystem(for: entityComponentManager)
 
-        systemManager.add(system: rigidbodyHandler)
         systemManager.add(system: collisionManager)
+        systemManager.add(system: rigidbodyHandler)
         systemManager.add(system: skillsManager)
-        systemManager.add(system: healthManager)
         systemManager.add(system: dodgeManager)
+        systemManager.add(system: combatSystem)
+        systemManager.add(system: healthManager)
         systemManager.add(system: environmentEffectSystem)
         systemManager.add(system: lifespanManager)
         systemManager.add(system: collectionSystem)
+        systemManager.add(system: respawnSystem)
         systemManager.add(system: destroyManager)
-        systemManager.add(system: combatSystem)
 
         setupGameLoop()
     }

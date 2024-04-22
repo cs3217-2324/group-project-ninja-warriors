@@ -15,6 +15,14 @@ class CombatSystem: System {
     }
 
     func update(after time: TimeInterval) {
+        let attackComponents = manager.getAllComponents(ofType: Attack.self)
+        let entities = manager.getAllEntities()
+        for attackComponent in attackComponents where !attackComponent.activated {
+            for entity in entities {
+                attackComponent.attackIfPossible(target: entity, manager: manager)
+            }
+        }
+
         var toRemove: [DamageEffect] = []
         let damageEffects = manager.getAllComponents(ofType: DamageEffect.self)
 

@@ -25,7 +25,11 @@ class Player: Equatable, Entity {
     }
 
     func deepCopy() -> Entity {
-        Player(id: id)
+        Player(id: id, position: initializePosition)
+    }
+
+    func deepCopyWithNewID() -> Entity {
+        Player(id: RandomNonce().randomNonceString(), position: initializePosition)
     }
 
     func wrapper() -> EntityWrapper? {

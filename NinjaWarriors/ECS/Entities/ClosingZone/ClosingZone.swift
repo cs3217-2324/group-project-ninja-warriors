@@ -36,6 +36,10 @@ class ClosingZone: Entity {
         ClosingZone(id: id, center: center, initialRadius: initialRadius)
     }
 
+    func deepCopyWithNewID() -> Entity {
+        ClosingZone(id: RandomNonce().randomNonceString(), center: center, initialRadius: initialRadius)
+    }
+
     func wrapper() -> EntityWrapper? {
         return ClosingZoneWrapper(id: id)
     }

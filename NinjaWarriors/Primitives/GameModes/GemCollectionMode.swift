@@ -16,10 +16,12 @@ class GemCollectionMode: GameMode {
         }
 
         let collectors = gameWorld.entityComponentManager.getAllComponents(ofType: Collector.self)
-        for collector in collectors where collector.countItem(of: "Gem") >= 4 {
+        for collector in collectors where collector.countItem(of: "Gem") >= Constants.gemCountToWin {
             return true
         }
-        return false
+
+        let playerComponents = gameWorld.entityComponentManager.getAllComponents(ofType: PlayerComponent.self)
+        return playerComponents.count <= 1
     }
 
     func start() {

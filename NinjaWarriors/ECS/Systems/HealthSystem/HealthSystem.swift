@@ -15,12 +15,9 @@ class HealthSystem: System {
     }
 
     func update(after time: TimeInterval) {
-        let attackComponents = manager.getAllComponents(ofType: Attack.self)
-        let entities = manager.getAllEntities()
-        for attackComponent in attackComponents where !attackComponent.activated {
-            for entity in entities {
-                attackComponent.attackIfPossible(target: entity, manager: manager)
-            }
+        let healthComponents = manager.getAllComponents(ofType: Health.self)
+        for healthComponent in healthComponents where healthComponent.health <= 0 {
+            manager.add(entity: healthComponent.entity, components: [DestroyTag(id: RandomNonce().randomNonceString(), entity: healthComponent.entity)])
         }
     }
 }

@@ -19,7 +19,7 @@ class LifespanSystem: System {
         for lifespanComponent in lifespanComponents {
             lifespanComponent.elapsedTime += time
             if lifespanComponent.elapsedTime > lifespanComponent.lifespan {
-                manager.remove(entity: lifespanComponent.entity, isRemoved: false)
+                manager.add(entity: lifespanComponent.entity, components: [DestroyTag(id: RandomNonce().randomNonceString(), entity: lifespanComponent.entity)])
             }
         }
     }

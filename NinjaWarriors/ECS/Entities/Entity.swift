@@ -17,5 +17,6 @@ protocol Entity: AnyObject, CustomComparator {
     // Every entity must define the components that it needs to be created with
     func getInitializingComponents() -> [Component]
     func deepCopy() -> Entity
+    func deepCopyWithNewID() -> Entity
     func wrapper() -> EntityWrapper?
 }

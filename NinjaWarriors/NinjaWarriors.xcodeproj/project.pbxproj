@@ -264,6 +264,11 @@
 		E6A0564F2BB0691B00398D67 /* RefreshCooldownsSkill.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */; };
 		E6A262C92BCE71F80074B834 /* Karasha-z8mYw.otf in Resources */ = {isa = PBXBuildFile; fileRef = E6A262C82BCE71F80074B834 /* Karasha-z8mYw.otf */; };
 		E6A262CC2BCE75500074B834 /* scroll.png in Resources */ = {isa = PBXBuildFile; fileRef = E6A262CB2BCE75500074B834 /* scroll.png */; };
+		E6A6D95F2BD518CF00D4E307 /* DestroyTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6D95E2BD518CF00D4E307 /* DestroyTag.swift */; };
+		E6A6D9612BD51A2400D4E307 /* DestroyTagWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6D9602BD51A2400D4E307 /* DestroyTagWrapper.swift */; };
+		E6A6D9642BD5215B00D4E307 /* Respawnable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6D9632BD5215B00D4E307 /* Respawnable.swift */; };
+		E6A6D9682BD521A800D4E307 /* RespawnSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6D9672BD521A800D4E307 /* RespawnSystem.swift */; };
+		E6A6D96A2BD523AF00D4E307 /* RespawnableWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6D9692BD523AF00D4E307 /* RespawnableWrapper.swift */; };
 		E6B503E32BC105FC00B9565E /* Attack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B503E22BC105FC00B9565E /* Attack.swift */; };
 		E6B503EB2BC112AF00B9565E /* AttackStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B503EA2BC112AF00B9565E /* AttackStrategy.swift */; };
 		E6B503ED2BC112C100B9565E /* MeleeAttackStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B503EC2BC112C100B9565E /* MeleeAttackStrategy.swift */; };
@@ -509,6 +514,11 @@
 		E6A0564E2BB0691B00398D67 /* RefreshCooldownsSkill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshCooldownsSkill.swift; sourceTree = "<group>"; };
 		E6A262C82BCE71F80074B834 /* Karasha-z8mYw.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karasha-z8mYw.otf"; sourceTree = "<group>"; };
 		E6A262CB2BCE75500074B834 /* scroll.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scroll.png; sourceTree = "<group>"; };
+		E6A6D95E2BD518CF00D4E307 /* DestroyTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroyTag.swift; sourceTree = "<group>"; };
+		E6A6D9602BD51A2400D4E307 /* DestroyTagWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroyTagWrapper.swift; sourceTree = "<group>"; };
+		E6A6D9632BD5215B00D4E307 /* Respawnable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Respawnable.swift; sourceTree = "<group>"; };
+		E6A6D9672BD521A800D4E307 /* RespawnSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespawnSystem.swift; sourceTree = "<group>"; };
+		E6A6D9692BD523AF00D4E307 /* RespawnableWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespawnableWrapper.swift; sourceTree = "<group>"; };
 		E6B503E22BC105FC00B9565E /* Attack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attack.swift; sourceTree = "<group>"; };
 		E6B503EA2BC112AF00B9565E /* AttackStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackStrategy.swift; sourceTree = "<group>"; };
 		E6B503EC2BC112C100B9565E /* MeleeAttackStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeleeAttackStrategy.swift; sourceTree = "<group>"; };
@@ -797,6 +807,7 @@
 				91DDE6552BB4460800851603 /* SystemType.swift */,
 				714A4A652BA721E50067D5CB /* SystemManager.swift */,
 				714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */,
+				E6A6D9662BD5219B00D4E307 /* RespawnSystem */,
 				E659D5A92BD4B66900D6B7A5 /* CollectionSystem */,
 				E62FA3322BCC47D4000D551A /* CombatSystem */,
 				7181B14E2BC05372009711DE /* EnvironmentEffectSystem */,
@@ -961,6 +972,8 @@
 			children = (
 				7113A4952BA60E8400805340 /* Component.swift */,
 				91DDE6512BB3806100851603 /* ComponentType.swift */,
+				E6A6D9622BD5215300D4E307 /* Respawnable */,
+				E6A6D95D2BD518C200D4E307 /* DestroyTag */,
 				91CDD1C92BD28C1600464174 /* Invisible */,
 				91CDD1C82BD28C0F00464174 /* Collectable */,
 				91CDD1C72BD28C0900464174 /* Collector */,
@@ -1379,6 +1392,32 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		E6A6D95D2BD518C200D4E307 /* DestroyTag */ = {
+			isa = PBXGroup;
+			children = (
+				E6A6D95E2BD518CF00D4E307 /* DestroyTag.swift */,
+				E6A6D9602BD51A2400D4E307 /* DestroyTagWrapper.swift */,
+			);
+			path = DestroyTag;
+			sourceTree = "<group>";
+		};
+		E6A6D9622BD5215300D4E307 /* Respawnable */ = {
+			isa = PBXGroup;
+			children = (
+				E6A6D9632BD5215B00D4E307 /* Respawnable.swift */,
+				E6A6D9692BD523AF00D4E307 /* RespawnableWrapper.swift */,
+			);
+			path = Respawnable;
+			sourceTree = "<group>";
+		};
+		E6A6D9662BD5219B00D4E307 /* RespawnSystem */ = {
+			isa = PBXGroup;
+			children = (
+				E6A6D9672BD521A800D4E307 /* RespawnSystem.swift */,
+			);
+			path = RespawnSystem;
+			sourceTree = "<group>";
+		};
 		E6B503E12BC105F300B9565E /* Attack */ = {
 			isa = PBXGroup;
 			children = (
@@ -1686,6 +1725,7 @@
 				91DDE6582BB5118400851603 /* EntityType.swift in Sources */,
 				9132AF8F2BA7EB7F000F2AC4 /* RealTimeFactoryListener.swift in Sources */,
 				91CDD1CF2BD28C5A00464174 /* CollectableWrapper.swift in Sources */,
+				E6A6D9682BD521A800D4E307 /* RespawnSystem.swift in Sources */,
 				E67F533A2BBFEFA10051A900 /* DestroySystem.swift in Sources */,
 				91DED6012BCE58980054C2F1 /* Node.swift in Sources */,
 				9180F9D32BAB9C26000CC390 /* ComponentWrapper.swift in Sources */,
@@ -1777,6 +1817,7 @@
 				E62FA3392BCC5356000D551A /* Hadouken.swift in Sources */,
 				E62FA3362BCC4B05000D551A /* HadoukenSkill.swift in Sources */,
 				916A7D902BA1A2AE00319C26 /* AuthenticationAdapter.swift in Sources */,
+				E6A6D95F2BD518CF00D4E307 /* DestroyTag.swift in Sources */,
 				916A7D702BA1552100319C26 /* Point.swift in Sources */,
 				E62FA33B2BCC535F000D551A /* HadoukenWrapper.swift in Sources */,
 				9132AF7C2BA59C6C000F2AC4 /* Listener.swift in Sources */,
@@ -1794,6 +1835,7 @@
 				917146762BCE292300CC1004 /* GameOverView.swift in Sources */,
 				916A7D892BA19F5100319C26 /* AuthenticationView.swift in Sources */,
 				714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */,
+				E6A6D96A2BD523AF00D4E307 /* RespawnableWrapper.swift in Sources */,
 				9180486F2BC7A86400026965 /* GemMap.swift in Sources */,
 				91C65BE32BACF1920085D96F /* DashSkill.swift in Sources */,
 				916A7D462BA1541800319C26 /* NinjaWarriors.xcdatamodeld in Sources */,
@@ -1811,6 +1853,7 @@
 				915301B72BAD8035007F2A12 /* RigidbodyWrapper.swift in Sources */,
 				915BFD1B2BC149A000AB5815 /* ClientView.swift in Sources */,
 				7181B1502BC05385009711DE /* EnvironmentEffectSystem.swift in Sources */,
+				E6A6D9612BD51A2400D4E307 /* DestroyTagWrapper.swift in Sources */,
 				9132AF622BA50E66000F2AC4 /* PhysicsRigidBody.swift in Sources */,
 				9132AF6A2BA53E5F000F2AC4 /* LobbyViewModel.swift in Sources */,
 				7181B1462BC03ECD009711DE /* EnvironmentEffect.swift in Sources */,
@@ -1855,6 +1898,7 @@
 				713534BB2BD5698800CA6258 /* ThreeDodgesInGameAchievement.swift in Sources */,
 				9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */,
 				E67C23F22BCBD144005D7304 /* PlayerComponent.swift in Sources */,
+				E6A6D9642BD5215B00D4E307 /* Respawnable.swift in Sources */,
 				710EB5672BC5BAF3004539D6 /* MetricsRepository.swift in Sources */,
 				9132AF582BA5087F000F2AC4 /* PlayersListener.swift in Sources */,
 				916991372BC6783500ED1FBD /* GemWrapper.swift in Sources */,
