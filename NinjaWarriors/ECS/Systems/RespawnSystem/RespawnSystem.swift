@@ -29,7 +29,8 @@ class RespawnSystem: System {
         for (entity, timeLeft) in respawnList {
             let newTimeLeft = timeLeft - time
             if newTimeLeft <= 0 {
-                // TODO: Implement respawn
+                manager.addOwnEntity(entity)
+                manager.add(entity: entity, components: entity.getInitializingComponents(), isAdded: false)
             } else {
                 updatedList.append((entity, newTimeLeft))
             }
