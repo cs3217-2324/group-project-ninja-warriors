@@ -24,6 +24,10 @@ class SlashAOE: Entity {
         SlashAOE(id: id, casterEntity: casterEntity.deepCopy())
     }
 
+    func deepCopyWithNewID() -> Entity {
+        SlashAOE(id: RandomNonce().randomNonceString(), casterEntity: casterEntity.deepCopy())
+    }
+
     func wrapper() -> EntityWrapper? {
         guard let casterEntityWrapper = casterEntity.wrapper() else {
             return nil

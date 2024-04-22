@@ -29,8 +29,9 @@ class RespawnSystem: System {
         for (entity, timeLeft) in respawnList {
             let newTimeLeft = timeLeft - time
             if newTimeLeft <= 0 {
-                manager.addOwnEntity(entity)
-                manager.add(entity: entity, components: entity.getInitializingComponents(), isAdded: false)
+                let entityWithNewID = entity.deepCopyWithNewID()
+                manager.addOwnEntity(entityWithNewID)
+                manager.add(entity: entityWithNewID, components: entityWithNewID.getInitializingComponents(), isAdded: false)
             } else {
                 updatedList.append((entity, newTimeLeft))
             }

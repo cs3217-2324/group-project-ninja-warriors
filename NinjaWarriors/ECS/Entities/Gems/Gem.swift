@@ -53,7 +53,11 @@ class Gem: Equatable, Entity {
     }
 
     func deepCopy() -> Entity {
-        Gem(id: id)
+        Gem(id: id, position: initializePosition)
+    }
+
+    func deepCopyWithNewID() -> Entity {
+        Gem(id: RandomNonce().randomNonceString(), position: initializePosition)
     }
 
     func wrapper() -> EntityWrapper? {
