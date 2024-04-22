@@ -47,7 +47,7 @@ class Gem: Equatable, Entity {
 
         let collectable = Collectable(id: RandomNonce().randomNonceString(), entity: self, entityType: "Gem")
 
-        let respawnable = Respawnable(id: RandomNonce().randomNonceString(), entity: self, respawnTime: 1)
+        let respawnable = Respawnable(id: RandomNonce().randomNonceString(), entity: self, respawnTime: Constants.gemRespawnTime)
 
         return [collider, rigidbody, spriteComponent, health, invisible, collectable, respawnable]
     }
