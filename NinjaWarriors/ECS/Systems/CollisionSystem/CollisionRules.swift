@@ -96,6 +96,8 @@ class CollisionRules: Rules {
     }
 
     func canPassThrough(_ colliderEntity: Entity, _ collideeEntity: Entity) -> Bool {
+        /// Do not allow players to pass through, even if they have invisible component,
+        /// because the priority of invisible component is lower than that of player component.
         if manager?.getComponent(ofType: PlayerComponent.self, for: colliderEntity) != nil &&
             manager?.getComponent(ofType: PlayerComponent.self, for: collideeEntity) != nil {
             return false

@@ -27,6 +27,11 @@
 		713534AB2BD4DE7200CA6258 /* SingleDocumentStorageFirestoreAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534AA2BD4DE7200CA6258 /* SingleDocumentStorageFirestoreAdapter.swift */; };
 		713534AE2BD50E9500CA6258 /* SingleDocumentStorageLocalAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534AD2BD50E9500CA6258 /* SingleDocumentStorageLocalAdapter.swift */; };
 		713534B02BD50F6500CA6258 /* StoredMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534AF2BD50F6500CA6258 /* StoredMetrics.swift */; };
+		713534B32BD54FA000CA6258 /* SingleDocumentStorageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534B22BD54FA000CA6258 /* SingleDocumentStorageManagerTests.swift */; };
+		713534B52BD567E300CA6258 /* FirstDamageForUserAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534B42BD567E300CA6258 /* FirstDamageForUserAchievement.swift */; };
+		713534B72BD5689300CA6258 /* LoginForTheFirstTimeAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534B62BD5689300CA6258 /* LoginForTheFirstTimeAchievement.swift */; };
+		713534BB2BD5698800CA6258 /* ThreeDodgesInGameAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534BA2BD5698800CA6258 /* ThreeDodgesInGameAchievement.swift */; };
+		713534BD2BD569EA00CA6258 /* ThreeDodgesThreeDashesInGameAchievement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 713534BC2BD569EA00CA6258 /* ThreeDodgesThreeDashesInGameAchievement.swift */; };
 		714A4A622BA6B7DC0067D5CB /* EntityComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */; };
 		714A4A642BA717B80067D5CB /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A632BA717B80067D5CB /* System.swift */; };
 		714A4A662BA721E50067D5CB /* SystemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A4A652BA721E50067D5CB /* SystemManager.swift */; };
@@ -327,6 +332,11 @@
 		713534AA2BD4DE7200CA6258 /* SingleDocumentStorageFirestoreAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleDocumentStorageFirestoreAdapter.swift; sourceTree = "<group>"; };
 		713534AD2BD50E9500CA6258 /* SingleDocumentStorageLocalAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleDocumentStorageLocalAdapter.swift; sourceTree = "<group>"; };
 		713534AF2BD50F6500CA6258 /* StoredMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredMetrics.swift; sourceTree = "<group>"; };
+		713534B22BD54FA000CA6258 /* SingleDocumentStorageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleDocumentStorageManagerTests.swift; sourceTree = "<group>"; };
+		713534B42BD567E300CA6258 /* FirstDamageForUserAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstDamageForUserAchievement.swift; sourceTree = "<group>"; };
+		713534B62BD5689300CA6258 /* LoginForTheFirstTimeAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForTheFirstTimeAchievement.swift; sourceTree = "<group>"; };
+		713534BA2BD5698800CA6258 /* ThreeDodgesInGameAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDodgesInGameAchievement.swift; sourceTree = "<group>"; };
+		713534BC2BD569EA00CA6258 /* ThreeDodgesThreeDashesInGameAchievement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeDodgesThreeDashesInGameAchievement.swift; sourceTree = "<group>"; };
 		714A4A612BA6B7DC0067D5CB /* EntityComponentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComponentManager.swift; sourceTree = "<group>"; };
 		714A4A632BA717B80067D5CB /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		714A4A652BA721E50067D5CB /* SystemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemManager.swift; sourceTree = "<group>"; };
@@ -621,6 +631,14 @@
 			path = Persistence;
 			sourceTree = "<group>";
 		};
+		713534B12BD54F8B00CA6258 /* SingleDocumentStorageTests */ = {
+			isa = PBXGroup;
+			children = (
+				713534B22BD54FA000CA6258 /* SingleDocumentStorageManagerTests.swift */,
+			);
+			path = SingleDocumentStorageTests;
+			sourceTree = "<group>";
+		};
 		7181B1442BC03DFC009711DE /* EnvironmentEffect */ = {
 			isa = PBXGroup;
 			children = (
@@ -692,8 +710,12 @@
 			isa = PBXGroup;
 			children = (
 				7191C82E2BCA7FC7005BBE62 /* KilledTenPeopleAchievement.swift */,
+				713534B62BD5689300CA6258 /* LoginForTheFirstTimeAchievement.swift */,
 				7191C8392BCA9668005BBE62 /* PlayedTenGamesAchievement.swift */,
+				713534BA2BD5698800CA6258 /* ThreeDodgesInGameAchievement.swift */,
+				713534BC2BD569EA00CA6258 /* ThreeDodgesThreeDashesInGameAchievement.swift */,
 				7132C9132BCD82430088932F /* FirstDamageInGameAchievement.swift */,
+				713534B42BD567E300CA6258 /* FirstDamageForUserAchievement.swift */,
 				7132C9152BCD82F20088932F /* ThreeDashesInGameAchievement.swift */,
 				7191C8302BCA831B005BBE62 /* HighDamageButNoKillAchievement.swift */,
 			);
@@ -926,6 +948,7 @@
 		916A7D4E2BA1541800319C26 /* NinjaWarriorsTests */ = {
 			isa = PBXGroup;
 			children = (
+				713534B12BD54F8B00CA6258 /* SingleDocumentStorageTests */,
 				7191C8342BCA9298005BBE62 /* AchievementTests */,
 				7183D0792BB03C2E0078C960 /* ECSTests */,
 				91EF1F992BAED512000B52A2 /* PrimitiveTests */,
@@ -1739,6 +1762,7 @@
 				9169913B2BC67BC900ED1FBD /* CollisionRules.swift in Sources */,
 				916A7DA82BA3FA2900319C26 /* PointWrapper.swift in Sources */,
 				E6A0564F2BB0691B00398D67 /* RefreshCooldownsSkill.swift in Sources */,
+				713534B72BD5689300CA6258 /* LoginForTheFirstTimeAchievement.swift in Sources */,
 				91DDE65B2BB51D8800851603 /* AnyEntity.swift in Sources */,
 				7181B14D2BC0480E009711DE /* ClosingZoneWrapper.swift in Sources */,
 				916A7D8B2BA1A0D400319C26 /* SignInView.swift in Sources */,
@@ -1780,6 +1804,7 @@
 				916A7DB02BA428A900319C26 /* PlayerWrapper.swift in Sources */,
 				9132AF802BA5A1B1000F2AC4 /* MatchListener.swift in Sources */,
 				7132C9062BCD7E0A0088932F /* SlashesCountMetric.swift in Sources */,
+				713534BD2BD569EA00CA6258 /* ThreeDodgesThreeDashesInGameAchievement.swift in Sources */,
 				710EB57E2BC693B1004539D6 /* MetricType.swift in Sources */,
 				910CF65F2BC4AE2200C04CF2 /* AudioManager.swift in Sources */,
 				E6CCAEDB2BAB3C1F0041053B /* GameLoopHandler.swift in Sources */,
@@ -1843,6 +1868,7 @@
 				E6FD345B2BC1525300477B1F /* Lifespan.swift in Sources */,
 				713534A92BD4B15D00CA6258 /* StoredAchievements.swift in Sources */,
 				E63FFC012BBADA55006C2C4C /* Transform.swift in Sources */,
+				713534B52BD567E300CA6258 /* FirstDamageForUserAchievement.swift in Sources */,
 				9132AF782BA59B0F000F2AC4 /* FactoryPublisher.swift in Sources */,
 				E6ECF63A2BADE9D900DDDE9C /* CircleShape.swift in Sources */,
 				71B716672BCBAAC100B18E48 /* DistanceDashedMetric.swift in Sources */,
@@ -1869,6 +1895,7 @@
 				9132AF6E2BA58C1E000F2AC4 /* MatchManagerAdapter.swift in Sources */,
 				9136A5BC2BAAA80200197971 /* RealTimeManagerAdapter.swift in Sources */,
 				E67C23EA2BCBBAEB005D7304 /* LastManStandingMode.swift in Sources */,
+				713534BB2BD5698800CA6258 /* ThreeDodgesInGameAchievement.swift in Sources */,
 				9180F9CF2BAB19BF000CC390 /* RandomNonce.swift in Sources */,
 				E67C23F22BCBD144005D7304 /* PlayerComponent.swift in Sources */,
 				E6A6D9642BD5215B00D4E307 /* Respawnable.swift in Sources */,
@@ -1888,6 +1915,7 @@
 				9117F6372BCD280B00ED4F4E /* HowToPlayView.swift in Sources */,
 				7183D07B2BB03C400078C960 /* EntityComponentManagerTests.swift in Sources */,
 				91EF1F972BAED3CA000B52A2 /* RealtimeTests.swift in Sources */,
+				713534B32BD54FA000CA6258 /* SingleDocumentStorageManagerTests.swift in Sources */,
 				7183D07F2BB06E790078C960 /* SystemManagerTests.swift in Sources */,
 				916A7D502BA1541800319C26 /* NinjaWarriorsTests.swift in Sources */,
 				91DED6022BCE58980054C2F1 /* Node.swift in Sources */,

@@ -112,7 +112,8 @@ struct EntityView: View {
 
     private var gemCount: some View {
         let offsetY = viewModel.sprite.map { $0.height / 2 + Constants.GemCount.offsetY } ?? Constants.GemCount.offsetY
-        let xPos = viewModel.sprite.map { $0.width / 2 + viewModel.position.x + Constants.GemCount.offsetX } ?? viewModel.position.x + Constants.GemCount.offsetX
+        let xPos = viewModel.sprite.map { $0.width / 2 + viewModel.position.x
+            + Constants.GemCount.offsetX } ?? viewModel.position.x + Constants.GemCount.offsetX
         let yPos = viewModel.position.y - offsetY
 
         return HStack(spacing: 10) {

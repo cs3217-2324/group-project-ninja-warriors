@@ -89,7 +89,6 @@ final class ClientViewModel: ObservableObject {
         }
         for entityIdComponent in entityIdComponents {
             if let entityIdComponent = entityIdComponent as? Rigidbody {
-                print("movement vector", vector)
                 entityIdComponent.angularVelocity = Vector(horizontal: vector.dx, vertical: vector.dy)
             }
         }
@@ -104,7 +103,6 @@ extension ClientViewModel {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }
-//        print("[ClientViewModel] \(skillId) queued for activation")
         skillCasterComponent.queueSkillActivation(skillId)
     }
 
@@ -114,7 +112,6 @@ extension ClientViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skillCasterIds = skillCaster?.skills.keys {
-//            print("skill caster ids: ", Array(skillCasterIds))
             return Array(skillCasterIds)
         } else {
             return []
@@ -135,7 +132,6 @@ extension ClientViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skills = skillCaster?.skills {
-//            print("skills", skills)
             return Array(skills)
         } else {
             return []
@@ -148,7 +144,6 @@ extension ClientViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skillCooldowns = skillCaster?.skillCooldowns {
-//            print("skillsCds", skillCooldowns)
             return skillCooldowns
         } else {
             return [:]

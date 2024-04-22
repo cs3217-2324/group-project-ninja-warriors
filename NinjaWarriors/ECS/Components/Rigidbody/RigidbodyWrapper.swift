@@ -86,7 +86,6 @@ struct RigidbodyWrapper: ComponentWrapper {
         position = try container.decode(PointWrapper.self, forKey: AnyCodingKey(stringValue: "position"))
         offset = try container.decode(PointWrapper.self, forKey: AnyCodingKey(stringValue: "offset"))
         velocity = try container.decode(VectorWrapper.self, forKey: AnyCodingKey(stringValue: "velocity"))
-        // attachedCollider = try container.decode(ColliderWrapper.self, forKey: AnyCodingKey(stringValue: "attachedCollider"))
 
         do {
             attachedCollider = try container.decodeIfPresent(ColliderWrapper.self,

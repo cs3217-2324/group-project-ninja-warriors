@@ -51,7 +51,6 @@ class EventQueue {
     }
 
     func addComponent(_ component: Component) {
-        print("added component", component.entity)
         components.insert(component)
     }
 

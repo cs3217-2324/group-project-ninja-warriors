@@ -11,5 +11,4 @@ protocol EntityMetricsRecorder {
     var matchID: String { get }
     func record<T: Metric>(_ metricType: T.Type, forEntityID entityID: EntityID, value: Double)
     func resetAllMetrics(forEntityIDs entityIDs: [EntityID])
-    func getRepository() -> MetricsRepository
 }

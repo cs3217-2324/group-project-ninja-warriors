@@ -102,7 +102,6 @@ extension HostViewModel {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }
-//        print("[HostViewModel] \(skillId) queued for activation")
         skillCasterComponent.queueSkillActivation(skillId)
     }
 
@@ -112,7 +111,6 @@ extension HostViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skillCasterIds = skillCaster?.skills.keys {
-//            print("skill caster ids: ", Array(skillCasterIds))
             return Array(skillCasterIds)
         } else {
             return []
@@ -133,7 +131,6 @@ extension HostViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skills = skillCaster?.skills {
-//            print("skills", skills)
             return Array(skills)
         } else {
             return []
@@ -146,7 +143,6 @@ extension HostViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skillCooldowns = skillCaster?.skillCooldowns {
-//            print("skillsCds", skillCooldowns)
             return skillCooldowns
         } else {
             return [:]

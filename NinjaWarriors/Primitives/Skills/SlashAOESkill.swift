@@ -23,6 +23,7 @@ class SlashAOESkill: EntitySpawnerSkill {
 
     func activate(from entity: Entity, in manager: EntityComponentManager) {
        _ = spawnEntity(from: entity, in: manager)
+        manager.entityMetricsRecorder.record(SlashesCountMetric.self, forEntityID: entity.id, value: 1)
     }
 
     func updateAttributes(_ newSlashAOESkill: SlashAOESkill) {
@@ -56,11 +57,17 @@ class SlashAOESkill: EntitySpawnerSkill {
                                      width: Constants.slashRadius * 2,
                                      height: Constants.slashRadius * 2)
 
-        let meleeAttackStrategy = MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius)
+        _ = MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius)
 
-        let damageEffect = DamageEffect(id: RandomNonce().randomNonceString(), entity: slashAOE, sourceId: casterEntity.id, initialDamage: Constants.slashDamage, damagePerTick: 0, duration: 0)
+        let damageEffect = DamageEffect(id: RandomNonce().randomNonceString(),
+                                        entity: slashAOE, sourceId: casterEntity.id,
+                                        initialDamage: Constants.slashDamage,
+                                        damagePerTick: 0, duration: 0)
 
-        let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: slashAOE, attackStrategy: MeleeAttackStrategy(casterEntity: casterEntity, radius: Constants.slashRadius), damageEffectTemplate: damageEffect)
+        let attackComponent = Attack(id: RandomNonce().randomNonceString(), entity: slashAOE,
+                                     attackStrategy: MeleeAttackStrategy(casterEntity: casterEntity,
+                                                                         radius: Constants.slashRadius),
+                                     damageEffectTemplate: damageEffect)
 
         let lifespanComponent = Lifespan(id: RandomNonce().randomNonceString(), entity: slashAOE, lifespan: 1)
 

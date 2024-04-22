@@ -43,7 +43,6 @@ extension KilledTenPeopleAchievement: MetricObserver {
 
         if killCountMetric.value >= 10 {
             count += 1
-            // TODO: maybe deregister observer, but a bit annoying
         }
     }
 }

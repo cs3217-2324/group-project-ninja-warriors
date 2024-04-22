@@ -14,7 +14,8 @@ class AchievementManager: ObservableObject {
 
     init(userID: UserID, metricsSubject: MetricsSubject, shouldStoreOnCloud: Bool) {
         self.userID = userID
-        self.achievements = Constants.availableAchievements.map { $0.init(userID: userID, metricsSubject: metricsSubject) }
+        self.achievements = Constants.availableAchievements.map { $0.init(userID: userID,
+                                                                          metricsSubject: metricsSubject) }
 
         if shouldStoreOnCloud {
             self.storageManager = SingleDocumentStorageFirestoreAdapter(
@@ -29,6 +30,10 @@ class AchievementManager: ObservableObject {
         loadAchievementCounts()
     }
 
+    deinit {
+        saveAchievementCounts()
+    }
+
     var unlockedAchievements: [Achievement] {
         return achievements.filter { $0.count > 0 }
     }
@@ -39,7 +44,7 @@ class AchievementManager: ObservableObject {
         }
     }
 
-    func saveAchievementCounts() {
+    private func saveAchievementCounts() {
         let counts = getCurrentAchievementCounts()
         storageManager.save(counts)
     }
@@ -48,7 +53,7 @@ class AchievementManager: ObservableObject {
         return StoredAchievements(userID: userID, achievements: achievements)
     }
 
-    func loadAchievementCounts() {
+    private func loadAchievementCounts() {
         storageManager.load { [weak self] (counts: StoredAchievements?, _) in
             guard let counts = counts else { return }
             guard let self = self else { return }

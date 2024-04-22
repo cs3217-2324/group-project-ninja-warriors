@@ -26,7 +26,6 @@ class GameWorld {
         self.achievementManager = achievementManager
         self.gameMode = gameMode
 
-        // let transformHandler = TransformHandler(for: entityComponentManager)
         let collisionManager = CollisionManager(for: entityComponentManager)
         let rigidbodyHandler = RigidbodyHandler(for: entityComponentManager, with: gameControl)
         let skillsManager = SkillCasterSystem(for: entityComponentManager)
@@ -36,11 +35,9 @@ class GameWorld {
         let environmentEffectSystem = EnvironmentEffectSystem(for: entityComponentManager)
         let lifespanManager = LifespanSystem(for: entityComponentManager)
         let collectionSystem = CollectionSystem(for: entityComponentManager)
-        // let scoreManager = ScoreSystem(for: entityComponentManager)
         let respawnSystem = RespawnSystem(for: entityComponentManager)
         let destroyManager = DestroySystem(for: entityComponentManager)
 
-        // systemManager.add(system: transformHandler)
         systemManager.add(system: collisionManager)
         systemManager.add(system: rigidbodyHandler)
         systemManager.add(system: skillsManager)
@@ -50,7 +47,6 @@ class GameWorld {
         systemManager.add(system: environmentEffectSystem)
         systemManager.add(system: lifespanManager)
         systemManager.add(system: collectionSystem)
-        // systemManager.add(system: scoreManager)
         systemManager.add(system: respawnSystem)
         systemManager.add(system: destroyManager)
 
@@ -79,9 +75,5 @@ class GameWorld {
             self.gameLoopManager.stop()
             self.isGameOver = true
         }
-    }
-
-    func getRepository() -> MetricsRepository {
-        entityComponentManager.entityMetricsRecorder.getRepository()
     }
 }

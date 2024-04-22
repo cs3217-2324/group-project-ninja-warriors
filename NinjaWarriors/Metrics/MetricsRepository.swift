@@ -12,10 +12,28 @@ class MetricsRepository {
     typealias UserMetricsMap = [UserID: MetricsAndObserversMap]
 
     private var userMetrics: UserMetricsMap
+    private var activeUser: UserID
+    private var storageManager: SingleDocumentStorageManager
 
-    init() {
-        // TODO: probably initialize from some online thing
+    init(activeUser: UserID, shouldStoreOnCloud: Bool) {
+        self.activeUser = activeUser
         self.userMetrics = UserMetricsMap()
+
+        if shouldStoreOnCloud {
+            self.storageManager = SingleDocumentStorageFirestoreAdapter(
+                collectionID: Constants.metricsFirebaseCollectionID,
+                userID: activeUser
+            )
+        } else {
+            let filename = activeUser + "-" + Constants.localMetricsFileName
+            self.storageManager = SingleDocumentStorageLocalAdapter(filename: filename)
+        }
+
+        loadMetricsFromStorage()
+    }
+
+    deinit {
+        saveMetricsToStorage()
     }
 
     func createMetricsMap(for userID: UserID) {
@@ -33,6 +51,11 @@ class MetricsRepository {
         }
 
         let metricTypeKey = MetricType(metricType)
+
+        guard metricsAndObserversMap[metricTypeKey] == nil else {
+            return
+        }
+
         metricsAndObserversMap[metricTypeKey] = (metricType.init(userID: userID), [])
         self.userMetrics[userID] = metricsAndObserversMap
     }
@@ -54,8 +77,10 @@ class MetricsRepository {
         return typedMetric
     }
 
-    /// Updates the given metric for the user for the given game. If the metric isn't already being recorded, it is added
-    func updateMetrics<T: Metric>(_ metricType: T.Type, userID: UserID, inGame gameID: GameID?, withValue value: Double) {
+    /// Updates the given metric for the user for the given game.
+    /// If the metric isn't already being recorded, it is added
+    func updateMetrics<T: Metric>(_ metricType: T.Type, userID: UserID,
+                                  inGame gameID: GameID?, withValue value: Double) {
         guard var metricsAndObserversMap = self.userMetrics[userID] else {
             self.createMetricsMap(for: userID)
             self.updateMetrics(metricType, userID: userID, inGame: gameID, withValue: value)
@@ -152,6 +177,24 @@ class MetricsRepository {
             for (_, (metric, _)) in metricsMap {
                 metric.resetGame()
             }
+        }
+    }
+
+    // MARK: - Storage related functions
+    private func getStoredMetricsForUser(user: UserID) -> StoredMetrics {
+        StoredMetrics(userID: user, userMetrics: userMetrics)
+    }
+
+    private func saveMetricsToStorage() {
+        let storedMetrics = getStoredMetricsForUser(user: self.activeUser)
+        storageManager.save(storedMetrics)
+    }
+
+    private func loadMetricsFromStorage() {
+        storageManager.load { [weak self] (storedMetrics: StoredMetrics?, _) in
+            guard let storedMetrics = storedMetrics else { return }
+            guard let self = self else { return }
+            storedMetrics.updateMetricsFromStoredValues(userMetricsMap: &self.userMetrics)
         }
     }
 }

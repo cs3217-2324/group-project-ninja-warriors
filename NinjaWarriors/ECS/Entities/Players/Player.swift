@@ -56,10 +56,13 @@ extension Player {
                                         attachedCollider: playerCollider)
 
         let skillCaster = SkillCaster(id: RandomNonce().randomNonceString(),
-                                      entity: self, skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
+                                      entity: self,
+                                      skills: [SlashAOESkill(id: "slash", cooldownDuration: 8.0),
                                                              DashSkill(id: "dash", cooldownDuration: 8.0),
                                                              DodgeSkill(id: "dodge", cooldownDuration: 8.0),
-                                                            RefreshCooldownsSkill(id: "refresh", cooldownDuration: 30.0)])
+                                                             RefreshCooldownsSkill(id:
+                                                                                    "refresh",
+                                                                                   cooldownDuration: 30.0)])
 
         let spriteComponent = Sprite(id: RandomNonce().randomNonceString(), entity: self,
                                      image: "player-icon", width: 50.0, height: 50.0)
@@ -79,6 +82,7 @@ extension Player {
 
         let collector = Collector(id: RandomNonce().randomNonceString(), entity: self, entityTypeCounts: [:])
 
-        return [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge, playerComponent, invisible, collector]
+        return [playerRigidbody, playerCollider, skillCaster, spriteComponent,
+                health, score, dodge, playerComponent, invisible, collector]
     }
 }

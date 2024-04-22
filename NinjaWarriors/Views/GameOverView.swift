@@ -53,14 +53,17 @@ struct GameOverView: View {
         .sheet(isPresented: $showingAchievements) {
             InGameAchievementsView(achievementManager: achievementManager, matchID: matchID)
         }
-        .onAppear {
-            achievementManager.saveAchievementCounts()
-        }
     }
 }
 
 struct GameOverView_Previews: PreviewProvider {
     static var previews: some View {
-        GameOverView(path: .constant(NavigationPath()), achievementManager: AchievementManager(userID: "test", metricsSubject: MetricsRepository(), shouldStoreOnCloud: false), matchID: "match")
+        GameOverView(path: .constant(NavigationPath()),
+                     achievementManager: AchievementManager(userID: "test",
+                                                            metricsSubject:
+                                                                MetricsRepository(activeUser: Constants.singlePlayerID,
+                                                                                  shouldStoreOnCloud: false),
+                                                            shouldStoreOnCloud: false),
+                     matchID: "match")
     }
 }

@@ -16,7 +16,8 @@ final class HostSingleViewModel: ObservableObject {
     internal var currPlayerId: String
     var isGameOver: Bool = false
 
-    init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository, achievementManager: AchievementManager, gameMode: GameMode) {
+    init(matchId: String, currPlayerId: String, metricsRepository: MetricsRepository,
+         achievementManager: AchievementManager, gameMode: GameMode) {
         self.matchId = matchId
         self.currPlayerId = currPlayerId
         let metricsRecorder = EntityMetricsRecorderAdapter(metricsRepository: metricsRepository, matchID: matchId)
@@ -84,7 +85,6 @@ extension HostSingleViewModel {
             print("No SkillCaster component found for entity with ID: \(entityId)")
             return
         }
-//        print("[HostSingleViewModel] \(skillId) queued for activation")
         skillCasterComponent.queueSkillActivation(skillId)
     }
 
@@ -94,7 +94,6 @@ extension HostSingleViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skillCasterIds = skillCaster?.skills.keys {
-//            print("skill caster ids: ", Array(skillCasterIds))
             return Array(skillCasterIds)
         } else {
             return []
@@ -115,7 +114,6 @@ extension HostSingleViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skills = skillCaster?.skills {
-//            print("skills", skills)
             return Array(skills)
         } else {
             return []
@@ -128,7 +126,6 @@ extension HostSingleViewModel {
             .getComponentFromId(ofType: SkillCaster.self, of: entityId)
 
         if let skillCooldowns = skillCaster?.skillCooldowns {
-//            print("skillsCds", skillCooldowns)
             return skillCooldowns
         } else {
             return [:]

@@ -18,7 +18,7 @@ struct MetricType: Hashable {
         hasher.combine(ObjectIdentifier(type))
     }
 
-    static func ==(lhs: MetricType, rhs: MetricType) -> Bool {
+    static func == (lhs: MetricType, rhs: MetricType) -> Bool {
         return lhs.type == rhs.type
     }
 }

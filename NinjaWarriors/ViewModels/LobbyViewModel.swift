@@ -22,7 +22,7 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     var character = "Shadowstrike"
     let signInViewModel: SignInViewModel
     let isGuest: Bool
-    let guestId: String = RandomNonce().randomNonceString()
+    let guestId: String = UIDevice.current.identifierForVendor?.uuidString ?? RandomNonce().randomNonceString()
     var metricsRepository: MetricsRepository
     var achievementsManager: AchievementManager
 
@@ -30,8 +30,10 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     init() {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = SignInViewModel()
-        self.metricsRepository = MetricsRepository()
-        self.achievementsManager = AchievementManager(userID: guestId, metricsSubject: self.metricsRepository, shouldStoreOnCloud: false)
+        self.metricsRepository = MetricsRepository(activeUser: guestId, shouldStoreOnCloud: false)
+        self.achievementsManager = AchievementManager(userID: guestId,
+                                                      metricsSubject: self.metricsRepository,
+                                                      shouldStoreOnCloud: false)
         isGuest = true
     }
 
@@ -39,9 +41,16 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
     init(signInViewModel: SignInViewModel) {
         matchManager = MatchManagerAdapter()
         self.signInViewModel = signInViewModel
-        self.metricsRepository = MetricsRepository()
-        self.achievementsManager = AchievementManager(userID: signInViewModel.getUserId() ?? guestId, metricsSubject: metricsRepository, shouldStoreOnCloud: true)
+
+        let localUserID = signInViewModel.getUserId() ?? guestId
+        self.metricsRepository = MetricsRepository(activeUser: localUserID, shouldStoreOnCloud: true)
+        self.achievementsManager = AchievementManager(userID: localUserID,
+                                                      metricsSubject: metricsRepository,
+                                                      shouldStoreOnCloud: true)
+
         isGuest = false
+
+        self.metricsRepository.updateMetrics(LoginCountMetric.self, for: localUserID, withValue: 1)
     }
 
     func getUserId() -> String {
@@ -156,7 +165,8 @@ final class LobbyViewModel: MapSelection, CharacterSelection {
 
         let collector = Collector(id: RandomNonce().randomNonceString(), entity: player, entityTypeCounts: [:])
 
-        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent, health, score, dodge, playerComponent, invisible, collector]
+        let components = [playerRigidbody, playerCollider, skillCaster, spriteComponent,
+                          health, score, dodge, playerComponent, invisible, collector]
 
         guard let realTimeManager = realTimeManager else {
             return

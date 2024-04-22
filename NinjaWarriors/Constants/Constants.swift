@@ -36,7 +36,6 @@ struct Constants {
         static let offsetY: CGFloat = 15
     }
 
-    // TODO: Reset to 4 after testing
     static let playerCount = 2
 
     static let obstacleCount = 2
@@ -135,14 +134,25 @@ struct Constants {
                                                      "Venomstrike": venomStrikeSkills,
                                                      "Darkwind": darkwindSkills]
 
+    // Player IDs
+    static let singlePlayerID = "singlePlayer"
+
     // Achievements
     static let availableAchievements: [Achievement.Type] = [
+        LoginForTheFirstTimeAchievement.self,
         HighDamageButNoKillAchievement.self,
         KilledTenPeopleAchievement.self,
         PlayedTenGamesAchievement.self,
         FirstDamageInGameAchievement.self,
-        ThreeDashesInGameAchievement.self
+        FirstDamageForUserAchievement.self,
+        ThreeDashesInGameAchievement.self,
+        ThreeDodgesInGameAchievement.self,
+        ThreeDodgesThreeDashesInGameAchievement.self
     ]
     static let localAchievementsFileName: String = "achievements.json"
     static let achievementsFirebaseCollectionID: String = "achievements"
+
+    // Metrics
+    static let localMetricsFileName: String = "metrics.json"
+    static let metricsFirebaseCollectionID: String = "metrics"
 }
