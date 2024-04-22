@@ -8,7 +8,7 @@
 import Foundation
 
 class ObstacleMap: Map {
-    internal let gameMode: GameMode = LastManStandingMode() // TODO: Add a respawn mode
+    internal let gameMode: GameMode = LastManStandingMode()
     internal let mapBackground = "blue-wall"
     internal var mapEntities: [Entity] = []
 

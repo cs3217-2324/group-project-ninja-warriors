@@ -36,7 +36,6 @@ struct Constants {
         static let offsetY: CGFloat = 15
     }
 
-    // TODO: Reset to 4 after testing
     static let playerCount = 2
 
     static let obstacleCount = 2
