@@ -32,7 +32,7 @@ class RespawnSystem: System {
         for (entity, position, timeLeft) in respawnList {
             let newTimeLeft = timeLeft - time
             if newTimeLeft <= 0 {
-                let entityWithNewID = entity/*.deepCopyWithNewID()*/
+                let entityWithNewID = entity
                 var components = entityWithNewID.getInitializingComponents()
 
                 if let position {
@@ -44,8 +44,6 @@ class RespawnSystem: System {
                         }
                     }
                 }
-
-                manager.addOwnEntity(entityWithNewID)
                 manager.add(entity: entityWithNewID, components: components, isAdded: false)
             } else {
                 updatedList.append((entity, position, newTimeLeft))

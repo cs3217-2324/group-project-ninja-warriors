@@ -65,7 +65,7 @@ struct Constants {
 
     // MARK: Gem Collection Mode
     static let gemRespawnTime: TimeInterval = 5
-    static let gemCountToWin: Int = 5
+    static let gemCountToWin: Int = 4
 
     // MARK: Characters
     static var characterNames: [String] = ["Shadowstrike", "Nightblade", "Swiftshadow", "SilentStorm",
