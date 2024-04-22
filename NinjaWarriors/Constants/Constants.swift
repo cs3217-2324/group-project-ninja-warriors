@@ -64,8 +64,10 @@ struct Constants {
     static var closingZoneMinimumSize: Double = 50.0
 
     // MARK: Gem Collection Mode
-    static let gemRespawnTime: TimeInterval = 5
+    static let gemRespawnTime: TimeInterval = 5.0
     static let gemCountToWin: Int = 4
+    static let gemResetTime: TimeInterval = 10.0
+    static let defaultGemID: String = "DefaultGem"
 
     // MARK: Characters
     static var characterNames: [String] = ["Shadowstrike", "Nightblade", "Swiftshadow", "SilentStorm",
