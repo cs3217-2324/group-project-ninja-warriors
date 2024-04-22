@@ -46,7 +46,6 @@ class EntityComponentManager {
         componentMap = [:]
         manager = RealTimeManagerAdapter(matchId: match)
         entityMetricsRecorder = metricsRecorder
-        // manager.deleteAllKeysExcept(matchId: "a")
     }
 
     deinit {
@@ -103,9 +102,6 @@ class EntityComponentManager {
                 }
                 addEntitiesFromNewMap(newEntityMap, remoteEntityComponentMap)
             }
-            // Task {
-                // addEntitiesFromNewMap(newEntityMap, remoteEntityComponentMap)
-            // }
         } catch {
             print("Error fetching entities with components: \(error)")
         }

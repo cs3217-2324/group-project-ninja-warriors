@@ -31,8 +31,6 @@ class MeleeAttackStrategy: AttackStrategy {
     func applyDamageEffect(to target: Entity, from source: Entity,
                            withDamageEffect damageEffect: DamageEffect, manager: EntityComponentManager) {
 
-        // manager.componentsQueue.addComponent(damageEffect)
-
-        manager.add(entity: target, components: [damageEffect]/*, isAdded: false*/)
+        manager.add(entity: target, components: [damageEffect])
     }
 }
