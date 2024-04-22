@@ -64,7 +64,6 @@ struct HostView: View {
                         .getComponents(for: entity), currPlayerId: viewModel.currPlayerId))
             }
             if let currPlayer = viewModel.getCurrPlayer() {
-                ZStack {
                     JoystickView(
                         setInputVector: { vector in
                             // viewModel.move(vector)
@@ -85,7 +84,6 @@ struct HostView: View {
                             }
                         )
                     }
-                }
             }
             EntityOverlayView(entities: viewModel.entities,
                               componentManager: viewModel.gameWorld.entityComponentManager)
