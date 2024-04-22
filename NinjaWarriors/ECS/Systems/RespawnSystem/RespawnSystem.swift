@@ -9,7 +9,7 @@ import Foundation
 
 class RespawnSystem: System {
     var manager: EntityComponentManager
-    var respawnList: [(Entity, TimeInterval)] = []
+    var respawnList: [(Entity, Point?, TimeInterval)] = []
 
     required init(for manager: EntityComponentManager) {
         self.manager = manager
@@ -22,18 +22,33 @@ class RespawnSystem: System {
                 continue
             }
 
-            respawnList.append((respawnable.entity, respawnable.respawnTime))
+            let rigidbody = manager.getComponent(ofType: Rigidbody.self, for: destroyTag.entity)
+            let position = rigidbody?.position
+
+            respawnList.append((respawnable.entity, position, respawnable.respawnTime))
         }
 
-        var updatedList: [(Entity, TimeInterval)] = []
-        for (entity, timeLeft) in respawnList {
+        var updatedList: [(Entity, Point?, TimeInterval)] = []
+        for (entity, position, timeLeft) in respawnList {
             let newTimeLeft = timeLeft - time
             if newTimeLeft <= 0 {
                 let entityWithNewID = entity.deepCopyWithNewID()
+                var components = entityWithNewID.getInitializingComponents()
+
+                if let position {
+                    for (index, component) in components.enumerated() {
+                        if let rigidbody = component as? Rigidbody {
+                            rigidbody.position = position
+                            rigidbody.attachedCollider?.colliderShape.center = position
+                            components[index] = rigidbody
+                        }
+                    }
+                }
+
                 manager.addOwnEntity(entityWithNewID)
-                manager.add(entity: entityWithNewID, components: entityWithNewID.getInitializingComponents(), isAdded: false)
+                manager.add(entity: entityWithNewID, components: components, isAdded: false)
             } else {
-                updatedList.append((entity, newTimeLeft))
+                updatedList.append((entity, position, newTimeLeft))
             }
         }
 
