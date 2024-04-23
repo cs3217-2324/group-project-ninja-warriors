@@ -65,7 +65,7 @@ struct Constants {
 
     // MARK: Gem Collection Mode
     static let gemRespawnTime: TimeInterval = 5.0
-    static let gemCountToWin: Int = 2
+    static let gemCountToWin: Int = 3
     static let gemResetTime: TimeInterval = 10.0
     static let defaultGemID: String = "DefaultGem"
 
