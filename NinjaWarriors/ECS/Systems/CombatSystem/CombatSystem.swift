@@ -55,8 +55,8 @@ class CombatSystem: System {
 
         if let health = manager.getComponent(ofType: Health.self, for: entity) {
             health.health -= damage
-            recordDamage(damage, to: entity.id, by: sourceID)
             recordKillIfKillDone(targetHealth: health, killerID: sourceID, victimID: entity.id)
+            recordDamage(damage, to: entity.id, by: sourceID)
             manager.componentsQueue.addComponent(health)
         }
     }
