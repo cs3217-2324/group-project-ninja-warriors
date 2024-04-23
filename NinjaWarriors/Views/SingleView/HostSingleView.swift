@@ -14,6 +14,7 @@ struct HostSingleView: View {
     @State private var matchId: String
     @State private var playerId: String
     @State private var mapBackground: String
+    @State private var isLoading = true
     private var achievementManager: AchievementManager
     @Binding var path: NavigationPath
 
@@ -39,15 +40,18 @@ struct HostSingleView: View {
             if viewModel.isGameOver {
                 GameOverView(path: $path, achievementManager: achievementManager, matchID: matchId)
             }
-            ProgressView()
-                .onAppear {
-                    viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {
-                        DispatchQueue.main.async {
-                            viewModel.updateEntities()
-                            viewModel.gameWorld.gameMode.start()
-                        }
-                    }
+            if isLoading {
+                ProgressView()
+            }
+        }
+        .onAppear {
+            viewModel.gameWorld.entityComponentManager.intialPopulateWithCompletion {
+                DispatchQueue.main.async {
+                    viewModel.updateEntities()
+                    viewModel.gameWorld.gameMode.start()
+                    isLoading = false
                 }
+            }
         }
     }
 
