@@ -25,6 +25,7 @@ class DodgeSkill: SelfModifyingSkill {
 
     func activate(from entity: Entity, in manager: EntityComponentManager) {
         modifySelf(entity, in: manager)
+        manager.entityMetricsRecorder.record(AttacksDodgedMetric.self, forEntityID: entity.id, value: 1)
     }
 
     func updateAttributes(_ newDodgeSkill: DodgeSkill) {

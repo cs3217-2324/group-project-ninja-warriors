@@ -56,6 +56,7 @@ class CombatSystem: System {
         if let health = manager.getComponent(ofType: Health.self, for: entity) {
             health.health -= damage
             recordDamage(damage, to: entity.id, by: sourceID)
+            recordKillIfKillDone(targetHealth: health, killerID: sourceID, victimID: entity.id)
             manager.componentsQueue.addComponent(health)
         }
     }
@@ -63,5 +64,10 @@ class CombatSystem: System {
     private func recordDamage(_ damage: Double, to targetID: EntityID, by sourceID: EntityID) {
         manager.entityMetricsRecorder.record(DamageDealtMetric.self, forEntityID: sourceID, value: damage)
         manager.entityMetricsRecorder.record(DamageTakenMetric.self, forEntityID: targetID, value: damage)
+    }
+
+    private func recordKillIfKillDone(targetHealth: Health, killerID: EntityID, victimID: EntityID) {
+        guard targetHealth.health < 0 else { return }
+        manager.entityMetricsRecorder.record(KillCountMetric.self, forEntityID: killerID, value: 1)
     }
 }
