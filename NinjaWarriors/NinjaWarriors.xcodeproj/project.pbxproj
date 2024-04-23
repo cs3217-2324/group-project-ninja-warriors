@@ -2095,7 +2095,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NinjaWarriors/Preview Content\"";
-				DEVELOPMENT_TEAM = W4Y84FVQ9C;
+				DEVELOPMENT_TEAM = V6D6H39739;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NinjaWarriors/GoogleService-Info.plist";
@@ -2110,7 +2110,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = NinjaWarriors.NinjaWarriors;
+				PRODUCT_BUNDLE_IDENTIFIER = NinjaWarriors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -2126,7 +2126,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NinjaWarriors/Preview Content\"";
-				DEVELOPMENT_TEAM = W4Y84FVQ9C;
+				DEVELOPMENT_TEAM = V6D6H39739;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NinjaWarriors/GoogleService-Info.plist";
@@ -2141,7 +2141,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = NinjaWarriors.NinjaWarriors;
+				PRODUCT_BUNDLE_IDENTIFIER = NinjaWarriors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

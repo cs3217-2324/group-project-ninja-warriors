@@ -71,9 +71,11 @@ class GameWorld {
     func update(deltaTime: TimeInterval) {
         systemManager.update(after: deltaTime)
 
-        if gameMode.isGameOver(for: self) {
-            self.gameLoopManager.stop()
-            self.isGameOver = true
+        if gameMode.isGameOver(for: self) && !isGameOver {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.gameLoopManager.stop()
+                self.isGameOver = true
+            }
         }
     }
 }
