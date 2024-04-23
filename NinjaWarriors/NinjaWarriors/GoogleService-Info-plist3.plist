@@ -2,35 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Karasha-z8mYw.otf</string>
-	</array>
 	<key>API_KEY</key>
-	<string>AIzaSyBgiZVgHP4EsXGsYIfRl6ykBPi7ipFnWqI</string>
+	<string>AIzaSyB-Ge1IRB7qoJAVgTUFXXO17F6dhO_jcrY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>186348980819</string>
+	<string>487782232135</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>NinjaWarriors.NinjaWarriors</string>
 	<key>PROJECT_ID</key>
-	<string>plist2-8cc4c</string>
+	<string>plist3-186ee</string>
 	<key>STORAGE_BUCKET</key>
-	<string>plist2-8cc4c.appspot.com</string>
+	<string>plist3-186ee.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:186348980819:ios:2d74c7f3ebf3bf8499d4a6</string>
+	<string>1:487782232135:ios:7f1520e309a43203fcc162</string>
 	<key>DATABASE_URL</key>
-	<string>https://plist2-8cc4c-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+	<string>https://plist3-186ee-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>
