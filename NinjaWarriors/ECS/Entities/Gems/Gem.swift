@@ -49,7 +49,7 @@ class Gem: Equatable, Entity {
 
         let respawnable = Respawnable(id: RandomNonce().randomNonceString(), entity: self, respawnTime: Constants.gemRespawnTime)
 
-        return [collider, rigidbody, spriteComponent, health, invisible, collectable, respawnable]
+        return [collider, rigidbody, spriteComponent, health, invisible, collectable]
     }
 
     func deepCopy() -> Entity {
